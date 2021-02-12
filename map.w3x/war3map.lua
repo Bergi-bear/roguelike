@@ -3159,7 +3159,7 @@ function InitWASD(hero)
     BlockMouse(data)
     EnableDragSelect(false, false)
     BlzEnableSelections(false, false)
-    SelectUnitForPlayerSingle(data.UnitHero,Player(0))
+    SelectUnitForPlayerSingle(data.UnitHero,GetOwningPlayer(hero))
     local angle=0
 
     local speed=5
@@ -3417,7 +3417,7 @@ function CreateWASDActions()
             data.ReleaseW = true
             --print("W2")
             --SelectUnitForPlayerSingle(data.UnitHero,GetTriggerPlayer())
-            if not data.isAttacking and not data.isShield and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+            if  not data.isAttacking and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
                 --print("pressW and short anim")
                 UnitAddForceSimple(data.UnitHero,90,5, 15)
                 data.animStand=1.8 --до полной анимации 2 секунды
@@ -3445,10 +3445,10 @@ function CreateWASDActions()
     TriggerAddAction(gg_trg_EventUpS, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        if not data.ReleaseS and not data.isAttacking and UnitAlive(data.UnitHero) then
+        if not data.ReleaseS and UnitAlive(data.UnitHero) then
             data.ReleaseS = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
-            if not data.isAttacking and not data.isShield and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+            if  not data.isAttacking  and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
                 data.animStand=1.8 --до полной анимации 2 секунды
                 UnitAddForceSimple(data.UnitHero,270,5, 15)
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
@@ -3475,10 +3475,10 @@ function CreateWASDActions()
     TriggerAddAction(TrigPressD, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        if not data.ReleaseD and not data.isAttacking  and UnitAlive(data.UnitHero) then
+        if not data.ReleaseD   and UnitAlive(data.UnitHero) then
             data.ReleaseD = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
-            if not data.isAttacking and not data.isShield and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+            if  not data.isAttacking  and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
                 data.animStand=1.8 --до полной анимации 2 секунды
                 UnitAddForceSimple(data.UnitHero,0,5, 15)
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
@@ -3506,10 +3506,10 @@ function CreateWASDActions()
     TriggerAddAction(TrigPressA, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        if not data.ReleaseA and not data.isAttacking  and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+        if not data.ReleaseA  and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
             data.ReleaseA = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
-            if not data.isAttacking and not data.isShield then
+            if  not data.isAttacking  then -- нет проверки на стан
                 data.animStand=1.8 --до полной анимации 2 секунды
                 UnitAddForceSimple(data.UnitHero,180,5, 15)
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
@@ -3534,10 +3534,10 @@ function CreateWASDActions()
     TriggerAddAction(TrigPressSPACE, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        if not data.ReleaseSPACE and not data.isAttacking  and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+        if not data.ReleaseSPACE   and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
             data.ReleaseSPACE = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
-            if not data.isAttacking and not data.isShield then
+            if  not data.isShield then
                 data.animStand=1.8 --до полной анимации 2 секунды
                 --print("SPACE")
                 UnitAddItemById(data.UnitHero,FourCC("I000")) -- предмет виндволк
@@ -3695,9 +3695,9 @@ function BlockMouse(data)
     end)
 end
 function attack(data)
-    if not data.ReleaseLMB and  UnitAlive(data.UnitHero) and not IsUnitPaused(data.UnitHero) and not data.isShield then
+    if not data.ReleaseLMB and  UnitAlive(data.UnitHero) then
         data.ReleaseLMB = true
-        if not data.isAttacking  and not data.isCharging  and not data.ONTarget then
+        if not data.isAttacking  then
             --print("пытаемся атаковать, запускаем кд атаки и прерываем движение")
             --print("a "..GetUnitName(mainHero))
             data.isAttacking=true
@@ -3708,25 +3708,7 @@ function attack(data)
             --data.ReleaseS=false
             --data.ReleaseD=false
             SetUnitAnimationByIndex(data.UnitHero,IndexAnimationAttack)
-            local e=nil
-            local k=0
-            GroupEnumUnitsInRange(perebor,GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),200,nil)
 
-            while true do
-                e = FirstOfGroup(perebor)
-                if e == nil then break end
-                if UnitAlive(e) and UnitAlive(data.UnitHero) and (IsUnitEnemy(e,GetOwningPlayer(data.UnitHero)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then
-                    k=k+1
-                end
-                GroupRemoveUnit(perebor,e)
-            end
-            if k>1 and GetUnitTypeId(data.UnitHero)==FourCC("Hpal") then --количество врагов рядом красит оружие для страго героя
-                SetUnitAnimationByIndex(data.UnitHero,12)-- всегда сплешь
-                local eff=AddSpecialEffectTarget("Sweep_Attachments_FX\\Sweep_Blood_Large",data.UnitHero,"hand left")
-                TimerStart(CreateTimer(), 5, false, function()
-                    DestroyEffect(eff)
-                end)
-            end
 
 
             local angle=-180+AngleBetweenXY(GetPlayerMouseX[0],GetPlayerMouseY[0],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
@@ -3740,24 +3722,13 @@ function attack(data)
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
                 if GetUnitTypeId(data.UnitHero)~=FourCC("Edmm") and not data.isShield and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
                     local is,_,k=UnitDamageArea(data.UnitHero,damage,nx,ny,100)
-                    if not is then -- условие попадания для звука
-                        local tl = Location(GetUnitXY(data.UnitHero))
-                        local r=GetRandomInt(1,2)
-                        if r==1 then
-                            --PlaySoundAtPointBJ(SoundAttack3, 100, tl, 0)
-                        else
-                            --PlaySoundAtPointBJ(SoundAttack4, 100, tl, 0)
-                        end
-                        RemoveLocation(tl)
-                    end
-
                 end
             end)
 
             TimerStart(CreateTimer(), 0.35, false, function()
                 data.isAttacking=false
 
-                if data.IsMoving then
+                if data.IsMoving then --быстрый возврат после атаки в последнее состояние
                     SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
                 else
                     ResetUnitAnimation(data.UnitHero)
@@ -3769,44 +3740,7 @@ function attack(data)
 end
 
 
-function dash(data) --ОТКЛЮЧЕНО, ЭТО ПЕРЕКАТ
-    if not data.isDash and not data.isCharging then
-        data.isDash=true
-        local angle=-180+AngleBetweenXY(GetPlayerMouseX[0],GetPlayerMouseY[0],GetUnitXY(data.UnitHero))/bj_DEGTORAD
-        UnitAddForceSimple(data.UnitHero,angle,10,200)
-        SetUnitAnimationByIndex(data.UnitHero,6)
-        TimerStart(CreateTimer(), 0.3, false, function()
-            data.isDash=false
-        end)
-    end
-end
 
-function Charge(data) --Отключено за ненадобьюсть
-    if not data.isCharging and GetUnitTypeId(data.UnitHero)==FourCC('Hpal') then --только вампир может в рывок
-        data.isCharging=true
-        local angle=-180+AngleBetweenXY(GetPlayerMouseX[0],GetPlayerMouseY[0],GetUnitXY(data.UnitHero))/bj_DEGTORAD
-
-        UnitAddForceSimple(data.UnitHero,angle,20,300)
-        SetUnitFacing(data.UnitHero,angle)
-        SetUnitAnimationByIndex(data.UnitHero,IndexAnimationCharge)
-
-
-        TimerStart(CreateTimer(), 0.15,false, function()
-            if data.IsMoving then
-                SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
-            else
-                ResetUnitAnimation(data.UnitHero)
-            end
-            --print("Рывок перезаряжен")
-            -- data.isCharging=false
-        end)
-
-        TimerStart(CreateTimer(), 2, false, function()
-            --print("Рывок перезаряжен")
-            data.isCharging=false
-        end)
-    end
-end
 
 
 onForces = {}
