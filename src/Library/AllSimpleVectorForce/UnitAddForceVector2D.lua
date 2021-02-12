@@ -43,6 +43,7 @@ function UnitAddForceSimple(hero, angle, speed, distance)
 				--data.OnWater=false
 				DestroyTimer(GetExpiredTimer())
 				onForces[GetHandleId(hero)]=true
+				UnitRemoveAbility(hero,FourCC("BOwk"))
 				--print("stop cur="..currentdistance.." dist="..distance)
 			end
 		end)

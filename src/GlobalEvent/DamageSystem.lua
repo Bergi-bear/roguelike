@@ -5,7 +5,7 @@ function OnPostDamage()
 	local target= GetTriggerUnit() -- тот кто получил урон
 	local caster= GetEventDamageSource() -- тот кто нанёс урон
 
-	if IsUnitType(target,UNIT_TYPE_HERO) then
+	if GetUnitTypeId(target)==HeroID and false then -- какое нибудь условие наличие пассивки
 		--print("Герой получил урон")
 		local data=HERO[GetPlayerId(GetOwningPlayer(target))]
 		if data.CustomAbilities[1].Ready then --Q
@@ -28,7 +28,7 @@ function OnPostDamage()
 		end
 	end
 
-	if IsUnitType(caster,UNIT_TYPE_HERO) then
+	if GetUnitTypeId(caster)==HeroID and false then
 		local mainData=HERO[GetPlayerId(GetOwningPlayer(caster))]
 		local data=mainData.FrameTable[6] --пассивка крит
 		if damage>=10 then

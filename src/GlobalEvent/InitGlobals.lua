@@ -13,18 +13,17 @@ do
 		perebor = CreateGroup() --1 едиснвенная глобальная группа на всю игру, никакие Destroy Привет гуишники
 		--InitSpellTrigger() -- Инициализация функции кастов
 		InitHEROTable() -- Инициализация таблицы героев
-		KeyRegistration() -- инициализация отлова нажатия клавиш
-		InitSelectionRegister() -- инициализация выбора
+		--KeyRegistration() -- инициализация отлова нажатия клавиш
+		--InitSelectionRegister() -- инициализация выбора
 		--print("пост инициализация выбора")
 		InitMouseMoveTrigger() -- Запуск отслеживания положения мыши
 		InitDamage()
-
-		--InitSoundsA()--Создаём звуки
-		--InitUnitDeath()-- инициализация смерти
+		--InitSoundsA() --Создаём звуки
+		--InitUnitDeath() --инициализация смерти
 		--CreateGlue()
 		TimerStart(CreateTimer(), 0.1, false, function()
 
-			InitMainFrameTable(HERO[0]) -- мульти создаётся здесь
+			--InitMainFrameTable(HERO[0]) -- мульти создаётся здесь
 			--print("заполнение таблицы таблицы")
 		end)
 	end
@@ -42,7 +41,7 @@ end
 
 function InitHEROTable()
 	EnableDragSelect(false, false)
-	if BlzLoadTOCFile("Main.toc") then
+	if BlzLoadTOCFile("SystemGeneric\\Main.toc") then
 	else
 		print("ошибка загрузки toc")
 	end

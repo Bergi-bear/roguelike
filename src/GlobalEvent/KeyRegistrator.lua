@@ -245,14 +245,14 @@ function InitSelectionRegister()
 		local data = HERO[GetPlayerId(GetTriggerPlayer())]
 
 		if (IsUnitType(hero, UNIT_TYPE_HERO) and GetOwningPlayer(hero) == GetTriggerPlayer() and GetUnitTypeId(hero) == HeroID) or true then
-			print("hero is select")
+			--print("hero is select")
 			if not data.UnitHero then --первый выбор героя
 				data.UnitHero = hero
-				AddQuest(hero,0,0,"Доберитесь до указанной точки")
+				--AddQuest(hero,0,0,"Доберитесь до указанной точки")
 				--BlzSetUnitIntegerField(hero,UNIT_IF_MOVE_TYPE,1)
 				--print(" смена типа движения ")
 				--CreateAbilityFrame(5)
-				print(" создание кнопок интерфейса ")
+				--print("создание кнопок интерфейса ")
 				CreateAbilityFrame(data,9,"ReplaceableTextures\\PassiveButtons\\PASBTNEvasion", "passive",1)
 				CreateAbilityFrame(data,10,"ReplaceableTextures\\CommandButtons\\BTNFireForTheCannon", "active",2)
 				CreateAbilityFrame(data,11,"ReplaceableTextures\\CommandButtons\\BTNReplenishHealth", "active",3)
