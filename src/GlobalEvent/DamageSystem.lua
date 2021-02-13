@@ -59,7 +59,7 @@ end
 
 
 
-function UnitDamageArea(u,damage,x,y,range,ZDamageSource,EffectModel)
+function UnitDamageAreaOld(u,damage,x,y,range,ZDamageSource,EffectModel)
 	local isdamage=false
 	local e=nil
 	local hero=nil

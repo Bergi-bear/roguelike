@@ -1,7 +1,7 @@
 
 do
 	TimerStart(CreateTimer(), 0.1, false, function()
-		InitMouseMoveTriggerFocus()
+		--InitMouseMoveTriggerFocus()
 	end)
 end
 

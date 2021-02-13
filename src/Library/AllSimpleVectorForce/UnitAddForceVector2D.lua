@@ -3,25 +3,9 @@
 --- Created by Bergi.
 --- DateTime: 04.07.2020 2:23
 ---
-Force2DTable={}
-function UnitAddForceVector2D(hero,speed,angle)
-	if not Force2DTable[GetHandleId(hero)] then
-		--	print("оглушен первый раз")
-		Force2DTable[GetHandleId(hero)]={
-			Time=0,
-			Timer=nil
-		}
-	end
-	local data=Force2DTable[GetHandleId(hero)]
 
-	TimerStart(data.Timer, TIMER_PERIOD, true, function()
-
-	end)
-end
-
---Старый кастрированный вариант
-onForces = {}
-function UnitAddForceSimple(hero, angle, speed, distance)
+onForces2 = {}
+function UnitAddForceSimple2(hero, angle, speed, distance)
 	-- псевдо вектор использовать только для юнитов
 	local currentdistance = 0
 	if onForces[GetHandleId(hero)] == nil then

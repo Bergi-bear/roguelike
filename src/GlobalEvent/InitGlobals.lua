@@ -43,7 +43,7 @@ function InitHEROTable()
 	EnableDragSelect(false, false)
 	if BlzLoadTOCFile("SystemGeneric\\Main.toc") then
 	else
-		print("ошибка загрузки toc")
+		print("ошибка загрузки SystemGeneric\\Main.toc")
 	end
 	for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
 		HERO[i] = {

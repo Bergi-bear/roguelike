@@ -19,7 +19,7 @@ function CreationPeonsForAllPlayer()
             UnitAddAbility(hero,FourCC("abun"))
             UnitAddAbility(hero,FourCC("Abun"))
             UnitAddAbility(hero,FourCC("AInv"))
-
+            UnitAddForceSimple(hero, 0, 10, 10)
             --print("создан пеон")
             SelectUnitForPlayerSingle(hero,Player(i))
             InitWASD(hero)
