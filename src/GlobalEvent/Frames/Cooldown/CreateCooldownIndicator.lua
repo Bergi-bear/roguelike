@@ -264,7 +264,9 @@ function CreateVisualMarkerRadius (data,radius,hero,x,y,number,timed)
 
 	TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
 		local xs,ys=GetUnitX(hero)-radius/2-16,GetUnitY(hero)-radius/2-16
-		SetImagePosition(CircleImage,xs,ys,0)
+		if not data then
+			SetImagePosition(CircleImage,xs,ys,0)
+		end
 		if GetLocalPlayer()==GetOwningPlayer(hero) then
 			ShowImage(CircleImage,true)
 		end
@@ -275,11 +277,18 @@ function CreateVisualMarkerRadius (data,radius,hero,x,y,number,timed)
 				SetImageColor(CircleImage,255,0,0,math.floor(255*timed))
 			end
 		end
-
-		if (not data.MouseOnFrame and not timed) or (timed and timed<=0) then
-			SetImagePosition(CircleImage,OutPoint,OutPoint,0)
-			DestroyImage(CircleImage)
-			DestroyTimer(GetExpiredTimer())
+		if data then
+			if (not data.MouseOnFrame and not timed) or (timed and timed<=0) then
+				SetImagePosition(CircleImage,OutPoint,OutPoint,0)
+				DestroyImage(CircleImage)
+				DestroyTimer(GetExpiredTimer())
+			end
+		else
+			if timed <=0 then
+				SetImagePosition(CircleImage,OutPoint,OutPoint,0)
+				DestroyImage(CircleImage)
+				DestroyTimer(GetExpiredTimer())
+			end
 		end
 	end)
 	return CircleImage

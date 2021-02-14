@@ -55,6 +55,7 @@ function InitHeroTable(hero)
         AttackCount=0,
         ResetSeriesTime=0,
         DamageInSeries={50,80,100},
+        CDSpellQ=0,
     }
 end
 
@@ -93,7 +94,7 @@ function InitWASD(hero)
             if data.ChargingAttack>=0.9 and not data.isSpined then
 
                 data.isSpined=true
-                print("start spin")
+                --print("start spin")
                 StartAndReleaseSpin(data)
             end
         else
@@ -204,9 +205,9 @@ function InitWASD(hero)
                     --if animWalk==0 then
                     data.DirectionMove=GetUnitFacing(hero)
                     data.animStand=data.animStand+TIMER_PERIOD64
-                    if data.animStand>=2 and not data.ReleaseLMB then --длительность анимации WALK
+                    if data.animStand>=2 and not data.ReleaseQ then --длительность анимации WALK
                         --print(animWalk)
-                        ResetUnitAnimation(hero)
+                        ResetUnitAnimation(hero) -- сборс в положении стоя
                         --print("дефолтный сборс")
                         data.animStand=0
                     end
@@ -401,11 +402,23 @@ function CreateWASDActions()
         if not data.ReleaseQ   and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
 
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
-            if not data.ReleaseQ then
+            if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ==0 then
+                data.CDSpellQ=3
+                TimerStart(CreateTimer(), 1, true, function()
+                    data.CDSpellQ=data.CDSpellQ-1
+                    if data.CDSpellQ<=0 then
+                        data.CDSpellQ=0
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end)
                 data.animStand=1.8 --до полной анимации 2 секунды
                 print("Q spell")
                 data.ReleaseQ = true
-
+                SetUnitAnimationByIndex(data.UnitHero,3)
+                TimerStart(CreateTimer(), 0.35, false, function()
+                    SpellSlashQ(data)
+                    data.ReleaseQ = false
+                end)
             end
         end
     end)
@@ -417,7 +430,7 @@ function CreateWASDActions()
     TriggerAddAction(TrigDePressQ, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        data.ReleaseQ = false
+        --data.ReleaseQ = false
     end)
     -----------------------------------------------------------------LMB
     local TrigPressLMB = CreateTrigger()
@@ -644,7 +657,7 @@ function attack(data)
                 if data.IsMoving then --быстрый возврат после атаки в последнее состояние
                     SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
                 else
-                    ResetUnitAnimation(data.UnitHero)
+                    ResetUnitAnimation(data.UnitHero) -- после атаки
                 end
                 data.ReleaseLMB = false
             end)
