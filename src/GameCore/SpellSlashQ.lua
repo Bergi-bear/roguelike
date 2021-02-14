@@ -8,7 +8,8 @@ function SpellSlashQ(data)
     local hero=data.UnitHero
     local x,y=MoveXY(GetUnitX(hero),GetUnitY(hero),80,GetUnitFacing(hero))
     DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic",x,y))
-
+    UnitDamageArea(hero,250,x,y,200)
+    --[[
     local path="replaceabletextures\\selection\\rangeindicator"
     local radius=400
     local timed=3
@@ -40,4 +41,5 @@ function SpellSlashQ(data)
                 DestroyTimer(GetExpiredTimer())
             end
     end)
+    ]]
 end

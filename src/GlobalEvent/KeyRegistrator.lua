@@ -57,7 +57,7 @@ function KeyRegistration()
 			data.ReleaseLMB = false
 		end
 		if BlzGetTriggerPlayerMouseButton() == MOUSE_BUTTON_TYPE_RIGHT then
-			data.ReleaseRMB = false
+			--data.ReleaseRMB = false
 		end
 	end)
 

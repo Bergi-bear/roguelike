@@ -14,11 +14,13 @@ function StartAndReleaseSpin(data)
         a=a-20
         sec=sec+TIMER_PERIOD
         if sec>=0.1 then
-
             eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Slash\\Culling Slash",x,y)
             DestroyEffect(eff)
             BlzSetSpecialEffectScale(eff,0.5)
             sec=0
+            if UnitDamageArea(hero,25,x,y,150) then
+                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
+            end
         end
 
         local t=CreateTimer()
@@ -32,7 +34,7 @@ function StartAndReleaseSpin(data)
             BlzSetSpecialEffectPosition(eff,GetUnitX(hero),GetUnitY(hero),BlzGetUnitZ(hero)+30)
         end)
         if not data.isSpined then
-            print("stopspin")
+            --print("stopspin")
             DestroyTimer(GetExpiredTimer())
 
         end
