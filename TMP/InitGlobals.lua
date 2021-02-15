@@ -12,11 +12,11 @@ do
 		InitGlobalsOrigin()
 		perebor = CreateGroup() --1 едиснвенная глобальная группа на всю игру, никакие Destroy Привет гуишники
 		--InitSpellTrigger() -- Инициализация функции кастов
-		InitHEROTable() -- Инициализация таблицы героев
+		--InitHEROTable() -- Инициализация таблицы героев
 		--KeyRegistration() -- инициализация отлова нажатия клавиш
 		--InitSelectionRegister() -- инициализация выбора
 		--print("пост инициализация выбора")
-		InitMouseMoveTrigger() -- Запуск отслеживания положения мыши
+		--InitMouseMoveTrigger() -- Запуск отслеживания положения мыши
 		InitDamage()
 		--InitSoundsA() --Создаём звуки
 		--InitUnitDeath() --инициализация смерти

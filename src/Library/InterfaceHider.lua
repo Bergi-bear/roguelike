@@ -8,10 +8,10 @@ do
         HideEverything()
         IsSystemON=true
         InitCamControl()
-        InitMouseMoveTrigger()
+        --InitMouseMoveTrigger()
         --MouseHider(3, 0) -- 0 для красного игрока
-        CreateUI()
-        RestoreMiniPap()
+        --CreateUI()
+        --RestoreMiniPap()
     end)
 end
 function HideEverything()
@@ -65,7 +65,7 @@ end
 
 GetPlayerMouseX = {}
 GetPlayerMouseY = {}
-function InitMouseMoveTrigger()
+function InitMouseMoveTrigger2()
     local MouseMoveTrigger = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         local player = Player(i)

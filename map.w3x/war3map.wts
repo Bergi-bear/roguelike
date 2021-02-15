@@ -39,3 +39,18 @@ STRING 8
 Руна сквозной проходимости
 }
 
+STRING 9
+{
+Player 2
+}
+
+STRING 10
+{
+Player 3
+}
+
+STRING 11
+{
+Player 4
+}
+

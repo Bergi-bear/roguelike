@@ -4,14 +4,24 @@
 --- DateTime: 14.02.2021 23:57
 ---
 
+function currentHandle()
+    local u = CreateUnit(Player(0), FourCC("Hpal"), 0, 0, 0)
+    print(GetHandleId(u))
+    RemoveUnit(u)
+end
 do
     TimerStart(CreateTimer(), 1, false, function()
-        TempEnemyID={FourCC("nsko"),FourCC("nsog"),FourCC("nsoc"),FourCC("nsko"),FourCC("nsog"),FourCC("nsoc")}
+        TempEnemyID={FourCC("nsko"),FourCC("nsog"),FourCC("nsoc")}
         effPenta="Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl"
         --print("start")
         LiveOnWave={}
         StartWave(1,10)
-
+        local m=0
+        TimerStart(CreateTimer(), 1, true, function()
+            m=m+1
+            --print(m)
+            --currentHandle()
+        end)
     end)
 end
 
@@ -19,7 +29,7 @@ function CreateCreepDelay(id,x,y,delay,k)
     local eff=AddSpecialEffect(effPenta,x,y)
     TimerStart(CreateTimer(),delay, false, function()
         --print("create new")
-        local new=CreateUnit(Player(1),id,x,y,GetRandomInt(0,360))
+        local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
         IssueTargetOrder(new,"attack",HERO[0].UnitHero)
         DestroyEffect(eff)
         TimerStart(CreateTimer(),delay, true, function()
@@ -48,6 +58,10 @@ function StartWave(k,max)
         if LiveOnWave[k]<0 then
             --print("все убиты, стартуем новую волну")
             DestroyTimer(GetExpiredTimer())
+            if k==#TempEnemyID then
+                --print("restart "..k)
+                k=0
+            end
             StartWave(k+1,10)
         end
     end)

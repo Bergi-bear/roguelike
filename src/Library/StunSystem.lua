@@ -22,6 +22,7 @@ function StunUnit(hero,dur)
 		--print("старт нового таймера")
 		data.Eff=AddSpecialEffectTarget(stuneff,hero,"overhead")
 		BlzPauseUnitEx(hero,true)
+		SetUnitTimeScale(hero,0)
 	end
 
 	if data.Time<dur  then
@@ -38,6 +39,7 @@ function StunUnit(hero,dur)
 		--print(data.Time)
 		if curdur>=dur or not UnitAlive(hero) then
 			--print("Вышел из стана")
+			SetUnitTimeScale(hero,1)
 			BlzPauseUnitEx(hero,false)
 			--BlzPauseUnitEx(hero,false)
 			DestroyTimer(GetExpiredTimer())

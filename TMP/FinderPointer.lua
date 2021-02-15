@@ -6,7 +6,7 @@
 
 GetPlayerMouseX = {}
 GetPlayerMouseY = {}
-function InitMouseMoveTrigger()
+function InitMouseMoveTrigger3()
 	local MouseMoveTrigger = CreateTrigger()
 	for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
 		local player = Player(i)

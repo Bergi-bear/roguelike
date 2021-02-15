@@ -1,9 +1,25 @@
+
+
+do
+	TimerStart(CreateTimer(), 0.1, false, function()
+		InitDamage()
+	end)
+
+end
+
+
 function OnPostDamage()
 	local damage     = GetEventDamage() -- число урона
 	local damageType = BlzGetEventDamageType()
 	if damage < 1 then return end
 	local target= GetTriggerUnit() -- тот кто получил урон
 	local caster= GetEventDamageSource() -- тот кто нанёс урон
+
+
+	if GetUnitTypeId(target)~=HeroID then
+		--print("кто-то другой получил урон")
+		StunUnit(target,0.4)
+	end
 
 	if GetUnitTypeId(target)==HeroID and false then -- какое нибудь условие наличие пассивки
 		--print("Герой получил урон")

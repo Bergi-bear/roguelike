@@ -28,9 +28,10 @@ do
         --InitWASD(hero) --переместить в первый выбор героя
     end)
 end
-
+TIMER_PERIOD=1/32
 TIMER_PERIOD64=1/64
 HERO={}
+perebor=CreateGroup()
 function InitHeroTable(hero)
     --perebor=CreateGroup()
     --print("InitHeroTable for "..GetUnitName(hero))
@@ -62,7 +63,7 @@ end
 
 
 function InitWASD(hero)
-   -- print("initwasdSTART")
+    --print("initwasdSTART")
     InitHeroTable(hero)
     CreateWASDActions()
     local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
@@ -70,13 +71,16 @@ function InitWASD(hero)
     EnableDragSelect(false, false)
     BlzEnableSelections(false, false)
     SelectUnitForPlayerSingle(data.UnitHero,GetOwningPlayer(hero))
+
     local angle=0
     local speed=5
     local animWalk=0
 
     TimerStart(CreateTimer(),0.005, true, function() -- устранение бага залипания
         if UnitAlive(hero) then
-            --SelectUnitForPlayerSingle(hero,GetOwningPlayer(hero))
+            if not IsUnitSelected(hero,GetOwningPlayer(hero)) then
+                SelectUnitForPlayerSingle(hero,GetOwningPlayer(hero))
+            end
             ForceUIKeyBJ(GetOwningPlayer(hero), "M")
             --IssueImmediateOrder(hero, "stop")
         end
@@ -356,7 +360,7 @@ function CreateWASDActions()
     TriggerAddAction(TrigPressSPACE, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        if not data.ReleaseSPACE   and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+        if not data.ReleaseSPACE  and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 and not data.ReleaseLMB then
             data.ReleaseSPACE = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.SpaceForce then
@@ -453,8 +457,23 @@ function CreateWASDActions()
                     attack(data)
                 else
                     SetUnitAnimationByIndex(data.UnitHero,9) --стойка вытянут топор
-                    --print("Удар в рЫвке")
                     data.AttackInForce=true
+                    --print("Удар в рЫвке, создаём эффект")
+                    local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
+                    BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                    local sec=0
+                    TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
+                        local x,y=GetUnitXY(data.UnitHero)
+                        local nx,ny=MoveXY(x,y,100,GetUnitFacing(data.UnitHero))
+                        BlzSetSpecialEffectPosition(eff,nx,ny,BlzGetUnitZ(data.UnitHero)+40)
+                        BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                        sec=sec+TIMER_PERIOD64
+                        if sec<=0.2 then
+                            DestroyTimer(GetExpiredTimer())
+                            DestroyEffect(eff)
+                        end
+                    end)
+
                 end
             else
                 --print("Герой мёртв")
@@ -576,16 +595,25 @@ function attack(data)
             --print("a "..GetUnitName(mainHero))
             local cdAttack=0.3
             local indexAnim=3
+            local pid=GetPlayerId(GetOwningPlayer(data.UnitHero))
             data.isAttacking=true
             data.ResetSeriesTime=1
             data.AttackCount=data.AttackCount+1
-
-
-
+            local angle=-180+AngleBetweenXY(GetPlayerMouseX[pid],GetPlayerMouseY[pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
+            local damage=data.DamageInSeries[data.AttackCount]
+            BlzSetUnitFacingEx(data.UnitHero,angle) --был обычный поворот
 
             if data.AttackCount==1 then -- первый обычный удар
                 indexAnim=3
                 normal_sound("Sound\\PeonSound\\cut\\Abl",GetUnitXY(data.UnitHero))
+                TimerStart(CreateTimer(), 0.2, false, function()
+                    local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
+                    BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                    BlzSetSpecialEffectScale(eff,0.5)
+                    BlzSetSpecialEffectRoll(eff, math.rad(40))
+                    BlzSetSpecialEffectZ(eff,BlzGetUnitZ(data.UnitHero)+30)
+                    DestroyEffect(eff)
+                end)
             end
             if data.AttackCount==2 then -- второй удар
                 local r=GetRandomInt(1,2)
@@ -595,9 +623,28 @@ function attack(data)
                     cdAttack=0.5
                     UnitAddForceSimple(data.UnitHero,GetUnitFacing(data.UnitHero),10, 60)
                     normal_sound("Sound\\PeonSound\\cut\\Bey",GetUnitXY(data.UnitHero))
+                    TimerStart(CreateTimer(), 0.3, false, function()
+                        local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
+                        BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                        BlzSetSpecialEffectScale(eff,0.7)
+                        BlzSetSpecialEffectRoll(eff, math.rad(30))
+                        BlzSetSpecialEffectZ(eff,BlzGetUnitZ(data.UnitHero)+20)
+                        DestroyEffect(eff)
+                    end)
                 else
+                    indexAnim=3
+                    cdAttack=0.3
                     normal_sound("Sound\\PeonSound\\cut\\SaysNo",GetUnitXY(data.UnitHero))
+                    TimerStart(CreateTimer(), 0.2, false, function()
+                        local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
+                        BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                        BlzSetSpecialEffectScale(eff,0.5)
+                        BlzSetSpecialEffectRoll(eff, math.rad(40))
+                        BlzSetSpecialEffectZ(eff,BlzGetUnitZ(data.UnitHero)+30)
+                        DestroyEffect(eff)
+                    end)
                 end
+
             end
             if data.AttackCount==3 then -- ТРЕТИЙ удар
                 indexAnim=8
@@ -625,13 +672,14 @@ function attack(data)
 
 
             SetUnitAnimationByIndex(data.UnitHero,indexAnim)
-            local angle=-180+AngleBetweenXY(GetPlayerMouseX[0],GetPlayerMouseY[0],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
-            local damage=data.DamageInSeries[data.AttackCount]
-            BlzSetUnitFacingEx(data.UnitHero,angle) --был обычный поворот
+
 
             TimerStart(CreateTimer(), cdAttack, false, function() -- кд атаки тут
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
-                if data.AttackCount~=3 and data.AttackCount>0 and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+                if data.AttackCount<3 and data.AttackCount>0 and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+                    --print(data.AttackCount)
+
+
                     local is,_,k=UnitDamageArea(data.UnitHero,damage,nx,ny,100)
                     if is then
                         --print("Звук попадания обычной атакой"..data.AttackCount)
@@ -669,10 +717,12 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
     local currentdistance = 0
     if onForces[GetHandleId(hero)] == nil then
         onForces[GetHandleId(hero)] = true
+        --print("первый раз")
     end
     if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and (onForces[GetHandleId(hero)] or flag=="ignore")  then
         onForces[GetHandleId(hero)]=false
         local m=0
+        --print("1")
         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
             currentdistance = currentdistance + speed
             --print(currentdistance)
@@ -680,7 +730,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
             SetUnitPositionSmooth(hero, newX, newY)
 
-            if flag=="ignore" and HERO[0].AttackInForce then --FIXME
+            if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then --FIXME
 
                 --print("попытка нанести урон в рывке")
                 if UnitDamageArea(hero,50,newX, newY,200,true) then
@@ -698,9 +748,10 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                 --or (data.OnWater and data.OnTorrent==false)
                 --data.IsDisabled=false
                 --data.OnWater=false
-
-                HERO[0].AttackInForce=false --FIXME
-                HERO[0].ResetSeriesTime=0
+                if flag=="ignore" then
+                    HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --FIXME
+                    HERO[GetPlayerId(GetOwningPlayer(hero))].ResetSeriesTime=0
+                end
 
                 if flag==5 then
                     ShowUnit(hero,true)
@@ -714,7 +765,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                 end
 
                 if IsUnitType(hero,UNIT_TYPE_HERO) then
-                    if HERO[0].isCharging then
+                    if HERO[GetPlayerId(GetOwningPlayer(hero))].isCharging then
                         --print("рывок окончен")
                         --DestroyTimer(GetExpiredTimer())
                         --onForces[GetHandleId(hero)]=true
