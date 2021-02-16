@@ -1,56 +1,1138 @@
 ﻿STRING 1
 {
-Player 1
-}
-
-STRING 2
-{
-Force 1
+Extermination
 }
 
 STRING 3
 {
-R
+For Terrain Contest Reforged, buy XGM
 }
 
 STRING 4
 {
-Any
+BRANAR
 }
 
 STRING 5
 {
-1
+Player 1
 }
 
 STRING 6
 {
-Unknown
+Force 1
 }
 
 STRING 7
+// Doodads: D000 (HFMC0Tree Autumnal), Name (Name)
 {
- 
+HFMC0Tree Autumnal
 }
 
 STRING 8
+// Doodads: D001 (HFMC0Tree Glacial), Name (Name)
+{
+HFMC0Tree Glacial
+}
+
+STRING 9
+// Doodads: D002 (HFMC0Tree Golden), Name (Name)
+{
+HFMC0Tree Golden
+}
+
+STRING 10
+// Doodads: D003 (HFMC0Tree Lush), Name (Name)
+{
+HFMC0Tree Lush
+}
+
+STRING 11
+// Doodads: D004 (HFMC0Tree Pea), Name (Name)
+{
+HFMC0Tree Pea
+}
+
+STRING 12
+// Doodads: D005 (HFMC0Tree Sakura), Name (Name)
+{
+HFMC0Tree Sakura
+}
+
+STRING 13
+// Doodads: D006 (HFMC0Tree Sapphire), Name (Name)
+{
+HFMC0Tree Sapphire
+}
+
+STRING 14
+// Doodads: D007 (HFMC0Tree Silverleaf), Name (Name)
+{
+HFMC0Tree Silverleaf
+}
+
+STRING 15
+// Doodads: D008 (HFMC0Tree Silverleaf ENCHANTED), Name (Name)
+{
+HFMC0Tree Silverleaf ENCHANTED
+}
+
+STRING 16
+// Doodads: D009 (HFMC0Tree Silverleaf RAINBOW), Name (Name)
+{
+HFMC0Tree Silverleaf RAINBOW
+}
+
+STRING 17
+// Doodads: D00A (HFMC0Tree Umbra), Name (Name)
+{
+HFMC0Tree Umbra
+}
+
+STRING 18
+// Doodads: D00B (HFMC0Tree Vermilion), Name (Name)
+{
+HFMC0Tree Vermilion
+}
+
+STRING 19
+// Doodads: D00C (HFMCBush Autumnal), Name (Name)
+{
+HFMCBush Autumnal
+}
+
+STRING 20
+// Doodads: D00D (HFMCBush Glacial), Name (Name)
+{
+HFMCBush Glacial
+}
+
+STRING 21
+// Doodads: D00E (HFMCBush Golden), Name (Name)
+{
+HFMCBush Golden
+}
+
+STRING 22
+// Doodads: D00F (HFMCBush Lush), Name (Name)
+{
+HFMCBush Lush
+}
+
+STRING 23
+// Doodads: D00G (HFMCBush Pea), Name (Name)
+{
+HFMCBush Pea
+}
+
+STRING 24
+// Doodads: D00H (HFMCBush Sakura), Name (Name)
+{
+HFMCBush Sakura
+}
+
+STRING 25
+// Doodads: D00I (HFMCBush Sapphire), Name (Name)
+{
+HFMCBush Sapphire
+}
+
+STRING 26
+// Doodads: D00J (HFMCBush Silverleaf), Name (Name)
+{
+HFMCBush Silverleaf
+}
+
+STRING 27
+// Doodads: D00K (HFMCBush Silverleaf ENCHANTED), Name (Name)
+{
+HFMCBush Silverleaf ENCHANTED
+}
+
+STRING 28
+// Doodads: D00L (HFMCBush Silverleaf RAINBOW), Name (Name)
+{
+HFMCBush Silverleaf RAINBOW
+}
+
+STRING 29
+// Doodads: D00M (HFMCBush Umbra), Name (Name)
+{
+HFMCBush Umbra
+}
+
+STRING 30
+// Doodads: D00N (HFMCBush Vermilion), Name (Name)
+{
+HFMCBush Vermilion
+}
+
+STRING 31
+// Doodads: D00O (HFMCGrass Autumnal), Name (Name)
+{
+HFMCGrass Autumnal
+}
+
+STRING 32
+// Doodads: D00P (HFMCGrass Glacial), Name (Name)
+{
+HFMCGrass Glacial
+}
+
+STRING 33
+// Doodads: D00Q (HFMCGrass Golden), Name (Name)
+{
+HFMCGrass Golden
+}
+
+STRING 34
+// Doodads: D00R (HFMCGrass Lush), Name (Name)
+{
+HFMCGrass Lush
+}
+
+STRING 35
+// Doodads: D00S (HFMCGrass Pea), Name (Name)
+{
+HFMCGrass Pea
+}
+
+STRING 36
+// Doodads: D00T (HFMCGrass Sakura), Name (Name)
+{
+HFMCGrass Sakura
+}
+
+STRING 37
+// Doodads: D00U (HFMCGrass Sapphire), Name (Name)
+{
+HFMCGrass Sapphire
+}
+
+STRING 38
+// Doodads: D00V (HFMCGrass Silverleaf), Name (Name)
+{
+HFMCGrass Silverleaf
+}
+
+STRING 39
+// Doodads: D00W (HFMCGrass Silverleaf ENCHANTED), Name (Name)
+{
+HFMCGrass Silverleaf ENCHANTED
+}
+
+STRING 40
+// Doodads: D00X (HFMCGrass Silverleaf RAINBOW), Name (Name)
+{
+HFMCGrass Silverleaf RAINBOW
+}
+
+STRING 41
+// Doodads: D00Y (HFMCGrass Umbra), Name (Name)
+{
+HFMCGrass Umbra
+}
+
+STRING 42
+// Doodads: D00Z (HFMCGrass Vermilion), Name (Name)
+{
+HFMCGrass Vermilion
+}
+
+STRING 43
+// Doodads: D011 (HFMCTree Autumnal), Name (Name)
+{
+HFMCTree Autumnal
+}
+
+STRING 44
+// Doodads: D012 (HFMCTree Glacial), Name (Name)
+{
+HFMCTree Glacial
+}
+
+STRING 45
+// Doodads: D013 (HFMCTree Golden), Name (Name)
+{
+HFMCTree Golden
+}
+
+STRING 46
+// Doodads: D014 (HFMCTree Lush), Name (Name)
+{
+HFMCTree Lush
+}
+
+STRING 47
+// Doodads: D015 (HFMCTree Pea), Name (Name)
+{
+HFMCTree Pea
+}
+
+STRING 48
+// Doodads: D016 (HFMCTree Sakura), Name (Name)
+{
+HFMCTree Sakura
+}
+
+STRING 49
+// Doodads: D017 (HFMCTree Sapphire), Name (Name)
+{
+HFMCTree Sapphire
+}
+
+STRING 50
+// Doodads: D018 (HFMCTree Silverleaf), Name (Name)
+{
+HFMCTree Silverleaf
+}
+
+STRING 51
+// Doodads: D019 (HFMCTree Silverleaf ENCHANTED), Name (Name)
+{
+HFMCTree Silverleaf ENCHANTED
+}
+
+STRING 52
+// Doodads: D01A (HFMCTree Silverleaf RAINBOW), Name (Name)
+{
+HFMCTree Silverleaf RAINBOW
+}
+
+STRING 53
+// Doodads: D01B (HFMCTree Umbra), Name (Name)
+{
+HFMCTree Umbra
+}
+
+STRING 54
+// Doodads: D01C (HFMCTree Vermilion), Name (Name)
+{
+HFMCTree Vermilion
+}
+
+STRING 55
+// Doodads: D01D (HFMCRock Cave 1x1), Name (Name)
+{
+HFMCRock Cave 1x1
+}
+
+STRING 56
+// Doodads: D01E (HFMCRock Cave 2x2), Name (Name)
+{
+HFMCRock Cave 2x2
+}
+
+STRING 57
+// Doodads: D01F (HFMCRock CaveA), Name (Name)
+{
+HFMCRock CaveA
+}
+
+STRING 58
+// Doodads: D01G (HFMCRock CaveB), Name (Name)
+{
+HFMCRock CaveB
+}
+
+STRING 59
+// Doodads: D01H (HFMCRock CaveC), Name (Name)
+{
+HFMCRock CaveC
+}
+
+STRING 60
+// Doodads: D01I (HFMCRock CaveD), Name (Name)
+{
+HFMCRock CaveD
+}
+
+STRING 61
+// Doodads: D01J (HFMCRock Cave Mound), Name (Name)
+{
+HFMCRock Cave Mound
+}
+
+STRING 62
+// Doodads: D010 (HFMCRock Cave 1x1), Name (Name)
+{
+HFMCRock Cave 1x1
+}
+
+STRING 63
+// Doodads: D01K (HFMFlowers CoveA), Name (Name)
+{
+HFMFlowers CoveA
+}
+
+STRING 64
+// Doodads: D01L (HFMGrass CoveB), Name (Name)
+{
+HFMGrass CoveB
+}
+
+STRING 65
+// Doodads: D01M (HFMGrass PalmA), Name (Name)
+{
+HFMGrass PalmA
+}
+
+STRING 66
+// Doodads: D01N (HFMGrass PalmB), Name (Name)
+{
+HFMGrass PalmB
+}
+
+STRING 67
+// Doodads: D01O (HFMGrass PalmC), Name (Name)
+{
+HFMGrass PalmC
+}
+
+STRING 68
+// Doodads: D01P (HFMRock Cove 1x1), Name (Name)
+{
+HFMRock Cove 1x1
+}
+
+STRING 69
+// Doodads: D01Q (HFMRock Cove 2x2), Name (Name)
+{
+HFMRock Cove 2x2
+}
+
+STRING 70
+// Doodads: D01R (HFMRock Cove 2x2 SNOW), Name (Name)
+{
+HFMRock Cove 2x2 SNOW
+}
+
+STRING 71
+// Doodads: D01S (HFMRock Cove 1x1 SNOW), Name (Name)
+{
+HFMRock Cove 1x1 SNOW
+}
+
+STRING 72
+// Doodads: D01T (HFMRock CoveA), Name (Name)
+{
+HFMRock CoveA
+}
+
+STRING 73
+// Doodads: D01U (HFMRock CoveA SNOW), Name (Name)
+{
+HFMRock CoveA SNOW
+}
+
+STRING 74
+// Doodads: D01V (HFMRock CoveB SNOW), Name (Name)
+{
+HFMRock CoveB SNOW
+}
+
+STRING 75
+// Doodads: D01W (HFMRock CoveC SNOW), Name (Name)
+{
+HFMRock CoveC SNOW
+}
+
+STRING 76
+// Doodads: D01X (HFMRock CoveD SNOW), Name (Name)
+{
+HFMRock CoveD SNOW
+}
+
+STRING 77
+// Doodads: D01Y (HFMRock CoveD), Name (Name)
+{
+HFMRock CoveD
+}
+
+STRING 78
+// Doodads: D01Z (HFMRock CoveC), Name (Name)
+{
+HFMRock CoveC
+}
+
+STRING 79
+// Doodads: D020 (HFMRock CoveB), Name (Name)
+{
+HFMRock CoveB
+}
+
+STRING 80
+// Doodads: D021 (HFMRock CoveMound), Name (Name)
+{
+HFMRock CoveMound
+}
+
+STRING 81
+// Doodads: D022 (HFMRock CoveMound SNOW), Name (Name)
+{
+HFMRock CoveMound SNOW
+}
+
+STRING 82
+// Doodads: D023 (HFMTree CoveA), Name (Name)
+{
+HFMTree CoveA
+}
+
+STRING 83
+// Doodads: D024 (HFMTree CoveA SNOW), Name (Name)
+{
+HFMTree CoveA SNOW
+}
+
+STRING 84
+// Doodads: D025 (HFMTree CoveA DEAD), Name (Name)
+{
+HFMTree CoveA DEAD
+}
+
+STRING 85
+// Doodads: D026 (HFMTree CoveB), Name (Name)
+{
+HFMTree CoveB
+}
+
+STRING 86
+// Doodads: D027 (HFMTree CoveB DEAD), Name (Name)
+{
+HFMTree CoveB DEAD
+}
+
+STRING 87
+// Doodads: D028 (HFMTree CoveB SNOW), Name (Name)
+{
+HFMTree CoveB SNOW
+}
+
+STRING 88
+// Doodads: D029 (HFMTree CoveC), Name (Name)
+{
+HFMTree CoveC
+}
+
+STRING 89
+// Doodads: D02A (HFMTree CoveC DEAD), Name (Name)
+{
+HFMTree CoveC DEAD
+}
+
+STRING 90
+// Doodads: D02B (HFMTree CoveC SNOW), Name (Name)
+{
+HFMTree CoveC SNOW
+}
+
+STRING 91
+// Doodads: D02C (HFMBush CoveA), Name (Name)
+{
+HFMBush CoveA
+}
+
+STRING 92
+// Doodads: D02D (HFMBush CoveA SNOW), Name (Name)
+{
+HFMBush CoveA SNOW
+}
+
+STRING 93
+// Doodads: D02E (HFMBush CoveA DEAD), Name (Name)
+{
+HFMBush CoveA DEAD
+}
+
+STRING 94
+// Doodads: D02F (HFMCWaterLily Autumnal), Name (Name)
+{
+HFMCWaterLily Autumnal
+}
+
+STRING 95
+// Doodads: D02G (HFMCWaterLily Golden), Name (Name)
+{
+HFMCWaterLily Golden
+}
+
+STRING 96
+// Doodads: D02H (HFMCWaterLily Glacial), Name (Name)
+{
+HFMCWaterLily Glacial
+}
+
+STRING 97
+// Doodads: D02I (HFMCWaterLily Lush), Name (Name)
+{
+HFMCWaterLily Lush
+}
+
+STRING 98
+// Doodads: D02J (HFMCWaterLily Pea), Name (Name)
+{
+HFMCWaterLily Pea
+}
+
+STRING 99
+// Doodads: D02K (HFMCWaterLily Sakura), Name (Name)
+{
+HFMCWaterLily Sakura
+}
+
+STRING 100
+// Doodads: D02L (HFMCWaterLily Sapphire), Name (Name)
+{
+HFMCWaterLily Sapphire
+}
+
+STRING 101
+// Doodads: D02M (HFMCWaterLily Silverleaf), Name (Name)
+{
+HFMCWaterLily Silverleaf
+}
+
+STRING 102
+// Doodads: D02N (HFMCWaterLily Silverleaf ENCHANTED), Name (Name)
+{
+HFMCWaterLily Silverleaf ENCHANTED
+}
+
+STRING 103
+// Doodads: D02O (HFMCWaterLily Silverleaf RAINBOW), Name (Name)
+{
+HFMCWaterLily Silverleaf RAINBOW
+}
+
+STRING 104
+// Doodads: D02P (HFMCWaterLily Umbra), Name (Name)
+{
+HFMCWaterLily Umbra
+}
+
+STRING 105
+// Doodads: D02Q (HFMCWaterLily Vermilion), Name (Name)
+{
+HFMCWaterLily Vermilion
+}
+
+STRING 106
+// Doodads: D02R (HFMRock Crag 1x1), Name (Name)
+{
+HFMRock Crag 1x1
+}
+
+STRING 107
+// Doodads: D02S (HFMRock Crag 2x2), Name (Name)
+{
+HFMRock Crag 2x2
+}
+
+STRING 108
+// Doodads: D02T (HFMRock Crag A), Name (Name)
+{
+HFMRock Crag A
+}
+
+STRING 109
+// Doodads: D02U (HFMRock Crag B), Name (Name)
+{
+HFMRock Crag B
+}
+
+STRING 110
+// Doodads: D02V (HFMRock Crag C), Name (Name)
+{
+HFMRock Crag C
+}
+
+STRING 111
+// Doodads: D02W (HFMRock Crag D), Name (Name)
+{
+HFMRock Crag D
+}
+
+STRING 112
+// Doodads: D02X (HFMRock Crag Mound), Name (Name)
+{
+HFMRock Crag Mound
+}
+
+STRING 113
+// Doodads: D02Y (HFMFir A), Name (Name)
+{
+HFMFir A
+}
+
+STRING 114
+// Doodads: D02Z (HFMFir B), Name (Name)
+{
+HFMFir B
+}
+
+STRING 115
+// Doodads: D030 (HFMFir Fallen), Name (Name)
+{
+HFMFir Fallen
+}
+
+STRING 116
+// Doodads: D031 (HFMFir Tall), Name (Name)
+{
+HFMFir Tall
+}
+
+STRING 117
+// Doodads: D032 (HFMBush GladeA), Name (Name)
+{
+HFMBush GladeA
+}
+
+STRING 118
+// Doodads: D033 (HFMBush GladeA DEAD), Name (Name)
+{
+HFMBush GladeA DEAD
+}
+
+STRING 119
+// Doodads: D034 (HFMFlowers Glade A), Name (Name)
+{
+HFMFlowers Glade A
+}
+
+STRING 120
+// Doodads: D035 (HFMGrass Glade A), Name (Name)
+{
+HFMGrass Glade A
+}
+
+STRING 121
+// Doodads: D036 (HFMGrass Glade B), Name (Name)
+{
+HFMGrass Glade B
+}
+
+STRING 122
+// Doodads: D037 (HFMRock Glade 1x1), Name (Name)
+{
+HFMRock Glade 1x1
+}
+
+STRING 123
+// Doodads: D038 (HFMRock Glade 2x2), Name (Name)
+{
+HFMRock Glade 2x2
+}
+
+STRING 124
+// Doodads: D039 (HFMRock Glade A), Name (Name)
+{
+HFMRock Glade A
+}
+
+STRING 125
+// Doodads: D03A (HFMRock Glade B), Name (Name)
+{
+HFMRock Glade B
+}
+
+STRING 126
+// Doodads: D03B (HFMRock Glade C), Name (Name)
+{
+HFMRock Glade C
+}
+
+STRING 127
+// Doodads: D03C (HFMRock Glade D), Name (Name)
+{
+HFMRock Glade D
+}
+
+STRING 128
+// Doodads: D03D (HFMRock Glade Mound), Name (Name)
+{
+HFMRock Glade Mound
+}
+
+STRING 129
+// Doodads: D03E (HFMRock Glade Overhang), Name (Name)
+{
+HFMRock Glade Overhang
+}
+
+STRING 130
+// Doodads: D03F (HFMTree Glade A), Name (Name)
+{
+HFMTree Glade A
+}
+
+STRING 131
+// Doodads: D03G (HFMTree Glade A DEAD), Name (Name)
+{
+HFMTree Glade A DEAD
+}
+
+STRING 132
+// Doodads: D03H (HFMTree Glade B DEAD), Name (Name)
+{
+HFMTree Glade B DEAD
+}
+
+STRING 133
+// Doodads: D03I (HFMTree Glade C DEAD), Name (Name)
+{
+HFMTree Glade C DEAD
+}
+
+STRING 134
+// Doodads: D03J (HFMTree Glade B), Name (Name)
+{
+HFMTree Glade B
+}
+
+STRING 135
+// Doodads: D03K (HFMTree Glade C), Name (Name)
+{
+HFMTree Glade C
+}
+
+STRING 136
+// Doodads: D03L (HFMWaterLily Glade A), Name (Name)
+{
+HFMWaterLily Glade A
+}
+
+STRING 137
+// Doodads: D03M (HFMWaterLily Glade B), Name (Name)
+{
+HFMWaterLily Glade B
+}
+
+STRING 138
+// Doodads: D03N (HFMBush Vale A), Name (Name)
+{
+HFMBush Vale A
+}
+
+STRING 139
+// Doodads: D03O (HFMBush Vale A DEAD), Name (Name)
+{
+HFMBush Vale A DEAD
+}
+
+STRING 140
+// Doodads: D03P (HFMGrass Vale A), Name (Name)
+{
+HFMGrass Vale A
+}
+
+STRING 141
+// Doodads: D03Q (HFMGrass Vale B), Name (Name)
+{
+HFMGrass Vale B
+}
+
+STRING 142
+// Doodads: D03R (HFMLog Fallen), Name (Name)
+{
+HFMLog Fallen
+}
+
+STRING 143
+// Doodads: D03S (HFMLog Stump), Name (Name)
+{
+HFMLog Stump
+}
+
+STRING 144
+// Doodads: D03T (HFMRock Vale 1x1), Name (Name)
+{
+HFMRock Vale 1x1
+}
+
+STRING 145
+// Doodads: D03U (HFMRock Vale 2x2), Name (Name)
+{
+HFMRock Vale 2x2
+}
+
+STRING 146
+// Doodads: D03V (HFMRock Vale A), Name (Name)
+{
+HFMRock Vale A
+}
+
+STRING 147
+// Doodads: D03W (HFMRock Vale B), Name (Name)
+{
+HFMRock Vale B
+}
+
+STRING 148
+// Doodads: D03X (HFMRock Vale C), Name (Name)
+{
+HFMRock Vale C
+}
+
+STRING 149
+// Doodads: D03Y (HFMRock Vale D), Name (Name)
+{
+HFMRock Vale D
+}
+
+STRING 150
+// Doodads: D03Z (HFMShrub Vale A), Name (Name)
+{
+HFMShrub Vale A
+}
+
+STRING 151
+// Doodads: D040 (HFMShrub Vale B), Name (Name)
+{
+HFMShrub Vale B
+}
+
+STRING 152
+// Doodads: D041 (HFMShrub Vale C), Name (Name)
+{
+HFMShrub Vale C
+}
+
+STRING 153
+// Doodads: D042 (HFMRock Vale Mound), Name (Name)
+{
+HFMRock Vale Mound
+}
+
+STRING 154
+// Doodads: D043 (HFMShroom Vale A), Name (Name)
+{
+HFMShroom Vale A
+}
+
+STRING 155
+// Doodads: D044 (HFMShroom Vale B), Name (Name)
+{
+HFMShroom Vale B
+}
+
+STRING 156
+// Doodads: D045 (HFMShroom Vale D), Name (Name)
+{
+HFMShroom Vale D
+}
+
+STRING 157
+// Doodads: D046 (HFMShroom Vale C), Name (Name)
+{
+HFMShroom Vale C
+}
+
+STRING 158
+// Doodads: D047 (HFMTree Vale A), Name (Name)
+{
+HFMTree Vale A
+}
+
+STRING 159
+// Doodads: D048 (HFMTree Vale C), Name (Name)
+{
+HFMTree Vale C
+}
+
+STRING 160
+// Doodads: D049 (HFMTree Vale A DEAD), Name (Name)
+{
+HFMTree Vale A DEAD
+}
+
+STRING 161
+// Doodads: D04A (HFMTree Vale C DEAD), Name (Name)
+{
+HFMTree Vale C DEAD
+}
+
+STRING 162
+// Doodads: D04B (HFMFlowers Vale A), Name (Name)
+{
+HFMFlowers Vale A
+}
+
+STRING 163
+// Doodads: D04C (Разлом1), Name (Name)
+{
+Разлом1
+}
+
+STRING 164
+// Doodads: D04D (Разлом2), Name (Name)
+{
+Разлом2
+}
+
+STRING 165
+// Doodads: D04E (Fissure2), Name (Name)
+{
+Fissure2
+}
+
+STRING 166
+// Doodads: D04F (Fissure3), Name (Name)
+{
+Fissure3
+}
+
+STRING 167
+// Doodads: D04G (Медив), Name (Name)
+{
+Медив
+}
+
+STRING 168
+// Doodads: D04H (Fissure4), Name (Name)
+{
+Fissure4
+}
+
+STRING 169
+// Doodads: D04I (Fissure5), Name (Name)
+{
+Fissure5
+}
+
+STRING 170
+// Doodads: D04J (Туман1), Name (Name)
+{
+Туман1
+}
+
+STRING 171
+// Doodads: D04K (Туман2), Name (Name)
+{
+Туман2
+}
+
+STRING 172
+// Doodads: D04L (Туман2_2), Name (Name)
+{
+Туман2_2
+}
+
+STRING 173
+// Doodads: D04M (Туман1_1), Name (Name)
+{
+Туман1_1
+}
+
+STRING 174
+// Doodads: D04N (Туман1_2), Name (Name)
+{
+Туман1_2
+}
+
+STRING 175
+// Doodads: D04O (Кролик), Name (Name)
+{
+Кролик
+}
+
+STRING 176
+// Doodads: D04P (Дракон), Name (Name)
+{
+Дракон
+}
+
+STRING 177
+// Doodads: D04Q (Ястреб), Name (Name)
+{
+Ястреб
+}
+
+STRING 178
+// Doodads: D04R (Подъем1\), Name (Name)
+{
+Подъем1\
+}
+
+STRING 179
+// Doodads: D04S (Саргерас), Name (Name)
+{
+Саргерас
+}
+
+STRING 180
+// Doodads: D04T (Арка), Name (Name)
+{
+Арка
+}
+
+STRING 181
+// Doodads: D04U (Арка2), Name (Name)
+{
+Арка2
+}
+
+STRING 182
+// Doodads: D04V (Каменная стена), Name (Name)
+{
+Каменная стена
+}
+
+STRING 183
+// Doodads: D04W (Врата), Name (Name)
+{
+Врата
+}
+
+STRING 184
+// Doodads: D04X (Хижина мурлоков1), Name (Name)
+{
+Хижина мурлоков1
+}
+
+STRING 185
+// Doodads: D04Y (Хижина мурлоков2), Name (Name)
+{
+Хижина мурлоков2
+}
+
+STRING 186
+// Doodads: D04Z (Чаша1), Name (Name)
+{
+Чаша1
+}
+
+STRING 187
+// Doodads: D050 (Обелиск), Name (Name)
+{
+Обелиск
+}
+
+STRING 188
+{
+Истребление
+}
+
+STRING 189
+{
+Уже четвертый год Алый орден полным ходом ведет методичное и кровавое истребление мурлоков, живущих недалоеко от Затерянных островов. Безмозглые создания, как уродливое бельмо, выделяются на фоне цивилизованного мира и к тому же практикуют жертвоприношения! Высшим советом было принято решение обратить аборигенов в истинную веру, или уничтожить. Хоть я и не в восторге от таких радикальных мер, второй вариант, лично мне, представляется куда более реалистичным. Этим дикарям не место на наших будущих землях. 
+Халак говорит, что на некоторых островах архипелага можно найти руины древних цивилизаций. Чтож, раз уж мы сдесь, попытаем удачу. 
+}
+
+STRING 190
+{
+Single
+}
+
+STRING 191
 // Items: I000 (Руна сквозной проходимости), Name (Name)
 {
 Руна сквозной проходимости
 }
 
-STRING 9
+STRING 193
 {
-Player 2
-}
-
-STRING 10
-{
-Player 3
-}
-
-STRING 11
-{
-Player 4
+ 
 }
 
