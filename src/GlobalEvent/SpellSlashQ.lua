@@ -6,6 +6,10 @@
 
 function SpellSlashQ(data)
     local hero=data.UnitHero
+    if not data.tasks[3] then
+        data.tasks[3]=true
+        --print("Первый раз сделал краш")
+    end
     local x,y=MoveXY(GetUnitX(hero),GetUnitY(hero),80,GetUnitFacing(hero))
     DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic",x,y))
     UnitDamageArea(hero,250,x,y,200)

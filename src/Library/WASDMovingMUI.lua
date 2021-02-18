@@ -57,7 +57,8 @@ function InitHeroTable(hero)
         ResetSeriesTime=0,
         DamageInSeries={50,80,100},
         CDSpellQ=0,
-        AttackInForce=false
+        AttackInForce=false,
+        tasks={},--таблица заданий
     }
 end
 
@@ -101,6 +102,10 @@ function InitWASD(hero)
                 data.isSpined=true
                 --print("start spin")
                 StartAndReleaseSpin(data)
+                if not data.tasks[2] then
+                    data.tasks[2]=true
+                    --print("Первый раз прокрутился")
+                end
             end
         else
             data.ChargingAttack=0
@@ -366,6 +371,10 @@ function CreateWASDActions()
             if not data.SpaceForce then
                 data.animStand=1.8 --до полной анимации 2 секунды
                 --print("SPACE")
+                if not data.tasks[5] then
+                    data.tasks[5]=true
+                    --print("Первый раз сделал рывок")
+                end
                 UnitAddItemById(data.UnitHero,FourCC("I000")) -- предмет виндволк
                 BlzSetUnitFacingEx(data.UnitHero,data.DirectionMove)
                 UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, 200,"ignore")
@@ -458,6 +467,10 @@ function CreateWASDActions()
                 else
                     SetUnitAnimationByIndex(data.UnitHero,9) --стойка вытянут топор
                     data.AttackInForce=true
+                    if not data.tasks[6] then
+                        data.tasks[6]=true
+                        --print("Первый раз сделал серию")
+                    end
                     --print("Удар в рЫвке, создаём эффект")
                     local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
                     BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
@@ -527,6 +540,10 @@ function CreateWASDActions()
 
                     TimerStart(CreateTimer(), 0.3, false, function()
                         --print("выстрел")
+                        if not data.tasks[4] then
+                            data.tasks[4]=true
+                            --print("Первый раз бросил молот")
+                        end
                         local xs,ys=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),40,angle)
                         CreateAndForceBullet(data.UnitHero,angle,50,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",xs,ys)
                     end)
@@ -649,7 +666,10 @@ function attack(data)
             if data.AttackCount==3 then -- ТРЕТИЙ удар
                 indexAnim=8
                 cdAttack=1
-
+                if not data.tasks[1] then
+                    data.tasks[1]=true
+                    --print("Первый раз сделал серию")
+                end
                 normal_sound("Sound\\PeonSound\\cut\\BloodlustTarget",GetUnitXY(data.UnitHero))
                 TimerStart(CreateTimer(), 0.2, false, function()
                     normal_sound("abilities\\weapons\\bristlebackmissile\\bristlebackmissilelaunch3",GetUnitXY(data.UnitHero))

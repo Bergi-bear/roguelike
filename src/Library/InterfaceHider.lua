@@ -15,7 +15,8 @@ do
     end)
 end
 function HideEverything()
-    BlzFrameSetVisible(BlzGetFrameByName("ConsoleUIBackdrop", 0), false)
+    --BlzFrameSetVisible(BlzGetFrameByName("ConsoleUIBackdrop", 0), false)
+    BlzFrameSetAbsPoint ( BlzGetFrameByName ( "ConsoleUIBackdrop" , 0 ) , FRAMEPOINT_TOPRIGHT , 0 , - 0,8 )
     for i = 0, 11 do
         --BlzFrameSetVisible(BlzGetFrameByName("CommandButton_"..i, 0), false) --отключить
         BlzFrameSetSize(BlzGetFrameByName("CommandButton_" .. i, 0), 0, 0)--скрыть, но работать будут по хоткеям
