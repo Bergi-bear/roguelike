@@ -1136,3 +1136,15 @@ STRING 193
  
 }
 
+STRING 194
+// Destructibles: B002 (Блокиратор 4*4), Name (Name)
+{
+Блокиратор 4*4
+}
+
+STRING 195
+// Destructibles: B003 (Блокиратор 2*2), Name (Name)
+{
+Блокиратор 2*2
+}
+

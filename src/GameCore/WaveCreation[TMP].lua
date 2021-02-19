@@ -15,7 +15,7 @@ do
         effPenta="Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl"
         --print("start")
         LiveOnWave={}
-        StartWave(1,10)
+        --StartWave(1,10)
         local m=0
         TimerStart(CreateTimer(), 1, true, function()
             m=m+1

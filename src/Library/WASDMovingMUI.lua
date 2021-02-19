@@ -196,12 +196,21 @@ function InitWASD(hero)
                     if not data.isAttacking then
                         SetUnitFacing(hero, angle)-- место для поворота в движении
                     end
+
                     SetUnitPositionSmooth(hero,nx,ny)-- блок движения
 
-                    if animWalk==0  then-- and not data.ReleaseRMB
-                       -- print("сброс анимации")
+                    local newX,newY=GetUnitXY(hero)
+                    local stator=false
+                    if newX==x and newY==y then
+                        --print("предположительно упёрся в стенку")
+                        stator=true
+                        ResetUnitAnimation(hero)
+                        --data.animStand=3
+                    end
+                    if animWalk==0 and not stator then-- and not data.ReleaseRMB
+                        --print("сброс анимации")
                             SetUnitAnimationByIndex(hero,IndexAnimationWalk)
-                            local r={SoundStep1,SoundStep2,SoundStep3,SoundStep4}
+                            --local r={SoundStep1,SoundStep2,SoundStep3,SoundStep4}
                         data.animStand=3
                     end
                 else -- стоит на месте

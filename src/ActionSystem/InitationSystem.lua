@@ -140,8 +140,16 @@ function CreateEActions()
                 data.UseAction=""
             end
             if data.UseAction=="Goto" then
-                local message="Внутри нас ждёт генная инженерия с котами?"
+                local rm={
+                    "Что нас ждём внутри?",
+                    "Надеюсь, что будет полегче",
+                    "Откройся, Сезам",
+                    "А что же там?"
+                }
+                local r=GetRandomInt(1,#rm)
+                local message=rm[r]
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
+                Enter2NewZone()
                 data.Completed=true
                 data.DoAction=false
                 data.UseAction=""
@@ -174,6 +182,15 @@ function CreateEActions()
                 local message="Я здесь не для отдыха"
                 CreateInfoBoxForAllPlayerTimed(data,message,5)
                 data.Completed=true
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="TalonTrall" then
+                local message="Провидец, я выбираю тебя"
+                CreateInfoBoxForAllPlayerTimed(data,message,5)
+                data.Completed=true
+                print("Создаём диалоговое окно для всех игроков Jsore")
+                DestroyGodTalon(LastGodTalon)
                 data.DoAction=false
                 data.UseAction=""
             end
