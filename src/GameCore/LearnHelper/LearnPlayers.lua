@@ -11,7 +11,6 @@ end
 SimpleTaskPos = {}
 function CreateTaskForAllPlayer()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) then
             SimpleTaskPos[i] = 0
             local data = HERO[i]
@@ -93,4 +92,17 @@ function CreateSimpleTask(message, player)
     BlzFrameSetVisible(tooltip, GetLocalPlayer() == player)
 
     return tooltip, backdrop, text, box, chk
+end
+
+function DestroyAllLearHelpers()
+
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) then
+            local data=HERO[i]
+            SimpleTaskPos[i]=0
+            for j=1,6 do
+                data.tasks[j]=true
+            end
+        end
+    end
 end

@@ -42,13 +42,13 @@ function CreateCreepDelay(id,x,y,delay,k)
     end)
 end
 
-function StartWave(k,max)
+function StartWave(rect,listID,max)
    -- print("start wave "..max)
     LiveOnWave[k]=max
     --print(0)
     for i = 0, max do
         --print(1)
-        local loc=GetRandomLocInRect(gg_rct_R1)
+        local loc=GetRandomLocInRect(rect)
         --print(2)
         local x,y=GetLocationX(loc),GetLocationY(loc)
         --print(i)

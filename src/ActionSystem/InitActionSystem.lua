@@ -10,30 +10,50 @@ do
         CreateEActions()
     end)
 end
-
+ActionList={}
+ActionListIndex=1
+PreViewIcon={
+    {},
+    {}
+}
 function InitFinObjectInArea()
-    FinObjectInArea(5300,-9000,"Подняться на борт","StartSheep") --зона корабля
-    FinObjectInArea(5400,-8300,"Исследовать лодку","Board") --Левая лодка
-    FinObjectInArea(5500,-6900,"Войти","BackDor") --Вечно закрытые ворота
-    FinObjectInArea(6600,-6300,"Войти через главный вход","Goto") --Начать приключение
-    FinObjectInArea(7700,-8000,"Преисполниться","StartBonus") --Синий огонь
-    FinObjectInArea(7800,-6600,"Посмотреть в даль","SoFar") --на краю берега справа
-    FinObjectInArea(7000,-9200,"Рыбачить","Fish") -- внизу на берегу
-    FinObjectInArea(7200,-7600,"Отдохноуть","NoWorking") -- возле деревьев
+    FinObjectInArea(5300,-9000,"Подняться на борт","StartSheep",true) --зона корабля
+    FinObjectInArea(5400,-8300,"Исследовать лодку","Board",true) --Левая лодка
+    FinObjectInArea(5500,-6900,"Войти","BackDor",true) --Вечно закрытые ворота
+    FinObjectInArea(6600,-6300,"Войти через главный вход","Goto",true) --Начать приключение
+    FinObjectInArea(7700,-8000,"Преисполниться","StartBonus",true) --Синий огонь
+    FinObjectInArea(7800,-6600,"Посмотреть в даль","SoFar",true) --на краю берега справа
+    FinObjectInArea(7000,-9200,"Рыбачить","Fish",true) -- внизу на берегу
+    FinObjectInArea(7200,-7600,"Отдохноуть","NoWorking",true) -- возле деревьев
+
+    --Переходы между зонами
+    FinObjectInArea(14900,-11600,"   Продолжить","Goto",false)
+    FinObjectInArea(15700,-12600,"   Продолжить","Goto",false)
+    FinObjectInArea(18800,-12300,"   Продолжить","Goto",false)
+    FinObjectInArea(13100,-8200,"   Продолжить","Goto",false)
+    FinObjectInArea(14100,-8200,"   Продолжить","Goto",false)
+    --FinObjectInArea(0,-0,"Продолжить","Goto",false)
+    --FinObjectInArea(0,-0,"Продолжить","Goto",false)
+
 end
 
-function FinObjectInArea(x,y,message,actionFlag)
+function FinObjectInArea(x,y,message,actionFlag,isActive)
+    ActionList[ActionListIndex]={
+        x=x,y=y,actionFlag=actionFlag
+    }
+    ActionListIndex=ActionListIndex+1
+    local activeNumber=ActionListIndex-1
     local thisTrigger=CreateTrigger()
     local thisTrigger2=CreateTrigger()
     local range=200
     local rect=Rect(x - range, y - range, x + range, y +range)
     local tooltip,backdrop,text=CreateActionBox(message)
-    local active=true
+    ActionList[activeNumber].isActive=isActive
     TriggerRegisterEnterRectSimple(thisTrigger,rect)
     TriggerAddAction(thisTrigger, function()
         local u=GetTriggerUnit()
         local pid=GetPlayerId(GetTriggerPlayer())
-        if HERO[pid].UnitHero==u  and active then
+        if HERO[pid].UnitHero==u  and ActionList[activeNumber].isActive then
             DisableTrigger(thisTrigger)
             --print(message)
             if not HERO[pid].DoAction then
@@ -51,7 +71,7 @@ function FinObjectInArea(x,y,message,actionFlag)
                     DestroyTimer(GetExpiredTimer())
                     if HERO[pid].Completed then
                         HERO[pid].Completed=false
-                        active=false
+                        ActionList[activeNumber].isActive=false
                     end
                     if GetLocalPlayer()==GetOwningPlayer(u) then
                         BlzFrameSetVisible(tooltip,false)
@@ -65,7 +85,7 @@ function FinObjectInArea(x,y,message,actionFlag)
     TriggerAddAction(thisTrigger2, function()
         local pid=GetPlayerId(GetTriggerPlayer())
         local u=GetTriggerUnit()
-        if  HERO[pid].UnitHero==u and active then
+        if  HERO[pid].UnitHero==u and ActionList[activeNumber].isActive then
             DisableTrigger(thisTrigger2)
             if HERO[pid].DoAction then
                 HERO[pid].DoAction=false
@@ -150,9 +170,11 @@ function CreateEActions()
                 local message=rm[r]
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 Enter2NewZone()
+                DestroyDecorInArea(data,300)
                 data.Completed=true
                 data.DoAction=false
                 data.UseAction=""
+                AllActionsEnabled(false)-- блокируем все новые переходы
             end
             if data.UseAction=="StartBonus" then
                 local message1="Я в своём познании настолько преисполнился, что как будто бы уже 100"
@@ -187,12 +209,16 @@ function CreateEActions()
             end
             if data.UseAction=="TalonTrall" then
                 local message="Провидец, я выбираю тебя"
-                CreateInfoBoxForAllPlayerTimed(data,message,5)
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
-                print("Создаём диалоговое окно для всех игроков Jsore")
-                DestroyGodTalon(LastGodTalon)
+                TimerStart(CreateTimer(),2, false, function()
+                    print("Создаём диалоговое окно для всех игроков Jsore")
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
                 data.DoAction=false
                 data.UseAction=""
+                --GetTerrainZ()
             end
 
         end
@@ -233,4 +259,24 @@ function CreateInfoBoxForAllPlayerTimed(data,message,timed)
         InfoSlots=InfoSlots-1
     end)
     InfoSlots=InfoSlots+1
+end
+
+function AllActionsEnabled(enable)
+    for i=1,#ActionList do
+
+        if ActionList[i].actionFlag=="Goto" then
+            ActionList[i].isActive=enable
+            if not enable then
+                --print("выходы заблокированы "..i)
+            end
+        end
+    end
+end
+
+function DestroyDecorInArea(data,range)
+    local x,y=GetUnitXY(data.UnitHero)
+    SetRect(GlobalRect, x - range, y - range, x + range, y +range)
+    EnumDestructablesInRect(GlobalRect,nil,function ()
+        KillDestructable(GetEnumDestructable())
+    end)
 end

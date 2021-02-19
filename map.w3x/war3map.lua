@@ -93,11 +93,11 @@ end
 function CreateRegions()
     local we
     gg_rct_B1A = Rect(13632.0, -12832.0, 14912.0, -12160.0)
-    gg_rct_S1A = Rect(12928.0, -13408.0, 15648.0, -11808.0)
+    gg_rct_S1A = Rect(13056.0, -13344.0, 15552.0, -11840.0)
     gg_rct_B2A = Rect(17856.0, -13248.0, 18048.0, -13088.0)
     gg_rct_B3A = Rect(13504.0, -10080.0, 15552.0, -9120.0)
-    gg_rct_S3A = Rect(12704.0, -10688.0, 16384.0, -8480.0)
-    gg_rct_S2A = Rect(17056.0, -13760.0, 18944.0, -12512.0)
+    gg_rct_S3A = Rect(12768.0, -10688.0, 16384.0, -8480.0)
+    gg_rct_S2A = Rect(17088.0, -13760.0, 18848.0, -12608.0)
     gg_rct_E3A = Rect(13152.0, -11104.0, 13504.0, -10464.0)
     gg_rct_E1A = Rect(13216.0, -13696.0, 13568.0, -13216.0)
     gg_rct_E2A = Rect(16704.0, -13536.0, 17056.0, -13120.0)
@@ -314,30 +314,50 @@ do
         CreateEActions()
     end)
 end
-
+ActionList={}
+ActionListIndex=1
+PreViewIcon={
+    {},
+    {}
+}
 function InitFinObjectInArea()
-    FinObjectInArea(5300,-9000,"Подняться на борт","StartSheep") --зона корабля
-    FinObjectInArea(5400,-8300,"Исследовать лодку","Board") --Левая лодка
-    FinObjectInArea(5500,-6900,"Войти","BackDor") --Вечно закрытые ворота
-    FinObjectInArea(6600,-6300,"Войти через главный вход","Goto") --Начать приключение
-    FinObjectInArea(7700,-8000,"Преисполниться","StartBonus") --Синий огонь
-    FinObjectInArea(7800,-6600,"Посмотреть в даль","SoFar") --на краю берега справа
-    FinObjectInArea(7000,-9200,"Рыбачить","Fish") -- внизу на берегу
-    FinObjectInArea(7200,-7600,"Отдохноуть","NoWorking") -- возле деревьев
+    FinObjectInArea(5300,-9000,"Подняться на борт","StartSheep",true) --зона корабля
+    FinObjectInArea(5400,-8300,"Исследовать лодку","Board",true) --Левая лодка
+    FinObjectInArea(5500,-6900,"Войти","BackDor",true) --Вечно закрытые ворота
+    FinObjectInArea(6600,-6300,"Войти через главный вход","Goto",true) --Начать приключение
+    FinObjectInArea(7700,-8000,"Преисполниться","StartBonus",true) --Синий огонь
+    FinObjectInArea(7800,-6600,"Посмотреть в даль","SoFar",true) --на краю берега справа
+    FinObjectInArea(7000,-9200,"Рыбачить","Fish",true) -- внизу на берегу
+    FinObjectInArea(7200,-7600,"Отдохноуть","NoWorking",true) -- возле деревьев
+
+    --Переходы между зонами
+    FinObjectInArea(14900,-11600,"   Продолжить","Goto",false)
+    FinObjectInArea(15700,-12600,"   Продолжить","Goto",false)
+    FinObjectInArea(18800,-12300,"   Продолжить","Goto",false)
+    FinObjectInArea(13100,-8200,"   Продолжить","Goto",false)
+    FinObjectInArea(14100,-8200,"   Продолжить","Goto",false)
+    --FinObjectInArea(0,-0,"Продолжить","Goto",false)
+    --FinObjectInArea(0,-0,"Продолжить","Goto",false)
+
 end
 
-function FinObjectInArea(x,y,message,actionFlag)
+function FinObjectInArea(x,y,message,actionFlag,isActive)
+    ActionList[ActionListIndex]={
+        x=x,y=y,actionFlag=actionFlag
+    }
+    ActionListIndex=ActionListIndex+1
+    local activeNumber=ActionListIndex-1
     local thisTrigger=CreateTrigger()
     local thisTrigger2=CreateTrigger()
     local range=200
     local rect=Rect(x - range, y - range, x + range, y +range)
     local tooltip,backdrop,text=CreateActionBox(message)
-    local active=true
+    ActionList[activeNumber].isActive=isActive
     TriggerRegisterEnterRectSimple(thisTrigger,rect)
     TriggerAddAction(thisTrigger, function()
         local u=GetTriggerUnit()
         local pid=GetPlayerId(GetTriggerPlayer())
-        if HERO[pid].UnitHero==u  and active then
+        if HERO[pid].UnitHero==u  and ActionList[activeNumber].isActive then
             DisableTrigger(thisTrigger)
             --print(message)
             if not HERO[pid].DoAction then
@@ -355,7 +375,7 @@ function FinObjectInArea(x,y,message,actionFlag)
                     DestroyTimer(GetExpiredTimer())
                     if HERO[pid].Completed then
                         HERO[pid].Completed=false
-                        active=false
+                        ActionList[activeNumber].isActive=false
                     end
                     if GetLocalPlayer()==GetOwningPlayer(u) then
                         BlzFrameSetVisible(tooltip,false)
@@ -369,7 +389,7 @@ function FinObjectInArea(x,y,message,actionFlag)
     TriggerAddAction(thisTrigger2, function()
         local pid=GetPlayerId(GetTriggerPlayer())
         local u=GetTriggerUnit()
-        if  HERO[pid].UnitHero==u and active then
+        if  HERO[pid].UnitHero==u and ActionList[activeNumber].isActive then
             DisableTrigger(thisTrigger2)
             if HERO[pid].DoAction then
                 HERO[pid].DoAction=false
@@ -454,9 +474,11 @@ function CreateEActions()
                 local message=rm[r]
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 Enter2NewZone()
+                DestroyDecorInArea(data,300)
                 data.Completed=true
                 data.DoAction=false
                 data.UseAction=""
+                AllActionsEnabled(false)-- блокируем все новые переходы
             end
             if data.UseAction=="StartBonus" then
                 local message1="Я в своём познании настолько преисполнился, что как будто бы уже 100"
@@ -491,12 +513,16 @@ function CreateEActions()
             end
             if data.UseAction=="TalonTrall" then
                 local message="Провидец, я выбираю тебя"
-                CreateInfoBoxForAllPlayerTimed(data,message,5)
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
-                print("Создаём диалоговое окно для всех игроков Jsore")
-                DestroyGodTalon(LastGodTalon)
+                TimerStart(CreateTimer(),2, false, function()
+                    print("Создаём диалоговое окно для всех игроков Jsore")
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
                 data.DoAction=false
                 data.UseAction=""
+                --GetTerrainZ()
             end
 
         end
@@ -538,6 +564,26 @@ function CreateInfoBoxForAllPlayerTimed(data,message,timed)
     end)
     InfoSlots=InfoSlots+1
 end
+
+function AllActionsEnabled(enable)
+    for i=1,#ActionList do
+
+        if ActionList[i].actionFlag=="Goto" then
+            ActionList[i].isActive=enable
+            if not enable then
+                --print("выходы заблокированы "..i)
+            end
+        end
+    end
+end
+
+function DestroyDecorInArea(data,range)
+    local x,y=GetUnitXY(data.UnitHero)
+    SetRect(GlobalRect, x - range, y - range, x + range, y +range)
+    EnumDestructablesInRect(GlobalRect,nil,function ()
+        KillDestructable(GetEnumDestructable())
+    end)
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -556,8 +602,8 @@ GameZone={
 }
 function InitAllZones()
     SetZone(1,gg_rct_E1A,gg_rct_B1A,gg_rct_S1A)
-    --SetZone(2,gg_rct_E2A,gg_rct_B2A,gg_rct_S2A)
-    --SetZone(3,gg_rct_E3A,gg_rct_B3A,gg_rct_S3A)
+    SetZone(2,gg_rct_E2A,gg_rct_B2A,gg_rct_S2A)
+    SetZone(3,gg_rct_E3A,gg_rct_B3A,gg_rct_S3A)
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
 
@@ -582,10 +628,19 @@ end
 
 function Enter2NewZone()
     CurrentGameZone=CurrentGameZone+1
+    if CurrentGameZone==1 then
+        --print("убираем обучение")
+        DestroyAllLearHelpers()
+    end
     CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     TimerStart(CreateTimer(),2, false, function()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
-        MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
+        if Destiny[CurrentGameZone] then
+            MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
+            StartEnemyWave(Destiny[CurrentGameZone])
+        else
+            print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
+        end
         CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
 end
@@ -593,7 +648,6 @@ end
 function GetRandomIntTable(min, max, count)
     local keys = {}
     local out  = {}
-
     if min == max then return { min } end
     if max < min then min, max = max, min end
     local limit = math.abs(max - min) + 1
@@ -632,8 +686,99 @@ function MoveAllHeroAndBound(recEnter,rectBound)
             SetUnitPosition(data.UnitHero,x,y)
         end
     end
-    CreateGodTalon(x2,y2,"Trall",80,80,255)
+    --CreateGodTalon(x2,y2,"Trall",80,80,255)
 end
+
+function StartEnemyWave(waveNumber)
+    local listID={}
+    local maxOnWave=1
+    if waveNumber==1 then
+        listID={  -- скелетов по 5
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+        }
+        maxOnWave=5
+    end
+
+    if waveNumber==2 then
+        listID={  -- скелетов по 5
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+        }
+        maxOnWave=1
+    end
+    if waveNumber==3 then
+        listID={  -- скелетов по 5
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+        }
+        maxOnWave=10
+    end
+
+    if listID[1] then
+        StartWave(GameZone[waveNumber].rectSpawn,listID,maxOnWave)
+    else
+        print("В волне врагов, нет ни одного ID, так и задумано?")
+    end
+end
+
+LiveOnWave=0-- живые на волне
+CurrentOnWave=0
+function StartWave(rect,listID,max)
+    -- print("start wave "..max)
+    local MaxOnWave=#listID
+    LiveOnWave=0
+    --CurrentOnWave=max
+    local k=1
+    --print(0)
+    for i = 1, max do
+        local loc=GetRandomLocInRect(rect)
+        local x,y=GetLocationX(loc),GetLocationY(loc)
+        CreateCreepDelay(listID[k],x,y,0.9,k)
+        --MaxOnWave=MaxOnWave-1
+        k=k+1
+    end
+    TimerStart(CreateTimer(),1, true, function()
+        if LiveOnWave<max-1 and k<=MaxOnWave then
+            --print("убит из пачки, создаём "..k)
+            local loc=GetRandomLocInRect(rect)
+            local x,y=GetLocationX(loc),GetLocationY(loc)
+            CreateCreepDelay(listID[k],x,y,1.5,k)
+            k=k+1
+        end
+        if LiveOnWave<=0 and k>=max then
+            --print("все убиты даём награду")
+            local x,y=GetUnitXY(HERO[0].UnitHero)
+            CreateGodTalon(x,y,"Trall",80,80,255)
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+function CreateCreepDelay(id,x,y,delay)
+    local eff=AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl",x,y)
+    TimerStart(CreateTimer(),delay, false, function()
+        --print("create new")
+        local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
+        LiveOnWave=LiveOnWave+1
+        IssueTargetOrder(new,"attack",HERO[0].UnitHero)
+        DestroyEffect(eff)
+        TimerStart(CreateTimer(),delay, true, function()
+            if not UnitAlive(new) then
+                DestroyTimer(GetExpiredTimer())
+                LiveOnWave=LiveOnWave-1
+                --print(LiveOnWave[k])
+            end
+        end)
+    end)
+end
+
+
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -661,19 +806,18 @@ function CreateGodTalon(x, y, name, r, g, b)
         angle = angle + 1
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
     end)
-    FinObjectInArea(x, y, "   Принять дар", "TalonTrall")
+    FinObjectInArea(x, y, "   Принять дар", "TalonTrall",true)
     LastGodTalon = table
-    print("проверка1 " .. GetDestructableName(table[3]))
-    print("проверка2 " .. GetDestructableName(LastGodTalon[3]))
     return table
 end
 
 function DestroyGodTalon(table)
-    print("destoy " .. GetDestructableName(table[3]))
     DestroyEffect(table[1])
     DestroyEffect(table[2])
     KillDestructable(table[3])
 end
+
+
 HeroID = FourCC("opeo")
 NextPoint=0.039
 OutPoint=6000
@@ -712,70 +856,110 @@ end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
---- DateTime: 14.02.2021 23:57
+--- DateTime: 18.02.2021 0:00
 ---
-
-function currentHandle()
-    local u = CreateUnit(Player(0), FourCC("Hpal"), 0, 0, 0)
-    print(GetHandleId(u))
-    RemoveUnit(u)
-end
 do
     TimerStart(CreateTimer(), 1, false, function()
-        TempEnemyID={FourCC("nsko"),FourCC("nsog"),FourCC("nsoc")}
-        effPenta="Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl"
-        --print("start")
-        LiveOnWave={}
-        --StartWave(1,10)
-        local m=0
-        TimerStart(CreateTimer(), 1, true, function()
-            m=m+1
-            --print(m)
-            --currentHandle()
-        end)
+        CreateTaskForAllPlayer()
     end)
 end
+SimpleTaskPos = {}
+function CreateTaskForAllPlayer()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) then
+            SimpleTaskPos[i] = 0
+            local data = HERO[i]
+            local frames = {}
+            local chk = {}
+            local text={}
+            frames[1],_,text[1],_,chk[1] = CreateSimpleTask("Быстро нажимайте LMB, чтобы совершить серию из 3х ударов", Player(i))
+            frames[2],_,text[2],_,chk[2] = CreateSimpleTask("Удерживайте LMB, чтобы выполнить заряженную атаку", Player(i))
+            frames[3],_,text[3],_,chk[3] = CreateSimpleTask("Нажмите Q, чтобы совершить сокрушительный удар", Player(i))
+            frames[4],_,text[4],_,chk[4] = CreateSimpleTask("Нажимите RMB, чтобы метнуть молот", Player(i))
+            frames[5],_,text[5],_,chk[5] = CreateSimpleTask("Нажимите SPACE, чтобы совершить рывок", Player(i))
+            frames[6],_,text[6],_,chk[6] = CreateSimpleTask("Совершите атаку в рывке Space+LMB", Player(i))
+            data.chk=chk
+            local completed = false
 
-function CreateCreepDelay(id,x,y,delay,k)
-    local eff=AddSpecialEffect(effPenta,x,y)
-    TimerStart(CreateTimer(),delay, false, function()
-        --print("create new")
-        local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
-        IssueTargetOrder(new,"attack",HERO[0].UnitHero)
-        DestroyEffect(eff)
-        TimerStart(CreateTimer(),delay, true, function()
-            if not UnitAlive(new) then
-                DestroyTimer(GetExpiredTimer())
-                LiveOnWave[k]=LiveOnWave[k]-1
-                --print(LiveOnWave[k])
-            end
-        end)
-    end)
-end
+            TimerStart(CreateTimer(), 1, true, function()
+                for k = 1, 6 do
+                    if data.tasks[k] then
+                        completed = true
+                        BlzFrameSetVisible(chk[k], GetLocalPlayer()==Player(i))
+                        BlzFrameSetTextColor(text[k],BlzConvertColor(255, 120, 120, 120))
+                    end
+                end
 
-function StartWave(k,max)
-   -- print("start wave "..max)
-    LiveOnWave[k]=max
-    --print(0)
-    for i = 0, max do
-        --print(1)
-        local loc=GetRandomLocInRect(gg_rct_R1)
-        --print(2)
-        local x,y=GetLocationX(loc),GetLocationY(loc)
-        --print(i)
-        CreateCreepDelay(TempEnemyID[k],x,y,1.5,k)
-    end
-    TimerStart(CreateTimer(),1, true, function()
-        if LiveOnWave[k]<0 then
-            --print("все убиты, стартуем новую волну")
-            DestroyTimer(GetExpiredTimer())
-            if k==#TempEnemyID then
-                --print("restart "..k)
-                k=0
-            end
-            StartWave(k+1,10)
+                for k = 1, 6 do
+                    if not data.tasks[k] then
+                        completed = false
+                    end
+                end
+
+                if completed then
+                    --print("Все условия выполнены")
+                    DestroyTimer(GetExpiredTimer())
+                    for k = 1, 6 do
+                        BlzDestroyFrame(frames[k])
+                    end
+                else
+                    -- print("ждём выполнения условий")
+                end
+            end)
         end
-    end)
+
+    end
+end
+
+function CreateSimpleTask(message, player)
+    local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
+    local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    local box = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', tooltip, '', 0)
+    local chk = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', tooltip, '', 0)
+    local pid = GetPlayerId(player)
+    BlzFrameSetParent(tooltip, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(backdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(box, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(chk, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+
+    BlzFrameSetTexture(box, "SystemGeneric\\Box", 0, true)
+    BlzFrameSetSize(box, NextPoint / 3, NextPoint / 3)
+    BlzFrameSetPoint(box, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.008, 0.0)
+
+    BlzFrameSetTexture(chk, "SystemGeneric\\Chk", 0, true)
+    BlzFrameSetSize(chk, NextPoint / 3, NextPoint / 3)
+    BlzFrameSetPoint(chk, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.008, 0.0)
+
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_LEFT, -0.12, 0.59 - 0.02 * SimpleTaskPos[pid])
+    BlzFrameSetSize(tooltip, 0.4, 0.03)
+    BlzFrameSetSize(backdrop, 0.4, 0.03)
+    BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
+    BlzFrameSetAlpha(backdrop, 150)
+    BlzFrameSetText(text, message)
+    BlzFrameSetScale(text, 1.2)
+    BlzFrameSetPoint(text, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.02, 0.0)
+    SimpleTaskPos[pid] = SimpleTaskPos[pid] + 1
+
+    BlzFrameSetVisible(tooltip, false)
+    BlzFrameSetVisible(chk, false)
+    BlzFrameSetVisible(tooltip, GetLocalPlayer() == player)
+
+    return tooltip, backdrop, text, box, chk
+end
+
+function DestroyAllLearHelpers()
+
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) then
+            local data=HERO[i]
+            SimpleTaskPos[i]=0
+            for j=1,6 do
+                data.tasks[j]=true
+            end
+        end
+    end
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -1064,102 +1248,6 @@ function StartAndReleaseSpin(data)
 
         end
     end)
-end
----
---- Generated by EmmyLua(https://github.com/EmmyLua)
---- Created by Bergi.
---- DateTime: 18.02.2021 0:00
----
-do
-    TimerStart(CreateTimer(), 1, false, function()
-        CreateTaskForAllPlayer()
-    end)
-end
-SimpleTaskPos = {}
-function CreateTaskForAllPlayer()
-    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) then
-            SimpleTaskPos[i] = 0
-            local data = HERO[i]
-            local frames = {}
-            local chk = {}
-            local text={}
-            frames[1],_,text[1],_,chk[1] = CreateSimpleTask("Быстро нажимайте LMB, чтобы совершить серию из 3х ударов", Player(i))
-            frames[2],_,text[2],_,chk[2] = CreateSimpleTask("Удерживайте LMB, чтобы выполнить заряженную атаку", Player(i))
-            frames[3],_,text[3],_,chk[3] = CreateSimpleTask("Нажмите Q, чтобы совершить сокрушительный удар", Player(i))
-            frames[4],_,text[4],_,chk[4] = CreateSimpleTask("Нажимите RMB, чтобы метнуть молот", Player(i))
-            frames[5],_,text[5],_,chk[5] = CreateSimpleTask("Нажимите SPACE, чтобы совершить рывок", Player(i))
-            frames[6],_,text[6],_,chk[6] = CreateSimpleTask("Совершите атаку в рывке Space+LMB", Player(i))
-            data.chk=chk
-            local completed = false
-
-            TimerStart(CreateTimer(), 1, true, function()
-                for k = 1, 6 do
-                    if data.tasks[k] then
-                        completed = true
-                        BlzFrameSetVisible(chk[k], GetLocalPlayer()==Player(i))
-                        BlzFrameSetTextColor(text[k],BlzConvertColor(255, 120, 120, 120))
-                    end
-                end
-
-                for k = 1, 6 do
-                    if not data.tasks[k] then
-                        completed = false
-                    end
-                end
-
-                if completed then
-                    --print("Все условия выполнены")
-                    DestroyTimer(GetExpiredTimer())
-                    for k = 1, 6 do
-                        BlzDestroyFrame(frames[k])
-                    end
-                else
-                    -- print("ждём выполнения условий")
-                end
-            end)
-        end
-
-    end
-end
-
-function CreateSimpleTask(message, player)
-    local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
-    local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
-    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local box = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', tooltip, '', 0)
-    local chk = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', tooltip, '', 0)
-    local pid = GetPlayerId(player)
-    BlzFrameSetParent(tooltip, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetParent(backdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetParent(box, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetParent(chk, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-
-    BlzFrameSetTexture(box, "SystemGeneric\\Box", 0, true)
-    BlzFrameSetSize(box, NextPoint / 3, NextPoint / 3)
-    BlzFrameSetPoint(box, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.008, 0.0)
-
-    BlzFrameSetTexture(chk, "SystemGeneric\\Chk", 0, true)
-    BlzFrameSetSize(chk, NextPoint / 3, NextPoint / 3)
-    BlzFrameSetPoint(chk, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.008, 0.0)
-
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_LEFT, -0.12, 0.59 - 0.02 * SimpleTaskPos[pid])
-    BlzFrameSetSize(tooltip, 0.4, 0.03)
-    BlzFrameSetSize(backdrop, 0.4, 0.03)
-    BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetAlpha(backdrop, 150)
-    BlzFrameSetText(text, message)
-    BlzFrameSetScale(text, 1.2)
-    BlzFrameSetPoint(text, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.02, 0.0)
-    SimpleTaskPos[pid] = SimpleTaskPos[pid] + 1
-
-    BlzFrameSetVisible(tooltip, false)
-    BlzFrameSetVisible(chk, false)
-    BlzFrameSetVisible(tooltip, GetLocalPlayer() == player)
-
-    return tooltip, backdrop, text, box, chk
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
