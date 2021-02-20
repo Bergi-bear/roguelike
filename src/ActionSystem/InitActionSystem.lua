@@ -190,7 +190,6 @@ function CreateEActions()
                 CreateInfoBoxForAllPlayerTimed(data,message,5)
                 data.Completed=true
                 print("Создаём диалоговое окно для всех игроков Jsore")
-                CreateDialogTalon("Trall")
                 DestroyGodTalon(LastGodTalon)
                 data.DoAction=false
                 data.UseAction=""
