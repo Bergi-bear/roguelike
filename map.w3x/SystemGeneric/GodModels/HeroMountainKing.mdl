@@ -63,7 +63,7 @@ Textures 11 {
 		Image "Textures\GenericGlow2b.blp",
 	}
 	Bitmap {
-		Image "ReplaceableTextures\CommandButtons\PASBTNHeroMountainKing.blp",
+		Image "ReplaceableTextures\CommandButtons\BTNHeroMountainKing.blp",
 	}
 	Bitmap {
 		Image "ReplaceableTextures\TeamColor\TeamColor22.blp",

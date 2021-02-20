@@ -34,12 +34,18 @@ function InitFinObjectInArea()
     FinObjectInArea(7200,-7600,"Отдохноуть","NoWorking",true) -- возле деревьев
 
     --Переходы между зонами
-    FinObjectInArea(14900,-11600,"   Продолжить","Goto",false)
-    FinObjectInArea(15700,-12600,"   Продолжить","Goto",false)
-    FinObjectInArea(18800,-12300,"   Продолжить","Goto",false)
-    FinObjectInArea(13100,-8200,"   Продолжить","Goto",false)
-    FinObjectInArea(14100,-8200,"   Продолжить","Goto",false)
-    --FinObjectInArea(0,-0,"Продолжить","Goto",false)
+    FinObjectInArea(14710,-11735,"   Продолжить","Goto",false)
+    FinObjectInArea(15665,-12743,"   Продолжить","Goto",false)
+    FinObjectInArea(18545,-12487,"   Продолжить","Goto",false)
+    FinObjectInArea(12913,-8415,"   Продолжить","Goto",false)
+    FinObjectInArea(13940,-8415,"   Продолжить","Goto",false)
+
+    FinObjectInArea(15089,-5911,"Продолжить","Goto",false)
+    FinObjectInArea(16338,-6629,"Продолжить","Goto",false)
+    FinObjectInArea(18036,-10000,"Продолжить","Goto",false)
+    FinObjectInArea(18931,-10000,"Продолжить","Goto",false)
+    FinObjectInArea(19442,-6286,"Продолжить","Goto",false)
+    FinObjectInArea(20223,-7145,"Продолжить","Goto",false)
     --FinObjectInArea(0,-0,"Продолжить","Goto",false)
 
 end
@@ -53,9 +59,9 @@ function FinObjectInArea(x,y,message,actionFlag,isActive,reward)
     if actionFlag=="Goto" then
         preView=AddSpecialEffect("SystemGeneric\\GodModels\\"..reward,x,y)
         BlzSetSpecialEffectYaw(preView, math.rad(90))
-        BlzSetSpecialEffectTimeScale(preView,2)
+        BlzSetSpecialEffectScale(preView,2)
 
-        print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
+        --print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
         --GLOBAL_REWARD=reward
     end
     ActionList[ActionListIndex]={
@@ -198,7 +204,7 @@ function CreateEActions()
                 local r=GetRandomInt(1,#rm)
                 local message=rm[r]
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
-                print("переходим в зону с этой наградой "..data.CurrentReward)
+                --print("переходим в зону с этой наградой "..data.CurrentReward)
                 GLOBAL_REWARD=data.CurrentReward
                 Enter2NewZone()
                 DestroyDecorInArea(data,300)
@@ -238,13 +244,16 @@ function CreateEActions()
                 data.DoAction=false
                 data.UseAction=""
             end
+----------------------------------------------------/
+---------------ДАРЫ БОГОВ---------------------------/
+----------------------------------------------------/
             if data.UseAction=="Trall" then
                 local message="Провидец, я выбираю тебя"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
                 TimerStart(CreateTimer(),2, false, function()
-                    print("Создаём диалоговое окно для всех игроков Jsore")
-                    CreateDialogTalon(GLOBAL_REWARD) -- Сюда передаётся trall
+                    --print("Создаём диалоговое окно для всех игроков Jsore")
+                    --CreateDialogTalon(GLOBAL_REWARD) -- Сюда передаётся trall
                     DestroyGodTalon(LastGodTalon)
                     AllActionsEnabled(true)--активация всех переходов
                 end)
@@ -252,6 +261,84 @@ function CreateEActions()
                 data.UseAction=""
                 --GetTerrainZ()
             end
+            if data.UseAction=="HeroBlademaster" then
+                local message="Надели меня силой своего клинка"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroTaurenChieftain" then
+                local message="Держите оборону"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="ShadowHunter" then
+                local message="Я отомщю за тебя"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroArchMage" then
+                local message="Гендальф белый"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroPaladin" then
+                local message="За твоего отца"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroBloodElfPrince" then
+                local message="Инвокер, ты ли это?"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroMountainKing" then
+                local message="Помоги мне подраться"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+
 
         end
     end)

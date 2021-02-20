@@ -7,6 +7,15 @@ gg_rct_S2A = nil
 gg_rct_E3A = nil
 gg_rct_E1A = nil
 gg_rct_E2A = nil
+gg_rct_E4A = nil
+gg_rct_S4A = nil
+gg_rct_B4A = nil
+gg_rct_E5A = nil
+gg_rct_S5A = nil
+gg_rct_B5A = nil
+gg_rct_E6A = nil
+gg_rct_S6A = nil
+gg_rct_B6A = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -29,6 +38,7 @@ gg_snd_RiflemanAttack1 = nil
 gg_snd_OrcVictory = ""
 gg_snd_HeroMountainKingYesAttack2 = nil
 gg_trg_TEST = nil
+gg_trg_FFF = nil
 function InitGlobals()
 end
 
@@ -94,13 +104,22 @@ function CreateRegions()
     local we
     gg_rct_B1A = Rect(13632.0, -12832.0, 14912.0, -12160.0)
     gg_rct_S1A = Rect(13056.0, -13344.0, 15552.0, -11840.0)
-    gg_rct_B2A = Rect(17856.0, -13280.0, 18048.0, -13056.0)
-    gg_rct_B3A = Rect(13440.0, -10112.0, 15616.0, -9088.0)
+    gg_rct_B2A = Rect(17856.0, -13312.0, 18048.0, -12992.0)
+    gg_rct_B3A = Rect(13440.0, -10112.0, 15616.0, -8800.0)
     gg_rct_S3A = Rect(12768.0, -10688.0, 16384.0, -8480.0)
     gg_rct_S2A = Rect(17088.0, -13760.0, 18848.0, -12608.0)
     gg_rct_E3A = Rect(13152.0, -11104.0, 13504.0, -10464.0)
     gg_rct_E1A = Rect(13216.0, -13696.0, 13568.0, -13216.0)
-    gg_rct_E2A = Rect(16704.0, -13536.0, 17056.0, -13120.0)
+    gg_rct_E2A = Rect(16704.0, -13536.0, 17184.0, -13120.0)
+    gg_rct_E4A = Rect(18144.0, -11712.0, 18432.0, -11232.0)
+    gg_rct_S4A = Rect(17984.0, -11264.0, 19424.0, -10176.0)
+    gg_rct_B4A = Rect(18656.0, -10912.0, 18784.0, -10432.0)
+    gg_rct_E5A = Rect(17376.0, -8512.0, 17920.0, -8096.0)
+    gg_rct_S5A = Rect(17888.0, -8640.0, 20064.0, -6528.0)
+    gg_rct_B5A = Rect(18528.0, -8256.0, 19392.0, -6848.0)
+    gg_rct_E6A = Rect(15232.0, -7680.0, 15520.0, -7072.0)
+    gg_rct_S6A = Rect(14720.0, -7200.0, 16160.0, -6112.0)
+    gg_rct_B6A = Rect(15392.0, -6848.0, 15520.0, -6432.0)
 end
 
 function CreateCameras()
@@ -338,12 +357,18 @@ function InitFinObjectInArea()
     FinObjectInArea(7200,-7600,"Отдохноуть","NoWorking",true) -- возле деревьев
 
     --Переходы между зонами
-    FinObjectInArea(14900,-11600,"   Продолжить","Goto",false)
-    FinObjectInArea(15700,-12600,"   Продолжить","Goto",false)
-    FinObjectInArea(18800,-12300,"   Продолжить","Goto",false)
-    FinObjectInArea(13100,-8200,"   Продолжить","Goto",false)
-    FinObjectInArea(14100,-8200,"   Продолжить","Goto",false)
-    --FinObjectInArea(0,-0,"Продолжить","Goto",false)
+    FinObjectInArea(14710,-11735,"   Продолжить","Goto",false)
+    FinObjectInArea(15665,-12743,"   Продолжить","Goto",false)
+    FinObjectInArea(18545,-12487,"   Продолжить","Goto",false)
+    FinObjectInArea(12913,-8415,"   Продолжить","Goto",false)
+    FinObjectInArea(13940,-8415,"   Продолжить","Goto",false)
+
+    FinObjectInArea(15089,-5911,"Продолжить","Goto",false)
+    FinObjectInArea(16338,-6629,"Продолжить","Goto",false)
+    FinObjectInArea(18036,-10000,"Продолжить","Goto",false)
+    FinObjectInArea(18931,-10000,"Продолжить","Goto",false)
+    FinObjectInArea(19442,-6286,"Продолжить","Goto",false)
+    FinObjectInArea(20223,-7145,"Продолжить","Goto",false)
     --FinObjectInArea(0,-0,"Продолжить","Goto",false)
 
 end
@@ -357,9 +382,9 @@ function FinObjectInArea(x,y,message,actionFlag,isActive,reward)
     if actionFlag=="Goto" then
         preView=AddSpecialEffect("SystemGeneric\\GodModels\\"..reward,x,y)
         BlzSetSpecialEffectYaw(preView, math.rad(90))
-        BlzSetSpecialEffectTimeScale(preView,2)
+        BlzSetSpecialEffectScale(preView,2)
 
-        print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
+        --print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
         --GLOBAL_REWARD=reward
     end
     ActionList[ActionListIndex]={
@@ -502,7 +527,7 @@ function CreateEActions()
                 local r=GetRandomInt(1,#rm)
                 local message=rm[r]
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
-                print("переходим в зону с этой наградой "..data.CurrentReward)
+                --print("переходим в зону с этой наградой "..data.CurrentReward)
                 GLOBAL_REWARD=data.CurrentReward
                 Enter2NewZone()
                 DestroyDecorInArea(data,300)
@@ -542,13 +567,16 @@ function CreateEActions()
                 data.DoAction=false
                 data.UseAction=""
             end
+----------------------------------------------------/
+---------------ДАРЫ БОГОВ---------------------------/
+----------------------------------------------------/
             if data.UseAction=="Trall" then
                 local message="Провидец, я выбираю тебя"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
                 TimerStart(CreateTimer(),2, false, function()
-                    print("Создаём диалоговое окно для всех игроков Jsore")
-                    CreateDialogTalon(GLOBAL_REWARD) -- Сюда передаётся trall
+                    --print("Создаём диалоговое окно для всех игроков Jsore")
+                    --CreateDialogTalon(GLOBAL_REWARD) -- Сюда передаётся trall
                     DestroyGodTalon(LastGodTalon)
                     AllActionsEnabled(true)--активация всех переходов
                 end)
@@ -556,6 +584,84 @@ function CreateEActions()
                 data.UseAction=""
                 --GetTerrainZ()
             end
+            if data.UseAction=="HeroBlademaster" then
+                local message="Надели меня силой своего клинка"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroTaurenChieftain" then
+                local message="Держите оборону"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="ShadowHunter" then
+                local message="Я отомщю за тебя"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroArchMage" then
+                local message="Гендальф белый"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroPaladin" then
+                local message="За твоего отца"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroBloodElfPrince" then
+                local message="Инвокер, ты ли это?"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+            if data.UseAction=="HeroMountainKing" then
+                local message="Помоги мне подраться"
+                CreateInfoBoxForAllPlayerTimed(data,message,3)
+                data.Completed=true
+                TimerStart(CreateTimer(),2, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction=false
+                data.UseAction=""
+            end
+
 
         end
     end)
@@ -636,7 +742,10 @@ GameZone={
 function InitAllZones()
     SetZone(1,gg_rct_E1A,gg_rct_B1A,gg_rct_S1A)
     SetZone(2,gg_rct_E2A,gg_rct_B2A,gg_rct_S2A)
-    --SetZone(3,gg_rct_E3A,gg_rct_B3A,gg_rct_S3A)
+    SetZone(3,gg_rct_E3A,gg_rct_B3A,gg_rct_S3A)
+    SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
+    SetZone(5,gg_rct_E5A,gg_rct_B5A,gg_rct_S5A)
+    SetZone(6,gg_rct_E6A,gg_rct_B6A,gg_rct_S6A)
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
 
@@ -741,7 +850,7 @@ function StartEnemyWave(waveNumber)
         listID={  -- скелетов по 5
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
         }
-        maxOnWave=1
+        maxOnWave=2
     end
     if waveNumber==3 then
         listID={  -- скелетов по 5
@@ -758,7 +867,9 @@ function StartEnemyWave(waveNumber)
     if listID[1] then
         StartWave(GameZone[waveNumber].rectSpawn,listID,maxOnWave)
     else
-        print("В волне врагов, нет ни одного ID, так и задумано?")
+        listID={FourCC("nsko")}
+        StartWave(GameZone[waveNumber].rectSpawn,listID,1)
+            print("В волне врагов, нет ни одного ID, так и задумано?")
     end
 end
 
@@ -800,10 +911,10 @@ end
 
 function CreateCreepDelay(id,x,y,delay)
     local eff=AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl",x,y)
+    LiveOnWave=LiveOnWave+1
     TimerStart(CreateTimer(),delay, false, function()
         --print("create new")
         local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
-        LiveOnWave=LiveOnWave+1
         IssueTargetOrder(new,"attack",HERO[0].UnitHero)
         DestroyEffect(eff)
         TimerStart(CreateTimer(),delay, true, function()
@@ -952,6 +1063,38 @@ function CreationPeonsForAllPlayer()
         end
     end
 end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 21.02.2021 0:06
+---
+
+
+do
+    local InitGlobalsOrigin = InitGlobals -- записываем InitGlobals в переменную
+    function InitGlobals()
+        InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
+        TimerStart(CreateTimer(), 2, false, function()
+            InitEnemyEntire()
+        end)
+    end
+end
+
+function InitEnemyEntire()
+    local gg_trg_FFF = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_FFF, GetPlayableMapRect())
+    TriggerAddAction(gg_trg_FFF, function()
+        local unit=GetTriggerUnit()
+        print(GetUnitName(unit))
+    end)
+end
+
+
+
+
+
+
+
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -3055,6 +3198,19 @@ function PlayUnitAnimationFromChat()
     end)
 end
 --CUSTOM_CODE
+function Trig_FFF_Actions()
+end
+
+function InitTrig_FFF()
+    gg_trg_FFF = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_FFF, GetPlayableMapRect())
+    TriggerAddAction(gg_trg_FFF, Trig_FFF_Actions)
+end
+
+function InitCustomTriggers()
+    InitTrig_FFF()
+end
+
 function InitCustomPlayerSlots()
     SetPlayerStartLocation(Player(0), 0)
     SetPlayerColor(Player(0), ConvertPlayerColor(0))
@@ -3082,6 +3238,7 @@ function main()
     CreateAllUnits()
     InitBlizzard()
     InitGlobals()
+    InitCustomTriggers()
 end
 
 function config()

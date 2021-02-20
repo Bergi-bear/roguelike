@@ -19,6 +19,9 @@ function InitAllZones()
     SetZone(1,gg_rct_E1A,gg_rct_B1A,gg_rct_S1A)
     SetZone(2,gg_rct_E2A,gg_rct_B2A,gg_rct_S2A)
     SetZone(3,gg_rct_E3A,gg_rct_B3A,gg_rct_S3A)
+    SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
+    SetZone(5,gg_rct_E5A,gg_rct_B5A,gg_rct_S5A)
+    SetZone(6,gg_rct_E6A,gg_rct_B6A,gg_rct_S6A)
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
 
@@ -123,7 +126,7 @@ function StartEnemyWave(waveNumber)
         listID={  -- скелетов по 5
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
         }
-        maxOnWave=1
+        maxOnWave=2
     end
     if waveNumber==3 then
         listID={  -- скелетов по 5
@@ -140,7 +143,9 @@ function StartEnemyWave(waveNumber)
     if listID[1] then
         StartWave(GameZone[waveNumber].rectSpawn,listID,maxOnWave)
     else
-        print("В волне врагов, нет ни одного ID, так и задумано?")
+        listID={FourCC("nsko")}
+        StartWave(GameZone[waveNumber].rectSpawn,listID,1)
+            print("В волне врагов, нет ни одного ID, так и задумано?")
     end
 end
 
@@ -182,10 +187,10 @@ end
 
 function CreateCreepDelay(id,x,y,delay)
     local eff=AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl",x,y)
+    LiveOnWave=LiveOnWave+1
     TimerStart(CreateTimer(),delay, false, function()
         --print("create new")
         local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
-        LiveOnWave=LiveOnWave+1
         IssueTargetOrder(new,"attack",HERO[0].UnitHero)
         DestroyEffect(eff)
         TimerStart(CreateTimer(),delay, true, function()
