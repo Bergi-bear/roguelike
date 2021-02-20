@@ -189,6 +189,7 @@ function CreateEActions()
                 local message="Провидец, я выбираю тебя"
                 CreateInfoBoxForAllPlayerTimed(data,message,5)
                 data.Completed=true
+                CreateDialogTalon("Trall")
                 print("Создаём диалоговое окно для всех игроков Jsore")
                 DestroyGodTalon(LastGodTalon)
                 data.DoAction=false
