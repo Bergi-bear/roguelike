@@ -12,10 +12,17 @@ do
 end
 ActionList={}
 ActionListIndex=1
-PreViewIcon={
-    {},
-    {}
+PreViewIcon={ -- Таблица случайных иконок которые могу быть дарами, установлены у входа
+    "HeroArchMage",
+    "HeroBlademaster",
+    "HeroBloodElfPrince",
+    "HeroMountainKing",
+    "HeroPaladin",
+    "HeroTaurenChieftain",
+    "ShadowHunter",
+    "Trall",
 }
+
 function InitFinObjectInArea()
     FinObjectInArea(5300,-9000,"Подняться на борт","StartSheep",true) --зона корабля
     FinObjectInArea(5400,-8300,"Исследовать лодку","Board",true) --Левая лодка
@@ -37,10 +44,27 @@ function InitFinObjectInArea()
 
 end
 
-function FinObjectInArea(x,y,message,actionFlag,isActive)
+function FinObjectInArea(x,y,message,actionFlag,isActive,reward)
+
+    if not reward then
+        reward=PreViewIcon[GetRandomInt(1,#PreViewIcon)]
+    end
+    local preView=nil
+    if actionFlag=="Goto" then
+        preView=AddSpecialEffect("SystemGeneric\\GodModels\\"..reward,x,y)
+        BlzSetSpecialEffectYaw(preView, math.rad(90))
+        BlzSetSpecialEffectTimeScale(preView,2)
+
+        print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
+        --GLOBAL_REWARD=reward
+    end
     ActionList[ActionListIndex]={
-        x=x,y=y,actionFlag=actionFlag
+        x=x,
+        y=y,
+        actionFlag=actionFlag,
+        reward=reward
     }
+
     ActionListIndex=ActionListIndex+1
     local activeNumber=ActionListIndex-1
     local thisTrigger=CreateTrigger()
@@ -48,6 +72,7 @@ function FinObjectInArea(x,y,message,actionFlag,isActive)
     local range=200
     local rect=Rect(x - range, y - range, x + range, y +range)
     local tooltip,backdrop,text=CreateActionBox(message)
+
     ActionList[activeNumber].isActive=isActive
     TriggerRegisterEnterRectSimple(thisTrigger,rect)
     TriggerAddAction(thisTrigger, function()
@@ -59,6 +84,7 @@ function FinObjectInArea(x,y,message,actionFlag,isActive)
             if not HERO[pid].DoAction then
                 HERO[pid].DoAction=true
                 HERO[pid].UseAction=actionFlag
+                HERO[pid].CurrentReward=reward
                 if GetLocalPlayer()==GetOwningPlayer(GetTriggerUnit()) then
                     BlzFrameSetVisible(tooltip,true)
                 end
@@ -159,6 +185,9 @@ function CreateEActions()
                 data.DoAction=false
                 data.UseAction=""
             end
+            -----------------------------------------------------
+            -----------------------------------------------------
+            -----------------------------------------------------
             if data.UseAction=="Goto" then
                 local rm={
                     "Что нас ждём внутри?",
@@ -169,6 +198,8 @@ function CreateEActions()
                 local r=GetRandomInt(1,#rm)
                 local message=rm[r]
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
+                print("переходим в зону с этой наградой "..data.CurrentReward)
+                GLOBAL_REWARD=data.CurrentReward
                 Enter2NewZone()
                 DestroyDecorInArea(data,300)
                 data.Completed=true
@@ -207,7 +238,7 @@ function CreateEActions()
                 data.DoAction=false
                 data.UseAction=""
             end
-            if data.UseAction=="TalonTrall" then
+            if data.UseAction=="Trall" then
                 local message="Провидец, я выбираю тебя"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true

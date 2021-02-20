@@ -12,7 +12,8 @@ end
 GameZone={
     recEnter=nil,
     rectBound=nil,
-    rectSpawn=nil
+    rectSpawn=nil,
+    reward=nil
 }
 function InitAllZones()
     SetZone(1,gg_rct_E1A,gg_rct_B1A,gg_rct_S1A)
@@ -46,6 +47,8 @@ function Enter2NewZone()
         --print("убираем обучение")
         DestroyAllLearHelpers()
     end
+    --print(" вошел в зону .. "..CurrentGameZone.. " для судьбы это зона "..Destiny[CurrentGameZone].. " а награда то какая? наверное ")
+
     CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     TimerStart(CreateTimer(),2, false, function()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
@@ -168,7 +171,10 @@ function StartWave(rect,listID,max)
         if LiveOnWave<=0 and k>=max then
             --print("все убиты даём награду")
             local x,y=GetRectCenterX(rect),GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
-            CreateGodTalon(x,y,"Trall",80,80,255)
+            --print()
+            ---print(Destiny[CurrentGameZone].." выдёргивает талант из этой зоны. Создан "..ActionList[Destiny[CurrentGameZone]].reward)
+
+            CreateGodTalon(x,y,GLOBAL_REWARD,80,80,255)
             DestroyTimer(GetExpiredTimer())
         end
     end)
