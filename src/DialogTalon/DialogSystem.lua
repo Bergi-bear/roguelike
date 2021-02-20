@@ -1,9 +1,12 @@
 function CreateDialogTalon(godName)
-    BlzLoadTOCFile("SystemGeneric\\Main.toc")
-
+    if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
+        print("ошибка загрузки ".."SystemGeneric\\Main.toc")
+    end
+    print("где диалог") --работает
     local title = ""
     local talons = {}
     if godName == "Trall" then
+        print("создаём дары тралла")-- работает
         title = "Дары Тралла"
         talons = TalonBD.Trall
     end
@@ -33,6 +36,11 @@ function CreateDialogTalon(godName)
 
     --DialogTalon.SecondBackdrop = BlzCreateFrameByType("BACKDROP", "Body", DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
     --BlzFrameSetAllPoints(DialogTalon.SecondBackdrop, DialogTalon.SecondFrame)
-    BlzFrameSetVisible(DialogTalon.MainFrame, false)
-    BlzFrameSetVisible(DialogTalon.MainFrame, GetLocalPlayer() == GetTriggerPlayer())
+    BlzFrameSetVisible(DialogTalon.MainFrame, true)
+    --BlzFrameSetVisible(DialogTalon.MainFrame, GetLocalPlayer() == GetTriggerPlayer())
+    if GetLocalPlayer() == GetTriggerPlayer() then
+        print("true")
+    else
+        print("false")
+    end
 end

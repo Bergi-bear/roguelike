@@ -27,7 +27,7 @@ function InitFinObjectInArea()
     FinObjectInArea(5300,-9000,"Подняться на борт","StartSheep",true) --зона корабля
     FinObjectInArea(5400,-8300,"Исследовать лодку","Board",true) --Левая лодка
     FinObjectInArea(5500,-6900,"Войти","BackDor",true) --Вечно закрытые ворота
-    FinObjectInArea(6600,-6300,"Войти через главный вход","Goto",true) --Начать приключение
+    FinObjectInArea(6600,-6300,"Войти через главный вход","Goto",true,"Trall") --Начать приключение
     FinObjectInArea(7700,-8000,"Преисполниться","StartBonus",true) --Синий огонь
     FinObjectInArea(7800,-6600,"Посмотреть в даль","SoFar",true) --на краю берега справа
     FinObjectInArea(7000,-9200,"Рыбачить","Fish",true) -- внизу на берегу
@@ -244,6 +244,7 @@ function CreateEActions()
                 data.Completed=true
                 TimerStart(CreateTimer(),2, false, function()
                     print("Создаём диалоговое окно для всех игроков Jsore")
+                    CreateDialogTalon(GLOBAL_REWARD) -- Сюда передаётся trall
                     DestroyGodTalon(LastGodTalon)
                     AllActionsEnabled(true)--активация всех переходов
                 end)
