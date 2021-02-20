@@ -25,12 +25,10 @@ function CreateDialogTalon(godName)
     BlzFrameSetText(DialogTalon.Title, title)
 
     DialogTalon.TalonButtons = {}
-    --BlzFrameSetSize(DialogTalon.SecondFrame, 0.252, 0.1)
-    --BlzFrameSetAbsPoint(DialogTalon.SecondFrame, FRAMEPOINT_CENTER, 0.16, 0.275)
     for i = 1, #talons do
         DialogTalon.TalonButtons[i] = BlzCreateFrameByType("BUTTON", "TalonButton" .. i, DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
         BlzFrameSetSize(DialogTalon.TalonButtons[i], 0.3, 0.15)
-        BlzFrameSetPoint(DialogTalon.TalonButtons[i], FRAMEPOIN)
+        BlzFrameSetPoint(DialogTalon.TalonButtons[i], FRAMEPOINT_TOPLEFT, DialogTalon.MainFrame, FRAMEPOINT_TOPLEFT, 0.015, -0.06)
     end
 
     --DialogTalon.SecondBackdrop = BlzCreateFrameByType("BACKDROP", "Body", DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
