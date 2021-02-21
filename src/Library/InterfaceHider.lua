@@ -167,7 +167,6 @@ function CreateSimpleFrameGlue(posX, PosY, texture, flag)
 
     local TrigMOUSE_ENTER = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
-
     TriggerAddAction(TrigMOUSE_ENTER, function()
         --print("показать подсказку "..flag)
         mouseOnFrame=true
