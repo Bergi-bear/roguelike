@@ -65,3 +65,20 @@ function StunArea(hero,x,y,range,duration)
 		GroupRemoveUnit(perebor,e)
 	end
 end
+
+function IsUnitStunned(hero)
+	local isStunned=false
+	if not StunSystem[GetHandleId(hero)] then
+		StunSystem[GetHandleId(hero)]={
+			Time=0,
+			Eff=nil,
+			Timer=nil
+		}
+	end
+	local data=StunSystem[GetHandleId(hero)]
+
+	if data.Time>0 then
+		isStunned=true
+	end
+	return isStunned
+end

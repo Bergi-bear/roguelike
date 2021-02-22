@@ -781,27 +781,13 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                     HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --FIXME
                     HERO[GetPlayerId(GetOwningPlayer(hero))].ResetSeriesTime=0
                 end
-
-                if flag==5 then
-                    ShowUnit(hero,true)
-
-                end
-
-                if flag==6 then -- башлорд конец бега
-                    ResetUnitAnimation(hero)
+                if flag=="forceAttack" then
                     BlzPauseUnitEx(hero,false)
                     SetUnitTimeScale(hero,1)
+                    UnitDamageArea(hero,50,newX, newY,150)
+                    DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic",newX, newY))
                 end
 
-                if IsUnitType(hero,UNIT_TYPE_HERO) then
-                    if HERO[GetPlayerId(GetOwningPlayer(hero))].isCharging then
-                        --print("рывок окончен")
-                        --DestroyTimer(GetExpiredTimer())
-                        --onForces[GetHandleId(hero)]=true
-                        --HERO[0].isCharging=false
-                        ResetUnitAnimation(hero)
-                    end
-                end
                 DestroyTimer(GetExpiredTimer())
                 onForces[GetHandleId(hero)]=true
                 --print("stop cur="..currentdistance.." dist="..distance)

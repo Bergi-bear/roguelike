@@ -20,12 +20,86 @@ function InitEnemyEntire()
     TriggerRegisterEnterRectSimple(gg_trg_FFF, GetPlayableMapRect())
     TriggerAddAction(gg_trg_FFF, function()
         local unit=GetTriggerUnit()
-        print(GetUnitName(unit))
+       -- print(GetUnitName(unit))
+        if GetUnitTypeId(unit)==FourCC("nsko") then -- простые скелеты орки с молотом
+            IssueTargetOrder(unit,"attack",GetRandomEnemyHero())
+            JumpAI(unit)
+        end
+        if GetUnitTypeId(unit)==FourCC("ucs1") then -- маленький скоробей
+            SinergyBug(unit)
+        end
+
     end)
+end
+
+function GetRandomEnemyHero()
+    local table={}
+    local k=1
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            local data=HERO[i]
+            if UnitAlive(data.UnitHero) then
+                --print("найден живой")
+                table[k]=data.UnitHero
+                k=k+1
+            end
+        end
+    end
+    local r=GetRandomInt(1,#table)
+    return table[r]
+end
+
+Bugs=CreateGroup()
+function SinergyBug(unit)
+
+    GroupAddUnit(Bugs,unit)
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+            ForGroup(Bugs,function()
+                local e=GetEnumUnit()
+                IssueTargetOrder(e,"attack",GetRandomEnemyHero())
+            end)
+        end
+    end)
+
 end
 
 
 
 
+function JumpAI(unit)
+    TimerStart(CreateTimer(), 5, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero=GetRandomEnemyHero()
+            local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+
+            if dist>200 and dist<600 then
+                if not IsUnitStunned(unit) then
+                    --print(dist.." дистанция")
+                    local angle=AngleBetweenUnits(unit,hero)
+                    BlzPauseUnitEx(unit,true)
+                    SetUnitAnimation(unit,"attack")
+                    SetUnitTimeScale(unit,0.7)
+                    CreateVisualMarkTimedXY("SystemGeneric\\Alarm",1,GetUnitXY(hero))
+                    TimerStart(CreateTimer(), 0.5, false, function()
+                        UnitAddForceSimple(unit,angle,20,dist,"forceAttack")
+                    end)
+                end
+            end
+        end
+    end)
+end
+
+function CreateVisualMarkTimedXY(effModel,timed,x,y)
+    local eff=AddSpecialEffect(effModel,x,y)
+    BlzSetSpecialEffectColor(eff,120,0,0)
+    TimerStart(CreateTimer(), timed, false, function()
+        DestroyEffect(eff)
+        BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+    end)
+end
 
 

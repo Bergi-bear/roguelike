@@ -52,8 +52,8 @@ function Enter2NewZone()
     end
     --print(" вошел в зону .. "..CurrentGameZone.. " для судьбы это зона "..Destiny[CurrentGameZone].. " а награда то какая? наверное ")
 
-    CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
-    TimerStart(CreateTimer(),2, false, function()
+    CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 2.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+    TimerStart(CreateTimer(),3, false, function()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
         if Destiny[CurrentGameZone] then
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
@@ -61,7 +61,7 @@ function Enter2NewZone()
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end
-        CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+        CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 2.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
 end
 
@@ -134,8 +134,24 @@ function StartEnemyWave(waveNumber)
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+        }
+        maxOnWave=10
+    end
+
+    if waveNumber==4 then
+        listID={  -- Очень много жуков
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
         }
         maxOnWave=10
     end
@@ -145,7 +161,7 @@ function StartEnemyWave(waveNumber)
     else
         listID={FourCC("nsko")}
         StartWave(GameZone[waveNumber].rectSpawn,listID,1)
-            print("В волне врагов, нет ни одного ID, так и задумано?")
+        print("В волне врагов, нет ни одного ID, так и задумано?")
     end
 end
 
@@ -191,7 +207,7 @@ function CreateCreepDelay(id,x,y,delay)
     TimerStart(CreateTimer(),delay, false, function()
         --print("create new")
         local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
-        IssueTargetOrder(new,"attack",HERO[0].UnitHero)
+
         DestroyEffect(eff)
         TimerStart(CreateTimer(),delay, true, function()
             if not UnitAlive(new) then

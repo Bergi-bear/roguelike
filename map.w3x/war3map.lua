@@ -72,6 +72,7 @@ function CreateNeutralPassive()
     local unitID
     local t
     local life
+    u = BlzCreateUnitWithSkin(p, FourCC("ugrm"), 13684.0, -11925.7, 283.880, FourCC("ugrm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nhmc"), 8061.6, -7597.2, 266.822, FourCC("nhmc"))
     u = BlzCreateUnitWithSkin(p, FourCC("nskk"), 7089.1, -7381.3, 5.660, FourCC("nskk"))
     u = BlzCreateUnitWithSkin(p, FourCC("nsc2"), 7324.5, -8658.1, 318.337, FourCC("nsc2"))
@@ -363,13 +364,13 @@ function InitFinObjectInArea()
     FinObjectInArea(12913,-8415,"   Продолжить","Goto",false)
     FinObjectInArea(13940,-8415,"   Продолжить","Goto",false)
 
-    FinObjectInArea(15089,-5911,"Продолжить","Goto",false)
-    FinObjectInArea(16338,-6629,"Продолжить","Goto",false)
-    FinObjectInArea(18036,-10000,"Продолжить","Goto",false)
-    FinObjectInArea(18931,-10000,"Продолжить","Goto",false)
-    FinObjectInArea(19442,-6286,"Продолжить","Goto",false)
-    FinObjectInArea(20223,-7145,"Продолжить","Goto",false)
-    --FinObjectInArea(0,-0,"Продолжить","Goto",false)
+    FinObjectInArea(15089,-5911,"   Продолжить","Goto",false)
+    FinObjectInArea(16338,-6629,"   Продолжить","Goto",false)
+    FinObjectInArea(18036,-10000,"   Продолжить","Goto",false)
+    FinObjectInArea(18931,-10000,"   Продолжить","Goto",false)
+    FinObjectInArea(19442,-6286,"   Продолжить","Goto",false)
+    FinObjectInArea(20223,-7145,"   Продолжить","Goto",false)
+    --FinObjectInArea(0,-0,"   Продолжить","Goto",false)
 
 end
 
@@ -776,8 +777,8 @@ function Enter2NewZone()
     end
     --print(" вошел в зону .. "..CurrentGameZone.. " для судьбы это зона "..Destiny[CurrentGameZone].. " а награда то какая? наверное ")
 
-    CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
-    TimerStart(CreateTimer(),2, false, function()
+    CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 2.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+    TimerStart(CreateTimer(),3, false, function()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
         if Destiny[CurrentGameZone] then
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
@@ -785,7 +786,7 @@ function Enter2NewZone()
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end
-        CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+        CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 2.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
 end
 
@@ -864,12 +865,21 @@ function StartEnemyWave(waveNumber)
         maxOnWave=10
     end
 
+    if waveNumber==4 then
+        listID={  -- скелетов по 5
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+        }
+        maxOnWave=5
+    end
+
     if listID[1] then
         StartWave(GameZone[waveNumber].rectSpawn,listID,maxOnWave)
     else
         listID={FourCC("nsko")}
         StartWave(GameZone[waveNumber].rectSpawn,listID,1)
-            print("В волне врагов, нет ни одного ID, так и задумано?")
+        print("В волне врагов, нет ни одного ID, так и задумано?")
     end
 end
 
@@ -915,7 +925,7 @@ function CreateCreepDelay(id,x,y,delay)
     TimerStart(CreateTimer(),delay, false, function()
         --print("create new")
         local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
-        IssueTargetOrder(new,"attack",HERO[0].UnitHero)
+
         DestroyEffect(eff)
         TimerStart(CreateTimer(),delay, true, function()
             if not UnitAlive(new) then
@@ -1055,8 +1065,8 @@ function CreationPeonsForAllPlayer()
             --print("толкаем")
             UnitAddForceSimple(hero, 0, 10, 10)
             --print("1")
-            BlzSetUnitMaxHP(hero,10000)
-            HealUnit(hero,10000)
+            BlzSetUnitMaxHP(hero,200)
+            HealUnit(hero,200)
             --print("создан пеон")
             SelectUnitForPlayerSingle(hero,Player(i))
             InitWASD(hero)
@@ -1085,13 +1095,87 @@ function InitEnemyEntire()
     TriggerRegisterEnterRectSimple(gg_trg_FFF, GetPlayableMapRect())
     TriggerAddAction(gg_trg_FFF, function()
         local unit=GetTriggerUnit()
-        print(GetUnitName(unit))
+       -- print(GetUnitName(unit))
+        if GetUnitTypeId(unit)==FourCC("nsko") then -- простые скелеты орки с молотом
+            IssueTargetOrder(unit,"attack",GetRandomEnemyHero())
+            JumpAI(unit)
+        end
+        if GetUnitTypeId(unit)==FourCC("ucs1") then -- маленький скоробей
+            SinergyBug(unit)
+        end
+
     end)
+end
+
+function GetRandomEnemyHero()
+    local table={}
+    local k=1
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            local data=HERO[i]
+            if UnitAlive(data.UnitHero) then
+                --print("найден живой")
+                table[k]=data.UnitHero
+                k=k+1
+            end
+        end
+    end
+    local r=GetRandomInt(1,#table)
+    return table[r]
+end
+
+Bugs=CreateGroup()
+function SinergyBug(unit)
+
+    GroupAddUnit(Bugs,unit)
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+            ForGroup(Bugs,function()
+                local e=GetEnumUnit()
+                IssueTargetOrder(e,"attack",GetRandomEnemyHero())
+            end)
+        end
+    end)
+
 end
 
 
 
 
+function JumpAI(unit)
+    TimerStart(CreateTimer(), 5, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero=GetRandomEnemyHero()
+            local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+
+            if dist>200 and dist<600 then
+                if not IsUnitStunned(unit) then
+                    --print(dist.." дистанция")
+                    local angle=AngleBetweenUnits(unit,hero)
+                    BlzPauseUnitEx(unit,true)
+                    SetUnitAnimation(unit,"attack")
+                    SetUnitTimeScale(unit,0.7)
+                    CreateVisualMarkTimedXY("SystemGeneric\\Alarm",1,GetUnitXY(hero))
+                    TimerStart(CreateTimer(), 0.5, false, function()
+                        UnitAddForceSimple(unit,angle,20,dist,"forceAttack")
+                    end)
+                end
+            end
+        end
+    end)
+end
+
+function CreateVisualMarkTimedXY(effModel,timed,x,y)
+    local eff=AddSpecialEffect(effModel,x,y)
+    BlzSetSpecialEffectColor(eff,120,0,0)
+    TimerStart(CreateTimer(), timed, false, function()
+        DestroyEffect(eff)
+        BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+    end)
+end
 
 
 
@@ -2187,6 +2271,23 @@ function StunArea(hero,x,y,range,duration)
 		GroupRemoveUnit(perebor,e)
 	end
 end
+
+function IsUnitStunned(hero)
+	local isStunned=false
+	if not StunSystem[GetHandleId(hero)] then
+		StunSystem[GetHandleId(hero)]={
+			Time=0,
+			Eff=nil,
+			Timer=nil
+		}
+	end
+	local data=StunSystem[GetHandleId(hero)]
+
+	if data.Time>0 then
+		isStunned=true
+	end
+	return isStunned
+end
 ---@param text string
 ---@param textSize real
 ---@param x real
@@ -3056,27 +3157,13 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                     HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --FIXME
                     HERO[GetPlayerId(GetOwningPlayer(hero))].ResetSeriesTime=0
                 end
-
-                if flag==5 then
-                    ShowUnit(hero,true)
-
-                end
-
-                if flag==6 then -- башлорд конец бега
-                    ResetUnitAnimation(hero)
+                if flag=="forceAttack" then
                     BlzPauseUnitEx(hero,false)
                     SetUnitTimeScale(hero,1)
+                    UnitDamageArea(hero,50,newX, newY,150)
+                    DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic",newX, newY))
                 end
 
-                if IsUnitType(hero,UNIT_TYPE_HERO) then
-                    if HERO[GetPlayerId(GetOwningPlayer(hero))].isCharging then
-                        --print("рывок окончен")
-                        --DestroyTimer(GetExpiredTimer())
-                        --onForces[GetHandleId(hero)]=true
-                        --HERO[0].isCharging=false
-                        ResetUnitAnimation(hero)
-                    end
-                end
                 DestroyTimer(GetExpiredTimer())
                 onForces[GetHandleId(hero)]=true
                 --print("stop cur="..currentdistance.." dist="..distance)
@@ -3206,8 +3293,8 @@ do
     function InitGlobals()
         InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
         TimerStart(CreateTimer(), 2, false, function()
-            CreateFramesForAllPlayers(0.4,0.3) --стартовая точка осздания фреймов
-            TotalReload=5 -- общее время перезарядки всех фреймовдл для одного игрока
+           -- CreateFramesForAllPlayers(0.4,0.3) --стартовая точка осздания фреймов
+            --TotalReload=5 -- общее время перезарядки всех фреймовдл для одного игрока
         end)
     end
 end
@@ -3220,16 +3307,15 @@ function CreateFramesForAllPlayers(x,y)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER  then
             local step=0.04
-
             AllAbilityFrames[i]={
                 ReadyToReload={},
                 ClickTrig={}
             }
-            local data=AllAbilityFrames[i]
-            data.ReadyToReload[1],data.ClickTrig[1]=CreateUniversalFrame(x,y,step,"Призывает волков",Player(i),"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
-            data.ReadyToReload[2],data.ClickTrig[2]=CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
-            data.ReadyToReload[3],data.ClickTrig[3]=CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
-            data.ReadyToReload[4],data.ClickTrig[4]=CreateUniversalFrame(x+step+step+step,y,step,"Активирет ульту и много всего делает и тут очень длинный текст",Player(i),"ReplaceableTextures\\CommandButtons\\BTNBloodLustOn","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBloodLustOn",4)
+
+            CreateUniversalFrame(x,y,step,"Призывает волков",Player(i),"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
+            CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
+            CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
+            CreateUniversalFrame(x+step+step+step,y,step,"Активирет ульту и много всего делает и тут очень длинный текст",Player(i),"ReplaceableTextures\\CommandButtons\\BTNBloodLustOn","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBloodLustOn",4)
         end
     end
 end
@@ -3292,6 +3378,10 @@ function CreateUniversalFrame(x,y,size,toolTipTex,visionPlayer,activeTexture,pas
         --mouseOnFrame=false
         BlzFrameSetVisible(tooltip,false)
     end)
+
+    ---Глобализация
+    local data=AllAbilityFrames[GetPlayerId(visionPlayer)]
+    data.ReadyToReload[1],data.ClickTrig[1]=buttonIconFrame,ClickTrig
     return buttonIconFrame,ClickTrig
 end
 
