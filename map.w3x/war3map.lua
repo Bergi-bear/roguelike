@@ -621,6 +621,7 @@ function CreateEActions()
                 TimerStart(CreateTimer(),2, false, function()
                     --print("Создаём диалоговое окно для всех игроков Jsore")
                     --CreateDialogTalon(GLOBAL_REWARD) -- Сюда передаётся trall
+                    CreateDialogTalon("Trall")
                     DestroyGodTalon(LastGodTalon)
                     AllActionsEnabled(true)--активация всех переходов
                 end)
@@ -988,26 +989,63 @@ function CreateCreepDelay(id,x,y,delay)
 end
 
 
+do
+    TimerStart(CreateTimer(), 2, false, function()
+        CreateGodTalon(7085, -6883, "Trall")
+    end)
+end
+
 function CreateDialogTalon(godName)
+    math.randomseed(os.time())
+
     if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
         print("ошибка загрузки ".."SystemGeneric\\Main.toc")
-    end
-    print("где диалог") --работает
-    local title = ""
-    local talons = {}
-    if godName == "Trall" then
-        print("создаём дары тралла")-- работает
-        title = "Дары Тралла"
-        talons = TalonBD.Trall
     end
 
     local GAME_UI = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
 
-    DialogTalon = {}
+    local title = ""
+    if godName == "Trall" then
+        title = "Дары Тралла"
+    elseif godName == "Что-то еще" then
+        -- title = "Дары кого-то еще"
+    end
+
+    local talons = {}
+    local listOfNumbers = {}
+    for i = 1, 10 do
+        if TalonBD[godName][i]["level"] >= 3 then -- Если уровень таланта больше или равен максимальному уровню (3), то исключаем его из списка
+
+        else
+            listOfNumbers[i] = i
+        end
+    end
+
+    local randomList = {}
+    for i, v in ipairs(listOfNumbers) do
+        local pos = math.random(1, #randomList+1)
+        table.insert(randomList, pos, v)
+    end
+
+    for i = 1, 3 do
+        talons[i] = TalonBD[godName][randomList[i]]
+    end
+
+    local height = 0
+    if #talons == 1 then
+        height = 0.17
+    elseif #talons == 2 then
+        height = 0.27
+    elseif #talons == 3 then
+        height = 0.37
+    end
+
+
+    local DialogTalon = {}
 
     DialogTalon.MainFrame = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
-    BlzFrameSetSize(DialogTalon.MainFrame, 0.4, 0.3)
-    BlzFrameSetAbsPoint(DialogTalon.MainFrame, FRAMEPOINT_CENTER, 0.4, 0.37)
+    BlzFrameSetSize(DialogTalon.MainFrame, 0.5, height)
+    BlzFrameSetAbsPoint(DialogTalon.MainFrame, FRAMEPOINT_CENTER, 0.4, 0.32)
 
     DialogTalon.MainBackdrop = BlzCreateFrame("EscMenuBackdrop", DialogTalon.MainFrame, 0, 0)
     BlzFrameSetAllPoints(DialogTalon.MainBackdrop, DialogTalon.MainFrame)
@@ -1018,33 +1056,124 @@ function CreateDialogTalon(godName)
     BlzFrameSetText(DialogTalon.Title, title)
 
     DialogTalon.TalonButtons = {}
+    DialogTalon.TalonButtons.Button = {}
+    DialogTalon.TalonButtons.Backdrop = {}
+    DialogTalon.TalonButtons.Icon = {}
+    DialogTalon.TalonButtons.Description = {}
+    DialogTalon.TalonButtons.Name = {}
+    DialogTalon.TalonButtons.Level = {}
     for i = 1, #talons do
-        DialogTalon.TalonButtons[i] = BlzCreateFrameByType("BUTTON", "TalonButton" .. i, DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
-        BlzFrameSetSize(DialogTalon.TalonButtons[i], 0.3, 0.15)
-        BlzFrameSetPoint(DialogTalon.TalonButtons[i], FRAMEPOINT_TOPLEFT, DialogTalon.MainFrame, FRAMEPOINT_TOPLEFT, 0.015, -0.06)
+        -- Создаем Кнопки
+        DialogTalon.TalonButtons.Button[i] = BlzCreateFrameByType("BUTTON", "TalonButton" .. i, DialogTalon.MainFrame, "", 0)
+        BlzFrameSetSize(DialogTalon.TalonButtons.Button[i], 0.4, 0.08)
+        BlzFrameSetPoint(DialogTalon.TalonButtons.Button[i], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((i - 1) * 0.09))
+
+        -- Создаем Бэкдроп для кнопок
+        DialogTalon.TalonButtons.Backdrop[i] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. i, DialogTalon.TalonButtons.Button[i], "EscMenuControlBackdropTemplate", 0)
+        BlzFrameSetAllPoints(DialogTalon.TalonButtons.Backdrop[i], DialogTalon.TalonButtons.Button[i])
+
+        -- Создаем Иконки кнопок
+        DialogTalon.TalonButtons.Icon[i] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. i, DialogTalon.TalonButtons.Backdrop[i], "", 0)
+        BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i], talons[i].icon, 0, true)
+        BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i], 0.064, 0.064)
+        BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i], FRAMEPOINT_LEFT, 0.01, 0)
+
+        -- Создаем названия талантов
+        DialogTalon.TalonButtons.Name[i] = BlzCreateFrameByType("TEXT", "TalonName" .. i, DialogTalon.TalonButtons.Backdrop[i], "EscMenuTitleTextTemplate", 0)
+        BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i], BlzConvertColor(1, 255, 255, 255))
+        BlzFrameSetText(DialogTalon.TalonButtons.Name[i], talons[i].name)
+        BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i], FRAMEPOINT_LEFT, 0.084, 0.02)
+
+        -- Создаем описания талантов
+        DialogTalon.TalonButtons.Description[i] = BlzCreateFrameByType("TEXT", "TalonDescription" .. i, DialogTalon.TalonButtons.Backdrop[i], "", 0)
+        BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i], BlzConvertColor(1, 255, 255, 255))
+        BlzFrameSetText(DialogTalon.TalonButtons.Description[i], talons[i].description)
+        BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i], FRAMEPOINT_LEFT, 0.084, 0)
+
+        -- Показываем текущий уровень талантов, если талант уже выучен
+        if talons[i].level > 0 then
+            DialogTalon.TalonButtons.Level[i] = BlzCreateFrameByType("TEXT", "TalonLevel" .. i, DialogTalon.TalonButtons.Backdrop[i], "", 0)
+            BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i], BlzConvertColor(1, 255, 255, 255))
+            BlzFrameSetText(DialogTalon.TalonButtons.Level[i], "Текущий уровень: " .. talons[i].level)
+            BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i], FRAMEPOINT_LEFT, 0.084, -0.02)
+        end
     end
 
-    --DialogTalon.SecondBackdrop = BlzCreateFrameByType("BACKDROP", "Body", DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
-    --BlzFrameSetAllPoints(DialogTalon.SecondBackdrop, DialogTalon.SecondFrame)
+    -- Пока что показываем окно всем
     BlzFrameSetVisible(DialogTalon.MainFrame, true)
-    --BlzFrameSetVisible(DialogTalon.MainFrame, GetLocalPlayer() == GetTriggerPlayer())
-    if GetLocalPlayer() == GetTriggerPlayer() then
-        print("true")
-    else
-        print("false")
-    end
+
 end
 TalonBD = {
     Trall = {--Тралл
-        SpiritWolf = { -- талант1
+        [1] = { -- талант1
             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
+            name = "Призыв волка",
             description = "Призывает волка",
-            level = 0
+            level = 0,
+            rarity = "normal"
         },
-        ThunderStrike = { -- талант2
+        [2] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Удар молнией",
             description = "Молот наносит урон молнией",
-            level = 0
+            level = 3,
+            rarity = "normal"
+        },
+        [3] = { -- талант2
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Талант 3",
+            description = "Молот наносит урон молнией",
+            level = 3,
+            rarity = "normal"
+        },
+        [4] = { -- талант2
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Талант 4",
+            description = "Молот наносит урон молнией",
+            level = 3,
+            rarity = "normal"
+        },
+        [5] = { -- талант2
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Талант 5",
+            description = "Молот наносит урон молнией",
+            level = 3,
+            rarity = "normal"
+        },
+        [6] = { -- талант2
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Талант 6",
+            description = "Молот наносит урон молнией",
+            level = 3,
+            rarity = "epic"
+        },
+        [7] = { -- талант2
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Талант 7",
+            description = "Молот наносит урон молнией",
+            level = 3,
+            rarity = "rare"
+        },
+        [8] = { -- талант2
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Талант 8",
+            description = "Молот наносит урон молнией",
+            level = 3,
+            rarity = "normal"
+        },
+        [9] = { -- талант2
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Талант 9",
+            description = "Молот наносит урон молнией",
+            level = 3,
+            rarity = "normal"
+        },
+        [10] = { -- талант2
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Талант 10",
+            description = "Молот наносит урон молнией",
+            level = 3,
+            rarity = "normal"
         },
     },
     BLADEMASTER={} -- повторяем
