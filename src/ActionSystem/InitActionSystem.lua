@@ -5,11 +5,16 @@
 ---
 
 do
-    TimerStart(CreateTimer(), 2, false, function()
-        InitFinObjectInArea()
-        CreateEActions()
-    end)
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 2, false, function()
+            InitFinObjectInArea()
+            CreateEActions()
+        end)
+    end
 end
+
 ActionList={}
 ActionListIndex=1
 PreViewIcon={ -- Таблица случайных иконок которые могу быть дарами, установлены у входа
@@ -24,28 +29,28 @@ PreViewIcon={ -- Таблица случайных иконок которые �
 }
 
 function InitFinObjectInArea()
-    FinObjectInArea(5300,-9000,"Подняться на борт","StartSheep",true) --зона корабля
-    FinObjectInArea(5400,-8300,"Исследовать лодку","Board",true) --Левая лодка
-    FinObjectInArea(5500,-6900,"Войти","BackDor",true) --Вечно закрытые ворота
+    FinObjectInArea(5300,-9000,"   Подняться на борт","StartSheep",true) --зона корабля
+    FinObjectInArea(5400,-8300,"   Исследовать лодку","Board",true) --Левая лодка
+    FinObjectInArea(5500,-6900,"  Войти","BackDor",true) --Вечно закрытые ворота
     FinObjectInArea(6600,-6300,"Войти через главный вход","Goto",true,"Trall") --Начать приключение
-    FinObjectInArea(7700,-8000,"Преисполниться","StartBonus",true) --Синий огонь
-    FinObjectInArea(7800,-6600,"Посмотреть в даль","SoFar",true) --на краю берега справа
-    FinObjectInArea(7000,-9200,"Рыбачить","Fish",true) -- внизу на берегу
-    FinObjectInArea(7200,-7600,"Отдохноуть","NoWorking",true) -- возле деревьев
+    FinObjectInArea(7700,-8000,"     Преисполниться","StartBonus",true) --Синий огонь
+    FinObjectInArea(7800,-6600,"   Посмотреть вдаль","SoFar",true) --на краю берега справа
+    FinObjectInArea(7000,-9200,"      Рыбачить","Fish",true) -- внизу на берегу
+    FinObjectInArea(7200,-7600,"       Отдохноуть","NoWorking",true) -- возле деревьев
 
     --Переходы между зонами
-    FinObjectInArea(14710,-11735,"   Продолжить","Goto",false)
-    FinObjectInArea(15665,-12743,"   Продолжить","Goto",false)
-    FinObjectInArea(18545,-12487,"   Продолжить","Goto",false)
-    FinObjectInArea(12913,-8415,"   Продолжить","Goto",false)
-    FinObjectInArea(13940,-8415,"   Продолжить","Goto",false)
+    FinObjectInArea(14710,-11735,"        Продолжить","Goto",false)
+    FinObjectInArea(15665,-12743,"        Продолжить","Goto",false)
+    FinObjectInArea(18545,-12487,"        Продолжить","Goto",false)
+    FinObjectInArea(12913,-8415,"        Продолжить","Goto",false)
+    FinObjectInArea(13940,-8415,"        Продолжить","Goto",false)
 
-    FinObjectInArea(15089,-5911,"   Продолжить","Goto",false)
-    FinObjectInArea(16338,-6629,"   Продолжить","Goto",false)
-    FinObjectInArea(18036,-10000,"   Продолжить","Goto",false)
-    FinObjectInArea(18931,-10000,"   Продолжить","Goto",false)
-    FinObjectInArea(19442,-6286,"   Продолжить","Goto",false)
-    FinObjectInArea(20223,-7145,"   Продолжить","Goto",false)
+    FinObjectInArea(15089,-5911,"        Продолжить","Goto",false)
+    FinObjectInArea(16338,-6629,"        Продолжить","Goto",false)
+    FinObjectInArea(18036,-10000,"       Продолжить","Goto",false)
+    FinObjectInArea(18931,-10000,"        Продолжить","Goto",false)
+    FinObjectInArea(19442,-6286,"        Продолжить","Goto",false)
+    FinObjectInArea(20223,-7145,"        Продолжить","Goto",false)
     --FinObjectInArea(0,-0,"   Продолжить","Goto",false)
 
 end
@@ -138,9 +143,9 @@ function CreateActionBox(message)
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local size=#message*0.0057
-    if size<=0.12 then
-        size=0.12
+    local size=#message*0.0045
+    if size<=0.1 then
+        size=0.1
     end
     BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08)
     BlzFrameSetSize(tooltip, 0.2, 0.04)

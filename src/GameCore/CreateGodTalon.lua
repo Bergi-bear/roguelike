@@ -25,7 +25,7 @@ function CreateGodTalon(x, y, name, r, g, b)
         angle = angle + 1
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
     end)
-    FinObjectInArea(x, y, "   Принять дар", name,true)
+    FinObjectInArea(x, y, "       Принять дар", name,true)
     LastGodTalon = table
     return table
 end

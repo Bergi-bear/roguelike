@@ -7,36 +7,49 @@ function StartAndReleaseSpin(data)
     local hero=data.UnitHero
     local a=0
     local sec=0
-    TimerStart(CreateTimer(),TIMER_PERIOD, true, function()
-        local x,y=GetUnitXY(hero)
-        local eff=nil
-        BlzSetUnitFacingEx(hero,a)
-        a=a-20
-        sec=sec+TIMER_PERIOD
-        if sec>=0.1 then
-            eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Slash\\Culling Slash",x,y)
-            DestroyEffect(eff)
-            BlzSetSpecialEffectScale(eff,0.5)
-            sec=0
-            if UnitDamageArea(hero,25,x,y,150) then
-                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
+    if data.SpinRegeneratingRate==0 then
+        data.SpinRegeneratingRate=1
+        TimerStart(CreateTimer(),1, true, function()
+            if data.SpinCharges<data.SpinChargesMAX then
+                data.SpinCharges=data.SpinCharges+data.SpinRegeneratingRate
+                BlzFrameSetText(data.SpinChargesFH,data.SpinCharges)
             end
-        end
-
-        local t=CreateTimer()
-        local sec2=0
-        TimerStart(t,TIMER_PERIOD64, true, function()
-            sec2=sec2+TIMER_PERIOD
-            if sec2>=1 then
-                PauseTimer(t)
-                DestroyTimer(t)
-            end
-            BlzSetSpecialEffectPosition(eff,GetUnitX(hero),GetUnitY(hero),BlzGetUnitZ(hero)+30)
         end)
-        if not data.isSpined then
-            --print("stopspin")
-            DestroyTimer(GetExpiredTimer())
+    end
+    if data.SpinCharges>0 then
+        TimerStart(CreateTimer(),TIMER_PERIOD, true, function()
+            local x,y=GetUnitXY(hero)
+            local eff=nil
+            BlzSetUnitFacingEx(hero,a)
+            a=a-20
+            sec=sec+TIMER_PERIOD
+            if sec>=0.1 and data.SpinCharges>0 then
+                eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Slash\\Culling Slash",x,y)
+                data.SpinCharges=data.SpinCharges-1
+                BlzFrameSetText(data.SpinChargesFH,data.SpinCharges)
+                DestroyEffect(eff)
+                BlzSetSpecialEffectScale(eff,0.5)
+                sec=0
+                if UnitDamageArea(hero,25,x,y,150) then
+                    normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
+                end
+            end
 
-        end
-    end)
+            local t=CreateTimer()
+            local sec2=0
+            TimerStart(t,TIMER_PERIOD64, true, function()
+                sec2=sec2+TIMER_PERIOD
+                if sec2>=1 then
+                    PauseTimer(t)
+                    DestroyTimer(t)
+                end
+                BlzSetSpecialEffectPosition(eff,GetUnitX(hero),GetUnitY(hero),BlzGetUnitZ(hero)+30)
+            end)
+            if not data.isSpined or data.SpinCharges<=0 then
+                --print("stopspin")
+                DestroyTimer(GetExpiredTimer())
+
+            end
+        end)
+    end
 end

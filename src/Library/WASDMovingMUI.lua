@@ -37,6 +37,7 @@ function InitHeroTable(hero)
     --print("InitHeroTable for "..GetUnitName(hero))
     HERO[GetPlayerId(GetOwningPlayer(hero))]={
         UnitHero=hero,
+        pid=GetPlayerId(GetOwningPlayer(hero)),
         ReleaseW=false,
         ReleaseS=false,
         ReleaseD=false,
@@ -55,10 +56,30 @@ function InitHeroTable(hero)
         ChargingAttack=0,
         AttackCount=0,
         ResetSeriesTime=0,
-        DamageInSeries={50,80,100},
-        CDSpellQ=0,
+        DamageInSeries={50,80,60,90,100},
+        CDSpellQ=0, -- ячейка кулдауна
+        SpellQCDTime=3,-- дефолтное время перезарядки Q, можно менять
         AttackInForce=false,
         tasks={},--таблица заданий
+        --Способность вращение
+        SpinChargesFH=nil, --фрейм зарядов вращения
+        SpinCharges=30,-- начильное число зарядов вращения
+        SpinChargesMAX=40, --максимальное количество зарядов вращения
+        SpinRegeneratingRate=0,
+        --Способность бросок кирки
+        ThrowCharges=2,
+        ThrowChargesFH=nil,
+        ThrowChargesCDFH=nil,
+        ThrowChargesReloadSec=5,
+        --способность рывок
+        DashCharges=2,
+        DashChargesFH=nil,
+        DashChargesCDFH=nil,
+        DashChargesReloadSec=2,
+        Ability={ -- таблица фреймов для способностей
+            countFrame=0,
+            --cdFrameHandle= {},
+        }
     }
 end
 
@@ -94,6 +115,12 @@ function InitWASD(hero)
         SetCameraQuickPosition(GetUnitX(hero),GetUnitY(hero))
         SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero),hero, 10,10,true) -- не дергается
 
+        if not UnitAlive(hero) then
+            print("Эффект смерти")
+            local x,y=GetUnitXY(hero)
+            ReviveHero(hero,x,y,true)
+        end
+
         if data.PressSpin then
             data.ChargingAttack=data.ChargingAttack+TIMER_PERIOD64
             --print(data.ChargingAttack)
@@ -125,7 +152,7 @@ function InitWASD(hero)
             animWalk=0
         end
 
-        if GetUnitTypeId(hero)==FourCC("opeo") then   -- пеон
+        if GetUnitTypeId(hero)==HeroID then   -- пеон
             IndexAnimationWalk=1
             local r={2,3,8}
             IndexAnimationAttack=r[GetRandomInt(2,2)] -- 2 для долгой атаки 8 для сплеша 3  атака рубки дерева
@@ -374,7 +401,7 @@ function CreateWASDActions()
     TriggerAddAction(TrigPressSPACE, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        if not data.ReleaseSPACE  and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 and not data.ReleaseLMB then
+        if data.DashCharges>0 and not data.ReleaseSPACE  and not data.SpaceForce and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 and not data.ReleaseLMB then
             data.ReleaseSPACE = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.SpaceForce then
@@ -384,15 +411,28 @@ function CreateWASDActions()
                     data.tasks[5]=true
                     --print("Первый раз сделал рывок")
                 end
+
+                data.DashCharges=data.DashCharges-1
+                if data.DashCharges==0 then
+                    StartFrameCD(data.DashChargesReloadSec,data.DashChargesCDFH)
+                end
+                BlzFrameSetText(data.DashChargesFH,data.DashCharges)
+                TimerStart(CreateTimer(), data.DashChargesReloadSec, false, function()
+                    data.DashCharges=data.DashCharges+1
+                    BlzFrameSetText(data.DashChargesFH,data.DashCharges)
+                end)
+
                 UnitAddItemById(data.UnitHero,FourCC("I000")) -- предмет виндволк
                 BlzSetUnitFacingEx(data.UnitHero,data.DirectionMove)
                 UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, 200,"ignore")
                 data.SpaceForce=true
                 local eff=AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul",data.UnitHero,"origin")
 
+
                 TimerStart(CreateTimer(), 0.2, false, function()
                     DestroyEffect(eff)
                     data.SpaceForce=false
+                    data.AttackInForce=false
                 end)
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
             end
@@ -420,7 +460,7 @@ function CreateWASDActions()
 
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ==0 and not data.ReleaseRMB then
-                data.CDSpellQ=3
+                data.CDSpellQ=data.SpellQCDTime
                 TimerStart(CreateTimer(), 1, true, function()
                     data.CDSpellQ=data.CDSpellQ-1
                     if data.CDSpellQ<=0 then
@@ -432,7 +472,8 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero,3)
-                TimerStart(CreateTimer(), 0.35, false, function()
+                TimerStart(CreateTimer(), 0.35, false, function() --задержка перед ударом
+                    StartFrameCD(data.SpellQCDTime,data.cdFrameHandleQ)
                     SpellSlashQ(data)
                     data.ReleaseQ = false
                 end)
@@ -474,27 +515,30 @@ function CreateWASDActions()
                 if not data.SpaceForce then
                     attack(data)
                 else
-                    SetUnitAnimationByIndex(data.UnitHero,9) --стойка вытянут топор
-                    data.AttackInForce=true
-                    if not data.tasks[6] then
-                        data.tasks[6]=true
-                        --print("Первый раз сделал серию")
-                    end
-                    --print("Удар в рЫвке, создаём эффект")
-                    local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
-                    BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
-                    local sec=0
-                    TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
-                        local x,y=GetUnitXY(data.UnitHero)
-                        local nx,ny=MoveXY(x,y,100,GetUnitFacing(data.UnitHero))
-                        BlzSetSpecialEffectPosition(eff,nx,ny,BlzGetUnitZ(data.UnitHero)+40)
-                        BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
-                        sec=sec+TIMER_PERIOD64
-                        if sec<=0.2 then
-                            DestroyTimer(GetExpiredTimer())
-                            DestroyEffect(eff)
+                    --if data.DashCharges>0
+                    if not data.AttackInForce then
+                        SetUnitAnimationByIndex(data.UnitHero,9) --стойка вытянут топор
+                        data.AttackInForce=true
+                        if not data.tasks[6] then
+                            data.tasks[6]=true
+                            --print("Первый раз сделал серию")
                         end
-                    end)
+                        --print("Удар в рЫвке, создаём эффект")
+                        local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
+                        BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                        local sec=0
+                        TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
+                            local x,y=GetUnitXY(data.UnitHero)
+                            local nx,ny=MoveXY(x,y,100,GetUnitFacing(data.UnitHero))
+                            BlzSetSpecialEffectPosition(eff,nx,ny,BlzGetUnitZ(data.UnitHero)+40)
+                            BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                            sec=sec+TIMER_PERIOD64
+                            if sec<=0.2 then
+                                DestroyTimer(GetExpiredTimer())
+                                DestroyEffect(eff)
+                            end
+                        end)
+                    end
 
                 end
             else
@@ -532,7 +576,7 @@ function CreateWASDActions()
             local data = HERO[pid]
             --data.Shield=true
 
-            if  UnitAlive(data.UnitHero)  and not data.ReleaseRMB and not data.ReleaseQ then --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
+            if  UnitAlive(data.UnitHero)  and not data.ReleaseRMB and not data.ReleaseQ and data.ThrowCharges>0 then --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
                 if StunSystem[GetHandleId(data.UnitHero)].Time==0 then -- not data.isAttacking  and -- убрал атаку у щита
                     --data.isShield=true
                     --print("попытка выстрела")
@@ -553,6 +597,18 @@ function CreateWASDActions()
                             data.tasks[4]=true
                             --print("Первый раз бросил молот")
                         end
+
+                        data.ThrowCharges=data.ThrowCharges-1
+                        if data.ThrowCharges==0 then
+                            StartFrameCD(data.ThrowChargesReloadSec,data.ThrowChargesCDFH)
+                        end
+                        BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+
+                        TimerStart(CreateTimer(), data.ThrowChargesReloadSec , false, function()
+                            data.ThrowCharges=data.ThrowCharges+1
+                            BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+                        end)
+
                         local xs,ys=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),40,angle)
                         CreateAndForceBullet(data.UnitHero,angle,50,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",xs,ys)
                     end)
@@ -625,9 +681,13 @@ function attack(data)
             data.isAttacking=true
             data.ResetSeriesTime=1
             data.AttackCount=data.AttackCount+1
+            --print(data.AttackCount)
             local angle=-180+AngleBetweenXY(GetPlayerMouseX[pid],GetPlayerMouseY[pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
             local damage=data.DamageInSeries[data.AttackCount]
             BlzSetUnitFacingEx(data.UnitHero,angle) --был обычный поворот
+            local maxAttack=5
+            --local tmp=data.DamageInSeries
+            --local lastAttack=#tmp
 
             if data.AttackCount==1 then -- первый обычный удар
                 indexAnim=3
@@ -641,9 +701,8 @@ function attack(data)
                     DestroyEffect(eff)
                 end)
             end
-            if data.AttackCount==2 then -- второй удар
+            if data.AttackCount~=1 and data.AttackCount~=maxAttack  then -- второй удар
                 local r=GetRandomInt(1,2)
-
                 if r==1 then
                     indexAnim=2
                     cdAttack=0.5
@@ -672,9 +731,10 @@ function attack(data)
                 end
 
             end
-            if data.AttackCount==3 then -- ТРЕТИЙ удар
+            if data.AttackCount==maxAttack then -- ПОСЛЕДНИЙ удар бывший тритий
                 indexAnim=8
-                cdAttack=1
+                cdAttack=0.7-- задержка после финальной атаки
+                local finale=data.AttackCount
                 if not data.tasks[1] then
                     data.tasks[1]=true
                     --print("Первый раз сделал серию")
@@ -684,7 +744,7 @@ function attack(data)
                     normal_sound("abilities\\weapons\\bristlebackmissile\\bristlebackmissilelaunch3",GetUnitXY(data.UnitHero))
                     UnitAddForceSimple(data.UnitHero,GetUnitFacing(data.UnitHero),20, 120)
 
-                    local damage=data.DamageInSeries[3]
+                    damage=data.DamageInSeries[finale] -- финальная атака
                     --print(damage)
                     local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),50,GetUnitFacing(data.UnitHero))
                     local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,300,true)
@@ -705,7 +765,7 @@ function attack(data)
 
             TimerStart(CreateTimer(), cdAttack, false, function() -- кд атаки тут
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
-                if data.AttackCount<3 and data.AttackCount>0 and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+                if data.AttackCount<maxAttack and data.AttackCount>0 and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
                     --print(data.AttackCount)
 
 
@@ -729,7 +789,7 @@ function attack(data)
                 data.ReleaseLMB = false
             end)
 
-            if data.AttackCount>=3 then
+            if data.AttackCount>=5 then
                 data.AttackCount=0
             end
         end
@@ -778,7 +838,8 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                 --data.IsDisabled=false
                 --data.OnWater=false
                 if flag=="ignore" then
-                    HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --FIXME
+                    --print("перезарядка атаки в рывке")
+                    --HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --FIXME
                     HERO[GetPlayerId(GetOwningPlayer(hero))].ResetSeriesTime=0
                 end
                 if flag=="forceAttack" then

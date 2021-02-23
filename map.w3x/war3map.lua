@@ -66,6 +66,43 @@ function InitSounds()
     SetSoundVolume(gg_snd_HeroMountainKingYesAttack2, 127)
 end
 
+function CreateUnitsForPlayer23()
+    local p = Player(23)
+    local u
+    local unitID
+    local t
+    local life
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 15170.6, -12262.7, 273.052, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 12993.8, -10352.6, 205.385, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 13151.2, -10344.0, 175.655, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 13329.0, -10354.7, 245.969, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17387.2, -13805.4, 10.613, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17389.9, -13664.3, 256.956, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17388.3, -13511.6, 208.955, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17382.9, -13341.8, 186.597, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17378.2, -13138.1, 8.438, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17336.2, -12562.1, 313.746, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17855.1, -12572.1, 36.443, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17864.8, -12749.7, 112.031, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17866.1, -12945.6, 120.732, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17864.0, -13108.4, 308.824, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17601.1, -12823.3, 284.961, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17352.2, -12777.7, 152.275, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17873.4, -13276.4, 49.550, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18406.4, -13782.6, 12.085, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18402.4, -13674.7, 19.315, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18409.3, -13563.0, 226.106, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18414.5, -13453.4, 258.033, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18418.5, -13368.1, 46.364, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18421.6, -13266.2, 197.419, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18421.0, -13129.8, 13.085, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18429.8, -13091.4, 76.830, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18438.7, -12924.3, 154.912, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18157.3, -13522.6, 53.890, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17867.1, -13580.5, 358.484, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17879.9, -13417.8, 23.588, FourCC("hpea"))
+end
+
 function CreateNeutralPassive()
     local p = Player(PLAYER_NEUTRAL_PASSIVE)
     local u
@@ -93,6 +130,7 @@ function CreatePlayerBuildings()
 end
 
 function CreatePlayerUnits()
+    CreateUnitsForPlayer23()
 end
 
 function CreateAllUnits()
@@ -104,7 +142,7 @@ end
 function CreateRegions()
     local we
     gg_rct_B1A = Rect(13632.0, -12832.0, 14912.0, -12160.0)
-    gg_rct_S1A = Rect(13056.0, -13344.0, 15552.0, -11840.0)
+    gg_rct_S1A = Rect(13056.0, -13280.0, 15552.0, -11904.0)
     gg_rct_B2A = Rect(17856.0, -13312.0, 18048.0, -12992.0)
     gg_rct_B3A = Rect(13440.0, -10112.0, 15616.0, -8800.0)
     gg_rct_S3A = Rect(12768.0, -10688.0, 16384.0, -8480.0)
@@ -329,11 +367,16 @@ end
 ---
 
 do
-    TimerStart(CreateTimer(), 2, false, function()
-        InitFinObjectInArea()
-        CreateEActions()
-    end)
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 2, false, function()
+            InitFinObjectInArea()
+            CreateEActions()
+        end)
+    end
 end
+
 ActionList={}
 ActionListIndex=1
 PreViewIcon={ -- Таблица случайных иконок которые могу быть дарами, установлены у входа
@@ -348,28 +391,28 @@ PreViewIcon={ -- Таблица случайных иконок которые �
 }
 
 function InitFinObjectInArea()
-    FinObjectInArea(5300,-9000,"Подняться на борт","StartSheep",true) --зона корабля
-    FinObjectInArea(5400,-8300,"Исследовать лодку","Board",true) --Левая лодка
-    FinObjectInArea(5500,-6900,"Войти","BackDor",true) --Вечно закрытые ворота
+    FinObjectInArea(5300,-9000,"   Подняться на борт","StartSheep",true) --зона корабля
+    FinObjectInArea(5400,-8300,"   Исследовать лодку","Board",true) --Левая лодка
+    FinObjectInArea(5500,-6900,"  Войти","BackDor",true) --Вечно закрытые ворота
     FinObjectInArea(6600,-6300,"Войти через главный вход","Goto",true,"Trall") --Начать приключение
-    FinObjectInArea(7700,-8000,"Преисполниться","StartBonus",true) --Синий огонь
-    FinObjectInArea(7800,-6600,"Посмотреть в даль","SoFar",true) --на краю берега справа
-    FinObjectInArea(7000,-9200,"Рыбачить","Fish",true) -- внизу на берегу
-    FinObjectInArea(7200,-7600,"Отдохноуть","NoWorking",true) -- возле деревьев
+    FinObjectInArea(7700,-8000,"     Преисполниться","StartBonus",true) --Синий огонь
+    FinObjectInArea(7800,-6600,"   Посмотреть вдаль","SoFar",true) --на краю берега справа
+    FinObjectInArea(7000,-9200,"      Рыбачить","Fish",true) -- внизу на берегу
+    FinObjectInArea(7200,-7600,"       Отдохноуть","NoWorking",true) -- возле деревьев
 
     --Переходы между зонами
-    FinObjectInArea(14710,-11735,"   Продолжить","Goto",false)
-    FinObjectInArea(15665,-12743,"   Продолжить","Goto",false)
-    FinObjectInArea(18545,-12487,"   Продолжить","Goto",false)
-    FinObjectInArea(12913,-8415,"   Продолжить","Goto",false)
-    FinObjectInArea(13940,-8415,"   Продолжить","Goto",false)
+    FinObjectInArea(14710,-11735,"        Продолжить","Goto",false)
+    FinObjectInArea(15665,-12743,"        Продолжить","Goto",false)
+    FinObjectInArea(18545,-12487,"        Продолжить","Goto",false)
+    FinObjectInArea(12913,-8415,"        Продолжить","Goto",false)
+    FinObjectInArea(13940,-8415,"        Продолжить","Goto",false)
 
-    FinObjectInArea(15089,-5911,"   Продолжить","Goto",false)
-    FinObjectInArea(16338,-6629,"   Продолжить","Goto",false)
-    FinObjectInArea(18036,-10000,"   Продолжить","Goto",false)
-    FinObjectInArea(18931,-10000,"   Продолжить","Goto",false)
-    FinObjectInArea(19442,-6286,"   Продолжить","Goto",false)
-    FinObjectInArea(20223,-7145,"   Продолжить","Goto",false)
+    FinObjectInArea(15089,-5911,"        Продолжить","Goto",false)
+    FinObjectInArea(16338,-6629,"        Продолжить","Goto",false)
+    FinObjectInArea(18036,-10000,"       Продолжить","Goto",false)
+    FinObjectInArea(18931,-10000,"        Продолжить","Goto",false)
+    FinObjectInArea(19442,-6286,"        Продолжить","Goto",false)
+    FinObjectInArea(20223,-7145,"        Продолжить","Goto",false)
     --FinObjectInArea(0,-0,"   Продолжить","Goto",false)
 
 end
@@ -462,9 +505,9 @@ function CreateActionBox(message)
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local size=#message*0.0057
-    if size<=0.12 then
-        size=0.12
+    local size=#message*0.0045
+    if size<=0.1 then
+        size=0.1
     end
     BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08)
     BlzFrameSetSize(tooltip, 0.2, 0.04)
@@ -859,19 +902,26 @@ function StartEnemyWave(waveNumber)
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
         }
         maxOnWave=10
     end
 
     if waveNumber==4 then
-        listID={  -- скелетов по 5
+        listID={  -- Очень много жуков
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
             FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
             FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
             FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
         }
-        maxOnWave=5
+        maxOnWave=10
     end
 
     if listID[1] then
@@ -1002,6 +1052,268 @@ TalonBD = {
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
+--- DateTime: 21.02.2021 15:15
+---
+
+AllAbilityFrames={
+   -- ReadyToReload={}
+}
+AbilityIconPath={
+    "ReplaceableTextures\\CommandButtons\\BTNGatherGold", --кирка
+    "ReplaceableTextures\\CommandButtons\\BTNStormBolt", -- молоток
+    "ReplaceableTextures\\CommandButtons\\BTNEvasion", --рывок
+    "ReplaceableTextures\\CommandButtons\\BTNThunderclap", --Q
+    "ReplaceableTextures\\CommandButtons\\BTNWhirlwind", -- стальной вихрь
+}
+
+
+DisabledIconPath={
+    "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNGatherGold", --кирка
+    "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNStormBolt", -- молоток
+    "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNEvasion", --рывок
+    "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNThunderclap", --Q
+    "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNWhirlwind", -- стальной вихрь
+}
+
+AbilityDescriptionRus={
+    "Кирка: Делает серию ударов из 3 атак, атаки наносят урон по небольшо площади и наносят 50, 80 и 120 урона",
+    "Бросок кирки: Бросает кирку и наносит дистанционный урон на дистанции до 1000",
+    "Рывок: Делает небольшой рывок в направлении текущего движения",
+    "Мощный удар: Наносит увеличенный урон по большой площади",
+    "Заряженная атака: Удерживай LMB, чтобы начать вращаться и наносить урон всем врагам вокруг"
+}
+
+function CreateBaseFrames(x,y)
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER  then
+            local step=0.03
+            local data=HERO[i]
+           -- AllAbilityFrames[i]={
+           --     ReadyToReload={},
+           --    ClickTrig={}}
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],data,AbilityIconPath[1],DisabledIconPath[1])
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],data,AbilityIconPath[2],DisabledIconPath[2],"throw")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],data,AbilityIconPath[3],DisabledIconPath[3],"dash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],data,AbilityIconPath[4],DisabledIconPath[4],"splash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],data,AbilityIconPath[5],DisabledIconPath[5],"spin")
+            --CreateUniversalFrame(x,y,step,"Призывает волков",data,"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
+            --CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
+            --CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
+            --CreateUniversalFrame(x+step+step+step,y,step,"Активирет ульту и много всего делает и тут очень длинный текст",Player(i),"ReplaceableTextures\\CommandButtons\\BTNBloodLustOn","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBloodLustOn",4)
+        end
+    end
+end
+
+function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveTexture,flag)
+    if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
+        print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
+    end
+    local visionPlayer=Player(data.pid)
+    local face = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
+    local buttonIconFrame = BlzCreateSimpleFrame("MyBar", face, 0) -- фрейм перезарядки
+    local cdtext = BlzGetFrameByName("MyBarText", 0)
+    local cdICO = BlzGetFrameByName("MyBarBackground", 0)
+    local k=data.Ability.countFrame
+    if flag=="spin" then
+        data.SpinChargesFH=MakeFrameCharged(face,data.SpinCharges)
+    end
+    if flag=="throw" then
+        data.ThrowChargesFH=MakeFrameCharged(face,data.ThrowCharges)
+        data.ThrowChargesCDFH=buttonIconFrame
+    end
+    if flag=="splash" then
+        data.cdFrameHandleQ=buttonIconFrame
+    end
+
+    if flag=="dash" then
+        data.DashChargesFH=MakeFrameCharged(face,data.DashCharges)
+        data.DashChargesCDFH=buttonIconFrame
+    end
+
+    BlzFrameSetAbsPoint(face, FRAMEPOINT_CENTER, x+k*size, y)
+    BlzFrameSetSize(face, size, size)
+    BlzFrameSetAllPoints(buttonIconFrame, face)
+    BlzFrameSetValue(buttonIconFrame, 100) -- начальная перезарядка
+    BlzFrameSetText(cdtext, "")
+    BlzFrameSetTexture(cdICO, passiveTexture, 0, true)
+    BlzFrameSetTexture(buttonIconFrame, activeTexture, 0, true)
+    BlzFrameSetSize(buttonIconFrame, size, size)
+
+    --BlzFrameSetParent(face, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    --BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    --BlzFrameSetParent(cdtext, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    --BlzFrameSetParent(cdICO, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+
+    --- Устанавливаем видимость, каждый игрок видит свой набор фреймов и свои кулдауны
+    BlzFrameSetVisible(face,false)
+    BlzFrameSetVisible(face,GetLocalPlayer()==visionPlayer)
+    --- tooltip
+    local tooltip,backdrop,text=CreateToolTipBoxSize(x+k*size,y+size*2,size*5,size*3,toolTipTex)
+
+    --- Создаём 3 события
+    local ClickTrig = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(ClickTrig, face, FRAMEEVENT_CONTROL_CLICK)
+    TriggerAddAction(ClickTrig, function()
+        --print("Нажата кнопка ")
+        --StartFrameCD(TotalReload,buttonIconFrame)
+        BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+        BlzFrameSetEnable(BlzGetTriggerFrame(), true)
+        --StartAllFrameCD(GetTriggerPlayer())
+        --StartFrameCD(5,buttonIconFrame)
+
+    end)
+
+    local TrigMOUSE_ENTER = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, face, FRAMEEVENT_MOUSE_ENTER)
+    TriggerAddAction(TrigMOUSE_ENTER, function()
+       -- print("показать подсказку ")
+        BlzFrameSetVisible(tooltip,GetLocalPlayer()==GetTriggerPlayer())
+    end)
+    local TrigMOUSE_LEAVE = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, face, FRAMEEVENT_MOUSE_LEAVE)
+    TriggerAddAction(TrigMOUSE_LEAVE, function()
+        --mouseOnFrame=false
+        BlzFrameSetVisible(tooltip,false)
+    end)
+
+    ---Глобализация
+    data.Ability.countFrame=k+1
+    --return buttonIconFrame,ClickTrig
+end
+
+
+function CreateToolTipBoxSize(x,y,sizeX,sizeY,toolTipTex)
+    local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
+    local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+
+    BlzFrameSetParent(tooltip, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(backdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y)
+    --print(#toolTipTex..toolTipTex)
+    BlzFrameSetSize(tooltip, sizeX, sizeY)
+    BlzFrameSetSize(backdrop, sizeX, sizeY)
+    BlzFrameSetSize(text, sizeX*.7, sizeY*.7)
+
+    BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
+    BlzFrameSetAlpha(backdrop,100)
+    BlzFrameSetText(text,toolTipTex)
+    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
+    BlzFrameSetVisible(tooltip,false)
+    return tooltip,backdrop,text
+end
+
+
+function StartFrameCD(cd,fh)
+    local amount=5/cd
+    local full=0
+
+    TimerStart(CreateTimer(), 0.05, true, function()
+        full=full+amount
+        BlzFrameSetValue(fh, full)
+        if full>=100 then
+            DestroyTimer(GetExpiredTimer())
+            full=0
+        end
+    end)
+end
+
+function StartAllFrameCD(player)
+    local pid=GetPlayerId(player)
+    local data=AllAbilityFrames[pid]
+    for i=1,4 do --#data.ReadyToReload[i]
+        StartFrameCD(TotalReload,data.ReadyToReload[i])
+        DisableTrigger(data.ClickTrig[i])
+        TimerStart(CreateTimer(),TotalReload, false, function()
+            EnableTrigger(data.ClickTrig[i])
+        end)
+    end
+end
+
+
+function MakeFrameCharged(fh,ch)
+    local chargesBox=BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', fh, '', 0)-- рамка
+    BlzFrameSetTexture(chargesBox, "UI\\Widgets\\Console\\Human\\CommandButton\\human-button-lvls-overlay", 0, true)
+    BlzFrameSetSize(chargesBox, NextPoint/2, NextPoint/3)
+    BlzFrameSetPoint(chargesBox, FRAMEPOINT_BOTTOMRIGHT, fh, FRAMEPOINT_BOTTOMRIGHT, 0.001, 0.0)
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", fh, "", 0)
+    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, chargesBox, FRAMEPOINT_CENTER, 0.0, 0.0)
+    BlzFrameSetText(text,I2S(R2I(ch)))
+    return text
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 22.02.2021 18:55
+---
+do
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 1, false, function()
+            DrawInterFace()
+        end)
+    end
+end
+
+function DrawInterFace()
+    DrawSelectionPortrait()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if HERO[i] then
+           -- CreateHPBar(HERO[i].UnitHero,0)
+        end
+    end
+    CreateBaseFrames(0.02,0.015)
+end
+
+function DrawSelectionPortrait()
+    BlzFrameSetVisible(BlzGetOriginFrame(ORIGIN_FRAME_PORTRAIT, 0), true)
+    local Portrait = BlzGetOriginFrame(ORIGIN_FRAME_PORTRAIT, 0)
+    BlzFrameClearAllPoints(Portrait)
+    BlzFrameSetSize(Portrait, 0.06, 0.08)
+    BlzFrameSetParent(Portrait, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetAbsPoint(Portrait, FRAMEPOINT_LEFT, 0.0, 0.04)
+end
+
+function CreateHPBar(hero,index)
+    local empBar="SystemGeneric\\rama"
+    local intoBar="SystemGeneric\\ColorHP"
+    local rama2="SystemGeneric\\hp"
+
+    local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(into, intoBar, 0, true)
+    BlzFrameSetSize(into, 0.21, 0.02*0.95)
+    BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT,-0.054,0.06+0.01)
+    BlzFrameSetVisible(into,GetLocalPlayer()==GetOwningPlayer(hero))
+
+    local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(buttonIconFrame, rama2, 0, true)
+    BlzFrameSetSize(buttonIconFrame, 0.24, 0.03)
+    BlzFrameSetAbsPoint(buttonIconFrame, FRAMEPOINT_BOTTOMLEFT,-0.07,0.058)
+    BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==GetOwningPlayer(hero))
+
+    TimerStart(CreateTimer(), 0.05, true, function()
+        local hp=0
+        if index==0 then
+            hp=GetUnitLifePercent(hero)
+            --BlzFrameSetText(textCurrent, R2I(GetUnitState(hero,UNIT_STATE_LIFE)))
+            --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
+        else
+            hp=GetUnitManaPercent(hero)
+            --BlzFrameSetText(textCurrent, R2I(GetUnitState(hero,UNIT_STATE_MANA)))
+            --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxMana(hero)))
+        end
+
+        BlzFrameSetSize(into, hp*0.21/100,0.02*0.95 )
+    end)
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
 --- DateTime: 19.02.2021 11:12
 ---
 LastGodTalon = {}
@@ -1026,7 +1338,7 @@ function CreateGodTalon(x, y, name, r, g, b)
         angle = angle + 1
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
     end)
-    FinObjectInArea(x, y, "   Принять дар", name,true)
+    FinObjectInArea(x, y, "       Принять дар", name,true)
     LastGodTalon = table
     return table
 end
@@ -1038,7 +1350,7 @@ function DestroyGodTalon(table)
 end
 
 
-HeroID = FourCC("opeo")
+HeroID = FourCC("O000")
 NextPoint=0.039
 OutPoint=6000
 
@@ -1286,6 +1598,44 @@ function DestroyAllLearHelpers()
             end
         end
     end
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 23.02.2021 3:36
+---
+do
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 3, false, function()
+            ReplaceID2SawTrap(FourCC("hpea"))
+        end)
+    end
+end
+
+function ReplaceID2SawTrap(id)
+    local tmp,k,all=FindUnitOfType(id)
+    --print("найденно "..k.." а в таблице "..#all)
+    for i=1,#all do
+       -- print("заменён "..GetUnitName(all[i]))
+        ShowUnit(all[i],false)
+        SetUnitInvulnerable(all[i],true)
+        CreateSawTrap(all[i])
+    end
+end
+
+
+
+function CreateSawTrap(hero)
+    local x,y=GetUnitXY(hero)
+    local eff=AddSpecialEffect("SystemGeneric\\TrapSaw",x,y)
+    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+        UnitDamageArea(hero,10,x,y,90,true)
+        if not UnitAlive(hero) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -1542,38 +1892,51 @@ function StartAndReleaseSpin(data)
     local hero=data.UnitHero
     local a=0
     local sec=0
-    TimerStart(CreateTimer(),TIMER_PERIOD, true, function()
-        local x,y=GetUnitXY(hero)
-        local eff=nil
-        BlzSetUnitFacingEx(hero,a)
-        a=a-20
-        sec=sec+TIMER_PERIOD
-        if sec>=0.1 then
-            eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Slash\\Culling Slash",x,y)
-            DestroyEffect(eff)
-            BlzSetSpecialEffectScale(eff,0.5)
-            sec=0
-            if UnitDamageArea(hero,25,x,y,150) then
-                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
+    if data.SpinRegeneratingRate==0 then
+        data.SpinRegeneratingRate=1
+        TimerStart(CreateTimer(),1, true, function()
+            if data.SpinCharges<data.SpinChargesMAX then
+                data.SpinCharges=data.SpinCharges+data.SpinRegeneratingRate
+                BlzFrameSetText(data.SpinChargesFH,data.SpinCharges)
             end
-        end
-
-        local t=CreateTimer()
-        local sec2=0
-        TimerStart(t,TIMER_PERIOD64, true, function()
-            sec2=sec2+TIMER_PERIOD
-            if sec2>=1 then
-                PauseTimer(t)
-                DestroyTimer(t)
-            end
-            BlzSetSpecialEffectPosition(eff,GetUnitX(hero),GetUnitY(hero),BlzGetUnitZ(hero)+30)
         end)
-        if not data.isSpined then
-            --print("stopspin")
-            DestroyTimer(GetExpiredTimer())
+    end
+    if data.SpinCharges>0 then
+        TimerStart(CreateTimer(),TIMER_PERIOD, true, function()
+            local x,y=GetUnitXY(hero)
+            local eff=nil
+            BlzSetUnitFacingEx(hero,a)
+            a=a-20
+            sec=sec+TIMER_PERIOD
+            if sec>=0.1 and data.SpinCharges>0 then
+                eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Slash\\Culling Slash",x,y)
+                data.SpinCharges=data.SpinCharges-1
+                BlzFrameSetText(data.SpinChargesFH,data.SpinCharges)
+                DestroyEffect(eff)
+                BlzSetSpecialEffectScale(eff,0.5)
+                sec=0
+                if UnitDamageArea(hero,25,x,y,150) then
+                    normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
+                end
+            end
 
-        end
-    end)
+            local t=CreateTimer()
+            local sec2=0
+            TimerStart(t,TIMER_PERIOD64, true, function()
+                sec2=sec2+TIMER_PERIOD
+                if sec2>=1 then
+                    PauseTimer(t)
+                    DestroyTimer(t)
+                end
+                BlzSetSpecialEffectPosition(eff,GetUnitX(hero),GetUnitY(hero),BlzGetUnitZ(hero)+30)
+            end)
+            if not data.isSpined or data.SpinCharges<=0 then
+                --print("stopspin")
+                DestroyTimer(GetExpiredTimer())
+
+            end
+        end)
+    end
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2377,6 +2740,58 @@ end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
+--- DateTime: 11.03.2020 22:30
+function FindUnitOfType(id,flag,x,y)
+	--flag nil - вся карта
+	--flag any - радиус
+	local unit=nil
+	local e=nil
+	local k=0
+	--print("ищем")
+	local rg={}
+	if not flag then
+		GroupEnumUnitsInRect(perebor,bj_mapInitialPlayableArea,nil)
+		while true do
+			e = FirstOfGroup(perebor)
+
+			if e == nil then break end
+			if UnitAlive(e) and GetUnitTypeId(e)==id then
+				k=k+1
+				rg[k]=e
+				unit=e
+			end
+			GroupRemoveUnit(perebor,e)
+		end
+	else
+		GroupEnumUnitsInRange(perebor,x,y,flag,nil)
+		while true do
+			e = FirstOfGroup(perebor)
+
+			if e == nil then break end
+			if UnitAlive(e) and GetUnitTypeId(e)==id then
+				k=k+1
+				rg[k]=e
+				unit=e
+			end
+			GroupRemoveUnit(perebor,e)
+		end
+	end
+
+
+	if k>1 then
+	--	print("Ошибка получено "..k.." юнитов")
+	end
+	if k>2 then
+		unit=rg[GetRandomInt(1,#rg)]
+	end
+	if unit==nil then
+	--	print("Не найдено живых юнитов данного типа")
+	end
+	return unit,k,rg
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
 --- DateTime: 12.02.2021 15:51
 ---
 ---
@@ -2413,6 +2828,7 @@ function InitHeroTable(hero)
     --print("InitHeroTable for "..GetUnitName(hero))
     HERO[GetPlayerId(GetOwningPlayer(hero))]={
         UnitHero=hero,
+        pid=GetPlayerId(GetOwningPlayer(hero)),
         ReleaseW=false,
         ReleaseS=false,
         ReleaseD=false,
@@ -2431,10 +2847,30 @@ function InitHeroTable(hero)
         ChargingAttack=0,
         AttackCount=0,
         ResetSeriesTime=0,
-        DamageInSeries={50,80,100},
-        CDSpellQ=0,
+        DamageInSeries={50,80,60,90,100},
+        CDSpellQ=0, -- ячейка кулдауна
+        SpellQCDTime=3,-- дефолтное время перезарядки Q, можно менять
         AttackInForce=false,
         tasks={},--таблица заданий
+        --Способность вращение
+        SpinChargesFH=nil, --фрейм зарядов вращения
+        SpinCharges=30,-- начильное число зарядов вращения
+        SpinChargesMAX=40, --максимальное количество зарядов вращения
+        SpinRegeneratingRate=0,
+        --Способность бросок кирки
+        ThrowCharges=2,
+        ThrowChargesFH=nil,
+        ThrowChargesCDFH=nil,
+        ThrowChargesReloadSec=5,
+        --способность рывок
+        DashCharges=2,
+        DashChargesFH=nil,
+        DashChargesCDFH=nil,
+        DashChargesReloadSec=2,
+        Ability={ -- таблица фреймов для способностей
+            countFrame=0,
+            --cdFrameHandle= {},
+        }
     }
 end
 
@@ -2470,6 +2906,12 @@ function InitWASD(hero)
         SetCameraQuickPosition(GetUnitX(hero),GetUnitY(hero))
         SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero),hero, 10,10,true) -- не дергается
 
+        if not UnitAlive(hero) then
+            print("Эффект смерти")
+            local x,y=GetUnitXY(hero)
+            ReviveHero(hero,x,y,true)
+        end
+
         if data.PressSpin then
             data.ChargingAttack=data.ChargingAttack+TIMER_PERIOD64
             --print(data.ChargingAttack)
@@ -2501,7 +2943,7 @@ function InitWASD(hero)
             animWalk=0
         end
 
-        if GetUnitTypeId(hero)==FourCC("opeo") then   -- пеон
+        if GetUnitTypeId(hero)==HeroID then   -- пеон
             IndexAnimationWalk=1
             local r={2,3,8}
             IndexAnimationAttack=r[GetRandomInt(2,2)] -- 2 для долгой атаки 8 для сплеша 3  атака рубки дерева
@@ -2750,7 +3192,7 @@ function CreateWASDActions()
     TriggerAddAction(TrigPressSPACE, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        if not data.ReleaseSPACE  and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 and not data.ReleaseLMB then
+        if data.DashCharges>0 and not data.ReleaseSPACE  and not data.SpaceForce and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time==0 and not data.ReleaseLMB then
             data.ReleaseSPACE = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.SpaceForce then
@@ -2760,15 +3202,28 @@ function CreateWASDActions()
                     data.tasks[5]=true
                     --print("Первый раз сделал рывок")
                 end
+
+                data.DashCharges=data.DashCharges-1
+                if data.DashCharges==0 then
+                    StartFrameCD(data.DashChargesReloadSec,data.DashChargesCDFH)
+                end
+                BlzFrameSetText(data.DashChargesFH,data.DashCharges)
+                TimerStart(CreateTimer(), data.DashChargesReloadSec, false, function()
+                    data.DashCharges=data.DashCharges+1
+                    BlzFrameSetText(data.DashChargesFH,data.DashCharges)
+                end)
+
                 UnitAddItemById(data.UnitHero,FourCC("I000")) -- предмет виндволк
                 BlzSetUnitFacingEx(data.UnitHero,data.DirectionMove)
                 UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, 200,"ignore")
                 data.SpaceForce=true
                 local eff=AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul",data.UnitHero,"origin")
 
+
                 TimerStart(CreateTimer(), 0.2, false, function()
                     DestroyEffect(eff)
                     data.SpaceForce=false
+                    data.AttackInForce=false
                 end)
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
             end
@@ -2796,7 +3251,7 @@ function CreateWASDActions()
 
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ==0 and not data.ReleaseRMB then
-                data.CDSpellQ=3
+                data.CDSpellQ=data.SpellQCDTime
                 TimerStart(CreateTimer(), 1, true, function()
                     data.CDSpellQ=data.CDSpellQ-1
                     if data.CDSpellQ<=0 then
@@ -2808,7 +3263,8 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero,3)
-                TimerStart(CreateTimer(), 0.35, false, function()
+                TimerStart(CreateTimer(), 0.35, false, function() --задержка перед ударом
+                    StartFrameCD(data.SpellQCDTime,data.cdFrameHandleQ)
                     SpellSlashQ(data)
                     data.ReleaseQ = false
                 end)
@@ -2850,27 +3306,30 @@ function CreateWASDActions()
                 if not data.SpaceForce then
                     attack(data)
                 else
-                    SetUnitAnimationByIndex(data.UnitHero,9) --стойка вытянут топор
-                    data.AttackInForce=true
-                    if not data.tasks[6] then
-                        data.tasks[6]=true
-                        --print("Первый раз сделал серию")
-                    end
-                    --print("Удар в рЫвке, создаём эффект")
-                    local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
-                    BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
-                    local sec=0
-                    TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
-                        local x,y=GetUnitXY(data.UnitHero)
-                        local nx,ny=MoveXY(x,y,100,GetUnitFacing(data.UnitHero))
-                        BlzSetSpecialEffectPosition(eff,nx,ny,BlzGetUnitZ(data.UnitHero)+40)
-                        BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
-                        sec=sec+TIMER_PERIOD64
-                        if sec<=0.2 then
-                            DestroyTimer(GetExpiredTimer())
-                            DestroyEffect(eff)
+                    --if data.DashCharges>0
+                    if not data.AttackInForce then
+                        SetUnitAnimationByIndex(data.UnitHero,9) --стойка вытянут топор
+                        data.AttackInForce=true
+                        if not data.tasks[6] then
+                            data.tasks[6]=true
+                            --print("Первый раз сделал серию")
                         end
-                    end)
+                        --print("Удар в рЫвке, создаём эффект")
+                        local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
+                        BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                        local sec=0
+                        TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
+                            local x,y=GetUnitXY(data.UnitHero)
+                            local nx,ny=MoveXY(x,y,100,GetUnitFacing(data.UnitHero))
+                            BlzSetSpecialEffectPosition(eff,nx,ny,BlzGetUnitZ(data.UnitHero)+40)
+                            BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                            sec=sec+TIMER_PERIOD64
+                            if sec<=0.2 then
+                                DestroyTimer(GetExpiredTimer())
+                                DestroyEffect(eff)
+                            end
+                        end)
+                    end
 
                 end
             else
@@ -2908,7 +3367,7 @@ function CreateWASDActions()
             local data = HERO[pid]
             --data.Shield=true
 
-            if  UnitAlive(data.UnitHero)  and not data.ReleaseRMB and not data.ReleaseQ then --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
+            if  UnitAlive(data.UnitHero)  and not data.ReleaseRMB and not data.ReleaseQ and data.ThrowCharges>0 then --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
                 if StunSystem[GetHandleId(data.UnitHero)].Time==0 then -- not data.isAttacking  and -- убрал атаку у щита
                     --data.isShield=true
                     --print("попытка выстрела")
@@ -2929,6 +3388,18 @@ function CreateWASDActions()
                             data.tasks[4]=true
                             --print("Первый раз бросил молот")
                         end
+
+                        data.ThrowCharges=data.ThrowCharges-1
+                        if data.ThrowCharges==0 then
+                            StartFrameCD(data.ThrowChargesReloadSec,data.ThrowChargesCDFH)
+                        end
+                        BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+
+                        TimerStart(CreateTimer(), data.ThrowChargesReloadSec , false, function()
+                            data.ThrowCharges=data.ThrowCharges+1
+                            BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+                        end)
+
                         local xs,ys=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),40,angle)
                         CreateAndForceBullet(data.UnitHero,angle,50,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",xs,ys)
                     end)
@@ -3001,9 +3472,13 @@ function attack(data)
             data.isAttacking=true
             data.ResetSeriesTime=1
             data.AttackCount=data.AttackCount+1
+            --print(data.AttackCount)
             local angle=-180+AngleBetweenXY(GetPlayerMouseX[pid],GetPlayerMouseY[pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
             local damage=data.DamageInSeries[data.AttackCount]
             BlzSetUnitFacingEx(data.UnitHero,angle) --был обычный поворот
+            local maxAttack=5
+            --local tmp=data.DamageInSeries
+            --local lastAttack=#tmp
 
             if data.AttackCount==1 then -- первый обычный удар
                 indexAnim=3
@@ -3017,9 +3492,8 @@ function attack(data)
                     DestroyEffect(eff)
                 end)
             end
-            if data.AttackCount==2 then -- второй удар
+            if data.AttackCount~=1 and data.AttackCount~=maxAttack  then -- второй удар
                 local r=GetRandomInt(1,2)
-
                 if r==1 then
                     indexAnim=2
                     cdAttack=0.5
@@ -3048,9 +3522,10 @@ function attack(data)
                 end
 
             end
-            if data.AttackCount==3 then -- ТРЕТИЙ удар
+            if data.AttackCount==maxAttack then -- ПОСЛЕДНИЙ удар бывший тритий
                 indexAnim=8
-                cdAttack=1
+                cdAttack=0.7-- задержка после финальной атаки
+                local finale=data.AttackCount
                 if not data.tasks[1] then
                     data.tasks[1]=true
                     --print("Первый раз сделал серию")
@@ -3060,7 +3535,7 @@ function attack(data)
                     normal_sound("abilities\\weapons\\bristlebackmissile\\bristlebackmissilelaunch3",GetUnitXY(data.UnitHero))
                     UnitAddForceSimple(data.UnitHero,GetUnitFacing(data.UnitHero),20, 120)
 
-                    local damage=data.DamageInSeries[3]
+                    damage=data.DamageInSeries[finale] -- финальная атака
                     --print(damage)
                     local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),50,GetUnitFacing(data.UnitHero))
                     local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,300,true)
@@ -3081,7 +3556,7 @@ function attack(data)
 
             TimerStart(CreateTimer(), cdAttack, false, function() -- кд атаки тут
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
-                if data.AttackCount<3 and data.AttackCount>0 and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
+                if data.AttackCount<maxAttack and data.AttackCount>0 and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
                     --print(data.AttackCount)
 
 
@@ -3105,7 +3580,7 @@ function attack(data)
                 data.ReleaseLMB = false
             end)
 
-            if data.AttackCount>=3 then
+            if data.AttackCount>=5 then
                 data.AttackCount=0
             end
         end
@@ -3154,7 +3629,8 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                 --data.IsDisabled=false
                 --data.OnWater=false
                 if flag=="ignore" then
-                    HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --FIXME
+                    --print("перезарядка атаки в рывке")
+                    --HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --FIXME
                     HERO[GetPlayerId(GetOwningPlayer(hero))].ResetSeriesTime=0
                 end
                 if flag=="forceAttack" then
@@ -3282,153 +3758,6 @@ function PlayUnitAnimationFromChat()
         SetUnitAnimationByIndex(data.UnitHero,s)
         --print(GetUnitName(mainHero).." "..s)
     end)
-end
----
---- Generated by EmmyLua(https://github.com/EmmyLua)
---- Created by Bergi.
---- DateTime: 21.02.2021 15:15
----
-do
-    local InitGlobalsOrigin = InitGlobals -- записываем InitGlobals в переменную
-    function InitGlobals()
-        InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
-        TimerStart(CreateTimer(), 2, false, function()
-           -- CreateFramesForAllPlayers(0.4,0.3) --стартовая точка осздания фреймов
-            --TotalReload=5 -- общее время перезарядки всех фреймовдл для одного игрока
-        end)
-    end
-end
-
-AllAbilityFrames={
-   -- ReadyToReload={}
-}
-
-function CreateFramesForAllPlayers(x,y)
-    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER  then
-            local step=0.04
-            AllAbilityFrames[i]={
-                ReadyToReload={},
-                ClickTrig={}
-            }
-
-            CreateUniversalFrame(x,y,step,"Призывает волков",Player(i),"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
-            CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
-            CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
-            CreateUniversalFrame(x+step+step+step,y,step,"Активирет ульту и много всего делает и тут очень длинный текст",Player(i),"ReplaceableTextures\\CommandButtons\\BTNBloodLustOn","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBloodLustOn",4)
-        end
-    end
-end
-
-function CreateUniversalFrame(x,y,size,toolTipTex,visionPlayer,activeTexture,passiveTexture,flag)
-    if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
-        print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
-    end
-    local face = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
-    BlzFrameSetAbsPoint(face, FRAMEPOINT_CENTER, x, y)
-    BlzFrameSetSize(face, size, size)
-    local buttonIconFrame = BlzCreateSimpleFrame("MyBar", face, 0)
-    BlzFrameSetAllPoints(buttonIconFrame, face)
-    BlzFrameSetValue(buttonIconFrame, 100) -- начальная перезарядка
-    local cdtext = BlzGetFrameByName("MyBarText", 0)
-    BlzFrameSetText(cdtext, "")
-    local cdICO = BlzGetFrameByName("MyBarBackground", 0)
-    BlzFrameSetTexture(cdICO, passiveTexture, 0, true)
-    BlzFrameSetTexture(buttonIconFrame, activeTexture, 0, true)
-    BlzFrameSetSize(buttonIconFrame, size, size)
-    --- Устанавливаем видимость, каждый игрок видит свой набор фреймов и свои кулдауны
-    BlzFrameSetVisible(face,false)
-    BlzFrameSetVisible(face,GetLocalPlayer()==visionPlayer)
-    --- tooltip
-    local tooltip,backdrop,text=CreateToolTipBoxSize(x,y+size,size*5,size,toolTipTex)
-
-    --- Создаём 3 события
-    local ClickTrig = CreateTrigger()
-    BlzTriggerRegisterFrameEvent(ClickTrig, face, FRAMEEVENT_CONTROL_CLICK)
-    TriggerAddAction(ClickTrig, function()
-        --print("Нажата кнопка ")
-        --StartFrameCD(TotalReload,buttonIconFrame)
-        BlzFrameSetEnable(BlzGetTriggerFrame(), false)
-        BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-        StartAllFrameCD(GetTriggerPlayer())
-        if flag==1 then
-            print("Один")
-        end
-        if flag==2 then
-            print("Два")
-        end
-        if flag==3 then
-            print("Три")
-        end
-        if flag==4 then
-            print("Четыре")
-        end
-
-    end)
-
-    local TrigMOUSE_ENTER = CreateTrigger()
-    BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, face, FRAMEEVENT_MOUSE_ENTER)
-    TriggerAddAction(TrigMOUSE_ENTER, function()
-       -- print("показать подсказку ")
-        BlzFrameSetVisible(tooltip,GetLocalPlayer()==GetTriggerPlayer())
-    end)
-    local TrigMOUSE_LEAVE = CreateTrigger()
-    BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, face, FRAMEEVENT_MOUSE_LEAVE)
-    TriggerAddAction(TrigMOUSE_LEAVE, function()
-        --mouseOnFrame=false
-        BlzFrameSetVisible(tooltip,false)
-    end)
-
-    ---Глобализация
-    local data=AllAbilityFrames[GetPlayerId(visionPlayer)]
-    data.ReadyToReload[1],data.ClickTrig[1]=buttonIconFrame,ClickTrig
-    return buttonIconFrame,ClickTrig
-end
-
-
-function CreateToolTipBoxSize(x,y,sizeX,sizeY,toolTipTex)
-    local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
-    local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
-    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y)
-    --print(#toolTipTex..toolTipTex)
-    BlzFrameSetSize(tooltip, sizeX, sizeY)
-    BlzFrameSetSize(backdrop, sizeX, sizeY)
-    BlzFrameSetSize(text, sizeX*.7, sizeY*.7)
-
-    BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetAlpha(backdrop,100)
-    BlzFrameSetText(text,toolTipTex)
-    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetVisible(tooltip,false)
-    return tooltip,backdrop,text
-end
-
-
-function StartFrameCD(cd,fh)
-    local amount=5/cd
-    local full=0
-
-    TimerStart(CreateTimer(), 0.05, true, function()
-        full=full+amount
-        BlzFrameSetValue(fh, full)
-        if full>=100 then
-            DestroyTimer(GetExpiredTimer())
-            full=0
-        end
-    end)
-end
-
-function StartAllFrameCD(player)
-    local pid=GetPlayerId(player)
-    local data=AllAbilityFrames[pid]
-    for i=1,4 do --#data.ReadyToReload[i]
-        StartFrameCD(TotalReload,data.ReadyToReload[i])
-        DisableTrigger(data.ClickTrig[i])
-        TimerStart(CreateTimer(),TotalReload, false, function()
-            EnableTrigger(data.ClickTrig[i])
-        end)
-    end
 end
 --CUSTOM_CODE
 function Trig_FFF_Actions()
