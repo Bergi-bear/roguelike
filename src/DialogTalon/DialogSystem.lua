@@ -116,6 +116,17 @@ function CreateDialogTalon(godName)
     --DialogTalon.Tooltip.Frame = BlzCreateFrameByType("FRAME", "DialogTalonTooltipFrame", )
 
     -- Пока что показываем окно всем
+    --BlzFrameSetAlpha(DialogTalon.MainFrame, 255)
     BlzFrameSetVisible(DialogTalon.MainFrame, true)
 
+    -- Для плавного появления окна
+    local count = 0
+    local timer = CreateTimer()
+    TimerStart(timer, 0.003, true, function()
+        BlzFrameSetAlpha(DialogTalon.MainFrame, count)
+        if count == 255 then
+            DestroyTimer(timer)
+        end
+        count = count + 1
+    end)
 end
