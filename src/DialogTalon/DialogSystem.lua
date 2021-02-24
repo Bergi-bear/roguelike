@@ -34,9 +34,10 @@ function CreateDialogTalon(godName)
     end
 
     local randomList = {}
-    for i, v in ipairs(listOfNumbers) do
-        local pos = math.random(1, #randomList+1)
-        table.insert(randomList, pos, v)
+
+    for i = 1, #listOfNumbers do
+        local pos = math.random(1, #randomList + 1)
+        randomList[pos] = i
     end
 
     for i = 1, 3 do
