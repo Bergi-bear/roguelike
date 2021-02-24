@@ -26,6 +26,7 @@ function StartAndReleaseSpin(data)
             if sec>=0.1 and data.SpinCharges>0 then
                 eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Slash\\Culling Slash",x,y)
                 data.SpinCharges=data.SpinCharges-1
+                data.SpinReflect=true
                 BlzFrameSetText(data.SpinChargesFH,data.SpinCharges)
                 DestroyEffect(eff)
                 BlzSetSpecialEffectScale(eff,0.5)
@@ -48,6 +49,7 @@ function StartAndReleaseSpin(data)
             end)
             if not data.isSpined or data.SpinCharges<=0 then
                 --print("stopspin")
+               data.SpinReflect=false
                 DestroyTimer(GetExpiredTimer())
 
             end

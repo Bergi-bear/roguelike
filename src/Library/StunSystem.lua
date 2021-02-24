@@ -5,7 +5,7 @@
 ---
 stuneff="Abilities\\Spells\\Human\\Thunderclap\\ThunderclapTarget"
 StunSystem={}
-function StunUnit(hero,dur)
+function StunUnit(hero,dur,flag)
 	if not StunSystem[GetHandleId(hero)] then
 		--	print("оглушен первый раз")
 		StunSystem[GetHandleId(hero)]={
@@ -23,6 +23,9 @@ function StunUnit(hero,dur)
 		data.Eff=AddSpecialEffectTarget(stuneff,hero,"overhead")
 		BlzPauseUnitEx(hero,true)
 		SetUnitTimeScale(hero,0)
+		if flag=="stagger" then
+			SetUnitVertexColor(hero,255,0,0,255)
+		end
 	end
 
 	if data.Time<dur  then
@@ -39,6 +42,9 @@ function StunUnit(hero,dur)
 		--print(data.Time)
 		if curdur>=dur or not UnitAlive(hero) then
 			--print("Вышел из стана")
+			if flag=="stagger" then
+				SetUnitVertexColor(hero,255,255,255,255)
+			end
 			SetUnitTimeScale(hero,1)
 			BlzPauseUnitEx(hero,false)
 			--BlzPauseUnitEx(hero,false)

@@ -18,7 +18,8 @@ function OnPostDamage()
 
 	if GetUnitTypeId(target)~=HeroID then
 		--print("кто-то другой получил урон")
-		StunUnit(target,0.4)
+		StunUnit(target,0.4,"stagger")
+
 	end
 
 

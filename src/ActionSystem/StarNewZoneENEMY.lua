@@ -60,8 +60,9 @@ function Enter2NewZone()
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
             --StartEnemyWave(Destiny[CurrentGameZone])
             --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
-            StartEnemyWave(DestinyEnemies[CurrentGameZone])
 
+            --StartEnemyWave(DestinyEnemies[CurrentGameZone])
+            StartEnemyWave(6)
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end

@@ -882,6 +882,15 @@ function UnitDamageArea(u,damage,x,y,range,flag)
     local hero=nil
     GroupEnumUnitsInRange(perebor,x,y,range,nil)
     local k=0
+
+    if GetUnitTypeId(u)==HeroID then
+        local data=HERO[GetPlayerId(GetOwningPlayer(u))]
+        data.Reflected=true
+        TimerStart(CreateTimer(), 0.3, false, function()
+            data.Reflected=false
+        end)
+    end
+
     while true do
         e = FirstOfGroup(perebor)
         if e == nil then break end
@@ -898,6 +907,7 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                     UnitAddForceSimple(e,AngleBetweenUnits(e,u),5,50)
                 end
             end
+
         end
         GroupRemoveUnit(perebor,e)
     end

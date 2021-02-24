@@ -35,7 +35,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 		local x, y, z = BlzGetLocalSpecialEffectX(bullet), BlzGetLocalSpecialEffectY(bullet), BlzGetLocalSpecialEffectZ(bullet)
 		local zGround = GetTerrainZ(MoveX(x, speed * 2, angleCurrent), MoveY(y, speed * 2, angleCurrent))
 		BlzSetSpecialEffectYaw(bullet, math.rad(angleCurrent))
-		BlzSetSpecialEffectPosition(bullet, MoveX(x, speed, angleCurrent), MoveY(y, speed, angleCurrent), z - 2)
+		BlzSetSpecialEffectPosition(bullet, MoveX(x, speed, angleCurrent), MoveY(y, speed, angleCurrent), z ) -- было z-2
 
 		SetFogStateRadius(GetOwningPlayer(heroCurrent), FOG_OF_WAR_VISIBLE, x, y, 400, true)-- Небольгая подсветка
 
@@ -43,12 +43,27 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 
 		CollisionEnemy, DamagingUnit = UnitDamageArea(heroCurrent, 0, x, y, CollisionRange)
 
+		local reverse=false
+
+		if HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))] then
+			local data=HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
+			if data.UnitHero and GetUnitTypeId(DamagingUnit)==HeroID then
+				--print("атакован наш герой")
+				if data.Reflected or  data.SpinReflect then
+					--print("отбит снаряд")
+					heroCurrent=DamagingUnit
+					reverse=true
+					angleCurrent=AngleBetweenUnits(DamagingUnit,hero)
+				end
+			end
+		end
+
 		CollisisonDestr = PointContentDestructable(x, y, CollisionRange, false,0,hero)
 		local PerepadZ = zGround - z
-		if dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20 then
-			PointContentDestructable(x, y, CollisionRange, true,0,hero)
-			UnitDamageArea(hero, damage, x, y, CollisionRange)
-			if DamagingUnit  and IsUnitType(hero,UNIT_TYPE_HERO) then
+		if not reverse and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
+			PointContentDestructable(x, y, CollisionRange, true,0,heroCurrent)
+			UnitDamageArea(heroCurrent, damage, x, y, CollisionRange)
+			if DamagingUnit  and IsUnitType(heroCurrent,UNIT_TYPE_HERO) then
 				-- тут был показ урона
 			end
 			DestroyEffect(bullet)

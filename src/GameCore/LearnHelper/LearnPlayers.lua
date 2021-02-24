@@ -45,7 +45,8 @@ function CreateTaskForAllPlayer()
                     --print("Все условия выполнены")
                     DestroyTimer(GetExpiredTimer())
                     for k = 1, 6 do
-                        BlzDestroyFrame(frames[k])
+                        BlzFrameSetVisible(frames[k], false)
+                        --BlzDestroyFrame(frames[k])
                     end
                 else
                     -- print("ждём выполнения условий")

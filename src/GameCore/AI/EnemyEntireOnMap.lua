@@ -28,6 +28,9 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("ucs1") then -- маленький скоробей
             SinergyBug(unit)
         end
+        if GetUnitTypeId(unit)==FourCC("unec") then -- маленький скоробей
+            NecroAttackAndArrow(unit)
+        end
 
     end)
 end
@@ -48,6 +51,38 @@ function GetRandomEnemyHero()
     local r=GetRandomInt(1,#table)
     return table[r]
 end
+
+function NecroAttackAndArrow(unit)
+    --подготовка
+    UnitAddAbility(unit,FourCC("Abun"))
+    IssueImmediateOrder(unit,"raisedeadon")
+    TimerStart(CreateTimer(), 2, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero=GetRandomEnemyHero()
+            --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+            if not IsUnitStunned(unit) then
+                if not IsUnitInRange(hero,unit,300 ) then
+                    local angle=AngleBetweenUnits(unit,hero)
+                    BlzPauseUnitEx(unit,true)
+                    SetUnitAnimation(unit,"attack")
+                    --SetUnitTimeScale(unit,0.7)
+                    SetUnitFacing(unit,angle)
+                    TimerStart(CreateTimer(), 0.3, false, function()
+                        CreateAndForceBullet(unit,angle,20,"Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl",nil,nil,50,3000)
+                        BlzPauseUnitEx(unit,false)
+                    end)
+                else
+                    local rx=GetUnitX(unit)+GetRandomInt(-1,1)*300
+                    local ry=GetUnitY(unit)+GetRandomInt(-1,1)*300
+                    IssuePointOrder(unit,"move",rx,ry)
+                end
+            end
+        end
+    end)
+end
+
 
 Bugs=CreateGroup()
 function SinergyBug(unit)
@@ -96,6 +131,7 @@ end
 function CreateVisualMarkTimedXY(effModel,timed,x,y)
     local eff=AddSpecialEffect(effModel,x,y)
     BlzSetSpecialEffectColor(eff,120,0,0)
+    BlzSetSpecialEffectZ(eff,GetTerrainZ(x,y)+50)
     TimerStart(CreateTimer(), timed, false, function()
         DestroyEffect(eff)
         BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
