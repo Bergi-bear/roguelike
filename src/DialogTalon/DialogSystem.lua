@@ -35,28 +35,41 @@ function CreateDialogTalon(godName)
 
     local randomList = {}
 
-    for i = 1, #listOfNumbers do
-        local pos = math.random(1, #randomList + 1)
-        randomList[pos] = i
+    for i = 1, bj_MAX_PLAYERS do
+        randomList[i] = {}
+        for j = 1, #listOfNumbers do
+            local pos = math.random(1, #randomList[i] + 1)
+            randomList[i][pos] = j
+        end
+    end
+    for i = 1, bj_MAX_PLAYERS do
+        talons[i] = {}
+        for j = 1, 4 do
+            talons[i][j] = TalonBD[godName][randomList[i][j]]
+        end
     end
 
-    for i = 1, 3 do
-        talons[i] = TalonBD[godName][randomList[i]]
-    end
-
-    local height = 0
-    if #talons == 1 then
-        height = 0.17
-    elseif #talons == 2 then
-        height = 0.27
-    elseif #talons == 3 then
-        height = 0.37
+    local height = {}
+    for i = 1, bj_MAX_PLAYERS do
+        if #talons[i] == 1 then
+            height[i] = 0.17
+        elseif #talons[i] == 2 then
+            height[i] = 0.27
+        elseif #talons[i] == 3 then
+            height[i] = 0.37
+        elseif #talons[i] == 4 then
+            height[i] = 0.47
+        end
     end
 
     local DialogTalon = {}
 
     DialogTalon.MainFrame = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
-    BlzFrameSetSize(DialogTalon.MainFrame, 0.5, height)
+    for i = 1, bj_MAX_PLAYERS do
+        if GetLocalPlayer() == Player(i - 1) then
+            BlzFrameSetSize(DialogTalon.MainFrame, 0.5, height[i])
+        end
+    end
     BlzFrameSetAbsPoint(DialogTalon.MainFrame, FRAMEPOINT_CENTER, 0.4, 0.32)
 
     DialogTalon.MainBackdrop = BlzCreateFrame("EscMenuBackdrop", DialogTalon.MainFrame, 0, 0)
@@ -74,59 +87,74 @@ function CreateDialogTalon(godName)
     DialogTalon.TalonButtons.Description = {}
     DialogTalon.TalonButtons.Name = {}
     DialogTalon.TalonButtons.Level = {}
-    for i = 1, #talons do
-        -- Создаем Кнопки
-        DialogTalon.TalonButtons.Button[i] = BlzCreateFrameByType("BUTTON", "TalonButton" .. i, DialogTalon.MainFrame, "", 0)
-        BlzFrameSetSize(DialogTalon.TalonButtons.Button[i], 0.4, 0.08)
-        BlzFrameSetPoint(DialogTalon.TalonButtons.Button[i], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((i - 1) * 0.09))
+    DialogTalon.TalonButtons.Triggers = {}
+    DialogTalon.TalonButtons.ClickEvents = {}
+    DialogTalon.TalonButtons.ClickActions = {}
+    for i = 1, bj_MAX_PLAYERS do
+        DialogTalon.TalonButtons[i] = {}
+        DialogTalon.TalonButtons.Button[i] = {}
+        DialogTalon.TalonButtons.Backdrop[i] = {}
+        DialogTalon.TalonButtons.Icon[i] = {}
+        DialogTalon.TalonButtons.Description[i] = {}
+        DialogTalon.TalonButtons.Name[i] = {}
+        DialogTalon.TalonButtons.Level[i] = {}
+        DialogTalon.TalonButtons.Triggers[i] = {}
+        DialogTalon.TalonButtons.ClickEvents[i] = {}
+        DialogTalon.TalonButtons.ClickActions[i] = {}
+        for j = 1, #talons[i] do
+            if GetLocalPlayer() == Player(i - 1) then
+                -- Создаем Кнопки
+                DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.MainFrame, "", 0)
+                BlzFrameSetSize(DialogTalon.TalonButtons.Button[i][j], 0.4, 0.08)
+                BlzFrameSetPoint(DialogTalon.TalonButtons.Button[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
 
-        -- Создаем Бэкдроп для кнопок
-        DialogTalon.TalonButtons.Backdrop[i] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. i, DialogTalon.TalonButtons.Button[i], "EscMenuControlBackdropTemplate", 0)
-        BlzFrameSetAllPoints(DialogTalon.TalonButtons.Backdrop[i], DialogTalon.TalonButtons.Button[i])
+                -- Создаем Бэкдроп для кнопок
+                DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.TalonButtons.Button[i][j], "EscMenuControlBackdropTemplate", 0)
+                BlzFrameSetAllPoints(DialogTalon.TalonButtons.Backdrop[i][j], DialogTalon.TalonButtons.Button[i][j])
 
-        -- Создаем Иконки кнопок
-        DialogTalon.TalonButtons.Icon[i] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. i, DialogTalon.TalonButtons.Backdrop[i], "", 0)
-        BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i], talons[i].icon, 0, true)
-        BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i], 0.064, 0.064)
-        BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i], FRAMEPOINT_LEFT, 0.01, 0)
+                -- Создаем Иконки кнопок
+                DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j].icon, 0, true)
+                BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i][j], 0.064, 0.064)
+                BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.01, 0)
 
-        -- Создаем названия талантов
-        DialogTalon.TalonButtons.Name[i] = BlzCreateFrameByType("TEXT", "TalonName" .. i, DialogTalon.TalonButtons.Backdrop[i], "EscMenuTitleTextTemplate", 0)
-        BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i], BlzConvertColor(1, 255, 255, 255))
-        BlzFrameSetText(DialogTalon.TalonButtons.Name[i], talons[i].name)
-        BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i], FRAMEPOINT_LEFT, 0.084, 0.02)
+                -- Создаем названия талантов
+                DialogTalon.TalonButtons.Name[i][j] = BlzCreateFrameByType("TEXT", "TalonName" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuTitleTextTemplate", 0)
+                BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i][j], BlzConvertColor(1, 255, 255, 255))
+                BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j].name)
+                BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0.02)
 
-        -- Создаем описания талантов
-        DialogTalon.TalonButtons.Description[i] = BlzCreateFrameByType("TEXT", "TalonDescription" .. i, DialogTalon.TalonButtons.Backdrop[i], "", 0)
-        BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i], BlzConvertColor(1, 255, 255, 255))
-        BlzFrameSetText(DialogTalon.TalonButtons.Description[i], talons[i].description)
-        BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i], FRAMEPOINT_LEFT, 0.084, 0)
+                -- Создаем описания талантов
+                DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
+                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j].description)
+                BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0)
 
-        -- Показываем текущий уровень талантов, если талант уже выучен
-        if talons[i].level > 0 then
-            DialogTalon.TalonButtons.Level[i] = BlzCreateFrameByType("TEXT", "TalonLevel" .. i, DialogTalon.TalonButtons.Backdrop[i], "", 0)
-            BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i], BlzConvertColor(1, 255, 255, 255))
-            BlzFrameSetText(DialogTalon.TalonButtons.Level[i], "Текущий уровень: " .. talons[i].level)
-            BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i], FRAMEPOINT_LEFT, 0.084, -0.02)
+                -- Показываем текущий уровень талантов, если талант уже выучен
+                if talons[i][j].level > 0 then
+                    DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
+                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "Текущий уровень: " .. talons[i][j].level)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.02)
+                end
+
+                DialogTalon.TalonButtons.Triggers[i][j] = CreateTrigger()
+                DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.Triggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
+                DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.Triggers[i][j], function()
+                    -- Закрываем окно талантов
+                    if GetLocalPlayer() == player then
+
+                    end
+                end)
+            end
         end
     end
-
 
     --DialogTalon.Tooltip = {}
     --DialogTalon.Tooltip.Frame = BlzCreateFrameByType("FRAME", "DialogTalonTooltipFrame", )
 
     -- Пока что показываем окно всем
-    --BlzFrameSetAlpha(DialogTalon.MainFrame, 255)
     BlzFrameSetVisible(DialogTalon.MainFrame, true)
+    SmoothWindowAppearance(DialogTalon.MainFrame, "open")
 
-    -- Для плавного появления окна
-    local count = 0
-    local timer = CreateTimer()
-    TimerStart(timer, 0.003, true, function()
-        BlzFrameSetAlpha(DialogTalon.MainFrame, count)
-        if count == 255 then
-            DestroyTimer(timer)
-        end
-        count = count + 1
-    end)
 end
