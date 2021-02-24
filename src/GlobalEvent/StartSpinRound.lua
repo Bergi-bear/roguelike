@@ -30,7 +30,8 @@ function StartAndReleaseSpin(data)
                 DestroyEffect(eff)
                 BlzSetSpecialEffectScale(eff,0.5)
                 sec=0
-                if UnitDamageArea(hero,25,x,y,150) then
+                if UnitDamageArea(hero,25,x,y,150,"blackHole") then
+
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
                 end
             end

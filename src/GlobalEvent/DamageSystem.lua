@@ -21,44 +21,7 @@ function OnPostDamage()
 		StunUnit(target,0.4)
 	end
 
-	if GetUnitTypeId(target)==HeroID and false then -- какое нибудь условие наличие пассивки
-		--print("Герой получил урон")
-		local data=HERO[GetPlayerId(GetOwningPlayer(target))]
-		if data.CustomAbilities[1].Ready then --Q
-			--print("Есть способность уворот")
-			if not data.FrameTable[9].OnCD then
-				StarFrameCooldown(data.FrameTable[9],data.CustomAbilities[1].CD)
-				data.EvasionState=true
 
-				PhaseEvade(data)
-			else
-				AddSpeedToFrameCD(data.FrameTable[9],1)
-			end
-			if data.EvasionState then
-				BlzSetEventDamage(0)
-				FlyTextTagMiss(target,"Промах",GetOwningPlayer(target))
-				if IsUnitEnemy(caster,GetOwningPlayer(target)) then
-					FlyTextTagMiss(target,"Промах",GetOwningPlayer(caster))
-				end
-			end
-		end
-	end
-
-	if GetUnitTypeId(caster)==HeroID and false then
-		local mainData=HERO[GetPlayerId(GetOwningPlayer(caster))]
-		local data=mainData.FrameTable[6] --пассивка крит
-		if damage>=10 then
-			if not data.OnCD then
-				StarFrameCooldown(data,mainData.CustomAbilities[5].CD) --
-				BlzFrameSetVisible(data.ReadyIndicator,false)
-				--print("критический удар")
-				FlyTextTagCriticalStrike(target,R2I(damage*5).."!",GetOwningPlayer(caster))
-				BlzSetEventDamage(damage*5)
-			else
-				AddSpeedToFrameCD(data,1)
-			end
-		end
-	end
 		--любой получил урон
 
 end

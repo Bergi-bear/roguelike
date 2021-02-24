@@ -142,22 +142,22 @@ end
 function CreateRegions()
     local we
     gg_rct_B1A = Rect(13632.0, -12832.0, 14912.0, -12160.0)
-    gg_rct_S1A = Rect(13056.0, -13280.0, 15552.0, -11904.0)
+    gg_rct_S1A = Rect(13056.0, -13152.0, 15232.0, -12000.0)
     gg_rct_B2A = Rect(17856.0, -13312.0, 18048.0, -12992.0)
     gg_rct_B3A = Rect(13440.0, -10112.0, 15616.0, -8800.0)
-    gg_rct_S3A = Rect(12768.0, -10688.0, 16384.0, -8480.0)
+    gg_rct_S3A = Rect(12864.0, -10624.0, 16256.0, -8640.0)
     gg_rct_S2A = Rect(17088.0, -13760.0, 18848.0, -12608.0)
     gg_rct_E3A = Rect(13152.0, -11104.0, 13504.0, -10464.0)
     gg_rct_E1A = Rect(13216.0, -13696.0, 13568.0, -13216.0)
     gg_rct_E2A = Rect(16704.0, -13536.0, 17184.0, -13120.0)
     gg_rct_E4A = Rect(18144.0, -11712.0, 18432.0, -11232.0)
-    gg_rct_S4A = Rect(17984.0, -11264.0, 19424.0, -10176.0)
+    gg_rct_S4A = Rect(18080.0, -11264.0, 19360.0, -10176.0)
     gg_rct_B4A = Rect(18656.0, -10912.0, 18784.0, -10432.0)
     gg_rct_E5A = Rect(17376.0, -8512.0, 17920.0, -8096.0)
-    gg_rct_S5A = Rect(17888.0, -8640.0, 20064.0, -6528.0)
+    gg_rct_S5A = Rect(17952.0, -8608.0, 19968.0, -6560.0)
     gg_rct_B5A = Rect(18528.0, -8256.0, 19392.0, -6848.0)
     gg_rct_E6A = Rect(15232.0, -7680.0, 15520.0, -7072.0)
-    gg_rct_S6A = Rect(14720.0, -7200.0, 16160.0, -6112.0)
+    gg_rct_S6A = Rect(14784.0, -7104.0, 16096.0, -6176.0)
     gg_rct_B6A = Rect(15392.0, -6848.0, 15520.0, -6432.0)
 end
 
@@ -458,9 +458,8 @@ function FinObjectInArea(x,y,message,actionFlag,isActive,reward)
                 HERO[pid].DoAction=true
                 HERO[pid].UseAction=actionFlag
                 HERO[pid].CurrentReward=reward
-                if GetLocalPlayer()==GetOwningPlayer(GetTriggerUnit()) then
-                    BlzFrameSetVisible(tooltip,true)
-                end
+                BlzFrameSetVisible(tooltip,GetLocalPlayer()==GetOwningPlayer(GetTriggerUnit()))
+
             end
             TimerStart(CreateTimer(), 0.1, false, function()
                 EnableTrigger(thisTrigger)
@@ -499,6 +498,7 @@ function FinObjectInArea(x,y,message,actionFlag,isActive,reward)
             end)
         end
     end)
+    return
 end
 
 function CreateActionBox(message)
@@ -618,12 +618,12 @@ function CreateEActions()
                 local message="Провидец, я выбираю тебя"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)--активация всех переходов
                 TimerStart(CreateTimer(),2, false, function()
                     --print("Создаём диалоговое окно для всех игроков Jsore")
-                    --CreateDialogTalon(GLOBAL_REWARD) -- Сюда передаётся trall
-                    CreateDialogTalon("Trall")
+                    --CreateDialogTalon("Trall") -- Сюда передаётся trall
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -633,9 +633,10 @@ function CreateEActions()
                 local message="Надели меня силой своего клинка"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                    --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -644,9 +645,10 @@ function CreateEActions()
                 local message="Держите оборону"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                    --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -655,9 +657,10 @@ function CreateEActions()
                 local message="Я отомщю за тебя"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                    --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -666,9 +669,9 @@ function CreateEActions()
                 local message="Гендальф белый"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -677,9 +680,10 @@ function CreateEActions()
                 local message="За твоего отца"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                   --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -688,9 +692,10 @@ function CreateEActions()
                 local message="Инвокер, ты ли это?"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                    --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -793,7 +798,7 @@ function InitAllZones()
     SetZone(6,gg_rct_E6A,gg_rct_B6A,gg_rct_S6A)
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
-
+    DestinyEnemies=GetRandomIntTable(1, #GameZone, #GameZone)
     for i = 1, #Destiny do
         print(Destiny[i])
     end
@@ -813,6 +818,7 @@ function SetZone(number,recEnter,rectBound,rectSpawn)
 end
 
 
+
 function Enter2NewZone()
     CurrentGameZone=CurrentGameZone+1
     if CurrentGameZone==1 then
@@ -826,7 +832,10 @@ function Enter2NewZone()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
         if Destiny[CurrentGameZone] then
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
-            StartEnemyWave(Destiny[CurrentGameZone])
+            --StartEnemyWave(Destiny[CurrentGameZone])
+            --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
+            StartEnemyWave(DestinyEnemies[CurrentGameZone])
+
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end
@@ -925,11 +934,30 @@ function StartEnemyWave(waveNumber)
         maxOnWave=10
     end
 
+    if waveNumber==6 then
+        listID={  -- некроманты
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+        }
+        maxOnWave=5
+    end
+
+    if waveNumber==5 then
+        listID={  -- Пуджи
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+        }
+        maxOnWave=3
+    end
+
+
     if listID[1] then
-        StartWave(GameZone[waveNumber].rectSpawn,listID,maxOnWave)
+        StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,maxOnWave)
     else
         listID={FourCC("nsko")}
-        StartWave(GameZone[waveNumber].rectSpawn,listID,1)
+        StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,1)
         print("В волне врагов, нет ни одного ID, так и задумано?")
     end
 end
@@ -990,14 +1018,17 @@ end
 
 
 do
-    TimerStart(CreateTimer(), 2, false, function()
+    TimerStart(CreateTimer(), 3, false, function()
         CreateGodTalon(7085, -6883, "Trall")
     end)
 end
 
 function CreateDialogTalon(godName)
     math.randomseed(os.time())
-
+    if not godName then
+        print("При создании дара не передан параметр награды")
+        return
+    end
     if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
         print("ошибка загрузки ".."SystemGeneric\\Main.toc")
     end
@@ -1039,7 +1070,6 @@ function CreateDialogTalon(godName)
     elseif #talons == 3 then
         height = 0.37
     end
-
 
     local DialogTalon = {}
 
@@ -1099,6 +1129,10 @@ function CreateDialogTalon(godName)
         end
     end
 
+
+    --DialogTalon.Tooltip = {}
+    --DialogTalon.Tooltip.Frame = BlzCreateFrameByType("FRAME", "DialogTalonTooltipFrame", )
+
     -- Пока что показываем окно всем
     BlzFrameSetVisible(DialogTalon.MainFrame, true)
 
@@ -1116,63 +1150,63 @@ TalonBD = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Удар молнией",
             description = "Молот наносит урон молнией",
-            level = 3,
+            level = 1,
             rarity = "normal"
         },
         [3] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 3",
             description = "Молот наносит урон молнией",
-            level = 3,
+            level = 2,
             rarity = "normal"
         },
         [4] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 4",
             description = "Молот наносит урон молнией",
-            level = 3,
+            level = 0,
             rarity = "normal"
         },
         [5] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 5",
             description = "Молот наносит урон молнией",
-            level = 3,
+            level = 1,
             rarity = "normal"
         },
         [6] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 6",
             description = "Молот наносит урон молнией",
-            level = 3,
+            level = 2,
             rarity = "epic"
         },
         [7] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 7",
             description = "Молот наносит урон молнией",
-            level = 3,
+            level = 1,
             rarity = "rare"
         },
         [8] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 8",
             description = "Молот наносит урон молнией",
-            level = 3,
+            level = 2,
             rarity = "normal"
         },
         [9] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 9",
             description = "Молот наносит урон молнией",
-            level = 3,
+            level = 0,
             rarity = "normal"
         },
         [10] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 10",
             description = "Молот наносит урон молнией",
-            level = 3,
+            level = 2,
             rarity = "normal"
         },
     },
@@ -1452,22 +1486,44 @@ function CreateGodTalon(x, y, name, r, g, b)
     local pillar = AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
     local collision = CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
     local table = {eff,pillar,collision}
-    if not r or not g or not b then
+    --if not r or not g or not b then
         r = 255
         g = 255
         b = 255
-    end
+    --end
     BlzSetSpecialEffectColor(pillar, r, g, b)
     BlzSetSpecialEffectScale(eff, 2)
     BlzSetSpecialEffectPosition(eff, x, y, GetTerrainZ(x, y) - 40)
 
-    BlzSetSpecialEffectScale(pillar, 3)
+    BlzSetSpecialEffectScale(pillar, 2)
+    BlzSetSpecialEffectPosition(pillar, x, y, GetTerrainZ(x, y) + 150)
+    BlzSetSpecialEffectAlpha(pillar,120)
+
+    BlzSetSpecialEffectAlpha(eff,250)
     local angle = 0
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         angle = angle + 1
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
     end)
-    FinObjectInArea(x, y, "       Принять дар", name,true)
+    local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
+
+    local forceShow=false
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            local data=HERO[i]
+            if UnitAlive(data.UnitHero) and not forceShow then
+                if IsUnitInRangeXY(data.UnitHero,x,y,300) then
+                    forceShow=true
+                    --print("Герой в радиусе награды сразу")
+                    data.DoAction=true
+                    data.UseAction=name
+                    data.CurrentReward=name
+                    BlzFrameSetVisible(tooltip,GetLocalPlayer()==Player(i))
+                end
+            end
+        end
+    end
+
     LastGodTalon = table
     return table
 end
@@ -1477,6 +1533,7 @@ function DestroyGodTalon(table)
     DestroyEffect(table[2])
     KillDestructable(table[3])
 end
+
 
 
 HeroID = FourCC("O000")
@@ -1760,7 +1817,13 @@ function CreateSawTrap(hero)
     local x,y=GetUnitXY(hero)
     local eff=AddSpecialEffect("SystemGeneric\\TrapSaw",x,y)
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-        UnitDamageArea(hero,10,x,y,90,true)
+        local is,unit=UnitDamageArea(hero,10,x,y,90,"blackHole")
+        if is and GetUnitTypeId(unit)==HeroID then--and IsUnitType(unit)==UNIT_TYPE_HERO
+            --print("эффект крови")
+            local effb=AddSpecialEffect("SystemGeneric\\D9_blood_effect1",GetUnitXY(unit))
+            BlzSetSpecialEffectScale(effb,0.1)
+            DestroyEffect(effb)
+        end
         if not UnitAlive(hero) then
             DestroyTimer(GetExpiredTimer())
         end
@@ -1856,44 +1919,7 @@ function OnPostDamage()
 		StunUnit(target,0.4)
 	end
 
-	if GetUnitTypeId(target)==HeroID and false then -- какое нибудь условие наличие пассивки
-		--print("Герой получил урон")
-		local data=HERO[GetPlayerId(GetOwningPlayer(target))]
-		if data.CustomAbilities[1].Ready then --Q
-			--print("Есть способность уворот")
-			if not data.FrameTable[9].OnCD then
-				StarFrameCooldown(data.FrameTable[9],data.CustomAbilities[1].CD)
-				data.EvasionState=true
 
-				PhaseEvade(data)
-			else
-				AddSpeedToFrameCD(data.FrameTable[9],1)
-			end
-			if data.EvasionState then
-				BlzSetEventDamage(0)
-				FlyTextTagMiss(target,"Промах",GetOwningPlayer(target))
-				if IsUnitEnemy(caster,GetOwningPlayer(target)) then
-					FlyTextTagMiss(target,"Промах",GetOwningPlayer(caster))
-				end
-			end
-		end
-	end
-
-	if GetUnitTypeId(caster)==HeroID and false then
-		local mainData=HERO[GetPlayerId(GetOwningPlayer(caster))]
-		local data=mainData.FrameTable[6] --пассивка крит
-		if damage>=10 then
-			if not data.OnCD then
-				StarFrameCooldown(data,mainData.CustomAbilities[5].CD) --
-				BlzFrameSetVisible(data.ReadyIndicator,false)
-				--print("критический удар")
-				FlyTextTagCriticalStrike(target,R2I(damage*5).."!",GetOwningPlayer(caster))
-				BlzSetEventDamage(damage*5)
-			else
-				AddSpeedToFrameCD(data,1)
-			end
-		end
-	end
 		--любой получил урон
 
 end
@@ -2044,7 +2070,8 @@ function StartAndReleaseSpin(data)
                 DestroyEffect(eff)
                 BlzSetSpecialEffectScale(eff,0.5)
                 sec=0
-                if UnitDamageArea(hero,25,x,y,150) then
+                if UnitDamageArea(hero,25,x,y,150,"blackHole") then
+
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
                 end
             end
@@ -3036,7 +3063,7 @@ function InitWASD(hero)
         SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero),hero, 10,10,true) -- не дергается
 
         if not UnitAlive(hero) then
-            print("Эффект смерти")
+            --print("Эффект смерти")
             local x,y=GetUnitXY(hero)
             ReviveHero(hero,x,y,true)
         end
@@ -3667,7 +3694,7 @@ function attack(data)
                     damage=data.DamageInSeries[finale] -- финальная атака
                     --print(damage)
                     local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),50,GetUnitFacing(data.UnitHero))
-                    local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,300,true)
+                    local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,300,"shotForce")
 
                     if is then
                         normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone1",GetUnitXY(data.UnitHero))
@@ -3742,7 +3769,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
             if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then --FIXME
 
                 --print("попытка нанести урон в рывке")
-                if UnitDamageArea(hero,50,newX, newY,200,true) then
+                if UnitDamageArea(hero,50,newX, newY,200,"shotForce") then
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
                     -- print("нанесение урона после рывка")
 
@@ -3796,7 +3823,7 @@ function InitMouseMoveTrigger()
     end)
 end
 
-function UnitDamageArea(u,damage,x,y,range,force)
+function UnitDamageArea(u,damage,x,y,range,flag)
     local isdamage=false
     local e=nil
     local hero=nil
@@ -3810,8 +3837,13 @@ function UnitDamageArea(u,damage,x,y,range,force)
             isdamage=true
             hero=e
             k=k+1
-            if force then
+            if flag=="shotForce" then
                 UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
+            end
+            if flag=="blackHole" then
+                if not IsUnitInRange(e,u,15) then
+                    UnitAddForceSimple(e,AngleBetweenUnits(e,u),5,50)
+                end
             end
         end
         GroupRemoveUnit(perebor,e)

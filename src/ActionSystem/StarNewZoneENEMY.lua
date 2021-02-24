@@ -24,7 +24,7 @@ function InitAllZones()
     SetZone(6,gg_rct_E6A,gg_rct_B6A,gg_rct_S6A)
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
-
+    DestinyEnemies=GetRandomIntTable(1, #GameZone, #GameZone)
     for i = 1, #Destiny do
         print(Destiny[i])
     end
@@ -44,6 +44,7 @@ function SetZone(number,recEnter,rectBound,rectSpawn)
 end
 
 
+
 function Enter2NewZone()
     CurrentGameZone=CurrentGameZone+1
     if CurrentGameZone==1 then
@@ -57,7 +58,10 @@ function Enter2NewZone()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
         if Destiny[CurrentGameZone] then
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
-            StartEnemyWave(Destiny[CurrentGameZone])
+            --StartEnemyWave(Destiny[CurrentGameZone])
+            --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
+            StartEnemyWave(DestinyEnemies[CurrentGameZone])
+
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end
@@ -156,11 +160,30 @@ function StartEnemyWave(waveNumber)
         maxOnWave=10
     end
 
+    if waveNumber==6 then
+        listID={  -- некроманты
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+        }
+        maxOnWave=5
+    end
+
+    if waveNumber==5 then
+        listID={  -- Пуджи
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+        }
+        maxOnWave=3
+    end
+
+
     if listID[1] then
-        StartWave(GameZone[waveNumber].rectSpawn,listID,maxOnWave)
+        StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,maxOnWave)
     else
         listID={FourCC("nsko")}
-        StartWave(GameZone[waveNumber].rectSpawn,listID,1)
+        StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,1)
         print("В волне врагов, нет ни одного ID, так и задумано?")
     end
 end

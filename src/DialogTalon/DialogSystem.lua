@@ -1,12 +1,15 @@
 do
-    TimerStart(CreateTimer(), 2, false, function()
+    TimerStart(CreateTimer(), 3, false, function()
         CreateGodTalon(7085, -6883, "Trall")
     end)
 end
 
 function CreateDialogTalon(godName)
     math.randomseed(os.time())
-
+    if not godName then
+        print("При создании дара не передан параметр награды")
+        return
+    end
     if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
         print("ошибка загрузки ".."SystemGeneric\\Main.toc")
     end

@@ -96,9 +96,8 @@ function FinObjectInArea(x,y,message,actionFlag,isActive,reward)
                 HERO[pid].DoAction=true
                 HERO[pid].UseAction=actionFlag
                 HERO[pid].CurrentReward=reward
-                if GetLocalPlayer()==GetOwningPlayer(GetTriggerUnit()) then
-                    BlzFrameSetVisible(tooltip,true)
-                end
+                BlzFrameSetVisible(tooltip,GetLocalPlayer()==GetOwningPlayer(GetTriggerUnit()))
+
             end
             TimerStart(CreateTimer(), 0.1, false, function()
                 EnableTrigger(thisTrigger)
@@ -137,6 +136,7 @@ function FinObjectInArea(x,y,message,actionFlag,isActive,reward)
             end)
         end
     end)
+    return
 end
 
 function CreateActionBox(message)
@@ -256,11 +256,12 @@ function CreateEActions()
                 local message="Провидец, я выбираю тебя"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)--активация всех переходов
                 TimerStart(CreateTimer(),2, false, function()
                     --print("Создаём диалоговое окно для всех игроков Jsore")
-                    --CreateDialogTalon(GLOBAL_REWARD) -- Сюда передаётся trall
+                    --CreateDialogTalon("Trall") -- Сюда передаётся trall
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -270,9 +271,10 @@ function CreateEActions()
                 local message="Надели меня силой своего клинка"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                    --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -281,9 +283,10 @@ function CreateEActions()
                 local message="Держите оборону"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                    --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -292,9 +295,10 @@ function CreateEActions()
                 local message="Я отомщю за тебя"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                    --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -303,9 +307,9 @@ function CreateEActions()
                 local message="Гендальф белый"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -314,9 +318,10 @@ function CreateEActions()
                 local message="За твоего отца"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                   --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""
@@ -325,9 +330,10 @@ function CreateEActions()
                 local message="Инвокер, ты ли это?"
                 CreateInfoBoxForAllPlayerTimed(data,message,3)
                 data.Completed=true
+                AllActionsEnabled(true)
                 TimerStart(CreateTimer(),2, false, function()
                     DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                    --активация всех переходов
                 end)
                 data.DoAction=false
                 data.UseAction=""

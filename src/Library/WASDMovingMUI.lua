@@ -116,7 +116,7 @@ function InitWASD(hero)
         SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero),hero, 10,10,true) -- не дергается
 
         if not UnitAlive(hero) then
-            print("Эффект смерти")
+            --print("Эффект смерти")
             local x,y=GetUnitXY(hero)
             ReviveHero(hero,x,y,true)
         end
@@ -747,7 +747,7 @@ function attack(data)
                     damage=data.DamageInSeries[finale] -- финальная атака
                     --print(damage)
                     local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),50,GetUnitFacing(data.UnitHero))
-                    local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,300,true)
+                    local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,300,"shotForce")
 
                     if is then
                         normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone1",GetUnitXY(data.UnitHero))
@@ -822,7 +822,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
             if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then --FIXME
 
                 --print("попытка нанести урон в рывке")
-                if UnitDamageArea(hero,50,newX, newY,200,true) then
+                if UnitDamageArea(hero,50,newX, newY,200,"shotForce") then
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
                     -- print("нанесение урона после рывка")
 
@@ -876,7 +876,7 @@ function InitMouseMoveTrigger()
     end)
 end
 
-function UnitDamageArea(u,damage,x,y,range,force)
+function UnitDamageArea(u,damage,x,y,range,flag)
     local isdamage=false
     local e=nil
     local hero=nil
@@ -890,8 +890,13 @@ function UnitDamageArea(u,damage,x,y,range,force)
             isdamage=true
             hero=e
             k=k+1
-            if force then
+            if flag=="shotForce" then
                 UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
+            end
+            if flag=="blackHole" then
+                if not IsUnitInRange(e,u,15) then
+                    UnitAddForceSimple(e,AngleBetweenUnits(e,u),5,50)
+                end
             end
         end
         GroupRemoveUnit(perebor,e)

@@ -10,22 +10,44 @@ function CreateGodTalon(x, y, name, r, g, b)
     local pillar = AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
     local collision = CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
     local table = {eff,pillar,collision}
-    if not r or not g or not b then
+    --if not r or not g or not b then
         r = 255
         g = 255
         b = 255
-    end
+    --end
     BlzSetSpecialEffectColor(pillar, r, g, b)
     BlzSetSpecialEffectScale(eff, 2)
     BlzSetSpecialEffectPosition(eff, x, y, GetTerrainZ(x, y) - 40)
 
-    BlzSetSpecialEffectScale(pillar, 3)
+    BlzSetSpecialEffectScale(pillar, 2)
+    BlzSetSpecialEffectPosition(pillar, x, y, GetTerrainZ(x, y) + 150)
+    BlzSetSpecialEffectAlpha(pillar,120)
+
+    BlzSetSpecialEffectAlpha(eff,250)
     local angle = 0
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         angle = angle + 1
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
     end)
-    FinObjectInArea(x, y, "       Принять дар", name,true)
+    local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
+
+    local forceShow=false
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            local data=HERO[i]
+            if UnitAlive(data.UnitHero) and not forceShow then
+                if IsUnitInRangeXY(data.UnitHero,x,y,300) then
+                    forceShow=true
+                    --print("Герой в радиусе награды сразу")
+                    data.DoAction=true
+                    data.UseAction=name
+                    data.CurrentReward=name
+                    BlzFrameSetVisible(tooltip,GetLocalPlayer()==Player(i))
+                end
+            end
+        end
+    end
+
     LastGodTalon = table
     return table
 end
@@ -35,4 +57,5 @@ function DestroyGodTalon(table)
     DestroyEffect(table[2])
     KillDestructable(table[3])
 end
+
 
