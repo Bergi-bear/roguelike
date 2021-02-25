@@ -1,13 +1,3 @@
-do
-    TimerStart(CreateTimer(), 3, false, function()
-        CreateGodTalon(7085, -6883, "Trall")
-        GlobalTalons = {}
-        for i = 1, bj_MAX_PLAYERS do
-            GlobalTalons[i] = TalonBD:new()
-        end
-    end)
-end
-
 function CreateDialogTalon(godName)
     math.randomseed(os.time())
     if not godName then
@@ -69,7 +59,7 @@ function CreateDialogTalon(godName)
     DialogTalon.MainFrame = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
     for i = 1, bj_MAX_PLAYERS do
         if GetLocalPlayer() == Player(i - 1) then
-            BlzFrameSetSize(DialogTalon.MainFrame, 0.5, height[i])
+            BlzFrameSetSize(DialogTalon.MainFrame, 0.55, height[i])
         end
     end
     BlzFrameSetAbsPoint(DialogTalon.MainFrame, FRAMEPOINT_CENTER, 0.4, 0.32)
@@ -107,7 +97,7 @@ function CreateDialogTalon(godName)
             if GetLocalPlayer() == Player(i - 1) then
                 -- Создаем Бэкдроп для кнопок
                 DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
-                BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.4, 0.08)
+                BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
                 BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
 
                 -- Создаем Иконки кнопок
@@ -126,14 +116,15 @@ function CreateDialogTalon(godName)
                 DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                 BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
                 BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j].description)
-                BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0)
+                BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
+                BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
 
                 -- Показываем текущий уровень талантов, если талант уже выучен
                 if talons[i][j].level > 0 then
                     DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                     BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
                     BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "Текущий уровень: " .. talons[i][j].level)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.02)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
                 end
 
                 -- Создаем Кнопки
@@ -146,7 +137,8 @@ function CreateDialogTalon(godName)
                     -- Закрываем окно талантов
                     if GetLocalPlayer() == Player(i - 1) then
                         SmoothWindowAppearance(DialogTalon.MainFrame, "close")
-                        talons[i][j]["level"] = talons[i][j]["level"] + 1
+                        --talons[i][j]["level"] = talons[i][j]["level"] + 1
+                        GlobalTalons[i][godName][j]:updateLevel()
                     end
                 end)
             end
