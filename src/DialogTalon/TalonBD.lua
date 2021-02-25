@@ -11,14 +11,14 @@ TalonBD = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Удар молнией",
             description = "Молот наносит урон молнией",
-            level = 1,
+            level = 0,
             rarity = "normal"
         },
         [3] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 3",
             description = "Молот наносит урон молнией",
-            level = 2,
+            level = 0,
             rarity = "normal"
         },
         [4] = { -- талант2
@@ -32,28 +32,28 @@ TalonBD = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 5",
             description = "Молот наносит урон молнией",
-            level = 1,
+            level = 0,
             rarity = "normal"
         },
         [6] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 6",
             description = "Молот наносит урон молнией",
-            level = 2,
+            level = 0,
             rarity = "epic"
         },
         [7] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 7",
             description = "Молот наносит урон молнией",
-            level = 1,
+            level = 0,
             rarity = "rare"
         },
         [8] = { -- талант2
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 8",
             description = "Молот наносит урон молнией",
-            level = 2,
+            level = 0,
             rarity = "normal"
         },
         [9] = { -- талант2
@@ -67,9 +67,16 @@ TalonBD = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 10",
             description = "Молот наносит урон молнией",
-            level = 2,
+            level = 0,
             rarity = "normal"
         },
     },
     BLADEMASTER={} -- повторяем
 }
+
+function TalonBD:new (o)
+    o = o or {}
+    setmetatable(o, self)
+    self.__index = self
+    return o
+end
