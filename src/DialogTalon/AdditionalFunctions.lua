@@ -14,6 +14,7 @@ function SmoothWindowAppearance(frame, state)
             DestroyTimer(timer)
         elseif count == 0 and state == "close" then
             DestroyTimer(timer)
+            BlzFrameSetVisible(frame, false)
         end
         if state == "open" then
             count = count + 1
