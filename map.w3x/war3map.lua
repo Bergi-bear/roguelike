@@ -621,7 +621,7 @@ function CreateEActions()
                 AllActionsEnabled(true)--активация всех переходов
                 TimerStart(CreateTimer(),2, false, function()
                     --print("Создаём диалоговое окно для всех игроков Jsore")
-                    --CreateDialogTalon("Trall") -- Сюда передаётся trall
+                    CreateDialogTalon("Trall") -- Сюда передаётся trall
                     DestroyGodTalon(LastGodTalon)
 
                 end)
@@ -980,19 +980,27 @@ function StartWave(rect,listID,max)
         k=k+1
     end
     TimerStart(CreateTimer(),1, true, function()
-        if LiveOnWave<max-1 and k<=MaxOnWave then
-            --print("убит из пачки, создаём "..k)
-            local loc=GetRandomLocInRect(rect)
-            local x,y=GetLocationX(loc),GetLocationY(loc)
-            CreateCreepDelay(listID[k],x,y,1.5,k)
-            k=k+1
-        end
+        --if LiveOnWave<max-1 and k<=MaxOnWave then
+
+
+            --local loc=GetRandomLocInRect(rect)
+            --local x,y=GetLocationX(loc),GetLocationY(loc)
+            --CreateCreepDelay(listID[k],x,y,1.5,k)
+            --k=k+1
+            for i = 1, max do
+                if LiveOnWave<=max-1 and k<=MaxOnWave then
+                    --print("убит из пачки, создаём следующего"..k)
+                    local loc=GetRandomLocInRect(rect)
+                    local x,y=GetLocationX(loc),GetLocationY(loc)
+                    CreateCreepDelay(listID[k],x,y,0.9,k)
+                    --MaxOnWave=MaxOnWave-1
+                    k=k+1
+                end
+            end
+       -- end
         if LiveOnWave<=0 and k>=max then
             --print("все убиты даём награду")
             local x,y=GetRectCenterX(rect),GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
-            --print()
-            ---print(Destiny[CurrentGameZone].." выдёргивает талант из этой зоны. Создан "..ActionList[Destiny[CurrentGameZone]].reward)
-
             CreateGodTalon(x,y,GLOBAL_REWARD,80,80,255)
             DestroyTimer(GetExpiredTimer())
         end
@@ -1034,6 +1042,7 @@ function SmoothWindowAppearance(frame, state)
             DestroyTimer(timer)
         elseif count == 0 and state == "close" then
             DestroyTimer(timer)
+            BlzFrameSetVisible(frame, false)
         end
         if state == "open" then
             count = count + 1
@@ -1042,9 +1051,30 @@ function SmoothWindowAppearance(frame, state)
         end
     end)
 end
+
+-- Перемешивание списка
+function swap(array, index1, index2)
+    array[index1], array[index2] = array[index2], array[index1]
+end
+
+function shake(array)
+    local counter = #array
+
+    while counter > 1 do
+        local index = math.random(counter)
+        swap(array, index, counter)
+        counter = counter - 1
+    end
+end
+
+
 do
     TimerStart(CreateTimer(), 3, false, function()
         CreateGodTalon(7085, -6883, "Trall")
+        GlobalTalons = {}
+        for i = 1, bj_MAX_PLAYERS do
+            GlobalTalons[i] = TalonBD:new()
+        end
     end)
 end
 
@@ -1069,27 +1099,25 @@ function CreateDialogTalon(godName)
 
     local talons = {}
     local listOfNumbers = {}
-    for i = 1, 10 do
-        if TalonBD[godName][i]["level"] >= 3 then -- Если уровень таланта больше или равен максимальному уровню (3), то исключаем его из списка
+    for i = 1, bj_MAX_PLAYERS do
+        listOfNumbers[i] = {}
+        for j = 1, 10 do
+            if GlobalTalons[i][godName][j]["level"] >= 3 then -- Если уровень таланта больше или равен максимальному уровню (3), то исключаем его из списка
 
-        else
-            listOfNumbers[i] = i
+            else
+                listOfNumbers[i][j] = j
+            end
         end
     end
-
-    local randomList = {}
 
     for i = 1, bj_MAX_PLAYERS do
-        randomList[i] = {}
-        for j = 1, #listOfNumbers do
-            local pos = math.random(1, #randomList[i] + 1)
-            randomList[i][pos] = j
-        end
+        shake(listOfNumbers[i])
     end
+
     for i = 1, bj_MAX_PLAYERS do
         talons[i] = {}
         for j = 1, 4 do
-            talons[i][j] = TalonBD[godName][randomList[i][j]]
+            talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
         end
     end
 
@@ -1147,14 +1175,10 @@ function CreateDialogTalon(godName)
         DialogTalon.TalonButtons.ClickActions[i] = {}
         for j = 1, #talons[i] do
             if GetLocalPlayer() == Player(i - 1) then
-                -- Создаем Кнопки
-                DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.MainFrame, "", 0)
-                BlzFrameSetSize(DialogTalon.TalonButtons.Button[i][j], 0.4, 0.08)
-                BlzFrameSetPoint(DialogTalon.TalonButtons.Button[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
-
                 -- Создаем Бэкдроп для кнопок
-                DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.TalonButtons.Button[i][j], "EscMenuControlBackdropTemplate", 0)
-                BlzFrameSetAllPoints(DialogTalon.TalonButtons.Backdrop[i][j], DialogTalon.TalonButtons.Button[i][j])
+                DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
+                BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.4, 0.08)
+                BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
 
                 -- Создаем Иконки кнопок
                 DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
@@ -1182,12 +1206,17 @@ function CreateDialogTalon(godName)
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.02)
                 end
 
+                -- Создаем Кнопки
+                DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
+
                 DialogTalon.TalonButtons.Triggers[i][j] = CreateTrigger()
                 DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.Triggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
                 DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.Triggers[i][j], function()
                     -- Закрываем окно талантов
-                    if GetLocalPlayer() == player then
-
+                    if GetLocalPlayer() == Player(i - 1) then
+                        SmoothWindowAppearance(DialogTalon.MainFrame, "close")
+                        talons[i][j]["level"] = talons[i][j]["level"] + 1
                     end
                 end)
             end
@@ -1203,80 +1232,96 @@ function CreateDialogTalon(godName)
 
 end
 TalonBD = {
-    Trall = {--Тралл
-        [1] = { -- талант1
+    Trall = {--Тралл Провидец
+        [1] = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
-            name = "Призыв волка",
-            description = "Призывает волка",
-            level = 0,
-            rarity = "normal"
-        },
-        [2] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Удар молнией",
-            description = "Молот наносит урон молнией",
-            level = 1,
-            rarity = "normal"
-        },
-        [3] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 3",
-            description = "Молот наносит урон молнией",
-            level = 2,
-            rarity = "normal"
-        },
-        [4] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 4",
-            description = "Молот наносит урон молнией",
+            description = "Каждый 5 обычный обычный удар выпускает цепную молнию, наносящую damage урона и отскакивает между enemies врагами",
             level = 0,
-            rarity = "normal"
+            rarity = "normal",
+            tooltip = "Обычной атакой, считаете быстрая атака совершенная LMB или атака призванных существ"
         },
-        [5] = { -- талант2
+        [2] = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 5",
-            description = "Молот наносит урон молнией",
-            level = 1,
-            rarity = "normal"
-        },
-        [6] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 6",
-            description = "Молот наносит урон молнией",
-            level = 2,
-            rarity = "epic"
-        },
-        [7] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 7",
-            description = "Молот наносит урон молнией",
-            level = 1,
-            rarity = "rare"
-        },
-        [8] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 8",
-            description = "Молот наносит урон молнией",
-            level = 2,
-            rarity = "normal"
-        },
-        [9] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 9",
-            description = "Молот наносит урон молнией",
+            name = "Громовая кирка",
+            description = "Кирка отскакивает на count случайных врагов",
             level = 0,
-            rarity = "normal"
+            rarity = "normal",
+            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
         },
-        [10] = { -- талант2
+        [3] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Волк компаньён",
+            description = "Призывает автономного волка, сражающего на вашей стороне. Презезарядка возрождения sec сек.",
+            level = 0,
+            rarity = "normal",
+            tooltip = " Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед."
+        },
+        [4] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Воронка прозрения",
+            description = "Заряженная атака втягивает врагов в центр воронки, область захвата area ",
+            level = 0,
+            rarity = "normal",
+            tooltip = "Удерживайте LMB чтобы совершить заряженную атаку"
+        },
+        [5] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Зов Провидца",
+            description = "Вызывает землетрясение вокруг героя и наносит damage урона врагам вокруг ",
+            level = 0,
+            rarity = "epic",
+            tooltip = "Для активации Зова нажмите клавишу F, получение зова этого, делает невозможным получение зова от других героев"
+        },
+        [6] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Склад пеонов",
+            description = "Добавляет + charge заряд к кикре",
+            level = 0,
+            rarity = "epic",
+            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
+        },
+        [7] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Предвидение боли",
+            description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить запас здоровья. Перезарядка sec сек",
+            level = 0,
+            rarity = "rare",
+            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения"
+        },
+        [8] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Предвидение смерти",
+            description = "Делает героя неуязвимым при получении смертельного урона на 2 сек. Презераядка sec сек",
+            level = 0,
+            rarity = "normal",
+            tooltip = "Вы умрёте как только потеряете всё здоровье"
+        },
+        [9] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Ясновадение",
+            description = "Позволяет видеть невидимое и раскрывает врагов",
+            level = 0,
+            rarity = "normal",
+            tooltip = "В игре много скрытых ловышек и иных путей, берите этот навык всегда, чтобы узнать больше"
+        },
+        [10] = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 10",
             description = "Молот наносит урон молнией",
-            level = 2,
+            level = 0,
             rarity = "normal"
         },
     },
     BLADEMASTER={} -- повторяем
 }
+
+function TalonBD:new (o)
+    o = o or {}
+    setmetatable(o, self)
+    self.__index = self
+    return o
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -1669,8 +1714,20 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("unec") then -- маленький скоробей
             NecroAttackAndArrow(unit)
         end
+        if true then
+
+        end
 
     end)
+end
+
+function UnitAddShield(unit,amount)
+    UnitAddAbility(unit,FourCC("ACmf"))
+    BlzSetUnitMaxMana(unit,amount)
+    SetUnitState(unit,UNIT_STATE_MANA,amount)
+    if not IssueImmediateOrder(unit,"manashieldon") then
+        print("Не могу активировать щит")
+    end
 end
 
 function GetRandomEnemyHero()
@@ -2033,7 +2090,9 @@ function OnPostDamage()
 
 	if GetUnitTypeId(target)~=HeroID then
 		--print("кто-то другой получил урон")
-		StunUnit(target,0.4,"stagger")
+		if GetUnitAbilityLevel(target,FourCC("BNms"))==0 then
+			StunUnit(target,0.4,"stagger")
+		end
 
 	end
 
@@ -3885,6 +3944,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
         onForces[GetHandleId(hero)]=false
         local m=0
         --print("1")
+        local tempDamageGroup=CreateGroup()
         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
             currentdistance = currentdistance + speed
             --print(currentdistance)
@@ -3895,9 +3955,17 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
             if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then --FIXME
 
                 --print("попытка нанести урон в рывке")
-                if UnitDamageArea(hero,50,newX, newY,200,"shotForce") then
-                    normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
-                    -- print("нанесение урона после рывка")
+                local is,du=UnitDamageArea(hero,0,newX, newY,200)
+                if is then
+                    if not IsUnitInGroup(du,tempDamageGroup) then
+                        GroupAddUnit(tempDamageGroup,du)
+                        if UnitDamageArea(hero,100,newX, newY,200,"longForce") then
+                            normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
+                          --  print("нанесение урона во время рывка рывка")
+                        end
+                    else
+                     --   print("повторное нанесение урона ни к ечму не привело")
+                    end
 
                 end
             end
@@ -3921,7 +3989,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                     UnitDamageArea(hero,50,newX, newY,150)
                     DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic",newX, newY))
                 end
-
+                DestroyGroup(tempDamageGroup)
                 DestroyTimer(GetExpiredTimer())
                 onForces[GetHandleId(hero)]=true
                 --print("stop cur="..currentdistance.." dist="..distance)
@@ -3980,6 +4048,10 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                     UnitAddForceSimple(e,AngleBetweenUnits(e,u),5,50)
                 end
             end
+            if flag=="longForce" then
+                UnitAddForceSimple(e,AngleBetweenUnits(u,e),20,150,"dust")
+            end
+
 
         end
         GroupRemoveUnit(perebor,e)

@@ -206,19 +206,27 @@ function StartWave(rect,listID,max)
         k=k+1
     end
     TimerStart(CreateTimer(),1, true, function()
-        if LiveOnWave<max-1 and k<=MaxOnWave then
-            --print("убит из пачки, создаём "..k)
-            local loc=GetRandomLocInRect(rect)
-            local x,y=GetLocationX(loc),GetLocationY(loc)
-            CreateCreepDelay(listID[k],x,y,1.5,k)
-            k=k+1
-        end
+        --if LiveOnWave<max-1 and k<=MaxOnWave then
+
+
+            --local loc=GetRandomLocInRect(rect)
+            --local x,y=GetLocationX(loc),GetLocationY(loc)
+            --CreateCreepDelay(listID[k],x,y,1.5,k)
+            --k=k+1
+            for i = 1, max do
+                if LiveOnWave<=max-1 and k<=MaxOnWave then
+                    --print("убит из пачки, создаём следующего"..k)
+                    local loc=GetRandomLocInRect(rect)
+                    local x,y=GetLocationX(loc),GetLocationY(loc)
+                    CreateCreepDelay(listID[k],x,y,0.9,k)
+                    --MaxOnWave=MaxOnWave-1
+                    k=k+1
+                end
+            end
+       -- end
         if LiveOnWave<=0 and k>=max then
             --print("все убиты даём награду")
             local x,y=GetRectCenterX(rect),GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
-            --print()
-            ---print(Destiny[CurrentGameZone].." выдёргивает талант из этой зоны. Создан "..ActionList[Destiny[CurrentGameZone]].reward)
-
             CreateGodTalon(x,y,GLOBAL_REWARD,80,80,255)
             DestroyTimer(GetExpiredTimer())
         end

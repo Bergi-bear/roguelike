@@ -31,8 +31,20 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("unec") then -- маленький скоробей
             NecroAttackAndArrow(unit)
         end
+        if true then
+
+        end
 
     end)
+end
+
+function UnitAddShield(unit,amount)
+    UnitAddAbility(unit,FourCC("ACmf"))
+    BlzSetUnitMaxMana(unit,amount)
+    SetUnitState(unit,UNIT_STATE_MANA,amount)
+    if not IssueImmediateOrder(unit,"manashieldon") then
+        print("Не могу активировать щит")
+    end
 end
 
 function GetRandomEnemyHero()

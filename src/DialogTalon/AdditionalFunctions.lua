@@ -34,7 +34,6 @@ function shake(array)
 
     while counter > 1 do
         local index = math.random(counter)
-
         swap(array, index, counter)
         counter = counter - 1
     end

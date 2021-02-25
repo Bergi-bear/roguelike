@@ -1,78 +1,106 @@
 TalonBD = {
-    Trall = {--Тралл
-        [1] = { -- талант1
-            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
-            name = "Призыв волка",
-            description = "Призывает волка",
-            level = 0,
-            rarity = "normal"
-        },
-        [2] = { -- талант2
+    Trall = {--Тралл Провидец
+        [1] = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Удар молнией",
-            description = "Молот наносит урон молнией",
+            description = "Каждый 5 обычный обычный удар выпускает цепную молнию, наносящую damage урона и отскакивает между enemies врагами",
             level = 0,
-            rarity = "normal"
+            rarity = "normal",
+            tooltip = "Обычной атакой, считаете быстрая атака совершенная LMB или атака призванных существ"
         },
-        [3] = { -- талант2
+        [2] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
+            name = "Громовая кирка",
+            description = "Кирка отскакивает на count случайных врагов",
+            level = 0,
+            rarity = "normal",
+            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
+        },
+        [3] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
+            name = "Волк компаньён",
+            description = "Призывает автономного волка, сражающего на вашей стороне. Презезарядка возрождения sec сек.",
+            level = 0,
+            rarity = "normal",
+            tooltip = " Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед."
+        },
+        [4] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
+            name = "Воронка прозрения",
+            description = "Заряженная атака втягивает врагов в центр воронки, область захвата area ",
+            level = 0,
+            rarity = "normal",
+            tooltip = "Удерживайте LMB чтобы совершить заряженную атаку"
+        },
+        [5] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
+            name = "Зов Провидца",
+            description = "Вызывает землетрясение вокруг героя и наносит damage урона врагам вокруг ",
+            level = 0,
+            rarity = "epic",
+            tooltip = "Для активации Зова нажмите клавишу F, получение зова этого, делает невозможным получение зова от других героев"
+        },
+        [6] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
+            name = "Запасы складов пеонов",
+            description = "Добавляет + charge заряд к кикре",
+            level = 0,
+            rarity = "epic",
+            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
+        },
+        [7] = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 3",
-            description = "Молот наносит урон молнией",
+            name = "Предвидение боли",
+            description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить запас здоровья. Перезарядка sec сек",
             level = 0,
-            rarity = "normal"
+            rarity = "rare",
+            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения"
         },
-        [4] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 4",
-            description = "Молот наносит урон молнией",
+        [8] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNCorpseExplode.blp",
+            name = "Предвидение смерти",
+            description = "Делает героя неуязвимым при получении смертельного урона на 2 сек. Презарядка sec сек",
             level = 0,
-            rarity = "normal"
+            rarity = "normal",
+            tooltip = "Вы умрёте, как только потеряете всё здоровье"
         },
-        [5] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 5",
-            description = "Молот наносит урон молнией",
+        [9] = {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
+            name = "Ясновидение",
+            description = "Позволяет видеть невидимое и раскрывает врагов",
             level = 0,
-            rarity = "normal"
+            rarity = "normal",
+            tooltip = "В игре много скрытых ловышек и иных путей, берите этот навык всегда, чтобы узнать больше"
         },
-        [6] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 6",
-            description = "Молот наносит урон молнией",
-            level = 0,
-            rarity = "epic"
-        },
-        [7] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 7",
-            description = "Молот наносит урон молнией",
-            level = 0,
-            rarity = "rare"
-        },
-        [8] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 8",
-            description = "Молот наносит урон молнией",
-            level = 0,
-            rarity = "normal"
-        },
-        [9] = { -- талант2
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 9",
-            description = "Молот наносит урон молнией",
-            level = 0,
-            rarity = "normal"
-        },
-        [10] = { -- талант2
+        [10] = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 10",
-            description = "Молот наносит урон молнией",
+            description = "Неопределён",
             level = 0,
-            rarity = "normal"
+            rarity = "normal",
+            tooltip = "Загулшка, этот талант не должен быть виден"
         },
     },
-    BLADEMASTER={} -- повторяем
+    BLADEMASTER={
+        {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Ветряной шаг смерти",
+            description = "Падение здоровья меньше 10% вызывает невидимость. Перезарядка sec сек",
+            level = 0,
+            rarity = "normal",
+            tooltip = "Вы умрёте, как только потеряете всё здоровье"
+        },
+        {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Боевая ярость",
+            description = "Любой исходящий урон может быть критическим X 1.25 Перезарядка sec сек",
+            level = 0,
+            rarity = "normal",
+            tooltip = "Изучение этого таланта поткрывает доступ к таланту на множитель крит урона"
+        },
+    }
 }
+
 
 function TalonBD:new (o)
     o = o or {}

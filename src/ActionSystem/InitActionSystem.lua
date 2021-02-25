@@ -259,7 +259,7 @@ function CreateEActions()
                 AllActionsEnabled(true)--активация всех переходов
                 TimerStart(CreateTimer(),2, false, function()
                     --print("Создаём диалоговое окно для всех игроков Jsore")
-                    --CreateDialogTalon("Trall") -- Сюда передаётся trall
+                    CreateDialogTalon("Trall") -- Сюда передаётся trall
                     DestroyGodTalon(LastGodTalon)
 
                 end)

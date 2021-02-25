@@ -812,6 +812,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
         onForces[GetHandleId(hero)]=false
         local m=0
         --print("1")
+        local tempDamageGroup=CreateGroup()
         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
             currentdistance = currentdistance + speed
             --print(currentdistance)
@@ -822,9 +823,17 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
             if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then --FIXME
 
                 --print("попытка нанести урон в рывке")
-                if UnitDamageArea(hero,50,newX, newY,200,"shotForce") then
-                    normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
-                    -- print("нанесение урона после рывка")
+                local is,du=UnitDamageArea(hero,0,newX, newY,200)
+                if is then
+                    if not IsUnitInGroup(du,tempDamageGroup) then
+                        GroupAddUnit(tempDamageGroup,du)
+                        if UnitDamageArea(hero,100,newX, newY,200,"longForce") then
+                            normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
+                          --  print("нанесение урона во время рывка рывка")
+                        end
+                    else
+                     --   print("повторное нанесение урона ни к ечму не привело")
+                    end
 
                 end
             end
@@ -848,7 +857,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                     UnitDamageArea(hero,50,newX, newY,150)
                     DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic",newX, newY))
                 end
-
+                DestroyGroup(tempDamageGroup)
                 DestroyTimer(GetExpiredTimer())
                 onForces[GetHandleId(hero)]=true
                 --print("stop cur="..currentdistance.." dist="..distance)
@@ -907,6 +916,10 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                     UnitAddForceSimple(e,AngleBetweenUnits(e,u),5,50)
                 end
             end
+            if flag=="longForce" then
+                UnitAddForceSimple(e,AngleBetweenUnits(u,e),20,150,"dust")
+            end
+
 
         end
         GroupRemoveUnit(perebor,e)
