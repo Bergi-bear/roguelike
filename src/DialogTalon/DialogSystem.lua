@@ -105,14 +105,10 @@ function CreateDialogTalon(godName)
         DialogTalon.TalonButtons.ClickActions[i] = {}
         for j = 1, #talons[i] do
             if GetLocalPlayer() == Player(i - 1) then
-                -- Создаем Кнопки
-                DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.MainFrame, "", 0)
-                BlzFrameSetSize(DialogTalon.TalonButtons.Button[i][j], 0.4, 0.08)
-                BlzFrameSetPoint(DialogTalon.TalonButtons.Button[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
-
                 -- Создаем Бэкдроп для кнопок
-                DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.TalonButtons.Button[i][j], "EscMenuControlBackdropTemplate", 0)
-                BlzFrameSetAllPoints(DialogTalon.TalonButtons.Backdrop[i][j], DialogTalon.TalonButtons.Button[i][j])
+                DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
+                BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.4, 0.08)
+                BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
 
                 -- Создаем Иконки кнопок
                 DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
@@ -140,12 +136,17 @@ function CreateDialogTalon(godName)
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.02)
                 end
 
+                -- Создаем Кнопки
+                DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
+
                 DialogTalon.TalonButtons.Triggers[i][j] = CreateTrigger()
                 DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.Triggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
                 DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.Triggers[i][j], function()
                     -- Закрываем окно талантов
-                    if GetLocalPlayer() == player then
-
+                    if GetLocalPlayer() == Player(i - 1) then
+                        SmoothWindowAppearance(DialogTalon.MainFrame, "close")
+                        talons[i][j]["level"] = talons[i][j]["level"] + 1
                     end
                 end)
             end
