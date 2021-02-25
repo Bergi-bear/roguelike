@@ -1,6 +1,10 @@
 do
     TimerStart(CreateTimer(), 3, false, function()
         CreateGodTalon(7085, -6883, "Trall")
+        GlobalTalons = {}
+        for i = 1, bj_MAX_PLAYERS do
+            GlobalTalons[i] = TalonBD:new()
+        end
     end)
 end
 
@@ -25,27 +29,25 @@ function CreateDialogTalon(godName)
 
     local talons = {}
     local listOfNumbers = {}
-    for i = 1, 10 do
-        if TalonBD[godName][i]["level"] >= 3 then -- Если уровень таланта больше или равен максимальному уровню (3), то исключаем его из списка
+    for i = 1, bj_MAX_PLAYERS do
+        listOfNumbers[i] = {}
+        for j = 1, 10 do
+            if GlobalTalons[i][godName][j]["level"] >= 3 then -- Если уровень таланта больше или равен максимальному уровню (3), то исключаем его из списка
 
-        else
-            listOfNumbers[i] = i
+            else
+                listOfNumbers[i][j] = j
+            end
         end
     end
-
-    local randomList = {}
 
     for i = 1, bj_MAX_PLAYERS do
-        randomList[i] = {}
-        for j = 1, #listOfNumbers do
-            local pos = math.random(1, #randomList[i] + 1)
-            randomList[i][pos] = j
-        end
+        shake(listOfNumbers[i])
     end
+
     for i = 1, bj_MAX_PLAYERS do
         talons[i] = {}
         for j = 1, 4 do
-            talons[i][j] = TalonBD[godName][randomList[i][j]]
+            talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
         end
     end
 
