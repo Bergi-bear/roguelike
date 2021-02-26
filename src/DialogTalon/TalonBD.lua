@@ -9,7 +9,7 @@ do
                         icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
                         name = "Удар молнией",
                         description = "Каждый 5 обычный обычный удар выпускает цепную молнию, наносящую damage урона и отскакивает между enemies врагами",
-                        level = 1,
+                        level = 0,
                         rarity = "normal",
                         tooltip = "Обычной атакой, считаете быстрая атака совершенная LMB или атака призванных существ"
                     }),
@@ -17,7 +17,7 @@ do
                         icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
                         name = "Громовая кирка",
                         description = "Кирка отскакивает на count случайных врагов",
-                        level = 1,
+                        level = 0,
                         rarity = "normal",
                         tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
                     }),
@@ -25,7 +25,7 @@ do
                         icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
                         name = "Волк компаньён",
                         description = "Призывает автономного волка, сражающего на вашей стороне. Презезарядка возрождения sec сек.",
-                        level = 1,
+                        level = 0,
                         rarity = "normal",
                         tooltip = " Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед."
                     }),
@@ -33,7 +33,7 @@ do
                         icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
                         name = "Воронка прозрения",
                         description = "Заряженная атака втягивает врагов в центр воронки, область захвата area ",
-                        level = 1,
+                        level = 0,
                         rarity = "normal",
                         tooltip = "Удерживайте LMB чтобы совершить заряженную атаку"
                     }),
@@ -41,7 +41,7 @@ do
                         icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
                         name = "Зов Провидца",
                         description = "Вызывает землетрясение вокруг героя и наносит damage урона врагам вокруг ",
-                        level = 1,
+                        level = 0,
                         rarity = "epic",
                         tooltip = "Для активации Зова нажмите клавишу F, получение зова этого, делает невозможным получение зова от других героев"
                     }),
@@ -49,7 +49,7 @@ do
                         icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
                         name = "Запасы складов пеонов",
                         description = "Добавляет + charge заряд к кикре",
-                        level = 1,
+                        level = 0,
                         rarity = "epic",
                         tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
                     }),
@@ -83,7 +83,8 @@ do
                         description = "Неопределён",
                         level = 0,
                         rarity = "normal",
-                        tooltip = "Загулшка, этот талант не должен быть виден"
+                        tooltip = "Загулшка, этот талант не должен быть виден",
+                        dependence = 3
                     }),
                 },
                 BLADEMASTER={
