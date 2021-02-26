@@ -36,3 +36,7 @@ end
 function Talon:getDescription()
     return self.description
 end
+
+function Talon:getDS()
+    return self.DS
+end
