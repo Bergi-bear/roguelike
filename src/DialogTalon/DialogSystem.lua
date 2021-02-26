@@ -41,6 +41,8 @@ function CreateDialogTalon(godName)
         talons[i] = {}
         for j = 1, 4 do
             talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
+            -- Обновляем описание
+            talons[i][j]:updateDescription()
         end
     end
 
@@ -118,7 +120,7 @@ function CreateDialogTalon(godName)
                 -- Создаем описания талантов
                 DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                 BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
-                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j].description)
+                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:getDescription())
                 BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
                 BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
 
