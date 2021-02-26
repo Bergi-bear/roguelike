@@ -412,7 +412,7 @@ function InitFinObjectInArea()
     FinObjectInArea(18036,-10000,"       Продолжить","Goto",false)
     FinObjectInArea(18931,-10000,"        Продолжить","Goto",false)
     FinObjectInArea(19442,-6286,"        Продолжить","Goto",false)
-    FinObjectInArea(20223,-7145,"        Продолжить","Goto",false)
+    FinObjectInArea(20214,-7145,"        Продолжить","Goto",false)
     --FinObjectInArea(0,-0,"   Продолжить","Goto",false)
 
 end
@@ -1068,16 +1068,6 @@ function shake(array)
 end
 
 
-do
-    TimerStart(CreateTimer(), 3, false, function()
-        CreateGodTalon(7085, -6883, "Trall")
-        GlobalTalons = {}
-        for i = 1, bj_MAX_PLAYERS do
-            GlobalTalons[i] = TalonBD:new()
-        end
-    end)
-end
-
 function CreateDialogTalon(godName)
     math.randomseed(os.time())
     if not godName then
@@ -1101,11 +1091,14 @@ function CreateDialogTalon(godName)
     local listOfNumbers = {}
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
-        for j = 1, 10 do
-            if GlobalTalons[i][godName][j]["level"] >= 3 then -- Если уровень таланта больше или равен максимальному уровню (3), то исключаем его из списка
-
-            else
+        for j = 1, #GlobalTalons[i][godName] do
+            if not (GlobalTalons[i][godName][j]:getLevel() >= 3) then -- Если уровень таланта больше или равен максимальному уровню (3), то исключаем его из списка
                 listOfNumbers[i][j] = j
+            end
+            -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
+            -- если уровень равен 0, то исключаем зависимый талант из списка
+            if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
+                table.remove(listOfNumbers[i], j)
             end
         end
     end
@@ -1139,7 +1132,7 @@ function CreateDialogTalon(godName)
     DialogTalon.MainFrame = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
     for i = 1, bj_MAX_PLAYERS do
         if GetLocalPlayer() == Player(i - 1) then
-            BlzFrameSetSize(DialogTalon.MainFrame, 0.5, height[i])
+            BlzFrameSetSize(DialogTalon.MainFrame, 0.55, height[i])
         end
     end
     BlzFrameSetAbsPoint(DialogTalon.MainFrame, FRAMEPOINT_CENTER, 0.4, 0.32)
@@ -1177,7 +1170,7 @@ function CreateDialogTalon(godName)
             if GetLocalPlayer() == Player(i - 1) then
                 -- Создаем Бэкдроп для кнопок
                 DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
-                BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.4, 0.08)
+                BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
                 BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
 
                 -- Создаем Иконки кнопок
@@ -1196,14 +1189,15 @@ function CreateDialogTalon(godName)
                 DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                 BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
                 BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j].description)
-                BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0)
+                BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
+                BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
 
                 -- Показываем текущий уровень талантов, если талант уже выучен
                 if talons[i][j].level > 0 then
                     DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                     BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
                     BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "Текущий уровень: " .. talons[i][j].level)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.02)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
                 end
 
                 -- Создаем Кнопки
@@ -1216,7 +1210,8 @@ function CreateDialogTalon(godName)
                     -- Закрываем окно талантов
                     if GetLocalPlayer() == Player(i - 1) then
                         SmoothWindowAppearance(DialogTalon.MainFrame, "close")
-                        talons[i][j]["level"] = talons[i][j]["level"] + 1
+                        --talons[i][j]["level"] = talons[i][j]["level"] + 1
+                        GlobalTalons[i][godName][j]:updateLevel()
                     end
                 end)
             end
@@ -1231,115 +1226,144 @@ function CreateDialogTalon(godName)
     SmoothWindowAppearance(DialogTalon.MainFrame, "open")
 
 end
-TalonBD = {
-    Trall = {--Тралл Провидец
-        [1] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Удар молнией",
-            description = "Каждый 5 обычный обычный удар выпускает цепную молнию, наносящую damage урона и отскакивает между enemies врагами",
-            level = 0,
-            rarity = "normal",
-            tooltip = "Обычной атакой, считаете быстрая атака совершенная LMB или атака призванных существ"
-        },
-        [2] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
-            name = "Громовая кирка",
-            description = "Кирка отскакивает на count случайных врагов",
-            level = 0,
-            rarity = "normal",
-            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
-        },
-        [3] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
-            name = "Волк компаньён",
-            description = "Призывает автономного волка, сражающего на вашей стороне. Презезарядка возрождения sec сек.",
-            level = 0,
-            rarity = "normal",
-            tooltip = " Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед."
-        },
-        [4] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
-            name = "Воронка прозрения",
-            description = "Заряженная атака втягивает врагов в центр воронки, область захвата area ",
-            level = 0,
-            rarity = "normal",
-            tooltip = "Удерживайте LMB чтобы совершить заряженную атаку"
-        },
-        [5] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
-            name = "Зов Провидца",
-            description = "Вызывает землетрясение вокруг героя и наносит damage урона врагам вокруг ",
-            level = 0,
-            rarity = "epic",
-            tooltip = "Для активации Зова нажмите клавишу F, получение зова этого, делает невозможным получение зова от других героев"
-        },
-        [6] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
-            name = "Запасы складов пеонов",
-            description = "Добавляет + charge заряд к кикре",
-            level = 0,
-            rarity = "epic",
-            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
-        },
-        [7] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Предвидение боли",
-            description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить запас здоровья. Перезарядка sec сек",
-            level = 0,
-            rarity = "rare",
-            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения"
-        },
-        [8] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNCorpseExplode.blp",
-            name = "Предвидение смерти",
-            description = "Делает героя неуязвимым при получении смертельного урона на 2 сек. Презарядка sec сек",
-            level = 0,
-            rarity = "normal",
-            tooltip = "Вы умрёте, как только потеряете всё здоровье"
-        },
-        [9] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
-            name = "Ясновидение",
-            description = "Позволяет видеть невидимое и раскрывает врагов",
-            level = 0,
-            rarity = "normal",
-            tooltip = "В игре много скрытых ловышек и иных путей, берите этот навык всегда, чтобы узнать больше"
-        },
-        [10] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Талант 10",
-            description = "Неопределён",
-            level = 0,
-            rarity = "normal",
-            tooltip = "Загулшка, этот талант не должен быть виден"
-        },
-    },
-    BLADEMASTER={
-        {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Ветряной шаг смерти",
-            description = "Падение здоровья меньше 10% вызывает невидимость. Перезарядка sec сек",
-            level = 0,
-            rarity = "normal",
-            tooltip = "Вы умрёте, как только потеряете всё здоровье"
-        },
-        {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Боевая ярость",
-            description = "Любой исходящий урон может быть критическим X 1.25 Перезарядка sec сек",
-            level = 0,
-            rarity = "normal",
-            tooltip = "Изучение этого таланта поткрывает доступ к таланту на множитель крит урона"
-        },
-    }
+Talon = {
+    icon = nil,
+    name = nil,
+    description = nil,
+    level = 0,
+    rarity = "normal",
+    tooltip = nil,
+    dependence = nil
 }
 
-
-function TalonBD:new (o)
+function Talon:new (o)
     o = o or {}
     setmetatable(o, self)
     self.__index = self
     return o
+end
+
+function Talon:updateLevel()
+    self.level = self.level + 1
+end
+
+function Talon:getLevel()
+    return self.level
+end
+
+function Talon:getDependence()
+    return self.dependence
+end
+do
+    TimerStart(CreateTimer(), 3, false, function()
+        CreateGodTalon(7085, -6883, "Trall")
+        GlobalTalons = {}
+        for i = 1, bj_MAX_PLAYERS do
+            GlobalTalons[i] = {
+                Trall = {--Тралл Провидец
+                    [1] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Удар молнией",
+                        description = "Каждый 5 обычный обычный удар выпускает цепную молнию, наносящую damage урона и отскакивает между enemies врагами",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Обычной атакой, считаете быстрая атака совершенная LMB или атака призванных существ"
+                    }),
+                    [2] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
+                        name = "Громовая кирка",
+                        description = "Кирка отскакивает на count случайных врагов",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
+                    }),
+                    [3] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
+                        name = "Волк компаньён",
+                        description = "Призывает автономного волка, сражающего на вашей стороне. Презезарядка возрождения sec сек.",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = " Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед."
+                    }),
+                    [4] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
+                        name = "Воронка прозрения",
+                        description = "Заряженная атака втягивает врагов в центр воронки, область захвата area ",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Удерживайте LMB чтобы совершить заряженную атаку"
+                    }),
+                    [5] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
+                        name = "Зов Провидца",
+                        description = "Вызывает землетрясение вокруг героя и наносит damage урона врагам вокруг ",
+                        level = 0,
+                        rarity = "epic",
+                        tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других"
+                    }),
+                    [6] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
+                        name = "Запасы складов пеонов",
+                        description = "Добавляет + charge заряд к кикре",
+                        level = 0,
+                        rarity = "epic",
+                        tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
+                    }),
+                    [7] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Предвидение боли",
+                        description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить запас здоровья. Перезарядка sec сек",
+                        level = 0,
+                        rarity = "rare",
+                        tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения"
+                    }),
+                    [8] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNCorpseExplode.blp",
+                        name = "Предвидение смерти",
+                        description = "Делает героя неуязвимым при получении смертельного урона на 2 сек. Презарядка sec сек",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Вы умрёте, как только потеряете всё здоровье"
+                    }),
+                    [9] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
+                        name = "Ясновидение",
+                        description = "Позволяет видеть невидимое и раскрывает врагов",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "В игре много скрытых ловышек и иных путей, берите этот навык всегда, чтобы узнать больше"
+                    }),
+                    [10] = Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Талант 10",
+                        description = "Неопределён",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Загулшка, этот талант не должен быть виден",
+                        dependence = 3
+                    }),
+                },
+                BLADEMASTER={
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Ветряной шаг смерти",
+                        description = "Падение здоровья меньше 10% вызывает невидимость. Перезарядка sec сек",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Вы умрёте, как только потеряете всё здоровье"
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Боевая ярость",
+                        description = "Любой исходящий урон может быть критическим X 1.25 Перезарядка sec сек",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Изучение этого таланта поткрывает доступ к таланту на множитель крит урона"
+                    }),
+                },
+            }
+        end
+    end)
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2060,9 +2084,15 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 				--print("атакован наш герой")
 				if data.Reflected or  data.SpinReflect then
 					--print("отбит снаряд")
-					heroCurrent=DamagingUnit
-					reverse=true
-					angleCurrent=AngleBetweenUnits(DamagingUnit,hero)
+					if not data.DestroyMissile then
+						heroCurrent=DamagingUnit
+						reverse=true
+						angleCurrent=AngleBetweenUnits(DamagingUnit,hero)
+					else
+						print("снаряд уничтожен будет")
+						DestroyEffect(bullet)
+						DestroyTimer(GetExpiredTimer())
+					end
 				end
 			end
 		end
@@ -3291,6 +3321,7 @@ function InitHeroTable(hero)
         CDSpellQ=0, -- ячейка кулдауна
         SpellQCDTime=3,-- дефолтное время перезарядки Q, можно менять
         AttackInForce=false,
+        DestroyMissile=true, --изначально все снаряды разрушаются и их нельзя отражать
         tasks={},--таблица заданий
         --Способность вращение
         SpinChargesFH=nil, --фрейм зарядов вращения
@@ -3349,7 +3380,13 @@ function InitWASD(hero)
         if not UnitAlive(hero) then
             --print("Эффект смерти")
             local x,y=GetUnitXY(hero)
-            ReviveHero(hero,x,y,true)
+            TimerStart(CreateTimer(),3, false, function()
+                ReviveHero(hero,x,y,true)
+                SetUnitInvulnerable(hero,true)
+                TimerStart(CreateTimer(),2, false, function()
+                    SetUnitInvulnerable(hero,false)
+                end)
+            end)
         end
 
         if data.PressSpin then
