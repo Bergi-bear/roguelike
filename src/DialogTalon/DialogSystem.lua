@@ -41,8 +41,6 @@ function CreateDialogTalon(godName)
         talons[i] = {}
         for j = 1, 4 do
             talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
-            -- Обновляем описание
-            talons[i][j]:updateDescription()
         end
     end
 
@@ -120,7 +118,7 @@ function CreateDialogTalon(godName)
                 -- Создаем описания талантов
                 DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                 BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
-                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:getDescription())
+                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
                 BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
                 BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
 
@@ -128,7 +126,7 @@ function CreateDialogTalon(godName)
                 if talons[i][j].level > 0 then
                     DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                     BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "Текущий уровень: " .. talons[i][j].level)
+                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "Текущий уровень: " .. talons[i][j]:getLevel())
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
                 end
 
@@ -143,7 +141,8 @@ function CreateDialogTalon(godName)
                     if GetLocalPlayer() == Player(i - 1) then
                         SmoothWindowAppearance(DialogTalon.MainFrame, "close")
                         --talons[i][j]["level"] = talons[i][j]["level"] + 1
-                        GlobalTalons[i][godName][j]:updateLevel()
+                        --GlobalTalons[i][godName][j]:updateLevel()
+                        talons[i][j]:updateLevel()
                     end
                 end)
             end

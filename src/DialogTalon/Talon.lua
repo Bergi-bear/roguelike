@@ -29,8 +29,8 @@ function Talon:getDependence()
 end
 
 function Talon:updateDescription()
-    s = string.gsub(self.description, "DS", self["DS"][self.level + 1])
-    self.description = s
+    local s = string.gsub(self.description, "DS", self["DS"][self.level + 1])
+    return s
 end
 
 function Talon:getDescription()
