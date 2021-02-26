@@ -4,7 +4,8 @@ Talon = {
     description = nil,
     level = 0,
     rarity = "normal",
-    tooltip = nil
+    tooltip = nil,
+    dependence = nil
 }
 
 function Talon:new (o)
@@ -16,4 +17,12 @@ end
 
 function Talon:updateLevel()
     self.level = self.level + 1
+end
+
+function Talon:getLevel()
+    return self.level
+end
+
+function Talon:getDependence()
+    return self.dependence
 end
