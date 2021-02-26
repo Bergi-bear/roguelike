@@ -40,11 +40,11 @@ function CreateBaseFrames(x,y)
            -- AllAbilityFrames[i]={
            --     ReadyToReload={},
            --    ClickTrig={}}
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],data,AbilityIconPath[1],DisabledIconPath[1])
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],data,AbilityIconPath[2],DisabledIconPath[2],"throw")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],data,AbilityIconPath[3],DisabledIconPath[3],"dash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],data,AbilityIconPath[4],DisabledIconPath[4],"splash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],data,AbilityIconPath[5],DisabledIconPath[5],"spin")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],data,AbilityIconPath[1],DisabledIconPath[1],"SystemGeneric\\DDSSymbols\\lmb")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],data,AbilityIconPath[2],DisabledIconPath[2],"SystemGeneric\\DDSSymbols\\rmb","throw")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],data,AbilityIconPath[3],DisabledIconPath[3],"SystemGeneric\\DDSSymbols\\space","dash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],data,AbilityIconPath[4],DisabledIconPath[4],"SystemGeneric\\DDSSymbols\\q","splash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],data,AbilityIconPath[5],DisabledIconPath[5],"SystemGeneric\\DDSSymbols\\lmb","spin")
             --CreateUniversalFrame(x,y,step,"Призывает волков",data,"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
             --CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
             --CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
@@ -53,15 +53,21 @@ function CreateBaseFrames(x,y)
     end
 end
 
-function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveTexture,flag)
+function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveTexture,hotkeyTexture,flag)
     if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
         print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
+    end
+
+    if not hotkeyTexture then
+        hotkeyTexture="SystemGeneric\\DDSSymbols\\q"
     end
     local visionPlayer=Player(data.pid)
     local face = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateSimpleFrame("MyBar", face, 0) -- фрейм перезарядки
     local cdtext = BlzGetFrameByName("MyBarText", 0)
     local cdICO = BlzGetFrameByName("MyBarBackground", 0)
+    local hotkey= BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', face, '', 0)
+
     local k=data.Ability.countFrame
     if flag=="spin" then
         data.SpinChargesFH=MakeFrameCharged(face,data.SpinCharges)
@@ -88,6 +94,9 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     BlzFrameSetTexture(buttonIconFrame, activeTexture, 0, true)
     BlzFrameSetSize(buttonIconFrame, size, size)
 
+    BlzFrameSetTexture(hotkey, hotkeyTexture, 0, true)
+    BlzFrameSetPoint(hotkey, FRAMEPOINT_CENTER, face, FRAMEPOINT_CENTER, 0.0, 0.02)
+    BlzFrameSetSize(hotkey, size, size/3)
     --BlzFrameSetParent(face, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     --BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     --BlzFrameSetParent(cdtext, BlzGetFrameByName("ConsoleUIBackdrop", 0))

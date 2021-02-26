@@ -109,15 +109,15 @@ function InitWASD(hero)
         end
     end)
 
-
+    --local heroSelf=data.UnitHero
     TimerStart(CreateTimer(),TIMER_PERIOD64, true, function() -- основной таймер для обработки всего
         --data.UnitHero=mainHero -- костыль для смены героя
         hero=data.UnitHero -- костыль для смены героя
-        SetCameraQuickPosition(GetUnitX(hero),GetUnitY(hero))
-        SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero),hero, 10,10,true) -- не дергается
+
 
         if not UnitAlive(hero) then
             --print("Эффект смерти")
+            SetCameraQuickPosition(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))
             local x,y=GetUnitXY(hero)
             TimerStart(CreateTimer(),3, false, function()
                 ReviveHero(hero,x,y,true)
@@ -126,6 +126,9 @@ function InitWASD(hero)
                     SetUnitInvulnerable(hero,false)
                 end)
             end)
+        else
+            SetCameraQuickPosition(GetUnitX(hero),GetUnitY(hero))
+            SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero),hero, 10,10,true) -- не дергается
         end
 
         if data.PressSpin then

@@ -56,7 +56,8 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 						reverse=true
 						angleCurrent=AngleBetweenUnits(DamagingUnit,hero)
 					else
-						print("снаряд уничтожен будет")
+						reverse=true
+						--print("снаряд уничтожен будет")
 						DestroyEffect(bullet)
 						DestroyTimer(GetExpiredTimer())
 					end
