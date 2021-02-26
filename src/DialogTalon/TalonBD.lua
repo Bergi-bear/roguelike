@@ -85,7 +85,7 @@ TalonBD = {
         {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Ветряной шаг смерти",
-            description = "Падение здоровья меньше 10% вызывает невидимость. Перезарядка sec сек",
+            description = "Падение здоровья меньше 10%% вызывает невидимость. Перезарядка sec сек",
             level = 0,
             rarity = "normal",
             tooltip = "Вы умрёте, как только потеряете всё здоровье"

@@ -50,7 +50,7 @@ function InitFinObjectInArea()
     FinObjectInArea(18036,-10000,"       Продолжить","Goto",false)
     FinObjectInArea(18931,-10000,"        Продолжить","Goto",false)
     FinObjectInArea(19442,-6286,"        Продолжить","Goto",false)
-    FinObjectInArea(20223,-7145,"        Продолжить","Goto",false)
+    FinObjectInArea(20214,-7145,"        Продолжить","Goto",false)
     --FinObjectInArea(0,-0,"   Продолжить","Goto",false)
 
 end

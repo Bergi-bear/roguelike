@@ -21,11 +21,87 @@ function OnPostDamage()
 		if GetUnitAbilityLevel(target,FourCC("BNms"))==0 then
 			StunUnit(target,0.4,"stagger")
 		end
+	end
+
+	if GetUnitTypeId(caster)==HeroID then
+		local data=HERO[GetPlayerId(GetOwningPlayer(caster))]
+		local x,y=GetUnitXY(caster)
+		local xe,ye=GetUnitXY(target)
+		-- функия принадлежности точки сектора
+		-- x1, x2 - координаты проверяемой точки
+		-- x2, y2 - координаты вершины сектора
+		-- orientation - ориентация сектора в мировых координатах
+		-- width - уголовой размер сектора в градусах
+		-- radius - окружности которой принадлежит сектор
+
+		if IsPointInSector(x,y,xe,ye,GetUnitFacing(target)-180,90,200) then
+			BlzSetEventDamage(damage*2)
+			FlyTextTagShieldXY(x,y,"Удар в спину",GetOwningPlayer(caster))
+		end
 
 	end
 
+	if GetUnitTypeId(target)~=HeroID and GetUnitTypeId(caster)==HeroID then
+		AddDamage2Show(target,GetEventDamage())
+		local showData=ShowDamageTable[GetHandleId(target)]
+		local matchShow=showData.damage
+		if not showData.tag then
+			showData.tag=FlyTextTagCriticalStrike(target,R2I(matchShow),GetOwningPlayer(caster),true)
+		else
+			SetTextTagText(showData.tag, R2I(matchShow), 0.024+(showData.k))
+			SetTextTagVelocity(showData.tag,0,0.01)
+			SetTextTagLifespan(showData.tag, 99)
+		end
+	end
 
 		--любой получил урон
+
+end
+
+ShowDamageTable={}
+function AddDamage2Show(hero,damage)
+	local sec2Reset=1
+	local period=TIMER_PERIOD
+	if not ShowDamageTable[GetHandleId(hero)] then
+		--	print("получил урон первый раз")
+		ShowDamageTable[GetHandleId(hero)]={
+			damage=0,
+			sec=0,
+			tag=nil,
+			k=0
+		}
+		local data=ShowDamageTable[GetHandleId(hero)]
+		data.damage=damage
+		TimerStart(CreateTimer(), period, true, function()
+			if not UnitAlive(hero) then
+				DestroyTimer(GetExpiredTimer())
+				--SetTextTagLifespan(data.tag, 2)
+				--DestroyTextTag(data.tag)
+				--print("таймер уничтожен")
+				TimerStart(CreateTimer(), 1, false, function()
+					DestroyTextTag(data.tag)
+					data.tag=nil
+				end)
+			end
+
+			--SetTextTagPos(data.tag,GetUnitX(hero),GetUnitY(hero),BlzGetLocalUnitZ(hero)+100)
+			data.sec=data.sec+period
+			if data.sec>sec2Reset then
+				data.sec=0
+				data.damage=0
+				SetTextTagLifespan(data.tag, 2)
+				--DestroyTextTag(data.tag)
+				data.tag=nil
+				--print("сброс показа урона")
+			end
+		end)
+	else
+		local data=ShowDamageTable[GetHandleId(hero)]
+		data.sec=0
+		data.damage=data.damage+damage
+		data.k=data.k+0.002
+		--print("Добавление урона"..damage.." и всего получилось "..data.damage)
+	end
 
 end
 

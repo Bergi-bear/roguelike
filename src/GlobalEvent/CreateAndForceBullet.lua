@@ -51,9 +51,15 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 				--print("атакован наш герой")
 				if data.Reflected or  data.SpinReflect then
 					--print("отбит снаряд")
-					heroCurrent=DamagingUnit
-					reverse=true
-					angleCurrent=AngleBetweenUnits(DamagingUnit,hero)
+					if not data.DestroyMissile then
+						heroCurrent=DamagingUnit
+						reverse=true
+						angleCurrent=AngleBetweenUnits(DamagingUnit,hero)
+					else
+						print("снаряд уничтожен будет")
+						DestroyEffect(bullet)
+						DestroyTimer(GetExpiredTimer())
+					end
 				end
 			end
 		end

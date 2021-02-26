@@ -835,8 +835,8 @@ function Enter2NewZone()
             --StartEnemyWave(Destiny[CurrentGameZone])
             --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
 
-            --StartEnemyWave(DestinyEnemies[CurrentGameZone])
-            StartEnemyWave(6)
+            StartEnemyWave(DestinyEnemies[CurrentGameZone])
+            --StartEnemyWave(6)
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end
@@ -1234,7 +1234,7 @@ end
 TalonBD = {
     Trall = {--Тралл Провидец
         [1] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Удар молнией",
             description = "Каждый 5 обычный обычный удар выпускает цепную молнию, наносящую damage урона и отскакивает между enemies врагами",
             level = 0,
@@ -1242,7 +1242,7 @@ TalonBD = {
             tooltip = "Обычной атакой, считаете быстрая атака совершенная LMB или атака призванных существ"
         },
         [2] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
             name = "Громовая кирка",
             description = "Кирка отскакивает на count случайных врагов",
             level = 0,
@@ -1250,7 +1250,7 @@ TalonBD = {
             tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"
         },
         [3] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
             name = "Волк компаньён",
             description = "Призывает автономного волка, сражающего на вашей стороне. Презезарядка возрождения sec сек.",
             level = 0,
@@ -1258,7 +1258,7 @@ TalonBD = {
             tooltip = " Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед."
         },
         [4] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
             name = "Воронка прозрения",
             description = "Заряженная атака втягивает врагов в центр воронки, область захвата area ",
             level = 0,
@@ -1266,7 +1266,7 @@ TalonBD = {
             tooltip = "Удерживайте LMB чтобы совершить заряженную атаку"
         },
         [5] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
             name = "Зов Провидца",
             description = "Вызывает землетрясение вокруг героя и наносит damage урона врагам вокруг ",
             level = 0,
@@ -1274,8 +1274,8 @@ TalonBD = {
             tooltip = "Для активации Зова нажмите клавишу F, получение зова этого, делает невозможным получение зова от других героев"
         },
         [6] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Склад пеонов",
+            icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
+            name = "Запасы складов пеонов",
             description = "Добавляет + charge заряд к кикре",
             level = 0,
             rarity = "epic",
@@ -1290,16 +1290,16 @@ TalonBD = {
             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения"
         },
         [8] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            icon = "ReplaceableTextures\\CommandButtons\\BTNCorpseExplode.blp",
             name = "Предвидение смерти",
-            description = "Делает героя неуязвимым при получении смертельного урона на 2 сек. Презераядка sec сек",
+            description = "Делает героя неуязвимым при получении смертельного урона на 2 сек. Презарядка sec сек",
             level = 0,
             rarity = "normal",
-            tooltip = "Вы умрёте как только потеряете всё здоровье"
+            tooltip = "Вы умрёте, как только потеряете всё здоровье"
         },
         [9] = {
-            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-            name = "Ясновадение",
+            icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
+            name = "Ясновидение",
             description = "Позволяет видеть невидимое и раскрывает врагов",
             level = 0,
             rarity = "normal",
@@ -1308,13 +1308,32 @@ TalonBD = {
         [10] = {
             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
             name = "Талант 10",
-            description = "Молот наносит урон молнией",
+            description = "Неопределён",
             level = 0,
-            rarity = "normal"
+            rarity = "normal",
+            tooltip = "Загулшка, этот талант не должен быть виден"
         },
     },
-    BLADEMASTER={} -- повторяем
+    BLADEMASTER={
+        {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Ветряной шаг смерти",
+            description = "Падение здоровья меньше 10% вызывает невидимость. Перезарядка sec сек",
+            level = 0,
+            rarity = "normal",
+            tooltip = "Вы умрёте, как только потеряете всё здоровье"
+        },
+        {
+            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+            name = "Боевая ярость",
+            description = "Любой исходящий урон может быть критическим X 1.25 Перезарядка sec сек",
+            level = 0,
+            rarity = "normal",
+            tooltip = "Изучение этого таланта поткрывает доступ к таланту на множитель крит урона"
+        },
+    }
 }
+
 
 function TalonBD:new (o)
     o = o or {}
@@ -2093,11 +2112,87 @@ function OnPostDamage()
 		if GetUnitAbilityLevel(target,FourCC("BNms"))==0 then
 			StunUnit(target,0.4,"stagger")
 		end
+	end
+
+	if GetUnitTypeId(caster)==HeroID then
+		local data=HERO[GetPlayerId(GetOwningPlayer(caster))]
+		local x,y=GetUnitXY(caster)
+		local xe,ye=GetUnitXY(target)
+		-- функия принадлежности точки сектора
+		-- x1, x2 - координаты проверяемой точки
+		-- x2, y2 - координаты вершины сектора
+		-- orientation - ориентация сектора в мировых координатах
+		-- width - уголовой размер сектора в градусах
+		-- radius - окружности которой принадлежит сектор
+
+		if IsPointInSector(x,y,xe,ye,GetUnitFacing(target)-180,90,200) then
+			BlzSetEventDamage(damage*2)
+			FlyTextTagShieldXY(x,y,"Удар в спину",GetOwningPlayer(caster))
+		end
 
 	end
 
+	if GetUnitTypeId(target)~=HeroID and GetUnitTypeId(caster)==HeroID then
+		AddDamage2Show(target,GetEventDamage())
+		local showData=ShowDamageTable[GetHandleId(target)]
+		local matchShow=showData.damage
+		if not showData.tag then
+			showData.tag=FlyTextTagCriticalStrike(target,R2I(matchShow),GetOwningPlayer(caster),true)
+		else
+			SetTextTagText(showData.tag, R2I(matchShow), 0.024+(showData.k))
+			SetTextTagVelocity(showData.tag,0,0.01)
+			SetTextTagLifespan(showData.tag, 99)
+		end
+	end
 
 		--любой получил урон
+
+end
+
+ShowDamageTable={}
+function AddDamage2Show(hero,damage)
+	local sec2Reset=1
+	local period=TIMER_PERIOD
+	if not ShowDamageTable[GetHandleId(hero)] then
+		--	print("получил урон первый раз")
+		ShowDamageTable[GetHandleId(hero)]={
+			damage=0,
+			sec=0,
+			tag=nil,
+			k=0
+		}
+		local data=ShowDamageTable[GetHandleId(hero)]
+		data.damage=damage
+		TimerStart(CreateTimer(), period, true, function()
+			if not UnitAlive(hero) then
+				DestroyTimer(GetExpiredTimer())
+				--SetTextTagLifespan(data.tag, 2)
+				--DestroyTextTag(data.tag)
+				--print("таймер уничтожен")
+				TimerStart(CreateTimer(), 1, false, function()
+					DestroyTextTag(data.tag)
+					data.tag=nil
+				end)
+			end
+
+			--SetTextTagPos(data.tag,GetUnitX(hero),GetUnitY(hero),BlzGetLocalUnitZ(hero)+100)
+			data.sec=data.sec+period
+			if data.sec>sec2Reset then
+				data.sec=0
+				data.damage=0
+				SetTextTagLifespan(data.tag, 2)
+				--DestroyTextTag(data.tag)
+				data.tag=nil
+				--print("сброс показа урона")
+			end
+		end)
+	else
+		local data=ShowDamageTable[GetHandleId(hero)]
+		data.sec=0
+		data.damage=data.damage+damage
+		data.k=data.k+0.002
+		--print("Добавление урона"..damage.." и всего получилось "..data.damage)
+	end
 
 end
 
@@ -3007,7 +3102,7 @@ end
 ---@param lifespan real
 ---@param player player
 ---@return texttag
-function FlyTextTag(text, textSize, x, y, z, red, green, blue, alpha, xvel, yvel, fadepoint, lifespan, player)
+function FlyTextTag(text, textSize, x, y, z, red, green, blue, alpha, xvel, yvel, fadepoint, lifespan, player,flag)
 	local t = CreateTextTag()
 	SetTextTagText(t, text, textSize)
 	SetTextTagPos(t, x, y, z)
@@ -3016,8 +3111,12 @@ function FlyTextTag(text, textSize, x, y, z, red, green, blue, alpha, xvel, yvel
 	SetTextTagFadepoint(t, fadepoint)
 	SetTextTagLifespan(t, lifespan)
 	SetTextTagPermanent(t, false)
-	if player ~= nil then
-		SetTextTagVisibility(t, player == GetLocalPlayer())
+	if not flag then
+		if player ~= nil then
+			SetTextTagVisibility(t, player == GetLocalPlayer())
+		end
+	else
+		SetTextTagVisibility(t, flag)
 	end
 	return t
 end
@@ -3050,8 +3149,8 @@ end
 ---@param text string
 ---@param player player
 ---@return texttag
-function FlyTextTagCriticalStrike(target, text, player)
-	return FlyTextTag(text, 0.024, GetWidgetX(target), GetWidgetY(target), 0, 255, 0, 0, 255, 0, 0.04, 2, 5, player)
+function FlyTextTagCriticalStrike(target, text, player,flag)
+	return FlyTextTag(text, 0.024, GetWidgetX(target), GetWidgetY(target), 0, 255, 0, 0, 255, 0, 0.04, 2, 10, player,flag)
 end
 
 ---@param target widget

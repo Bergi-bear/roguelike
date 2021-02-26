@@ -60,6 +60,7 @@ function InitHeroTable(hero)
         CDSpellQ=0, -- ячейка кулдауна
         SpellQCDTime=3,-- дефолтное время перезарядки Q, можно менять
         AttackInForce=false,
+        DestroyMissile=true, --изначально все снаряды разрушаются и их нельзя отражать
         tasks={},--таблица заданий
         --Способность вращение
         SpinChargesFH=nil, --фрейм зарядов вращения
@@ -118,7 +119,13 @@ function InitWASD(hero)
         if not UnitAlive(hero) then
             --print("Эффект смерти")
             local x,y=GetUnitXY(hero)
-            ReviveHero(hero,x,y,true)
+            TimerStart(CreateTimer(),3, false, function()
+                ReviveHero(hero,x,y,true)
+                SetUnitInvulnerable(hero,true)
+                TimerStart(CreateTimer(),2, false, function()
+                    SetUnitInvulnerable(hero,false)
+                end)
+            end)
         end
 
         if data.PressSpin then

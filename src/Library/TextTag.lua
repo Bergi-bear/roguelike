@@ -13,7 +13,7 @@
 ---@param lifespan real
 ---@param player player
 ---@return texttag
-function FlyTextTag(text, textSize, x, y, z, red, green, blue, alpha, xvel, yvel, fadepoint, lifespan, player)
+function FlyTextTag(text, textSize, x, y, z, red, green, blue, alpha, xvel, yvel, fadepoint, lifespan, player,flag)
 	local t = CreateTextTag()
 	SetTextTagText(t, text, textSize)
 	SetTextTagPos(t, x, y, z)
@@ -22,8 +22,12 @@ function FlyTextTag(text, textSize, x, y, z, red, green, blue, alpha, xvel, yvel
 	SetTextTagFadepoint(t, fadepoint)
 	SetTextTagLifespan(t, lifespan)
 	SetTextTagPermanent(t, false)
-	if player ~= nil then
-		SetTextTagVisibility(t, player == GetLocalPlayer())
+	if not flag then
+		if player ~= nil then
+			SetTextTagVisibility(t, player == GetLocalPlayer())
+		end
+	else
+		SetTextTagVisibility(t, flag)
 	end
 	return t
 end
@@ -56,8 +60,8 @@ end
 ---@param text string
 ---@param player player
 ---@return texttag
-function FlyTextTagCriticalStrike(target, text, player)
-	return FlyTextTag(text, 0.024, GetWidgetX(target), GetWidgetY(target), 0, 255, 0, 0, 255, 0, 0.04, 2, 5, player)
+function FlyTextTagCriticalStrike(target, text, player,flag)
+	return FlyTextTag(text, 0.024, GetWidgetX(target), GetWidgetY(target), 0, 255, 0, 0, 255, 0, 0.04, 2, 10, player,flag)
 end
 
 ---@param target widget
