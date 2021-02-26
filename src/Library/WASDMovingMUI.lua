@@ -117,8 +117,11 @@ function InitWASD(hero)
 
         if not UnitAlive(hero) then
             --print("Эффект смерти")
-            SetCameraQuickPosition(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))
+
             local x,y=GetUnitXY(hero)
+            if GetLocalPlayer()==GetOwningPlayer(hero) then
+                SetCameraQuickPosition(x,y)
+            end
             TimerStart(CreateTimer(),3, false, function()
                 ReviveHero(hero,x,y,true)
                 SetUnitInvulnerable(hero,true)

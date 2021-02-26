@@ -142,7 +142,7 @@ end
 
 function CreateVisualMarkTimedXY(effModel,timed,x,y)
     local eff=AddSpecialEffect(effModel,x,y)
-    BlzSetSpecialEffectColor(eff,120,0,0)
+    BlzSetSpecialEffectColor(eff,255,0,0)
     BlzSetSpecialEffectZ(eff,GetTerrainZ(x,y)+50)
     TimerStart(CreateTimer(), timed, false, function()
         DestroyEffect(eff)

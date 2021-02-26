@@ -1111,8 +1111,6 @@ function CreateDialogTalon(godName)
         talons[i] = {}
         for j = 1, 4 do
             talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
-            -- Обновляем описание
-            talons[i][j]:updateDescription()
         end
     end
 
@@ -1190,7 +1188,7 @@ function CreateDialogTalon(godName)
                 -- Создаем описания талантов
                 DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                 BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
-                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:getDescription())
+                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
                 BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
                 BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
 
@@ -1198,7 +1196,7 @@ function CreateDialogTalon(godName)
                 if talons[i][j].level > 0 then
                     DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                     BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "Текущий уровень: " .. talons[i][j].level)
+                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "Текущий уровень: " .. talons[i][j]:getLevel())
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
                 end
 
@@ -1213,7 +1211,8 @@ function CreateDialogTalon(godName)
                     if GetLocalPlayer() == Player(i - 1) then
                         SmoothWindowAppearance(DialogTalon.MainFrame, "close")
                         --talons[i][j]["level"] = talons[i][j]["level"] + 1
-                        GlobalTalons[i][godName][j]:updateLevel()
+                        --GlobalTalons[i][godName][j]:updateLevel()
+                        talons[i][j]:updateLevel()
                     end
                 end)
             end
@@ -1259,8 +1258,8 @@ function Talon:getDependence()
 end
 
 function Talon:updateDescription()
-    s = string.gsub(self.description, "DS", self["DS"][self.level + 1])
-    self.description = s
+    local s = string.gsub(self.description, "DS", self["DS"][self.level + 1])
+    return s
 end
 
 function Talon:getDescription()
@@ -1902,7 +1901,7 @@ end
 
 function CreateVisualMarkTimedXY(effModel,timed,x,y)
     local eff=AddSpecialEffect(effModel,x,y)
-    BlzSetSpecialEffectColor(eff,120,0,0)
+    BlzSetSpecialEffectColor(eff,255,0,0)
     BlzSetSpecialEffectZ(eff,GetTerrainZ(x,y)+50)
     TimerStart(CreateTimer(), timed, false, function()
         DestroyEffect(eff)
@@ -3413,8 +3412,11 @@ function InitWASD(hero)
 
         if not UnitAlive(hero) then
             --print("Эффект смерти")
-            SetCameraQuickPosition(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))
+
             local x,y=GetUnitXY(hero)
+            if GetLocalPlayer()==GetOwningPlayer(hero) then
+                SetCameraQuickPosition(x,y)
+            end
             TimerStart(CreateTimer(),3, false, function()
                 ReviveHero(hero,x,y,true)
                 SetUnitInvulnerable(hero,true)
