@@ -39,7 +39,7 @@ do
                         description = "Заряженная атака втягивает врагов в центр воронки, область захвата DS ",
                         level = 0,
                         rarity = "normal",
-                        tooltip = "Удерживайте LMB чтобы совершить заряженную атаку",
+                        tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
                         DS={100,150,200}
                     }),
                     [5] = Talon:new({
@@ -117,7 +117,99 @@ do
                         tooltip = "Изучение этого таланта открывает доступ к таланту на множитель крит урона",
                         DS={6,4,3}
                     }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Уязвимые места",
+                        description = "Увеличивает силу критического удара на DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
+                        DS={2,3,4}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Иллюзорный рывок",
+                        description = "Создаёт иллюзию в точке начала рывка. Перезарядка DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Иллюзии не наносят урона и получают 200%% урона",
+                        DS={10,8,6}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Большой размах",
+                        description = "Увеличивает урон на 50%% и зону поражения вращения на DS ",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
+                        DS={100,150,200}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Дополнительный рывок",
+                        description = "Добавляет заряды к способности рывок + DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                        DS={1,2,3}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Пространственны рывок",
+                        description = "Нажимте R, для мгновенного перемещения в положения курсора, тратит 10 зарядов за каждые 100 едениц пути, максимум 100 зарядов, восстаналивает 1 заряд в секунду ",
+                        level = 0,
+                        rarity = "epic",
+                        tooltip = "Герой может иметь только 1 ультимативную R способность, получение ультимейтов от других богов далее станет невозможным",
+                        DS={1,2,3}
+                    }),
                 },
+                SHADOWCATCHER={
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Я помогу",
+                        description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                        DS={20,15,10}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Ты в ловушке",
+                        description = "Создаёт кольцо змей, в точке начала рывка. Перезарядка DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                        DS={12,10,8}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Метательный лягошенок",
+                        description = "Заменяет бросок кирки на бросок лягушки, привращает врага в лягушку на 3 секунды. Перезарядка: DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                        DS={12,10,8}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Зов вуду",
+                        description = "При активации увеличивает получение урона по вам на 100%%, но делет созников неуязвимыми",
+                        level = 0,
+                        rarity = "epic",
+                        tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
+                        DS={12,10,8}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Метательный лягошенок",
+                        description = "Заменяет бросок кирки на бросок лягушки, привращает врага в лягушку на 3 секунды. Перезарядка: DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                        DS={12,10,8}
+                    }),
+                }
             }
         end
     end)

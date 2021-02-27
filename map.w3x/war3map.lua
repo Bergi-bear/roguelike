@@ -1265,6 +1265,10 @@ end
 function Talon:getDescription()
     return self.description
 end
+
+function Talon:getDS()
+    return self.DS
+end
 do
     TimerStart(CreateTimer(), 3, false, function()
         CreateGodTalon(7085, -6883, "Trall")
@@ -1306,7 +1310,7 @@ do
                         description = "Заряженная атака втягивает врагов в центр воронки, область захвата DS ",
                         level = 0,
                         rarity = "normal",
-                        tooltip = "Удерживайте LMB чтобы совершить заряженную атаку",
+                        tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
                         DS={100,150,200}
                     }),
                     [5] = Talon:new({
@@ -1384,7 +1388,99 @@ do
                         tooltip = "Изучение этого таланта открывает доступ к таланту на множитель крит урона",
                         DS={6,4,3}
                     }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Уязвимые места",
+                        description = "Увеличивает силу критического удара на DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
+                        DS={2,3,4}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Иллюзорный рывок",
+                        description = "Создаёт иллюзию в точке начала рывка. Перезарядка DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Иллюзии не наносят урона и получают 200% урона",
+                        DS={10,8,6}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Большой размах",
+                        description = "Увеличивает урон на 50% и зону поражения вращения на DS ",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
+                        DS={100,150,200}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Дополнительный рывок",
+                        description = "Добавляет заряды к способности рывок + DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                        DS={1,2,3}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Пространственны рывок",
+                        description = "Нажимте R, для мгновенного перемещения в положения курсора, тратит 10 зарядов за каждые 100 едениц пути, максимум 100 зарядов, восстаналивает 1 заряд в секунду ",
+                        level = 0,
+                        rarity = "epic",
+                        tooltip = "Герой может иметь только 1 ультимативную R способность, получение ультимейтов от других богов далее станет невозможным",
+                        DS={1,2,3}
+                    }),
                 },
+                SHADOWCATCHER={
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Я помогу",
+                        description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                        DS={20,15,10}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Ты в ловушке",
+                        description = "Создаёт кольцо змей, в точке начала рывка. Перезарядка DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                        DS={12,10,8}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Метательный лягошенок",
+                        description = "Заменяет бросок кирки на бросок лягушки, привращает врага в лягушку на 3 секунды. Перезарядка: DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                        DS={12,10,8}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Зов вуду",
+                        description = "При активации увеличивает получение урона по вам на 100%, но делет созников неуязвимыми",
+                        level = 0,
+                        rarity = "epic",
+                        tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
+                        DS={12,10,8}
+                    }),
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Метательный лягошенок",
+                        description = "Заменяет бросок кирки на бросок лягушки, привращает врага в лягушку на 3 секунды. Перезарядка: DS",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                        DS={12,10,8}
+                    }),
+                }
             }
         end
     end)
@@ -2408,7 +2504,6 @@ function StartAndReleaseSpin(data)
                 BlzSetSpecialEffectScale(eff,0.5)
                 sec=0
                 if UnitDamageArea(hero,25,x,y,150,"blackHole") then
-
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
                 end
             end
@@ -2423,11 +2518,10 @@ function StartAndReleaseSpin(data)
                 end
                 BlzSetSpecialEffectPosition(eff,GetUnitX(hero),GetUnitY(hero),BlzGetUnitZ(hero)+30)
             end)
-            if not data.isSpined or data.SpinCharges<=0 then
+            if not data.isSpined or data.SpinCharges<=0 or not UnitAlive(hero) then
                 --print("stopspin")
                data.SpinReflect=false
                 DestroyTimer(GetExpiredTimer())
-
             end
         end)
     end
@@ -3835,15 +3929,19 @@ function CreateWASDActions()
                         local eff=AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave",GetUnitXY(data.UnitHero))
                         BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
                         local sec=0
+                        local dust=AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",GetUnitXY(data.UnitHero))
                         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
                             local x,y=GetUnitXY(data.UnitHero)
                             local nx,ny=MoveXY(x,y,100,GetUnitFacing(data.UnitHero))
                             BlzSetSpecialEffectPosition(eff,nx,ny,BlzGetUnitZ(data.UnitHero)+40)
+                            BlzSetSpecialEffectPosition(dust,nx,ny,BlzGetUnitZ(data.UnitHero)+40)
                             BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
+                            DestroyEffect(eff)
                             sec=sec+TIMER_PERIOD64
-                            if sec<=0.2 then
+                            if sec>=0.35 then
                                 DestroyTimer(GetExpiredTimer())
-                                DestroyEffect(eff)
+
+                                DestroyEffect(dust)
                             end
                         end)
                     end
@@ -4067,8 +4165,9 @@ function attack(data)
                 end)
             end
 
-
-            SetUnitAnimationByIndex(data.UnitHero,indexAnim)
+            if UnitAlive(data.UnitHero) then
+                SetUnitAnimationByIndex(data.UnitHero,indexAnim)
+            end
 
 
             TimerStart(CreateTimer(), cdAttack, false, function() -- кд атаки тут
@@ -4088,11 +4187,12 @@ function attack(data)
 
             TimerStart(CreateTimer(), cdAttack+0.05, false, function()
                 data.isAttacking=false
-
-                if data.IsMoving then --быстрый возврат после атаки в последнее состояние
-                    SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
-                else
-                    ResetUnitAnimation(data.UnitHero) -- после атаки
+                if UnitAlive(data.UnitHero) then
+                    if data.IsMoving then --быстрый возврат после атаки в последнее состояние
+                        SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
+                    else
+                        ResetUnitAnimation(data.UnitHero) -- после атаки
+                    end
                 end
                 data.ReleaseLMB = false
             end)
@@ -4109,7 +4209,7 @@ end
 
 ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 onForces = {}
-function UnitAddForceSimple(hero, angle, speed, distance,flag)
+function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
     -- псевдо вектор использовать только для юнитов
     local currentdistance = 0
     if onForces[GetHandleId(hero)] == nil then
@@ -4121,20 +4221,33 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
         local m=0
         --print("1")
         local tempDamageGroup=CreateGroup()
+        local damageOnWall=false
         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
             currentdistance = currentdistance + speed
             --print(currentdistance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
             SetUnitPositionSmooth(hero, newX, newY)
-
+            if GetUnitTypeId(hero)~=HeroID and GetUnitTypeId(pushing)==HeroID then
+                local PerepadZ = GetTerrainZ(MoveXY(x,y,120,angle))-GetTerrainZ(x, y)
+                --print(PerepadZ)
+                if (PointContentDestructable(newX, newY,120,false) or PerepadZ > 20) and not damageOnWall   then
+                    FlyTextTagShieldXY(x,y,"Удар о стену",GetOwningPlayer(pushing))
+                    UnitDamageTarget( pushing, hero, 100, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+                    --print("удар о декор или стенку")
+                    damageOnWall=true
+                end
+            end
             if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then --FIXME
 
                 --print("попытка нанести урон в рывке")
+
+
                 local is,du=UnitDamageArea(hero,0,newX, newY,200)
                 if is then
                     if not IsUnitInGroup(du,tempDamageGroup) then
                         GroupAddUnit(tempDamageGroup,du)
+
                         if UnitDamageArea(hero,100,newX, newY,200,"longForce") then
                             normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
                           --  print("нанесение урона во время рывка рывка")
@@ -4212,10 +4325,6 @@ function UnitDamageArea(u,damage,x,y,range,flag)
         e = FirstOfGroup(perebor)
         if e == nil then break end
         if UnitAlive(e) and UnitAlive(u) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then
-            UnitDamageTarget( u, e, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
-            isdamage=true
-            hero=e
-            k=k+1
             if flag=="shotForce" then
                 UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
             end
@@ -4225,9 +4334,23 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                 end
             end
             if flag=="longForce" then
-                UnitAddForceSimple(e,AngleBetweenUnits(u,e),20,150,"dust")
+                -- x1, x2 - координаты проверяемой точки
+                -- x2, y2 - координаты вершины сектора
+                -- orientation - ориентация сектора в мировых координатах
+                -- width - уголовой размер сектора в градусах
+                -- radius - окружности которой принадлежит сектор
+
+                if IsPointInSector(GetUnitX(e),GetUnitY(e),GetUnitX(u),GetUnitY(u),GetUnitFacing(u),90,range) then
+                    UnitAddForceSimple(e,AngleBetweenUnits(u,e),20,150,nil,u)
+                else
+                    damage=0
+                end
             end
 
+            UnitDamageTarget( u, e, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+            isdamage=true
+            hero=e
+            k=k+1
 
         end
         GroupRemoveUnit(perebor,e)

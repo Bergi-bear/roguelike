@@ -32,7 +32,6 @@ function StartAndReleaseSpin(data)
                 BlzSetSpecialEffectScale(eff,0.5)
                 sec=0
                 if UnitDamageArea(hero,25,x,y,150,"blackHole") then
-
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
                 end
             end
@@ -47,11 +46,10 @@ function StartAndReleaseSpin(data)
                 end
                 BlzSetSpecialEffectPosition(eff,GetUnitX(hero),GetUnitY(hero),BlzGetUnitZ(hero)+30)
             end)
-            if not data.isSpined or data.SpinCharges<=0 then
+            if not data.isSpined or data.SpinCharges<=0 or not UnitAlive(hero) then
                 --print("stopspin")
                data.SpinReflect=false
                 DestroyTimer(GetExpiredTimer())
-
             end
         end)
     end
