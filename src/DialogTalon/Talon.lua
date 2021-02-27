@@ -29,8 +29,15 @@ function Talon:getDependence()
 end
 
 function Talon:updateDescription()
-    local s = string.gsub(self.description, "DS", self["DS"][self.level + 1])
-    return s
+    if #self.DS > 0 and self["DS"][self.level + 1] ~= nil then
+        local s = string.gsub(self.description, "DS", self["DS"][self.level + 1])
+        return s
+    elseif self["DS"][self.level + 1] == nil and #self.DS > 0 then
+        local s = string.gsub(self.description, "DS", self["DS"][#self.DS])
+        return s
+    else
+        return self.description
+    end
 end
 
 function Talon:getDescription()
