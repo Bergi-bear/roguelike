@@ -6,6 +6,10 @@
 LastGodTalon = {}
 function CreateGodTalon(x, y, name, r, g, b)
     x = x - 16
+    if not name or name=="" then
+        print("ошибка, при создании дара, не определена награда команты")
+        return
+    end
     local eff = AddSpecialEffect("SystemGeneric\\GodModels\\" .. name, x, y)
     local pillar = AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
     local collision = CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
@@ -29,8 +33,10 @@ function CreateGodTalon(x, y, name, r, g, b)
         angle = angle + 1
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
     end)
-    local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
-
+    --local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
+    --print("Создали дар")
+    CreateEnterPoint(x,y,"       Принять дар", name, true)
+    --[[
     local forceShow=false
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
@@ -47,6 +53,7 @@ function CreateGodTalon(x, y, name, r, g, b)
             end
         end
     end
+    ]]
 
     LastGodTalon = table
     return table

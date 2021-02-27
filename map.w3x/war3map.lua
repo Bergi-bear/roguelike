@@ -124,6 +124,18 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("ncrb"), 5735.4, -9244.0, 200.287, FourCC("ncrb"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncrb"), 5352.2, -9124.6, 18.754, FourCC("ncrb"))
     u = BlzCreateUnitWithSkin(p, FourCC("nskk"), 7336.3, -6776.6, 278.280, FourCC("nskk"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 6609.1, -6318.2, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14723.3, -11742.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15593.5, -12742.6, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 12921.9, -8445.1, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13956.3, -8439.0, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15105.0, -5955.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16339.8, -6695.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19460.5, -6346.2, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20181.6, -7151.3, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18059.0, -10068.1, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18954.1, -10061.5, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18566.8, -12546.0, 296.730, FourCC("hdhw"))
 end
 
 function CreatePlayerBuildings()
@@ -371,125 +383,242 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
-            InitFinObjectInArea()
+            ReplaceALLUnitId2PointExit(FourCC("hdhw"))
             CreateEActions()
+            InitFinObjectInArea()
         end)
     end
 end
 
-ActionList={}
-ActionListIndex=1
-PreViewIcon={ -- Таблица случайных иконок которые могу быть дарами, установлены у входа
-    "HeroArchMage",
+ActionList = {}
+ActionListIndex = 1
+PreViewIcon = { -- Таблица случайных иконок которые могу быть дарами, установлены у входа
+    --"HeroArchMage",
+    --"HeroBloodElfPrince",
+    --"HeroMountainKing",
+    --"HeroPaladin",
     "HeroBlademaster",
-    "HeroBloodElfPrince",
-    "HeroMountainKing",
-    "HeroPaladin",
     "HeroTaurenChieftain",
     "ShadowHunter",
     "Trall",
+    "CodoHeart",
+    "GoldReward"
 }
 
 function InitFinObjectInArea()
-    FinObjectInArea(5300,-9000,"   Подняться на борт","StartSheep",true) --зона корабля
-    FinObjectInArea(5400,-8300,"   Исследовать лодку","Board",true) --Левая лодка
-    FinObjectInArea(5500,-6900,"  Войти","BackDor",true) --Вечно закрытые ворота
-    FinObjectInArea(6600,-6300,"Войти через главный вход","Goto",true,"Trall") --Начать приключение
-    FinObjectInArea(7700,-8000,"     Преисполниться","StartBonus",true) --Синий огонь
-    FinObjectInArea(7800,-6600,"   Посмотреть вдаль","SoFar",true) --на краю берега справа
-    FinObjectInArea(7000,-9200,"      Рыбачить","Fish",true) -- внизу на берегу
-    FinObjectInArea(7200,-7600,"       Отдохноуть","NoWorking",true) -- возле деревьев
-
+    CreateEnterPoint(5300, -9000, "   Подняться на борт", "StartSheep", true)--зона корабля
+    CreateEnterPoint(5400, -8300, "   Исследовать лодку", "Board", true) --Левая лодка
+    CreateEnterPoint(5500, -6900, "  Войти", "BackDor", true) --Вечно закрытые ворота
+    CreateEnterPoint(7700, -8000, "     Преисполниться", "StartBonus", true) --Синий огонь
+    CreateEnterPoint(7800, -6600, "   Посмотреть вдаль", "SoFar", true) --на краю берега справа
+    CreateEnterPoint(7000, -9200, "      Рыбачить", "Fish", true) -- внизу на берегу
+    CreateEnterPoint(7200, -7600, "       Отдохноуть", "NoWorking", true) -- возле деревьев
+    --[[
     --Переходы между зонами
-    FinObjectInArea(14710,-11735,"        Продолжить","Goto",false)
-    FinObjectInArea(15665,-12743,"        Продолжить","Goto",false)
-    FinObjectInArea(18545,-12487,"        Продолжить","Goto",false)
-    FinObjectInArea(12913,-8415,"        Продолжить","Goto",false)
-    FinObjectInArea(13940,-8415,"        Продолжить","Goto",false)
+    FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
+    FinObjectInArea(14710, -11735, "        Продолжить", "Goto", false)
+    FinObjectInArea(15665, -12743, "        Продолжить", "Goto", false)
+    FinObjectInArea(18545, -12487, "        Продолжить", "Goto", false)
+    FinObjectInArea(12913, -8415, "        Продолжить", "Goto", false)
+    FinObjectInArea(13940, -8415, "        Продолжить", "Goto", false)
 
-    FinObjectInArea(15089,-5911,"        Продолжить","Goto",false)
-    FinObjectInArea(16338,-6629,"        Продолжить","Goto",false)
-    FinObjectInArea(18036,-10000,"       Продолжить","Goto",false)
-    FinObjectInArea(18931,-10000,"        Продолжить","Goto",false)
-    FinObjectInArea(19442,-6286,"        Продолжить","Goto",false)
-    FinObjectInArea(20214,-7145,"        Продолжить","Goto",false)
+    FinObjectInArea(15089, -5911, "        Продолжить", "Goto", false)
+    FinObjectInArea(16338, -6629, "        Продолжить", "Goto", false)
+    FinObjectInArea(18036, -10000, "       Продолжить", "Goto", false)
+    FinObjectInArea(18931, -10000, "        Продолжить", "Goto", false)
+    FinObjectInArea(19442, -6286, "        Продолжить", "Goto", false)
+    FinObjectInArea(20214, -7145, "        Продолжить", "Goto", false)
+    ]]
     --FinObjectInArea(0,-0,"   Продолжить","Goto",false)
-
 end
 
-function FinObjectInArea(x,y,message,actionFlag,isActive,reward)
+
+function ReplaceALLUnitId2PointExit(id)
+    local _,_,unitTable=FindUnitOfType(id)
+    local k=#unitTable
+    print(k)
+    for i=1,k do
+        local u=unitTable[i]
+        local x,y=GetUnitXY(u)
+        SetUnitInvulnerable(u,true)
+        --ShowUnit(u,false)
+        CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,nil,u)
+    end
+end
+
+EnterPointTable={}
+
+function CreateEnterPoint(x,y,message, actionFlag, isActive, reward,tempUnit)
+    if not tempUnit then
+        --print("юнит не определён, создаём "..actionFlag)
+        tempUnit=CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), FourCC("hdhw"),x,y,0)
+    end
+    EnterPointTable[GetHandleId(tempUnit)]={}
+    local dataPoint=EnterPointTable[GetHandleId(tempUnit)]
+    if not reward then
+        reward = PreViewIcon[GetRandomInt(1, #PreViewIcon)]
+    end
+    local preView = nil
+    if actionFlag == "Goto" then
+        preView = AddSpecialEffect("SystemGeneric\\GodModels\\" .. reward, x, y)
+        BlzSetSpecialEffectYaw(preView, math.rad(90))
+        BlzSetSpecialEffectScale(preView, 2)
+        --print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
+        --GLOBAL_REWARD=reward
+
+
+    end
+    ActionList[ActionListIndex] = {
+        x = x,
+        y = y,
+        actionFlag = actionFlag,
+        reward = reward
+    }
+
+    ActionListIndex = ActionListIndex + 1
+    local activeNumber = ActionListIndex - 1
+    --local range = 200
+    --local rect = Rect(x - range, y - range, x + range, y + range)
+    local tooltip, backdrop, text = CreateActionBox(message)
+
+    ActionList[activeNumber].isActive = isActive
+    ActionList[activeNumber].self=dataPoint
+    dataPoint.tooltip=tooltip
+    dataPoint.UseAction = actionFlag
+    dataPoint.isActive=isActive
+    dataPoint.CurrentReward=reward
+    dataPoint.preView=preView
+
+    if actionFlag == "Goto" then
+        local _,k,tempTable=FindUnitOfType(FourCC("hdhw"),1500,x,y)
+        if k>=2 then
+            for i=1,k do
+                local dataPoint2=EnterPointTable[GetHandleId(tempTable[i])]
+                if dataPoint2 then
+                    if dataPoint2.CurrentReward==reward and tempTable[i]~=tempUnit then
+                        local temTableReward=PreViewIcon
+                        table.remove(temTableReward,FinPosInTable(temTableReward,reward))
+                        local newReward = temTableReward[GetRandomInt(1, #temTableReward)]
+                        DestroyEffect(dataPoint.preView)
+                        dataPoint.CurrentReward=newReward
+
+                        preView = AddSpecialEffect("SystemGeneric\\GodModels\\" .. newReward, x, y)
+                        BlzSetSpecialEffectYaw(preView, math.rad(90))
+                        BlzSetSpecialEffectScale(preView, 2)
+                        dataPoint.preView=preView
+
+                        print("Найден дубликат дара "..reward.."заменяем его на "..newReward)
+                        AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
+                    end
+                end
+            end
+        end
+    end
+end
+function FinPosInTable(t,f)
+    local pos=0
+    for i=1,#t do
+        if t[i]==f then
+            pos=i
+            return pos
+        end
+    end
+    --print(pos)
+    return pos
+end
+
+
+
+function AllActionsEnabled(enable)
+    for i = 1, #ActionList do
+        if ActionList[i].actionFlag == "Goto" then
+            local dataPoint=ActionList[i].self
+            dataPoint.isActive=enable
+            ActionList[i].isActive = enable
+            if not enable then
+               -- print("выходы заблокированы "..i)
+            else
+                --print("выходы разблокированы "..i)
+            end
+        end
+    end
+end
+
+
+
+function FinObjectInAreaOLD(x, y, message, actionFlag, isActive, reward)
 
     if not reward then
-        reward=PreViewIcon[GetRandomInt(1,#PreViewIcon)]
+        reward = PreViewIcon[GetRandomInt(1, #PreViewIcon)]
     end
-    local preView=nil
-    if actionFlag=="Goto" then
-        preView=AddSpecialEffect("SystemGeneric\\GodModels\\"..reward,x,y)
+    local preView = nil
+    if actionFlag == "Goto" then
+        preView = AddSpecialEffect("SystemGeneric\\GodModels\\" .. reward, x, y)
         BlzSetSpecialEffectYaw(preView, math.rad(90))
-        BlzSetSpecialEffectScale(preView,2)
+        BlzSetSpecialEffectScale(preView, 2)
 
         --print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
         --GLOBAL_REWARD=reward
     end
-    ActionList[ActionListIndex]={
-        x=x,
-        y=y,
-        actionFlag=actionFlag,
-        reward=reward
+    ActionList[ActionListIndex] = {
+        x = x,
+        y = y,
+        actionFlag = actionFlag,
+        reward = reward
     }
 
-    ActionListIndex=ActionListIndex+1
-    local activeNumber=ActionListIndex-1
-    local thisTrigger=CreateTrigger()
-    local thisTrigger2=CreateTrigger()
-    local range=200
-    local rect=Rect(x - range, y - range, x + range, y +range)
-    local tooltip,backdrop,text=CreateActionBox(message)
+    ActionListIndex = ActionListIndex + 1
+    local activeNumber = ActionListIndex - 1
+    local thisTrigger = CreateTrigger()
+    local thisTrigger2 = CreateTrigger()
+    local range = 200
+    local rect = Rect(x - range, y - range, x + range, y + range)
+    local tooltip, backdrop, text = CreateActionBox(message)
 
-    ActionList[activeNumber].isActive=isActive
-    TriggerRegisterEnterRectSimple(thisTrigger,rect)
+    ActionList[activeNumber].isActive = isActive
+    TriggerRegisterEnterRectSimple(thisTrigger, rect)
     TriggerAddAction(thisTrigger, function()
-        local u=GetTriggerUnit()
-        local pid=GetPlayerId(GetTriggerPlayer())
-        if HERO[pid].UnitHero==u  and ActionList[activeNumber].isActive then
+        local u = GetTriggerUnit()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        if HERO[pid].UnitHero == u and ActionList[activeNumber].isActive then
             DisableTrigger(thisTrigger)
             --print(message)
             if not HERO[pid].DoAction then
-                HERO[pid].DoAction=true
-                HERO[pid].UseAction=actionFlag
-                HERO[pid].CurrentReward=reward
-                BlzFrameSetVisible(tooltip,GetLocalPlayer()==GetOwningPlayer(GetTriggerUnit()))
-
+                HERO[pid].DoAction = true
+                HERO[pid].UseAction = actionFlag
+                HERO[pid].CurrentReward = reward
+                BlzFrameSetVisible(tooltip, GetLocalPlayer() == GetOwningPlayer(GetTriggerUnit()))
             end
             TimerStart(CreateTimer(), 0.1, false, function()
                 EnableTrigger(thisTrigger)
             end)
-            TimerStart(CreateTimer(), 0.5, true, function() --таймер ожидания
+            TimerStart(CreateTimer(), 0.5, true, function()
+                --таймер ожидания
                 if not HERO[pid].DoAction then
                     DestroyTimer(GetExpiredTimer())
                     if HERO[pid].Completed then
-                        HERO[pid].Completed=false
-                        ActionList[activeNumber].isActive=false
+                        HERO[pid].Completed = false
+                        ActionList[activeNumber].isActive = false
                     end
-                    if GetLocalPlayer()==GetOwningPlayer(u) then
-                        BlzFrameSetVisible(tooltip,false)
+                    if GetLocalPlayer() == GetOwningPlayer(u) then
+                        BlzFrameSetVisible(tooltip, false)
                     end
                     --print("вышел из зоны, таймер отлова клавиши больше не нужен")
                 end
             end)
         end
     end)
-    TriggerRegisterLeaveRectSimple(thisTrigger2,rect) --выход из зоы
+    TriggerRegisterLeaveRectSimple(thisTrigger2, rect) --выход из зоы
     TriggerAddAction(thisTrigger2, function()
-        local pid=GetPlayerId(GetTriggerPlayer())
-        local u=GetTriggerUnit()
-        if  HERO[pid].UnitHero==u and ActionList[activeNumber].isActive then
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local u = GetTriggerUnit()
+        if HERO[pid].UnitHero == u and ActionList[activeNumber].isActive then
             DisableTrigger(thisTrigger2)
             if HERO[pid].DoAction then
-                HERO[pid].DoAction=false
-                HERO[pid].UseAction=""
-                if GetLocalPlayer()==GetOwningPlayer(u) then
-                    BlzFrameSetVisible(tooltip,false)
+                HERO[pid].DoAction = false
+                HERO[pid].UseAction = ""
+                if GetLocalPlayer() == GetOwningPlayer(u) then
+                    BlzFrameSetVisible(tooltip, false)
                 end
             end
             --print(message)
@@ -498,31 +627,31 @@ function FinObjectInArea(x,y,message,actionFlag,isActive,reward)
             end)
         end
     end)
-    return
+    --return
 end
 
 function CreateActionBox(message)
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local size=#message*0.0045
-    if size<=0.1 then
-        size=0.1
+    local size = #message * 0.0045
+    if size <= 0.1 then
+        size = 0.1
     end
     BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08)
     BlzFrameSetSize(tooltip, 0.2, 0.04)
     BlzFrameSetSize(backdrop, size, 0.04)
     BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetAlpha(backdrop,200)
-    BlzFrameSetText(text,message)
-    BlzFrameSetScale(text,1.2)
+    BlzFrameSetAlpha(backdrop, 200)
+    BlzFrameSetText(text, message)
+    BlzFrameSetScale(text, 1.2)
     BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, backdrop, FRAMEPOINT_RIGHT, -0.01, 0.0)
-    BlzFrameSetVisible(tooltip,false)
+    BlzFrameSetVisible(tooltip, false)
     local hotkey = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', tooltip, '', 0)
     BlzFrameSetTexture(hotkey, "SystemGeneric\\HadesE", 0, true)
     BlzFrameSetSize(hotkey, NextPoint, NextPoint)
     BlzFrameSetPoint(hotkey, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.01, 0.0)
-    return tooltip,backdrop,text,hotkey
+    return tooltip, backdrop, text, hotkey
 end
 
 function CreateEActions()
@@ -538,178 +667,217 @@ function CreateEActions()
             data.ReleaseE = true
             --print("e is pressed")
             --ТУТ ПЕРЕЧИСЛЯЕМ ДЕЙСТВИЯ ЧЕРЕЗ ИФ
-            if data.UseAction=="StartSheep" then
-                local message="Кто-то убрал трап, я не могу подняться сейчас на борт"
-                CreateInfoBoxForAllPlayerTimed(data,message,10)
-                data.Completed=true
-                data.DoAction=false
-                data.UseAction=""
+            if data.UseAction == "StartSheep" then
+                local message = "Кто-то убрал трап, я не могу подняться сейчас на борт"
+                CreateInfoBoxForAllPlayerTimed(data, message, 10)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
             end
-            if data.UseAction=="Board" then
-                local message="Здесь ничего нет"
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                data.Completed=true
-                data.DoAction=false
-                data.UseAction=""
+            if data.UseAction == "Board" then
+                local message = "Здесь ничего нет"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
             end
-            if data.UseAction=="BackDor" then
-                local message="Даже не похоже, что эту дверь можно открыть снаружи"
-                CreateInfoBoxForAllPlayerTimed(data,message,4)
-                data.DoAction=false
-                data.UseAction=""
+            if data.UseAction == "BackDor" then
+                local message = "Даже не похоже, что эту дверь можно открыть снаружи"
+                CreateInfoBoxForAllPlayerTimed(data, message, 4)
+                data.DoAction = false
+                data.UseAction = ""
             end
             -----------------------------------------------------
             -----------------------------------------------------
             -----------------------------------------------------
-            if data.UseAction=="Goto" then
-                local rm={
+            if data.UseAction == "Goto" then
+                local rm = {
                     "Что нас ждём внутри?",
                     "Надеюсь, что будет полегче",
                     "Откройся, Сезам",
                     "А что же там?"
                 }
-                local r=GetRandomInt(1,#rm)
-                local message=rm[r]
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                --print("переходим в зону с этой наградой "..data.CurrentReward)
-                GLOBAL_REWARD=data.CurrentReward
+                local r = GetRandomInt(1, #rm)
+                local message = rm[r]
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+
+                --GLOBAL_REWARD = data.CurrentReward
                 Enter2NewZone()
-                DestroyDecorInArea(data,300)
-                data.Completed=true
-                data.DoAction=false
-                data.UseAction=""
+                DestroyDecorInArea(data, 300)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
+                local dataPoint=EnterPointTable[GetHandleId(data.EPointUnit)]
+                print("переходим в зону с этой наградой "..dataPoint.CurrentReward)
+                GLOBAL_REWARD=dataPoint.CurrentReward
                 AllActionsEnabled(false)-- блокируем все новые переходы
             end
-            if data.UseAction=="StartBonus" then
-                local message1="Я в своём познании настолько преисполнился, что как будто бы уже 100"
-                local message2="триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет"
-                CreateInfoBoxForAllPlayerTimed(data,message2,10)
-                CreateInfoBoxForAllPlayerTimed(data,message1,10)
-                data.Completed=true
-                data.DoAction=false
-                data.UseAction=""
+            if data.UseAction == "StartBonus" then
+                local message1 = "Я в своём познании настолько преисполнился, что как будто бы уже 100"
+                local message2 = "триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет"
+                CreateInfoBoxForAllPlayerTimed(data, message2, 10)
+                CreateInfoBoxForAllPlayerTimed(data, message1, 10)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
             end
-            if data.UseAction=="SoFar" then
-                local message="Ничего не видно без оптического прибора"
-                CreateInfoBoxForAllPlayerTimed(data,message,5)
-                data.Completed=true
-                data.DoAction=false
-                data.UseAction=""
+            if data.UseAction == "SoFar" then
+                local message = "Ничего не видно без оптического прибора"
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
             end
-            if data.UseAction=="Fish" then
-                local message="Руками, без удочки"
-                CreateInfoBoxForAllPlayerTimed(data,message,5)
-                data.Completed=true
-                data.DoAction=false
-                data.UseAction=""
+            if data.UseAction == "Fish" then
+                local message = "Руками, без удочки"
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
 
             end
-            if data.UseAction=="NoWorking" then
-                local message="Я здесь не для отдыха"
-                CreateInfoBoxForAllPlayerTimed(data,message,5)
-                data.Completed=true
-                data.DoAction=false
-                data.UseAction=""
+            if data.UseAction == "NoWorking" then
+                local message = "Я здесь не для отдыха"
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
             end
-----------------------------------------------------/
----------------ДАРЫ БОГОВ---------------------------/
-----------------------------------------------------/
-            if data.UseAction=="Trall" then
-                local message="Провидец, я выбираю тебя"
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                data.Completed=true
+            ----------------------------------------------------/
+            ---------------ДАРЫ БОГОВ---------------------------/
+            ----------------------------------------------------/
+            if data.UseAction == "Trall" then
+                local message = "Провидец, я выбираю тебя"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
                 AllActionsEnabled(true)--активация всех переходов
-                TimerStart(CreateTimer(),2, false, function()
+                TimerStart(CreateTimer(), 1, false, function()
                     --print("Создаём диалоговое окно для всех игроков Jsore")
                     CreateDialogTalon("Trall") -- Сюда передаётся trall
                     DestroyGodTalon(LastGodTalon)
 
                 end)
-                data.DoAction=false
-                data.UseAction=""
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
                 --GetTerrainZ()
             end
-            if data.UseAction=="HeroBlademaster" then
-                local message="Надели меня силой своего клинка"
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                data.Completed=true
+            if data.UseAction == "HeroBlademaster" then
+                local message = "Надели меня силой своего клинка"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
                 AllActionsEnabled(true)
-                TimerStart(CreateTimer(),2, false, function()
+                TimerStart(CreateTimer(), 1, false, function()
                     DestroyGodTalon(LastGodTalon)
                     --активация всех переходов
                 end)
-                data.DoAction=false
-                data.UseAction=""
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
             end
-            if data.UseAction=="HeroTaurenChieftain" then
-                local message="Держите оборону"
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                data.Completed=true
+            if data.UseAction == "HeroTaurenChieftain" then
+                local message = "Держите оборону"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
                 AllActionsEnabled(true)
-                TimerStart(CreateTimer(),2, false, function()
+                TimerStart(CreateTimer(), 1, false, function()
                     DestroyGodTalon(LastGodTalon)
                     --активация всех переходов
                 end)
-                data.DoAction=false
-                data.UseAction=""
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
             end
-            if data.UseAction=="ShadowHunter" then
-                local message="Я отомщю за тебя"
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                data.Completed=true
+            if data.UseAction == "ShadowHunter" then
+                local message = "Я отомщю за тебя"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
                 AllActionsEnabled(true)
-                TimerStart(CreateTimer(),2, false, function()
+                TimerStart(CreateTimer(), 1, false, function()
                     DestroyGodTalon(LastGodTalon)
                     --активация всех переходов
                 end)
-                data.DoAction=false
-                data.UseAction=""
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
             end
-            if data.UseAction=="HeroArchMage" then
-                local message="Гендальф белый"
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                data.Completed=true
+            if data.UseAction == "HeroArchMage" then
+                local message = "Гендальф белый"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
                 AllActionsEnabled(true)
-                TimerStart(CreateTimer(),2, false, function()
+                TimerStart(CreateTimer(), 1, false, function()
                     DestroyGodTalon(LastGodTalon)
                 end)
-                data.DoAction=false
-                data.UseAction=""
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
             end
-            if data.UseAction=="HeroPaladin" then
-                local message="За твоего отца"
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                data.Completed=true
+            if data.UseAction == "HeroPaladin" then
+                local message = "За твоего отца"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
                 AllActionsEnabled(true)
-                TimerStart(CreateTimer(),2, false, function()
-                    DestroyGodTalon(LastGodTalon)
-                   --активация всех переходов
-                end)
-                data.DoAction=false
-                data.UseAction=""
-            end
-            if data.UseAction=="HeroBloodElfPrince" then
-                local message="Инвокер, ты ли это?"
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                data.Completed=true
-                AllActionsEnabled(true)
-                TimerStart(CreateTimer(),2, false, function()
+                TimerStart(CreateTimer(), 1, false, function()
                     DestroyGodTalon(LastGodTalon)
                     --активация всех переходов
                 end)
-                data.DoAction=false
-                data.UseAction=""
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
             end
-            if data.UseAction=="HeroMountainKing" then
-                local message="Помоги мне подраться"
-                CreateInfoBoxForAllPlayerTimed(data,message,3)
-                data.Completed=true
-                TimerStart(CreateTimer(),2, false, function()
+            if data.UseAction == "HeroBloodElfPrince" then
+                local message = "Инвокер, ты ли это?"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
+                AllActionsEnabled(true)
+                TimerStart(CreateTimer(), 1, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    --активация всех переходов
+                end)
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
+            end
+            if data.UseAction == "HeroMountainKing" then
+                local message = "Помоги мне подраться"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
+                TimerStart(CreateTimer(), 1, false, function()
                     DestroyGodTalon(LastGodTalon)
                     AllActionsEnabled(true)--активация всех переходов
                 end)
-                data.DoAction=false
-                data.UseAction=""
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
+            end
+            ----------------------------------------------------/
+            ---------------Прочие дары--------------------------/
+            ----------------------------------------------------/
+            if data.UseAction == "CodoHeart" then
+                local message = "Сила кодоя"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
+                TimerStart(CreateTimer(), 1, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
+            end
+            if data.UseAction == "GoldReward" then
+                local message = "Звонкая монета"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
+                TimerStart(CreateTimer(), 1, false, function()
+                    DestroyGodTalon(LastGodTalon)
+                    AllActionsEnabled(true)--активация всех переходов
+                end)
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
             end
 
 
@@ -726,51 +894,88 @@ function CreateEActions()
     end)
 end
 
-InfoSlots=0
-function CreateInfoBoxForAllPlayerTimed(data,message,timed)
+InfoSlots = 0
+function CreateInfoBoxForAllPlayerTimed(data, message, timed)
 
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local size=#message*0.004
-    if size<=0.12 then
-        size=0.12
+    local size = #message * 0.004
+    if size <= 0.12 then
+        size = 0.12
     end
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.16+0.03*InfoSlots)
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.16 + 0.03 * InfoSlots)
     BlzFrameSetSize(tooltip, 0.2, 0.04)
     BlzFrameSetSize(backdrop, size, 0.03)
     BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetAlpha(backdrop,220)
-    BlzFrameSetText(text,message)
-    BlzFrameSetScale(text,1.2)
+    BlzFrameSetAlpha(backdrop, 220)
+    BlzFrameSetText(text, message)
+    BlzFrameSetScale(text, 1.2)
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
     --BlzFrameSetVisible(tooltip,true)
     TimerStart(CreateTimer(), timed, false, function()
-        BlzFrameSetVisible(tooltip,true)
+        BlzFrameSetVisible(tooltip, true)
         BlzDestroyFrame(tooltip)
-        InfoSlots=InfoSlots-1
+        InfoSlots = InfoSlots - 1
     end)
-    InfoSlots=InfoSlots+1
+    InfoSlots = InfoSlots + 1
 end
 
-function AllActionsEnabled(enable)
-    for i=1,#ActionList do
 
-        if ActionList[i].actionFlag=="Goto" then
-            ActionList[i].isActive=enable
-            if not enable then
-                --print("выходы заблокированы "..i)
-            end
-        end
+function DestroyDecorInArea(data, range)
+    local x, y = GetUnitXY(data.UnitHero)
+    SetRect(GlobalRect, x - range, y - range, x + range, y + range)
+    EnumDestructablesInRect(GlobalRect, nil, function()
+        KillDestructable(GetEnumDestructable())
+    end)
+end
+
+function GetCurrentReward()
+    return
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 27.02.2021 18:12
+---
+---
+do
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 2, false, function()
+            RegistrationAnyEntire()
+        end)
     end
 end
 
-function DestroyDecorInArea(data,range)
-    local x,y=GetUnitXY(data.UnitHero)
-    SetRect(GlobalRect, x - range, y - range, x + range, y +range)
-    EnumDestructablesInRect(GlobalRect,nil,function ()
-        KillDestructable(GetEnumDestructable())
-    end)
+function RegistrationAnyEntire()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            local data=HERO[i]
+            local hero=data.UnitHero
+            local enterTrig=CreateTrigger()
+            TriggerRegisterUnitInRange(enterTrig,hero,200,nil)
+            TriggerAddAction(enterTrig,function()
+                local entering=GetTriggerUnit()
+                if GetUnitTypeId(entering)==FourCC('hdhw') then
+                    --print("подошел")
+                    local dataPoint=EnterPointTable[GetHandleId(entering)]
+                    if dataPoint.isActive then
+                        data.UseAction = dataPoint.UseAction
+                        data.EPointUnit = entering
+                        BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
+                        TimerStart(CreateTimer(), 0.1, true, function()
+                            if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) then
+                                BlzFrameSetVisible(dataPoint.tooltip,false)
+                                DestroyTimer(GetExpiredTimer())
+                            end
+                        end)
+                    end
+                end
+            end)
+        end
+    end
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -1092,9 +1297,7 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
         for j = 1, #GlobalTalons[i][godName] do
-            if not (GlobalTalons[i][godName][j]:getLevel() >= 3) then -- Если уровень таланта больше или равен максимальному уровню (3), то исключаем его из списка
-                listOfNumbers[i][j] = j
-            end
+            listOfNumbers[i][j] = j
             -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
             -- если уровень равен 0, то исключаем зависимый талант из списка
             if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
@@ -1110,7 +1313,10 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         talons[i] = {}
         for j = 1, 4 do
-            talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
+            if not (listOfNumbers[i][j] == nil) then
+                --talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
+                table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
+            end
         end
     end
 
@@ -1258,8 +1464,15 @@ function Talon:getDependence()
 end
 
 function Talon:updateDescription()
-    local s = string.gsub(self.description, "DS", self["DS"][self.level + 1])
-    return s
+    if #self.DS > 0 and self["DS"][self.level + 1] ~= nil then
+        local s = string.gsub(self.description, "DS", self["DS"][self.level + 1])
+        return s
+    elseif self["DS"][self.level + 1] == nil and #self.DS > 0 then
+        local s = string.gsub(self.description, "DS", self["DS"][#self.DS])
+        return s
+    else
+        return self.description
+    end
 end
 
 function Talon:getDescription()
@@ -1764,6 +1977,10 @@ end
 LastGodTalon = {}
 function CreateGodTalon(x, y, name, r, g, b)
     x = x - 16
+    if not name or name=="" then
+        print("ошибка, при создании дара, не определена награда команты")
+        return
+    end
     local eff = AddSpecialEffect("SystemGeneric\\GodModels\\" .. name, x, y)
     local pillar = AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
     local collision = CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
@@ -1787,8 +2004,10 @@ function CreateGodTalon(x, y, name, r, g, b)
         angle = angle + 1
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
     end)
-    local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
-
+    --local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
+    --print("Создали дар")
+    CreateEnterPoint(x,y,"       Принять дар", name, true)
+    --[[
     local forceShow=false
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
@@ -1805,6 +2024,7 @@ function CreateGodTalon(x, y, name, r, g, b)
             end
         end
     end
+    ]]
 
     LastGodTalon = table
     return table
@@ -3396,6 +3616,7 @@ end
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
 --- DateTime: 21.10.2020 0:13
+FREE_CAMERA=false
 do
     WLD={ --Белый лист из дестрактаблей
         [1]=FourCC('YTfc'),
@@ -3519,8 +3740,12 @@ function InitWASD(hero)
                 end)
             end)
         else
-            SetCameraQuickPosition(GetUnitX(hero),GetUnitY(hero))
-            SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero),hero, 10,10,true) -- не дергается
+            if not FREE_CAMERA then
+                SetCameraQuickPosition(GetUnitX(hero),GetUnitY(hero))
+                SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero),hero, 10,10,true) -- не дергается
+            else
+                --print("камера освобождена")
+            end
         end
 
         if data.PressSpin then
@@ -4421,6 +4646,12 @@ function PlayUnitAnimationFromChat()
         end
         if GetEventPlayerChatString()=="peon" then
             SetUnitPositionSmooth(data.UnitHero,-5500,-3000)
+            return
+        end
+        if GetEventPlayerChatString()=="b" then
+            print("освобождаем камеру")
+            FREE_CAMERA=true
+            SetCameraBoundsToRectForPlayerBJ(Player(0),bj_mapInitialPlayableArea)
             return
         end
         SetUnitAnimationByIndex(data.UnitHero,s)
