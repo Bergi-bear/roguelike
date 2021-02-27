@@ -22,9 +22,7 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
         for j = 1, #GlobalTalons[i][godName] do
-            if not (GlobalTalons[i][godName][j]:getLevel() >= 3) then -- Если уровень таланта больше или равен максимальному уровню (3), то исключаем его из списка
-                listOfNumbers[i][j] = j
-            end
+            listOfNumbers[i][j] = j
             -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
             -- если уровень равен 0, то исключаем зависимый талант из списка
             if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
@@ -40,7 +38,10 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         talons[i] = {}
         for j = 1, 4 do
-            talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
+            if not (listOfNumbers[i][j] == nil) then
+                --talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
+                table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
+            end
         end
     end
 
