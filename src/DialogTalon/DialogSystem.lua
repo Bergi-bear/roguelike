@@ -145,6 +145,7 @@ function CreateDialogTalon(godName)
                 talons[i][j]:updateLevel()
                 -- Закрываем окно талантов
                 SmoothWindowAppearance(DialogTalon.MainFrame, "close", Player(i - 1))
+                LearnCurrentTalonForPlayer(i,godName) --FIXME
             end)
         end
     end
