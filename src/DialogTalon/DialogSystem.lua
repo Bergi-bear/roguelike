@@ -138,19 +138,14 @@ function CreateDialogTalon(godName)
                 -- Создаем Кнопки
                 DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                 BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
-
-                DialogTalon.TalonButtons.Triggers[i][j] = CreateTrigger()
-                DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.Triggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
-                DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.Triggers[i][j], function()
-                    -- Закрываем окно талантов
-                    if GetLocalPlayer() == Player(i - 1) then
-                        SmoothWindowAppearance(DialogTalon.MainFrame, "close")
-                        --talons[i][j]["level"] = talons[i][j]["level"] + 1
-                        --GlobalTalons[i][godName][j]:updateLevel()
-                        talons[i][j]:updateLevel()
-                    end
-                end)
             end
+            DialogTalon.TalonButtons.Triggers[i][j] = CreateTrigger()
+            DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.Triggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
+            DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.Triggers[i][j], function()
+                talons[i][j]:updateLevel()
+                -- Закрываем окно талантов
+                SmoothWindowAppearance(DialogTalon.MainFrame, "close", Player(i - 1))
+            end)
         end
     end
 
