@@ -11,3 +11,4 @@ TimerStart(CreateTimer(), 2, false, function()
         print(k)
     end)
 end)
+]]
