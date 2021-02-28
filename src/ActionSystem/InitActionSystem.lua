@@ -12,6 +12,7 @@ do
             ReplaceALLUnitId2PointExit(FourCC("hdhw"))
             CreateEActions()
             InitFinObjectInArea()
+            AllActionsEnabled(true)
         end)
     end
 end
@@ -36,7 +37,7 @@ function InitFinObjectInArea()
     CreateEnterPoint(5400, -8300, "   Исследовать лодку", "Board", true) --Левая лодка
     CreateEnterPoint(5500, -6900, "  Войти", "BackDor", true) --Вечно закрытые ворота
     CreateEnterPoint(7700, -8000, "     Преисполниться", "StartBonus", true) --Синий огонь
-    CreateEnterPoint(7800, -6600, "   Посмотреть вдаль", "SoFar", true) --на краю берега справа
+    CreateEnterPoint(7800, -6600, "    Посмотреть вдаль", "SoFar", true) --на краю берега справа
     CreateEnterPoint(7000, -9200, "      Рыбачить", "Fish", true) -- внизу на берегу
     CreateEnterPoint(7200, -7600, "       Отдохноуть", "NoWorking", true) -- возле деревьев
     --[[
@@ -67,6 +68,7 @@ function ReplaceALLUnitId2PointExit(id)
         local u=unitTable[i]
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
+        --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
         CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,nil,u)
     end
@@ -78,6 +80,8 @@ function CreateEnterPoint(x,y,message, actionFlag, isActive, reward,tempUnit)
     if not tempUnit then
         --print("юнит не определён, создаём "..actionFlag)
         tempUnit=CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), FourCC("hdhw"),x,y,0)
+        SetUnitInvulnerable(tempUnit,true)
+        --UnitAddAbility(tempUnit,FourCC("Aloc"))
     end
     EnterPointTable[GetHandleId(tempUnit)]={}
     local dataPoint=EnterPointTable[GetHandleId(tempUnit)]
@@ -133,8 +137,8 @@ function CreateEnterPoint(x,y,message, actionFlag, isActive, reward,tempUnit)
                         BlzSetSpecialEffectScale(preView, 2)
                         dataPoint.preView=preView
 
-                        print("Найден дубликат дара "..reward.."заменяем его на "..newReward)
-                        AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
+                        --print("Найден дубликат дара "..reward.."заменяем его на "..newReward)
+                        --AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
                     end
                 end
             end
@@ -330,6 +334,8 @@ function CreateEActions()
                 --GLOBAL_REWARD = data.CurrentReward
                 Enter2NewZone()
                 DestroyDecorInArea(data, 300)
+                print("звук открытия ворот")
+                normal_sound("",GetUnitXY(data.UnitHero))
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
@@ -382,7 +388,6 @@ function CreateEActions()
                     --print("Создаём диалоговое окно для всех игроков Jsore")
                     CreateDialogTalon("Trall") -- Сюда передаётся trall
                     DestroyGodTalon(LastGodTalon)
-
                 end)
                 data.DoAction = false
                 data.UseAction = ""
@@ -396,6 +401,7 @@ function CreateEActions()
                 AllActionsEnabled(true)
                 TimerStart(CreateTimer(), 1, false, function()
                     DestroyGodTalon(LastGodTalon)
+                    CreateDialogTalon("HeroBlademaster")
                     --активация всех переходов
                 end)
                 data.DoAction = false
@@ -409,6 +415,7 @@ function CreateEActions()
                 AllActionsEnabled(true)
                 TimerStart(CreateTimer(), 1, false, function()
                     DestroyGodTalon(LastGodTalon)
+                    CreateDialogTalon("HeroTaurenChieftain")
                     --активация всех переходов
                 end)
                 data.DoAction = false
@@ -422,6 +429,7 @@ function CreateEActions()
                 AllActionsEnabled(true)
                 TimerStart(CreateTimer(), 1, false, function()
                     DestroyGodTalon(LastGodTalon)
+                    CreateDialogTalon("ShadowHunter")
                     --активация всех переходов
                 end)
                 data.DoAction = false
@@ -492,18 +500,22 @@ function CreateEActions()
                 data.DoAction = false
                 data.UseAction = ""
                 KillUnit(data.EPointUnit)
+                GiveForAll(data.UseAction)
             end
             if data.UseAction == "GoldReward" then
                 local message = "Звонкая монета"
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 data.Completed = true
-                TimerStart(CreateTimer(), 1, false, function()
-                    DestroyGodTalon(LastGodTalon)
-                    AllActionsEnabled(true)--активация всех переходов
+                DestroyGodTalon(LastGodTalon)
+                AllActionsEnabled(true)
+                TimerStart(CreateTimer(), 1.6, false, function()
+                    --активация всех переходов
+                    GiveForAll(data.UseAction)
                 end)
                 data.DoAction = false
                 data.UseAction = ""
                 KillUnit(data.EPointUnit)
+                normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
 
 
@@ -554,8 +566,4 @@ function DestroyDecorInArea(data, range)
     EnumDestructablesInRect(GlobalRect, nil, function()
         KillDestructable(GetEnumDestructable())
     end)
-end
-
-function GetCurrentReward()
-    return
 end

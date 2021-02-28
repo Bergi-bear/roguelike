@@ -12,16 +12,20 @@ function CreateDialogTalon(godName)
 
     local title = ""
     if godName == "Trall" then
-        title = "Дары Тралла"
-    elseif godName == "Что-то еще" then
-        -- title = "Дары кого-то еще"
+        title = "Дары Говорящего с духами"
+    elseif godName == "HeroBlademaster" then
+        title = "Дары Мастера клинка"
+    elseif godName == "HeroTaurenChieftain" then
+        title = "Дары Вождя минотавров"
+    elseif godName == "ShadowHunter" then
+        title = "Дары Ловца теней"
     end
 
     local talons = {}
     local listOfNumbers = {}
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
-        for j = 1, #GlobalTalons[i][godName] do
+        for j = 1, #GlobalTalons[i][godName] do --FIXME
             listOfNumbers[i][j] = j
             -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
             -- если уровень равен 0, то исключаем зависимый талант из списка
@@ -127,7 +131,7 @@ function CreateDialogTalon(godName)
                 if talons[i][j].level > 0 then
                     DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                     BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "Текущий уровень: " .. talons[i][j]:getLevel())
+                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
                 end
 

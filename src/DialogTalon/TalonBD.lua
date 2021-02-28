@@ -98,7 +98,7 @@ do
                         dependence = 3
                     }),
                 },
-                BLADEMASTER={
+                HeroBlademaster={
                     Talon:new({
                         icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
                         name = "Ветряной шаг смерти",
@@ -163,7 +163,7 @@ do
                         DS={1,2,3}
                     }),
                 },
-                SHADOWCATCHER={
+                ShadowHunter={
                     Talon:new({
                         icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
                         name = "Я помогу",
@@ -208,6 +208,17 @@ do
                         rarity = "normal",
                         tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
                         DS={12,10,8}
+                    }),
+                },
+                HeroTaurenChieftain={
+                    Talon:new({
+                        icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                        name = "Новая жизнь",
+                        description = "Исцеляет героя на DS %% при получении уровня",
+                        level = 0,
+                        rarity = "normal",
+                        tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                        DS={30,50,100}
                     }),
                 }
             }

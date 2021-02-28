@@ -8,7 +8,7 @@ function SmoothWindowAppearance(frame, state)
         BlzFrameSetAlpha(frame, 0)
     end
     local timer = CreateTimer()
-    TimerStart(timer, 0.003, true, function()
+    TimerStart(timer, 0.005, true, function() --было 0.003
         BlzFrameSetAlpha(frame, count)
         if count == 255 and state == "open" then
             DestroyTimer(timer)
