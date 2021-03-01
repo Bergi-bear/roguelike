@@ -65,7 +65,7 @@ do
                             DS={1,2,3}
                         }),
                         [7] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp", --FIXME поменять иконку
                             name = "Предвидение боли",
                             description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить запас здоровья. Перезарядка DS сек",
                             level = 0,
@@ -131,7 +131,7 @@ do
                             DS={2,3,4}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp", --FIXME И сюда иконку
                             name = "Иллюзорный рывок",
                             description = "Создаёт иллюзию в точке начала рывка. Перезарядка DS",
                             level = 0,
