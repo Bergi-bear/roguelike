@@ -17,7 +17,7 @@ function DrawInterFace()
     DrawSelectionPortrait()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if HERO[i] then
-           -- CreateHPBar(HERO[i].UnitHero,0)
+            CreateHPBar(HERO[i].UnitHero,0)
         end
     end
     CreateBaseFrames(0.02,0.015)
@@ -37,32 +37,30 @@ function CreateHPBar(hero,index)
     local intoBar="SystemGeneric\\ColorHP"
     local rama2="SystemGeneric\\hp"
 
-    local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
-    BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetTexture(into, intoBar, 0, true)
-    BlzFrameSetSize(into, 0.21, 0.02*0.95)
-    BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT,-0.054,0.06+0.01)
-    BlzFrameSetVisible(into,GetLocalPlayer()==GetOwningPlayer(hero))
+        local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+        BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+        BlzFrameSetTexture(into, intoBar, 0, true)
+        BlzFrameSetSize(into, 0.02*0.95, 0.21)
+        BlzFrameSetAbsPoint(into, FRAMEPOINT_BOTTOM,-0.12,0.079)
+        BlzFrameSetVisible(into,GetLocalPlayer()==GetOwningPlayer(hero))
 
-    local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
-    BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetTexture(buttonIconFrame, rama2, 0, true)
-    BlzFrameSetSize(buttonIconFrame, 0.24, 0.03)
-    BlzFrameSetAbsPoint(buttonIconFrame, FRAMEPOINT_BOTTOMLEFT,-0.07,0.058)
-    BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==GetOwningPlayer(hero))
+        local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+        BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+        BlzFrameSetTexture(buttonIconFrame, rama2, 0, true)
+        BlzFrameSetSize(buttonIconFrame,  0.03,0.24)
+        BlzFrameSetAbsPoint(buttonIconFrame, FRAMEPOINT_BOTTOMLEFT,-0.136,0.075)
+        BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==GetOwningPlayer(hero))
 
     TimerStart(CreateTimer(), 0.05, true, function()
         local hp=0
-        if index==0 then
-            hp=GetUnitLifePercent(hero)
+        hp=GetUnitLifePercent(hero)
+        if not UnitAlive(hero) then
+            hp=0
+        end
             --BlzFrameSetText(textCurrent, R2I(GetUnitState(hero,UNIT_STATE_LIFE)))
             --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
-        else
-            hp=GetUnitManaPercent(hero)
-            --BlzFrameSetText(textCurrent, R2I(GetUnitState(hero,UNIT_STATE_MANA)))
-            --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxMana(hero)))
-        end
 
-        BlzFrameSetSize(into, hp*0.21/100,0.02*0.95 )
+
+        BlzFrameSetSize(into, 0.02*0.95,hp*0.21/100 )
     end)
 end

@@ -418,6 +418,7 @@ PreViewIcon = { -- Таблица случайных иконок которые
 
 function InitFinObjectInArea()
     CreateEnterPoint(5300, -9000, "   Подняться на борт", "StartSheep", true)--зона корабля
+    CreateEnterPoint(2100,-13250,"   Выйти наружу", "ExitSheep", true )
     CreateEnterPoint(5400, -8300, "   Исследовать лодку", "Board", true) --Левая лодка
     CreateEnterPoint(5500, -6900, "  Войти", "BackDor", true) --Вечно закрытые ворота
     CreateEnterPoint(7700, -8000, "     Преисполниться", "StartBonus", true) --Синий огонь
@@ -683,11 +684,28 @@ function CreateEActions()
             --ТУТ ПЕРЕЧИСЛЯЕМ ДЕЙСТВИЯ ЧЕРЕЗ ИФ
             if data.UseAction == "StartSheep" then
                 local message = "Кто-то убрал трап, я не могу подняться сейчас на борт"
-                CreateInfoBoxForAllPlayerTimed(data, message, 10)
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+                if true then
+                    local x,y=1750,-12500 --2100,-13250 На выход
+                    SetUnitPositionSmooth(data.UnitHero,x,y)
+                end
             end
+
+            if data.UseAction == "ExitSheep" then
+                local message = "На свежий воздух"
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                if true then
+                    local x,y=5300, -9000 --2100,-13250 На выход
+                    SetUnitPositionSmooth(data.UnitHero,x,y)
+                end
+            end
+
             if data.UseAction == "Board" then
                 local message = "Здесь ничего нет"
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
@@ -988,6 +1006,7 @@ function RegistrationAnyEntire()
                             if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) then
                                 BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
+                                data.UseAction=""
                             end
                         end)
                     end
@@ -1059,8 +1078,8 @@ function Enter2NewZone()
             --StartEnemyWave(Destiny[CurrentGameZone])
             --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
 
-            StartEnemyWave(DestinyEnemies[CurrentGameZone])
-            --StartEnemyWave(6)
+            --StartEnemyWave(DestinyEnemies[CurrentGameZone])
+            StartEnemyWave(5)
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end
@@ -1694,7 +1713,7 @@ do
                             DS={1,2,3}
                         }),
                         [7] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp", --FIXME поменять иконку
                             name = "Предвидение боли",
                             description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить запас здоровья. Перезарядка DS сек",
                             level = 0,
@@ -1760,7 +1779,7 @@ do
                             DS={2,3,4}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp", --FIXME И сюда иконку
                             name = "Иллюзорный рывок",
                             description = "Создаёт иллюзию в точке начала рывка. Перезарядка DS",
                             level = 0,
@@ -1895,8 +1914,129 @@ do
                             description = "Увеличивает длительность стазиса от способности Мощный удар на DS",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите Q, чтобы нанести можный удар по большой площади",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
                             DS={0.3,0.6,0.9}
+                        }),
+                    },
+                    HeroBeastMaster={ -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Ящер",
+                            description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 60. Урон: 100",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Медведь",
+                            description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при падении и агрит на себя врагов. Перезарядка: 60. Длительность: 10",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Кабан",
+                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядк: 20. Длительность: 50",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Волк",
+                            description = "Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк убивает замороженных врагов с 1 удара",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                    },
+                    PeonDidal={
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Короткое комбо",
+                            description = "Сокращает комбо до 3 ударов, и задержку финального удара на 0.3",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Большой размах",
+                            description = "Заменяет комбо на 1 большой размашистый удар, который наносит 150 базового урона",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов (теперь нет)",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Бронелом",
+                            description = "Все ваши атаки наносят 5 кратны урон по врашам с щитом",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Разбег минотавра",
+                            description = "Атака в рывке, наносят на 100% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажмите LMB  после SPACE, чтобы совершить атаку в рывке",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Удар проклятой души",
+                            description = "Попадания обычной атаков восстанавливают 2 ед. здоровья, в случае промаха вы потеряете 2% от макс здоровья (не может быть смертельным)",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Двойной Клеп",
+                            description = "Мощный удар бьёт дважды",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Пронзающий пространство удар",
+                            description = "Можный удар наносит дополнительно 50 урона на линии перед собой. Дистанция: 500",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Удар сатира",
+                            description = "Увеличивает любой урон в спину в 3 раза",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Пространственный клеп",
+                            description = "При активации мощного удара, совершает прыжок в область курсора. Максимальная дистанция: 500",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            DS={1}
                         }),
                     }
                 }
@@ -2165,7 +2305,7 @@ function DrawInterFace()
     DrawSelectionPortrait()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if HERO[i] then
-           -- CreateHPBar(HERO[i].UnitHero,0)
+            CreateHPBar(HERO[i].UnitHero,0)
         end
     end
     CreateBaseFrames(0.02,0.015)
@@ -2185,33 +2325,31 @@ function CreateHPBar(hero,index)
     local intoBar="SystemGeneric\\ColorHP"
     local rama2="SystemGeneric\\hp"
 
-    local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
-    BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetTexture(into, intoBar, 0, true)
-    BlzFrameSetSize(into, 0.21, 0.02*0.95)
-    BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT,-0.054,0.06+0.01)
-    BlzFrameSetVisible(into,GetLocalPlayer()==GetOwningPlayer(hero))
+        local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+        BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+        BlzFrameSetTexture(into, intoBar, 0, true)
+        BlzFrameSetSize(into, 0.02*0.95, 0.21)
+        BlzFrameSetAbsPoint(into, FRAMEPOINT_BOTTOM,-0.12,0.079)
+        BlzFrameSetVisible(into,GetLocalPlayer()==GetOwningPlayer(hero))
 
-    local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
-    BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetTexture(buttonIconFrame, rama2, 0, true)
-    BlzFrameSetSize(buttonIconFrame, 0.24, 0.03)
-    BlzFrameSetAbsPoint(buttonIconFrame, FRAMEPOINT_BOTTOMLEFT,-0.07,0.058)
-    BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==GetOwningPlayer(hero))
+        local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+        BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+        BlzFrameSetTexture(buttonIconFrame, rama2, 0, true)
+        BlzFrameSetSize(buttonIconFrame,  0.03,0.24)
+        BlzFrameSetAbsPoint(buttonIconFrame, FRAMEPOINT_BOTTOMLEFT,-0.136,0.075)
+        BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==GetOwningPlayer(hero))
 
     TimerStart(CreateTimer(), 0.05, true, function()
         local hp=0
-        if index==0 then
-            hp=GetUnitLifePercent(hero)
+        hp=GetUnitLifePercent(hero)
+        if not UnitAlive(hero) then
+            hp=0
+        end
             --BlzFrameSetText(textCurrent, R2I(GetUnitState(hero,UNIT_STATE_LIFE)))
             --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
-        else
-            hp=GetUnitManaPercent(hero)
-            --BlzFrameSetText(textCurrent, R2I(GetUnitState(hero,UNIT_STATE_MANA)))
-            --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxMana(hero)))
-        end
 
-        BlzFrameSetSize(into, hp*0.21/100,0.02*0.95 )
+
+        BlzFrameSetSize(into, 0.02*0.95,hp*0.21/100 )
     end)
 end
 ---
@@ -2348,11 +2486,11 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("ucs1") then -- маленький скоробей
             SinergyBug(unit)
         end
-        if GetUnitTypeId(unit)==FourCC("unec") then -- маленький скоробей
+        if GetUnitTypeId(unit)==FourCC("unec") then -- некр
             NecroAttackAndArrow(unit)
         end
-        if true then
-
+        if GetUnitTypeId(unit)==FourCC("uabo") then
+            PudgeSlash(unit)
         end
 
     end)
@@ -2384,6 +2522,58 @@ function GetRandomEnemyHero()
     return table[r]
 end
 
+function PudgeSlash(unit)
+    local sec=0
+    UnitAddAbility(unit,FourCC("Abun"))
+    BlzSetUnitWeaponRealField(unit,UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN,0,2)
+    BlzSetUnitWeaponRealField(unit,UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN,1,2)
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            local hero=GetRandomEnemyHero()
+            local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+            sec=sec-1
+            if dist<=400 and sec<=0 then
+                if not IsUnitStunned(unit) then
+                    sec=5
+                    --print(dist.." дистанция")
+                    local angle=AngleBetweenUnits(unit,hero)
+                    BlzPauseUnitEx(unit,true)
+                    --SetUnitAnimation(unit,"attack")
+                    --if not GR then GR=0 end
+                    --GR=GR+1
+                    --print(GR)
+                    SetUnitAnimationByIndex(unit,2)
+                    SetUnitTimeScale(unit,0.5)
+
+                    -- CreateVisualMarkTimedXY("SystemGeneric\\Redline\\cone",1,GetUnitXY(unit))
+                    local eff=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+
+                    BlzSetSpecialEffectColor(eff,255,255,255)
+                    BlzSetSpecialEffectZ(eff,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff,math.rad(GetUnitFacing(unit)))
+
+                    BlzSetSpecialEffectMatrixScale(eff,1,2,1)
+                    TimerStart(CreateTimer(), 2, false, function()
+                        DestroyEffect(eff)
+                        BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                    end)
+
+                    TimerStart(CreateTimer(), 1, false, function()
+                        --UnitAddForceSimple(unit,angle,20,dist,"forceAttack")
+                        UnitDamageArea(unit,50,GetUnitX(unit),GetUnitY(unit),400)
+                        BlzPauseUnitEx(unit,false)
+                        SetUnitTimeScale(unit,1)
+                    end)
+                end
+            else
+                IssuePointOrder(unit,"move",GetUnitXY(hero))
+            end
+        end
+    end)
+end
+
 function NecroAttackAndArrow(unit)
     --подготовка
     UnitAddAbility(unit,FourCC("Abun"))
@@ -2394,7 +2584,7 @@ function NecroAttackAndArrow(unit)
         else
             local hero=GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
-            if not IsUnitStunned(unit) then
+            if not IsUnitStunned(unit) and hero then
                 if not IsUnitInRange(hero,unit,300 ) then
                     local angle=AngleBetweenUnits(unit,hero)
                     BlzPauseUnitEx(unit,true)

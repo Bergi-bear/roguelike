@@ -28,11 +28,11 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("ucs1") then -- маленький скоробей
             SinergyBug(unit)
         end
-        if GetUnitTypeId(unit)==FourCC("unec") then -- маленький скоробей
+        if GetUnitTypeId(unit)==FourCC("unec") then -- некр
             NecroAttackAndArrow(unit)
         end
-        if true then
-
+        if GetUnitTypeId(unit)==FourCC("uabo") then
+            PudgeSlash(unit)
         end
 
     end)
@@ -64,6 +64,58 @@ function GetRandomEnemyHero()
     return table[r]
 end
 
+function PudgeSlash(unit)
+    local sec=0
+    UnitAddAbility(unit,FourCC("Abun"))
+    BlzSetUnitWeaponRealField(unit,UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN,0,2)
+    BlzSetUnitWeaponRealField(unit,UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN,1,2)
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            local hero=GetRandomEnemyHero()
+            local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+            sec=sec-1
+            if dist<=400 and sec<=0 then
+                if not IsUnitStunned(unit) then
+                    sec=5
+                    --print(dist.." дистанция")
+                    local angle=AngleBetweenUnits(unit,hero)
+                    BlzPauseUnitEx(unit,true)
+                    --SetUnitAnimation(unit,"attack")
+                    --if not GR then GR=0 end
+                    --GR=GR+1
+                    --print(GR)
+                    SetUnitAnimationByIndex(unit,2)
+                    SetUnitTimeScale(unit,0.5)
+
+                    -- CreateVisualMarkTimedXY("SystemGeneric\\Redline\\cone",1,GetUnitXY(unit))
+                    local eff=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+
+                    BlzSetSpecialEffectColor(eff,255,255,255)
+                    BlzSetSpecialEffectZ(eff,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff,math.rad(GetUnitFacing(unit)))
+
+                    BlzSetSpecialEffectMatrixScale(eff,1,2,1)
+                    TimerStart(CreateTimer(), 2, false, function()
+                        DestroyEffect(eff)
+                        BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                    end)
+
+                    TimerStart(CreateTimer(), 1, false, function()
+                        --UnitAddForceSimple(unit,angle,20,dist,"forceAttack")
+                        UnitDamageArea(unit,50,GetUnitX(unit),GetUnitY(unit),400)
+                        BlzPauseUnitEx(unit,false)
+                        SetUnitTimeScale(unit,1)
+                    end)
+                end
+            else
+                IssuePointOrder(unit,"move",GetUnitXY(hero))
+            end
+        end
+    end)
+end
+
 function NecroAttackAndArrow(unit)
     --подготовка
     UnitAddAbility(unit,FourCC("Abun"))
@@ -74,7 +126,7 @@ function NecroAttackAndArrow(unit)
         else
             local hero=GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
-            if not IsUnitStunned(unit) then
+            if not IsUnitStunned(unit) and hero then
                 if not IsUnitInRange(hero,unit,300 ) then
                     local angle=AngleBetweenUnits(unit,hero)
                     BlzPauseUnitEx(unit,true)

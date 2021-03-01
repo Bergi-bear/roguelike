@@ -266,8 +266,129 @@ do
                             description = "Увеличивает длительность стазиса от способности Мощный удар на DS",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите Q, чтобы нанести можный удар по большой площади",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
                             DS={0.3,0.6,0.9}
+                        }),
+                    },
+                    HeroBeastMaster={ -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Ящер",
+                            description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 60. Урон: 100",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Медведь",
+                            description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при падении и агрит на себя врагов. Перезарядка: 60. Длительность: 10",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Кабан",
+                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядк: 20. Длительность: 50",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Волк",
+                            description = "Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк убивает замороженных врагов с 1 удара",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                    },
+                    PeonDidal={
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Короткое комбо",
+                            description = "Сокращает комбо до 3 ударов, и задержку финального удара на 0.3",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Большой размах",
+                            description = "Заменяет комбо на 1 большой размашистый удар, который наносит 150 базового урона",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов (теперь нет)",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Бронелом",
+                            description = "Все ваши атаки наносят 5 кратны урон по врашам с щитом",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Разбег минотавра",
+                            description = "Атака в рывке, наносят на 100%% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажмите LMB  после SPACE, чтобы совершить атаку в рывке",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Удар проклятой души",
+                            description = "Попадания обычной атаков восстанавливают 2 ед. здоровья, в случае промаха вы потеряете 2%% от макс здоровья (не может быть смертельным)",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Двойной Клеп",
+                            description = "Мощный удар бьёт дважды",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Пронзающий пространство удар",
+                            description = "Можный удар наносит дополнительно 50 урона на линии перед собой. Дистанция: 500",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Удар сатира",
+                            description = "Увеличивает любой урон в спину в 3 раза",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Пространственный клеп",
+                            description = "При активации мощного удара, совершает прыжок в область курсора. Максимальная дистанция: 500",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            DS={1}
                         }),
                     }
                 }
