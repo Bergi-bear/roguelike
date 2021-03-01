@@ -144,8 +144,9 @@ function CreateDialogTalon(godName)
             DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.Triggers[i][j], function()
                 talons[i][j]:updateLevel()
                 -- Закрываем окно талантов
+                --print(listOfNumbers[i][j])
                 SmoothWindowAppearance(DialogTalon.MainFrame, "close", Player(i - 1))
-                LearnCurrentTalonForPlayer(i,godName) --FIXME
+                LearnCurrentTalonForPlayer(i,godName,listOfNumbers[i][j])
             end)
         end
     end

@@ -334,8 +334,8 @@ function CreateEActions()
                 --GLOBAL_REWARD = data.CurrentReward
                 Enter2NewZone()
                 DestroyDecorInArea(data, 300)
-                print("звук открытия ворот")
-                normal_sound("",GetUnitXY(data.UnitHero))
+                --print("звук открытия ворот")
+                normal_sound("Sound\\Interface\\BattlenetBirth1",GetUnitXY(data.UnitHero))
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
@@ -500,7 +500,7 @@ function CreateEActions()
                 data.DoAction = false
                 data.UseAction = ""
                 KillUnit(data.EPointUnit)
-                GiveForAll(data.UseAction)
+                GiveForAll("CodoHeart")
             end
             if data.UseAction == "GoldReward" then
                 local message = "Звонкая монета"
@@ -510,7 +510,7 @@ function CreateEActions()
                 AllActionsEnabled(true)
                 TimerStart(CreateTimer(), 1.6, false, function()
                     --активация всех переходов
-                    GiveForAll(data.UseAction)
+                    GiveForAll("GoldReward" )
                 end)
                 data.DoAction = false
                 data.UseAction = ""

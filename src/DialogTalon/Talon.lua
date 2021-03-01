@@ -40,6 +40,12 @@ function Talon:updateDescription()
     end
 end
 
+function Talon:updateDescriptionCurrent()
+    local s=self.description
+    s=string.gsub(s,"DS",self["DS"][self.level])
+    return s
+end
+
 function Talon:getDescription()
     return self.description
 end

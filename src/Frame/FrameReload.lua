@@ -32,6 +32,10 @@ AbilityDescriptionRus={
     "Заряженная атака: Удерживай LMB, чтобы начать вращаться и наносить урон всем врагам вокруг"
 }
 
+function GetPassiveIco(s)
+    return string.gsub(s, "CommandButtons\\BTN","CommandButtonsDisabled\\DISBTN")
+end
+
 function CreateBaseFrames(x,y)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER  then
@@ -40,11 +44,11 @@ function CreateBaseFrames(x,y)
            -- AllAbilityFrames[i]={
            --     ReadyToReload={},
            --    ClickTrig={}}
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],data,AbilityIconPath[1],DisabledIconPath[1],"SystemGeneric\\DDSSymbols\\lmb")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],data,AbilityIconPath[2],DisabledIconPath[2],"SystemGeneric\\DDSSymbols\\rmb","throw")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],data,AbilityIconPath[3],DisabledIconPath[3],"SystemGeneric\\DDSSymbols\\space","dash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],data,AbilityIconPath[4],DisabledIconPath[4],"SystemGeneric\\DDSSymbols\\q","splash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],data,AbilityIconPath[5],DisabledIconPath[5],"SystemGeneric\\DDSSymbols\\lmb","spin")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],data,AbilityIconPath[1],nil,"SystemGeneric\\DDSSymbols\\lmb")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],data,AbilityIconPath[2],nil,"SystemGeneric\\DDSSymbols\\rmb","throw")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],data,AbilityIconPath[3],nil,"SystemGeneric\\DDSSymbols\\space","dash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],data,AbilityIconPath[4],nil,"SystemGeneric\\DDSSymbols\\q","splash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],data,AbilityIconPath[5],nil,"SystemGeneric\\DDSSymbols\\lmb","spin")
             --CreateUniversalFrame(x,y,step,"Призывает волков",data,"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
             --CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
             --CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
@@ -59,7 +63,10 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     end
 
     if not hotkeyTexture then
-        hotkeyTexture="SystemGeneric\\DDSSymbols\\q"
+        hotkeyTexture="SystemGeneric\\DDSSymbols\\empty"
+    end
+    if not passiveTexture  or passiveTexture=="" then
+        passiveTexture=GetPassiveIco(activeTexture)
     end
     local visionPlayer=Player(data.pid)
     local face = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
@@ -84,6 +91,38 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
         data.DashChargesFH=MakeFrameCharged(face,data.DashCharges)
         data.DashChargesCDFH=buttonIconFrame
     end
+
+    if flag=="chargeAttackLight" then
+        data.chargeAttackLightFH=MakeFrameCharged(face,4)
+        data.chargeAttackLightCDFH=buttonIconFrame
+    end
+    if flag=="rebound" then
+        data.ReboundCDFH=buttonIconFrame
+    end
+    if flag=="callTrall" then
+        local talon=GlobalTalons[data.pid+1]["Trall"][5]
+        data.CallTrallCharges=talon.DS[1]
+        --data.CallTrallChargesMAX=talon.ds[1]
+        data.CallTrallFH=MakeFrameCharged(face,data.CallTrallCharges)
+        --data.CallTrallCDFH=buttonIconFrame
+        data.CallTrallReady=true
+        TimerStart(CreateTimer(), 2, true, function() -- РЕгенерация ульты
+            if data.CallTrallCharges<talon.DS[talon.level] then
+                data.CallTrallCharges=data.CallTrallCharges+1
+                BlzFrameSetText(data.CallTrallFH,data.CallTrallCharges)
+            end
+        end)
+    end
+    if flag=="healDash" then
+        data.HealDashCDFH=buttonIconFrame
+    end
+    if flag=="invulPreDeath" then
+        data.InvulPreDeathCDFH=buttonIconFrame
+    end
+
+
+
+
 
     BlzFrameSetAbsPoint(face, FRAMEPOINT_CENTER, x+k*size, y)
     BlzFrameSetSize(face, size, size)
@@ -149,7 +188,7 @@ function CreateToolTipBoxSize(x,y,sizeX,sizeY,toolTipTex)
     BlzFrameSetParent(backdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
 
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y)
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y+0.01)
     --print(#toolTipTex..toolTipTex)
     BlzFrameSetSize(tooltip, sizeX, sizeY)
     BlzFrameSetSize(backdrop, sizeX, sizeY)

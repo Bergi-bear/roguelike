@@ -120,8 +120,15 @@ function InitWASD(hero)
             --print("Эффект смерти")
 
             local x,y=GetUnitXY(hero)
+            if not data.CameraStabUnit then
+                data.CameraStabUnit=CreateUnit(Player(data.pid),FourCC("hdhw"),x,y,0)
+                ShowUnit(data.CameraStabUnit,false)
+            end
+            SetCameraQuickPosition(GetUnitX(data.CameraStabUnit),GetUnitY(data.CameraStabUnit))
+            SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit),data.CameraStabUnit, 10,10,true) -- не дергается
+
             if GetLocalPlayer()==GetOwningPlayer(hero) then
-                SetCameraQuickPosition(x,y)
+               -- SetCameraQuickPosition(x,y)
             end
             TimerStart(CreateTimer(),3, false, function()
                 ReviveHero(hero,x,y,true)
@@ -131,6 +138,8 @@ function InitWASD(hero)
                 end)
             end)
         else
+            KillUnit(data.CameraStabUnit)
+            data.CameraStabUnit=nil
             if not FREE_CAMERA then
                 SetCameraQuickPosition(GetUnitX(hero),GetUnitY(hero))
                 SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero),hero, 10,10,true) -- не дергается
@@ -1043,6 +1052,12 @@ function PlayUnitAnimationFromChat()
             print("освобождаем камеру")
             FREE_CAMERA=true
             SetCameraBoundsToRectForPlayerBJ(Player(0),bj_mapInitialPlayableArea)
+            return
+        end
+        if GetEventPlayerChatString()=="trall" then
+            print("Создаём дар тралла")
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "Trall")
             return
         end
         SetUnitAnimationByIndex(data.UnitHero,s)
