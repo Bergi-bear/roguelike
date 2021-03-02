@@ -61,7 +61,10 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
         print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
     end
-
+    if not flag then
+        flag="пустышка"
+    end
+    --print("создан универсальный фрейм "..flag.." для "..GetPlayerName(Player(data.pid)))
     if not hotkeyTexture then
         hotkeyTexture="SystemGeneric\\DDSSymbols\\empty"
     end
@@ -75,7 +78,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     local cdICO = BlzGetFrameByName("MyBarBackground", 0)
     local hotkey= BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', face, '', 0)
 
-    local k=data.Ability.countFrame
+    local k=data.countFrame
     if flag=="spin" then
         data.SpinChargesFH=MakeFrameCharged(face,data.SpinCharges)
     end
@@ -124,7 +127,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
 
 
 
-    BlzFrameSetAbsPoint(face, FRAMEPOINT_CENTER, x+k*size, y)
+    BlzFrameSetAbsPoint(face, FRAMEPOINT_CENTER, x+k*size, y) -- +(data.pid*size) проверка мультиплеера
     BlzFrameSetSize(face, size, size)
     BlzFrameSetAllPoints(buttonIconFrame, face)
     BlzFrameSetValue(buttonIconFrame, 100) -- начальная перезарядка
@@ -142,8 +145,9 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     --BlzFrameSetParent(cdICO, BlzGetFrameByName("ConsoleUIBackdrop", 0))
 
     --- Устанавливаем видимость, каждый игрок видит свой набор фреймов и свои кулдауны
-    BlzFrameSetVisible(face,false)
+    --BlzFrameSetVisible(face,false)
     BlzFrameSetVisible(face,GetLocalPlayer()==visionPlayer)
+    BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==visionPlayer)
     --- tooltip
     local tooltip,backdrop,text=CreateToolTipBoxSize(x+k*size,y+size*2,size*5,size*3,toolTipTex)
 
@@ -174,7 +178,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     end)
 
     ---Глобализация
-    data.Ability.countFrame=k+1
+    data.countFrame=k+1
     --return buttonIconFrame,ClickTrig
 end
 

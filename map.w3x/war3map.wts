@@ -1152,3 +1152,18 @@ STRING 196
 AAAAAAA
 }
 
+STRING 197
+{
+Player 2
+}
+
+STRING 198
+{
+Player 3
+}
+
+STRING 199
+{
+Player 4
+}
+

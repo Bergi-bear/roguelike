@@ -78,10 +78,7 @@ function InitHeroTable(hero)
         DashChargesFH=nil,
         DashChargesCDFH=nil,
         DashChargesReloadSec=2,
-        Ability={ -- таблица фреймов для способностей
-            countFrame=0,
-            --cdFrameHandle= {},
-        }
+        countFrame=0,
     }
 end
 

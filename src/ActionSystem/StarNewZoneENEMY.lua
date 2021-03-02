@@ -61,8 +61,8 @@ function Enter2NewZone()
             --StartEnemyWave(Destiny[CurrentGameZone])
             --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
 
-            --StartEnemyWave(DestinyEnemies[CurrentGameZone])
-            StartEnemyWave(5)
+            StartEnemyWave(DestinyEnemies[CurrentGameZone])
+            --StartEnemyWave(5)
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end

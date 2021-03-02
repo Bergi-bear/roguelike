@@ -32,10 +32,10 @@ gg_cam_Camera_013 = nil
 gg_cam_Camera_014 = nil
 gg_cam_Camera_015 = nil
 gg_snd_ItemReceived = nil
-gg_trg_TEST = nil
-gg_trg_FFF = nil
 gg_snd_MetalHeavyBashFlesh3 = nil
 gg_snd_AbominationYesAttack1 = nil
+gg_trg_TEST = nil
+gg_trg_FFF = nil
 function InitGlobals()
 end
 
@@ -1088,8 +1088,8 @@ function Enter2NewZone()
             --StartEnemyWave(Destiny[CurrentGameZone])
             --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
 
-            --StartEnemyWave(DestinyEnemies[CurrentGameZone])
-            StartEnemyWave(5)
+            StartEnemyWave(DestinyEnemies[CurrentGameZone])
+            --StartEnemyWave(5)
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end
@@ -1343,28 +1343,23 @@ function TrallCall(data)
     end)
 end
 -- Для плавного появления окна
-function SmoothWindowAppearance(frame, state, player)
+function SmoothWindowAppearance(frame, index, state, isLocalPlayer)
     local count
     if state == "close" then
         count = 255
     elseif state == "open" then
         count = 0
-        if GetLocalPlayer() == player then
-            BlzFrameSetAlpha(frame, 0)
-        end
+        BlzFrameSetAlpha(frame, 0)
     end
     local timer = CreateTimer()
     TimerStart(timer, 0.005, true, function() --было 0.003
-        if GetLocalPlayer() == player then
-            BlzFrameSetAlpha(frame, count)
-        end
+        BlzFrameSetAlpha(frame, count)
         if count == 255 and state == "open" then
             DestroyTimer(timer)
+            DialogTalonIsOpen[index] = true
         elseif count == 0 and state == "close" then
             DestroyTimer(timer)
-            if GetLocalPlayer() == player then
-                BlzFrameSetVisible(frame, false)
-            end
+            BlzFrameSetVisible(frame, not isLocalPlayer)
         end
         if state == "open" then
             count = count + 1
@@ -1391,7 +1386,7 @@ end
 
 
 function CreateDialogTalon(godName)
-    math.randomseed(os.time())
+    --math.randomseed(os.time())
     if not godName then
         print("При создании дара не передан параметр награды")
         return
@@ -1418,7 +1413,9 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
         for j = 1, #GlobalTalons[i][godName] do --FIXME
-            listOfNumbers[i][j] = j
+            if not (GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"]) then
+                listOfNumbers[i][j] = j
+            end
             -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
             -- если уровень равен 0, то исключаем зависимый талант из списка
             if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
@@ -1433,10 +1430,15 @@ function CreateDialogTalon(godName)
 
     for i = 1, bj_MAX_PLAYERS do
         talons[i] = {}
-        for j = 1, 4 do
+        local count = 0
+        for j = 1, #GlobalTalons[i][godName] do
             if not (listOfNumbers[i][j] == nil) then
                 --talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
                 table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
+                count = count + 1
+            end
+            if count == 4 then
+                break
             end
         end
     end
@@ -1451,27 +1453,16 @@ function CreateDialogTalon(godName)
             height[i] = 0.37
         elseif #talons[i] == 4 then
             height[i] = 0.47
+        else
+            height[i] = 0.47
         end
     end
 
     local DialogTalon = {}
 
-    DialogTalon.MainFrame = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
-    for i = 1, bj_MAX_PLAYERS do
-        if GetLocalPlayer() == Player(i - 1) then
-            BlzFrameSetSize(DialogTalon.MainFrame, 0.55, height[i])
-        end
-    end
-    BlzFrameSetAbsPoint(DialogTalon.MainFrame, FRAMEPOINT_CENTER, 0.4, 0.32)
-
-    DialogTalon.MainBackdrop = BlzCreateFrame("EscMenuBackdrop", DialogTalon.MainFrame, 0, 0)
-    BlzFrameSetAllPoints(DialogTalon.MainBackdrop, DialogTalon.MainFrame)
-
-    DialogTalon.Title = BlzCreateFrameByType("TEXT", "DialogTalonTitle", DialogTalon.MainFrame, "EscMenuTitleTextTemplate", 0)
-    BlzFrameSetPoint(DialogTalon.Title, FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0, -0.03)
-    BlzFrameSetTextColor(DialogTalon.Title, BlzConvertColor(1, 255, 255, 255))
-    BlzFrameSetText(DialogTalon.Title, title)
-
+    DialogTalon.MainFrame = {}
+    DialogTalon.MainBackdrop = {}
+    DialogTalon.Title = {}
     DialogTalon.TalonButtons = {}
     DialogTalon.TalonButtons.Button = {}
     DialogTalon.TalonButtons.Backdrop = {}
@@ -1479,10 +1470,32 @@ function CreateDialogTalon(godName)
     DialogTalon.TalonButtons.Description = {}
     DialogTalon.TalonButtons.Name = {}
     DialogTalon.TalonButtons.Level = {}
-    DialogTalon.TalonButtons.Triggers = {}
+    DialogTalon.TalonButtons.Border = {}
+    DialogTalon.TalonButtons.ClickTriggers = {}
     DialogTalon.TalonButtons.ClickEvents = {}
     DialogTalon.TalonButtons.ClickActions = {}
+    DialogTalon.TalonButtons.MouseEnterTriggers = {}
+    DialogTalon.TalonButtons.MouseEnterEvents = {}
+    DialogTalon.TalonButtons.MouseEnterActions = {}
+    DialogTalon.TalonButtons.MouseLeaveTriggers = {}
+    DialogTalon.TalonButtons.MouseLeaveEvents = {}
+    DialogTalon.TalonButtons.MouseLeaveActions = {}
+    DialogTalonIsOpen = {}
     for i = 1, bj_MAX_PLAYERS do
+        DialogTalon.MainFrame[i] = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
+        BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
+        BlzFrameSetAbsPoint(DialogTalon.MainFrame[i], FRAMEPOINT_CENTER, 0.4, 0.32)
+
+        DialogTalon.MainBackdrop[i] = BlzCreateFrame("EscMenuBackdrop", DialogTalon.MainFrame[i], 0, 0)
+        BlzFrameSetAllPoints(DialogTalon.MainBackdrop[i], DialogTalon.MainFrame[i])
+
+        DialogTalon.Title[i] = BlzCreateFrameByType("TEXT", "DialogTalonTitle", DialogTalon.MainFrame[i], "EscMenuTitleTextTemplate", 0)
+        BlzFrameSetPoint(DialogTalon.Title[i], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0, -0.03)
+        BlzFrameSetTextColor(DialogTalon.Title[i], BlzConvertColor(1, 255, 255, 255))
+        BlzFrameSetText(DialogTalon.Title[i], title)
+
+        DialogTalonIsOpen[i] = false
+
         DialogTalon.TalonButtons[i] = {}
         DialogTalon.TalonButtons.Button[i] = {}
         DialogTalon.TalonButtons.Backdrop[i] = {}
@@ -1490,56 +1503,82 @@ function CreateDialogTalon(godName)
         DialogTalon.TalonButtons.Description[i] = {}
         DialogTalon.TalonButtons.Name[i] = {}
         DialogTalon.TalonButtons.Level[i] = {}
-        DialogTalon.TalonButtons.Triggers[i] = {}
+        DialogTalon.TalonButtons.Border[i] = {}
+        DialogTalon.TalonButtons.ClickTriggers[i] = {}
         DialogTalon.TalonButtons.ClickEvents[i] = {}
         DialogTalon.TalonButtons.ClickActions[i] = {}
+        DialogTalon.TalonButtons.MouseEnterTriggers[i] = {}
+        DialogTalon.TalonButtons.MouseEnterEvents[i] = {}
+        DialogTalon.TalonButtons.MouseEnterActions[i] = {}
+        DialogTalon.TalonButtons.MouseLeaveTriggers[i] = {}
+        DialogTalon.TalonButtons.MouseLeaveEvents[i] = {}
+        DialogTalon.TalonButtons.MouseLeaveActions[i] = {}
         for j = 1, #talons[i] do
-            if GetLocalPlayer() == Player(i - 1) then
-                -- Создаем Бэкдроп для кнопок
-                DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame, "EscMenuControlBackdropTemplate", 0)
-                BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
-                BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
+            -- Создаем Бэкдроп для кнопок
+            DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame[i], "EscMenuControlBackdropTemplate", 0)
+            BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
+            BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
 
-                -- Создаем Иконки кнопок
-                DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j].icon, 0, true)
-                BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i][j], 0.064, 0.064)
-                BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.01, 0)
+            DialogTalon.TalonButtons.Border[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBorder", DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+            BlzFrameSetSize(DialogTalon.TalonButtons.Border[i][j], 0.449, 0.079)
+            BlzFrameSetTexture(DialogTalon.TalonButtons.Border[i][j], "war3mapImported\\talonBorder.blp", 0, true)
+            BlzFrameSetPoint(DialogTalon.TalonButtons.Border[i][j], FRAMEPOINT_CENTER, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_CENTER, 0, 0)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
 
-                -- Создаем названия талантов
-                DialogTalon.TalonButtons.Name[i][j] = BlzCreateFrameByType("TEXT", "TalonName" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuTitleTextTemplate", 0)
-                BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i][j], BlzConvertColor(1, 255, 255, 255))
-                BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j].name)
-                BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0.02)
+            -- Создаем Иконки кнопок
+            DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+            BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j].icon, 0, true)
+            BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i][j], 0.064, 0.064)
+            BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.01, 0)
 
-                -- Создаем описания талантов
-                DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
-                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
-                BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
-                BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
+            -- Создаем названия талантов
+            DialogTalon.TalonButtons.Name[i][j] = BlzCreateFrameByType("TEXT", "TalonName" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuTitleTextTemplate", 0)
+            BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i][j], BlzConvertColor(1, 255, 255, 255))
+            BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j].name)
+            BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0.02)
 
-                -- Показываем текущий уровень талантов, если талант уже выучен
-                if talons[i][j].level > 0 then
-                    DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
-                end
+            -- Создаем описания талантов
+            DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+            BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
+            BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
+            BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
+            BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
 
-                -- Создаем Кнопки
-                DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
+            -- Показываем текущий уровень талантов, если талант уже выучен
+            if talons[i][j].level > 0 then
+                DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
+                BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
+                BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
             end
-            DialogTalon.TalonButtons.Triggers[i][j] = CreateTrigger()
-            DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.Triggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
-            DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.Triggers[i][j], function()
-                talons[i][j]:updateLevel()
-                -- Закрываем окно талантов
-                --print(listOfNumbers[i][j])
-                SmoothWindowAppearance(DialogTalon.MainFrame, "close", Player(i - 1))
-                LearnCurrentTalonForPlayer(i,godName,listOfNumbers[i][j])
+
+            -- Создаем Кнопки
+            DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+            BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
+            DialogTalon.TalonButtons.ClickTriggers[i][j] = CreateTrigger()
+            DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.ClickTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
+            DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.ClickTriggers[i][j], function()
+                if DialogTalonIsOpen[i] == true then
+                    DialogTalonIsOpen[i] = false
+                    talons[i][j]:updateLevel()
+                    -- Закрываем окно талантов
+                    --print(listOfNumbers[i][j])
+                    SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close", GetLocalPlayer() == Player(i - 1))
+                    --BlzFrameSetVisible(DialogTalon.MainFrame[i], not (GetLocalPlayer() == Player(i - 1)))
+                    LearnCurrentTalonForPlayer(i,godName,listOfNumbers[i][j])
+                end
             end)
+            --[[
+            DialogTalon.TalonButtons.MouseEnterTriggers[i][j] = CreateTrigger()
+            DialogTalon.TalonButtons.MouseEnterEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_ENTER)
+            DialogTalon.TalonButtons.MouseEnterActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], function()
+                BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], GetLocalPlayer() == Player(i - 1))
+            end)
+            DialogTalon.TalonButtons.MouseLeaveTriggers[i][j] = CreateTrigger()
+            DialogTalon.TalonButtons.MouseLeaveEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_LEAVE)
+            DialogTalon.TalonButtons.MouseLeaveActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], function()
+                BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], not (GetLocalPlayer() == Player(i - 1)))
+            end)]]
         end
     end
 
@@ -1547,9 +1586,10 @@ function CreateDialogTalon(godName)
     --DialogTalon.Tooltip.Frame = BlzCreateFrameByType("FRAME", "DialogTalonTooltipFrame", )
 
     -- Пока что показываем окно всем
-    BlzFrameSetVisible(DialogTalon.MainFrame, true)
-    SmoothWindowAppearance(DialogTalon.MainFrame, "open")
-
+    for i = 1, bj_MAX_PLAYERS do
+        BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
+        SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open", GetLocalPlayer() == Player(i - 1))
+    end
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2140,7 +2180,10 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
         print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
     end
-
+    if not flag then
+        flag="пустышка"
+    end
+    --print("создан универсальный фрейм "..flag.." для "..GetPlayerName(Player(data.pid)))
     if not hotkeyTexture then
         hotkeyTexture="SystemGeneric\\DDSSymbols\\empty"
     end
@@ -2154,7 +2197,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     local cdICO = BlzGetFrameByName("MyBarBackground", 0)
     local hotkey= BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', face, '', 0)
 
-    local k=data.Ability.countFrame
+    local k=data.countFrame
     if flag=="spin" then
         data.SpinChargesFH=MakeFrameCharged(face,data.SpinCharges)
     end
@@ -2203,7 +2246,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
 
 
 
-    BlzFrameSetAbsPoint(face, FRAMEPOINT_CENTER, x+k*size, y)
+    BlzFrameSetAbsPoint(face, FRAMEPOINT_CENTER, x+k*size, y) -- +(data.pid*size) проверка мультиплеера
     BlzFrameSetSize(face, size, size)
     BlzFrameSetAllPoints(buttonIconFrame, face)
     BlzFrameSetValue(buttonIconFrame, 100) -- начальная перезарядка
@@ -2221,8 +2264,9 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     --BlzFrameSetParent(cdICO, BlzGetFrameByName("ConsoleUIBackdrop", 0))
 
     --- Устанавливаем видимость, каждый игрок видит свой набор фреймов и свои кулдауны
-    BlzFrameSetVisible(face,false)
+    --BlzFrameSetVisible(face,false)
     BlzFrameSetVisible(face,GetLocalPlayer()==visionPlayer)
+    BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==visionPlayer)
     --- tooltip
     local tooltip,backdrop,text=CreateToolTipBoxSize(x+k*size,y+size*2,size*5,size*3,toolTipTex)
 
@@ -2253,7 +2297,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     end)
 
     ---Глобализация
-    data.Ability.countFrame=k+1
+    data.countFrame=k+1
     --return buttonIconFrame,ClickTrig
 end
 
@@ -2617,14 +2661,17 @@ function PudgeSlash(unit)
                         -- radius - окружности которой принадлежит сектор
                         BlzPauseUnitEx(unit,false)
                         SetUnitTimeScale(unit,1)
-                        local is,_,_,all=UnitDamageArea(unit,0,GetUnitX(unit),GetUnitY(unit),400)
-                        for i=1,#all do
-                            local x,y=GetUnitXY(all[i])
+                        if not IsUnitStunned(unit) then
                             normal_sound("Sound\\Units\\Combat\\MetalHeavyBashFlesh3",GetUnitXY(unit))
-                            if IsPointInSector(x,y,GetUnitX(unit),GetUnitY(unit),GetUnitFacing(unit),60,200) then
-                                UnitDamageTarget(unit, all[i], 200, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
-                                --print("звук удара мясника")
-                                normal_sound("Units\\Undead\\Abomination\\AbominationYesAttack"..GetRandomInt(1,4),GetUnitXY(unit))
+                            local is,_,_,all=UnitDamageArea(unit,0,GetUnitX(unit),GetUnitY(unit),400)
+                            for i=1,#all do
+                                local x,y=GetUnitXY(all[i])
+
+                                if IsPointInSector(x,y,GetUnitX(unit),GetUnitY(unit),GetUnitFacing(unit),60,200) then
+                                    UnitDamageTarget(unit, all[i], 200, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+                                    --print("звук удара мясника")
+                                    normal_sound("Units\\Undead\\Abomination\\AbominationYesAttack"..GetRandomInt(1,4),GetUnitXY(unit))
+                                end
                             end
                         end
                     end)
@@ -4192,10 +4239,7 @@ function InitHeroTable(hero)
         DashChargesFH=nil,
         DashChargesCDFH=nil,
         DashChargesReloadSec=2,
-        Ability={ -- таблица фреймов для способностей
-            countFrame=0,
-            --cdFrameHandle= {},
-        }
+        countFrame=0,
     }
 end
 
@@ -5226,13 +5270,71 @@ end
 function InitCustomPlayerSlots()
     SetPlayerStartLocation(Player(0), 0)
     SetPlayerColor(Player(0), ConvertPlayerColor(0))
-    SetPlayerRacePreference(Player(0), RACE_PREF_HUMAN)
-    SetPlayerRaceSelectable(Player(0), true)
+    SetPlayerRacePreference(Player(0), RACE_PREF_ORC)
+    SetPlayerRaceSelectable(Player(0), false)
     SetPlayerController(Player(0), MAP_CONTROL_USER)
+    SetPlayerStartLocation(Player(1), 1)
+    SetPlayerColor(Player(1), ConvertPlayerColor(1))
+    SetPlayerRacePreference(Player(1), RACE_PREF_ORC)
+    SetPlayerRaceSelectable(Player(1), false)
+    SetPlayerController(Player(1), MAP_CONTROL_USER)
+    SetPlayerStartLocation(Player(2), 2)
+    SetPlayerColor(Player(2), ConvertPlayerColor(2))
+    SetPlayerRacePreference(Player(2), RACE_PREF_ORC)
+    SetPlayerRaceSelectable(Player(2), false)
+    SetPlayerController(Player(2), MAP_CONTROL_USER)
+    SetPlayerStartLocation(Player(3), 3)
+    SetPlayerColor(Player(3), ConvertPlayerColor(3))
+    SetPlayerRacePreference(Player(3), RACE_PREF_ORC)
+    SetPlayerRaceSelectable(Player(3), false)
+    SetPlayerController(Player(3), MAP_CONTROL_USER)
 end
 
 function InitCustomTeams()
     SetPlayerTeam(Player(0), 0)
+    SetPlayerState(Player(0), PLAYER_STATE_ALLIED_VICTORY, 1)
+    SetPlayerTeam(Player(1), 0)
+    SetPlayerState(Player(1), PLAYER_STATE_ALLIED_VICTORY, 1)
+    SetPlayerTeam(Player(2), 0)
+    SetPlayerState(Player(2), PLAYER_STATE_ALLIED_VICTORY, 1)
+    SetPlayerTeam(Player(3), 0)
+    SetPlayerState(Player(3), PLAYER_STATE_ALLIED_VICTORY, 1)
+    SetPlayerAllianceStateAllyBJ(Player(0), Player(1), true)
+    SetPlayerAllianceStateAllyBJ(Player(0), Player(2), true)
+    SetPlayerAllianceStateAllyBJ(Player(0), Player(3), true)
+    SetPlayerAllianceStateAllyBJ(Player(1), Player(0), true)
+    SetPlayerAllianceStateAllyBJ(Player(1), Player(2), true)
+    SetPlayerAllianceStateAllyBJ(Player(1), Player(3), true)
+    SetPlayerAllianceStateAllyBJ(Player(2), Player(0), true)
+    SetPlayerAllianceStateAllyBJ(Player(2), Player(1), true)
+    SetPlayerAllianceStateAllyBJ(Player(2), Player(3), true)
+    SetPlayerAllianceStateAllyBJ(Player(3), Player(0), true)
+    SetPlayerAllianceStateAllyBJ(Player(3), Player(1), true)
+    SetPlayerAllianceStateAllyBJ(Player(3), Player(2), true)
+    SetPlayerAllianceStateVisionBJ(Player(0), Player(1), true)
+    SetPlayerAllianceStateVisionBJ(Player(0), Player(2), true)
+    SetPlayerAllianceStateVisionBJ(Player(0), Player(3), true)
+    SetPlayerAllianceStateVisionBJ(Player(1), Player(0), true)
+    SetPlayerAllianceStateVisionBJ(Player(1), Player(2), true)
+    SetPlayerAllianceStateVisionBJ(Player(1), Player(3), true)
+    SetPlayerAllianceStateVisionBJ(Player(2), Player(0), true)
+    SetPlayerAllianceStateVisionBJ(Player(2), Player(1), true)
+    SetPlayerAllianceStateVisionBJ(Player(2), Player(3), true)
+    SetPlayerAllianceStateVisionBJ(Player(3), Player(0), true)
+    SetPlayerAllianceStateVisionBJ(Player(3), Player(1), true)
+    SetPlayerAllianceStateVisionBJ(Player(3), Player(2), true)
+end
+
+function InitAllyPriorities()
+    SetStartLocPrioCount(0, 1)
+    SetStartLocPrio(0, 0, 1, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrioCount(1, 1)
+    SetStartLocPrio(1, 0, 0, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrioCount(2, 2)
+    SetStartLocPrio(2, 0, 0, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(2, 1, 1, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrioCount(3, 1)
+    SetStartLocPrio(3, 0, 1, MAP_LOC_PRIO_HIGH)
 end
 
 function main()
@@ -5256,12 +5358,15 @@ end
 function config()
     SetMapName("TRIGSTR_001")
     SetMapDescription("TRIGSTR_003")
-    SetPlayers(1)
-    SetTeams(1)
-    SetGamePlacement(MAP_PLACEMENT_USE_MAP_SETTINGS)
-    DefineStartLocation(0, 6784.0, -7104.0)
+    SetPlayers(4)
+    SetTeams(4)
+    SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)
+    DefineStartLocation(0, 6464.0, -8704.0)
+    DefineStartLocation(1, 5888.0, -8576.0)
+    DefineStartLocation(2, 8128.0, -7488.0)
+    DefineStartLocation(3, 5056.0, -8064.0)
     InitCustomPlayerSlots()
-    SetPlayerSlotAvailable(Player(0), MAP_CONTROL_USER)
-    InitGenericPlayerSlots()
+    InitCustomTeams()
+    InitAllyPriorities()
 end
 

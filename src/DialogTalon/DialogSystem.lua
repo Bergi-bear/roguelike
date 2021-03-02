@@ -1,5 +1,5 @@
 function CreateDialogTalon(godName)
-    math.randomseed(os.time())
+    --math.randomseed(os.time())
     if not godName then
         print("При создании дара не передан параметр награды")
         return
@@ -177,9 +177,11 @@ function CreateDialogTalon(godName)
                     -- Закрываем окно талантов
                     --print(listOfNumbers[i][j])
                     SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close", GetLocalPlayer() == Player(i - 1))
+                    --BlzFrameSetVisible(DialogTalon.MainFrame[i], not (GetLocalPlayer() == Player(i - 1)))
                     LearnCurrentTalonForPlayer(i,godName,listOfNumbers[i][j])
                 end
             end)
+            --[[
             DialogTalon.TalonButtons.MouseEnterTriggers[i][j] = CreateTrigger()
             DialogTalon.TalonButtons.MouseEnterEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_ENTER)
             DialogTalon.TalonButtons.MouseEnterActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], function()
@@ -189,7 +191,7 @@ function CreateDialogTalon(godName)
             DialogTalon.TalonButtons.MouseLeaveEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_LEAVE)
             DialogTalon.TalonButtons.MouseLeaveActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], function()
                 BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], not (GetLocalPlayer() == Player(i - 1)))
-            end)
+            end)]]
         end
     end
 
