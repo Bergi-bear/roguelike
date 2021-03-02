@@ -26,7 +26,7 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
         for j = 1, #GlobalTalons[i][godName] do --FIXME
-            if not (#GlobalTalons[i][godName][j]["DS"] >= GlobalTalons[i][godName][j]:getLevel()) then
+            if not (GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"]) then
                 listOfNumbers[i][j] = j
             end
             -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
@@ -43,12 +43,15 @@ function CreateDialogTalon(godName)
 
     for i = 1, bj_MAX_PLAYERS do
         talons[i] = {}
-        for j = 1, 4 do
+        local count = 0
+        for j = 1, #GlobalTalons[i][godName] do
             if not (listOfNumbers[i][j] == nil) then
                 --talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
                 table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
-            else
-                j = j - 1
+                count = count + 1
+            end
+            if count == 4 then
+                break
             end
         end
     end
@@ -63,6 +66,8 @@ function CreateDialogTalon(godName)
             height[i] = 0.37
         elseif #talons[i] == 4 then
             height[i] = 0.47
+        else
+            height[i] = 0.47
         end
     end
 
@@ -71,6 +76,7 @@ function CreateDialogTalon(godName)
     DialogTalon.MainFrame = {}
     DialogTalon.MainBackdrop = {}
     DialogTalon.Title = {}
+    DialogTalon.isOpen = {}
     DialogTalon.TalonButtons = {}
     DialogTalon.TalonButtons.Button = {}
     DialogTalon.TalonButtons.Backdrop = {}
@@ -81,6 +87,7 @@ function CreateDialogTalon(godName)
     DialogTalon.TalonButtons.Triggers = {}
     DialogTalon.TalonButtons.ClickEvents = {}
     DialogTalon.TalonButtons.ClickActions = {}
+    DialogTalonIsOpen = {}
     for i = 1, bj_MAX_PLAYERS do
         DialogTalon.MainFrame[i] = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
         BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
@@ -93,6 +100,8 @@ function CreateDialogTalon(godName)
         BlzFrameSetPoint(DialogTalon.Title[i], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0, -0.03)
         BlzFrameSetTextColor(DialogTalon.Title[i], BlzConvertColor(1, 255, 255, 255))
         BlzFrameSetText(DialogTalon.Title[i], title)
+
+        DialogTalonIsOpen[i] = false
 
         DialogTalon.TalonButtons[i] = {}
         DialogTalon.TalonButtons.Button[i] = {}
@@ -143,11 +152,14 @@ function CreateDialogTalon(godName)
             DialogTalon.TalonButtons.Triggers[i][j] = CreateTrigger()
             DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.Triggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
             DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.Triggers[i][j], function()
-                talons[i][j]:updateLevel()
-                -- Закрываем окно талантов
-                --print(listOfNumbers[i][j])
-                SmoothWindowAppearance(DialogTalon.MainFrame[i], "close", Player(i - 1))
-                LearnCurrentTalonForPlayer(i,godName,listOfNumbers[i][j])
+                if DialogTalonIsOpen[i] == true then
+                    DialogTalonIsOpen[i] = false
+                    talons[i][j]:updateLevel()
+                    -- Закрываем окно талантов
+                    --print(listOfNumbers[i][j])
+                    SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close", GetLocalPlayer() == Player(i - 1))
+                    LearnCurrentTalonForPlayer(i,godName,listOfNumbers[i][j])
+                end
             end)
         end
     end
@@ -158,6 +170,6 @@ function CreateDialogTalon(godName)
     -- Пока что показываем окно всем
     for i = 1, bj_MAX_PLAYERS do
         BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
-        SmoothWindowAppearance(DialogTalon.MainFrame[i], "open", Player(i - 1))
+        SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open", GetLocalPlayer() == Player(i - 1))
     end
 end

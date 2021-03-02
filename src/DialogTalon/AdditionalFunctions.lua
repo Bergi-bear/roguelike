@@ -1,5 +1,5 @@
 -- Для плавного появления окна
-function SmoothWindowAppearance(frame, state, player)
+function SmoothWindowAppearance(frame, index, state, isLocalPlayer)
     local count
     if state == "close" then
         count = 255
@@ -12,9 +12,10 @@ function SmoothWindowAppearance(frame, state, player)
         BlzFrameSetAlpha(frame, count)
         if count == 255 and state == "open" then
             DestroyTimer(timer)
+            DialogTalonIsOpen[index] = true
         elseif count == 0 and state == "close" then
             DestroyTimer(timer)
-            BlzFrameSetVisible(frame, not (GetLocalPlayer() == player))
+            BlzFrameSetVisible(frame, not isLocalPlayer)
         end
         if state == "open" then
             count = count + 1
