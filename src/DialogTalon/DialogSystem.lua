@@ -76,7 +76,6 @@ function CreateDialogTalon(godName)
     DialogTalon.MainFrame = {}
     DialogTalon.MainBackdrop = {}
     DialogTalon.Title = {}
-    DialogTalon.isOpen = {}
     DialogTalon.TalonButtons = {}
     DialogTalon.TalonButtons.Button = {}
     DialogTalon.TalonButtons.Backdrop = {}
@@ -84,9 +83,16 @@ function CreateDialogTalon(godName)
     DialogTalon.TalonButtons.Description = {}
     DialogTalon.TalonButtons.Name = {}
     DialogTalon.TalonButtons.Level = {}
-    DialogTalon.TalonButtons.Triggers = {}
+    DialogTalon.TalonButtons.Border = {}
+    DialogTalon.TalonButtons.ClickTriggers = {}
     DialogTalon.TalonButtons.ClickEvents = {}
     DialogTalon.TalonButtons.ClickActions = {}
+    DialogTalon.TalonButtons.MouseEnterTriggers = {}
+    DialogTalon.TalonButtons.MouseEnterEvents = {}
+    DialogTalon.TalonButtons.MouseEnterActions = {}
+    DialogTalon.TalonButtons.MouseLeaveTriggers = {}
+    DialogTalon.TalonButtons.MouseLeaveEvents = {}
+    DialogTalon.TalonButtons.MouseLeaveActions = {}
     DialogTalonIsOpen = {}
     for i = 1, bj_MAX_PLAYERS do
         DialogTalon.MainFrame[i] = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
@@ -110,14 +116,27 @@ function CreateDialogTalon(godName)
         DialogTalon.TalonButtons.Description[i] = {}
         DialogTalon.TalonButtons.Name[i] = {}
         DialogTalon.TalonButtons.Level[i] = {}
-        DialogTalon.TalonButtons.Triggers[i] = {}
+        DialogTalon.TalonButtons.Border[i] = {}
+        DialogTalon.TalonButtons.ClickTriggers[i] = {}
         DialogTalon.TalonButtons.ClickEvents[i] = {}
         DialogTalon.TalonButtons.ClickActions[i] = {}
+        DialogTalon.TalonButtons.MouseEnterTriggers[i] = {}
+        DialogTalon.TalonButtons.MouseEnterEvents[i] = {}
+        DialogTalon.TalonButtons.MouseEnterActions[i] = {}
+        DialogTalon.TalonButtons.MouseLeaveTriggers[i] = {}
+        DialogTalon.TalonButtons.MouseLeaveEvents[i] = {}
+        DialogTalon.TalonButtons.MouseLeaveActions[i] = {}
         for j = 1, #talons[i] do
             -- Создаем Бэкдроп для кнопок
             DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame[i], "EscMenuControlBackdropTemplate", 0)
             BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
             BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
+
+            DialogTalon.TalonButtons.Border[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBorder", DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+            BlzFrameSetSize(DialogTalon.TalonButtons.Border[i][j], 0.449, 0.079)
+            BlzFrameSetTexture(DialogTalon.TalonButtons.Border[i][j], "war3mapImported\\talonBorder.blp", 0, true)
+            BlzFrameSetPoint(DialogTalon.TalonButtons.Border[i][j], FRAMEPOINT_CENTER, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_CENTER, 0, 0)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
 
             -- Создаем Иконки кнопок
             DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
@@ -149,9 +168,9 @@ function CreateDialogTalon(godName)
             -- Создаем Кнопки
             DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
             BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
-            DialogTalon.TalonButtons.Triggers[i][j] = CreateTrigger()
-            DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.Triggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
-            DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.Triggers[i][j], function()
+            DialogTalon.TalonButtons.ClickTriggers[i][j] = CreateTrigger()
+            DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.ClickTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
+            DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.ClickTriggers[i][j], function()
                 if DialogTalonIsOpen[i] == true then
                     DialogTalonIsOpen[i] = false
                     talons[i][j]:updateLevel()
@@ -160,6 +179,16 @@ function CreateDialogTalon(godName)
                     SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close", GetLocalPlayer() == Player(i - 1))
                     LearnCurrentTalonForPlayer(i,godName,listOfNumbers[i][j])
                 end
+            end)
+            DialogTalon.TalonButtons.MouseEnterTriggers[i][j] = CreateTrigger()
+            DialogTalon.TalonButtons.MouseEnterEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_ENTER)
+            DialogTalon.TalonButtons.MouseEnterActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], function()
+                BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], GetLocalPlayer() == Player(i - 1))
+            end)
+            DialogTalon.TalonButtons.MouseLeaveTriggers[i][j] = CreateTrigger()
+            DialogTalon.TalonButtons.MouseLeaveEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_LEAVE)
+            DialogTalon.TalonButtons.MouseLeaveActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], function()
+                BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], not (GetLocalPlayer() == Player(i - 1)))
             end)
         end
     end
