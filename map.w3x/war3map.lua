@@ -34,6 +34,8 @@ gg_cam_Camera_015 = nil
 gg_snd_ItemReceived = nil
 gg_trg_TEST = nil
 gg_trg_FFF = nil
+gg_snd_MetalHeavyBashFlesh3 = nil
+gg_snd_AbominationYesAttack1 = nil
 function InitGlobals()
 end
 
@@ -42,6 +44,14 @@ function InitSounds()
     SetSoundParamsFromLabel(gg_snd_ItemReceived, "ItemReward")
     SetSoundDuration(gg_snd_ItemReceived, 1845)
     SetSoundVolume(gg_snd_ItemReceived, 127)
+    gg_snd_MetalHeavyBashFlesh3 = CreateSound("Sound/Units/Combat/MetalHeavyBashFlesh3.flac", false, true, true, 0, 0, "CombatSoundsEAX")
+    SetSoundParamsFromLabel(gg_snd_MetalHeavyBashFlesh3, "MetalHeavyBashFlesh")
+    SetSoundDuration(gg_snd_MetalHeavyBashFlesh3, 722)
+    SetSoundVolume(gg_snd_MetalHeavyBashFlesh3, 95)
+    gg_snd_AbominationYesAttack1 = CreateSound("Units/Undead/Abomination/AbominationYesAttack1.flac", false, true, true, 0, 0, "DefaultEAXON")
+    SetSoundParamsFromLabel(gg_snd_AbominationYesAttack1, "AbominationYesAttack")
+    SetSoundDuration(gg_snd_AbominationYesAttack1, 1609)
+    SetSoundVolume(gg_snd_AbominationYesAttack1, 127)
 end
 
 function CreateUnitsForPlayer23()
@@ -418,12 +428,12 @@ PreViewIcon = { -- Таблица случайных иконок которые
 
 function InitFinObjectInArea()
     CreateEnterPoint(5300, -9000, "   Подняться на борт", "StartSheep", true)--зона корабля
-    CreateEnterPoint(2100,-13250,"   Выйти наружу", "ExitSheep", true )
+    CreateEnterPoint(2100,-13250,"      Выйти наружу", "ExitSheep", true )
     CreateEnterPoint(5400, -8300, "   Исследовать лодку", "Board", true) --Левая лодка
     CreateEnterPoint(5500, -6900, "  Войти", "BackDor", true) --Вечно закрытые ворота
     CreateEnterPoint(7700, -8000, "     Преисполниться", "StartBonus", true) --Синий огонь
     CreateEnterPoint(7800, -6600, "    Посмотреть вдаль", "SoFar", true) --на краю берега справа
-    CreateEnterPoint(7000, -9200, "      Рыбачить", "Fish", true) -- внизу на берегу
+    CreateEnterPoint(7000, -9200, "        Рыбачить", "Fish", true) -- внизу на берегу
     CreateEnterPoint(7200, -7600, "       Отдохноуть", "NoWorking", true) -- возле деревьев
     --[[
     --Переходы между зонами
@@ -688,7 +698,7 @@ function CreateEActions()
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
-                if true then
+                if false then
                     local x,y=1750,-12500 --2100,-13250 На выход
                     SetUnitPositionSmooth(data.UnitHero,x,y)
                 end
@@ -1070,8 +1080,8 @@ function Enter2NewZone()
     end
     --print(" вошел в зону .. "..CurrentGameZone.. " для судьбы это зона "..Destiny[CurrentGameZone].. " а награда то какая? наверное ")
 
-    CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 2.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
-    TimerStart(CreateTimer(),3, false, function()
+    CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+    TimerStart(CreateTimer(),2, false, function()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
         if Destiny[CurrentGameZone] then
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
@@ -1083,7 +1093,7 @@ function Enter2NewZone()
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end
-        CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 2.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+        CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
 end
 
@@ -1297,7 +1307,6 @@ function CreateActionsF()
             data.ReleaseF = true
             --print("Кастуем ультимейты")
             if GlobalTalons[data.pid+1]["Trall"][5].level>0 then
-
                 --print("Есть ульта трала, пытаюсь скастовать")
                 if data.CallTrallCharges>9 then
                     data.CallTrallReady=false
@@ -1325,6 +1334,7 @@ function TrallCall(data)
         BlzFrameSetText(data.CallTrallFH,data.CallTrallCharges)
         UnitDamageArea(data.UnitHero,100,GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),200)
         DestroyEffect(AddSpecialEffect("Earthshock",GetUnitXY(data.UnitHero)))
+        normal_sound("Abilities\\Spells\\Spell\\Orc\\Shockwave\\Shockwave",GetUnitXY(data.UnitHero))
         if data.CallTrallCharges<1 then
             data.CallTrallReady=true
             DestroyTimer(GetExpiredTimer())
@@ -1570,6 +1580,29 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==6 then
             data.ThrowCharges=data.ThrowCharges+1
             BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+            local lvl2=false
+            local lvl3=false
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==2 then
+                    lvl2=true
+                    data.ThrowCharges=data.ThrowCharges+1
+                    BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+                end
+                if lvl2 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==3 then
+                    lvl3=true
+                    data.ThrowCharges=data.ThrowCharges+1
+                    BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+                end
+                if lvl3 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
         end
         if pos==7 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil,"healDash")
@@ -2534,7 +2567,7 @@ function PudgeSlash(unit)
             local hero=GetRandomEnemyHero()
             local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
             sec=sec-1
-            if dist<=400 and sec<=0 then
+            if dist<=400 and sec<=0 and hero then
                 if not IsUnitStunned(unit) then
                     sec=5
                     --print(dist.." дистанция")
@@ -2549,22 +2582,51 @@ function PudgeSlash(unit)
 
                     -- CreateVisualMarkTimedXY("SystemGeneric\\Redline\\cone",1,GetUnitXY(unit))
                     local eff=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
-
                     BlzSetSpecialEffectColor(eff,255,255,255)
                     BlzSetSpecialEffectZ(eff,GetTerrainZ(GetUnitXY(unit))+50)
                     BlzSetSpecialEffectYaw(eff,math.rad(GetUnitFacing(unit)))
 
-                    BlzSetSpecialEffectMatrixScale(eff,1,2,1)
-                    TimerStart(CreateTimer(), 2, false, function()
+                    local eff1=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff1,255,255,255)
+                    BlzSetSpecialEffectZ(eff1,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff1,math.rad(GetUnitFacing(unit)))
+
+                    local eff2=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff2,255,255,255)
+                    BlzSetSpecialEffectZ(eff2,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff2,math.rad(GetUnitFacing(unit)))
+
+                    BlzSetSpecialEffectMatrixScale(eff,0.5,1.5,1)
+                    BlzSetSpecialEffectMatrixScale(eff1,0.5,1.5,1)
+                    BlzSetSpecialEffectMatrixScale(eff2,0.5,1.5,1)
+
+                    TimerStart(CreateTimer(), 1.5, false, function()
                         DestroyEffect(eff)
+                        DestroyEffect(eff1)
+                        DestroyEffect(eff2)
                         BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                        BlzSetSpecialEffectPosition(eff1,OutPoint,OutPoint,0)
+                        BlzSetSpecialEffectPosition(eff2,OutPoint,OutPoint,0)
                     end)
 
                     TimerStart(CreateTimer(), 1, false, function()
-                        --UnitAddForceSimple(unit,angle,20,dist,"forceAttack")
-                        UnitDamageArea(unit,50,GetUnitX(unit),GetUnitY(unit),400)
+                        -- x1, x2 - координаты проверяемой точки
+                        -- x2, y2 - координаты вершины сектора
+                        -- orientation - ориентация сектора в мировых координатах
+                        -- width - уголовой размер сектора в градусах
+                        -- radius - окружности которой принадлежит сектор
                         BlzPauseUnitEx(unit,false)
                         SetUnitTimeScale(unit,1)
+                        local is,_,_,all=UnitDamageArea(unit,0,GetUnitX(unit),GetUnitY(unit),400)
+                        for i=1,#all do
+                            local x,y=GetUnitXY(all[i])
+                            normal_sound("Sound\\Units\\Combat\\MetalHeavyBashFlesh3",GetUnitXY(unit))
+                            if IsPointInSector(x,y,GetUnitX(unit),GetUnitY(unit),GetUnitFacing(unit),60,200) then
+                                UnitDamageTarget(unit, all[i], 200, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+                                --print("звук удара мясника")
+                                normal_sound("Units\\Undead\\Abomination\\AbominationYesAttack"..GetRandomInt(1,4),GetUnitXY(unit))
+                            end
+                        end
                     end)
                 end
             else
@@ -4363,6 +4425,15 @@ function CreateWASDActions()
                 --print("pressW and short anim")
                 UnitAddForceSimple(data.UnitHero,90,5, 15)
                 data.DirectionMove=90
+
+                if data.ReleaseW and data.ReleaseD then
+                    data.DirectionMove= 90 - 45
+                end
+                if data.ReleaseW and data.ReleaseA then
+                    data.DirectionMove= 90 + 45
+                end
+
+
                 data.animStand=1.8 --до полной анимации 2 секунды
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
             end
@@ -4395,6 +4466,14 @@ function CreateWASDActions()
                 data.animStand=1.8 --до полной анимации 2 секунды
                 UnitAddForceSimple(data.UnitHero,270,5, 15)
                 data.DirectionMove=270
+
+                if data.ReleaseS and data.ReleaseD then
+                    data.DirectionMove=270+45
+                end
+                if data.ReleaseS and data.ReleaseA then
+                    data.DirectionMove=270-45
+                end
+
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
 
             end
@@ -4491,6 +4570,15 @@ function CreateWASDActions()
                     --print("Первый раз сделал рывок")
                 end
 
+                local dist=200
+                local delay=0.2
+                if data.ReleaseQ then
+                   -- print("сплеш в рывке, пробуем прыгнуть прыжок")
+                    dist=400
+                    delay=0.3
+                    SetUnitAnimationByIndex(data.UnitHero,3)
+                end
+
                 data.DashCharges=data.DashCharges-1
                 if data.DashCharges==0 then
                     StartFrameCD(data.DashChargesReloadSec,data.DashChargesCDFH)
@@ -4503,17 +4591,21 @@ function CreateWASDActions()
 
                 UnitAddItemById(data.UnitHero,FourCC("I000")) -- предмет виндволк
                 BlzSetUnitFacingEx(data.UnitHero,data.DirectionMove)
-                UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, 200,"ignore")
+                UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, dist,"ignore")
                 data.SpaceForce=true
                 local eff=AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul",data.UnitHero,"origin")
 
 
-                TimerStart(CreateTimer(), 0.2, false, function()
+                TimerStart(CreateTimer(), delay, false, function()
                     DestroyEffect(eff)
                     data.SpaceForce=false
                     data.AttackInForce=false
+                    SetUnitTimeScale(data.UnitHero,1)
                 end)
-                SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
+                if not data.ReleaseQ then
+                    SetUnitTimeScale(data.UnitHero,4)
+                    SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
+                end
             end
         end
     end)
@@ -4989,6 +5081,7 @@ function UnitDamageArea(u,damage,x,y,range,flag)
     local hero=nil
     GroupEnumUnitsInRange(perebor,x,y,range,nil)
     local k=0
+    local all={}
 
     if GetUnitTypeId(u)==HeroID then
         local data=HERO[GetPlayerId(GetOwningPlayer(u))]
@@ -5028,12 +5121,12 @@ function UnitDamageArea(u,damage,x,y,range,flag)
             isdamage=true
             hero=e
             k=k+1
-
+            all[k]=e
         end
         GroupRemoveUnit(perebor,e)
     end
     if PointContentDestructable(x,y,range,true,1+damage,u) then	isdamage=true	end
-    return isdamage,hero,k
+    return isdamage,hero,k,all
 end
 
 GlobalRect=Rect(0,0,0,0)

@@ -76,7 +76,7 @@ function PudgeSlash(unit)
             local hero=GetRandomEnemyHero()
             local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
             sec=sec-1
-            if dist<=400 and sec<=0 then
+            if dist<=400 and sec<=0 and hero then
                 if not IsUnitStunned(unit) then
                     sec=5
                     --print(dist.." дистанция")
@@ -91,22 +91,54 @@ function PudgeSlash(unit)
 
                     -- CreateVisualMarkTimedXY("SystemGeneric\\Redline\\cone",1,GetUnitXY(unit))
                     local eff=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
-
                     BlzSetSpecialEffectColor(eff,255,255,255)
                     BlzSetSpecialEffectZ(eff,GetTerrainZ(GetUnitXY(unit))+50)
                     BlzSetSpecialEffectYaw(eff,math.rad(GetUnitFacing(unit)))
 
-                    BlzSetSpecialEffectMatrixScale(eff,1,2,1)
-                    TimerStart(CreateTimer(), 2, false, function()
+                    local eff1=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff1,255,255,255)
+                    BlzSetSpecialEffectZ(eff1,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff1,math.rad(GetUnitFacing(unit)))
+
+                    local eff2=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff2,255,255,255)
+                    BlzSetSpecialEffectZ(eff2,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff2,math.rad(GetUnitFacing(unit)))
+
+                    BlzSetSpecialEffectMatrixScale(eff,0.5,1.5,1)
+                    BlzSetSpecialEffectMatrixScale(eff1,0.5,1.5,1)
+                    BlzSetSpecialEffectMatrixScale(eff2,0.5,1.5,1)
+
+                    TimerStart(CreateTimer(), 1.5, false, function()
                         DestroyEffect(eff)
+                        DestroyEffect(eff1)
+                        DestroyEffect(eff2)
                         BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                        BlzSetSpecialEffectPosition(eff1,OutPoint,OutPoint,0)
+                        BlzSetSpecialEffectPosition(eff2,OutPoint,OutPoint,0)
                     end)
 
                     TimerStart(CreateTimer(), 1, false, function()
-                        --UnitAddForceSimple(unit,angle,20,dist,"forceAttack")
-                        UnitDamageArea(unit,50,GetUnitX(unit),GetUnitY(unit),400)
+                        -- x1, x2 - координаты проверяемой точки
+                        -- x2, y2 - координаты вершины сектора
+                        -- orientation - ориентация сектора в мировых координатах
+                        -- width - уголовой размер сектора в градусах
+                        -- radius - окружности которой принадлежит сектор
                         BlzPauseUnitEx(unit,false)
                         SetUnitTimeScale(unit,1)
+                        if not IsUnitStunned(unit) then
+                            normal_sound("Sound\\Units\\Combat\\MetalHeavyBashFlesh3",GetUnitXY(unit))
+                            local is,_,_,all=UnitDamageArea(unit,0,GetUnitX(unit),GetUnitY(unit),400)
+                            for i=1,#all do
+                                local x,y=GetUnitXY(all[i])
+
+                                if IsPointInSector(x,y,GetUnitX(unit),GetUnitY(unit),GetUnitFacing(unit),60,200) then
+                                    UnitDamageTarget(unit, all[i], 200, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+                                    --print("звук удара мясника")
+                                    normal_sound("Units\\Undead\\Abomination\\AbominationYesAttack"..GetRandomInt(1,4),GetUnitXY(unit))
+                                end
+                            end
+                        end
                     end)
                 end
             else

@@ -39,7 +39,7 @@ function InitFinObjectInArea()
     CreateEnterPoint(5500, -6900, "  Войти", "BackDor", true) --Вечно закрытые ворота
     CreateEnterPoint(7700, -8000, "     Преисполниться", "StartBonus", true) --Синий огонь
     CreateEnterPoint(7800, -6600, "    Посмотреть вдаль", "SoFar", true) --на краю берега справа
-    CreateEnterPoint(7000, -9200, "      Рыбачить", "Fish", true) -- внизу на берегу
+    CreateEnterPoint(7000, -9200, "        Рыбачить", "Fish", true) -- внизу на берегу
     CreateEnterPoint(7200, -7600, "       Отдохноуть", "NoWorking", true) -- возле деревьев
     --[[
     --Переходы между зонами
