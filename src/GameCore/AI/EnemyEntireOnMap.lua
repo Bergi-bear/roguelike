@@ -28,11 +28,11 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("ucs1") then -- маленький скоробей
             SinergyBug(unit)
         end
-        if GetUnitTypeId(unit)==FourCC("unec") then -- маленький скоробей
+        if GetUnitTypeId(unit)==FourCC("unec") then -- некр
             NecroAttackAndArrow(unit)
         end
-        if true then
-
+        if GetUnitTypeId(unit)==FourCC("uabo") then
+            PudgeSlash(unit)
         end
 
     end)
@@ -64,6 +64,90 @@ function GetRandomEnemyHero()
     return table[r]
 end
 
+function PudgeSlash(unit)
+    local sec=0
+    UnitAddAbility(unit,FourCC("Abun"))
+    BlzSetUnitWeaponRealField(unit,UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN,0,2)
+    BlzSetUnitWeaponRealField(unit,UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN,1,2)
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            local hero=GetRandomEnemyHero()
+            local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+            sec=sec-1
+            if dist<=400 and sec<=0 and hero then
+                if not IsUnitStunned(unit) then
+                    sec=5
+                    --print(dist.." дистанция")
+                    local angle=AngleBetweenUnits(unit,hero)
+                    BlzPauseUnitEx(unit,true)
+                    --SetUnitAnimation(unit,"attack")
+                    --if not GR then GR=0 end
+                    --GR=GR+1
+                    --print(GR)
+                    SetUnitAnimationByIndex(unit,2)
+                    SetUnitTimeScale(unit,0.5)
+
+                    -- CreateVisualMarkTimedXY("SystemGeneric\\Redline\\cone",1,GetUnitXY(unit))
+                    local eff=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff,255,255,255)
+                    BlzSetSpecialEffectZ(eff,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff,math.rad(GetUnitFacing(unit)))
+
+                    local eff1=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff1,255,255,255)
+                    BlzSetSpecialEffectZ(eff1,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff1,math.rad(GetUnitFacing(unit)))
+
+                    local eff2=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff2,255,255,255)
+                    BlzSetSpecialEffectZ(eff2,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff2,math.rad(GetUnitFacing(unit)))
+
+                    BlzSetSpecialEffectMatrixScale(eff,0.5,1.5,1)
+                    BlzSetSpecialEffectMatrixScale(eff1,0.5,1.5,1)
+                    BlzSetSpecialEffectMatrixScale(eff2,0.5,1.5,1)
+
+                    TimerStart(CreateTimer(), 1.5, false, function()
+                        DestroyEffect(eff)
+                        DestroyEffect(eff1)
+                        DestroyEffect(eff2)
+                        BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                        BlzSetSpecialEffectPosition(eff1,OutPoint,OutPoint,0)
+                        BlzSetSpecialEffectPosition(eff2,OutPoint,OutPoint,0)
+                    end)
+
+                    TimerStart(CreateTimer(), 1, false, function()
+                        -- x1, x2 - координаты проверяемой точки
+                        -- x2, y2 - координаты вершины сектора
+                        -- orientation - ориентация сектора в мировых координатах
+                        -- width - уголовой размер сектора в градусах
+                        -- radius - окружности которой принадлежит сектор
+                        BlzPauseUnitEx(unit,false)
+                        SetUnitTimeScale(unit,1)
+                        if not IsUnitStunned(unit) then
+                            normal_sound("Sound\\Units\\Combat\\MetalHeavyBashFlesh3",GetUnitXY(unit))
+                            local is,_,_,all=UnitDamageArea(unit,0,GetUnitX(unit),GetUnitY(unit),400)
+                            for i=1,#all do
+                                local x,y=GetUnitXY(all[i])
+
+                                if IsPointInSector(x,y,GetUnitX(unit),GetUnitY(unit),GetUnitFacing(unit),60,200) then
+                                    UnitDamageTarget(unit, all[i], 200, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+                                    --print("звук удара мясника")
+                                    normal_sound("Units\\Undead\\Abomination\\AbominationYesAttack"..GetRandomInt(1,4),GetUnitXY(unit))
+                                end
+                            end
+                        end
+                    end)
+                end
+            else
+                IssuePointOrder(unit,"move",GetUnitXY(hero))
+            end
+        end
+    end)
+end
+
 function NecroAttackAndArrow(unit)
     --подготовка
     UnitAddAbility(unit,FourCC("Abun"))
@@ -74,7 +158,7 @@ function NecroAttackAndArrow(unit)
         else
             local hero=GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
-            if not IsUnitStunned(unit) then
+            if not IsUnitStunned(unit) and hero then
                 if not IsUnitInRange(hero,unit,300 ) then
                     local angle=AngleBetweenUnits(unit,hero)
                     BlzPauseUnitEx(unit,true)

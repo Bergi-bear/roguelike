@@ -34,11 +34,12 @@ PreViewIcon = { -- Таблица случайных иконок которые
 
 function InitFinObjectInArea()
     CreateEnterPoint(5300, -9000, "   Подняться на борт", "StartSheep", true)--зона корабля
+    CreateEnterPoint(2100,-13250,"      Выйти наружу", "ExitSheep", true )
     CreateEnterPoint(5400, -8300, "   Исследовать лодку", "Board", true) --Левая лодка
     CreateEnterPoint(5500, -6900, "  Войти", "BackDor", true) --Вечно закрытые ворота
     CreateEnterPoint(7700, -8000, "     Преисполниться", "StartBonus", true) --Синий огонь
     CreateEnterPoint(7800, -6600, "    Посмотреть вдаль", "SoFar", true) --на краю берега справа
-    CreateEnterPoint(7000, -9200, "      Рыбачить", "Fish", true) -- внизу на берегу
+    CreateEnterPoint(7000, -9200, "        Рыбачить", "Fish", true) -- внизу на берегу
     CreateEnterPoint(7200, -7600, "       Отдохноуть", "NoWorking", true) -- возле деревьев
     --[[
     --Переходы между зонами
@@ -299,11 +300,28 @@ function CreateEActions()
             --ТУТ ПЕРЕЧИСЛЯЕМ ДЕЙСТВИЯ ЧЕРЕЗ ИФ
             if data.UseAction == "StartSheep" then
                 local message = "Кто-то убрал трап, я не могу подняться сейчас на борт"
-                CreateInfoBoxForAllPlayerTimed(data, message, 10)
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+                if false then
+                    local x,y=1750,-12500 --2100,-13250 На выход
+                    SetUnitPositionSmooth(data.UnitHero,x,y)
+                end
             end
+
+            if data.UseAction == "ExitSheep" then
+                local message = "На свежий воздух"
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                if true then
+                    local x,y=5300, -9000 --2100,-13250 На выход
+                    SetUnitPositionSmooth(data.UnitHero,x,y)
+                end
+            end
+
             if data.UseAction == "Board" then
                 local message = "Здесь ничего нет"
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)

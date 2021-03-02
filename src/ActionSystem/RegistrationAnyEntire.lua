@@ -34,6 +34,7 @@ function RegistrationAnyEntire()
                             if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) then
                                 BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
+                                data.UseAction=""
                             end
                         end)
                     end

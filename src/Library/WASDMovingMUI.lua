@@ -311,6 +311,15 @@ function CreateWASDActions()
                 --print("pressW and short anim")
                 UnitAddForceSimple(data.UnitHero,90,5, 15)
                 data.DirectionMove=90
+
+                if data.ReleaseW and data.ReleaseD then
+                    data.DirectionMove= 90 - 45
+                end
+                if data.ReleaseW and data.ReleaseA then
+                    data.DirectionMove= 90 + 45
+                end
+
+
                 data.animStand=1.8 --до полной анимации 2 секунды
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
             end
@@ -343,6 +352,14 @@ function CreateWASDActions()
                 data.animStand=1.8 --до полной анимации 2 секунды
                 UnitAddForceSimple(data.UnitHero,270,5, 15)
                 data.DirectionMove=270
+
+                if data.ReleaseS and data.ReleaseD then
+                    data.DirectionMove=270+45
+                end
+                if data.ReleaseS and data.ReleaseA then
+                    data.DirectionMove=270-45
+                end
+
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
 
             end
@@ -439,6 +456,15 @@ function CreateWASDActions()
                     --print("Первый раз сделал рывок")
                 end
 
+                local dist=200
+                local delay=0.2
+                if data.ReleaseQ then
+                   -- print("сплеш в рывке, пробуем прыгнуть прыжок")
+                    dist=400
+                    delay=0.3
+                    SetUnitAnimationByIndex(data.UnitHero,3)
+                end
+
                 data.DashCharges=data.DashCharges-1
                 if data.DashCharges==0 then
                     StartFrameCD(data.DashChargesReloadSec,data.DashChargesCDFH)
@@ -451,17 +477,21 @@ function CreateWASDActions()
 
                 UnitAddItemById(data.UnitHero,FourCC("I000")) -- предмет виндволк
                 BlzSetUnitFacingEx(data.UnitHero,data.DirectionMove)
-                UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, 200,"ignore")
+                UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, dist,"ignore")
                 data.SpaceForce=true
                 local eff=AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul",data.UnitHero,"origin")
 
 
-                TimerStart(CreateTimer(), 0.2, false, function()
+                TimerStart(CreateTimer(), delay, false, function()
                     DestroyEffect(eff)
                     data.SpaceForce=false
                     data.AttackInForce=false
+                    SetUnitTimeScale(data.UnitHero,1)
                 end)
-                SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
+                if not data.ReleaseQ then
+                    SetUnitTimeScale(data.UnitHero,4)
+                    SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
+                end
             end
         end
     end)
@@ -937,6 +967,7 @@ function UnitDamageArea(u,damage,x,y,range,flag)
     local hero=nil
     GroupEnumUnitsInRange(perebor,x,y,range,nil)
     local k=0
+    local all={}
 
     if GetUnitTypeId(u)==HeroID then
         local data=HERO[GetPlayerId(GetOwningPlayer(u))]
@@ -976,12 +1007,12 @@ function UnitDamageArea(u,damage,x,y,range,flag)
             isdamage=true
             hero=e
             k=k+1
-
+            all[k]=e
         end
         GroupRemoveUnit(perebor,e)
     end
     if PointContentDestructable(x,y,range,true,1+damage,u) then	isdamage=true	end
-    return isdamage,hero,k
+    return isdamage,hero,k,all
 end
 
 GlobalRect=Rect(0,0,0,0)

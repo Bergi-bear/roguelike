@@ -34,6 +34,8 @@ gg_cam_Camera_015 = nil
 gg_snd_ItemReceived = nil
 gg_trg_TEST = nil
 gg_trg_FFF = nil
+gg_snd_MetalHeavyBashFlesh3 = nil
+gg_snd_AbominationYesAttack1 = nil
 function InitGlobals()
 end
 
@@ -42,6 +44,14 @@ function InitSounds()
     SetSoundParamsFromLabel(gg_snd_ItemReceived, "ItemReward")
     SetSoundDuration(gg_snd_ItemReceived, 1845)
     SetSoundVolume(gg_snd_ItemReceived, 127)
+    gg_snd_MetalHeavyBashFlesh3 = CreateSound("Sound/Units/Combat/MetalHeavyBashFlesh3.flac", false, true, true, 0, 0, "CombatSoundsEAX")
+    SetSoundParamsFromLabel(gg_snd_MetalHeavyBashFlesh3, "MetalHeavyBashFlesh")
+    SetSoundDuration(gg_snd_MetalHeavyBashFlesh3, 722)
+    SetSoundVolume(gg_snd_MetalHeavyBashFlesh3, 95)
+    gg_snd_AbominationYesAttack1 = CreateSound("Units/Undead/Abomination/AbominationYesAttack1.flac", false, true, true, 0, 0, "DefaultEAXON")
+    SetSoundParamsFromLabel(gg_snd_AbominationYesAttack1, "AbominationYesAttack")
+    SetSoundDuration(gg_snd_AbominationYesAttack1, 1609)
+    SetSoundVolume(gg_snd_AbominationYesAttack1, 127)
 end
 
 function CreateUnitsForPlayer23()
@@ -418,11 +428,12 @@ PreViewIcon = { -- Таблица случайных иконок которые
 
 function InitFinObjectInArea()
     CreateEnterPoint(5300, -9000, "   Подняться на борт", "StartSheep", true)--зона корабля
+    CreateEnterPoint(2100,-13250,"      Выйти наружу", "ExitSheep", true )
     CreateEnterPoint(5400, -8300, "   Исследовать лодку", "Board", true) --Левая лодка
     CreateEnterPoint(5500, -6900, "  Войти", "BackDor", true) --Вечно закрытые ворота
     CreateEnterPoint(7700, -8000, "     Преисполниться", "StartBonus", true) --Синий огонь
     CreateEnterPoint(7800, -6600, "    Посмотреть вдаль", "SoFar", true) --на краю берега справа
-    CreateEnterPoint(7000, -9200, "      Рыбачить", "Fish", true) -- внизу на берегу
+    CreateEnterPoint(7000, -9200, "        Рыбачить", "Fish", true) -- внизу на берегу
     CreateEnterPoint(7200, -7600, "       Отдохноуть", "NoWorking", true) -- возле деревьев
     --[[
     --Переходы между зонами
@@ -683,11 +694,28 @@ function CreateEActions()
             --ТУТ ПЕРЕЧИСЛЯЕМ ДЕЙСТВИЯ ЧЕРЕЗ ИФ
             if data.UseAction == "StartSheep" then
                 local message = "Кто-то убрал трап, я не могу подняться сейчас на борт"
-                CreateInfoBoxForAllPlayerTimed(data, message, 10)
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+                if false then
+                    local x,y=1750,-12500 --2100,-13250 На выход
+                    SetUnitPositionSmooth(data.UnitHero,x,y)
+                end
             end
+
+            if data.UseAction == "ExitSheep" then
+                local message = "На свежий воздух"
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                if true then
+                    local x,y=5300, -9000 --2100,-13250 На выход
+                    SetUnitPositionSmooth(data.UnitHero,x,y)
+                end
+            end
+
             if data.UseAction == "Board" then
                 local message = "Здесь ничего нет"
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
@@ -988,6 +1016,7 @@ function RegistrationAnyEntire()
                             if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) then
                                 BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
+                                data.UseAction=""
                             end
                         end)
                     end
@@ -1051,20 +1080,20 @@ function Enter2NewZone()
     end
     --print(" вошел в зону .. "..CurrentGameZone.. " для судьбы это зона "..Destiny[CurrentGameZone].. " а награда то какая? наверное ")
 
-    CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 2.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
-    TimerStart(CreateTimer(),3, false, function()
+    CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+    TimerStart(CreateTimer(),2, false, function()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
         if Destiny[CurrentGameZone] then
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
             --StartEnemyWave(Destiny[CurrentGameZone])
             --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
 
-            StartEnemyWave(DestinyEnemies[CurrentGameZone])
-            --StartEnemyWave(6)
+            --StartEnemyWave(DestinyEnemies[CurrentGameZone])
+            StartEnemyWave(5)
         else
             print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
         end
-        CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 2.00, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+        CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
 end
 
@@ -1278,7 +1307,6 @@ function CreateActionsF()
             data.ReleaseF = true
             --print("Кастуем ультимейты")
             if GlobalTalons[data.pid+1]["Trall"][5].level>0 then
-
                 --print("Есть ульта трала, пытаюсь скастовать")
                 if data.CallTrallCharges>9 then
                     data.CallTrallReady=false
@@ -1306,6 +1334,7 @@ function TrallCall(data)
         BlzFrameSetText(data.CallTrallFH,data.CallTrallCharges)
         UnitDamageArea(data.UnitHero,100,GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),200)
         DestroyEffect(AddSpecialEffect("Earthshock",GetUnitXY(data.UnitHero)))
+        normal_sound("Abilities\\Spells\\Spell\\Orc\\Shockwave\\Shockwave",GetUnitXY(data.UnitHero))
         if data.CallTrallCharges<1 then
             data.CallTrallReady=true
             DestroyTimer(GetExpiredTimer())
@@ -1551,6 +1580,29 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==6 then
             data.ThrowCharges=data.ThrowCharges+1
             BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+            local lvl2=false
+            local lvl3=false
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==2 then
+                    lvl2=true
+                    data.ThrowCharges=data.ThrowCharges+1
+                    BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+                end
+                if lvl2 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==3 then
+                    lvl3=true
+                    data.ThrowCharges=data.ThrowCharges+1
+                    BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+                end
+                if lvl3 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
         end
         if pos==7 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil,"healDash")
@@ -1694,7 +1746,7 @@ do
                             DS={1,2,3}
                         }),
                         [7] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp", --FIXME поменять иконку
                             name = "Предвидение боли",
                             description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить запас здоровья. Перезарядка DS сек",
                             level = 0,
@@ -1760,7 +1812,7 @@ do
                             DS={2,3,4}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp", --FIXME И сюда иконку
                             name = "Иллюзорный рывок",
                             description = "Создаёт иллюзию в точке начала рывка. Перезарядка DS",
                             level = 0,
@@ -1895,8 +1947,129 @@ do
                             description = "Увеличивает длительность стазиса от способности Мощный удар на DS",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите Q, чтобы нанести можный удар по большой площади",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
                             DS={0.3,0.6,0.9}
+                        }),
+                    },
+                    HeroBeastMaster={ -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Ящер",
+                            description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 60. Урон: 100",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Медведь",
+                            description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при падении и агрит на себя врагов. Перезарядка: 60. Длительность: 10",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Кабан",
+                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядк: 20. Длительность: 50",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Волк",
+                            description = "Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк убивает замороженных врагов с 1 удара",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS={1}
+                        }),
+                    },
+                    PeonDidal={
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Короткое комбо",
+                            description = "Сокращает комбо до 3 ударов, и задержку финального удара на 0.3",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Большой размах",
+                            description = "Заменяет комбо на 1 большой размашистый удар, который наносит 150 базового урона",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов (теперь нет)",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Бронелом",
+                            description = "Все ваши атаки наносят 5 кратны урон по врашам с щитом",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Разбег минотавра",
+                            description = "Атака в рывке, наносят на 100% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажмите LMB  после SPACE, чтобы совершить атаку в рывке",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Удар проклятой души",
+                            description = "Попадания обычной атаков восстанавливают 2 ед. здоровья, в случае промаха вы потеряете 2% от макс здоровья (не может быть смертельным)",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Двойной Клеп",
+                            description = "Мощный удар бьёт дважды",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Пронзающий пространство удар",
+                            description = "Можный удар наносит дополнительно 50 урона на линии перед собой. Дистанция: 500",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Удар сатира",
+                            description = "Увеличивает любой урон в спину в 3 раза",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={1}
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = "Пространственный клеп",
+                            description = "При активации мощного удара, совершает прыжок в область курсора. Максимальная дистанция: 500",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            DS={1}
                         }),
                     }
                 }
@@ -2165,7 +2338,7 @@ function DrawInterFace()
     DrawSelectionPortrait()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if HERO[i] then
-           -- CreateHPBar(HERO[i].UnitHero,0)
+            CreateHPBar(HERO[i].UnitHero,0)
         end
     end
     CreateBaseFrames(0.02,0.015)
@@ -2185,33 +2358,31 @@ function CreateHPBar(hero,index)
     local intoBar="SystemGeneric\\ColorHP"
     local rama2="SystemGeneric\\hp"
 
-    local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
-    BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetTexture(into, intoBar, 0, true)
-    BlzFrameSetSize(into, 0.21, 0.02*0.95)
-    BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT,-0.054,0.06+0.01)
-    BlzFrameSetVisible(into,GetLocalPlayer()==GetOwningPlayer(hero))
+        local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+        BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+        BlzFrameSetTexture(into, intoBar, 0, true)
+        BlzFrameSetSize(into, 0.02*0.95, 0.21)
+        BlzFrameSetAbsPoint(into, FRAMEPOINT_BOTTOM,-0.12,0.079)
+        BlzFrameSetVisible(into,GetLocalPlayer()==GetOwningPlayer(hero))
 
-    local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
-    BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetTexture(buttonIconFrame, rama2, 0, true)
-    BlzFrameSetSize(buttonIconFrame, 0.24, 0.03)
-    BlzFrameSetAbsPoint(buttonIconFrame, FRAMEPOINT_BOTTOMLEFT,-0.07,0.058)
-    BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==GetOwningPlayer(hero))
+        local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+        BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+        BlzFrameSetTexture(buttonIconFrame, rama2, 0, true)
+        BlzFrameSetSize(buttonIconFrame,  0.03,0.24)
+        BlzFrameSetAbsPoint(buttonIconFrame, FRAMEPOINT_BOTTOMLEFT,-0.136,0.075)
+        BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==GetOwningPlayer(hero))
 
     TimerStart(CreateTimer(), 0.05, true, function()
         local hp=0
-        if index==0 then
-            hp=GetUnitLifePercent(hero)
+        hp=GetUnitLifePercent(hero)
+        if not UnitAlive(hero) then
+            hp=0
+        end
             --BlzFrameSetText(textCurrent, R2I(GetUnitState(hero,UNIT_STATE_LIFE)))
             --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
-        else
-            hp=GetUnitManaPercent(hero)
-            --BlzFrameSetText(textCurrent, R2I(GetUnitState(hero,UNIT_STATE_MANA)))
-            --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxMana(hero)))
-        end
 
-        BlzFrameSetSize(into, hp*0.21/100,0.02*0.95 )
+
+        BlzFrameSetSize(into, 0.02*0.95,hp*0.21/100 )
     end)
 end
 ---
@@ -2348,11 +2519,11 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("ucs1") then -- маленький скоробей
             SinergyBug(unit)
         end
-        if GetUnitTypeId(unit)==FourCC("unec") then -- маленький скоробей
+        if GetUnitTypeId(unit)==FourCC("unec") then -- некр
             NecroAttackAndArrow(unit)
         end
-        if true then
-
+        if GetUnitTypeId(unit)==FourCC("uabo") then
+            PudgeSlash(unit)
         end
 
     end)
@@ -2384,6 +2555,87 @@ function GetRandomEnemyHero()
     return table[r]
 end
 
+function PudgeSlash(unit)
+    local sec=0
+    UnitAddAbility(unit,FourCC("Abun"))
+    BlzSetUnitWeaponRealField(unit,UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN,0,2)
+    BlzSetUnitWeaponRealField(unit,UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN,1,2)
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            local hero=GetRandomEnemyHero()
+            local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+            sec=sec-1
+            if dist<=400 and sec<=0 and hero then
+                if not IsUnitStunned(unit) then
+                    sec=5
+                    --print(dist.." дистанция")
+                    local angle=AngleBetweenUnits(unit,hero)
+                    BlzPauseUnitEx(unit,true)
+                    --SetUnitAnimation(unit,"attack")
+                    --if not GR then GR=0 end
+                    --GR=GR+1
+                    --print(GR)
+                    SetUnitAnimationByIndex(unit,2)
+                    SetUnitTimeScale(unit,0.5)
+
+                    -- CreateVisualMarkTimedXY("SystemGeneric\\Redline\\cone",1,GetUnitXY(unit))
+                    local eff=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff,255,255,255)
+                    BlzSetSpecialEffectZ(eff,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff,math.rad(GetUnitFacing(unit)))
+
+                    local eff1=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff1,255,255,255)
+                    BlzSetSpecialEffectZ(eff1,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff1,math.rad(GetUnitFacing(unit)))
+
+                    local eff2=AddSpecialEffect("SystemGeneric\\Redline\\cone",GetUnitXY(unit))
+                    BlzSetSpecialEffectColor(eff2,255,255,255)
+                    BlzSetSpecialEffectZ(eff2,GetTerrainZ(GetUnitXY(unit))+50)
+                    BlzSetSpecialEffectYaw(eff2,math.rad(GetUnitFacing(unit)))
+
+                    BlzSetSpecialEffectMatrixScale(eff,0.5,1.5,1)
+                    BlzSetSpecialEffectMatrixScale(eff1,0.5,1.5,1)
+                    BlzSetSpecialEffectMatrixScale(eff2,0.5,1.5,1)
+
+                    TimerStart(CreateTimer(), 1.5, false, function()
+                        DestroyEffect(eff)
+                        DestroyEffect(eff1)
+                        DestroyEffect(eff2)
+                        BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                        BlzSetSpecialEffectPosition(eff1,OutPoint,OutPoint,0)
+                        BlzSetSpecialEffectPosition(eff2,OutPoint,OutPoint,0)
+                    end)
+
+                    TimerStart(CreateTimer(), 1, false, function()
+                        -- x1, x2 - координаты проверяемой точки
+                        -- x2, y2 - координаты вершины сектора
+                        -- orientation - ориентация сектора в мировых координатах
+                        -- width - уголовой размер сектора в градусах
+                        -- radius - окружности которой принадлежит сектор
+                        BlzPauseUnitEx(unit,false)
+                        SetUnitTimeScale(unit,1)
+                        local is,_,_,all=UnitDamageArea(unit,0,GetUnitX(unit),GetUnitY(unit),400)
+                        for i=1,#all do
+                            local x,y=GetUnitXY(all[i])
+                            normal_sound("Sound\\Units\\Combat\\MetalHeavyBashFlesh3",GetUnitXY(unit))
+                            if IsPointInSector(x,y,GetUnitX(unit),GetUnitY(unit),GetUnitFacing(unit),60,200) then
+                                UnitDamageTarget(unit, all[i], 200, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+                                --print("звук удара мясника")
+                                normal_sound("Units\\Undead\\Abomination\\AbominationYesAttack"..GetRandomInt(1,4),GetUnitXY(unit))
+                            end
+                        end
+                    end)
+                end
+            else
+                IssuePointOrder(unit,"move",GetUnitXY(hero))
+            end
+        end
+    end)
+end
+
 function NecroAttackAndArrow(unit)
     --подготовка
     UnitAddAbility(unit,FourCC("Abun"))
@@ -2394,7 +2646,7 @@ function NecroAttackAndArrow(unit)
         else
             local hero=GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
-            if not IsUnitStunned(unit) then
+            if not IsUnitStunned(unit) and hero then
                 if not IsUnitInRange(hero,unit,300 ) then
                     local angle=AngleBetweenUnits(unit,hero)
                     BlzPauseUnitEx(unit,true)
@@ -4173,6 +4425,15 @@ function CreateWASDActions()
                 --print("pressW and short anim")
                 UnitAddForceSimple(data.UnitHero,90,5, 15)
                 data.DirectionMove=90
+
+                if data.ReleaseW and data.ReleaseD then
+                    data.DirectionMove= 90 - 45
+                end
+                if data.ReleaseW and data.ReleaseA then
+                    data.DirectionMove= 90 + 45
+                end
+
+
                 data.animStand=1.8 --до полной анимации 2 секунды
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
             end
@@ -4205,6 +4466,14 @@ function CreateWASDActions()
                 data.animStand=1.8 --до полной анимации 2 секунды
                 UnitAddForceSimple(data.UnitHero,270,5, 15)
                 data.DirectionMove=270
+
+                if data.ReleaseS and data.ReleaseD then
+                    data.DirectionMove=270+45
+                end
+                if data.ReleaseS and data.ReleaseA then
+                    data.DirectionMove=270-45
+                end
+
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
 
             end
@@ -4301,6 +4570,15 @@ function CreateWASDActions()
                     --print("Первый раз сделал рывок")
                 end
 
+                local dist=200
+                local delay=0.2
+                if data.ReleaseQ then
+                   -- print("сплеш в рывке, пробуем прыгнуть прыжок")
+                    dist=400
+                    delay=0.3
+                    SetUnitAnimationByIndex(data.UnitHero,3)
+                end
+
                 data.DashCharges=data.DashCharges-1
                 if data.DashCharges==0 then
                     StartFrameCD(data.DashChargesReloadSec,data.DashChargesCDFH)
@@ -4313,17 +4591,21 @@ function CreateWASDActions()
 
                 UnitAddItemById(data.UnitHero,FourCC("I000")) -- предмет виндволк
                 BlzSetUnitFacingEx(data.UnitHero,data.DirectionMove)
-                UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, 200,"ignore")
+                UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, dist,"ignore")
                 data.SpaceForce=true
                 local eff=AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul",data.UnitHero,"origin")
 
 
-                TimerStart(CreateTimer(), 0.2, false, function()
+                TimerStart(CreateTimer(), delay, false, function()
                     DestroyEffect(eff)
                     data.SpaceForce=false
                     data.AttackInForce=false
+                    SetUnitTimeScale(data.UnitHero,1)
                 end)
-                SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
+                if not data.ReleaseQ then
+                    SetUnitTimeScale(data.UnitHero,4)
+                    SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
+                end
             end
         end
     end)
@@ -4799,6 +5081,7 @@ function UnitDamageArea(u,damage,x,y,range,flag)
     local hero=nil
     GroupEnumUnitsInRange(perebor,x,y,range,nil)
     local k=0
+    local all={}
 
     if GetUnitTypeId(u)==HeroID then
         local data=HERO[GetPlayerId(GetOwningPlayer(u))]
@@ -4838,12 +5121,12 @@ function UnitDamageArea(u,damage,x,y,range,flag)
             isdamage=true
             hero=e
             k=k+1
-
+            all[k]=e
         end
         GroupRemoveUnit(perebor,e)
     end
     if PointContentDestructable(x,y,range,true,1+damage,u) then	isdamage=true	end
-    return isdamage,hero,k
+    return isdamage,hero,k,all
 end
 
 GlobalRect=Rect(0,0,0,0)
