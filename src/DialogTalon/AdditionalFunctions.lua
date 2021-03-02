@@ -5,22 +5,16 @@ function SmoothWindowAppearance(frame, state, player)
         count = 255
     elseif state == "open" then
         count = 0
-        if GetLocalPlayer() == player then
-            BlzFrameSetAlpha(frame, 0)
-        end
+        BlzFrameSetAlpha(frame, 0)
     end
     local timer = CreateTimer()
     TimerStart(timer, 0.005, true, function() --было 0.003
-        if GetLocalPlayer() == player then
-            BlzFrameSetAlpha(frame, count)
-        end
+        BlzFrameSetAlpha(frame, count)
         if count == 255 and state == "open" then
             DestroyTimer(timer)
         elseif count == 0 and state == "close" then
             DestroyTimer(timer)
-            if GetLocalPlayer() == player then
-                BlzFrameSetVisible(frame, false)
-            end
+            BlzFrameSetVisible(frame, not (GetLocalPlayer() == player))
         end
         if state == "open" then
             count = count + 1
