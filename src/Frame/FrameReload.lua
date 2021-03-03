@@ -96,8 +96,10 @@ function CreateUniversalFrame(x,y,size,toolTipTex,data,activeTexture,passiveText
     end
 
     if flag=="chargeAttackLight" then
-        data.chargeAttackLightFH=MakeFrameCharged(face,4)
-        data.chargeAttackLightCDFH=buttonIconFrame
+        data.chargeAttackLightChargesMAX=4
+        data.chargeAttackLightCharges=1
+        data.chargeAttackLightFH=MakeFrameCharged(face,data.chargeAttackLightCharges)
+        --data.chargeAttackLightCDFH=buttonIconFrame
     end
     if flag=="rebound" then
         data.ReboundCDFH=buttonIconFrame

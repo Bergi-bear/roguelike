@@ -805,7 +805,18 @@ function attack(data)
                     damage=data.DamageInSeries[finale] -- финальная атака
                     --print(damage)
                     local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),50,GetUnitFacing(data.UnitHero))
-                    local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,300,"shotForce")
+                    local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,300,"shotForce") --урон с финального удара
+                    if enemy then
+                        if data.chargeAttackLightFH then-- изучен и существует
+                            data.chargeAttackLightCharges=data.chargeAttackLightCharges+1
+                            BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
+                            if data.chargeAttackLightCharges>=data.chargeAttackLightChargesMAX then
+                                data.chargeAttackLightCharges=0
+                                BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
+                                print("удар молнией")
+                            end
+                        end
+                    end
 
                     if is then
                         normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone1",GetUnitXY(data.UnitHero))
@@ -822,13 +833,26 @@ function attack(data)
             end
 
 
-            TimerStart(CreateTimer(), cdAttack, false, function() -- кд атаки тут
+            TimerStart(CreateTimer(), cdAttack, false, function() -- кд атаки тут для всех ударов
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
                 if data.AttackCount<maxAttack and data.AttackCount>0 and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
                     --print(data.AttackCount)
 
 
-                    local is,_,k=UnitDamageArea(data.UnitHero,damage,nx,ny,100)
+                    local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,100)
+
+                    if enemy then
+                        if data.chargeAttackLightFH then-- изучен и существует
+                            data.chargeAttackLightCharges=data.chargeAttackLightCharges+1
+                            BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
+                            if data.chargeAttackLightCharges>=data.chargeAttackLightChargesMAX then
+                                data.chargeAttackLightCharges=0
+                                BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
+                                print("удар молнией")
+                            end
+                        end
+                    end
+
                     if is then
                         --print("Звук попадания обычной атакой"..data.AttackCount)
                         normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone2",GetUnitXY(data.UnitHero))
@@ -1082,8 +1106,8 @@ function PlayUnitAnimationFromChat()
             SetCameraBoundsToRectForPlayerBJ(Player(0),bj_mapInitialPlayableArea)
             return
         end
-        if GetEventPlayerChatString()=="trall" then
-            print("Создаём дар тралла")
+        if GetEventPlayerChatString()=="trall" or GetEventPlayerChatString()=="t" or GetEventPlayerChatString()=="е"   then
+           -- print("Создаём дар тралла")
             local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateGodTalon(x, y, "Trall")
             return

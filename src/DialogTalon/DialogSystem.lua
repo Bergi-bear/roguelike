@@ -134,7 +134,7 @@ function CreateDialogTalon(godName)
 
             DialogTalon.TalonButtons.Border[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBorder", DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
             BlzFrameSetSize(DialogTalon.TalonButtons.Border[i][j], 0.449, 0.079)
-            BlzFrameSetTexture(DialogTalon.TalonButtons.Border[i][j], "war3mapImported\\talonBorder.blp", 0, true)
+            BlzFrameSetTexture(DialogTalon.TalonButtons.Border[i][j], "SystemGeneric\\gb", 0, true)
             BlzFrameSetPoint(DialogTalon.TalonButtons.Border[i][j], FRAMEPOINT_CENTER, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_CENTER, 0, 0)
             BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
 
