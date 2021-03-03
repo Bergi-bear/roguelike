@@ -1,10 +1,8 @@
-
 do
     local InitGlobalsOrigin = InitGlobals
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 3, false, function()
-            CreateGodTalon(7085, -6883, "Trall")
             GlobalTalons = {}
             for i = 1, bj_MAX_PLAYERS do
                 GlobalTalons[i] = {
