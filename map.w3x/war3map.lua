@@ -1494,7 +1494,7 @@ function CreateDialogTalon(godName)
         BlzFrameSetTextColor(DialogTalon.Title[i], BlzConvertColor(1, 255, 255, 255))
         BlzFrameSetText(DialogTalon.Title[i], title)
 
-        DialogTalonIsOpen[i] = false
+        DialogTalonIsOpen[i] = true
 
         DialogTalon.TalonButtons[i] = {}
         DialogTalon.TalonButtons.Button[i] = {}
@@ -1562,13 +1562,14 @@ function CreateDialogTalon(godName)
                     DialogTalonIsOpen[i] = false
                     talons[i][j]:updateLevel()
                     -- Закрываем окно талантов
-                    --print(listOfNumbers[i][j])
-                    SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close", GetLocalPlayer() == Player(i - 1))
+                    --print(listOfNumbers[i][j].."")
+                    --SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close", GetLocalPlayer() == Player(i - 1))
                     --BlzFrameSetVisible(DialogTalon.MainFrame[i], not (GetLocalPlayer() == Player(i - 1)))
+                    BlzFrameSetVisible(DialogTalon.MainFrame[i], false)
                     LearnCurrentTalonForPlayer(i,godName,listOfNumbers[i][j])
                 end
             end)
-            --[[
+
             DialogTalon.TalonButtons.MouseEnterTriggers[i][j] = CreateTrigger()
             DialogTalon.TalonButtons.MouseEnterEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_ENTER)
             DialogTalon.TalonButtons.MouseEnterActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], function()
@@ -1577,8 +1578,8 @@ function CreateDialogTalon(godName)
             DialogTalon.TalonButtons.MouseLeaveTriggers[i][j] = CreateTrigger()
             DialogTalon.TalonButtons.MouseLeaveEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_LEAVE)
             DialogTalon.TalonButtons.MouseLeaveActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], function()
-                BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], not (GetLocalPlayer() == Player(i - 1)))
-            end)]]
+                BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
+            end)
         end
     end
 
@@ -1588,7 +1589,7 @@ function CreateDialogTalon(godName)
     -- Пока что показываем окно всем
     for i = 1, bj_MAX_PLAYERS do
         BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
-        SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open", GetLocalPlayer() == Player(i - 1))
+        --SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open", GetLocalPlayer() == Player(i - 1))
     end
 end
 ---
