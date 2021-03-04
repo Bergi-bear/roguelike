@@ -14,6 +14,7 @@ do
                 "HeroBlademaster",
                 "HeroTaurenChieftain",
                 "ShadowHunter",
+                "PeonDidal",
             }
 
             DialogTalon = {}
@@ -129,7 +130,8 @@ do
                             BlzFrameSetEnable(BlzGetTriggerFrame(), false)
                             BlzFrameSetEnable(BlzGetTriggerFrame(), true)
                             SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close")
-                            LearnCurrentTalonForPlayer(i,GodName,listOfNumbers[i][j])
+                            --LearnCurrentTalonForPlayer(i,GodName,listOfNumbers[i][j])
+                            LearnCurrentTalonForPlayer(i,GodName,talons[i][j])
                         end
                     end)
 

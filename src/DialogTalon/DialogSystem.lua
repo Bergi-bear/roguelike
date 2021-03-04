@@ -60,10 +60,16 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         if #talons[i] == 1 then
             height[i] = 0.17
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], false)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
         elseif #talons[i] == 2 then
             height[i] = 0.27
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
         elseif #talons[i] == 3 then
             height[i] = 0.37
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
         elseif #talons[i] == 4 then
             height[i] = 0.47
         else
