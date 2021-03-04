@@ -54,3 +54,15 @@ end
 function Talon:getDS()
     return self.DS
 end
+
+function Talon:getTooltip()
+    return self.tooltip
+end
+
+function Talon:getName()
+    return self.name
+end
+
+function Talon:getIcon()
+    return self.icon
+end
