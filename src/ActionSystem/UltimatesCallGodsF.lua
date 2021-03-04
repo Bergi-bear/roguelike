@@ -53,7 +53,7 @@ function TrallCall(data)
         BlzFrameSetText(data.CallTrallFH,data.CallTrallCharges)
         UnitDamageArea(data.UnitHero,100,GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),200)
         DestroyEffect(AddSpecialEffect("Earthshock",GetUnitXY(data.UnitHero)))
-        normal_sound("Abilities\\Spells\\Spell\\Orc\\Shockwave\\Shockwave",GetUnitXY(data.UnitHero))
+        normal_sound("Abilities\\Spells\\Orc\\Shockwave\\Shockwave",GetUnitXY(data.UnitHero))
         if data.CallTrallCharges<1 then
             data.CallTrallReady=true
             DestroyTimer(GetExpiredTimer())

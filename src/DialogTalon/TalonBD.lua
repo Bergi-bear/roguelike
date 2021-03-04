@@ -10,11 +10,11 @@ do
                         [1] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
                             name = "Удар молнией",
-                            description = "Каждый DS обычный удар выпускает цепную молнию, наносящую 150 урона и отскакивает между 5 врагами",
+                            description = "Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Обычной атакой, считаете быстрая атака совершенная LMB или атака призванных существ",
-                            DS={5,4,3}
+                            DS={3,4,5}
 
                         }),
                         [2] = Talon:new({
@@ -63,7 +63,7 @@ do
                             DS={1,2,3}
                         }),
                         [7] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp", --FIXME поменять иконку
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
                             name = "Предвидение боли",
                             description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить запас здоровья. Перезарядка DS сек",
                             level = 0,
@@ -129,7 +129,7 @@ do
                             DS={2,3,4}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp", --FIXME И сюда иконку
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
                             name = "Иллюзорный рывок",
                             description = "Создаёт иллюзию в точке начала рывка. Перезарядка DS",
                             level = 0,
@@ -214,7 +214,7 @@ do
                         Talon:new({
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp",
                             name = "Регенерация троля",
-                            description = "Исцеляет героя каждые 5 секунду во время боя на DS %%",
+                            description = "Исцеляет героя каждые 5 секунду во время боя на DS%%",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
@@ -308,85 +308,85 @@ do
                     },
                     PeonDidal={
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
                             name = "Короткое комбо",
-                            description = "Сокращает комбо до 3 ударов, и задержку финального удара на 0.3",
+                            description = "Сокращает комбо до DS ударов, и задержку финального удара на 0.3",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
-                            DS={1}
+                            DS={3}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
-                            name = "Большой размах",
-                            description = "Заменяет комбо на 1 большой размашистый удар, который наносит 150 базового урона",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
+                            name = "Кирка героя",
+                            description = "Увеличивает урон обычных атака на DS%%",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов (теперь нет)",
-                            DS={1}
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            DS={30}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
                             name = "Бронелом",
-                            description = "Все ваши атаки наносят 5 кратны урон по врашам с щитом",
+                            description = "Все ваши атаки наносят DS кратный урон по врагам с щитом",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
-                            DS={1}
+                            DS={5}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
                             name = "Разбег минотавра",
-                            description = "Атака в рывке, наносят на 100%% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше",
+                            description = "Атака в рывке, наносят на DS%% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажмите LMB  после SPACE, чтобы совершить атаку в рывке",
-                            DS={1}
+                            tooltip = "Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке",
+                            DS={100}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
                             name = "Удар проклятой души",
-                            description = "Попадания обычной атаков восстанавливают 2 ед. здоровья, в случае промаха вы потеряете 2%% от макс здоровья (не может быть смертельным)",
+                            description = "Попадания обычной атаков восстанавливают DS ед. здоровья, в случае промаха вы потеряете DS%% от макс здоровья (не может быть смертельным)",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
-                            DS={1}
+                            DS={2}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
                             name = "Двойной Клеп",
-                            description = "Мощный удар бьёт дважды",
+                            description = "Мощный удар бьёт DS",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
-                            DS={1}
+                            DS={"дважды"}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
                             name = "Пронзающий пространство удар",
-                            description = "Можный удар наносит дополнительно 50 урона на линии перед собой. Дистанция: 500",
+                            description = "Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
-                            DS={1}
+                            DS={50}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
                             name = "Удар сатира",
-                            description = "Увеличивает любой урон в спину в 3 раза",
+                            description = "Увеличивает любой урон в спину в DS раза",
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
-                            DS={1}
+                            tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
+                            DS={3}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWalkerAdeptTraining.blp",
                             name = "Пространственный клеп",
-                            description = "При активации мощного удара, совершает прыжок в область курсора. Максимальная дистанция: 500",
+                            description = "При активации мощного удара, DS. Максимальная дистанция: 500",
                             level = 0,
                             rarity = "epic",
                             tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
-                            DS={1}
+                            DS={"совершает прыжок в область курсора"}
                         }),
                     }
                 }

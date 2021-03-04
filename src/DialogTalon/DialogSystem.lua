@@ -51,7 +51,7 @@ function CreateDialogTalon(godName)
         end
     end
 
-    print(talons[1][1]["name"])
+    --print(talons[1][1]["name"])
 
     local height = {}
     for i = 1, bj_MAX_PLAYERS do
@@ -160,6 +160,7 @@ function CreateDialogTalon(godName)
            -- BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
 
             -- Показываем текущий уровень талантов, если талант уже выучен
+            BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "")
             if talons[i][j].level > 0 then
                 --DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                 --BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))

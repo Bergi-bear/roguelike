@@ -191,8 +191,28 @@ end
 
 LiveOnWave=0-- живые на волне
 CurrentOnWave=0
+
+function GetActiveCountPlayer()
+    local k=0
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            k=k+1
+        end
+    end
+    return k
+end
+
 function StartWave(rect,listID,max)
     -- print("start wave "..max)
+    local CountPlayers=GetActiveCountPlayer()
+    if CountPlayers>=2 then
+        for _=2,CountPlayers do
+            for i=1,#listID do
+                table.insert(listID,listID[i])
+            end
+        end
+    end
+
     local MaxOnWave=#listID
     LiveOnWave=0
     --CurrentOnWave=max

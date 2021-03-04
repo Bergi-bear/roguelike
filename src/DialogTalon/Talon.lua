@@ -30,10 +30,10 @@ end
 
 function Talon:updateDescription()
     if #self.DS > 0 and self["DS"][self.level + 1] ~= nil then
-        local s = string.gsub(self.description, "DS", self["DS"][self.level + 1])
+        local s = string.gsub(self.description, "DS", ColorText2(self["DS"][self.level + 1]))
         return s
     elseif self["DS"][self.level + 1] == nil and #self.DS > 0 then
-        local s = string.gsub(self.description, "DS", self["DS"][#self.DS])
+        local s = string.gsub(self.description, "DS", ColorText2(self["DS"][#self.DS]))
         return s
     else
         return self.description
@@ -42,7 +42,8 @@ end
 
 function Talon:updateDescriptionCurrent()
     local s=self.description
-    s=string.gsub(s,"DS",self["DS"][self.level])
+    s=string.gsub(s,"DS",ColorText2(self["DS"][self.level]))
+    --s=ColorText2(s)
     return s
 end
 

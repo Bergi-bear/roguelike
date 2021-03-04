@@ -10,19 +10,19 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
     local x,y,size=0.02,0.015,0.03
     if godName=="Trall" and  talon.level==1 then
         if pos==1 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil,"chargeAttackLight")
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"chargeAttackLight")
         end
         if pos==2 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil,"rebound")
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"rebound")
         end
         if pos==3 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil,"wolfSummon")
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"wolfSummon")
         end
         if pos==4 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil)
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
         end
         if pos==5 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\f","callTrall")
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\f","callTrall")
         end
         if pos==6 then
             data.ThrowCharges=data.ThrowCharges+1
@@ -52,22 +52,60 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             end)
         end
         if pos==7 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil,"healDash")
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"healDash")
         end
         if pos==8 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil,"invulPreDeath")
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"invulPreDeath")
         end
         if pos==9 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil)
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
         end
     end
     if godName=="HeroBlademaster" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil)
+        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
     end
     if godName=="ShadowHunter" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil)
+        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
     end
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),data,talon.icon,GetPassiveIco(talon.icon),nil)
+        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+    end
+
+    if godName=="PeonDidal" and  talon.level==1 then
+        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+
+        if pos==1 then
+            data.MaxAttack=3
+            data.CdAttackFinal=0.3
+            --BlzFrameSetText(data.attackNormalTooltipTextFH,ColorText2(talon.name..": \n")..talon:updateDescriptionCurrent())
+        end
+        if pos==2 then
+            local k=talon.DS[1]/100
+            for i=1,#(data.DamageInSeries) do
+                data.DamageInSeries[i]=data.DamageInSeries[i]*(1+k)
+            end
+        end
+        if pos==3 then
+            data.ShieldBreakerIsLearn=true
+        end
+        if pos==4 then
+            data.TaurenDash=true
+            data.BaseDashDamage=data.BaseDashDamage*2
+        end
+        if pos==5 then
+            data.CursedStrike=true
+        end
+        if pos==6 then
+            data.DoubleClap=true
+        end
+        if pos==7 then
+            data.LineCleaveAttack=true
+        end
+        if pos==8 then
+            data.BackDamage=data.BackDamage+talon.DS[1]
+        end
+        if pos==9 then
+            data.QJump2Pointer=true
+        end
     end
 end

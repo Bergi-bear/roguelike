@@ -536,6 +536,19 @@ function CreateEActions()
                 normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
 
+            if data.UseAction == "PeonDidal" then
+                local message = "Сила братьев"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
+                DestroyGodTalon(LastGodTalon)
+                CreateDialogTalon("PeonDidal")
+                AllActionsEnabled(true)
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
+                --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
+            end
+
 
         end
     end)

@@ -20,10 +20,8 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 	local CollisionEnemy = false
 	local CollisisonDestr = false
 	local DamagingUnit = nil
-	if effectmodel == "Abilities\\Weapons\\FireBallMissile\\FireBallMissile" then
-		--print("Пуля из мушкета капитана")
-		BlzSetSpecialEffectScale(bullet, 2)
-		--zhero = GetUnitZ(hero) + 120
+	if effectmodel == "Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl" then
+		BlzSetSpecialEffectScale(bullet, 0.7)
 	end
 
 	BlzSetSpecialEffectZ(bullet, zhero)

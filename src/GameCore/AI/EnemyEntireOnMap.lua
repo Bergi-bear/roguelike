@@ -39,7 +39,7 @@ function InitEnemyEntire()
 end
 
 function UnitAddShield(unit,amount)
-    UnitAddAbility(unit,FourCC("ACmf"))
+    UnitAddAbility(unit,FourCC("ACmf")) --Бафф BNms
     BlzSetUnitMaxMana(unit,amount)
     SetUnitState(unit,UNIT_STATE_MANA,amount)
     if not IssueImmediateOrder(unit,"manashieldon") then

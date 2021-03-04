@@ -58,6 +58,9 @@ function InitHeroTable(hero)
         AttackCount=0,
         ResetSeriesTime=0,
         DamageInSeries={50,80,60,90,100},
+        MaxAttack=5,
+        CdAttackFinal=0.7,
+        BackDamage=2,
         CDSpellQ=0, -- ячейка кулдауна
         SpellQCDTime=3,-- дефолтное время перезарядки Q, можно менять
         AttackInForce=false,
@@ -79,6 +82,7 @@ function InitHeroTable(hero)
         DashChargesCDFH=nil,
         DashChargesReloadSec=2,
         countFrame=0,
+        BaseDashDamage=100,
     }
 end
 
@@ -459,6 +463,7 @@ function CreateWASDActions()
                    -- print("сплеш в рывке, пробуем прыгнуть прыжок")
                     dist=400
                     delay=0.3
+                    data.GreatDamageDashQ=true
                     SetUnitAnimationByIndex(data.UnitHero,3)
                 end
 
@@ -526,11 +531,28 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero,3)
-                TimerStart(CreateTimer(), 0.35, false, function() --задержка перед ударом
+                if data.QJump2Pointer then
                     StartFrameCD(data.SpellQCDTime,data.cdFrameHandleQ)
-                    SpellSlashQ(data)
-                    data.ReleaseQ = false
-                end)
+                    --SpellSlashQ(data)
+                    local angle=-180+AngleBetweenXY(GetPlayerMouseX[data.pid],GetPlayerMouseY[data.pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
+                    local dist=DistanceBetweenXY(GetPlayerMouseX[data.pid],GetPlayerMouseY[data.pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))
+                    if dist>=500 then dist=500 end
+                    BlzSetUnitFacingEx(data.UnitHero,angle)
+                    UnitAddForceSimple(data.UnitHero,angle,20, dist,"qjump")
+                else
+                    TimerStart(CreateTimer(), 0.35, false, function() --задержка перед ударом
+                        StartFrameCD(data.SpellQCDTime,data.cdFrameHandleQ)
+                        SpellSlashQ(data)
+                        if data.DoubleClap then
+                            TimerStart(CreateTimer(), 0.35, false, function()
+                                SpellSlashQ(data)
+                            end)
+                        end
+                        data.ReleaseQ = false
+                    end)
+                end
+
+
             end
         end
     end)
@@ -592,7 +614,6 @@ function CreateWASDActions()
                             sec=sec+TIMER_PERIOD64
                             if sec>=0.35 then
                                 DestroyTimer(GetExpiredTimer())
-
                                 DestroyEffect(dust)
                             end
                         end)
@@ -743,9 +764,23 @@ function attack(data)
             local angle=-180+AngleBetweenXY(GetPlayerMouseX[pid],GetPlayerMouseY[pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
             local damage=data.DamageInSeries[data.AttackCount]
             BlzSetUnitFacingEx(data.UnitHero,angle) --был обычный поворот
-            local maxAttack=5
+            local maxAttack=data.MaxAttack
+
             --local tmp=data.DamageInSeries
             --local lastAttack=#tmp
+            if data.LineCleaveAttack then --data.LineCleaveAttack
+                TimerStart(CreateTimer(), 0.2, false, function()
+                    CreateAndForceBullet(data.UnitHero,angle,20,"Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl",GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),50,700)
+                end)
+            end
+
+            if GetUnitTypeId(data.UnitHero)==HeroID then
+                --local data=HERO[GetPlayerId(GetOwningPlayer(u))]
+                data.Reflected=true
+                TimerStart(CreateTimer(), 0.35, false, function()
+                    data.Reflected=false
+                end)
+            end
 
             if data.AttackCount==1 then -- первый обычный удар
                 indexAnim=3
@@ -761,6 +796,7 @@ function attack(data)
             end
             if data.AttackCount~=1 and data.AttackCount~=maxAttack  then -- второй удар
                 local r=GetRandomInt(1,2)
+
                 if r==1 then
                     indexAnim=2
                     cdAttack=0.5
@@ -791,7 +827,10 @@ function attack(data)
             end
             if data.AttackCount==maxAttack then -- ПОСЛЕДНИЙ удар бывший тритий
                 indexAnim=8
-                cdAttack=0.7-- задержка после финальной атаки
+                cdAttack=data.CdAttackFinal-- задержка после финальной атаки 0.7
+
+
+
                 local finale=data.AttackCount
                 if not data.tasks[1] then
                     data.tasks[1]=true
@@ -807,13 +846,15 @@ function attack(data)
                     local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),50,GetUnitFacing(data.UnitHero))
                     local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,300,"shotForce") --урон с финального удара
                     if enemy then
-                        if data.chargeAttackLightFH then-- изучен и существует
-                            data.chargeAttackLightCharges=data.chargeAttackLightCharges+1
-                            BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
-                            if data.chargeAttackLightCharges>=data.chargeAttackLightChargesMAX then
-                                data.chargeAttackLightCharges=0
-                                BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
-                                print("удар молнией")
+                        ConditionCastLight(data)
+                        if data.CursedStrike then
+                            HealUnit(data.UnitHero,2)
+                        end
+                    else
+                        if data.CursedStrike then
+                            local amount=(BlzGetUnitMaxHP(data.UnitHero)/100)*2
+                            if GetUnitState(data.UnitHero,UNIT_STATE_LIFE)+1>amount then
+                                UnitDamageTarget( data.UnitHero, data.UnitHero, amount, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
                             end
                         end
                     end
@@ -835,20 +876,23 @@ function attack(data)
 
             TimerStart(CreateTimer(), cdAttack, false, function() -- кд атаки тут для всех ударов
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
+                --print(data.AttackCount)
                 if data.AttackCount<maxAttack and data.AttackCount>0 and StunSystem[GetHandleId(data.UnitHero)].Time==0 then
                     --print(data.AttackCount)
 
 
                     local is,enemy,k=UnitDamageArea(data.UnitHero,damage,nx,ny,100)
-
+                    --print("урон есть?")
                     if enemy then
-                        if data.chargeAttackLightFH then-- изучен и существует
-                            data.chargeAttackLightCharges=data.chargeAttackLightCharges+1
-                            BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
-                            if data.chargeAttackLightCharges>=data.chargeAttackLightChargesMAX then
-                                data.chargeAttackLightCharges=0
-                                BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
-                                print("удар молнией")
+                        ConditionCastLight(data)
+                        if data.CursedStrike then
+                            HealUnit(data.UnitHero,2)
+                        end
+                    else
+                        if data.CursedStrike then
+                            local amount=(BlzGetUnitMaxHP(data.UnitHero)/100)*2
+                            if GetUnitState(data.UnitHero,UNIT_STATE_LIFE)+1>amount then
+                                UnitDamageTarget( data.UnitHero, data.UnitHero, amount, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
                             end
                         end
                     end
@@ -873,7 +917,7 @@ function attack(data)
                 data.ReleaseLMB = false
             end)
 
-            if data.AttackCount>=5 then
+            if data.AttackCount>=maxAttack then
                 data.AttackCount=0
             end
         end
@@ -892,7 +936,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
         onForces[GetHandleId(hero)] = true
         --print("первый раз")
     end
-    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and (onForces[GetHandleId(hero)] or flag=="ignore")  then
+    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and not IsUnitType(hero, UNIT_TYPE_FLYING)  and (onForces[GetHandleId(hero)] or flag=="ignore")  then
         onForces[GetHandleId(hero)]=false
         local m=0
         --print("1")
@@ -914,17 +958,20 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                     damageOnWall=true
                 end
             end
-            if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then --FIXME
-
+            if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then
+                local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
                 --print("попытка нанести урон в рывке")
-
+                local range=300
 
                 local is,du=UnitDamageArea(hero,0,newX, newY,200)
                 if is then
+                    if data.TaurenDash then
+                        range=400
+                        --data.BaseDashDamage=data.BaseDashDamage*2
+                    end
                     if not IsUnitInGroup(du,tempDamageGroup) then
                         GroupAddUnit(tempDamageGroup,du)
-
-                        if UnitDamageArea(hero,100,newX, newY,200,"longForce") then
+                        if UnitDamageArea(hero,data.BaseDashDamage,newX, newY,range,"longForce") then
                             normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
                           --  print("нанесение урона во время рывка рывка")
                         end
@@ -945,7 +992,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                 --data.OnWater=false
                 if flag=="ignore" then
                     --print("перезарядка атаки в рывке")
-                    --HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --FIXME
+                    --HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --
                     HERO[GetPlayerId(GetOwningPlayer(hero))].ResetSeriesTime=0
                 end
                 if flag=="forceAttack" then
@@ -953,6 +1000,11 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                     SetUnitTimeScale(hero,1)
                     UnitDamageArea(hero,50,newX, newY,150)
                     DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic",newX, newY))
+                end
+                if flag=="qjump" then
+                    local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+                    SpellSlashQ(data)
+                    data.ReleaseQ = false
                 end
                 DestroyGroup(tempDamageGroup)
                 DestroyTimer(GetExpiredTimer())
@@ -990,18 +1042,16 @@ function UnitDamageArea(u,damage,x,y,range,flag)
     local k=0
     local all={}
 
-    if GetUnitTypeId(u)==HeroID then
-        local data=HERO[GetPlayerId(GetOwningPlayer(u))]
-        data.Reflected=true
-        TimerStart(CreateTimer(), 0.3, false, function()
-            data.Reflected=false
-        end)
-    end
 
     while true do
         e = FirstOfGroup(perebor)
         if e == nil then break end
-        if UnitAlive(e) and UnitAlive(u) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then
+
+        if UnitAlive(e) and not UnitAlive(u) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and IsUnitType(u,UNIT_TYPE_HERO) then
+            --print("Герой нанёс урон будучи мертвым "..GetUnitName(u))
+        end
+
+        if UnitAlive(e) and UnitAlive(u) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
             if flag=="shotForce" then
                 UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
             end
@@ -1010,15 +1060,22 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                     UnitAddForceSimple(e,AngleBetweenUnits(e,u),5,50)
                 end
             end
-            if flag=="longForce" then
+            if flag=="longForce" then --конусный урон в рывке
                 -- x1, x2 - координаты проверяемой точки
                 -- x2, y2 - координаты вершины сектора
                 -- orientation - ориентация сектора в мировых координатах
                 -- width - уголовой размер сектора в градусах
                 -- radius - окружности которой принадлежит сектор
-
-                if IsPointInSector(GetUnitX(e),GetUnitY(e),GetUnitX(u),GetUnitY(u),GetUnitFacing(u),90,range) then
-                    UnitAddForceSimple(e,AngleBetweenUnits(u,e),20,150,nil,u)
+                local data=HERO[GetPlayerId(GetOwningPlayer(u))]
+                local xb,yb=MoveXY(GetUnitX(u),GetUnitY(u),80,GetUnitFacing(u)-180)
+                local speed=20
+                local dist=150
+                if data.TaurenDash then
+                    speed=speed*2
+                    dist=dist*3
+                end
+                if IsPointInSector(GetUnitX(e),GetUnitY(e),xb,yb,GetUnitFacing(u),90,range) then
+                    UnitAddForceSimple(e,AngleBetweenUnits(u,e),speed,dist,nil,u)
                 else
                     damage=0
                 end
@@ -1112,6 +1169,13 @@ function PlayUnitAnimationFromChat()
             CreateGodTalon(x, y, "Trall")
             return
         end
+        if GetEventPlayerChatString()=="d" or GetEventPlayerChatString()=="в"  then
+
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "PeonDidal")
+            return
+        end
+
         SetUnitAnimationByIndex(data.UnitHero,s)
         --print(GetUnitName(mainHero).." "..s)
     end)
