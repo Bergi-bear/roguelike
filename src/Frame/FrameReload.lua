@@ -26,7 +26,7 @@ DisabledIconPath={
 
 AbilityDescriptionRus={
     "Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади",
-    "Бросает кирку и наносит дистанционный урон на дистанции до 1000",
+    "Запускает кирку в указанном направлении и наносиит урон первому врагу на пути",
     "Делает небольшой рывок в направлении текущего движения",
     "Наносит увеличенный урон по большой площади",
     "Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг"
@@ -172,6 +172,13 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
         local nativeTextString=BlzFrameGetText(text)
         TimerStart(CreateTimer(),2, true, function()
             BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.BaseDashDamage)).." ед. урона, если совершить атаку")
+        end)
+    end
+    if flag=="throw" then
+        --data.attackNormalTooltipTextFH=text
+        local nativeTextString=BlzFrameGetText(text)
+        TimerStart(CreateTimer(),2, true, function()
+            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.DamageThrow)).." ед. урона")
         end)
     end
 

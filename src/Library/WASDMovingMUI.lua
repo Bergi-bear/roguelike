@@ -83,6 +83,9 @@ function InitHeroTable(hero)
         DashChargesReloadSec=2,
         countFrame=0,
         BaseDashDamage=100,
+        ReboundCountMAX=5,
+        ReboundCount=0,
+        DamageThrow=150
     }
 end
 
@@ -689,7 +692,7 @@ function CreateWASDActions()
                         end)
 
                         local xs,ys=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),40,angle)
-                        CreateAndForceBullet(data.UnitHero,angle,50,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",xs,ys)
+                        CreateAndForceBullet(data.UnitHero,angle,50,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",xs,ys,data.DamageThrow,1000)
                     end)
                 end
 
@@ -848,7 +851,8 @@ function attack(data)
                     if enemy then
                         ConditionCastLight(data)
                         if data.CursedStrike then
-                            HealUnit(data.UnitHero,2)
+                            local amount=(BlzGetUnitMaxHP(data.UnitHero)/100)*2
+                            HealUnit(data.UnitHero,amount)
                         end
                     else
                         if data.CursedStrike then

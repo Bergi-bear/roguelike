@@ -15,6 +15,28 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==2 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"rebound")
             data.Rebound=true
+            data.ReboundCountMAX=talon.DS[talon.level]
+            data.ReboundCount=0
+            local lvl2=false
+            local lvl3=false
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==2 then
+                    lvl2=true
+                    data.ReboundCountMAX=talon.DS[talon.level]
+                end
+                if lvl2 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+            TimerStart(CreateTimer(), 1, false, function()
+                if talon.level==3 then
+                    lvl3=true
+                    data.ReboundCountMAX=talon.DS[talon.level]
+                end
+                if lvl3 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
         end
         if pos==3 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"wolfSummon")

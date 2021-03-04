@@ -24,7 +24,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
-                            DS={1,2,3}
+                            DS={2,3,4}
                         }),
                         [3] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
@@ -56,7 +56,7 @@ do
                         [6] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
                             name = "Запасы складов пеонов",
-                            description = "Добавляет + DS зарядов к кикре",
+                            description = "Добавляет заряды к броску кирки +DS",
                             level = 0,
                             rarity = "epic",
                             tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
@@ -346,7 +346,7 @@ do
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
                             name = "Удар проклятой души",
-                            description = "Попадания обычной атаков восстанавливают DS ед. здоровья, в случае промаха вы потеряете DS%% от макс здоровья (не может быть смертельным)",
+                            description = "Попадания обычной атакой восстанавливают DS%% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS%% от макс здоровья (не может быть смертельным)",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
