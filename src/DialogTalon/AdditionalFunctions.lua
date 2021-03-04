@@ -40,3 +40,17 @@ function shake(array)
     end
 end
 
+function checkUlt(i, j, GOD_NAME_ARRAY, ult)
+    if talons[i][j][ult] ~= nil and talons[i][j][ult] then
+        for l = 1, #GOD_NAME_ARRAY do
+            if not (GlobalTalons[i][GodName] == GlobalTalons[i][GOD_NAME_ARRAY[l]]) then
+                for k = 1, #GlobalTalons[i][GOD_NAME_ARRAY[l]] do
+                    if GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] ~= nil and GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] then
+                        GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] = false
+                    end
+                end
+            end
+        end
+    end
+end
+
