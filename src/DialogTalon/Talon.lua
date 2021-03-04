@@ -6,7 +6,9 @@ Talon = {
     rarity = "normal",
     tooltip = nil,
     dependence = nil,
-    DS = nil
+    DS = nil,
+    ultF = nil,
+    ultR = nil
 }
 
 function Talon:new (o)
