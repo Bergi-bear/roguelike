@@ -51,7 +51,8 @@ do
                             level = 0,
                             rarity = "epic",
                             tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
-                            DS={10,20,30}
+                            DS={10,20,30},
+                            ultF = true
                         }),
                         [6] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
@@ -162,7 +163,8 @@ do
                             level = 0,
                             rarity = "epic",
                             tooltip = "Герой может иметь только 1 ультимативную R способность, получение ультимейтов от других богов далее станет невозможным",
-                            DS={1,2,3}
+                            DS={1,2,3},
+                            ultR = true
                         }),
                     },
                     ShadowHunter={
@@ -200,7 +202,8 @@ do
                             level = 0,
                             rarity = "epic",
                             tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
-                            DS={12,10,8}
+                            DS={12,10,8},
+                            ultF = true
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
