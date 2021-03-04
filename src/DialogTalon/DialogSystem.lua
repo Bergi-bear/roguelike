@@ -20,9 +20,15 @@ function CreateDialogTalon(godName)
     listOfNumbers = {}
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
-        for j = 1, #GlobalTalons[i][godName] do --FIXME
+        for j = 1, #GlobalTalons[i][godName] do -- Исправить баг с дыркой в массиве
             if not (GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"]) then
                 listOfNumbers[i][j] = j
+            end
+            if GlobalTalons[i][godName][j]:getUltF() ~= nil and GlobalTalons[i][godName][j]:getUltF() == false then
+                table.remove(listOfNumbers[i], j)
+            end
+            if GlobalTalons[i][godName][j]:getUltR() ~= nil and GlobalTalons[i][godName][j]:getUltR() == false then
+                table.remove(listOfNumbers[i], j)
             end
             -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
             -- если уровень равен 0, то исключаем зависимый талант из списка
@@ -87,7 +93,4 @@ function CreateDialogTalon(godName)
         BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
         SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
     end
-
-    --DialogTalon.Tooltip = {}
-    --DialogTalon.Tooltip.Frame = BlzCreateFrameByType("FRAME", "DialogTalonTooltipFrame", )
 end
