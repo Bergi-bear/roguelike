@@ -1928,6 +1928,7 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
         if pos==2 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"rebound")
+            data.Rebound=true
         end
         if pos==3 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"wolfSummon")
@@ -3384,6 +3385,8 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 			end
 		end
 
+
+
 		CollisisonDestr = PointContentDestructable(x, y, CollisionRange, false,0,hero)
 		local PerepadZ = zGround - z
 		if not reverse and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
@@ -3395,6 +3398,18 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 			DestroyEffect(bullet)
 			DestroyTimer(GetExpiredTimer())
 
+			if HERO[GetPlayerId(GetOwningPlayer(hero))] then
+				local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+				if not data.Rebound then
+
+					local find=FindAnotherUnit(DamagingUnit)
+					if find then
+						print("отскок")
+						local af=AngleBetweenUnits(DamagingUnit,find)
+						CreateAndForceBullet(data.UnitHero,af,20,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",GetUnitX(DamagingUnit),GetUnitY(DamagingUnit),50,700)
+					end
+				end
+			end
 
 			if not DamagingUnit then
 				DestroyEffect(bullet)
@@ -3404,6 +3419,23 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 	end)
 end
 
+
+function FindAnotherUnit(unit)
+	local e=nil
+	local find=nil
+	local k=0
+	local x,y=GetUnitXY(unit)
+		GroupEnumUnitsInRange(perebor,x,y,500,nil)
+		while true do
+			e = FirstOfGroup(perebor)
+			if e == nil then break end
+			if UnitAlive(e) and UnitAlive(unit) and (IsUnitEnemy(e,GetOwningPlayer(unit)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and not find and find~=unit then
+				find=e
+			end
+			GroupRemoveUnit(perebor,e)
+		end
+	return find
+end
 
 
 

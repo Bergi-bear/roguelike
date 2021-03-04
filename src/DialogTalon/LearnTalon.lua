@@ -14,6 +14,7 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
         if pos==2 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"rebound")
+            data.Rebound=true
         end
         if pos==3 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"wolfSummon")
