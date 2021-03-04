@@ -68,3 +68,11 @@ end
 function Talon:getIcon()
     return self.icon
 end
+
+function Talon:getUltF()
+    return self.ultF
+end
+
+function Talon:getUltR()
+    return self.ultR
+end
