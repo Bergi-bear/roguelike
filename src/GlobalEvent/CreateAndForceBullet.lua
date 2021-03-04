@@ -3,7 +3,7 @@
 --- Created by Bergi.
 --- DateTime: 06.02.2020 12:47
 ---
-function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,maxDistance)
+function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,maxDistance,delay)
 	local CollisionRange = 80
 	if not damage then
 		damage = 200
@@ -14,6 +14,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 	if not maxDistance then
 		maxDistance=1000
 	end
+	if not delay then delay=0 end
 	local zhero = GetUnitZ(hero) + 60
 	local bullet = AddSpecialEffect(effectmodel, xs, ys)
 	BlzSetSpecialEffectYaw(bullet, math.rad(angle))
@@ -24,12 +25,18 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 		BlzSetSpecialEffectScale(bullet, 0.7)
 	end
 
+	if effectmodel == "Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl" then
+
+	end
+
 	BlzSetSpecialEffectZ(bullet, zhero)
 	local angleCurrent = angle
 	local heroCurrent = hero
 	local dist = 0
+
 	TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
 		dist = dist + speed
+		delay=delay-speed
 		local x, y, z = BlzGetLocalSpecialEffectX(bullet), BlzGetLocalSpecialEffectY(bullet), BlzGetLocalSpecialEffectZ(bullet)
 		local zGround = GetTerrainZ(MoveX(x, speed * 2, angleCurrent), MoveY(y, speed * 2, angleCurrent))
 		BlzSetSpecialEffectYaw(bullet, math.rad(angleCurrent))
@@ -67,7 +74,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 
 		CollisisonDestr = PointContentDestructable(x, y, CollisionRange, false,0,hero)
 		local PerepadZ = zGround - z
-		if not reverse and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
+		if not reverse and delay<=0 and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
 			PointContentDestructable(x, y, CollisionRange, true,0,heroCurrent)
 			UnitDamageArea(heroCurrent, damage, x, y, CollisionRange)
 			if DamagingUnit  and IsUnitType(heroCurrent,UNIT_TYPE_HERO) then
@@ -78,13 +85,17 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 
 			if HERO[GetPlayerId(GetOwningPlayer(hero))] then
 				local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
-				if not data.Rebound then
-
-					local find=FindAnotherUnit(DamagingUnit)
+				if data.Rebound then
+					local find=FindAnotherUnit(DamagingUnit,data)
 					if find then
-						print("отскок")
-						local af=AngleBetweenUnits(DamagingUnit,find)
-						CreateAndForceBullet(data.UnitHero,af,20,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",GetUnitX(DamagingUnit),GetUnitY(DamagingUnit),50,700)
+						if data.ReboundCount<=data.ReboundCountMAX then
+							---print("отскок в"..GetUnitName(find))
+							local af=AngleBetweenUnits(DamagingUnit,find)
+							CreateAndForceBullet(hero,af,20,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",GetUnitX(DamagingUnit),GetUnitY(DamagingUnit),data.DamageThrow,1000,150)
+							data.ReboundCount=data.ReboundCount+1
+						else
+							data.ReboundCount=0
+						end
 					end
 				end
 			end
@@ -98,7 +109,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 end
 
 
-function FindAnotherUnit(unit)
+function FindAnotherUnit(unit,data)
 	local e=nil
 	local find=nil
 	local k=0
@@ -107,7 +118,7 @@ function FindAnotherUnit(unit)
 		while true do
 			e = FirstOfGroup(perebor)
 			if e == nil then break end
-			if UnitAlive(e) and UnitAlive(unit) and (IsUnitEnemy(e,GetOwningPlayer(unit)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and not find and find~=unit then
+			if UnitAlive(e)  and (IsUnitEnemy(e,GetOwningPlayer(data.UnitHero)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and not find and e~=unit then
 				find=e
 			end
 			GroupRemoveUnit(perebor,e)

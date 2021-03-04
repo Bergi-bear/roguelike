@@ -23,7 +23,7 @@ function OnPostDamage()
 		end
 	end
 
-	if GetUnitTypeId(caster)==HeroID then
+	if GetUnitTypeId(caster)==HeroID and caster~=target then
 		local data=HERO[GetPlayerId(GetOwningPlayer(caster))]
 		local x,y=GetUnitXY(caster)
 		local xe,ye=GetUnitXY(target)
