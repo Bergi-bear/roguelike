@@ -4,9 +4,9 @@
 --- DateTime: 28.02.2021 16:06
 ---
 
-function LearnCurrentTalonForPlayer(pid,godName,talon)
+function LearnCurrentTalonForPlayer(pid,godName,pos)
     local data=HERO[pid-1]
-    --local talon=GlobalTalons[pid][godName][pos]
+    local talon=GlobalTalons[pid][godName][pos]
     local x,y,size=0.02,0.015,0.03
     if godName=="Trall" and  talon.level==1 then
         if pos==1 then

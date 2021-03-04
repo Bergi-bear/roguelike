@@ -18,6 +18,7 @@ function CreateDialogTalon(godName)
 
     talons = {}
     listOfNumbers = {}
+    index = {}
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
         for j = 1, #GlobalTalons[i][godName] do -- Исправить баг с дыркой в массиве
@@ -44,10 +45,12 @@ function CreateDialogTalon(godName)
 
     for i = 1, bj_MAX_PLAYERS do
         talons[i] = {}
+        index[i] = {}
         local count = 0
         for j = 1, #GlobalTalons[i][godName] do
             if not (listOfNumbers[i][j] == nil) then
                 table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
+                table.insert(index[i], listOfNumbers[i][j])
                 count = count + 1
             end
             if count == 4 then
