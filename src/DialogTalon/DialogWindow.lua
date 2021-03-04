@@ -9,6 +9,13 @@ do
 
             local GAME_UI = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
 
+            local GOD_NAME_ARRAY = {
+                "Trall",
+                "HeroBlademaster",
+                "HeroTaurenChieftain",
+                "ShadowHunter",
+            }
+
             DialogTalon = {}
 
             DialogTalon.MainFrame = {}
@@ -116,6 +123,8 @@ do
                         if DialogTalon.IsOpen[i] == true then
                             DialogTalon.IsOpen[i] = false
                             talons[i][j]:updateLevel()
+                            checkUlt(i, j, GOD_NAME_ARRAY, "ultF")
+                            checkUlt(i, j, GOD_NAME_ARRAY, "ultR")
                             -- Закрываем окно талантов
                             BlzFrameSetEnable(BlzGetTriggerFrame(), false)
                             BlzFrameSetEnable(BlzGetTriggerFrame(), true)
