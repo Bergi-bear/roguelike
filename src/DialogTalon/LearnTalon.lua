@@ -74,6 +74,8 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==6 then
             data.ThrowCharges=data.ThrowCharges+1
             BlzFrameSetText(data.ThrowChargesFH,data.ThrowCharges)
+            local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            UpdateTalonDescriptionForFrame(talon,tt)
             local lvl2=false
             local lvl3=false
             TimerStart(CreateTimer(), 1, true, function()
@@ -127,13 +129,43 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
         if pos==4 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            
         end
         if pos==5 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
             data.SpinHasAddDamage=true
         end
-        if pos==6 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        if pos==6 then -- доп рывок
+            local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            UpdateTalonDescriptionForFrame(talon,tt)
+            --data.HasAddDashCharges=true
+            data.DashCharges=data.DashCharges+1
+            BlzFrameSetText(data.DashChargesFH,data.DashCharges)
+
+            local lvl2=false
+            local lvl3=false
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==2 then
+                    lvl2=true
+                    data.DashCharges=data.DashCharges+1
+                    BlzFrameSetText(data.DashChargesFH,data.DashCharges)
+                end
+                if lvl2 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==3 then
+                    lvl3=true
+                    data.DashCharges=data.DashCharges+1
+                    BlzFrameSetText(data.DashChargesFH,data.DashCharges)
+                end
+                if lvl3 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+
         end
         if pos==7 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
@@ -199,4 +231,30 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             data.QJump2Pointer=true
         end
     end
+end
+
+function UpdateTalonDescriptionForFrame(talon,toolTipFH)
+    local lvl2=false
+    local lvl3=false
+    TimerStart(CreateTimer(), 1, true, function()
+        if talon.level==2 then
+            local new=talon:updateDescriptionCurrent()
+            lvl2=true
+            BlzFrameSetText(toolTipFH,new)
+        end
+        if lvl2 then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+
+    TimerStart(CreateTimer(), 1, true, function()
+        if talon.level==3 then
+            lvl3=true
+            local new=talon:updateDescriptionCurrent()
+            BlzFrameSetText(toolTipFH,new)
+        end
+        if lvl3 then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
 end

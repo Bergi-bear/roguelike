@@ -267,7 +267,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
 
     ---Глобализация
     data.countFrame=k+1
-    --return buttonIconFrame,ClickTrig
+    return text
 end
 
 
