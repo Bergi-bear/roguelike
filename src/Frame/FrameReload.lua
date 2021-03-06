@@ -167,8 +167,11 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
             end
         end)
     end
-    if flag=="windWalk" then
+    if flag=="WindWalk" then
         data.WindWalkCDFH=buttonIconFrame
+    end
+    if flag=="CriticalStrike" then
+        data.CriticalStrikeCDFH=buttonIconFrame
     end
 
 
@@ -219,6 +222,19 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
         local nativeTextString=BlzFrameGetText(text)
         TimerStart(CreateTimer(),2, true, function()
             BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.DamageThrow)).." ед. урона")
+        end)
+    end
+    if flag=="spin" then
+        --data.attackNormalTooltipTextFH=text
+        local nativeTextString=BlzFrameGetText(text)
+        TimerStart(CreateTimer(),2, true, function()
+            local damage=data.SpinBaseDamage
+            if data.SpinHasAddDamage then
+                local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][5]
+                local m=talon.DS[talon.level]
+                damage=damage*m
+            end
+            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(damage)).." ед. урона")
         end)
     end
 

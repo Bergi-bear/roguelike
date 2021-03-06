@@ -98,8 +98,6 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18406.4, -13782.6, 12.085, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18402.4, -13674.7, 19.315, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18409.3, -13563.0, 226.106, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18414.5, -13453.4, 258.033, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18418.5, -13368.1, 46.364, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18421.6, -13266.2, 197.419, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18421.0, -13129.8, 13.085, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18429.8, -13091.4, 76.830, FourCC("hpea"))
@@ -194,9 +192,9 @@ function CreateRegions()
     gg_rct_S8A = Rect(18240.0, -4608.0, 19552.0, -3680.0)
     gg_rct_B8A = Rect(18848.0, -4352.0, 18976.0, -3936.0)
     gg_rct_S9A = Rect(21376.0, -3616.0, 23328.0, -2688.0)
-    gg_rct_B9A = Rect(22144.0, -4384.0, 22624.0, -3712.0)
+    gg_rct_B9A = Rect(22144.0, -4416.0, 22624.0, -3232.0)
     gg_rct_S10A = Rect(21696.0, -8576.0, 23840.0, -7488.0)
-    gg_rct_B10A = Rect(22528.0, -7744.0, 23008.0, -7072.0)
+    gg_rct_B10A = Rect(22528.0, -7872.0, 23008.0, -6912.0)
     gg_rct_S11A = Rect(21408.0, -11168.0, 22688.0, -10080.0)
     gg_rct_B11A = Rect(21984.0, -10816.0, 22112.0, -10336.0)
     gg_rct_E11A = Rect(21504.0, -11648.0, 21792.0, -11040.0)
@@ -533,7 +531,13 @@ function StartAndReleaseSpin(data)
                 if data.ChargedSpinArea>200 then
                     state="blackHole"
                 end
-                if UnitDamageArea(hero,25,x,y,data.ChargedSpinArea,state) then
+                local damage=data.SpinBaseDamage
+                if data.SpinHasAddDamage then
+                    local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][5]
+                    local k=talon.DS[talon.level]
+                    damage=damage*k
+                end
+                if UnitDamageArea(hero,damage,x,y,data.ChargedSpinArea,state) then
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
                 end
             end
@@ -961,6 +965,8 @@ function CreateEActions()
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+                KillUnit(data.EPointUnit)
+                CreateGodTalon(GetUnitX(data.EPointUnit),GetUnitY(data.EPointUnit), "PeonDidal")
             end
             if data.UseAction == "SoFar" then
                 local message = "Ничего не видно без оптического прибора"
@@ -1093,6 +1099,18 @@ function CreateEActions()
                 data.DoAction = false
                 data.UseAction = ""
                 KillUnit(data.EPointUnit)
+            end
+            if data.UseAction == "HeroBeastMaster" then
+                local message = "Сила братьев"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
+                DestroyGodTalon(LastGodTalon)
+                CreateDialogTalon("HeroBeastMaster")
+                AllActionsEnabled(true)
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
+                --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
             ----------------------------------------------------/
             ---------------Прочие дары--------------------------/
@@ -1728,6 +1746,10 @@ function CreateDialogTalon(godName)
         title = "Дары Вождя минотавров"
     elseif godName == "ShadowHunter" then
         title = "Дары Ловца теней"
+    elseif godName == "PeonDidal" then
+        title = "Кирка Дидала"
+    elseif godName == "HeroBeastMaster" then
+        title = "Дары повелителя зверей"
     end
 
     talons = {}
@@ -1834,6 +1856,7 @@ do
                 "HeroTaurenChieftain",
                 "ShadowHunter",
                 "PeonDidal",
+                "HeroBeastMaster",
             }
 
             DialogTalon = {}
@@ -2086,7 +2109,25 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
     end
     if godName=="HeroBlademaster" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"windWalk")
+        if pos==1 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"WindWalk")
+            data.WindWalkCurrentCD=0
+        end
+        if pos==2 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"CriticalStrike")
+            data.CriticalStrikeCurrentCD=0
+        end
+        if pos==3 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            data.HasMultipleCritical=true
+        end
+        if pos==4 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        end
+        if pos==5 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            data.SpinHasAddDamage=true
+        end
 
     end
     if godName=="ShadowHunter" and  talon.level==1 then
@@ -2095,7 +2136,22 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
     end
-
+    if godName=="HeroBeastMaster" and  talon.level==1 then
+        if not data.BeastCountTalon then data.BeastCountTalon=0 end
+        data.BeastCountTalon=data.BeastCountTalon+1
+        if pos==1 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\"..data.BeastCountTalon,"SummonLizard")
+        end
+        if pos==2 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\"..data.BeastCountTalon,"SummonBear")
+        end
+        if pos==3 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\"..data.BeastCountTalon,"SummonBoar")
+        end
+        if pos==4 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\"..data.BeastCountTalon,"SummonIceWolf")
+        end
+    end
     if godName=="PeonDidal" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
 
@@ -2319,19 +2375,19 @@ do
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWindWalkOn.blp",
                             name = "Ветряной шаг смерти",
-                            description = "Падение здоровья меньше 10% вызывает невидимость. Перезарядка DS сек",
+                            description = "Падение здоровья меньше 30% вызывает невидимость. Перезарядка DS сек",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
-                            DS={10,9,8}
+                            DS={10,5,3}
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
                             name = "Боевая ярость",
-                            description = "Любой исходящий урон может быть критическим X 1.25 Перезарядка DS сек",
+                            description = "Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Изучение этого таланта открывает доступ к таланту на множитель крит урона",
+                            tooltip = "Изучение этого таланта открывает доступ к таланту на множитель критического урона",
                             DS={6,4,3}
                         }),
                         Talon:new({
@@ -2352,14 +2408,14 @@ do
                             tooltip = "Иллюзии не наносят урона и получают 200% урона",
                             DS={10,8,6}
                         }),
-                        Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
+                        Talon:new({ --5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
                             name = "Большой размах",
-                            description = "Увеличивает урон на 50% и зону поражения вращения на DS ",
+                            description = "Увеличивает урон на DS раза от вращающийся атаки ",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
-                            DS={100,150,200}
+                            DS={1.5,2,2.5}
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
@@ -2487,7 +2543,7 @@ do
                     },
                     HeroBeastMaster={ -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
                             name = "Ящер",
                             description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 60. Урон: 100",
                             level = 0,
@@ -2496,7 +2552,7 @@ do
                             DS={1}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
                             name = "Медведь",
                             description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при падении и агрит на себя врагов. Перезарядка: 60. Длительность: 10",
                             level = 0,
@@ -2505,16 +2561,16 @@ do
                             DS={1}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
                             name = "Кабан",
-                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядк: 20. Длительность: 50",
+                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Призывает существо",
                             DS={1}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
                             name = "Волк",
                             description = "Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк убивает замороженных врагов с 1 удара",
                             level = 0,
@@ -2780,8 +2836,11 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
             end
         end)
     end
-    if flag=="windWalk" then
+    if flag=="WindWalk" then
         data.WindWalkCDFH=buttonIconFrame
+    end
+    if flag=="CriticalStrike" then
+        data.CriticalStrikeCDFH=buttonIconFrame
     end
 
 
@@ -2832,6 +2891,19 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
         local nativeTextString=BlzFrameGetText(text)
         TimerStart(CreateTimer(),2, true, function()
             BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.DamageThrow)).." ед. урона")
+        end)
+    end
+    if flag=="spin" then
+        --data.attackNormalTooltipTextFH=text
+        local nativeTextString=BlzFrameGetText(text)
+        TimerStart(CreateTimer(),2, true, function()
+            local damage=data.SpinBaseDamage
+            if data.SpinHasAddDamage then
+                local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][5]
+                local m=talon.DS[talon.level]
+                damage=damage*m
+            end
+            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(damage)).." ед. урона")
         end)
     end
 
@@ -3695,24 +3767,47 @@ function OnPostDamage()
 	else
 		--print("наш герой получил урон")
 		local data=HERO[GetPlayerId(GetOwningPlayer(target))]
-		if data.HealDash and data.HealDashCurrentCD<=0 then
+		if data.HealDash and data.HealDashCurrentCD<=0 then --лечение рывком
 			data.Time2HealDash=damage
 			TimerStart(CreateTimer(), 0.5, false, function()
 				data.Time2HealDash=0
 			end)
 		end
-		if damage>=GetUnitState(target,UNIT_STATE_LIFE) then
+		if damage>=GetUnitState(target,UNIT_STATE_LIFE) then -- смертельный урон от тралла
 			--print("получен смертельный урон")
 
 			if data.InvulPreDeathCurrentCD<=0 and data.InvulPreDeathCDFH then
 				--print("получен смертельный урон")
 				BlzSetEventDamage(0)
+				SetUnitInvulnerable(target,true)
+				TimerStart(CreateTimer(), 2, false, function()
+					SetUnitInvulnerable(target,false)
+				end)
 				local talon=GlobalTalons[data.pid+1]["Trall"][8]
 				local cd=talon.DS[talon.level]
 				data.InvulPreDeathCurrentCD=cd
 				StartFrameCD(cd,data.InvulPreDeathCDFH )
-				TimerStart(CreateTimer(), cd, false, function()
+					TimerStart(CreateTimer(), cd, false, function()
 					data.InvulPreDeathCurrentCD=0
+				end)
+			end
+		end
+		if data.WindWalkCDFH then -- есть фрейм призрачного шага
+			--print("талант изучен")
+			if data.WindWalkCurrentCD<=0 and GetUnitLifePercent(target)<=30 then
+				--print("условия выполнены")
+				local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][1]
+				local cd=talon.DS[talon.level]
+				data.WindWalkCurrentCD=cd
+				StartFrameCD(cd,data.WindWalkCDFH )
+				--print("в инвиз")
+				SetUnitInvulnerable(target,true)
+				TimerStart(CreateTimer(), 2, false, function()
+					SetUnitInvulnerable(target,false)
+				end)
+				UnitAddItemById(target,FourCC("I001"))
+				TimerStart(CreateTimer(), cd, false, function()
+					data.WindWalkCurrentCD=0
 				end)
 			end
 		end
@@ -3736,7 +3831,32 @@ function OnPostDamage()
 		if GetUnitAbilityLevel(target,FourCC("BNms"))>0 and data.ShieldBreakerIsLearn then
 			BlzSetEventDamage(damage*5)
 		end
+
+		if data.CriticalStrikeCDFH then
+			if data.CriticalStrikeCurrentCD<=0 then
+				local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][2]
+				local cd=talon.DS[talon.level]
+				data.CriticalStrikeCurrentCD=cd
+				StartFrameCD(cd,data.CriticalStrikeCDFH )
+
+				local talonM=GlobalTalons[data.pid+1]["HeroBlademaster"][3]
+				local ks=1.5
+				if data.HasMultipleCritical then
+					if talonM.level>0 then
+						ks=talonM.DS[talonM.level]
+					end
+				end
+				BlzSetEventDamage(GetEventDamage()*ks)
+
+
+				TimerStart(CreateTimer(), cd, false, function()
+					data.CriticalStrikeCurrentCD=0
+				end)
+			end
+		end
 	end
+
+
 
 	if GetUnitTypeId(target)~=HeroID and GetUnitTypeId(caster)==HeroID then --Функция должна быть в самом низу
 		AddDamage2Show(target,GetEventDamage())
@@ -4842,6 +4962,7 @@ function InitHeroTable(hero)
         SpinChargesMAX=40, --максимальное количество зарядов вращения
         SpinRegeneratingRate=0,
         ChargedSpinArea=150,
+        SpinBaseDamage=25,
         --Способность бросок кирки
         ThrowCharges=2,
         ThrowChargesFH=nil,
@@ -5950,7 +6071,7 @@ function PlayUnitAnimationFromChat()
             SetUnitPositionSmooth(data.UnitHero,-5500,-3000)
             return
         end
-        if GetEventPlayerChatString()=="b" then
+        if GetEventPlayerChatString()=="bound" then
             print("освобождаем камеру")
             FREE_CAMERA=true
             SetCameraBoundsToRectForPlayerBJ(Player(0),bj_mapInitialPlayableArea)
@@ -5969,11 +6090,17 @@ function PlayUnitAnimationFromChat()
             return
         end
         if GetEventPlayerChatString()=="b" or GetEventPlayerChatString()=="и"  then
-
             local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateGodTalon(x, y, "HeroBlademaster")
-
+            return
         end
+
+        if GetEventPlayerChatString()=="r" or GetEventPlayerChatString()=="к"  then
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "HeroBeastMaster")
+            return
+        end
+
 
         SetUnitAnimationByIndex(data.UnitHero,s)
         --print(GetUnitName(mainHero).." "..s)
@@ -6064,7 +6191,7 @@ function InitAllyPriorities()
 end
 
 function main()
-    SetCameraBounds(512.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -14336.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 25088.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -2048.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 512.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -2048.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 25088.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -14336.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
+    SetCameraBounds(512.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -26624.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 25088.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -2048.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 512.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -2048.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 25088.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -26624.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
     SetDayNightModels("Environment\\DNC\\DNCLordaeron\\DNCLordaeronTerrain\\DNCLordaeronTerrain.mdl", "Environment\\DNC\\DNCLordaeron\\DNCLordaeronUnit\\DNCLordaeronUnit.mdl")
     SetTerrainFogEx(0, 2000.0, 6000.0, 1.000, 0.706, 0.863, 0.824)
     SetWaterBaseColor(128, 200, 200, 255)

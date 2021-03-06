@@ -14,6 +14,10 @@ function CreateDialogTalon(godName)
         title = "Дары Вождя минотавров"
     elseif godName == "ShadowHunter" then
         title = "Дары Ловца теней"
+    elseif godName == "PeonDidal" then
+        title = "Кирка Дидала"
+    elseif godName == "HeroBeastMaster" then
+        title = "Дары повелителя зверей"
     end
 
     talons = {}

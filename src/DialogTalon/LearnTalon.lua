@@ -113,7 +113,31 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
     end
     if godName=="HeroBlademaster" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"windWalk")
+        if pos==1 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"WindWalk")
+            data.WindWalkCurrentCD=0
+        end
+        if pos==2 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"CriticalStrike")
+            data.CriticalStrikeCurrentCD=0
+        end
+        if pos==3 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            data.HasMultipleCritical=true
+        end
+        if pos==4 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        end
+        if pos==5 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            data.SpinHasAddDamage=true
+        end
+        if pos==6 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        end
+        if pos==7 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        end
 
     end
     if godName=="ShadowHunter" and  talon.level==1 then
@@ -122,7 +146,22 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
     end
-
+    if godName=="HeroBeastMaster" and  talon.level==1 then
+        if not data.BeastCountTalon then data.BeastCountTalon=0 end
+        data.BeastCountTalon=data.BeastCountTalon+1
+        if pos==1 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\"..data.BeastCountTalon,"SummonLizard")
+        end
+        if pos==2 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\"..data.BeastCountTalon,"SummonBear")
+        end
+        if pos==3 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\"..data.BeastCountTalon,"SummonBoar")
+        end
+        if pos==4 then
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\"..data.BeastCountTalon,"SummonIceWolf")
+        end
+    end
     if godName=="PeonDidal" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
 

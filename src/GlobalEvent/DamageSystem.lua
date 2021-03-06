@@ -24,24 +24,47 @@ function OnPostDamage()
 	else
 		--print("наш герой получил урон")
 		local data=HERO[GetPlayerId(GetOwningPlayer(target))]
-		if data.HealDash and data.HealDashCurrentCD<=0 then
+		if data.HealDash and data.HealDashCurrentCD<=0 then --лечение рывком
 			data.Time2HealDash=damage
 			TimerStart(CreateTimer(), 0.5, false, function()
 				data.Time2HealDash=0
 			end)
 		end
-		if damage>=GetUnitState(target,UNIT_STATE_LIFE) then
+		if damage>=GetUnitState(target,UNIT_STATE_LIFE) then -- смертельный урон от тралла
 			--print("получен смертельный урон")
 
 			if data.InvulPreDeathCurrentCD<=0 and data.InvulPreDeathCDFH then
 				--print("получен смертельный урон")
 				BlzSetEventDamage(0)
+				SetUnitInvulnerable(target,true)
+				TimerStart(CreateTimer(), 2, false, function()
+					SetUnitInvulnerable(target,false)
+				end)
 				local talon=GlobalTalons[data.pid+1]["Trall"][8]
 				local cd=talon.DS[talon.level]
 				data.InvulPreDeathCurrentCD=cd
 				StartFrameCD(cd,data.InvulPreDeathCDFH )
-				TimerStart(CreateTimer(), cd, false, function()
+					TimerStart(CreateTimer(), cd, false, function()
 					data.InvulPreDeathCurrentCD=0
+				end)
+			end
+		end
+		if data.WindWalkCDFH then -- есть фрейм призрачного шага
+			--print("талант изучен")
+			if data.WindWalkCurrentCD<=0 and GetUnitLifePercent(target)<=30 then
+				--print("условия выполнены")
+				local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][1]
+				local cd=talon.DS[talon.level]
+				data.WindWalkCurrentCD=cd
+				StartFrameCD(cd,data.WindWalkCDFH )
+				--print("в инвиз")
+				SetUnitInvulnerable(target,true)
+				TimerStart(CreateTimer(), 2, false, function()
+					SetUnitInvulnerable(target,false)
+				end)
+				UnitAddItemById(target,FourCC("I001"))
+				TimerStart(CreateTimer(), cd, false, function()
+					data.WindWalkCurrentCD=0
 				end)
 			end
 		end
@@ -65,7 +88,32 @@ function OnPostDamage()
 		if GetUnitAbilityLevel(target,FourCC("BNms"))>0 and data.ShieldBreakerIsLearn then
 			BlzSetEventDamage(damage*5)
 		end
+
+		if data.CriticalStrikeCDFH then
+			if data.CriticalStrikeCurrentCD<=0 then
+				local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][2]
+				local cd=talon.DS[talon.level]
+				data.CriticalStrikeCurrentCD=cd
+				StartFrameCD(cd,data.CriticalStrikeCDFH )
+
+				local talonM=GlobalTalons[data.pid+1]["HeroBlademaster"][3]
+				local ks=1.5
+				if data.HasMultipleCritical then
+					if talonM.level>0 then
+						ks=talonM.DS[talonM.level]
+					end
+				end
+				BlzSetEventDamage(GetEventDamage()*ks)
+
+
+				TimerStart(CreateTimer(), cd, false, function()
+					data.CriticalStrikeCurrentCD=0
+				end)
+			end
+		end
 	end
+
+
 
 	if GetUnitTypeId(target)~=HeroID and GetUnitTypeId(caster)==HeroID then --Функция должна быть в самом низу
 		AddDamage2Show(target,GetEventDamage())

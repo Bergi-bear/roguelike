@@ -35,7 +35,13 @@ function StartAndReleaseSpin(data)
                 if data.ChargedSpinArea>200 then
                     state="blackHole"
                 end
-                if UnitDamageArea(hero,25,x,y,data.ChargedSpinArea,state) then
+                local damage=data.SpinBaseDamage
+                if data.SpinHasAddDamage then
+                    local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][5]
+                    local k=talon.DS[talon.level]
+                    damage=damage*k
+                end
+                if UnitDamageArea(hero,damage,x,y,data.ChargedSpinArea,state) then
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
                 end
             end

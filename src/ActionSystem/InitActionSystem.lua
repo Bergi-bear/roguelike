@@ -371,6 +371,8 @@ function CreateEActions()
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+                KillUnit(data.EPointUnit)
+                CreateGodTalon(GetUnitX(data.EPointUnit),GetUnitY(data.EPointUnit), "PeonDidal")
             end
             if data.UseAction == "SoFar" then
                 local message = "Ничего не видно без оптического прибора"
@@ -503,6 +505,18 @@ function CreateEActions()
                 data.DoAction = false
                 data.UseAction = ""
                 KillUnit(data.EPointUnit)
+            end
+            if data.UseAction == "HeroBeastMaster" then
+                local message = "Сила братьев"
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
+                DestroyGodTalon(LastGodTalon)
+                CreateDialogTalon("HeroBeastMaster")
+                AllActionsEnabled(true)
+                data.DoAction = false
+                data.UseAction = ""
+                KillUnit(data.EPointUnit)
+                --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
             ----------------------------------------------------/
             ---------------Прочие дары--------------------------/

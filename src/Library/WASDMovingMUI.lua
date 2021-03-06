@@ -72,6 +72,7 @@ function InitHeroTable(hero)
         SpinChargesMAX=40, --максимальное количество зарядов вращения
         SpinRegeneratingRate=0,
         ChargedSpinArea=150,
+        SpinBaseDamage=25,
         --Способность бросок кирки
         ThrowCharges=2,
         ThrowChargesFH=nil,
@@ -1180,7 +1181,7 @@ function PlayUnitAnimationFromChat()
             SetUnitPositionSmooth(data.UnitHero,-5500,-3000)
             return
         end
-        if GetEventPlayerChatString()=="b" then
+        if GetEventPlayerChatString()=="bound" then
             print("освобождаем камеру")
             FREE_CAMERA=true
             SetCameraBoundsToRectForPlayerBJ(Player(0),bj_mapInitialPlayableArea)
@@ -1199,11 +1200,17 @@ function PlayUnitAnimationFromChat()
             return
         end
         if GetEventPlayerChatString()=="b" or GetEventPlayerChatString()=="и"  then
-
             local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateGodTalon(x, y, "HeroBlademaster")
-
+            return
         end
+
+        if GetEventPlayerChatString()=="r" or GetEventPlayerChatString()=="к"  then
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "HeroBeastMaster")
+            return
+        end
+
 
         SetUnitAnimationByIndex(data.UnitHero,s)
         --print(GetUnitName(mainHero).." "..s)

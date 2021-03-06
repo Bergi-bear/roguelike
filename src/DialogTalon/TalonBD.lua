@@ -105,19 +105,19 @@ do
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWindWalkOn.blp",
                             name = "Ветряной шаг смерти",
-                            description = "Падение здоровья меньше 10%% вызывает невидимость. Перезарядка DS сек",
+                            description = "Падение здоровья меньше 30%% вызывает невидимость. Перезарядка DS сек",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
-                            DS={10,9,8}
+                            DS={10,5,3}
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
                             name = "Боевая ярость",
-                            description = "Любой исходящий урон может быть критическим X 1.25 Перезарядка DS сек",
+                            description = "Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Изучение этого таланта открывает доступ к таланту на множитель крит урона",
+                            tooltip = "Изучение этого таланта открывает доступ к таланту на множитель критического урона",
                             DS={6,4,3}
                         }),
                         Talon:new({
@@ -138,14 +138,14 @@ do
                             tooltip = "Иллюзии не наносят урона и получают 200%% урона",
                             DS={10,8,6}
                         }),
-                        Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
+                        Talon:new({ --5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
                             name = "Большой размах",
-                            description = "Увеличивает урон на 50%% и зону поражения вращения на DS ",
+                            description = "Увеличивает урон на DS раза от вращающийся атаки ",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
-                            DS={100,150,200}
+                            DS={1.5,2,2.5}
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
@@ -273,7 +273,7 @@ do
                     },
                     HeroBeastMaster={ -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
                             name = "Ящер",
                             description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 60. Урон: 100",
                             level = 0,
@@ -282,7 +282,7 @@ do
                             DS={1}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
                             name = "Медведь",
                             description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при падении и агрит на себя врагов. Перезарядка: 60. Длительность: 10",
                             level = 0,
@@ -291,16 +291,16 @@ do
                             DS={1}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
                             name = "Кабан",
-                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядк: 20. Длительность: 50",
+                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Призывает существо",
                             DS={1}
                         }),
                         Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
                             name = "Волк",
                             description = "Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк убивает замороженных врагов с 1 удара",
                             level = 0,
