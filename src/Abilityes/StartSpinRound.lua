@@ -29,9 +29,13 @@ function StartAndReleaseSpin(data)
                 data.SpinReflect=true
                 BlzFrameSetText(data.SpinChargesFH,data.SpinCharges)
                 DestroyEffect(eff)
-                BlzSetSpecialEffectScale(eff,0.5)
+                BlzSetSpecialEffectScale(eff,data.ChargedSpinArea/300)
                 sec=0
-                if UnitDamageArea(hero,25,x,y,150,"blackHole") then
+                local state=""
+                if data.ChargedSpinArea>200 then
+                    state="blackHole"
+                end
+                if UnitDamageArea(hero,25,x,y,data.ChargedSpinArea,state) then
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
                 end
             end

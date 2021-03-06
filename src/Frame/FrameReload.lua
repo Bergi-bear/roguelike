@@ -127,8 +127,48 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
         data.InvulPreDeathCDFH=buttonIconFrame
     end
 
-    if flag=="PeonDidal" then
-       -- data.InvulPreDeathCDFH=buttonIconFrame
+    if flag=="wolfSummon" then
+       -- data.wolfSummonCDFH=buttonIconFrame
+        data.SpiritWolf=nil
+        local sec=0
+        local talon=GlobalTalons[data.pid+1]["Trall"][3]
+        TimerStart(CreateTimer(), 1, true, function()
+            local cdSec=talon.DS[talon.level]
+            local effmodel="Abilities\\Spells\\NightElf\\Blink\\BlinkCaster"
+            sec=sec-1
+            if not data.SpiritWolf and UnitAlive(data.UnitHero) and sec<0 then
+                StartFrameCD(cdSec,buttonIconFrame)
+                sec=cdSec
+                data.SpiritWolf=CreateUnit(Player(data.pid),FourCC("osw1"),GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),GetUnitFacing(data.UnitHero))
+                DestroyEffect(AddSpecialEffect(effmodel,GetUnitXY(data.SpiritWolf)))
+                BlzSetUnitMaxHP(data.SpiritWolf,1000*talon.level)
+                HealUnit(data.SpiritWolf,3000)
+                BlzSetUnitBaseDamage(data.SpiritWolf,50*talon.level,0)
+            end
+
+            if data.SpiritWolf then
+                if UnitAlive(data.SpiritWolf) then
+                    local xh,yh=GetUnitXY(data.UnitHero)
+                    local dist=DistanceBetweenXY(GetUnitX(data.SpiritWolf),GetUnitY(data.SpiritWolf),xh,yh)
+                    if dist>600 then
+                        DestroyEffect(AddSpecialEffect(effmodel,GetUnitXY(data.SpiritWolf)))
+                        DestroyEffect(AddSpecialEffect(effmodel,xh,yh))
+                        local r=GetRandomInt(-50,50)
+                        SetUnitPosition(data.SpiritWolf,xh+r,yh+r)
+                    else
+                        if GetUnitCurrentOrder(data.SpiritWolf)~=String2OrderIdBJ("attack") then
+                            local rx,ry=xh+GetRandomInt(-500,500),yh+GetRandomInt(-500,500)
+                            IssuePointOrder(data.SpiritWolf,"attack", rx,ry)
+                        end
+                    end
+                else
+                    data.SpiritWolf=nil
+                end
+            end
+        end)
+    end
+    if flag=="windWalk" then
+        data.WindWalkCDFH=buttonIconFrame
     end
 
 

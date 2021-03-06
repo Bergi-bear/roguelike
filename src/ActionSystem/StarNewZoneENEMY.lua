@@ -22,6 +22,15 @@ function InitAllZones()
     SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     SetZone(5,gg_rct_E5A,gg_rct_B5A,gg_rct_S5A)
     SetZone(6,gg_rct_E6A,gg_rct_B6A,gg_rct_S6A)
+    ---------------------------------------------------
+    SetZone(7,gg_rct_E7A,gg_rct_B7A,gg_rct_S7A)
+    SetZone(8,gg_rct_E8A,gg_rct_B8A,gg_rct_S8A)
+    SetZone(9,gg_rct_E9A,gg_rct_B9A,gg_rct_S9A)
+    SetZone(10,gg_rct_E10A,gg_rct_B10A,gg_rct_S10A)
+    SetZone(11,gg_rct_E11A,gg_rct_B11A,gg_rct_S11A)
+    SetZone(12,gg_rct_E12A,gg_rct_B12A,gg_rct_S12A)
+
+
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
     DestinyEnemies=GetRandomIntTable(1, #GameZone, #GameZone)
@@ -130,6 +139,9 @@ function StartEnemyWave(waveNumber)
     if waveNumber==2 then
         listID={  -- скелетов по 5
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),
         }
         maxOnWave=2
     end
@@ -161,14 +173,6 @@ function StartEnemyWave(waveNumber)
         maxOnWave=10
     end
 
-    if waveNumber==6 then
-        listID={  -- некроманты
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-        }
-        maxOnWave=5
-    end
-
     if waveNumber==5 then
         listID={  -- Пуджи
             FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
@@ -179,6 +183,86 @@ function StartEnemyWave(waveNumber)
         maxOnWave=3
     end
 
+    if waveNumber==6 then
+        listID={  -- некроманты
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+        }
+        maxOnWave=5
+    end
+
+    if waveNumber==7 then
+        listID={
+            FourCC("uabo"),FourCC("uabo"),FourCC("unec"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("unec"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("unec"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+        }
+        maxOnWave=3
+    end
+    if waveNumber==8 then
+        listID={
+            FourCC("uabo"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("ucs1"),
+        }
+        maxOnWave=9
+    end
+    if waveNumber==9 then
+        listID={
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+        }
+        maxOnWave=20
+    end
+    if waveNumber==10 then
+        listID={
+            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+        }
+        maxOnWave=4
+    end
+    if waveNumber==11 then
+        listID={
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+        }
+        maxOnWave=9
+    end
+    if waveNumber==12 then
+        listID={
+            listID={
+                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+                FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            }
+        }
+        maxOnWave=5
+    end
 
     if listID[1] then
         StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,maxOnWave)

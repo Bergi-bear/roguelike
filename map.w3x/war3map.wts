@@ -24,1087 +24,1087 @@ Force 1
 }
 
 STRING 7
-// Doodads: D000 (HFMC0Tree Autumnal), Name (Name)
+// Декорации: D000 (HFMC0Tree Autumnal), Name (Название)
 {
 HFMC0Tree Autumnal
 }
 
 STRING 8
-// Doodads: D001 (HFMC0Tree Glacial), Name (Name)
+// Декорации: D001 (HFMC0Tree Glacial), Name (Название)
 {
 HFMC0Tree Glacial
 }
 
 STRING 9
-// Doodads: D002 (HFMC0Tree Golden), Name (Name)
+// Декорации: D002 (HFMC0Tree Golden), Name (Название)
 {
 HFMC0Tree Golden
 }
 
 STRING 10
-// Doodads: D003 (HFMC0Tree Lush), Name (Name)
+// Декорации: D003 (HFMC0Tree Lush), Name (Название)
 {
 HFMC0Tree Lush
 }
 
 STRING 11
-// Doodads: D004 (HFMC0Tree Pea), Name (Name)
+// Декорации: D004 (HFMC0Tree Pea), Name (Название)
 {
 HFMC0Tree Pea
 }
 
 STRING 12
-// Doodads: D005 (HFMC0Tree Sakura), Name (Name)
+// Декорации: D005 (HFMC0Tree Sakura), Name (Название)
 {
 HFMC0Tree Sakura
 }
 
 STRING 13
-// Doodads: D006 (HFMC0Tree Sapphire), Name (Name)
+// Декорации: D006 (HFMC0Tree Sapphire), Name (Название)
 {
 HFMC0Tree Sapphire
 }
 
 STRING 14
-// Doodads: D007 (HFMC0Tree Silverleaf), Name (Name)
+// Декорации: D007 (HFMC0Tree Silverleaf), Name (Название)
 {
 HFMC0Tree Silverleaf
 }
 
 STRING 15
-// Doodads: D008 (HFMC0Tree Silverleaf ENCHANTED), Name (Name)
+// Декорации: D008 (HFMC0Tree Silverleaf ENCHANTED), Name (Название)
 {
 HFMC0Tree Silverleaf ENCHANTED
 }
 
 STRING 16
-// Doodads: D009 (HFMC0Tree Silverleaf RAINBOW), Name (Name)
+// Декорации: D009 (HFMC0Tree Silverleaf RAINBOW), Name (Название)
 {
 HFMC0Tree Silverleaf RAINBOW
 }
 
 STRING 17
-// Doodads: D00A (HFMC0Tree Umbra), Name (Name)
+// Декорации: D00A (HFMC0Tree Umbra), Name (Название)
 {
 HFMC0Tree Umbra
 }
 
 STRING 18
-// Doodads: D00B (HFMC0Tree Vermilion), Name (Name)
+// Декорации: D00B (HFMC0Tree Vermilion), Name (Название)
 {
 HFMC0Tree Vermilion
 }
 
 STRING 19
-// Doodads: D00C (HFMCBush Autumnal), Name (Name)
+// Декорации: D00C (HFMCBush Autumnal), Name (Название)
 {
 HFMCBush Autumnal
 }
 
 STRING 20
-// Doodads: D00D (HFMCBush Glacial), Name (Name)
+// Декорации: D00D (HFMCBush Glacial), Name (Название)
 {
 HFMCBush Glacial
 }
 
 STRING 21
-// Doodads: D00E (HFMCBush Golden), Name (Name)
+// Декорации: D00E (HFMCBush Golden), Name (Название)
 {
 HFMCBush Golden
 }
 
 STRING 22
-// Doodads: D00F (HFMCBush Lush), Name (Name)
+// Декорации: D00F (HFMCBush Lush), Name (Название)
 {
 HFMCBush Lush
 }
 
 STRING 23
-// Doodads: D00G (HFMCBush Pea), Name (Name)
+// Декорации: D00G (HFMCBush Pea), Name (Название)
 {
 HFMCBush Pea
 }
 
 STRING 24
-// Doodads: D00H (HFMCBush Sakura), Name (Name)
+// Декорации: D00H (HFMCBush Sakura), Name (Название)
 {
 HFMCBush Sakura
 }
 
 STRING 25
-// Doodads: D00I (HFMCBush Sapphire), Name (Name)
+// Декорации: D00I (HFMCBush Sapphire), Name (Название)
 {
 HFMCBush Sapphire
 }
 
 STRING 26
-// Doodads: D00J (HFMCBush Silverleaf), Name (Name)
+// Декорации: D00J (HFMCBush Silverleaf), Name (Название)
 {
 HFMCBush Silverleaf
 }
 
 STRING 27
-// Doodads: D00K (HFMCBush Silverleaf ENCHANTED), Name (Name)
+// Декорации: D00K (HFMCBush Silverleaf ENCHANTED), Name (Название)
 {
 HFMCBush Silverleaf ENCHANTED
 }
 
 STRING 28
-// Doodads: D00L (HFMCBush Silverleaf RAINBOW), Name (Name)
+// Декорации: D00L (HFMCBush Silverleaf RAINBOW), Name (Название)
 {
 HFMCBush Silverleaf RAINBOW
 }
 
 STRING 29
-// Doodads: D00M (HFMCBush Umbra), Name (Name)
+// Декорации: D00M (HFMCBush Umbra), Name (Название)
 {
 HFMCBush Umbra
 }
 
 STRING 30
-// Doodads: D00N (HFMCBush Vermilion), Name (Name)
+// Декорации: D00N (HFMCBush Vermilion), Name (Название)
 {
 HFMCBush Vermilion
 }
 
 STRING 31
-// Doodads: D00O (HFMCGrass Autumnal), Name (Name)
+// Декорации: D00O (HFMCGrass Autumnal), Name (Название)
 {
 HFMCGrass Autumnal
 }
 
 STRING 32
-// Doodads: D00P (HFMCGrass Glacial), Name (Name)
+// Декорации: D00P (HFMCGrass Glacial), Name (Название)
 {
 HFMCGrass Glacial
 }
 
 STRING 33
-// Doodads: D00Q (HFMCGrass Golden), Name (Name)
+// Декорации: D00Q (HFMCGrass Golden), Name (Название)
 {
 HFMCGrass Golden
 }
 
 STRING 34
-// Doodads: D00R (HFMCGrass Lush), Name (Name)
+// Декорации: D00R (HFMCGrass Lush), Name (Название)
 {
 HFMCGrass Lush
 }
 
 STRING 35
-// Doodads: D00S (HFMCGrass Pea), Name (Name)
+// Декорации: D00S (HFMCGrass Pea), Name (Название)
 {
 HFMCGrass Pea
 }
 
 STRING 36
-// Doodads: D00T (HFMCGrass Sakura), Name (Name)
+// Декорации: D00T (HFMCGrass Sakura), Name (Название)
 {
 HFMCGrass Sakura
 }
 
 STRING 37
-// Doodads: D00U (HFMCGrass Sapphire), Name (Name)
+// Декорации: D00U (HFMCGrass Sapphire), Name (Название)
 {
 HFMCGrass Sapphire
 }
 
 STRING 38
-// Doodads: D00V (HFMCGrass Silverleaf), Name (Name)
+// Декорации: D00V (HFMCGrass Silverleaf), Name (Название)
 {
 HFMCGrass Silverleaf
 }
 
 STRING 39
-// Doodads: D00W (HFMCGrass Silverleaf ENCHANTED), Name (Name)
+// Декорации: D00W (HFMCGrass Silverleaf ENCHANTED), Name (Название)
 {
 HFMCGrass Silverleaf ENCHANTED
 }
 
 STRING 40
-// Doodads: D00X (HFMCGrass Silverleaf RAINBOW), Name (Name)
+// Декорации: D00X (HFMCGrass Silverleaf RAINBOW), Name (Название)
 {
 HFMCGrass Silverleaf RAINBOW
 }
 
 STRING 41
-// Doodads: D00Y (HFMCGrass Umbra), Name (Name)
+// Декорации: D00Y (HFMCGrass Umbra), Name (Название)
 {
 HFMCGrass Umbra
 }
 
 STRING 42
-// Doodads: D00Z (HFMCGrass Vermilion), Name (Name)
+// Декорации: D00Z (HFMCGrass Vermilion), Name (Название)
 {
 HFMCGrass Vermilion
 }
 
 STRING 43
-// Doodads: D011 (HFMCTree Autumnal), Name (Name)
+// Декорации: D011 (HFMCTree Autumnal), Name (Название)
 {
 HFMCTree Autumnal
 }
 
 STRING 44
-// Doodads: D012 (HFMCTree Glacial), Name (Name)
+// Декорации: D012 (HFMCTree Glacial), Name (Название)
 {
 HFMCTree Glacial
 }
 
 STRING 45
-// Doodads: D013 (HFMCTree Golden), Name (Name)
+// Декорации: D013 (HFMCTree Golden), Name (Название)
 {
 HFMCTree Golden
 }
 
 STRING 46
-// Doodads: D014 (HFMCTree Lush), Name (Name)
+// Декорации: D014 (HFMCTree Lush), Name (Название)
 {
 HFMCTree Lush
 }
 
 STRING 47
-// Doodads: D015 (HFMCTree Pea), Name (Name)
+// Декорации: D015 (HFMCTree Pea), Name (Название)
 {
 HFMCTree Pea
 }
 
 STRING 48
-// Doodads: D016 (HFMCTree Sakura), Name (Name)
+// Декорации: D016 (HFMCTree Sakura), Name (Название)
 {
 HFMCTree Sakura
 }
 
 STRING 49
-// Doodads: D017 (HFMCTree Sapphire), Name (Name)
+// Декорации: D017 (HFMCTree Sapphire), Name (Название)
 {
 HFMCTree Sapphire
 }
 
 STRING 50
-// Doodads: D018 (HFMCTree Silverleaf), Name (Name)
+// Декорации: D018 (HFMCTree Silverleaf), Name (Название)
 {
 HFMCTree Silverleaf
 }
 
 STRING 51
-// Doodads: D019 (HFMCTree Silverleaf ENCHANTED), Name (Name)
+// Декорации: D019 (HFMCTree Silverleaf ENCHANTED), Name (Название)
 {
 HFMCTree Silverleaf ENCHANTED
 }
 
 STRING 52
-// Doodads: D01A (HFMCTree Silverleaf RAINBOW), Name (Name)
+// Декорации: D01A (HFMCTree Silverleaf RAINBOW), Name (Название)
 {
 HFMCTree Silverleaf RAINBOW
 }
 
 STRING 53
-// Doodads: D01B (HFMCTree Umbra), Name (Name)
+// Декорации: D01B (HFMCTree Umbra), Name (Название)
 {
 HFMCTree Umbra
 }
 
 STRING 54
-// Doodads: D01C (HFMCTree Vermilion), Name (Name)
+// Декорации: D01C (HFMCTree Vermilion), Name (Название)
 {
 HFMCTree Vermilion
 }
 
 STRING 55
-// Doodads: D01D (HFMCRock Cave 1x1), Name (Name)
+// Декорации: D01D (HFMCRock Cave 1x1), Name (Название)
 {
 HFMCRock Cave 1x1
 }
 
 STRING 56
-// Doodads: D01E (HFMCRock Cave 2x2), Name (Name)
+// Декорации: D01E (HFMCRock Cave 2x2), Name (Название)
 {
 HFMCRock Cave 2x2
 }
 
 STRING 57
-// Doodads: D01F (HFMCRock CaveA), Name (Name)
+// Декорации: D01F (HFMCRock CaveA), Name (Название)
 {
 HFMCRock CaveA
 }
 
 STRING 58
-// Doodads: D01G (HFMCRock CaveB), Name (Name)
+// Декорации: D01G (HFMCRock CaveB), Name (Название)
 {
 HFMCRock CaveB
 }
 
 STRING 59
-// Doodads: D01H (HFMCRock CaveC), Name (Name)
+// Декорации: D01H (HFMCRock CaveC), Name (Название)
 {
 HFMCRock CaveC
 }
 
 STRING 60
-// Doodads: D01I (HFMCRock CaveD), Name (Name)
+// Декорации: D01I (HFMCRock CaveD), Name (Название)
 {
 HFMCRock CaveD
 }
 
 STRING 61
-// Doodads: D01J (HFMCRock Cave Mound), Name (Name)
+// Декорации: D01J (HFMCRock Cave Mound), Name (Название)
 {
 HFMCRock Cave Mound
 }
 
 STRING 62
-// Doodads: D010 (HFMCRock Cave 1x1), Name (Name)
+// Декорации: D010 (HFMCRock Cave 1x1), Name (Название)
 {
 HFMCRock Cave 1x1
 }
 
 STRING 63
-// Doodads: D01K (HFMFlowers CoveA), Name (Name)
+// Декорации: D01K (HFMFlowers CoveA), Name (Название)
 {
 HFMFlowers CoveA
 }
 
 STRING 64
-// Doodads: D01L (HFMGrass CoveB), Name (Name)
+// Декорации: D01L (HFMGrass CoveB), Name (Название)
 {
 HFMGrass CoveB
 }
 
 STRING 65
-// Doodads: D01M (HFMGrass PalmA), Name (Name)
+// Декорации: D01M (HFMGrass PalmA), Name (Название)
 {
 HFMGrass PalmA
 }
 
 STRING 66
-// Doodads: D01N (HFMGrass PalmB), Name (Name)
+// Декорации: D01N (HFMGrass PalmB), Name (Название)
 {
 HFMGrass PalmB
 }
 
 STRING 67
-// Doodads: D01O (HFMGrass PalmC), Name (Name)
+// Декорации: D01O (HFMGrass PalmC), Name (Название)
 {
 HFMGrass PalmC
 }
 
 STRING 68
-// Doodads: D01P (HFMRock Cove 1x1), Name (Name)
+// Декорации: D01P (HFMRock Cove 1x1), Name (Название)
 {
 HFMRock Cove 1x1
 }
 
 STRING 69
-// Doodads: D01Q (HFMRock Cove 2x2), Name (Name)
+// Декорации: D01Q (HFMRock Cove 2x2), Name (Название)
 {
 HFMRock Cove 2x2
 }
 
 STRING 70
-// Doodads: D01R (HFMRock Cove 2x2 SNOW), Name (Name)
+// Декорации: D01R (HFMRock Cove 2x2 SNOW), Name (Название)
 {
 HFMRock Cove 2x2 SNOW
 }
 
 STRING 71
-// Doodads: D01S (HFMRock Cove 1x1 SNOW), Name (Name)
+// Декорации: D01S (HFMRock Cove 1x1 SNOW), Name (Название)
 {
 HFMRock Cove 1x1 SNOW
 }
 
 STRING 72
-// Doodads: D01T (HFMRock CoveA), Name (Name)
+// Декорации: D01T (HFMRock CoveA), Name (Название)
 {
 HFMRock CoveA
 }
 
 STRING 73
-// Doodads: D01U (HFMRock CoveA SNOW), Name (Name)
+// Декорации: D01U (HFMRock CoveA SNOW), Name (Название)
 {
 HFMRock CoveA SNOW
 }
 
 STRING 74
-// Doodads: D01V (HFMRock CoveB SNOW), Name (Name)
+// Декорации: D01V (HFMRock CoveB SNOW), Name (Название)
 {
 HFMRock CoveB SNOW
 }
 
 STRING 75
-// Doodads: D01W (HFMRock CoveC SNOW), Name (Name)
+// Декорации: D01W (HFMRock CoveC SNOW), Name (Название)
 {
 HFMRock CoveC SNOW
 }
 
 STRING 76
-// Doodads: D01X (HFMRock CoveD SNOW), Name (Name)
+// Декорации: D01X (HFMRock CoveD SNOW), Name (Название)
 {
 HFMRock CoveD SNOW
 }
 
 STRING 77
-// Doodads: D01Y (HFMRock CoveD), Name (Name)
+// Декорации: D01Y (HFMRock CoveD), Name (Название)
 {
 HFMRock CoveD
 }
 
 STRING 78
-// Doodads: D01Z (HFMRock CoveC), Name (Name)
+// Декорации: D01Z (HFMRock CoveC), Name (Название)
 {
 HFMRock CoveC
 }
 
 STRING 79
-// Doodads: D020 (HFMRock CoveB), Name (Name)
+// Декорации: D020 (HFMRock CoveB), Name (Название)
 {
 HFMRock CoveB
 }
 
 STRING 80
-// Doodads: D021 (HFMRock CoveMound), Name (Name)
+// Декорации: D021 (HFMRock CoveMound), Name (Название)
 {
 HFMRock CoveMound
 }
 
 STRING 81
-// Doodads: D022 (HFMRock CoveMound SNOW), Name (Name)
+// Декорации: D022 (HFMRock CoveMound SNOW), Name (Название)
 {
 HFMRock CoveMound SNOW
 }
 
 STRING 82
-// Doodads: D023 (HFMTree CoveA), Name (Name)
+// Декорации: D023 (HFMTree CoveA), Name (Название)
 {
 HFMTree CoveA
 }
 
 STRING 83
-// Doodads: D024 (HFMTree CoveA SNOW), Name (Name)
+// Декорации: D024 (HFMTree CoveA SNOW), Name (Название)
 {
 HFMTree CoveA SNOW
 }
 
 STRING 84
-// Doodads: D025 (HFMTree CoveA DEAD), Name (Name)
+// Декорации: D025 (HFMTree CoveA DEAD), Name (Название)
 {
 HFMTree CoveA DEAD
 }
 
 STRING 85
-// Doodads: D026 (HFMTree CoveB), Name (Name)
+// Декорации: D026 (HFMTree CoveB), Name (Название)
 {
 HFMTree CoveB
 }
 
 STRING 86
-// Doodads: D027 (HFMTree CoveB DEAD), Name (Name)
+// Декорации: D027 (HFMTree CoveB DEAD), Name (Название)
 {
 HFMTree CoveB DEAD
 }
 
 STRING 87
-// Doodads: D028 (HFMTree CoveB SNOW), Name (Name)
+// Декорации: D028 (HFMTree CoveB SNOW), Name (Название)
 {
 HFMTree CoveB SNOW
 }
 
 STRING 88
-// Doodads: D029 (HFMTree CoveC), Name (Name)
+// Декорации: D029 (HFMTree CoveC), Name (Название)
 {
 HFMTree CoveC
 }
 
 STRING 89
-// Doodads: D02A (HFMTree CoveC DEAD), Name (Name)
+// Декорации: D02A (HFMTree CoveC DEAD), Name (Название)
 {
 HFMTree CoveC DEAD
 }
 
 STRING 90
-// Doodads: D02B (HFMTree CoveC SNOW), Name (Name)
+// Декорации: D02B (HFMTree CoveC SNOW), Name (Название)
 {
 HFMTree CoveC SNOW
 }
 
 STRING 91
-// Doodads: D02C (HFMBush CoveA), Name (Name)
+// Декорации: D02C (HFMBush CoveA), Name (Название)
 {
 HFMBush CoveA
 }
 
 STRING 92
-// Doodads: D02D (HFMBush CoveA SNOW), Name (Name)
+// Декорации: D02D (HFMBush CoveA SNOW), Name (Название)
 {
 HFMBush CoveA SNOW
 }
 
 STRING 93
-// Doodads: D02E (HFMBush CoveA DEAD), Name (Name)
+// Декорации: D02E (HFMBush CoveA DEAD), Name (Название)
 {
 HFMBush CoveA DEAD
 }
 
 STRING 94
-// Doodads: D02F (HFMCWaterLily Autumnal), Name (Name)
+// Декорации: D02F (HFMCWaterLily Autumnal), Name (Название)
 {
 HFMCWaterLily Autumnal
 }
 
 STRING 95
-// Doodads: D02G (HFMCWaterLily Golden), Name (Name)
+// Декорации: D02G (HFMCWaterLily Golden), Name (Название)
 {
 HFMCWaterLily Golden
 }
 
 STRING 96
-// Doodads: D02H (HFMCWaterLily Glacial), Name (Name)
+// Декорации: D02H (HFMCWaterLily Glacial), Name (Название)
 {
 HFMCWaterLily Glacial
 }
 
 STRING 97
-// Doodads: D02I (HFMCWaterLily Lush), Name (Name)
+// Декорации: D02I (HFMCWaterLily Lush), Name (Название)
 {
 HFMCWaterLily Lush
 }
 
 STRING 98
-// Doodads: D02J (HFMCWaterLily Pea), Name (Name)
+// Декорации: D02J (HFMCWaterLily Pea), Name (Название)
 {
 HFMCWaterLily Pea
 }
 
 STRING 99
-// Doodads: D02K (HFMCWaterLily Sakura), Name (Name)
+// Декорации: D02K (HFMCWaterLily Sakura), Name (Название)
 {
 HFMCWaterLily Sakura
 }
 
 STRING 100
-// Doodads: D02L (HFMCWaterLily Sapphire), Name (Name)
+// Декорации: D02L (HFMCWaterLily Sapphire), Name (Название)
 {
 HFMCWaterLily Sapphire
 }
 
 STRING 101
-// Doodads: D02M (HFMCWaterLily Silverleaf), Name (Name)
+// Декорации: D02M (HFMCWaterLily Silverleaf), Name (Название)
 {
 HFMCWaterLily Silverleaf
 }
 
 STRING 102
-// Doodads: D02N (HFMCWaterLily Silverleaf ENCHANTED), Name (Name)
+// Декорации: D02N (HFMCWaterLily Silverleaf ENCHANTED), Name (Название)
 {
 HFMCWaterLily Silverleaf ENCHANTED
 }
 
 STRING 103
-// Doodads: D02O (HFMCWaterLily Silverleaf RAINBOW), Name (Name)
+// Декорации: D02O (HFMCWaterLily Silverleaf RAINBOW), Name (Название)
 {
 HFMCWaterLily Silverleaf RAINBOW
 }
 
 STRING 104
-// Doodads: D02P (HFMCWaterLily Umbra), Name (Name)
+// Декорации: D02P (HFMCWaterLily Umbra), Name (Название)
 {
 HFMCWaterLily Umbra
 }
 
 STRING 105
-// Doodads: D02Q (HFMCWaterLily Vermilion), Name (Name)
+// Декорации: D02Q (HFMCWaterLily Vermilion), Name (Название)
 {
 HFMCWaterLily Vermilion
 }
 
 STRING 106
-// Doodads: D02R (HFMRock Crag 1x1), Name (Name)
+// Декорации: D02R (HFMRock Crag 1x1), Name (Название)
 {
 HFMRock Crag 1x1
 }
 
 STRING 107
-// Doodads: D02S (HFMRock Crag 2x2), Name (Name)
+// Декорации: D02S (HFMRock Crag 2x2), Name (Название)
 {
 HFMRock Crag 2x2
 }
 
 STRING 108
-// Doodads: D02T (HFMRock Crag A), Name (Name)
+// Декорации: D02T (HFMRock Crag A), Name (Название)
 {
 HFMRock Crag A
 }
 
 STRING 109
-// Doodads: D02U (HFMRock Crag B), Name (Name)
+// Декорации: D02U (HFMRock Crag B), Name (Название)
 {
 HFMRock Crag B
 }
 
 STRING 110
-// Doodads: D02V (HFMRock Crag C), Name (Name)
+// Декорации: D02V (HFMRock Crag C), Name (Название)
 {
 HFMRock Crag C
 }
 
 STRING 111
-// Doodads: D02W (HFMRock Crag D), Name (Name)
+// Декорации: D02W (HFMRock Crag D), Name (Название)
 {
 HFMRock Crag D
 }
 
 STRING 112
-// Doodads: D02X (HFMRock Crag Mound), Name (Name)
+// Декорации: D02X (HFMRock Crag Mound), Name (Название)
 {
 HFMRock Crag Mound
 }
 
 STRING 113
-// Doodads: D02Y (HFMFir A), Name (Name)
+// Декорации: D02Y (HFMFir A), Name (Название)
 {
 HFMFir A
 }
 
 STRING 114
-// Doodads: D02Z (HFMFir B), Name (Name)
+// Декорации: D02Z (HFMFir B), Name (Название)
 {
 HFMFir B
 }
 
 STRING 115
-// Doodads: D030 (HFMFir Fallen), Name (Name)
+// Декорации: D030 (HFMFir Fallen), Name (Название)
 {
 HFMFir Fallen
 }
 
 STRING 116
-// Doodads: D031 (HFMFir Tall), Name (Name)
+// Декорации: D031 (HFMFir Tall), Name (Название)
 {
 HFMFir Tall
 }
 
 STRING 117
-// Doodads: D032 (HFMBush GladeA), Name (Name)
+// Декорации: D032 (HFMBush GladeA), Name (Название)
 {
 HFMBush GladeA
 }
 
 STRING 118
-// Doodads: D033 (HFMBush GladeA DEAD), Name (Name)
+// Декорации: D033 (HFMBush GladeA DEAD), Name (Название)
 {
 HFMBush GladeA DEAD
 }
 
 STRING 119
-// Doodads: D034 (HFMFlowers Glade A), Name (Name)
+// Декорации: D034 (HFMFlowers Glade A), Name (Название)
 {
 HFMFlowers Glade A
 }
 
 STRING 120
-// Doodads: D035 (HFMGrass Glade A), Name (Name)
+// Декорации: D035 (HFMGrass Glade A), Name (Название)
 {
 HFMGrass Glade A
 }
 
 STRING 121
-// Doodads: D036 (HFMGrass Glade B), Name (Name)
+// Декорации: D036 (HFMGrass Glade B), Name (Название)
 {
 HFMGrass Glade B
 }
 
 STRING 122
-// Doodads: D037 (HFMRock Glade 1x1), Name (Name)
+// Декорации: D037 (HFMRock Glade 1x1), Name (Название)
 {
 HFMRock Glade 1x1
 }
 
 STRING 123
-// Doodads: D038 (HFMRock Glade 2x2), Name (Name)
+// Декорации: D038 (HFMRock Glade 2x2), Name (Название)
 {
 HFMRock Glade 2x2
 }
 
 STRING 124
-// Doodads: D039 (HFMRock Glade A), Name (Name)
+// Декорации: D039 (HFMRock Glade A), Name (Название)
 {
 HFMRock Glade A
 }
 
 STRING 125
-// Doodads: D03A (HFMRock Glade B), Name (Name)
+// Декорации: D03A (HFMRock Glade B), Name (Название)
 {
 HFMRock Glade B
 }
 
 STRING 126
-// Doodads: D03B (HFMRock Glade C), Name (Name)
+// Декорации: D03B (HFMRock Glade C), Name (Название)
 {
 HFMRock Glade C
 }
 
 STRING 127
-// Doodads: D03C (HFMRock Glade D), Name (Name)
+// Декорации: D03C (HFMRock Glade D), Name (Название)
 {
 HFMRock Glade D
 }
 
 STRING 128
-// Doodads: D03D (HFMRock Glade Mound), Name (Name)
+// Декорации: D03D (HFMRock Glade Mound), Name (Название)
 {
 HFMRock Glade Mound
 }
 
 STRING 129
-// Doodads: D03E (HFMRock Glade Overhang), Name (Name)
+// Декорации: D03E (HFMRock Glade Overhang), Name (Название)
 {
 HFMRock Glade Overhang
 }
 
 STRING 130
-// Doodads: D03F (HFMTree Glade A), Name (Name)
+// Декорации: D03F (HFMTree Glade A), Name (Название)
 {
 HFMTree Glade A
 }
 
 STRING 131
-// Doodads: D03G (HFMTree Glade A DEAD), Name (Name)
+// Декорации: D03G (HFMTree Glade A DEAD), Name (Название)
 {
 HFMTree Glade A DEAD
 }
 
 STRING 132
-// Doodads: D03H (HFMTree Glade B DEAD), Name (Name)
+// Декорации: D03H (HFMTree Glade B DEAD), Name (Название)
 {
 HFMTree Glade B DEAD
 }
 
 STRING 133
-// Doodads: D03I (HFMTree Glade C DEAD), Name (Name)
+// Декорации: D03I (HFMTree Glade C DEAD), Name (Название)
 {
 HFMTree Glade C DEAD
 }
 
 STRING 134
-// Doodads: D03J (HFMTree Glade B), Name (Name)
+// Декорации: D03J (HFMTree Glade B), Name (Название)
 {
 HFMTree Glade B
 }
 
 STRING 135
-// Doodads: D03K (HFMTree Glade C), Name (Name)
+// Декорации: D03K (HFMTree Glade C), Name (Название)
 {
 HFMTree Glade C
 }
 
 STRING 136
-// Doodads: D03L (HFMWaterLily Glade A), Name (Name)
+// Декорации: D03L (HFMWaterLily Glade A), Name (Название)
 {
 HFMWaterLily Glade A
 }
 
 STRING 137
-// Doodads: D03M (HFMWaterLily Glade B), Name (Name)
+// Декорации: D03M (HFMWaterLily Glade B), Name (Название)
 {
 HFMWaterLily Glade B
 }
 
 STRING 138
-// Doodads: D03N (HFMBush Vale A), Name (Name)
+// Декорации: D03N (HFMBush Vale A), Name (Название)
 {
 HFMBush Vale A
 }
 
 STRING 139
-// Doodads: D03O (HFMBush Vale A DEAD), Name (Name)
+// Декорации: D03O (HFMBush Vale A DEAD), Name (Название)
 {
 HFMBush Vale A DEAD
 }
 
 STRING 140
-// Doodads: D03P (HFMGrass Vale A), Name (Name)
+// Декорации: D03P (HFMGrass Vale A), Name (Название)
 {
 HFMGrass Vale A
 }
 
 STRING 141
-// Doodads: D03Q (HFMGrass Vale B), Name (Name)
+// Декорации: D03Q (HFMGrass Vale B), Name (Название)
 {
 HFMGrass Vale B
 }
 
 STRING 142
-// Doodads: D03R (HFMLog Fallen), Name (Name)
+// Декорации: D03R (HFMLog Fallen), Name (Название)
 {
 HFMLog Fallen
 }
 
 STRING 143
-// Doodads: D03S (HFMLog Stump), Name (Name)
+// Декорации: D03S (HFMLog Stump), Name (Название)
 {
 HFMLog Stump
 }
 
 STRING 144
-// Doodads: D03T (HFMRock Vale 1x1), Name (Name)
+// Декорации: D03T (HFMRock Vale 1x1), Name (Название)
 {
 HFMRock Vale 1x1
 }
 
 STRING 145
-// Doodads: D03U (HFMRock Vale 2x2), Name (Name)
+// Декорации: D03U (HFMRock Vale 2x2), Name (Название)
 {
 HFMRock Vale 2x2
 }
 
 STRING 146
-// Doodads: D03V (HFMRock Vale A), Name (Name)
+// Декорации: D03V (HFMRock Vale A), Name (Название)
 {
 HFMRock Vale A
 }
 
 STRING 147
-// Doodads: D03W (HFMRock Vale B), Name (Name)
+// Декорации: D03W (HFMRock Vale B), Name (Название)
 {
 HFMRock Vale B
 }
 
 STRING 148
-// Doodads: D03X (HFMRock Vale C), Name (Name)
+// Декорации: D03X (HFMRock Vale C), Name (Название)
 {
 HFMRock Vale C
 }
 
 STRING 149
-// Doodads: D03Y (HFMRock Vale D), Name (Name)
+// Декорации: D03Y (HFMRock Vale D), Name (Название)
 {
 HFMRock Vale D
 }
 
 STRING 150
-// Doodads: D03Z (HFMShrub Vale A), Name (Name)
+// Декорации: D03Z (HFMShrub Vale A), Name (Название)
 {
 HFMShrub Vale A
 }
 
 STRING 151
-// Doodads: D040 (HFMShrub Vale B), Name (Name)
+// Декорации: D040 (HFMShrub Vale B), Name (Название)
 {
 HFMShrub Vale B
 }
 
 STRING 152
-// Doodads: D041 (HFMShrub Vale C), Name (Name)
+// Декорации: D041 (HFMShrub Vale C), Name (Название)
 {
 HFMShrub Vale C
 }
 
 STRING 153
-// Doodads: D042 (HFMRock Vale Mound), Name (Name)
+// Декорации: D042 (HFMRock Vale Mound), Name (Название)
 {
 HFMRock Vale Mound
 }
 
 STRING 154
-// Doodads: D043 (HFMShroom Vale A), Name (Name)
+// Декорации: D043 (HFMShroom Vale A), Name (Название)
 {
 HFMShroom Vale A
 }
 
 STRING 155
-// Doodads: D044 (HFMShroom Vale B), Name (Name)
+// Декорации: D044 (HFMShroom Vale B), Name (Название)
 {
 HFMShroom Vale B
 }
 
 STRING 156
-// Doodads: D045 (HFMShroom Vale D), Name (Name)
+// Декорации: D045 (HFMShroom Vale D), Name (Название)
 {
 HFMShroom Vale D
 }
 
 STRING 157
-// Doodads: D046 (HFMShroom Vale C), Name (Name)
+// Декорации: D046 (HFMShroom Vale C), Name (Название)
 {
 HFMShroom Vale C
 }
 
 STRING 158
-// Doodads: D047 (HFMTree Vale A), Name (Name)
+// Декорации: D047 (HFMTree Vale A), Name (Название)
 {
 HFMTree Vale A
 }
 
 STRING 159
-// Doodads: D048 (HFMTree Vale C), Name (Name)
+// Декорации: D048 (HFMTree Vale C), Name (Название)
 {
 HFMTree Vale C
 }
 
 STRING 160
-// Doodads: D049 (HFMTree Vale A DEAD), Name (Name)
+// Декорации: D049 (HFMTree Vale A DEAD), Name (Название)
 {
 HFMTree Vale A DEAD
 }
 
 STRING 161
-// Doodads: D04A (HFMTree Vale C DEAD), Name (Name)
+// Декорации: D04A (HFMTree Vale C DEAD), Name (Название)
 {
 HFMTree Vale C DEAD
 }
 
 STRING 162
-// Doodads: D04B (HFMFlowers Vale A), Name (Name)
+// Декорации: D04B (HFMFlowers Vale A), Name (Название)
 {
 HFMFlowers Vale A
 }
 
 STRING 163
-// Doodads: D04C (Разлом1), Name (Name)
+// Декорации: D04C (Разлом1), Name (Название)
 {
 Разлом1
 }
 
 STRING 164
-// Doodads: D04D (Разлом2), Name (Name)
+// Декорации: D04D (Разлом2), Name (Название)
 {
 Разлом2
 }
 
 STRING 165
-// Doodads: D04E (Fissure2), Name (Name)
+// Декорации: D04E (Fissure2), Name (Название)
 {
 Fissure2
 }
 
 STRING 166
-// Doodads: D04F (Fissure3), Name (Name)
+// Декорации: D04F (Fissure3), Name (Название)
 {
 Fissure3
 }
 
 STRING 167
-// Doodads: D04G (Медив), Name (Name)
+// Декорации: D04G (Медив), Name (Название)
 {
 Медив
 }
 
 STRING 168
-// Doodads: D04H (Fissure4), Name (Name)
+// Декорации: D04H (Fissure4), Name (Название)
 {
 Fissure4
 }
 
 STRING 169
-// Doodads: D04I (Fissure5), Name (Name)
+// Декорации: D04I (Fissure5), Name (Название)
 {
 Fissure5
 }
 
 STRING 170
-// Doodads: D04J (Туман1), Name (Name)
+// Декорации: D04J (Туман1), Name (Название)
 {
 Туман1
 }
 
 STRING 171
-// Doodads: D04K (Туман2), Name (Name)
+// Декорации: D04K (Туман2), Name (Название)
 {
 Туман2
 }
 
 STRING 172
-// Doodads: D04L (Туман2_2), Name (Name)
+// Декорации: D04L (Туман2_2), Name (Название)
 {
 Туман2_2
 }
 
 STRING 173
-// Doodads: D04M (Туман1_1), Name (Name)
+// Декорации: D04M (Туман1_1), Name (Название)
 {
 Туман1_1
 }
 
 STRING 174
-// Doodads: D04N (Туман1_2), Name (Name)
+// Декорации: D04N (Туман1_2), Name (Название)
 {
 Туман1_2
 }
 
 STRING 175
-// Doodads: D04O (Кролик), Name (Name)
+// Декорации: D04O (Кролик), Name (Название)
 {
 Кролик
 }
 
 STRING 176
-// Doodads: D04P (Дракон), Name (Name)
+// Декорации: D04P (Дракон), Name (Название)
 {
 Дракон
 }
 
 STRING 177
-// Doodads: D04Q (Ястреб), Name (Name)
+// Декорации: D04Q (Ястреб), Name (Название)
 {
 Ястреб
 }
 
 STRING 178
-// Doodads: D04R (Подъем1\), Name (Name)
+// Декорации: D04R (Подъем1\), Name (Название)
 {
 Подъем1\
 }
 
 STRING 179
-// Doodads: D04S (Саргерас), Name (Name)
+// Декорации: D04S (Саргерас), Name (Название)
 {
 Саргерас
 }
 
 STRING 180
-// Doodads: D04T (Арка), Name (Name)
+// Декорации: D04T (Арка), Name (Название)
 {
 Арка
 }
 
 STRING 181
-// Doodads: D04U (Арка2), Name (Name)
+// Декорации: D04U (Арка2), Name (Название)
 {
 Арка2
 }
 
 STRING 182
-// Doodads: D04V (Каменная стена), Name (Name)
+// Декорации: D04V (Каменная стена), Name (Название)
 {
 Каменная стена
 }
 
 STRING 183
-// Doodads: D04W (Врата), Name (Name)
+// Декорации: D04W (Врата), Name (Название)
 {
 Врата
 }
 
 STRING 184
-// Doodads: D04X (Хижина мурлоков1), Name (Name)
+// Декорации: D04X (Хижина мурлоков1), Name (Название)
 {
 Хижина мурлоков1
 }
 
 STRING 185
-// Doodads: D04Y (Хижина мурлоков2), Name (Name)
+// Декорации: D04Y (Хижина мурлоков2), Name (Название)
 {
 Хижина мурлоков2
 }
 
 STRING 186
-// Doodads: D04Z (Чаша1), Name (Name)
+// Декорации: D04Z (Чаша1), Name (Название)
 {
 Чаша1
 }
 
 STRING 187
-// Doodads: D050 (Обелиск), Name (Name)
+// Декорации: D050 (Обелиск), Name (Название)
 {
 Обелиск
 }
@@ -1125,7 +1125,7 @@ STRING 190
 }
 
 STRING 191
-// Items: I000 (Руна сквозной проходимости), Name (Name)
+// Предметы: I000 (Руна сквозной проходимости), Name (Название)
 {
 Руна сквозной проходимости
 }
@@ -1136,13 +1136,13 @@ STRING 193
 }
 
 STRING 194
-// Destructibles: B002 (Блокиратор 4*4), Name (Name)
+// Разрушаемые объекты: B002 (Блокиратор 4*4), Name (Название)
 {
 Блокиратор 4*4
 }
 
 STRING 195
-// Destructibles: B003 (Блокиратор 2*2), Name (Name)
+// Разрушаемые объекты: B003 (Блокиратор 2*2), Name (Название)
 {
 Блокиратор 2*2
 }

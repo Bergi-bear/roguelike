@@ -18,9 +18,10 @@ function DrawInterFace()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if HERO[i] then
             CreateHPBar(HERO[i].UnitHero)
+            CreateLifeInterface(HERO[i])
         end
     end
-    CreateBaseFrames(0.02, 0.015)
+    CreateBaseFrames(0.02, 0.015) -- 5 стандартных скилов
 end
 
 function DrawSelectionPortrait()
@@ -31,6 +32,43 @@ function DrawSelectionPortrait()
     BlzFrameSetParent(Portrait, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetAbsPoint(Portrait, FRAMEPOINT_LEFT, 0.0, 0.04)
 end
+
+
+function CreateLifeInterface(data)
+    AddLife(data)
+    AddLife(data)
+    AddLife(data)
+    --AddLife(data)
+end
+
+function AddLife(data)
+    if not data.life then
+        data.life=0
+    end
+    data.life=data.life+1
+
+    local lifeIco="SystemGeneric\\peonlife"
+    local lifeFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(lifeFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(lifeFrame, lifeIco, 0, true)
+    BlzFrameSetSize(lifeFrame, NextPoint/3, NextPoint/3)
+    BlzFrameSetAbsPoint(lifeFrame, FRAMEPOINT_CENTER, -0.045, 0.01+((NextPoint/2)*(data.life-1)))
+    BlzFrameSetVisible(lifeFrame, GetLocalPlayer() == Player(data.pid))
+    data.LifeFHTable[data.life]=lifeFrame
+    --print("жизнь")
+end
+
+function RemoveLife(data)
+    BlzFrameSetVisible(data.LifeFHTable[data.life],false)
+    BlzDestroyFrame(data.LifeFHTable[data.life])
+    data.life=data.life-1
+    --print("потеря жизни")
+    if data.life<0 then
+        print("Поражение, вы не сможете больше воскреснуть")
+    end
+end
+
+
 
 function CreateHPBar(hero)
     local intoBar = "SystemGeneric\\ColorHP"

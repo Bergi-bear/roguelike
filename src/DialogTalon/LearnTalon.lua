@@ -40,9 +40,33 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
         if pos==3 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"wolfSummon")
+
         end
         if pos==4 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            data.ChargedSpinArea=data.ChargedSpinArea+talon.DS[talon.level]
+            local lvl2=false
+            local lvl3=false
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==2 then
+                    lvl2=true
+                    data.ChargedSpinArea=data.ChargedSpinArea+50
+                end
+                if lvl2 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==3 then
+                    lvl3=true
+                    data.ChargedSpinArea=data.ChargedSpinArea+50
+                end
+                if lvl3 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+
         end
         if pos==5 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\f","callTrall")
@@ -76,16 +100,21 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
         if pos==7 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"healDash")
+            data.HealDash=true
+            data.Time2HealDash=0
+            data.HealDashCurrentCD=0
         end
         if pos==8 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"invulPreDeath")
+            data.InvulPreDeathCurrentCD=0
         end
         if pos==9 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
         end
     end
     if godName=="HeroBlademaster" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"windWalk")
+
     end
     if godName=="ShadowHunter" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)

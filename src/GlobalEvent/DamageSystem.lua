@@ -21,17 +21,41 @@ function OnPostDamage()
 		if GetUnitAbilityLevel(target,FourCC("BNms"))==0 then
 			StunUnit(target,0.4,"stagger")
 		end
+	else
+		--print("наш герой получил урон")
+		local data=HERO[GetPlayerId(GetOwningPlayer(target))]
+		if data.HealDash and data.HealDashCurrentCD<=0 then
+			data.Time2HealDash=damage
+			TimerStart(CreateTimer(), 0.5, false, function()
+				data.Time2HealDash=0
+			end)
+		end
+		if damage>=GetUnitState(target,UNIT_STATE_LIFE) then
+			--print("получен смертельный урон")
+
+			if data.InvulPreDeathCurrentCD<=0 and data.InvulPreDeathCDFH then
+				--print("получен смертельный урон")
+				BlzSetEventDamage(0)
+				local talon=GlobalTalons[data.pid+1]["Trall"][8]
+				local cd=talon.DS[talon.level]
+				data.InvulPreDeathCurrentCD=cd
+				StartFrameCD(cd,data.InvulPreDeathCDFH )
+				TimerStart(CreateTimer(), cd, false, function()
+					data.InvulPreDeathCurrentCD=0
+				end)
+			end
+		end
 	end
 
 	if GetUnitTypeId(caster)==HeroID and caster~=target then
 		local data=HERO[GetPlayerId(GetOwningPlayer(caster))]
 		local x,y=GetUnitXY(caster)
 		local xe,ye=GetUnitXY(target)
-		-- функия принадлежности точки сектора
+		-- функция принадлежности точки сектора
 		-- x1, x2 - координаты проверяемой точки
 		-- x2, y2 - координаты вершины сектора
 		-- orientation - ориентация сектора в мировых координатах
-		-- width - уголовой размер сектора в градусах
+		-- width - угловой размер сектора в градусах
 		-- radius - окружности которой принадлежит сектор
 
 		if IsPointInSector(x,y,xe,ye,GetUnitFacing(target)-180,90,200) then
@@ -56,7 +80,6 @@ function OnPostDamage()
 		end
 	end
 
-		--любой получил урон
 
 end
 

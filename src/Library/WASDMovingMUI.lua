@@ -71,6 +71,7 @@ function InitHeroTable(hero)
         SpinCharges=30,-- начильное число зарядов вращения
         SpinChargesMAX=40, --максимальное количество зарядов вращения
         SpinRegeneratingRate=0,
+        ChargedSpinArea=150,
         --Способность бросок кирки
         ThrowCharges=2,
         ThrowChargesFH=nil,
@@ -81,11 +82,14 @@ function InitHeroTable(hero)
         DashChargesFH=nil,
         DashChargesCDFH=nil,
         DashChargesReloadSec=2,
+        Time2HealDash=0,--лечение доступно только при нуле
         countFrame=0,
         BaseDashDamage=100,
         ReboundCountMAX=5,
         ReboundCount=0,
-        DamageThrow=150
+        DamageThrow=150, -- урон от кирки
+        InvulPreDeathCurrentCD=1, --кулдаун бессмертия от трала
+        LifeFHTable={},
     }
 end
 
@@ -127,6 +131,7 @@ function InitWASD(hero)
             if not data.CameraStabUnit then
                 data.CameraStabUnit=CreateUnit(Player(data.pid),FourCC("hdhw"),x,y,0)
                 ShowUnit(data.CameraStabUnit,false)
+                RemoveLife(data)
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit),GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit),data.CameraStabUnit, 10,10,true) -- не дергается
@@ -135,11 +140,14 @@ function InitWASD(hero)
                -- SetCameraQuickPosition(x,y)
             end
             TimerStart(CreateTimer(),3, false, function()
-                ReviveHero(hero,x,y,true)
-                SetUnitInvulnerable(hero,true)
-                TimerStart(CreateTimer(),2, false, function()
-                    SetUnitInvulnerable(hero,false)
-                end)
+                if data.life>=0 then
+
+                    ReviveHero(hero,x,y,true)
+                    SetUnitInvulnerable(hero,true)
+                    TimerStart(CreateTimer(),2, false, function()
+                        SetUnitInvulnerable(hero,false)
+                    end)
+                end
             end)
         else
             KillUnit(data.CameraStabUnit)
@@ -482,6 +490,15 @@ function CreateWASDActions()
 
                 UnitAddItemById(data.UnitHero,FourCC("I000")) -- предмет виндволк
                 BlzSetUnitFacingEx(data.UnitHero,data.DirectionMove)
+                if data.Time2HealDash>0 then
+                    HealUnit(data.UnitHero,data.Time2HealDash)
+                    local talon=GlobalTalons[data.pid+1]["Trall"][7]
+                    StartFrameCD(talon.DS[talon.level],data.HealDashCDFH)
+                    data.HealDashCurrentCD=talon.DS[talon.level]
+                    TimerStart(CreateTimer(), data.HealDashCurrentCD, false, function()
+                        data.HealDashCurrentCD=0
+                    end)
+                end
                 UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, dist,"ignore")
                 data.SpaceForce=true
                 local eff=AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul",data.UnitHero,"origin")
@@ -890,7 +907,8 @@ function attack(data)
                     if enemy then
                         ConditionCastLight(data)
                         if data.CursedStrike then
-                            HealUnit(data.UnitHero,2)
+                            local amount=(BlzGetUnitMaxHP(data.UnitHero)/100)*2
+                            HealUnit(data.UnitHero,amount)
                         end
                     else
                         if data.CursedStrike then
@@ -1137,6 +1155,7 @@ end
 function PlayUnitAnimationFromChat()
     local this=CreateTrigger()
     TriggerRegisterPlayerChatEvent(this,Player(0),"",true)
+    TriggerRegisterPlayerChatEvent(this,Player(1),"",true)
     TriggerAddAction(this, function()
         local s=S2I(GetEventPlayerChatString())
         local data=HERO[GetPlayerId(GetTriggerPlayer())]
@@ -1178,6 +1197,12 @@ function PlayUnitAnimationFromChat()
             local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateGodTalon(x, y, "PeonDidal")
             return
+        end
+        if GetEventPlayerChatString()=="b" or GetEventPlayerChatString()=="и"  then
+
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "HeroBlademaster")
+
         end
 
         SetUnitAnimationByIndex(data.UnitHero,s)

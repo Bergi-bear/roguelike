@@ -16,6 +16,24 @@ gg_rct_B5A = nil
 gg_rct_E6A = nil
 gg_rct_S6A = nil
 gg_rct_B6A = nil
+gg_rct_E7A = nil
+gg_rct_S7A = nil
+gg_rct_B7A = nil
+gg_rct_S8A = nil
+gg_rct_B8A = nil
+gg_rct_S9A = nil
+gg_rct_B9A = nil
+gg_rct_S10A = nil
+gg_rct_B10A = nil
+gg_rct_S11A = nil
+gg_rct_B11A = nil
+gg_rct_E11A = nil
+gg_rct_S12A = nil
+gg_rct_B12A = nil
+gg_rct_E12A = nil
+gg_rct_E10A = nil
+gg_rct_E9A = nil
+gg_rct_E8A = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -124,6 +142,17 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18059.0, -10068.1, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18954.1, -10061.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18566.8, -12546.0, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23316.1, -6190.3, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23963.3, -7013.3, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22910.0, -2550.1, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23570.1, -3386.6, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19767.5, -4197.4, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18586.4, -3501.3, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16262.5, -4084.7, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21386.7, -9892.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22292.0, -9896.7, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20762.6, -12449.6, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21627.4, -12448.9, 296.730, FourCC("hdhw"))
 end
 
 function CreatePlayerBuildings()
@@ -150,7 +179,7 @@ function CreateRegions()
     gg_rct_E3A = Rect(13152.0, -11104.0, 13504.0, -10464.0)
     gg_rct_E1A = Rect(13216.0, -13696.0, 13568.0, -13216.0)
     gg_rct_E2A = Rect(16704.0, -13536.0, 17184.0, -13120.0)
-    gg_rct_E4A = Rect(18144.0, -11712.0, 18432.0, -11232.0)
+    gg_rct_E4A = Rect(18144.0, -11776.0, 18432.0, -11232.0)
     gg_rct_S4A = Rect(18080.0, -11264.0, 19360.0, -10176.0)
     gg_rct_B4A = Rect(18656.0, -10912.0, 18784.0, -10432.0)
     gg_rct_E5A = Rect(17376.0, -8512.0, 17920.0, -8096.0)
@@ -159,6 +188,24 @@ function CreateRegions()
     gg_rct_E6A = Rect(15232.0, -7680.0, 15520.0, -7072.0)
     gg_rct_S6A = Rect(14784.0, -7104.0, 16096.0, -6176.0)
     gg_rct_B6A = Rect(15392.0, -6848.0, 15520.0, -6432.0)
+    gg_rct_E7A = Rect(14848.0, -5024.0, 15136.0, -4416.0)
+    gg_rct_S7A = Rect(14848.0, -4448.0, 16160.0, -3520.0)
+    gg_rct_B7A = Rect(15456.0, -4192.0, 15584.0, -3776.0)
+    gg_rct_S8A = Rect(18240.0, -4608.0, 19552.0, -3680.0)
+    gg_rct_B8A = Rect(18848.0, -4352.0, 18976.0, -3936.0)
+    gg_rct_S9A = Rect(21376.0, -3616.0, 23328.0, -2688.0)
+    gg_rct_B9A = Rect(22144.0, -4384.0, 22624.0, -3712.0)
+    gg_rct_S10A = Rect(21696.0, -8576.0, 23840.0, -7488.0)
+    gg_rct_B10A = Rect(22528.0, -7744.0, 23008.0, -7072.0)
+    gg_rct_S11A = Rect(21408.0, -11168.0, 22688.0, -10080.0)
+    gg_rct_B11A = Rect(21984.0, -10816.0, 22112.0, -10336.0)
+    gg_rct_E11A = Rect(21504.0, -11648.0, 21792.0, -11040.0)
+    gg_rct_S12A = Rect(20736.0, -13728.0, 22016.0, -12640.0)
+    gg_rct_B12A = Rect(21312.0, -13376.0, 21440.0, -12896.0)
+    gg_rct_E12A = Rect(20832.0, -14240.0, 21120.0, -13696.0)
+    gg_rct_E10A = Rect(21248.0, -8320.0, 21760.0, -8032.0)
+    gg_rct_E9A = Rect(20864.0, -4640.0, 21376.0, -4352.0)
+    gg_rct_E8A = Rect(18688.0, -5280.0, 18976.0, -4672.0)
 end
 
 function CreateCameras()
@@ -480,9 +527,13 @@ function StartAndReleaseSpin(data)
                 data.SpinReflect=true
                 BlzFrameSetText(data.SpinChargesFH,data.SpinCharges)
                 DestroyEffect(eff)
-                BlzSetSpecialEffectScale(eff,0.5)
+                BlzSetSpecialEffectScale(eff,data.ChargedSpinArea/300)
                 sec=0
-                if UnitDamageArea(hero,25,x,y,150,"blackHole") then
+                local state=""
+                if data.ChargedSpinArea>200 then
+                    state="blackHole"
+                end
+                if UnitDamageArea(hero,25,x,y,data.ChargedSpinArea,state) then
                     normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(data.UnitHero))
                 end
             end
@@ -1207,6 +1258,15 @@ function InitAllZones()
     SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     SetZone(5,gg_rct_E5A,gg_rct_B5A,gg_rct_S5A)
     SetZone(6,gg_rct_E6A,gg_rct_B6A,gg_rct_S6A)
+    ---------------------------------------------------
+    SetZone(7,gg_rct_E7A,gg_rct_B7A,gg_rct_S7A)
+    SetZone(8,gg_rct_E8A,gg_rct_B8A,gg_rct_S8A)
+    SetZone(9,gg_rct_E9A,gg_rct_B9A,gg_rct_S9A)
+    SetZone(10,gg_rct_E10A,gg_rct_B10A,gg_rct_S10A)
+    SetZone(11,gg_rct_E11A,gg_rct_B11A,gg_rct_S11A)
+    SetZone(12,gg_rct_E12A,gg_rct_B12A,gg_rct_S12A)
+
+
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
     DestinyEnemies=GetRandomIntTable(1, #GameZone, #GameZone)
@@ -1315,6 +1375,9 @@ function StartEnemyWave(waveNumber)
     if waveNumber==2 then
         listID={  -- скелетов по 5
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("nsko"),
         }
         maxOnWave=2
     end
@@ -1346,14 +1409,6 @@ function StartEnemyWave(waveNumber)
         maxOnWave=10
     end
 
-    if waveNumber==6 then
-        listID={  -- некроманты
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-        }
-        maxOnWave=5
-    end
-
     if waveNumber==5 then
         listID={  -- Пуджи
             FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
@@ -1364,6 +1419,86 @@ function StartEnemyWave(waveNumber)
         maxOnWave=3
     end
 
+    if waveNumber==6 then
+        listID={  -- некроманты
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+        }
+        maxOnWave=5
+    end
+
+    if waveNumber==7 then
+        listID={
+            FourCC("uabo"),FourCC("uabo"),FourCC("unec"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("unec"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("unec"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+        }
+        maxOnWave=3
+    end
+    if waveNumber==8 then
+        listID={
+            FourCC("uabo"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("ucs1"),
+        }
+        maxOnWave=9
+    end
+    if waveNumber==9 then
+        listID={
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+        }
+        maxOnWave=20
+    end
+    if waveNumber==10 then
+        listID={
+            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+        }
+        maxOnWave=4
+    end
+    if waveNumber==11 then
+        listID={
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+        }
+        maxOnWave=9
+    end
+    if waveNumber==12 then
+        listID={
+            listID={
+                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+                FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            }
+        }
+        maxOnWave=5
+    end
 
     if listID[1] then
         StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,maxOnWave)
@@ -1562,6 +1697,20 @@ function shake(array)
     end
 end
 
+function checkUlt(i, j, GOD_NAME_ARRAY, ult)
+    if talons[i][j][ult] ~= nil and talons[i][j][ult] then
+        for l = 1, #GOD_NAME_ARRAY do
+            if not (GlobalTalons[i][GodName] == GlobalTalons[i][GOD_NAME_ARRAY[l]]) then
+                for k = 1, #GlobalTalons[i][GOD_NAME_ARRAY[l]] do
+                    if GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] ~= nil and GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] then
+                        GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] = false
+                    end
+                end
+            end
+        end
+    end
+end
+
 
 function CreateDialogTalon(godName)
     GodName = godName
@@ -1583,11 +1732,18 @@ function CreateDialogTalon(godName)
 
     talons = {}
     listOfNumbers = {}
+    index = {}
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
-        for j = 1, #GlobalTalons[i][godName] do --FIXME
+        for j = 1, #GlobalTalons[i][godName] do -- Исправить баг с дыркой в массиве
             if not (GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"]) then
                 listOfNumbers[i][j] = j
+            end
+            if GlobalTalons[i][godName][j]:getUltF() ~= nil and GlobalTalons[i][godName][j]:getUltF() == false then
+                table.remove(listOfNumbers[i], j)
+            end
+            if GlobalTalons[i][godName][j]:getUltR() ~= nil and GlobalTalons[i][godName][j]:getUltR() == false then
+                table.remove(listOfNumbers[i], j)
             end
             -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
             -- если уровень равен 0, то исключаем зависимый талант из списка
@@ -1603,11 +1759,12 @@ function CreateDialogTalon(godName)
 
     for i = 1, bj_MAX_PLAYERS do
         talons[i] = {}
+        index[i] = {}
         local count = 0
         for j = 1, #GlobalTalons[i][godName] do
             if not (listOfNumbers[i][j] == nil) then
-                --talons[i][j] = GlobalTalons[i][godName][listOfNumbers[i][j]]
                 table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
+                table.insert(index[i], listOfNumbers[i][j])
                 count = count + 1
             end
             if count == 4 then
@@ -1616,16 +1773,20 @@ function CreateDialogTalon(godName)
         end
     end
 
-    --print(talons[1][1]["name"])
-
     local height = {}
     for i = 1, bj_MAX_PLAYERS do
         if #talons[i] == 1 then
             height[i] = 0.17
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], false)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
         elseif #talons[i] == 2 then
             height[i] = 0.27
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
         elseif #talons[i] == 3 then
             height[i] = 0.37
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
         elseif #talons[i] == 4 then
             height[i] = 0.47
         else
@@ -1633,144 +1794,25 @@ function CreateDialogTalon(godName)
         end
     end
 
-    --local DialogTalon = {}
-
-    --DialogTalon.MainFrame = {}
-    --DialogTalon.MainBackdrop = {}
-    --DialogTalon.Title = {}
-    --DialogTalon.TalonButtons = {}
-    --DialogTalon.TalonButtons.Button = {}
-    --DialogTalon.TalonButtons.Backdrop = {}
-    --DialogTalon.TalonButtons.Icon = {}
-    --DialogTalon.TalonButtons.Description = {}
-    --DialogTalon.TalonButtons.Name = {}
-    --DialogTalon.TalonButtons.Level = {}
-    --DialogTalon.TalonButtons.Border = {}
-    --DialogTalon.TalonButtons.ClickTriggers = {}
-    --DialogTalon.TalonButtons.ClickEvents = {}
-    --DialogTalon.TalonButtons.ClickActions = {}
-    --DialogTalon.TalonButtons.MouseEnterTriggers = {}
-    --DialogTalon.TalonButtons.MouseEnterEvents = {}
-    --DialogTalon.TalonButtons.MouseEnterActions = {}
-    --DialogTalon.TalonButtons.MouseLeaveTriggers = {}
-    --DialogTalon.TalonButtons.MouseLeaveEvents = {}
-    --DialogTalon.TalonButtons.MouseLeaveActions = {}
-    --DialogTalonIsOpen = {}
     for i = 1, bj_MAX_PLAYERS do
-        --[[
-        DialogTalon.MainFrame[i] = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
-        BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
-        BlzFrameSetAbsPoint(DialogTalon.MainFrame[i], FRAMEPOINT_CENTER, 0.4, 0.32)
-
-        DialogTalon.MainBackdrop[i] = BlzCreateFrame("EscMenuBackdrop", DialogTalon.MainFrame[i], 0, 0)
-        BlzFrameSetAllPoints(DialogTalon.MainBackdrop[i], DialogTalon.MainFrame[i])
-
-        DialogTalon.Title[i] = BlzCreateFrameByType("TEXT", "DialogTalonTitle", DialogTalon.MainFrame[i], "EscMenuTitleTextTemplate", 0)
-        BlzFrameSetPoint(DialogTalon.Title[i], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0, -0.03)
-        BlzFrameSetTextColor(DialogTalon.Title[i], BlzConvertColor(1, 255, 255, 255))
-        BlzFrameSetText(DialogTalon.Title[i], title)
-        ]]
         DialogTalon.IsOpen[i] = false
         BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
         BlzFrameSetText(DialogTalon.Title[i], title)
 
-        --DialogTalonIsOpen[i] = true
-
-        --DialogTalon.TalonButtons[i] = {}
-        --DialogTalon.TalonButtons.Button[i] = {}
-        --DialogTalon.TalonButtons.Backdrop[i] = {}
-        --DialogTalon.TalonButtons.Icon[i] = {}
-        --DialogTalon.TalonButtons.Description[i] = {}
-        --DialogTalon.TalonButtons.Name[i] = {}
-        --DialogTalon.TalonButtons.Level[i] = {}
-        --DialogTalon.TalonButtons.Border[i] = {}
-        --DialogTalon.TalonButtons.ClickTriggers[i] = {}
-        --DialogTalon.TalonButtons.ClickEvents[i] = {}
-        --DialogTalon.TalonButtons.ClickActions[i] = {}
-        --DialogTalon.TalonButtons.MouseEnterTriggers[i] = {}
-        --DialogTalon.TalonButtons.MouseEnterEvents[i] = {}
-        --DialogTalon.TalonButtons.MouseEnterActions[i] = {}
-        --DialogTalon.TalonButtons.MouseLeaveTriggers[i] = {}
-        --DialogTalon.TalonButtons.MouseLeaveEvents[i] = {}
-        --DialogTalon.TalonButtons.MouseLeaveActions[i] = {}
         for j = 1, #talons[i] do
-            -- Создаем Бэкдроп для кнопок
-            --DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame[i], "EscMenuControlBackdropTemplate", 0)
-            --BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
-            --BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
 
-            --DialogTalon.TalonButtons.Border[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBorder", DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-            --BlzFrameSetSize(DialogTalon.TalonButtons.Border[i][j], 0.449, 0.079)
-            --BlzFrameSetTexture(DialogTalon.TalonButtons.Border[i][j], "war3mapImported\\talonBorder.blp", 0, true)
-            --BlzFrameSetPoint(DialogTalon.TalonButtons.Border[i][j], FRAMEPOINT_CENTER, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_CENTER, 0, 0)
-            --BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
-
-            -- Создаем Иконки кнопок
-            --DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-            BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j].icon, 0, true)
-            --BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i][j], 0.064, 0.064)
-            --BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.01, 0)
-
-            -- Создаем названия талантов
-            --DialogTalon.TalonButtons.Name[i][j] = BlzCreateFrameByType("TEXT", "TalonName" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuTitleTextTemplate", 0)
-            --BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i][j], BlzConvertColor(1, 255, 255, 255))
-            BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j].name)
-            --BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0.02)
-
-            -- Создаем описания талантов
-            --DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-            --BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
+            BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j]:getIcon(), 0, true)
+            BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j]:getName())
             BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
-            --BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
-           -- BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
+            BlzFrameSetText(DialogTalon.TalonButtons.TooltipDescription[i][j], talons[i][j]:getTooltip())
 
-            -- Показываем текущий уровень талантов, если талант уже выучен
             BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "")
-            if talons[i][j].level > 0 then
-                --DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                --BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
+            if talons[i][j]:getLevel() > 0 then
                 BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
-                --BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
             end
-
-            -- Создаем Кнопки
-            --DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-            --BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
-
-            --DialogTalon.TalonButtons.ClickTriggers[i][j] = CreateTrigger()
-            --DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.ClickTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
-            --DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.ClickTriggers[i][j], function()
-                --if DialogTalon.IsOpen[i] == true then
-                    --DialogTalon.IsOpen[i] = false
-                    --talons[i][j]:updateLevel()
-                    --print(talons[i][j]["name"])
-                    -- Закрываем окно талантов
-                    --print(listOfNumbers[i][j].."")
-                    --SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close", GetLocalPlayer() == Player(i - 1))
-                    --BlzFrameSetVisible(DialogTalon.MainFrame[i], not (GetLocalPlayer() == Player(i - 1)))
-                    --BlzFrameSetVisible(DialogTalon.MainFrame[i], false)
-                    --LearnCurrentTalonForPlayer(i,GodName,listOfNumbers[i][j])
-                --end
-            --end)
-
-            --DialogTalon.TalonButtons.MouseEnterTriggers[i][j] = CreateTrigger()
-            --DialogTalon.TalonButtons.MouseEnterEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_ENTER)
-            --DialogTalon.TalonButtons.MouseEnterActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], function()
-                --BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], GetLocalPlayer() == Player(i - 1))
-            --end)
-            --DialogTalon.TalonButtons.MouseLeaveTriggers[i][j] = CreateTrigger()
-            --DialogTalon.TalonButtons.MouseLeaveEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_LEAVE)
-            --DialogTalon.TalonButtons.MouseLeaveActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], function()
-                --BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
-            --end)
         end
-    end
 
-    --DialogTalon.Tooltip = {}
-    --DialogTalon.Tooltip.Frame = BlzCreateFrameByType("FRAME", "DialogTalonTooltipFrame", )
-
-    -- Пока что показываем окно всем
-    for i = 1, bj_MAX_PLAYERS do
+        -- Показываем окно всем
         BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
         SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
     end
@@ -1786,6 +1828,14 @@ do
 
             local GAME_UI = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
 
+            local GOD_NAME_ARRAY = {
+                "Trall",
+                "HeroBlademaster",
+                "HeroTaurenChieftain",
+                "ShadowHunter",
+                "PeonDidal",
+            }
+
             DialogTalon = {}
 
             DialogTalon.MainFrame = {}
@@ -1800,6 +1850,8 @@ do
             DialogTalon.TalonButtons.Name = {}
             DialogTalon.TalonButtons.Level = {}
             DialogTalon.TalonButtons.Border = {}
+            DialogTalon.TalonButtons.Tooltip = {}
+            DialogTalon.TalonButtons.TooltipDescription = {}
             DialogTalon.TalonButtons.ClickTriggers = {}
             DialogTalon.TalonButtons.ClickEvents = {}
             DialogTalon.TalonButtons.ClickActions = {}
@@ -1811,7 +1863,6 @@ do
             DialogTalon.TalonButtons.MouseLeaveActions = {}
             for i = 1, bj_MAX_PLAYERS do
                 DialogTalon.MainFrame[i] = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
-                --BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
                 BlzFrameSetAbsPoint(DialogTalon.MainFrame[i], FRAMEPOINT_CENTER, 0.4, 0.32)
                 BlzFrameSetVisible(DialogTalon.MainFrame[i], false)
 
@@ -1821,7 +1872,6 @@ do
                 DialogTalon.Title[i] = BlzCreateFrameByType("TEXT", "DialogTalonTitle", DialogTalon.MainFrame[i], "EscMenuTitleTextTemplate", 0)
                 BlzFrameSetPoint(DialogTalon.Title[i], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0, -0.03)
                 BlzFrameSetTextColor(DialogTalon.Title[i], BlzConvertColor(1, 255, 255, 255))
-                --BlzFrameSetText(DialogTalon.Title[i], title)
 
                 DialogTalon.IsOpen[i] = false
                 DialogTalon.TalonButtons.Button[i] = {}
@@ -1831,6 +1881,8 @@ do
                 DialogTalon.TalonButtons.Name[i] = {}
                 DialogTalon.TalonButtons.Level[i] = {}
                 DialogTalon.TalonButtons.Border[i] = {}
+                DialogTalon.TalonButtons.Tooltip[i] = {}
+                DialogTalon.TalonButtons.TooltipDescription[i] = {}
                 DialogTalon.TalonButtons.ClickTriggers[i] = {}
                 DialogTalon.TalonButtons.ClickEvents[i] = {}
                 DialogTalon.TalonButtons.ClickActions[i] = {}
@@ -1846,6 +1898,16 @@ do
                     BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
 
+                    DialogTalon.TalonButtons.Tooltip[i][j] = BlzCreateFrameByType("BACKDROP", "TalonTooltip", DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuControlBackdropTemplate", 0)
+                    BlzFrameSetSize(DialogTalon.TalonButtons.Tooltip[i][j], 0.1525, 0.1)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Tooltip[i][j], FRAMEPOINT_RIGHT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_RIGHT, 0.1525, -0.01)
+                    BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], false)
+
+                    DialogTalon.TalonButtons.TooltipDescription[i][j] = BlzCreateFrameByType("TEXT", "TooltipDescr", DialogTalon.TalonButtons.Tooltip[i][j], "", 0)
+                    BlzFrameSetTextColor(DialogTalon.TalonButtons.TooltipDescription[i][j], BlzConvertColor(1, 255, 255, 255))
+                    BlzFrameSetSize(DialogTalon.TalonButtons.TooltipDescription[i][j], 0.14, 0.07)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.TooltipDescription[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Tooltip[i][j], FRAMEPOINT_LEFT, 0.01, 0.004)
+
                     DialogTalon.TalonButtons.Border[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBorder", DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                     BlzFrameSetSize(DialogTalon.TalonButtons.Border[i][j], 0.449, 0.079)
                     BlzFrameSetTexture(DialogTalon.TalonButtons.Border[i][j], "SystemGeneric\\gb", 0, true)
@@ -1854,26 +1916,22 @@ do
 
                     -- Создаем Иконки кнопок
                     DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    --BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j].icon, 0, true)
                     BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i][j], 0.064, 0.064)
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.01, 0)
 
                     -- Создаем названия талантов
                     DialogTalon.TalonButtons.Name[i][j] = BlzCreateFrameByType("TEXT", "TalonName" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuTitleTextTemplate", 0)
                     BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i][j], BlzConvertColor(1, 255, 255, 255))
-                    --BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j].name)
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0.02)
 
                     -- Создаем описания талантов
                     DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                     BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
-                    --BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
                     BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
 
                     DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
                     BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
-                    --BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
                     BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
 
                     DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
@@ -1885,15 +1943,14 @@ do
                         if DialogTalon.IsOpen[i] == true then
                             DialogTalon.IsOpen[i] = false
                             talons[i][j]:updateLevel()
+                            checkUlt(i, j, GOD_NAME_ARRAY, "ultF")
+                            checkUlt(i, j, GOD_NAME_ARRAY, "ultR")
                             -- Закрываем окно талантов
-                            --print(listOfNumbers[i][j].."")
                             BlzFrameSetEnable(BlzGetTriggerFrame(), false)
                             BlzFrameSetEnable(BlzGetTriggerFrame(), true)
                             SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close")
-                            --BlzFrameSetVisible(DialogTalon.MainFrame[i], not (GetLocalPlayer() == Player(i - 1)))
-
-                            --BlzFrameSetVisible(DialogTalon.MainFrame[i], false)
-                            LearnCurrentTalonForPlayer(i,GodName,listOfNumbers[i][j])
+                            --LearnCurrentTalonForPlayer(i,GodName,listOfNumbers[i][j])
+                            LearnCurrentTalonForPlayer(i,GodName,index[i][j])
                         end
                     end)
 
@@ -1901,11 +1958,13 @@ do
                     DialogTalon.TalonButtons.MouseEnterEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_ENTER)
                     DialogTalon.TalonButtons.MouseEnterActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], function()
                         BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], GetLocalPlayer() == Player(i - 1))
+                        BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], GetLocalPlayer() == Player(i - 1))
                     end)
                     DialogTalon.TalonButtons.MouseLeaveTriggers[i][j] = CreateTrigger()
                     DialogTalon.TalonButtons.MouseLeaveEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_LEAVE)
                     DialogTalon.TalonButtons.MouseLeaveActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], function()
                         BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
+                        BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], false)
                     end)
                 end
             end
@@ -1954,9 +2013,33 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
         if pos==3 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"wolfSummon")
+
         end
         if pos==4 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            data.ChargedSpinArea=data.ChargedSpinArea+talon.DS[talon.level]
+            local lvl2=false
+            local lvl3=false
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==2 then
+                    lvl2=true
+                    data.ChargedSpinArea=data.ChargedSpinArea+50
+                end
+                if lvl2 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+
+            TimerStart(CreateTimer(), 1, true, function()
+                if talon.level==3 then
+                    lvl3=true
+                    data.ChargedSpinArea=data.ChargedSpinArea+50
+                end
+                if lvl3 then
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+
         end
         if pos==5 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\f","callTrall")
@@ -1990,16 +2073,21 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
         if pos==7 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"healDash")
+            data.HealDash=true
+            data.Time2HealDash=0
+            data.HealDashCurrentCD=0
         end
         if pos==8 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"invulPreDeath")
+            data.InvulPreDeathCurrentCD=0
         end
         if pos==9 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
         end
     end
     if godName=="HeroBlademaster" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"windWalk")
+
     end
     if godName=="ShadowHunter" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
@@ -2054,7 +2142,9 @@ Talon = {
     rarity = "normal",
     tooltip = nil,
     dependence = nil,
-    DS = nil
+    DS = nil,
+    ultF = nil,
+    ultR = nil
 }
 
 function Talon:new (o)
@@ -2102,6 +2192,26 @@ end
 function Talon:getDS()
     return self.DS
 end
+
+function Talon:getTooltip()
+    return self.tooltip
+end
+
+function Talon:getName()
+    return self.name
+end
+
+function Talon:getIcon()
+    return self.icon
+end
+
+function Talon:getUltF()
+    return self.ultF
+end
+
+function Talon:getUltR()
+    return self.ultR
+end
 do
     local InitGlobalsOrigin = InitGlobals
     function InitGlobals()
@@ -2117,7 +2227,7 @@ do
                             description = "Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Обычной атакой, считаете быстрая атака совершенная LMB или атака призванных существ",
+                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={3,4,5}
 
                         }),
@@ -2128,24 +2238,24 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
-                            DS={1,2,3}
+                            DS={2,3,4}
                         }),
                         [3] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
-                            name = "Волк компаньён",
-                            description = "Призывает автономного волка, сражающего на вашей стороне. Презезарядка возрождения DS сек.",
+                            name = "Волк компаньон",
+                            description = "Призывает автономного волка, сражающего на вашей стороне. Перезарядка возрождения DS сек.",
                             level = 0,
                             rarity = "normal",
                             tooltip = " Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед.",
-                            DS={90,60,45}
+                            DS={60,40,20}
                         }),
                         [4] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
                             name = "Воронка прозрения",
-                            description = "Заряженная атака втягивает врагов в центр воронки, область захвата DS ",
+                            description = "Вращающаяся атака втягивает врагов в центр воронки, область захвата +DS ",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
+                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
                             DS={100,150,200}
                         }),
                         [5] = Talon:new({
@@ -2155,12 +2265,13 @@ do
                             level = 0,
                             rarity = "epic",
                             tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
-                            DS={10,20,30}
+                            DS={10,20,30},
+                            ultF = true
                         }),
                         [6] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
                             name = "Запасы складов пеонов",
-                            description = "Добавляет + DS зарядов к кикре",
+                            description = "Добавляет заряды к броску кирки +DS",
                             level = 0,
                             rarity = "epic",
                             tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
@@ -2169,7 +2280,7 @@ do
                         [7] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
                             name = "Предвидение боли",
-                            description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить запас здоровья. Перезарядка DS сек",
+                            description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек",
                             level = 0,
                             rarity = "rare",
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
@@ -2187,11 +2298,11 @@ do
                         [9] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
                             name = "Ясновидение",
-                            description = "Позволяет видеть невидимое и раскрывает врагов",
+                            description = "Позволяет DS",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "В игре много скрытых ловышек и иных путей, берите этот навык всегда, чтобы узнать больше",
-                            DS={"Видит невидимое","Видит невидимое и показывает скрытые проходы","Видит невидимое, показывает скрытые проходы и решения головоломок"}
+                            tooltip = "В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше",
+                            DS={"Видеть невидимое","Видеть невидимое и показывает скрытые проходы","Видеть невидимое, показывает скрытые проходы и решения головоломок"}
                         }),
                         --[[[10] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
@@ -2266,7 +2377,8 @@ do
                             level = 0,
                             rarity = "epic",
                             tooltip = "Герой может иметь только 1 ультимативную R способность, получение ультимейтов от других богов далее станет невозможным",
-                            DS={1,2,3}
+                            DS={1,2,3},
+                            ultR = true
                         }),
                     },
                     ShadowHunter={
@@ -2304,7 +2416,8 @@ do
                             level = 0,
                             rarity = "epic",
                             tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
-                            DS={12,10,8}
+                            DS={12,10,8},
+                            ultF = true
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
@@ -2450,7 +2563,7 @@ do
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
                             name = "Удар проклятой души",
-                            description = "Попадания обычной атаков восстанавливают DS ед. здоровья, в случае промаха вы потеряете DS% от макс здоровья (не может быть смертельным)",
+                            description = "Попадания обычной атакой восстанавливают DS% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS% от макс здоровья (не может быть смертельным)",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
@@ -2627,8 +2740,48 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
         data.InvulPreDeathCDFH=buttonIconFrame
     end
 
-    if flag=="PeonDidal" then
-       -- data.InvulPreDeathCDFH=buttonIconFrame
+    if flag=="wolfSummon" then
+       -- data.wolfSummonCDFH=buttonIconFrame
+        data.SpiritWolf=nil
+        local sec=0
+        local talon=GlobalTalons[data.pid+1]["Trall"][3]
+        TimerStart(CreateTimer(), 1, true, function()
+            local cdSec=talon.DS[talon.level]
+            local effmodel="Abilities\\Spells\\NightElf\\Blink\\BlinkCaster"
+            sec=sec-1
+            if not data.SpiritWolf and UnitAlive(data.UnitHero) and sec<0 then
+                StartFrameCD(cdSec,buttonIconFrame)
+                sec=cdSec
+                data.SpiritWolf=CreateUnit(Player(data.pid),FourCC("osw1"),GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),GetUnitFacing(data.UnitHero))
+                DestroyEffect(AddSpecialEffect(effmodel,GetUnitXY(data.SpiritWolf)))
+                BlzSetUnitMaxHP(data.SpiritWolf,1000*talon.level)
+                HealUnit(data.SpiritWolf,3000)
+                BlzSetUnitBaseDamage(data.SpiritWolf,50*talon.level,0)
+            end
+
+            if data.SpiritWolf then
+                if UnitAlive(data.SpiritWolf) then
+                    local xh,yh=GetUnitXY(data.UnitHero)
+                    local dist=DistanceBetweenXY(GetUnitX(data.SpiritWolf),GetUnitY(data.SpiritWolf),xh,yh)
+                    if dist>600 then
+                        DestroyEffect(AddSpecialEffect(effmodel,GetUnitXY(data.SpiritWolf)))
+                        DestroyEffect(AddSpecialEffect(effmodel,xh,yh))
+                        local r=GetRandomInt(-50,50)
+                        SetUnitPosition(data.SpiritWolf,xh+r,yh+r)
+                    else
+                        if GetUnitCurrentOrder(data.SpiritWolf)~=String2OrderIdBJ("attack") then
+                            local rx,ry=xh+GetRandomInt(-500,500),yh+GetRandomInt(-500,500)
+                            IssuePointOrder(data.SpiritWolf,"attack", rx,ry)
+                        end
+                    end
+                else
+                    data.SpiritWolf=nil
+                end
+            end
+        end)
+    end
+    if flag=="windWalk" then
+        data.WindWalkCDFH=buttonIconFrame
     end
 
 
@@ -2804,9 +2957,10 @@ function DrawInterFace()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if HERO[i] then
             CreateHPBar(HERO[i].UnitHero)
+            CreateLifeInterface(HERO[i])
         end
     end
-    CreateBaseFrames(0.02, 0.015)
+    CreateBaseFrames(0.02, 0.015) -- 5 стандартных скилов
 end
 
 function DrawSelectionPortrait()
@@ -2817,6 +2971,43 @@ function DrawSelectionPortrait()
     BlzFrameSetParent(Portrait, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetAbsPoint(Portrait, FRAMEPOINT_LEFT, 0.0, 0.04)
 end
+
+
+function CreateLifeInterface(data)
+    AddLife(data)
+    AddLife(data)
+    AddLife(data)
+    --AddLife(data)
+end
+
+function AddLife(data)
+    if not data.life then
+        data.life=0
+    end
+    data.life=data.life+1
+
+    local lifeIco="SystemGeneric\\peonlife"
+    local lifeFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(lifeFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(lifeFrame, lifeIco, 0, true)
+    BlzFrameSetSize(lifeFrame, NextPoint/3, NextPoint/3)
+    BlzFrameSetAbsPoint(lifeFrame, FRAMEPOINT_CENTER, -0.045, 0.01+((NextPoint/2)*(data.life-1)))
+    BlzFrameSetVisible(lifeFrame, GetLocalPlayer() == Player(data.pid))
+    data.LifeFHTable[data.life]=lifeFrame
+    --print("жизнь")
+end
+
+function RemoveLife(data)
+    BlzFrameSetVisible(data.LifeFHTable[data.life],false)
+    BlzDestroyFrame(data.LifeFHTable[data.life])
+    data.life=data.life-1
+    --print("потеря жизни")
+    if data.life<0 then
+        print("Поражение, вы не сможете больше воскреснуть")
+    end
+end
+
+
 
 function CreateHPBar(hero)
     local intoBar = "SystemGeneric\\ColorHP"
@@ -3501,17 +3692,41 @@ function OnPostDamage()
 		if GetUnitAbilityLevel(target,FourCC("BNms"))==0 then
 			StunUnit(target,0.4,"stagger")
 		end
+	else
+		--print("наш герой получил урон")
+		local data=HERO[GetPlayerId(GetOwningPlayer(target))]
+		if data.HealDash and data.HealDashCurrentCD<=0 then
+			data.Time2HealDash=damage
+			TimerStart(CreateTimer(), 0.5, false, function()
+				data.Time2HealDash=0
+			end)
+		end
+		if damage>=GetUnitState(target,UNIT_STATE_LIFE) then
+			--print("получен смертельный урон")
+
+			if data.InvulPreDeathCurrentCD<=0 and data.InvulPreDeathCDFH then
+				--print("получен смертельный урон")
+				BlzSetEventDamage(0)
+				local talon=GlobalTalons[data.pid+1]["Trall"][8]
+				local cd=talon.DS[talon.level]
+				data.InvulPreDeathCurrentCD=cd
+				StartFrameCD(cd,data.InvulPreDeathCDFH )
+				TimerStart(CreateTimer(), cd, false, function()
+					data.InvulPreDeathCurrentCD=0
+				end)
+			end
+		end
 	end
 
-	if GetUnitTypeId(caster)==HeroID then
+	if GetUnitTypeId(caster)==HeroID and caster~=target then
 		local data=HERO[GetPlayerId(GetOwningPlayer(caster))]
 		local x,y=GetUnitXY(caster)
 		local xe,ye=GetUnitXY(target)
-		-- функия принадлежности точки сектора
+		-- функция принадлежности точки сектора
 		-- x1, x2 - координаты проверяемой точки
 		-- x2, y2 - координаты вершины сектора
 		-- orientation - ориентация сектора в мировых координатах
-		-- width - уголовой размер сектора в градусах
+		-- width - угловой размер сектора в градусах
 		-- radius - окружности которой принадлежит сектор
 
 		if IsPointInSector(x,y,xe,ye,GetUnitFacing(target)-180,90,200) then
@@ -3536,7 +3751,6 @@ function OnPostDamage()
 		end
 	end
 
-		--любой получил урон
 
 end
 
@@ -4627,6 +4841,7 @@ function InitHeroTable(hero)
         SpinCharges=30,-- начильное число зарядов вращения
         SpinChargesMAX=40, --максимальное количество зарядов вращения
         SpinRegeneratingRate=0,
+        ChargedSpinArea=150,
         --Способность бросок кирки
         ThrowCharges=2,
         ThrowChargesFH=nil,
@@ -4637,11 +4852,14 @@ function InitHeroTable(hero)
         DashChargesFH=nil,
         DashChargesCDFH=nil,
         DashChargesReloadSec=2,
+        Time2HealDash=0,--лечение доступно только при нуле
         countFrame=0,
         BaseDashDamage=100,
         ReboundCountMAX=5,
         ReboundCount=0,
-        DamageThrow=150
+        DamageThrow=150, -- урон от кирки
+        InvulPreDeathCurrentCD=1, --кулдаун бессмертия от трала
+        LifeFHTable={},
     }
 end
 
@@ -4683,6 +4901,7 @@ function InitWASD(hero)
             if not data.CameraStabUnit then
                 data.CameraStabUnit=CreateUnit(Player(data.pid),FourCC("hdhw"),x,y,0)
                 ShowUnit(data.CameraStabUnit,false)
+                RemoveLife(data)
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit),GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit),data.CameraStabUnit, 10,10,true) -- не дергается
@@ -4691,11 +4910,14 @@ function InitWASD(hero)
                -- SetCameraQuickPosition(x,y)
             end
             TimerStart(CreateTimer(),3, false, function()
-                ReviveHero(hero,x,y,true)
-                SetUnitInvulnerable(hero,true)
-                TimerStart(CreateTimer(),2, false, function()
-                    SetUnitInvulnerable(hero,false)
-                end)
+                if data.life>=0 then
+
+                    ReviveHero(hero,x,y,true)
+                    SetUnitInvulnerable(hero,true)
+                    TimerStart(CreateTimer(),2, false, function()
+                        SetUnitInvulnerable(hero,false)
+                    end)
+                end
             end)
         else
             KillUnit(data.CameraStabUnit)
@@ -5038,6 +5260,15 @@ function CreateWASDActions()
 
                 UnitAddItemById(data.UnitHero,FourCC("I000")) -- предмет виндволк
                 BlzSetUnitFacingEx(data.UnitHero,data.DirectionMove)
+                if data.Time2HealDash>0 then
+                    HealUnit(data.UnitHero,data.Time2HealDash)
+                    local talon=GlobalTalons[data.pid+1]["Trall"][7]
+                    StartFrameCD(talon.DS[talon.level],data.HealDashCDFH)
+                    data.HealDashCurrentCD=talon.DS[talon.level]
+                    TimerStart(CreateTimer(), data.HealDashCurrentCD, false, function()
+                        data.HealDashCurrentCD=0
+                    end)
+                end
                 UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, dist,"ignore")
                 data.SpaceForce=true
                 local eff=AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul",data.UnitHero,"origin")
@@ -5407,7 +5638,8 @@ function attack(data)
                     if enemy then
                         ConditionCastLight(data)
                         if data.CursedStrike then
-                            HealUnit(data.UnitHero,2)
+                            local amount=(BlzGetUnitMaxHP(data.UnitHero)/100)*2
+                            HealUnit(data.UnitHero,amount)
                         end
                     else
                         if data.CursedStrike then
@@ -5445,7 +5677,8 @@ function attack(data)
                     if enemy then
                         ConditionCastLight(data)
                         if data.CursedStrike then
-                            HealUnit(data.UnitHero,2)
+                            local amount=(BlzGetUnitMaxHP(data.UnitHero)/100)*2
+                            HealUnit(data.UnitHero,amount)
                         end
                     else
                         if data.CursedStrike then
@@ -5692,6 +5925,7 @@ end
 function PlayUnitAnimationFromChat()
     local this=CreateTrigger()
     TriggerRegisterPlayerChatEvent(this,Player(0),"",true)
+    TriggerRegisterPlayerChatEvent(this,Player(1),"",true)
     TriggerAddAction(this, function()
         local s=S2I(GetEventPlayerChatString())
         local data=HERO[GetPlayerId(GetTriggerPlayer())]
@@ -5733,6 +5967,12 @@ function PlayUnitAnimationFromChat()
             local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateGodTalon(x, y, "PeonDidal")
             return
+        end
+        if GetEventPlayerChatString()=="b" or GetEventPlayerChatString()=="и"  then
+
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "HeroBlademaster")
+
         end
 
         SetUnitAnimationByIndex(data.UnitHero,s)
