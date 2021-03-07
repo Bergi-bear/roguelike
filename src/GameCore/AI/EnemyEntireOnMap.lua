@@ -34,6 +34,9 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("uabo") then
             PudgeSlash(unit)
         end
+        if GetUnitTypeId(unit)==FourCC("uzig") then
+            SpawnZombie(unit)
+        end
 
     end)
 end
@@ -194,6 +197,23 @@ function SinergyBug(unit)
         end
     end)
 
+end
+
+function SpawnZombie(unit)
+    BlzSetUnitMaxHP(unit,5000)
+    HealUnit(unit,5000)
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local new =CreateUnit(GetOwningPlayer(unit),FourCC("nzom"),GetUnitX(unit),GetUnitY(unit),0)
+            local hero=GetRandomEnemyHero()
+            UnitApplyTimedLife(new, FourCC('BTLF'), 20)
+            if hero then
+                IssueTargetOrder(new,"attack",hero)
+            end
+        end
+    end)
 end
 
 

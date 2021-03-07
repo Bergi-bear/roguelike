@@ -23,11 +23,15 @@ do
 end
 
 do
-    TimerStart(CreateTimer(), .1, false, function()
-        InitMouseMoveTrigger()
-        PlayUnitAnimationFromChat()
-        --InitWASD(hero) --переместить в первый выбор героя
-    end)
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), .1, false, function()
+            InitMouseMoveTrigger()
+            PlayUnitAnimationFromChat()
+            --InitWASD(hero) --переместить в первый выбор героя
+        end)
+    end
 end
 TIMER_PERIOD=1/32
 TIMER_PERIOD64=1/64
@@ -237,6 +241,22 @@ function InitWASD(hero)
         if data.ReleaseA and data.ReleaseW == false and data.ReleaseS == false then
             angle = 180
             data.IsMoving = true
+        end
+
+        if data.ReleaseW and data.ReleaseS and not data.ReleaseA and not data.ReleaseD then
+            data.ReleaseW=false
+            data.ReleaseS=false
+            data.IsMoving=false
+            --print("слишком много кнопок нажато")
+            DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",GetUnitXY(data.UnitHero)))
+        end
+
+        if not data.ReleaseW and not data.ReleaseS and  data.ReleaseA and  data.ReleaseD then
+            data.ReleaseA=false
+            data.ReleaseD=false
+            data.IsMoving=false
+            DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",GetUnitXY(data.UnitHero)))
+            --print("слишком много кнопок нажато")
         end
 
         if not UnitAlive(hero) then
@@ -500,6 +520,34 @@ function CreateWASDActions()
                         data.HealDashCurrentCD=0
                     end)
                 end
+                --------------------------------Кольцо змей
+                if data.CircleSnakeCDFH then
+                    if not data.CircleSnakeCurrentCD then data.CircleSnakeCurrentCD=1 end
+                    if data.CircleSnakeCurrentCD<=0 then
+                            local talon=GlobalTalons[data.pid+1]["ShadowHunter"][2]
+                            local cd=talon.DS[talon.level]
+                            StartFrameCD(cd,data.CircleSnakeCDFH)
+                            data.CircleSnakeCurrentCD=cd
+                            HealUnit(ally,100)
+                            TimerStart(CreateTimer(), cd, false, function()
+                                data.CircleSnakeCurrentCD=0
+                            end)
+                       -- print("кольцо змей")
+                        local angle=360//12
+                        for i=0,11 do
+                            local x,y=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),120,angle*i)
+                            local new=CreateUnit(Player(data.pid),FourCC("osp1"),x,y,0)
+                            SetUnitX(new,x)
+                            SetUnitY(new,y)
+                            UnitApplyTimedLife(new, FourCC('BTLF'), 10)
+                        end
+                    end
+                end
+
+                --------------------------------
+
+
+
                 UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, dist,"ignore")
                 data.SpaceForce=true
                 local eff=AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul",data.UnitHero,"origin")
@@ -984,8 +1032,26 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
             if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then
                 local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
                 --print("попытка нанести урон в рывке")
-                local range=300
+                ----------------------------Лечим союзника в рывке
 
+                if data.HealDashAllyCDFH then
+                    if not data.HealDashAllyCurrentCD then data.HealDashAllyCurrentCD=1 end
+                    if data.HealDashAllyCurrentCD<=0 then
+                        local ally=FindAnyAllyUnit(data,150)
+                        if ally then --есть кого полечить
+                            local talon=GlobalTalons[data.pid+1]["ShadowHunter"][1]
+                            local cd=talon.DS[talon.level]
+                            StartFrameCD(cd,data.HealDashAllyCDFH)
+                            data.HealDashAllyCurrentCD=cd
+                            HealUnit(ally,100)
+                            TimerStart(CreateTimer(), cd, false, function()
+                                data.HealDashAllyCurrentCD=0
+                            end)
+                        end
+                    end
+                end
+                -----------------------------
+                local range=300
                 local is,du=UnitDamageArea(hero,0,newX, newY,200)
                 if is then
                     if data.TaurenDash then
@@ -1016,7 +1082,23 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                 if flag=="ignore" then
                     --print("перезарядка атаки в рывке")
                     --HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --
-                    HERO[GetPlayerId(GetOwningPlayer(hero))].ResetSeriesTime=0
+                    local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+                    data.ResetSeriesTime=0
+                    if data.IllusionDashCDFH then
+                        if not data.IllusionDashCurrentCD then data.IllusionDashCurrentCD=1 end
+                        if data.IllusionDashCurrentCD<=0 then
+                            local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][4]
+                            local cd=10
+                            data.IllusionDashCurrentCD=cd
+                            StartFrameCD(cd,data.IllusionDashCDFH )
+                            local damage=talon.DS[talon.level]
+                            UnitDamageArea(hero,damage,newX,newY,150)
+                            UnitAddForceSimple(hero,angle-180,25, 200,"ignore")
+                            TimerStart(CreateTimer(), cd, false, function()
+                                data.IllusionDashCurrentCD=0
+                            end)
+                        end
+                    end
                 end
                 if flag=="forceAttack" then
                     BlzPauseUnitEx(hero,false)
@@ -1210,7 +1292,11 @@ function PlayUnitAnimationFromChat()
             CreateGodTalon(x, y, "HeroBeastMaster")
             return
         end
-
+        if GetEventPlayerChatString()=="s" or GetEventPlayerChatString()=="ы"  then
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "ShadowHunter")
+            return
+        end
 
         SetUnitAnimationByIndex(data.UnitHero,s)
         --print(GetUnitName(mainHero).." "..s)

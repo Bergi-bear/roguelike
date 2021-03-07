@@ -132,11 +132,11 @@ do
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
                             name = "Иллюзорный рывок",
-                            description = "Создаёт иллюзию в точке начала рывка. Перезарядка DS",
+                            description = "Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек",
                             level = 0,
-                            rarity = "normal",
+                            rarity = "epic",
                             tooltip = "Иллюзии не наносят урона и получают 200%% урона",
-                            DS={10,8,6}
+                            DS={100,150,200}
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
@@ -156,7 +156,7 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={1,2,3}
                         }),
-                        Talon:new({
+                       --[[ Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWispSplode.blp",
                             name = "Пространственный рывок",
                             description = "Нажмите R, для мгновенного перемещения в положения курсора, тратит 10 зарядов за каждые 100 единиц пути, максимум 100 зарядов, восстанавливает заряды в секунду DS ",
@@ -165,13 +165,13 @@ do
                             tooltip = "Герой может иметь только 1 ультимативную R способность, получение ультимейтов от других Богов далее станет невозможным",
                             DS={1,2,3},
                             ultR = true
-                        }),
+                        }),]]
                     },
                     ShadowHunter={
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
                             name = "Я помогу",
-                            description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS",
+                            description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
@@ -184,18 +184,18 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
-                            DS={12,10,8}
+                            DS={12,9,5}
                         }),
-                        Talon:new({
+                        Talon:new({ --3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHex.blp",
-                            name = "Метательный лягошенок",
-                            description = "Заменяет бросок кирки на бросок лягушки, привращает врага в лягушку на 3 секунды. Перезарядка: DS",
+                            name = "Метательный лягушонок",
+                            description = "Заменяет бросок кирки на бросок лягушки, превращает врага в лягушку на 3 секунды. Перезарядка: DS",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
                             DS={12,10,8}
                         }),
-                        Talon:new({
+                        Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
                             name = "Зов вуду",
                             description = "При активации увеличивает получение урона по вам на 100%%, но делет созников неуязвимыми",
@@ -205,7 +205,7 @@ do
                             DS={12,10,8},
                             ultF = true
                         }),
-                        Talon:new({
+                        Talon:new({--5
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
                             name = "Спираль смерти",
                             description = "Выпускает в напралении рывка смертельное лезвие. Перезарядка: DS",
@@ -214,7 +214,7 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={5,4,3}
                         }),
-                        Talon:new({
+                        Talon:new({--6
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp",
                             name = "Регенерация троля",
                             description = "Исцеляет героя каждые 5 секунду во время боя на DS%%",
@@ -225,7 +225,7 @@ do
                         }),
                     },
                     HeroTaurenChieftain={
-                        Talon:new({
+                        Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp",
                             name = "Новая жизнь",
                             description = "Исцеляет героя на DS %% при получении уровня",
@@ -234,7 +234,7 @@ do
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
                             DS={30,50,100}
                         }),
-                        Talon:new({
+                        Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
                             name = "Мощь быка",
                             description = "Увеличивает длительность стазиса врагов на DS от любых источников урона",
@@ -243,7 +243,7 @@ do
                             tooltip = "Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников",
                             DS={0.1,0.15,0.2}
                         }),
-                        Talon:new({
+                        Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNShockWave.blp",
                             name = "Волна силы",
                             description = "Наносит урон рывком. Урон: DS",
@@ -252,7 +252,7 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={50,80,100}
                         }),
-                        Talon:new({
+                        Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCommand.blp",
                             name = "Выносливость",
                             description = "Увеличивает скорость движения на DS %%",
@@ -261,7 +261,7 @@ do
                             tooltip = "Используйте кнопки WASD, чтобы перемещаться",
                             DS={10,20,30}
                         }),
-                        Talon:new({
+                        Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
                             name = "Могучий удар",
                             description = "Увеличивает длительность стазиса от способности Мощный удар на DS",

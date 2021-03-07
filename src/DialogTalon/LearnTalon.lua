@@ -128,8 +128,8 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             data.HasMultipleCritical=true
         end
         if pos==4 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
-            
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"IllusionDash")
+            data.IllusionDashCurrentCD=0
         end
         if pos==5 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
@@ -173,7 +173,16 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
 
     end
     if godName=="ShadowHunter" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        local tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        UpdateTalonDescriptionForFrame(talon,tt)
+        if pos==1 then
+            data.HealDashAllyCDFH=CdFH
+            data.HealDashAllyCurrentCD=0
+        end
+        if pos==2 then
+            data.CircleSnakeCDFH=CdFH
+            data.CircleSnakeCurrentCD=0
+        end
     end
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)

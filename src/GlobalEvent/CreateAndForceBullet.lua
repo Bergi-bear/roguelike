@@ -126,3 +126,25 @@ function FindAnotherUnit(unit,data)
 	return find
 end
 
+
+function FindAnyAllyUnit(data,range)
+	local e=nil
+	local find=nil
+	local k=0
+	local unit=data.UnitHero
+	local x,y=GetUnitXY(unit)
+	GroupEnumUnitsInRange(perebor,x,y,range,nil)
+	while true do
+		e = FirstOfGroup(perebor)
+		if e == nil then break end
+		if UnitAlive(e)  and IsUnitAlly(e,Player(data.pid)) and not find and e~=unit then
+			find=e
+			--print("нашел")
+		end
+		GroupRemoveUnit(perebor,e)
+	end
+	return find
+end
+
+
+

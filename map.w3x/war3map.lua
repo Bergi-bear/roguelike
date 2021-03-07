@@ -34,6 +34,7 @@ gg_rct_E12A = nil
 gg_rct_E10A = nil
 gg_rct_E9A = nil
 gg_rct_E8A = nil
+gg_rct_TrapTest = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -54,7 +55,6 @@ gg_snd_MetalHeavyBashFlesh3 = nil
 gg_snd_AbominationYesAttack1 = nil
 gg_trg_TEST = nil
 gg_trg_FFF = nil
-gg_rct_TrapTest = nil
 gg_trg_TrapTest = nil
 function InitGlobals()
 end
@@ -193,10 +193,10 @@ function CreateRegions()
     gg_rct_B7A = Rect(15456.0, -4192.0, 15584.0, -3776.0)
     gg_rct_S8A = Rect(18240.0, -4608.0, 19552.0, -3680.0)
     gg_rct_B8A = Rect(18848.0, -4352.0, 18976.0, -3936.0)
-    gg_rct_S9A = Rect(21376.0, -3616.0, 23328.0, -2688.0)
+    gg_rct_S9A = Rect(21376.0, -3808.0, 23456.0, -2688.0)
     gg_rct_B9A = Rect(22144.0, -4448.0, 22624.0, -3072.0)
     gg_rct_S10A = Rect(21696.0, -8576.0, 23840.0, -7488.0)
-    gg_rct_B10A = Rect(22528.0, -7936.0, 23008.0, -6816.0)
+    gg_rct_B10A = Rect(22528.0, -8128.0, 23008.0, -6816.0)
     gg_rct_S11A = Rect(21408.0, -11168.0, 22688.0, -10080.0)
     gg_rct_B11A = Rect(21984.0, -10816.0, 22112.0, -10336.0)
     gg_rct_E11A = Rect(21504.0, -11648.0, 21792.0, -11040.0)
@@ -1324,10 +1324,14 @@ end
 --- DateTime: 18.02.2021 18:37
 ---
 do
-    TimerStart(CreateTimer(), 2, false, function()
-        InitAllZones()
-        CurrentGameZone=0
-    end)
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 2, false, function()
+            InitAllZones()
+            CurrentGameZone=0
+        end)
+    end
 end
 GameZone={
     recEnter=nil,
@@ -1457,13 +1461,13 @@ function StartEnemyWave(waveNumber)
     end
 
     if waveNumber==2 then
-        listID={  -- скелетов по 5
+        listID={  --
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),
         }
-        maxOnWave=2
+        maxOnWave=5
     end
     if waveNumber==3 then
         listID={  -- скелетов по 5
@@ -1583,13 +1587,34 @@ function StartEnemyWave(waveNumber)
         }
         maxOnWave=5
     end
+    if waveNumber==13 then
+        listID={
+            listID={
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+
+            }
+        }
+        maxOnWave=5
+    end
+    if waveNumber==14 then
+        listID={
+            listID={
+                FourCC("uzig"),FourCC("uzig")
+            }
+        }
+        maxOnWave=4
+    end
 
     if listID[1] then
         StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,maxOnWave)
     else
         listID={FourCC("nsko")}
         StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,1)
-        print("В волне врагов, нет ни одного ID, так и задумано?")
+        print("В волне врагов "..waveNumber..", нет ни одного ID, так и задумано?")
     end
 end
 
@@ -1802,18 +1827,28 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         if #talons[i] == 1 then
             height[i] = 0.17
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
             BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], false)
             BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
             BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
         elseif #talons[i] == 2 then
             height[i] = 0.27
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
             BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
             BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
         elseif #talons[i] == 3 then
             height[i] = 0.37
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
             BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
         elseif #talons[i] == 4 then
             height[i] = 0.47
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], GetLocalPlayer() == Player(i - 1))
         else
             height[i] = 0.47
         end
@@ -2127,8 +2162,8 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             data.HasMultipleCritical=true
         end
         if pos==4 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
-            
+            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"IllusionDash")
+            data.IllusionDashCurrentCD=0
         end
         if pos==5 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
@@ -2172,7 +2207,16 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
 
     end
     if godName=="ShadowHunter" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        local tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        UpdateTalonDescriptionForFrame(talon,tt)
+        if pos==1 then
+            data.HealDashAllyCDFH=CdFH
+            data.HealDashAllyCurrentCD=0
+        end
+        if pos==2 then
+            data.CircleSnakeCDFH=CdFH
+            data.CircleSnakeCurrentCD=0
+        end
     end
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
@@ -2469,11 +2513,11 @@ do
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
                             name = "Иллюзорный рывок",
-                            description = "Создаёт иллюзию в точке начала рывка. Перезарядка DS",
+                            description = "Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек",
                             level = 0,
-                            rarity = "normal",
+                            rarity = "epic",
                             tooltip = "Иллюзии не наносят урона и получают 200% урона",
-                            DS={10,8,6}
+                            DS={100,150,200}
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
@@ -2493,7 +2537,7 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={1,2,3}
                         }),
-                        Talon:new({
+                       --[[ Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWispSplode.blp",
                             name = "Пространственный рывок",
                             description = "Нажмите R, для мгновенного перемещения в положения курсора, тратит 10 зарядов за каждые 100 единиц пути, максимум 100 зарядов, восстанавливает заряды в секунду DS ",
@@ -2502,13 +2546,13 @@ do
                             tooltip = "Герой может иметь только 1 ультимативную R способность, получение ультимейтов от других Богов далее станет невозможным",
                             DS={1,2,3},
                             ultR = true
-                        }),
+                        }),]]
                     },
                     ShadowHunter={
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
                             name = "Я помогу",
-                            description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS",
+                            description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
@@ -2909,7 +2953,10 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
     if flag=="CriticalStrike" then
         data.CriticalStrikeCDFH=buttonIconFrame
     end
+    if flag=="IllusionDash" then
+        data.IllusionDashCDFH=buttonIconFrame
 
+    end
 
 -------------------------------------------------------------------
 --------------------------------------------------------------------
@@ -3003,7 +3050,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
 
     ---Глобализация
     data.countFrame=k+1
-    return text
+    return text,buttonIconFrame
 end
 
 
@@ -3324,6 +3371,9 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("uabo") then
             PudgeSlash(unit)
         end
+        if GetUnitTypeId(unit)==FourCC("uzig") then
+            SpawnZombie(unit)
+        end
 
     end)
 end
@@ -3486,6 +3536,23 @@ function SinergyBug(unit)
 
 end
 
+function SpawnZombie(unit)
+    BlzSetUnitMaxHP(unit,5000)
+    HealUnit(unit,5000)
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local new =CreateUnit(GetOwningPlayer(unit),FourCC("nzom"),GetUnitX(unit),GetUnitY(unit),0)
+            local hero=GetRandomEnemyHero()
+            UnitApplyTimedLife(new, FourCC('BTLF'), 20)
+            if hero then
+                IssueTargetOrder(new,"attack",hero)
+            end
+        end
+    end)
+end
+
 
 
 
@@ -3526,6 +3593,20 @@ end
 
 
 
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 07.03.2021 0:39
+---
+do
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), .2, false, function()
+
+        end)
+    end
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -3806,6 +3887,28 @@ function FindAnotherUnit(unit,data)
 		end
 	return find
 end
+
+
+function FindAnyAllyUnit(data,range)
+	local e=nil
+	local find=nil
+	local k=0
+	local unit=data.UnitHero
+	local x,y=GetUnitXY(unit)
+	GroupEnumUnitsInRange(perebor,x,y,range,nil)
+	while true do
+		e = FirstOfGroup(perebor)
+		if e == nil then break end
+		if UnitAlive(e)  and IsUnitAlly(e,Player(data.pid)) and not find and e~=unit then
+			find=e
+			--print("нашел")
+		end
+		GroupRemoveUnit(perebor,e)
+	end
+	return find
+end
+
+
 
 
 
@@ -4980,11 +5083,15 @@ do
 end
 
 do
-    TimerStart(CreateTimer(), .1, false, function()
-        InitMouseMoveTrigger()
-        PlayUnitAnimationFromChat()
-        --InitWASD(hero) --переместить в первый выбор героя
-    end)
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), .1, false, function()
+            InitMouseMoveTrigger()
+            PlayUnitAnimationFromChat()
+            --InitWASD(hero) --переместить в первый выбор героя
+        end)
+    end
 end
 TIMER_PERIOD=1/32
 TIMER_PERIOD64=1/64
@@ -5194,6 +5301,20 @@ function InitWASD(hero)
         if data.ReleaseA and data.ReleaseW == false and data.ReleaseS == false then
             angle = 180
             data.IsMoving = true
+        end
+
+        if data.ReleaseW and data.ReleaseS and not data.ReleaseA and not data.ReleaseD then
+            data.ReleaseW=false
+            data.ReleaseS=false
+            data.IsMoving=false
+            print("слишком много кнопок нажато")
+        end
+
+        if not data.ReleaseW and not data.ReleaseS and  data.ReleaseA and  data.ReleaseD then
+            data.ReleaseA=false
+            data.ReleaseD=false
+            data.IsMoving=false
+            print("слишком много кнопок нажато")
         end
 
         if not UnitAlive(hero) then
@@ -5457,6 +5578,34 @@ function CreateWASDActions()
                         data.HealDashCurrentCD=0
                     end)
                 end
+                --------------------------------Кольцо змей
+                if data.CircleSnakeCDFH then
+                    if not data.CircleSnakeCurrentCD then data.CircleSnakeCurrentCD=1 end
+                    if data.CircleSnakeCurrentCD<=0 then
+                            local talon=GlobalTalons[data.pid+1]["ShadowHunter"][2]
+                            local cd=talon.DS[talon.level]
+                            StartFrameCD(cd,data.CircleSnakeCDFH)
+                            data.CircleSnakeCurrentCD=cd
+                            HealUnit(ally,100)
+                            TimerStart(CreateTimer(), cd, false, function()
+                                data.CircleSnakeCurrentCD=0
+                            end)
+                        print("кольцо змей")
+                        local angle=360//12
+                        for i=0,11 do
+                            local x,y=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),150,angle*i)
+                            local new=CreateUnit(Player(data.pid),FourCC("osp1"),x,y,0)
+                            SetUnitX(new,x)
+                            SetUnitY(new,y)
+                            UnitApplyTimedLife(new, FourCC('BTLF'), 5)
+                        end
+                    end
+                end
+
+                --------------------------------
+
+
+
                 UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, dist,"ignore")
                 data.SpaceForce=true
                 local eff=AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul",data.UnitHero,"origin")
@@ -5941,8 +6090,26 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
             if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then
                 local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
                 --print("попытка нанести урон в рывке")
-                local range=300
+                ----------------------------Лечим союзника в рывке
 
+                if data.HealDashAllyCDFH then
+                    if not data.HealDashAllyCurrentCD then data.HealDashAllyCurrentCD=1 end
+                    if data.HealDashAllyCurrentCD<=0 then
+                        local ally=FindAnyAllyUnit(data,150)
+                        if ally then --есть кого полечить
+                            local talon=GlobalTalons[data.pid+1]["ShadowHunter"][1]
+                            local cd=talon.DS[talon.level]
+                            StartFrameCD(cd,data.HealDashAllyCDFH)
+                            data.HealDashAllyCurrentCD=cd
+                            HealUnit(ally,100)
+                            TimerStart(CreateTimer(), cd, false, function()
+                                data.HealDashAllyCurrentCD=0
+                            end)
+                        end
+                    end
+                end
+                -----------------------------
+                local range=300
                 local is,du=UnitDamageArea(hero,0,newX, newY,200)
                 if is then
                     if data.TaurenDash then
@@ -5973,7 +6140,23 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                 if flag=="ignore" then
                     --print("перезарядка атаки в рывке")
                     --HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --
-                    HERO[GetPlayerId(GetOwningPlayer(hero))].ResetSeriesTime=0
+                    local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+                    data.ResetSeriesTime=0
+                    if data.IllusionDashCDFH then
+                        if not data.IllusionDashCurrentCD then data.IllusionDashCurrentCD=1 end
+                        if data.IllusionDashCurrentCD<=0 then
+                            local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][4]
+                            local cd=10
+                            data.IllusionDashCurrentCD=cd
+                            StartFrameCD(cd,data.IllusionDashCDFH )
+                            local damage=talon.DS[talon.level]
+                            UnitDamageArea(hero,damage,newX,newY,150)
+                            UnitAddForceSimple(hero,angle-180,25, 200,"ignore")
+                            TimerStart(CreateTimer(), cd, false, function()
+                                data.IllusionDashCurrentCD=0
+                            end)
+                        end
+                    end
                 end
                 if flag=="forceAttack" then
                     BlzPauseUnitEx(hero,false)
@@ -6167,7 +6350,11 @@ function PlayUnitAnimationFromChat()
             CreateGodTalon(x, y, "HeroBeastMaster")
             return
         end
-
+        if GetEventPlayerChatString()=="s" or GetEventPlayerChatString()=="ы"  then
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "ShadowHunter")
+            return
+        end
 
         SetUnitAnimationByIndex(data.UnitHero,s)
         --print(GetUnitName(mainHero).." "..s)

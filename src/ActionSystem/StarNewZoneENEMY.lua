@@ -4,10 +4,14 @@
 --- DateTime: 18.02.2021 18:37
 ---
 do
-    TimerStart(CreateTimer(), 2, false, function()
-        InitAllZones()
-        CurrentGameZone=0
-    end)
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 2, false, function()
+            InitAllZones()
+            CurrentGameZone=0
+        end)
+    end
 end
 GameZone={
     recEnter=nil,
@@ -137,13 +141,13 @@ function StartEnemyWave(waveNumber)
     end
 
     if waveNumber==2 then
-        listID={  -- скелетов по 5
+        listID={  --
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             FourCC("nsko"),
         }
-        maxOnWave=2
+        maxOnWave=5
     end
     if waveNumber==3 then
         listID={  -- скелетов по 5
@@ -263,13 +267,34 @@ function StartEnemyWave(waveNumber)
         }
         maxOnWave=5
     end
+    if waveNumber==13 then
+        listID={
+            listID={
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+
+            }
+        }
+        maxOnWave=5
+    end
+    if waveNumber==14 then
+        listID={
+            listID={
+                FourCC("uzig"),FourCC("uzig")
+            }
+        }
+        maxOnWave=4
+    end
 
     if listID[1] then
         StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,maxOnWave)
     else
         listID={FourCC("nsko")}
         StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,1)
-        print("В волне врагов, нет ни одного ID, так и задумано?")
+        print("В волне врагов "..waveNumber..", нет ни одного ID, так и задумано?")
     end
 end
 

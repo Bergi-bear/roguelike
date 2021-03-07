@@ -173,7 +173,10 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
     if flag=="CriticalStrike" then
         data.CriticalStrikeCDFH=buttonIconFrame
     end
+    if flag=="IllusionDash" then
+        data.IllusionDashCDFH=buttonIconFrame
 
+    end
 
 -------------------------------------------------------------------
 --------------------------------------------------------------------
@@ -267,7 +270,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
 
     ---Глобализация
     data.countFrame=k+1
-    return text
+    return text,buttonIconFrame
 end
 
 
