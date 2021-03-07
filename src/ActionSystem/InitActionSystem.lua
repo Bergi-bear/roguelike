@@ -71,7 +71,13 @@ function ReplaceALLUnitId2PointExit(id)
         SetUnitInvulnerable(u,true)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
-        CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,nil,u)
+        if i==2 then
+            CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,"PeonDidal",u)
+           -- print("создана 1 награда с пеоном дидалом")
+        else
+            CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,nil,u)
+        end
+
     end
 end
 
@@ -89,6 +95,9 @@ function CreateEnterPoint(x,y,message, actionFlag, isActive, reward,tempUnit)
     if not reward then
         reward = PreViewIcon[GetRandomInt(1, #PreViewIcon)]
     end
+
+
+
     local preView = nil
     if actionFlag == "Goto" then
         preView = AddSpecialEffect("SystemGeneric\\GodModels\\" .. reward, x, y)

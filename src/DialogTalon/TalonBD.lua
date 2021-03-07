@@ -147,7 +147,7 @@ do
                             tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
                             DS={1.5,2,2.5}
                         }),
-                        Talon:new({
+                        Talon:new({--6
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
                             name = "Дополнительный рывок",
                             description = "Добавляет заряды к способности рывок + DS",
@@ -156,16 +156,26 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={1,2,3}
                         }),
-                       --[[ Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWispSplode.blp",
-                            name = "Пространственный рывок",
-                            description = "Нажмите R, для мгновенного перемещения в положения курсора, тратит 10 зарядов за каждые 100 единиц пути, максимум 100 зарядов, восстанавливает заряды в секунду DS ",
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp",
+                            name = "Мастер меча но не магии",
+                            description = "Уменьшает скорость старта раскрутки на DS сек.",
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Герой может иметь только 1 ультимативную R способность, получение ультимейтов от других Богов далее станет невозможным",
-                            DS={1,2,3},
-                            ultR = true
-                        }),]]
+                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            DS={0.2,0.4,0.6},
+                            --ultR = true
+                        }),
+                        Talon:new({--8
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSelfDestruct.blp",
+                            name = "Камикадце",
+                            description = "Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            DS={10,20,35},
+                            --ultR = true
+                        }),
                     },
                     ShadowHunter={
                         Talon:new({ --1

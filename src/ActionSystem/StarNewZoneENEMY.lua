@@ -9,10 +9,11 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
             InitAllZones()
-            CurrentGameZone=0
+
         end)
     end
 end
+CurrentGameZone=0
 GameZone={
     recEnter=nil,
     rectBound=nil,
@@ -39,7 +40,7 @@ function InitAllZones()
     Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
     DestinyEnemies=GetRandomIntTable(1, #GameZone, #GameZone)
     for i = 1, #Destiny do
-        print(Destiny[i])
+        --print(Destiny[i])
     end
 
 end
@@ -77,7 +78,7 @@ function Enter2NewZone()
             StartEnemyWave(DestinyEnemies[CurrentGameZone])
             --StartEnemyWave(5)
         else
-            print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
+            print(CurrentGameZone.." эта зона не существует, перемещение туда не возможно, обратитесь к автору карты")
         end
         CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)

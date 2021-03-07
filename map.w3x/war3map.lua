@@ -731,7 +731,13 @@ function ReplaceALLUnitId2PointExit(id)
         SetUnitInvulnerable(u,true)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
-        CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,nil,u)
+        if i==2 then
+            CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,"PeonDidal",u)
+           -- print("создана 1 награда с пеоном дидалом")
+        else
+            CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,nil,u)
+        end
+
     end
 end
 
@@ -749,6 +755,9 @@ function CreateEnterPoint(x,y,message, actionFlag, isActive, reward,tempUnit)
     if not reward then
         reward = PreViewIcon[GetRandomInt(1, #PreViewIcon)]
     end
+
+
+
     local preView = nil
     if actionFlag == "Goto" then
         preView = AddSpecialEffect("SystemGeneric\\GodModels\\" .. reward, x, y)
@@ -1329,10 +1338,11 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
             InitAllZones()
-            CurrentGameZone=0
+
         end)
     end
 end
+CurrentGameZone=0
 GameZone={
     recEnter=nil,
     rectBound=nil,
@@ -1359,7 +1369,7 @@ function InitAllZones()
     Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
     DestinyEnemies=GetRandomIntTable(1, #GameZone, #GameZone)
     for i = 1, #Destiny do
-        print(Destiny[i])
+        --print(Destiny[i])
     end
 
 end
@@ -1397,7 +1407,7 @@ function Enter2NewZone()
             StartEnemyWave(DestinyEnemies[CurrentGameZone])
             --StartEnemyWave(5)
         else
-            print(CurrentGameZone.." -ая зона не существует, перемещение туда не возможно, обратитесь к атору карты")
+            print(CurrentGameZone.." эта зона не существует, перемещение туда не возможно, обратитесь к автору карты")
         end
         CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
@@ -2204,6 +2214,10 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==7 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
         end
+        if pos==8 then --камикадце
+            local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            UpdateTalonDescriptionForFrame(talon,tt)
+        end
 
     end
     if godName=="ShadowHunter" and  talon.level==1 then
@@ -2532,7 +2546,7 @@ do
                             tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
                             DS={1.5,2,2.5}
                         }),
-                        Talon:new({
+                        Talon:new({--6
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
                             name = "Дополнительный рывок",
                             description = "Добавляет заряды к способности рывок + DS",
@@ -2541,16 +2555,26 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={1,2,3}
                         }),
-                       --[[ Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWispSplode.blp",
-                            name = "Пространственный рывок",
-                            description = "Нажмите R, для мгновенного перемещения в положения курсора, тратит 10 зарядов за каждые 100 единиц пути, максимум 100 зарядов, восстанавливает заряды в секунду DS ",
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp",
+                            name = "Мастер меча но не магии",
+                            description = "Уменьшает скорость старта раскрутки на DS сек.",
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Герой может иметь только 1 ультимативную R способность, получение ультимейтов от других Богов далее станет невозможным",
-                            DS={1,2,3},
-                            ultR = true
-                        }),]]
+                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            DS={0.2,0.4,0.6},
+                            --ultR = true
+                        }),
+                        Talon:new({--8
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSelfDestruct.blp",
+                            name = "Камикадце",
+                            description = "Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            DS={10,20,35},
+                            --ultR = true
+                        }),
                     },
                     ShadowHunter={
                         Talon:new({ --1
@@ -3964,8 +3988,8 @@ function HexUnit(unit)
 	--UnitAddAbility(unit,FourCC("AInv"))
 	--UnitAddItemById(unit,FourCC("I002"))
 	UnitAddAbility(unit,FourCC("A002"))
-	if IssueTargetOrder(unit,"hex",unit) then
-		print("errorcasthex")
+	if not IssueTargetOrder(unit,"hex",unit) then
+		--print("errorcasthex")
 	end
 end
 
@@ -4008,6 +4032,8 @@ function OnPostDamage()
 
 			if data.InvulPreDeathCurrentCD<=0 and data.InvulPreDeathCDFH then
 				--print("получен смертельный урон")
+				FlyTextTagHealXY(GetUnitX(target),GetUnitY(target),"Предвидение смерти",GetOwningPlayer(target))
+				CreateInfoBoxForAllPlayerTimed(data, "Я не дам тебе умереть", 3)
 				BlzSetEventDamage(0)
 				SetUnitInvulnerable(target,true)
 				TimerStart(CreateTimer(), 2, false, function()
@@ -6266,7 +6292,7 @@ function UnitDamageArea(u,damage,x,y,range,flag)
     GroupEnumUnitsInRange(perebor,x,y,range,nil)
     local k=0
     local all={}
-
+    local deadDamage=false
 
     while true do
         e = FirstOfGroup(perebor)
@@ -6274,9 +6300,17 @@ function UnitDamageArea(u,damage,x,y,range,flag)
 
         if UnitAlive(e) and not UnitAlive(u) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and IsUnitType(u,UNIT_TYPE_HERO) then
             --print("Герой нанёс урон будучи мертвым "..GetUnitName(u))
+
+            local talon=GlobalTalons[GetPlayerId(GetOwningPlayer(u))+1]["HeroBlademaster"][8]
+            if talon.level>0 then
+                local m=talon.DS[talon.level]
+                deadDamage=true
+                FlyTextTagCriticalStrike(u,"Камикадце",GetOwningPlayer(u))
+                damage=damage*m
+            end
         end
 
-        if UnitAlive(e) and UnitAlive(u) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
+        if UnitAlive(e) and (UnitAlive(u) or deadDamage) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
             if flag=="shotForce" then
                 UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
             end

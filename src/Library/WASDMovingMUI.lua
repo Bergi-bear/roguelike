@@ -1146,7 +1146,7 @@ function UnitDamageArea(u,damage,x,y,range,flag)
     GroupEnumUnitsInRange(perebor,x,y,range,nil)
     local k=0
     local all={}
-
+    local deadDamage=false
 
     while true do
         e = FirstOfGroup(perebor)
@@ -1154,9 +1154,17 @@ function UnitDamageArea(u,damage,x,y,range,flag)
 
         if UnitAlive(e) and not UnitAlive(u) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and IsUnitType(u,UNIT_TYPE_HERO) then
             --print("Герой нанёс урон будучи мертвым "..GetUnitName(u))
+
+            local talon=GlobalTalons[GetPlayerId(GetOwningPlayer(u))+1]["HeroBlademaster"][8]
+            if talon.level>0 then
+                local m=talon.DS[talon.level]
+                deadDamage=true
+                FlyTextTagCriticalStrike(u,"Камикадце",GetOwningPlayer(u))
+                damage=damage*m
+            end
         end
 
-        if UnitAlive(e) and UnitAlive(u) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
+        if UnitAlive(e) and (UnitAlive(u) or deadDamage) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
             if flag=="shotForce" then
                 UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
             end

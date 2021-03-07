@@ -170,6 +170,10 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==7 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
         end
+        if pos==8 then --камикадце
+            local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            UpdateTalonDescriptionForFrame(talon,tt)
+        end
 
     end
     if godName=="ShadowHunter" and  talon.level==1 then
