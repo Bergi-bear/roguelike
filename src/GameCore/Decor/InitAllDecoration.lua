@@ -8,7 +8,28 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
-
+            InitEvenDestructable()
         end)
     end
+end
+function InitEvenDestructable()
+    local thisTrigger=CreateTrigger()
+    local k=0
+    EnumDestructablesInRect(bj_mapInitialPlayableArea,nil,function()
+        local d=GetEnumDestructable()
+
+        if GetDestructableTypeId(d)==FourCC("B004") then
+            k=k+1
+
+        end
+        TriggerRegisterDeathEvent(thisTrigger,d)
+    end)
+    TriggerAddAction(thisTrigger,function()
+        local d=GetDyingDestructable()
+        if  GetDestructableTypeId(d)==FourCC("B004") then
+           -- print("умер ящик, создаём мимика")
+            CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
+        end
+    end)
+        --print("Всего мимиков будет:"..k)
 end

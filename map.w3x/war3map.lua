@@ -1576,7 +1576,7 @@ function StartEnemyWave(waveNumber)
     if waveNumber==12 then
         listID={
             listID={
-                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
                 FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
                 FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
                 FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
@@ -2217,6 +2217,10 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             data.CircleSnakeCDFH=CdFH
             data.CircleSnakeCurrentCD=0
         end
+        if pos==3 then
+            data.FrogThrowCDFH=CdFH
+            data.FrogThrowCurrentCD=0
+        end
     end
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
@@ -2549,7 +2553,7 @@ do
                         }),]]
                     },
                     ShadowHunter={
-                        Talon:new({
+                        Talon:new({ --1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
                             name = "Я помогу",
                             description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек",
@@ -2558,25 +2562,25 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={20,15,10}
                         }),
-                        Talon:new({
+                        Talon:new({ --2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSerpentWard.blp",
                             name = "Ты в ловушке",
                             description = "Создаёт кольцо змей, в точке начала рывка. Перезарядка DS",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
-                            DS={12,10,8}
+                            DS={12,9,5}
                         }),
-                        Talon:new({
+                        Talon:new({ --3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHex.blp",
-                            name = "Метательный лягошенок",
-                            description = "Заменяет бросок кирки на бросок лягушки, привращает врага в лягушку на 3 секунды. Перезарядка: DS",
+                            name = "Метательный лягушонок",
+                            description = "Заменяет бросок кирки на бросок лягушки, превращает врага в лягушку на 3 секунды. Перезарядка: DS",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
                             DS={12,10,8}
                         }),
-                        Talon:new({
+                        Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
                             name = "Зов вуду",
                             description = "При активации увеличивает получение урона по вам на 100%, но делет созников неуязвимыми",
@@ -2586,18 +2590,18 @@ do
                             DS={12,10,8},
                             ultF = true
                         }),
-                        Talon:new({
+                        Talon:new({--5
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
                             name = "Спираль смерти",
-                            description = "Выпускает в напралении рывка смертельное лезвие. Перезарядка: DS",
+                            description = "Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={5,4,3}
                         }),
-                        Talon:new({
+                        Talon:new({--6
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp",
-                            name = "Регенерация троля",
+                            name = "Регенерация тролля",
                             description = "Исцеляет героя каждые 5 секунду во время боя на DS%",
                             level = 0,
                             rarity = "normal",
@@ -2606,16 +2610,16 @@ do
                         }),
                     },
                     HeroTaurenChieftain={
-                        Talon:new({
+                        Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp",
                             name = "Новая жизнь",
-                            description = "Исцеляет героя на DS % при получении уровня",
+                            description = "Исцеляет героя на DS% при получении уровня",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
                             DS={30,50,100}
                         }),
-                        Talon:new({
+                        Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
                             name = "Мощь быка",
                             description = "Увеличивает длительность стазиса врагов на DS от любых источников урона",
@@ -2624,7 +2628,7 @@ do
                             tooltip = "Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников",
                             DS={0.1,0.15,0.2}
                         }),
-                        Talon:new({
+                        Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNShockWave.blp",
                             name = "Волна силы",
                             description = "Наносит урон рывком. Урон: DS",
@@ -2633,7 +2637,7 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={50,80,100}
                         }),
-                        Talon:new({
+                        Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCommand.blp",
                             name = "Выносливость",
                             description = "Увеличивает скорость движения на DS %",
@@ -2642,7 +2646,7 @@ do
                             tooltip = "Используйте кнопки WASD, чтобы перемещаться",
                             DS={10,20,30}
                         }),
-                        Talon:new({
+                        Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
                             name = "Могучий удар",
                             description = "Увеличивает длительность стазиса от способности Мощный удар на DS",
@@ -3603,9 +3607,30 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
-
+            InitEvenDestructable()
         end)
     end
+end
+function InitEvenDestructable()
+    local thisTrigger=CreateTrigger()
+    local k=0
+    EnumDestructablesInRect(bj_mapInitialPlayableArea,nil,function()
+        local d=GetEnumDestructable()
+
+        if GetDestructableTypeId(d)==FourCC("B004") then
+            k=k+1
+
+        end
+        TriggerRegisterDeathEvent(thisTrigger,d)
+    end)
+    TriggerAddAction(thisTrigger,function()
+        local d=GetDyingDestructable()
+        if  GetDestructableTypeId(d)==FourCC("B004") then
+           -- print("умер ящик, создаём мимика")
+            CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
+        end
+    end)
+        --print("Всего мимиков будет:"..k)
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -3778,6 +3803,28 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 	end
 	if not delay then delay=0 end
 	local zhero = GetUnitZ(hero) + 60
+	if HERO[GetPlayerId(GetOwningPlayer(hero))] then
+		if HERO[GetPlayerId(GetOwningPlayer(hero))].FrogThrowCDFH then --подмена снаряда на лягушонка
+			------------------------------ метальный лягушенок попадание
+			local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+			if data.FrogThrowCDFH then
+				if not data.FrogThrowCurrentCD then data.FrogThrowCurrentCD=1 end
+				if data.FrogThrowCurrentCD<=0 then
+					local talon=GlobalTalons[data.pid+1]["ShadowHunter"][3]
+					local cd=talon.DS[talon.level]
+					StartFrameCD(cd,data.FrogThrowCDFH)
+					data.FrogThrowCurrentCD=cd
+					effectmodel="units\\critters\\Frog\\Frog"
+					TimerStart(CreateTimer(), cd, false, function()
+						data.FrogThrowCurrentCD=0
+					end)
+					-- print("кольцо змей")
+				end
+			end
+			------------------------------
+		end
+	end
+
 	local bullet = AddSpecialEffect(effectmodel, xs, ys)
 	BlzSetSpecialEffectYaw(bullet, math.rad(angle))
 	local CollisionEnemy = false
@@ -3844,16 +3891,20 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 			end
 			DestroyEffect(bullet)
 			DestroyTimer(GetExpiredTimer())
-
+			if effectmodel=="units\\critters\\Frog\\Frog" then
+				HexUnit(DamagingUnit)
+				--print("хексуем")
+			end
 			if HERO[GetPlayerId(GetOwningPlayer(hero))] then
 				local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+
 				if data.Rebound then
 					local find=FindAnotherUnit(DamagingUnit,data)
 					if find then
 						if data.ReboundCount<=data.ReboundCountMAX then
 							---print("отскок в"..GetUnitName(find))
 							local af=AngleBetweenUnits(DamagingUnit,find)
-							CreateAndForceBullet(hero,af,20,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",GetUnitX(DamagingUnit),GetUnitY(DamagingUnit),data.DamageThrow,1000,150)
+							CreateAndForceBullet(hero,af,20,effectmodel,GetUnitX(DamagingUnit),GetUnitY(DamagingUnit),data.DamageThrow,1000,150)
 							data.ReboundCount=data.ReboundCount+1
 						else
 							data.ReboundCount=0
@@ -3908,6 +3959,15 @@ function FindAnyAllyUnit(data,range)
 	return find
 end
 
+
+function HexUnit(unit)
+	--UnitAddAbility(unit,FourCC("AInv"))
+	--UnitAddItemById(unit,FourCC("I002"))
+	UnitAddAbility(unit,FourCC("A002"))
+	if IssueTargetOrder(unit,"hex",unit) then
+		print("errorcasthex")
+	end
+end
 
 
 
@@ -5307,14 +5367,16 @@ function InitWASD(hero)
             data.ReleaseW=false
             data.ReleaseS=false
             data.IsMoving=false
-            print("слишком много кнопок нажато")
+            --print("слишком много кнопок нажато")
+            DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",GetUnitXY(data.UnitHero)))
         end
 
         if not data.ReleaseW and not data.ReleaseS and  data.ReleaseA and  data.ReleaseD then
             data.ReleaseA=false
             data.ReleaseD=false
             data.IsMoving=false
-            print("слишком много кнопок нажато")
+            DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",GetUnitXY(data.UnitHero)))
+            --print("слишком много кнопок нажато")
         end
 
         if not UnitAlive(hero) then
@@ -5590,14 +5652,14 @@ function CreateWASDActions()
                             TimerStart(CreateTimer(), cd, false, function()
                                 data.CircleSnakeCurrentCD=0
                             end)
-                        print("кольцо змей")
+                       -- print("кольцо змей")
                         local angle=360//12
                         for i=0,11 do
-                            local x,y=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),150,angle*i)
+                            local x,y=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),120,angle*i)
                             local new=CreateUnit(Player(data.pid),FourCC("osp1"),x,y,0)
                             SetUnitX(new,x)
                             SetUnitY(new,y)
-                            UnitApplyTimedLife(new, FourCC('BTLF'), 5)
+                            UnitApplyTimedLife(new, FourCC('BTLF'), 10)
                         end
                     end
                 end

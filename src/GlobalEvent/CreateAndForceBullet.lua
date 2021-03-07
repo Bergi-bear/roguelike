@@ -16,6 +16,28 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 	end
 	if not delay then delay=0 end
 	local zhero = GetUnitZ(hero) + 60
+	if HERO[GetPlayerId(GetOwningPlayer(hero))] then
+		if HERO[GetPlayerId(GetOwningPlayer(hero))].FrogThrowCDFH then --подмена снаряда на лягушонка
+			------------------------------ метальный лягушенок попадание
+			local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+			if data.FrogThrowCDFH then
+				if not data.FrogThrowCurrentCD then data.FrogThrowCurrentCD=1 end
+				if data.FrogThrowCurrentCD<=0 then
+					local talon=GlobalTalons[data.pid+1]["ShadowHunter"][3]
+					local cd=talon.DS[talon.level]
+					StartFrameCD(cd,data.FrogThrowCDFH)
+					data.FrogThrowCurrentCD=cd
+					effectmodel="units\\critters\\Frog\\Frog"
+					TimerStart(CreateTimer(), cd, false, function()
+						data.FrogThrowCurrentCD=0
+					end)
+					-- print("кольцо змей")
+				end
+			end
+			------------------------------
+		end
+	end
+
 	local bullet = AddSpecialEffect(effectmodel, xs, ys)
 	BlzSetSpecialEffectYaw(bullet, math.rad(angle))
 	local CollisionEnemy = false
@@ -82,16 +104,20 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 			end
 			DestroyEffect(bullet)
 			DestroyTimer(GetExpiredTimer())
-
+			if effectmodel=="units\\critters\\Frog\\Frog" then
+				HexUnit(DamagingUnit)
+				--print("хексуем")
+			end
 			if HERO[GetPlayerId(GetOwningPlayer(hero))] then
 				local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+
 				if data.Rebound then
 					local find=FindAnotherUnit(DamagingUnit,data)
 					if find then
 						if data.ReboundCount<=data.ReboundCountMAX then
 							---print("отскок в"..GetUnitName(find))
 							local af=AngleBetweenUnits(DamagingUnit,find)
-							CreateAndForceBullet(hero,af,20,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",GetUnitX(DamagingUnit),GetUnitY(DamagingUnit),data.DamageThrow,1000,150)
+							CreateAndForceBullet(hero,af,20,effectmodel,GetUnitX(DamagingUnit),GetUnitY(DamagingUnit),data.DamageThrow,1000,150)
 							data.ReboundCount=data.ReboundCount+1
 						else
 							data.ReboundCount=0
@@ -146,5 +172,14 @@ function FindAnyAllyUnit(data,range)
 	return find
 end
 
+
+function HexUnit(unit)
+	--UnitAddAbility(unit,FourCC("AInv"))
+	--UnitAddItemById(unit,FourCC("I002"))
+	UnitAddAbility(unit,FourCC("A002"))
+	if not IssueTargetOrder(unit,"hex",unit) then
+		--print("errorcasthex")
+	end
+end
 
 

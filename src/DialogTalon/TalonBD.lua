@@ -168,7 +168,7 @@ do
                         }),]]
                     },
                     ShadowHunter={
-                        Talon:new({
+                        Talon:new({ --1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
                             name = "Я помогу",
                             description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек",
@@ -177,7 +177,7 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={20,15,10}
                         }),
-                        Talon:new({
+                        Talon:new({ --2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSerpentWard.blp",
                             name = "Ты в ловушке",
                             description = "Создаёт кольцо змей, в точке начала рывка. Перезарядка DS",
@@ -208,7 +208,7 @@ do
                         Talon:new({--5
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
                             name = "Спираль смерти",
-                            description = "Выпускает в напралении рывка смертельное лезвие. Перезарядка: DS",
+                            description = "Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
@@ -216,7 +216,7 @@ do
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp",
-                            name = "Регенерация троля",
+                            name = "Регенерация тролля",
                             description = "Исцеляет героя каждые 5 секунду во время боя на DS%%",
                             level = 0,
                             rarity = "normal",
@@ -228,7 +228,7 @@ do
                         Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp",
                             name = "Новая жизнь",
-                            description = "Исцеляет героя на DS %% при получении уровня",
+                            description = "Исцеляет героя на DS%% при получении уровня",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",

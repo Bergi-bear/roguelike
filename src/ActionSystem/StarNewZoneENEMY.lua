@@ -256,7 +256,7 @@ function StartEnemyWave(waveNumber)
     if waveNumber==12 then
         listID={
             listID={
-                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+                FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
                 FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
                 FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
                 FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),

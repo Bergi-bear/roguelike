@@ -183,6 +183,10 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             data.CircleSnakeCDFH=CdFH
             data.CircleSnakeCurrentCD=0
         end
+        if pos==3 then
+            data.FrogThrowCDFH=CdFH
+            data.FrogThrowCurrentCD=0
+        end
     end
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
         CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
