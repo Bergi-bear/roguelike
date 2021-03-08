@@ -166,6 +166,7 @@ function AddDamage2Show(hero,damage)
 				data.damage=0
 				SetTextTagLifespan(data.tag, 2)
 				--DestroyTextTag(data.tag)
+				data.k=0
 				data.tag=nil
 				--print("сброс показа урона")
 			end

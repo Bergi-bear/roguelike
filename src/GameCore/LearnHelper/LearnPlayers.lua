@@ -17,17 +17,19 @@ function CreateTaskForAllPlayer()
             local frames = {}
             local chk = {}
             local text={}
-            frames[1],_,text[1],_,chk[1] = CreateSimpleTask("Быстро нажимайте LMB, чтобы совершить серию из 3х ударов", Player(i))
-            frames[2],_,text[2],_,chk[2] = CreateSimpleTask("Удерживайте LMB, чтобы выполнить заряженную атаку", Player(i))
+            frames[1],_,text[1],_,chk[1] = CreateSimpleTask("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов", Player(i))
+            frames[2],_,text[2],_,chk[2] = CreateSimpleTask("Удерживайте LMB, чтобы выполнить вращающуюся атаку", Player(i))
             frames[3],_,text[3],_,chk[3] = CreateSimpleTask("Нажмите Q, чтобы совершить сокрушительный удар", Player(i))
-            frames[4],_,text[4],_,chk[4] = CreateSimpleTask("Нажимите RMB, чтобы метнуть молот", Player(i))
-            frames[5],_,text[5],_,chk[5] = CreateSimpleTask("Нажимите SPACE, чтобы совершить рывок", Player(i))
+            frames[4],_,text[4],_,chk[4] = CreateSimpleTask("Нажмите RMB, чтобы метнуть молот", Player(i))
+            frames[5],_,text[5],_,chk[5] = CreateSimpleTask("Нажмите SPACE, чтобы совершить рывок", Player(i))
             frames[6],_,text[6],_,chk[6] = CreateSimpleTask("Совершите атаку в рывке Space+LMB", Player(i))
+            frames[7],_,text[7],_,chk[7] = CreateSimpleTask("Когда удерживаете LMB нажмите SPACE, для рывка ветра", Player(i))
+            frames[8],_,text[8],_,chk[8] = CreateSimpleTask("Нажмите Q+SPACE, чтобы сделать мощный выпад", Player(i))
             data.chk=chk
             local completed = false
 
             TimerStart(CreateTimer(), 1, true, function()
-                for k = 1, 6 do
+                for k = 1, #frames do
                     if data.tasks[k] then
                         completed = true
                         BlzFrameSetVisible(chk[k], GetLocalPlayer()==Player(i))
@@ -35,7 +37,7 @@ function CreateTaskForAllPlayer()
                     end
                 end
 
-                for k = 1, 6 do
+                for k = 1, #frames  do
                     if not data.tasks[k] then
                         completed = false
                     end
@@ -44,7 +46,7 @@ function CreateTaskForAllPlayer()
                 if completed then
                     --print("Все условия выполнены")
                     DestroyTimer(GetExpiredTimer())
-                    for k = 1, 6 do
+                    for k = 1, #frames do
                         BlzFrameSetVisible(frames[k], false)
                         --BlzDestroyFrame(frames[k])
                     end
@@ -96,12 +98,11 @@ function CreateSimpleTask(message, player)
 end
 
 function DestroyAllLearHelpers()
-
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) then
             local data=HERO[i]
             SimpleTaskPos[i]=0
-            for j=1,6 do
+            for j=1,8 do
                 data.tasks[j]=true
             end
         end

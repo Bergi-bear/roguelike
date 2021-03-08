@@ -180,7 +180,7 @@ do
                     ShadowHunter={
                         Talon:new({ --1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
-                            name = "Я помогу",
+                            name = "Я по могу тебе",
                             description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек",
                             level = 0,
                             rarity = "normal",
@@ -205,17 +205,19 @@ do
                             tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
                             DS={12,10,8}
                         }),
+                        --[[
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
                             name = "Зов вуду",
-                            description = "При активации увеличивает получение урона по вам на 100%%, но делет созников неуязвимыми",
+                            description = "При активации увеличивает получение урона по вам на DS%%, но делает союзников неуязвимыми",
                             level = 0,
                             rarity = "epic",
                             tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
-                            DS={12,10,8},
+                            DS={100},
                             ultF = true
                         }),
-                        Talon:new({--5
+                        ]]
+                        Talon:new({--4
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
                             name = "Спираль смерти",
                             description = "Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS",
@@ -224,14 +226,14 @@ do
                             tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
                             DS={5,4,3}
                         }),
-                        Talon:new({--6
-                            icon = "ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp",
+                        Talon:new({--5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNRegenerate.blp",--ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
                             name = "Регенерация тролля",
                             description = "Исцеляет героя каждые 5 секунду во время боя на DS%%",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
-                            DS={1,2,3}
+                            DS={5,7,9}
                         }),
                     },
                     HeroTaurenChieftain={

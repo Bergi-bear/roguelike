@@ -278,22 +278,15 @@ function CreateToolTipBoxSize(x,y,sizeX,sizeY,toolTipTex,toolTipHeader)
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-
     BlzFrameSetParent(tooltip, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(backdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-
     BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y+0.01)
-    --print(#toolTipTex..toolTipTex)
     BlzFrameSetSize(tooltip, sizeX, sizeY)
     BlzFrameSetSize(backdrop, sizeX, sizeY)
     BlzFrameSetSize(text, sizeX*.85, sizeY*.7)
-
     BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
     BlzFrameSetAlpha(backdrop,100)
-
-
-
     BlzFrameSetText(text,ColorText2(toolTipHeader..": \n")..toolTipTex)
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
     BlzFrameSetVisible(tooltip,false)

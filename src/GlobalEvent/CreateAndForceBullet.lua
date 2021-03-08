@@ -65,7 +65,9 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 		BlzSetSpecialEffectPosition(bullet, MoveX(x, speed, angleCurrent), MoveY(y, speed, angleCurrent), z ) -- было z-2
 
 		SetFogStateRadius(GetOwningPlayer(heroCurrent), FOG_OF_WAR_VISIBLE, x, y, 400, true)-- Небольгая подсветка
-
+		if effectmodel=="Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl" then
+			UnitDamageArea(hero,5,x,y,90,"blackHole")
+		end
 		local ZBullet = BlzGetLocalSpecialEffectZ(bullet)
 
 		CollisionEnemy, DamagingUnit = UnitDamageArea(heroCurrent, 0, x, y, CollisionRange)

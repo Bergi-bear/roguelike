@@ -34,6 +34,19 @@ function CreateActionsF()
                    -- print("нужно 10 зарядов")
                 end
             end
+            --[[
+            if GlobalTalons[data.pid+1]["ShadowHunter"][4].level>0 then
+                --print("Есть ульта трала, пытаюсь скастовать")
+
+                data.CallWooDooCurrentCD=0
+                if data.CallTrallCharges>9 then
+                    data.CallTrallReady=false
+                    CallWooDoo(data)
+                else
+                    -- print("нужно 10 зарядов")
+                end
+            end]]
+
         end
     end)
     local TrigDepressF = CreateTrigger()
@@ -46,6 +59,11 @@ function CreateActionsF()
         data.ReleaseF = false
     end)
 end
+
+function CallWooDoo(data)
+
+end
+
 
 function TrallCall(data)
     TimerStart(CreateTimer(), 0.2, true, function()

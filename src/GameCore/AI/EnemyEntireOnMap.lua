@@ -202,7 +202,7 @@ end
 function SpawnZombie(unit)
     BlzSetUnitMaxHP(unit,5000)
     HealUnit(unit,5000)
-    TimerStart(CreateTimer(), 1, true, function()
+    TimerStart(CreateTimer(), 3, true, function()
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else

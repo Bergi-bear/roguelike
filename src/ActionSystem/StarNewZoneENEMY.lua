@@ -34,6 +34,12 @@ function InitAllZones()
     SetZone(10,gg_rct_E10A,gg_rct_B10A,gg_rct_S10A)
     SetZone(11,gg_rct_E11A,gg_rct_B11A,gg_rct_S11A)
     SetZone(12,gg_rct_E12A,gg_rct_B12A,gg_rct_S12A)
+    -------------------------------------------------------
+    SetZone(13,gg_rct_E13A,gg_rct_B13A,gg_rct_S13A)
+    SetZone(14,gg_rct_E14A,gg_rct_B14A,gg_rct_S14A)
+    SetZone(15,gg_rct_E15A,gg_rct_B15A,gg_rct_S15A)
+    SetZone(16,gg_rct_E16A,gg_rct_B16A,gg_rct_S16A)
+    SetZone(17,gg_rct_E17A,gg_rct_B17A,gg_rct_S17A)
 
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
@@ -256,7 +262,6 @@ function StartEnemyWave(waveNumber)
     end
     if waveNumber==12 then
         listID={
-            listID={
                 FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
                 FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
                 FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
@@ -264,30 +269,57 @@ function StartEnemyWave(waveNumber)
                 FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
                 FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
                 FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            }
         }
         maxOnWave=5
     end
     if waveNumber==13 then
         listID={
-            listID={
                 FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
                 FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
                 FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
                 FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
                 FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
 
-            }
         }
         maxOnWave=5
     end
     if waveNumber==14 then
         listID={
-            listID={
                 FourCC("uzig"),FourCC("uzig")
-            }
+        }
+        maxOnWave=2
+    end
+    if waveNumber==15 then
+        listID={
+            FourCC("uzig"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("uzig"),FourCC("n000"),FourCC("n000"),
         }
         maxOnWave=4
+    end
+    if waveNumber==16 then
+        listID={
+            FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("n000"),FourCC("n000"),FourCC("n000"),
+        }
+        maxOnWave=4
+    end
+    if waveNumber==17 then
+        listID={
+            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+        }
+        maxOnWave=4
+    end
+    if waveNumber==18 then
+        listID={
+            FourCC("nsko"),FourCC("nsko"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+        }
+        maxOnWave=7
     end
 
     if listID[1] then
@@ -295,7 +327,7 @@ function StartEnemyWave(waveNumber)
     else
         listID={FourCC("nsko")}
         StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,1)
-        print("В волне врагов "..waveNumber..", нет ни одного ID, так и задумано?")
+        --print("В волне врагов "..waveNumber..", нет ни одного ID, так и задумано?")
     end
 end
 

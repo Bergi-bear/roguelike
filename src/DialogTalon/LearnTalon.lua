@@ -168,7 +168,16 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
 
         end
         if pos==7 then
-            CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            UpdateTalonDescriptionForFrame(talon,tt)
+            --local k=talon.DS[talon.level]
+            --local function f()
+            --    data.StarTime2Spin=data.StarTime2Spin-0.2
+            --end
+            ActLvl23Action(talon,function()
+                data.StarTime2Spin=data.StarTime2Spin-0.2
+            end)
+
         end
         if pos==8 then --камикадце
             local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
@@ -190,6 +199,17 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==3 then
             data.FrogThrowCDFH=CdFH
             data.FrogThrowCurrentCD=0
+        end
+        if pos==4 then
+            data.HasWhirl=true
+        end
+        if pos==4 then
+            data.HasWhirl=true
+        end
+        if pos==5 then
+            data.TrollHealCDFH=CdFH
+            data.TrollHealCurrentCD=0
+            InitTrollRegenerate(data,talon)
         end
     end
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
@@ -255,9 +275,10 @@ function UpdateTalonDescriptionForFrame(talon,toolTipFH)
     local lvl3=false
     TimerStart(CreateTimer(), 1, true, function()
         if talon.level==2 then
-            local new=talon:updateDescriptionCurrent()
             lvl2=true
-            BlzFrameSetText(toolTipFH,new)
+            local new=talon:updateDescriptionCurrent()
+            BlzFrameSetText(toolTipFH,ColorText2(talon.name..": \n")..new)
+            --BlzFrameSetText(toolTipFH,new)
         end
         if lvl2 then
             DestroyTimer(GetExpiredTimer())
@@ -268,7 +289,33 @@ function UpdateTalonDescriptionForFrame(talon,toolTipFH)
         if talon.level==3 then
             lvl3=true
             local new=talon:updateDescriptionCurrent()
-            BlzFrameSetText(toolTipFH,new)
+            BlzFrameSetText(toolTipFH,ColorText2(talon.name..": \n")..new)
+            --BlzFrameSetText(toolTipFH,new)
+        end
+        if lvl3 then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+function ActLvl23Action(talon,f)
+    local lvl2=false
+    local lvl3=false
+    TimerStart(CreateTimer(), 1, true, function()
+        if talon.level==2 then
+            lvl2=true
+            f()
+            --print("уровень 2 получен")
+        end
+        if lvl2 then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+    TimerStart(CreateTimer(), 1, true, function()
+        if talon.level==3 then
+            lvl3=true
+            f()
+            --print("уровень 3 получен")
         end
         if lvl3 then
             DestroyTimer(GetExpiredTimer())

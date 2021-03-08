@@ -10,6 +10,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
             ReplaceALLUnitId2PointExit(FourCC("hdhw"))
+            InitHealPoint()
             CreateEActions()
             InitFinObjectInArea()
             AllActionsEnabled(true)
@@ -64,20 +65,20 @@ end
 function ReplaceALLUnitId2PointExit(id)
     local _,_,unitTable=FindUnitOfType(id)
     local k=#unitTable
-    print(k)
+    --print(k)
+    local d=GetRandomInt(1,k)-- рандомизатор молота дидала
     for i=1,k do
         local u=unitTable[i]
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
-        if i==2 then
+        if i==d then
             CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,"PeonDidal",u)
            -- print("создана 1 награда с пеоном дидалом")
         else
             CreateEnterPoint(x,y,"        Продолжить", 'Goto', false,nil,u)
         end
-
     end
 end
 
@@ -570,6 +571,18 @@ function CreateEActions()
                 data.UseAction = ""
                 KillUnit(data.EPointUnit)
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
+            end
+            if data.UseAction == "Heal" then
+                local message = {"Целебно", "Я полон сил","Холодная","Как заново родился","Готов к битве","Кажется я уже переполнен"}
+                CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1,#message)], 3)
+                if UnitHasAnyEnemyInRange(data.UnitHero,500) then
+                    HealUnit(data.UnitHero,50)
+                else
+                    HealUnit(data.UnitHero,9999)
+                end
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
             end
 
 

@@ -75,6 +75,7 @@ function InitHeroTable(hero)
         SpinCharges=30,-- начильное число зарядов вращения
         SpinChargesMAX=40, --максимальное количество зарядов вращения
         SpinRegeneratingRate=0,
+        StarTime2Spin=0.9, -- время до раскрутки
         ChargedSpinArea=150,
         SpinBaseDamage=25,
         --Способность бросок кирки
@@ -168,7 +169,7 @@ function InitWASD(hero)
         if data.PressSpin then
             data.ChargingAttack=data.ChargingAttack+TIMER_PERIOD64
             --print(data.ChargingAttack)
-            if data.ChargingAttack>=0.9 and not data.isSpined then
+            if data.ChargingAttack>=data.StarTime2Spin and not data.isSpined then
 
                 data.isSpined=true
                 --print("start spin")
@@ -497,6 +498,10 @@ function CreateWASDActions()
                     delay=0.3
                     data.GreatDamageDashQ=true
                     SetUnitAnimationByIndex(data.UnitHero,3)
+                    if not data.tasks[8] then
+                        data.tasks[8]=true
+                        --print("Первый раз сделал краш")
+                    end
                 end
 
                 data.DashCharges=data.DashCharges-1
@@ -545,8 +550,22 @@ function CreateWASDActions()
                 end
 
                 --------------------------------
+                if data.isSpined then
+                    --print("Рывок ветра") --Создаёт ураганное торнато впереди себя
+                    if not data.tasks[7] then
+                        data.tasks[7]=true
+                        --print("Первый раз сделал краш")
+                    end
+                    data.DirectionMove=-180+AngleBetweenXY(GetPlayerMouseX[data.pid],GetPlayerMouseY[data.pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
+                    dist=400
+                end
 
 
+                if data.HasWhirl then
+                    --print("спираль")
+                    local x,y=GetUnitXY(data.UnitHero)
+                    CreateAndForceBullet(data.UnitHero,data.DirectionMove,5,"Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl",x,y,5,350,350)
+                end
 
                 UnitAddForceSimple(data.UnitHero,data.DirectionMove,25, dist,"ignore")
                 data.SpaceForce=true
