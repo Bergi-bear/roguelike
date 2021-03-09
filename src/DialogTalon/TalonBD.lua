@@ -127,7 +127,8 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
-                            DS={2,3,4}
+                            DS={2,3,4},
+                            dependence = 2
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",

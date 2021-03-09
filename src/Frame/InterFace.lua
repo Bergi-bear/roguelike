@@ -83,11 +83,33 @@ function RemoveLife(data)
     data.life=data.life-1
     --print("потеря жизни")
     if data.life<0 then
-        print("Поражение, вы не сможете больше воскреснуть")
+        if GetActiveCountPlayer()>1 then
+            print("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате")
+        else
+            TimerStart(CreateTimer(),3, false, function()
+                for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+                    CustomDefeatBJ(Player(i),"Поражение")
+                end
+            end)
+        end
     end
 end
 
 
+
+function ReviveAllHero()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            local data=HERO[i]
+            local hero=data.UnitHero
+            local x,y=GetUnitXY(hero)
+            if not UnitAlive(hero) then
+                data.life=0
+                ReviveHero(hero,x,y,true)
+            end
+        end
+    end
+end
 
 function CreateHPBar(hero)
     local intoBar = "SystemGeneric\\ColorHP"

@@ -125,6 +125,91 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18157.3, -13522.6, 53.890, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17867.1, -13580.5, 358.484, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17879.9, -13417.8, 23.588, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14462.1, -12665.1, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 5803.9, -7698.3, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 5917.6, -7696.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 6027.2, -7696.9, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14464.5, -12809.1, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14466.7, -12939.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14601.0, -12663.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14603.4, -12807.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14605.6, -12937.9, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14732.6, -12666.2, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14735.0, -12810.2, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14737.2, -12940.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14875.7, -12667.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14878.2, -12811.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14880.4, -12942.0, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14768.4, -3521.0, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14771.2, -3637.0, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14772.2, -3758.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14771.1, -3882.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14773.5, -4014.3, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14773.8, -4143.4, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14774.5, -4269.9, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14775.9, -4407.9, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14776.6, -4543.4, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14888.2, -3517.8, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15007.5, -3514.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15126.5, -3514.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15246.6, -3516.2, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15369.3, -3517.0, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15490.5, -3518.8, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15613.2, -3521.7, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15732.6, -3518.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15854.9, -3519.1, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15975.4, -3517.1, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16096.1, -3518.0, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16211.6, -3517.2, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16022.3, -10050.3, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16140.4, -10056.7, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16253.5, -10058.1, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16371.6, -10059.9, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15357.9, -6040.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15357.0, -6164.1, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15359.9, -6296.0, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15361.9, -6424.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15360.0, -6552.2, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15360.1, -6678.7, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21642.1, -12794.5, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 22046.4, -12811.1, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21844.6, -13001.9, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21853.9, -12542.2, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20862.9, -13021.8, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20655.4, -12778.6, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21067.8, -12801.5, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20867.2, -12546.4, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20849.6, -13713.4, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20642.2, -13470.1, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21054.6, -13493.0, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20853.9, -13238.0, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21890.9, -13754.3, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21683.4, -13511.0, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 22095.8, -13534.0, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21895.2, -13278.9, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23375.8, -12837.7, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23204.4, -12652.4, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23580.5, -12626.5, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23401.2, -12448.4, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23736.7, -13203.5, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23565.3, -13018.2, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23941.3, -12992.4, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23762.1, -12814.2, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24109.3, -13587.0, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23938.0, -13401.7, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24314.0, -13375.8, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24134.7, -13197.7, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24306.2, -13770.2, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24510.9, -13559.0, 158.490, FourCC("nglm"))
+end
+
+function CreateNeutralHostile()
+    local p = Player(PLAYER_NEUTRAL_AGGRESSIVE)
+    local u
+    local unitID
+    local t
+    local life
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18358.9, -10416.3, 158.494, FourCC("nglm"))
 end
 
 function CreateNeutralPassive()
@@ -203,6 +288,7 @@ end
 
 function CreateAllUnits()
     CreatePlayerBuildings()
+    CreateNeutralHostile()
     CreateNeutralPassive()
     CreatePlayerUnits()
 end
@@ -1484,6 +1570,34 @@ function RegistrationAnyEntire()
                         end)
                     end
                 end
+                if GetUnitTypeId(entering)==FourCC('nglm') then --МИНА
+                    local x,y=GetUnitXY(entering)
+                    local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
+                    BlzSetSpecialEffectColor(mark,255,0,0)
+                    BlzSetSpecialEffectScale(mark,1.2)
+                    local act=false
+                    if not act then
+                        act=true
+                        TimerStart(CreateTimer(), 1.8, false, function()
+                            if UnitAlive(entering) then
+                                local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+                                TimerStart(CreateTimer(), 1.8, false, function()
+                                    DestroyEffect(eff)
+                                end)
+                            end
+                        end)
+
+                        TimerStart(CreateTimer(), 2, false, function()
+                            --print("наносим урон")
+
+                            UnitDamageArea(entering,150,x,y,200)
+                            KillUnit(entering)
+                            DestroyEffect(mark)
+                            BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
+                        end)
+
+                    end
+                end
             end)
         end
     end
@@ -1577,6 +1691,7 @@ function Enter2NewZone(flag)
                 --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
                 if not flag then
                     StartEnemyWave(DestinyEnemies[CurrentGameZone])
+                   -- StartEnemyWave(401)
                 end
                 if flag=="Merchant" then
                     --print("Создаём торговца и предметы для торговли") --TODO
@@ -1850,7 +1965,7 @@ function StartEnemyWave(waveNumber)
 
     if waveNumber==401 then
         listID={
-            FourCC("nsko")
+            FourCC("uobs")
         }
         maxOnWave=1
     end
@@ -1871,7 +1986,13 @@ function GetActiveCountPlayer()
     local k=0
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            k=k+1
+            local data=HERO[i]
+            local hero=data.UnitHero
+            --local x,y=GetUnitXY(hero)
+            if  UnitAlive(hero) then
+                k=k+1
+            end
+
         end
     end
     return k
@@ -1923,26 +2044,30 @@ function StartWave(rect,listID,max)
             --print("все убиты даём награду")
             local x,y=GetRectCenterX(rect),GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
             CreateGodTalon(x,y,GLOBAL_REWARD)
+            ReviveAllHero()
             DestroyTimer(GetExpiredTimer())
         end
     end)
 end
 
-function CreateCreepDelay(id,x,y,delay)
+function CreateCreepDelay(id,x,y,delay,flag)
     local eff=AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl",x,y)
-    LiveOnWave=LiveOnWave+1
+    if flag~="summon" then
+        LiveOnWave=LiveOnWave+1
+    end
     TimerStart(CreateTimer(),delay, false, function()
         --print("create new")
         local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
-
-        DestroyEffect(eff)
-        TimerStart(CreateTimer(),delay, true, function()
-            if not UnitAlive(new) then
-                DestroyTimer(GetExpiredTimer())
-                LiveOnWave=LiveOnWave-1
+        if flag~="summon" then
+            DestroyEffect(eff)
+            TimerStart(CreateTimer(),delay, true, function()
+                if not UnitAlive(new) then
+                    DestroyTimer(GetExpiredTimer())
+                    LiveOnWave=LiveOnWave-1
+                end
                 --print(LiveOnWave[k])
-            end
-        end)
+            end)
+        end
     end)
 end
 
@@ -2288,6 +2413,7 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
     local data=HERO[pid-1]
     local talon=GlobalTalons[pid][godName][pos]
     local x,y,size=0.02,0.015,0.03
+    print(GetPlayerName(Player(pid)).. " выбрал "..talon.name.." уровень "..talon.level)
     if godName=="Trall" and  talon.level==1 then
         if pos==1 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"chargeAttackLight")
@@ -2526,6 +2652,9 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             ActLvl23Action(talon,function()
                 data.BigStaggerQ=talon.DS[talon.level]
             end)
+        end
+        if pos==6 then
+
         end
     end
     if godName=="HeroBeastMaster" and  talon.level==1 then
@@ -2846,7 +2975,8 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
-                            DS={2,3,4}
+                            DS={2,3,4},
+                            dependence = 2
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
@@ -3567,11 +3697,33 @@ function RemoveLife(data)
     data.life=data.life-1
     --print("потеря жизни")
     if data.life<0 then
-        print("Поражение, вы не сможете больше воскреснуть")
+        if GetActiveCountPlayer()>1 then
+            print("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате")
+        else
+            TimerStart(CreateTimer(),3, false, function()
+                for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+                    CustomDefeatBJ(Player(i),"Поражение")
+                end
+            end)
+        end
     end
 end
 
 
+
+function ReviveAllHero()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            local data=HERO[i]
+            local hero=data.UnitHero
+            local x,y=GetUnitXY(hero)
+            if not UnitAlive(hero) then
+                data.life=0
+                ReviveHero(hero,x,y,true)
+            end
+        end
+    end
+end
 
 function CreateHPBar(hero)
     local intoBar = "SystemGeneric\\ColorHP"
@@ -3762,7 +3914,7 @@ function InitEnemyEntire()
     TriggerRegisterEnterRectSimple(gg_trg_FFF, GetPlayableMapRect())
     TriggerAddAction(gg_trg_FFF, function()
         local unit=GetTriggerUnit()
-       -- print(GetUnitName(unit))
+        -- print(GetUnitName(unit))
         if GetUnitTypeId(unit)==FourCC("nsko") then -- простые скелеты орки с молотом
             IssueTargetOrder(unit,"attack",GetRandomEnemyHero())
             JumpAI(unit)
@@ -3779,7 +3931,9 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("uzig") then
             SpawnZombie(unit)
         end
-
+        if GetUnitTypeId(unit)==FourCC("uobs") then
+            StartObsidianBoss(unit)
+        end
     end)
 end
 
@@ -3808,6 +3962,13 @@ function GetRandomEnemyHero()
     local r=GetRandomInt(1,#table)
     return table[r]
 end
+
+
+
+
+
+
+
 
 function PudgeSlash(unit)
     local sec=0
@@ -4001,6 +4162,237 @@ end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
+--- DateTime: 09.03.2021 16:51
+---
+function StartObsidianBoss(boss)
+    print("запущен ИИ босса")
+    BlzSetUnitMaxHP(boss,10000)
+    HealUnit(boss,10000)
+    UnitAddShield(boss,5000)
+    UnitAddAbility(boss,FourCC("Abun"))
+    local bsx,bsy=GetUnitXY(boss) --стартовая позиция босса
+    --BOSS=boss
+    BossDamaged(boss)
+    local BossFight=true
+    local phase = 3 --стартовая фаза
+    local sec = 0
+    local PhaseOn = true
+    local OnAttack=true
+    TimerStart(CreateTimer(), 1, true, function() --каждую секунду
+        local x, y = GetUnitXY(boss)
+        if not UnitAlive(boss) then-- Место где босс умер
+            DestroyTimer(GetExpiredTimer())
+            phase = 0
+        end
+        if BossFight then -- если идёт бой и каждую фазу
+            sec = sec + 1
+            if GetUnitLifePercent(boss)<=25 then
+
+            else
+
+            end
+            if sec >= 10 then
+                sec = 0
+                phase = phase + 1
+                PhaseOn = true
+                if phase >= 4 then
+                    phase = 0
+                end
+            end
+            --фазы
+            if phase == 1 and PhaseOn then
+                PhaseOn = false
+                print("Призываем скелетов")
+                TimerStart(CreateTimer(), 2, true, function()
+                    local xr,yr=MoveXY(x,y,400,GetRandomInt(0,360))
+                    if GetTerrainZ(xr,yr)<=GetTerrainZ(x,y) then
+                        CreateCreepDelay(FourCC("nsko"),xr,yr,1,"summon")
+                    end
+                    if phase~=1 then
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end)
+            end
+            if phase == 2 and PhaseOn then
+                PhaseOn = false
+                print("Буллет хелл")
+
+            end
+            if phase == 3 and PhaseOn  then -- запуск волны
+                PhaseOn = false
+                print("Прыгаем на случайного героя")
+            end
+        else-- перезапуск боссфайта
+
+        end--конец
+    end)
+end
+
+
+
+function MarkAndFall(x,y,effModel,hero)
+    local mark=AddSpecialEffect("Snipe Target",x,y)
+    BlzSetSpecialEffectScale(mark,5)
+    TimerStart(CreateTimer(), 2, false, function()
+        local FallenEff=AddSpecialEffect(effModel,x,y)
+        BlzSetSpecialEffectZ(FallenEff,1000)
+        BlzSetSpecialEffectYaw(FallenEff, math.rad(GetRandomReal(0,360)))
+        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+            local z=BlzGetLocalSpecialEffectZ(FallenEff)
+
+            BlzSetSpecialEffectZ(FallenEff,z-25)
+            if z<=GetTerrainZ(x,y) then
+                DestroyEffect(mark)
+                BlzSetSpecialEffectPosition(mark,5000,5000,0)
+                DestroyTimer(GetExpiredTimer())
+                DestroyEffect(FallenEff)
+                BlzSetSpecialEffectPosition(FallenEff,5000,5000,0)
+                DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",x,y))
+                UnitDamageArea(hero,50,x,y,150) --при падении камня
+                UnitDamageArea(mainHero,50,x,y,150)
+            end
+        end)
+    end)
+end
+
+function CreateFirePillar(xs,ys,boss,zone)
+    ys=ys+700
+    local step=100
+    xs=xs-step*1.7
+    local x=xs
+    local k=4
+
+    IssuePointOrder(boss,"attack",GetUnitXY(mainHero))
+    TimerStart(CreateTimer(), 1/16, true, function()
+        --for k=1,14 do
+        for i =1,3 do
+            -- B006 лавйка, можно сломать
+            x=x+step
+            local y=ys-step*(k-1)
+            local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+            --DestroyEffect(eff)
+            local sec=0
+            TimerStart(CreateTimer(), 0.2, true, function()
+                sec=sec+0.2
+                UnitDamageArea(boss,20,x,y,step)
+                if sec>=5 then
+                    DestroyEffect(eff)
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
+            -- local _,d=PointContentDestructable(x,y,step*2)
+            --if GetDestructableTypeId(d)==FourCC("B006") then
+            --print("Врезался в лавку")
+            --DestroyTimer(GetExpiredTimer())
+            local j=1.2
+            SetRect(GlobalRect, x - step*j, y - step*j, x + step*j, y +step*j)
+            EnumDestructablesInRect(GlobalRect,nil,function ()
+                local d=GetEnumDestructable()
+                --if GetDestructableLife(d)>0 then
+                --print("Удалено "..GetDestructableName(d))
+                RemoveDestructable(d)
+                --end
+            end)
+            --end
+            UnitDamageArea(boss,99,x,y,step)
+        end
+        x=xs
+        k=k+1
+        if k>=15 then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+    --end
+end
+
+function BossDamaged(boss)
+    local DamageTrigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        --TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGING) -- До вычета брони
+        TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGED) -- После вычета брони
+    end
+    local bossTakenDamage=0
+    TriggerAddAction(DamageTrigger, function()
+        local damage     = GetEventDamage() -- число урона
+        if damage < 1 then return end
+        local eventId         = GetHandleId(GetTriggerEventId())
+        --local isEventDamaging = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGING)
+        local isEventDamaged = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGED)
+        local target          = GetTriggerUnit() -- тот кто получил урон
+        local caster          = GetEventDamageSource() -- тот кто нанёс урон
+
+
+        if isEventDamaged then
+            if target==boss then--  босс получает 100 урона
+                bossTakenDamage=bossTakenDamage+damage
+                if bossTakenDamage>=100 then
+                    bossTakenDamage=0
+                    local angle=AngleBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero))/bj_DEGTORAD
+
+                    CreateFireLine(boss,angle,DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero)))
+                end
+            end
+            if caster==boss then
+                local r=GetRandomInt(1,5)
+                if r==1 and IsUnitInRange(boss,mainHero,300) then
+                    SpireCast(boss,GetUnitXY(mainHero))
+                end
+            end
+        end
+
+    end)
+
+end
+
+function CreateFireLine(boss,angle,distance)
+    local x,y=GetUnitXY(boss)
+    --local currentDistance=0
+    local speed=128
+    local step=distance//speed
+    local mark={}
+    for i=1,step do
+        x,y=MoveXY(x,y,speed,angle)
+        mark[i]=AddSpecialEffect("Snipe Target",x,y)
+        BlzSetSpecialEffectScale(mark[i],5)
+    end
+
+    TimerStart(CreateTimer(), 2, false, function()
+        for i=1,#mark do
+            DestroyEffect(mark[i])
+            BlzSetSpecialEffectPosition(mark[i],5000,5000,0)
+        end
+        x,y=GetUnitXY(boss)
+        TimerStart(CreateTimer(), 1/16, true, function()
+            x,y=MoveXY(x,y,speed,angle)
+            local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+            UnitDamageArea(boss,99,x,y,speed)
+            distance=distance-speed
+            if distance<=0 then
+                DestroyTimer(GetExpiredTimer())
+            end
+        end)
+    end)
+end
+
+function MarkPillar(xs,ys,boss,zone)
+    local eff=AddSpecialEffect("s_cube1",xs,ys)
+    BlzSetSpecialEffectZ(eff,GetUnitZ(mainHero)-45)
+    BlzSetSpecialEffectMatrixScale(eff,4,14,0.5)
+    BlzSetSpecialEffectColor(eff,255,0,0)
+    BlzSetSpecialEffectAlpha(eff,100)
+    TimerStart(CreateTimer(), 3, false, function()
+        CreateFirePillar(xs,ys,boss,zone)
+        DestroyEffect(eff)
+        BlzSetSpecialEffectPosition(eff,5000,5000,0)
+        DestroyTimer(GetExpiredTimer())
+        local tmpLoc=GetRandomLocInRect(zone)
+        local woman=CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE),FourCC("nvlw"),GetLocationX(tmpLoc),GetLocationY(tmpLoc),GetUnitFacing(boss))
+        RemoveLocation(tmpLoc)
+    end)
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
 --- DateTime: 07.03.2021 0:39
 ---
 do
@@ -4160,6 +4552,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 3, false, function()
             ReplaceID2SawTrap(FourCC("hpea"))
+            ReplaceID2SwordSpike(FourCC("hkni"))
         end)
     end
 end
@@ -4173,6 +4566,66 @@ function ReplaceID2SawTrap(id)
         SetUnitInvulnerable(all[i],true)
         CreateSawTrap(all[i])
     end
+end
+
+
+function ReplaceID2SwordSpike(id)
+    local tmp,k,all=FindUnitOfType(id)
+    --print("найденно "..k.." а в таблице "..#all)
+    for i=1,#all do
+        -- print("заменён "..GetUnitName(all[i]))
+        ShowUnit(all[i],false)
+        SetUnitInvulnerable(all[i],true)
+        CreateSwordSpike(all[i])
+    end
+end
+
+
+function CreateSwordSpike (hero)
+    local x,y=GetUnitXY(hero)
+    local eff=AddSpecialEffect("SystemGeneric\\SwordImpaleMissTarget.mdl",x,y)
+    local border=AddSpecialEffect("Doodads\\Cinematic\\FootSwitch\\FootSwitch.mdl",x,y)
+    BlzSetSpecialEffectZ(border,GetTerrainZ(x,y)-50)
+    BlzPlaySpecialEffect(eff,ANIM_TYPE_DEATH)
+    local active=false
+    local sec=0
+    TimerStart(CreateTimer(), 0.1, true, function()
+        local _,enemy=UnitDamageArea(hero,0,x,y,100)
+        if enemy then
+            if IsUnitType(enemy,UNIT_TYPE_HERO) and not active then
+                --print("Ловушка активирована")
+                active=true
+
+                local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
+                BlzSetSpecialEffectColor(mark,255,0,0)
+                BlzSetSpecialEffectScale(mark,0.7)
+
+
+                TimerStart(CreateTimer(), 1, false, function()
+                    BlzPlaySpecialEffect(eff,ANIM_TYPE_BIRTH)
+                    normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit",x,y)
+                end)
+                TimerStart(CreateTimer(), 1.3, false, function()
+                    --print("наносим урон")
+                    DestroyEffect(mark)
+                    BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
+
+                    BlzSetSpecialEffectTimeScale(eff,.5)
+                    UnitDamageArea(hero,100,x,y,100)
+                end)
+            end
+        end
+
+        if active then
+            sec=sec+0.1
+            if sec>=2 then
+                sec=0
+                active=false
+                BlzPlaySpecialEffect(eff,ANIM_TYPE_DEATH)
+                BlzSetSpecialEffectTimeScale(eff,1)
+            end
+        end
+    end)
 end
 
 

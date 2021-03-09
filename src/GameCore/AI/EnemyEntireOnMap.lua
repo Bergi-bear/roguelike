@@ -20,7 +20,7 @@ function InitEnemyEntire()
     TriggerRegisterEnterRectSimple(gg_trg_FFF, GetPlayableMapRect())
     TriggerAddAction(gg_trg_FFF, function()
         local unit=GetTriggerUnit()
-       -- print(GetUnitName(unit))
+        -- print(GetUnitName(unit))
         if GetUnitTypeId(unit)==FourCC("nsko") then -- простые скелеты орки с молотом
             IssueTargetOrder(unit,"attack",GetRandomEnemyHero())
             JumpAI(unit)
@@ -37,7 +37,9 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("uzig") then
             SpawnZombie(unit)
         end
-
+        if GetUnitTypeId(unit)==FourCC("uobs") then
+            StartObsidianBoss(unit)
+        end
     end)
 end
 
@@ -66,6 +68,13 @@ function GetRandomEnemyHero()
     local r=GetRandomInt(1,#table)
     return table[r]
 end
+
+
+
+
+
+
+
 
 function PudgeSlash(unit)
     local sec=0

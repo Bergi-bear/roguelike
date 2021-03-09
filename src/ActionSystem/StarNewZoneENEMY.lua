@@ -87,6 +87,7 @@ function Enter2NewZone(flag)
                 --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
                 if not flag then
                     StartEnemyWave(DestinyEnemies[CurrentGameZone])
+                   -- StartEnemyWave(401)
                 end
                 if flag=="Merchant" then
                     --print("Создаём торговца и предметы для торговли") --TODO
@@ -360,7 +361,7 @@ function StartEnemyWave(waveNumber)
 
     if waveNumber==401 then
         listID={
-            FourCC("nsko")
+            FourCC("uobs")
         }
         maxOnWave=1
     end
@@ -381,7 +382,13 @@ function GetActiveCountPlayer()
     local k=0
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            k=k+1
+            local data=HERO[i]
+            local hero=data.UnitHero
+            --local x,y=GetUnitXY(hero)
+            if  UnitAlive(hero) then
+                k=k+1
+            end
+
         end
     end
     return k
@@ -433,26 +440,30 @@ function StartWave(rect,listID,max)
             --print("все убиты даём награду")
             local x,y=GetRectCenterX(rect),GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
             CreateGodTalon(x,y,GLOBAL_REWARD)
+            ReviveAllHero()
             DestroyTimer(GetExpiredTimer())
         end
     end)
 end
 
-function CreateCreepDelay(id,x,y,delay)
+function CreateCreepDelay(id,x,y,delay,flag)
     local eff=AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl",x,y)
-    LiveOnWave=LiveOnWave+1
+    if flag~="summon" then
+        LiveOnWave=LiveOnWave+1
+    end
     TimerStart(CreateTimer(),delay, false, function()
         --print("create new")
         local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
-
-        DestroyEffect(eff)
-        TimerStart(CreateTimer(),delay, true, function()
-            if not UnitAlive(new) then
-                DestroyTimer(GetExpiredTimer())
-                LiveOnWave=LiveOnWave-1
+        if flag~="summon" then
+            DestroyEffect(eff)
+            TimerStart(CreateTimer(),delay, true, function()
+                if not UnitAlive(new) then
+                    DestroyTimer(GetExpiredTimer())
+                    LiveOnWave=LiveOnWave-1
+                end
                 --print(LiveOnWave[k])
-            end
-        end)
+            end)
+        end
     end)
 end
 

@@ -8,6 +8,7 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
     local data=HERO[pid-1]
     local talon=GlobalTalons[pid][godName][pos]
     local x,y,size=0.02,0.015,0.03
+    print(GetPlayerName(Player(pid)).. " выбрал "..talon.name.." уровень "..talon.level)
     if godName=="Trall" and  talon.level==1 then
         if pos==1 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"chargeAttackLight")

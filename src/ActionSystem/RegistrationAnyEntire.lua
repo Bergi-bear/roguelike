@@ -40,6 +40,34 @@ function RegistrationAnyEntire()
                         end)
                     end
                 end
+                if GetUnitTypeId(entering)==FourCC('nglm') then --МИНА
+                    local x,y=GetUnitXY(entering)
+                    local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
+                    BlzSetSpecialEffectColor(mark,255,0,0)
+                    BlzSetSpecialEffectScale(mark,1.2)
+                    local act=false
+                    if not act then
+                        act=true
+                        TimerStart(CreateTimer(), 1.8, false, function()
+                            if UnitAlive(entering) then
+                                local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+                                TimerStart(CreateTimer(), 1.8, false, function()
+                                    DestroyEffect(eff)
+                                end)
+                            end
+                        end)
+
+                        TimerStart(CreateTimer(), 2, false, function()
+                            --print("наносим урон")
+
+                            UnitDamageArea(entering,150,x,y,200)
+                            KillUnit(entering)
+                            DestroyEffect(mark)
+                            BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
+                        end)
+
+                    end
+                end
             end)
         end
     end
