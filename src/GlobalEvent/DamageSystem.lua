@@ -176,6 +176,9 @@ function AddDamage2Show(hero,damage)
 		data.sec=0
 		data.damage=data.damage+damage
 		data.k=data.k+0.002
+		if data.k>=0.04 then
+			data.k=0.04 -- достигнут предел размера урона
+		end
 		--print("Добавление урона"..damage.." и всего получилось "..data.damage)
 	end
 

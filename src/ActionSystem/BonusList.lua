@@ -29,4 +29,5 @@ end
 function UnitAddGold(hero,amount)
     FlyTextTagGoldBounty(hero,"+"..I2S(amount),GetOwningPlayer(hero))
     normal_sound("SystemGeneric\\ReceiveGold",GetUnitXY(hero))
+    AddGold(HERO[GetPlayerId(GetOwningPlayer(hero))],amount)
 end

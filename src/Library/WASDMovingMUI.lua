@@ -96,6 +96,7 @@ function InitHeroTable(hero)
         DamageThrow=150, -- урон от кирки
         InvulPreDeathCurrentCD=1, --кулдаун бессмертия от трала
         LifeFHTable={},
+        gold=0,
     }
 end
 
@@ -777,7 +778,22 @@ function CreateWASDActions()
                         end)
 
                         local xs,ys=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),40,angle)
-                        CreateAndForceBullet(data.UnitHero,angle,50,"Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl",xs,ys,data.DamageThrow,1000)
+                        local effModel="Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl"
+                        local speed=50
+                        local maxDist=1000
+                        local delay=0
+                        if data.isSpined then
+                          --  print("Бросок молота метра")
+                            effModel="Hive\\Culling Slash\\Culling Slash\\Culling Slash"
+                            speed=70
+                            maxDist=2000
+                            delay=maxDist/2
+                            if not data.tasks[7] then
+                          --      data.tasks[7]=true
+                            end
+                        end
+
+                        CreateAndForceBullet(data.UnitHero,angle,speed,effModel,xs,ys,data.DamageThrow,maxDist,delay)
                     end)
                 end
 
@@ -1273,11 +1289,6 @@ function PlayUnitAnimationFromChat()
             --CreateForUnitWayToPoint(mainHero,CQX,CQY)
             return
         end
-        if GetEventPlayerChatString()=="m" then
-            UnitAddItemById(data.UnitHero,FourCC("I00A"))
-            --print("получена руна морфа, где форма мышей")
-            return
-        end
         if GetEventPlayerChatString()=="n" then
             UnitAddItemById(data.UnitHero,FourCC("I00B"))
             return
@@ -1324,7 +1335,16 @@ function PlayUnitAnimationFromChat()
             CreateGodTalon(x, y, "ShadowHunter")
             return
         end
-
+        if GetEventPlayerChatString()=="m" or GetEventPlayerChatString()=="ь"  then
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateEnterPoint(x,y,"        Продолжить", 'Goto', true,"Merchant",nil)
+            return
+        end
+        if GetEventPlayerChatString()=="g" or GetEventPlayerChatString()=="п"  then
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateMerchantAndGoods(x,y)
+            return
+        end
         SetUnitAnimationByIndex(data.UnitHero,s)
         --print(GetUnitName(mainHero).." "..s)
     end)

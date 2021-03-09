@@ -4,16 +4,21 @@
 --- DateTime: 19.02.2021 11:12
 ---
 LastGodTalon = {}
-function CreateGodTalon(x, y, name, r, g, b)
+function CreateGodTalon(x, y, name, price)
     x = x - 16
+    local r,g,b=0,0,0
     if not name or name=="" then
-        print("ошибка, при создании дара, не определена награда команты")
+        print("ошибка, при создании дара, не определена награда комнаты")
         return
     end
+    if not price then price=0 end
     local eff = AddSpecialEffect("SystemGeneric\\GodModels\\" .. name, x, y)
     local pillar = AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
     local collision = CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
-    local table = {eff,pillar,collision}
+    local priceTag=CreateStaticGoldTag(price,x,y)
+
+    local table = {eff,pillar,collision,priceTag}
+    normal_sound("Sound\\Interface\\ItemReceived",x,y)
     --if not r or not g or not b then
         r = 255
         g = 255
@@ -35,7 +40,20 @@ function CreateGodTalon(x, y, name, r, g, b)
     end)
     --local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
     --print("Создали дар")
-    CreateEnterPoint(x,y,"       Принять дар", name, true)
+    local textE="       Принять дар"
+
+    if price>0 then
+        textE="        Купить за "..price
+    end
+
+    local tempUnit=CreateEnterPoint(x,y,textE, name, true)
+    if not EnterPointTable[GetHandleId(tempUnit)] then
+        EnterPointTable[GetHandleId(tempUnit)] = {}
+    end
+    local dataPoint = EnterPointTable[GetHandleId(tempUnit)]
+    dataPoint.TripleTalon=table
+    dataPoint.TalonPrice=price
+
     --[[
     local forceShow=false
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -63,6 +81,7 @@ function DestroyGodTalon(table)
     DestroyEffect(table[1])
     DestroyEffect(table[2])
     KillDestructable(table[3])
+    DestroyTextTag(table[4])
 end
 
 

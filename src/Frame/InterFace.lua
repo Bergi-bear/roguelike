@@ -19,6 +19,7 @@ function DrawInterFace()
         if HERO[i] then
             CreateHPBar(HERO[i].UnitHero)
             CreateLifeInterface(HERO[i])
+            CreateGoldInterFace(HERO[i])
         end
     end
     CreateBaseFrames(0.02, 0.015) -- 5 стандартных скилов
@@ -39,6 +40,24 @@ function CreateLifeInterface(data)
     AddLife(data)
     AddLife(data)
     --AddLife(data)
+end
+
+function CreateGoldInterFace(data)
+    local goldIco="Textures\\GOLDCoin.blp"
+    local GoldFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(GoldFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(GoldFrame, goldIco, 0, true)
+    BlzFrameSetSize(GoldFrame, NextPoint/2, NextPoint/2)
+    BlzFrameSetAbsPoint(GoldFrame, FRAMEPOINT_CENTER, 0.85,0.02)
+    BlzFrameSetVisible(GoldFrame, GetLocalPlayer() == Player(data.pid))
+
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", GoldFrame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "0")
+    BlzFrameSetScale(text, 2)
+    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, GoldFrame, FRAMEPOINT_RIGHT, 0.015, 0.0)
+    BlzFrameSetVisible(text, GetLocalPlayer() == Player(data.pid))
+    data.GoldTextFH=text
 end
 
 function AddLife(data)
@@ -87,22 +106,25 @@ function CreateHPBar(hero)
     BlzFrameSetSize(buttonIconFrame, 0.03, 0.24)
     BlzFrameSetAbsPoint(buttonIconFrame, FRAMEPOINT_BOTTOMLEFT, -0.136, 0.075)
     BlzFrameSetVisible(buttonIconFrame, GetLocalPlayer() == GetOwningPlayer(hero))
-
     local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", buttonIconFrame, "", 0)
     BlzFrameSetPoint(textCurrent, FRAMEPOINT_RIGHT, buttonIconFrame, FRAMEPOINT_RIGHT, 0.012, 0.1)
-
     local textMax = BlzCreateFrameByType("TEXT", "ButtonChargesText", buttonIconFrame, "", 0)
     BlzFrameSetPoint(textMax, FRAMEPOINT_RIGHT, buttonIconFrame, FRAMEPOINT_RIGHT, 0.012, -0.11)
-
     TimerStart(CreateTimer(), 0.05, true, function()
         local hp = 0
         hp = GetUnitLifePercent(hero)
         if not UnitAlive(hero) then
             hp = 0
+           -- print("Юнит мерт, сводим бар до нуля")
+            BlzFrameSetSize(into, 0.02 * 0.95, 0)
+            BlzFrameSetVisible(into,false)
+            BlzFrameSetText(textCurrent, hp)
+            BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
+        else
+            BlzFrameSetVisible(into, GetLocalPlayer() == GetOwningPlayer(hero))
+            BlzFrameSetText(textCurrent, R2I(GetUnitState(hero, UNIT_STATE_LIFE)))
+            BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
+            BlzFrameSetSize(into, 0.02 * 0.95, hp * 0.21 / 100)
         end
-        BlzFrameSetText(textCurrent, R2I(GetUnitState(hero, UNIT_STATE_LIFE)))
-        BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
-
-        BlzFrameSetSize(into, 0.02 * 0.95, hp * 0.21 / 100)
     end)
 end

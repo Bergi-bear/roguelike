@@ -47,9 +47,6 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 		BlzSetSpecialEffectScale(bullet, 0.7)
 	end
 
-	if effectmodel == "Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl" then
-
-	end
 
 	BlzSetSpecialEffectZ(bullet, zhero)
 	local angleCurrent = angle
@@ -62,12 +59,23 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 		local x, y, z = BlzGetLocalSpecialEffectX(bullet), BlzGetLocalSpecialEffectY(bullet), BlzGetLocalSpecialEffectZ(bullet)
 		local zGround = GetTerrainZ(MoveX(x, speed * 2, angleCurrent), MoveY(y, speed * 2, angleCurrent))
 		BlzSetSpecialEffectYaw(bullet, math.rad(angleCurrent))
-		BlzSetSpecialEffectPosition(bullet, MoveX(x, speed, angleCurrent), MoveY(y, speed, angleCurrent), z ) -- было z-2
+		local nx,ny=MoveXY(x,y,speed, angleCurrent)
+		BlzSetSpecialEffectPosition(bullet, nx,ny, z ) -- было z-2
 
 		SetFogStateRadius(GetOwningPlayer(heroCurrent), FOG_OF_WAR_VISIBLE, x, y, 400, true)-- Небольгая подсветка
 		if effectmodel=="Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl" then
 			UnitDamageArea(hero,5,x,y,90,"blackHole")
 		end
+
+		if effectmodel=="Hive\\Culling Slash\\Culling Slash\\Culling Slash" then
+			BlzSetSpecialEffectScale(bullet,0.001)
+			local tempEff=AddSpecialEffect(effectmodel,nx, ny)
+			BlzSetSpecialEffectScale(tempEff, 0.4)
+			DestroyEffect(tempEff)
+			UnitDamageArea(hero,damage,x,y,90)
+		end
+
+
 		local ZBullet = BlzGetLocalSpecialEffectZ(bullet)
 
 		CollisionEnemy, DamagingUnit = UnitDamageArea(heroCurrent, 0, x, y, CollisionRange)

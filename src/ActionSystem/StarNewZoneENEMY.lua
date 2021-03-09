@@ -40,6 +40,10 @@ function InitAllZones()
     SetZone(15,gg_rct_E15A,gg_rct_B15A,gg_rct_S15A)
     SetZone(16,gg_rct_E16A,gg_rct_B16A,gg_rct_S16A)
     SetZone(17,gg_rct_E17A,gg_rct_B17A,gg_rct_S17A)
+    -------------------------------------------------------
+    SetZone(18,gg_rct_E18A,gg_rct_B18A,gg_rct_S18A)
+    SetZone(19,gg_rct_E19A,gg_rct_B19A,gg_rct_S19A)
+    SetZone(20,gg_rct_E20A,gg_rct_B20A,gg_rct_S20A)
 
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
@@ -65,7 +69,7 @@ end
 
 
 
-function Enter2NewZone()
+function Enter2NewZone(flag)
     CurrentGameZone=CurrentGameZone+1
     if CurrentGameZone==1 then
         --print("убираем обучение")
@@ -76,15 +80,31 @@ function Enter2NewZone()
     CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     TimerStart(CreateTimer(),2, false, function()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
-        if Destiny[CurrentGameZone] then
-            MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
-            --StartEnemyWave(Destiny[CurrentGameZone])
-            --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
+        if CurrentGameZone~=20 then
+            if Destiny[CurrentGameZone] then
+                MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
+                --StartEnemyWave(Destiny[CurrentGameZone])
+                --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
+                if not flag then
+                    StartEnemyWave(DestinyEnemies[CurrentGameZone])
+                end
+                if flag=="Merchant" then
+                    --print("Создаём торговца и предметы для торговли") --TODO
+                    AllActionsEnabled(true)
+                    local x=GetRectCenterX(GameZone[Destiny[CurrentGameZone]].rectSpawn)
+                    local y=GetRectCenterY(GameZone[Destiny[CurrentGameZone]].rectSpawn)
+                    CreateMerchantAndGoods(x,y)
+                end
+                --StartEnemyWave(5)
+            else
 
-            StartEnemyWave(DestinyEnemies[CurrentGameZone])
-            --StartEnemyWave(5)
+                print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
+
+            end
         else
-            print(CurrentGameZone.." эта зона не существует, перемещение туда не возможно, обратитесь к автору карты")
+            MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
+            StartEnemyWave(401)
+            print("в этой зоне должен быть босс")
         end
         CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
@@ -321,6 +341,29 @@ function StartEnemyWave(waveNumber)
         }
         maxOnWave=7
     end
+    if waveNumber==19 then
+        listID={
+            FourCC("nsko"),FourCC("nsko"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("unec"),
+        }
+        maxOnWave=5
+    end
+    if waveNumber==20 then
+        listID={
+            FourCC("nsko"),FourCC("nsko"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("unec"),
+        }
+        maxOnWave=3
+    end
+
+    if waveNumber==401 then
+        listID={
+            FourCC("nsko")
+        }
+        maxOnWave=1
+    end
 
     if listID[1] then
         StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,maxOnWave)
@@ -389,7 +432,7 @@ function StartWave(rect,listID,max)
         if LiveOnWave<=0 and k>=max then
             --print("все убиты даём награду")
             local x,y=GetRectCenterX(rect),GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
-            CreateGodTalon(x,y,GLOBAL_REWARD,80,80,255)
+            CreateGodTalon(x,y,GLOBAL_REWARD)
             DestroyTimer(GetExpiredTimer())
         end
     end)
