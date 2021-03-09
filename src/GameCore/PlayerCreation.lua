@@ -5,9 +5,13 @@
 ---
 
 do
-    TimerStart(CreateTimer(), .1, false, function()
-        CreationPeonsForAllPlayer()
-    end)
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), .1, false, function()
+            CreationPeonsForAllPlayer()
+        end)
+    end
 end
 
 function CreationPeonsForAllPlayer()

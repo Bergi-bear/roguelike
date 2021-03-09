@@ -271,16 +271,16 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = "Используйте кнопки WASD, чтобы перемещаться",
-                            DS={10,20,30}
+                            DS={20,40,60}
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
                             name = "Могучий удар",
-                            description = "Увеличивает длительность стазиса от способности Мощный удар на DS",
+                            description = "Увеличивает длительность стазиса от способности Мощный удар на DS и радиус поражения на 100",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
-                            DS={0.3,0.6,0.9}
+                            DS={0.5,0.8,1.4}
                         }),
                     },
                     HeroBeastMaster={ -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ

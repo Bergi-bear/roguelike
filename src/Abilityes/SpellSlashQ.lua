@@ -5,16 +5,27 @@
 ---
 
 function SpellSlashQ(data)
-    local hero=data.UnitHero
+    local hero = data.UnitHero
     if not data.tasks[3] then
-        data.tasks[3]=true
+        data.tasks[3] = true
     end
-    local damage=250
+    local damage = 250
+    local range=200
     if data.GreatDamageDashQ then
-        damage=2*damage
-        data.GreatDamageDashQ=false
+        damage = 2 * damage
+        data.GreatDamageDashQ = false
     end
-        local x,y=MoveXY(GetUnitX(hero),GetUnitY(hero),80,GetUnitFacing(hero))
-        DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic",x,y))
-        UnitDamageArea(hero,damage,x,y,200)
+    if data.BigStaggerQ then
+        range=range+100
+    end
+    local x, y = MoveXY(GetUnitX(hero), GetUnitY(hero), 80, GetUnitFacing(hero))
+    local eff=AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
+    if data.BigStaggerQ then
+        BlzSetSpecialEffectScale(eff,1.4)
+    end
+    DestroyEffect(eff)
+    UnitDamageArea(hero, damage, x, y, range)
+    if data.BigStaggerQ then
+        StunArea(hero,x,y,range,data.BigStaggerQ)
+    end
 end

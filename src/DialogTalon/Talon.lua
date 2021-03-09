@@ -53,6 +53,10 @@ function Talon:getDescription()
     return self.description
 end
 
+function Talon:getLvlDS()
+    return self.DS[self.lvl]
+end
+
 function Talon:getDS()
     return self.DS
 end

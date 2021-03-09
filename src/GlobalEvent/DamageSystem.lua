@@ -1,10 +1,13 @@
 
 
 do
-	TimerStart(CreateTimer(), 0.1, false, function()
-		InitDamage()
-	end)
-
+	local InitGlobalsOrigin = InitGlobals
+	function InitGlobals()
+		InitGlobalsOrigin()
+		TimerStart(CreateTimer(), 0.1, false, function()
+			InitDamage()
+		end)
+	end
 end
 
 
@@ -18,8 +21,16 @@ function OnPostDamage()
 
 	if GetUnitTypeId(target)~=HeroID then
 		--print("кто-то другой получил урон")
-		if GetUnitAbilityLevel(target,FourCC("BNms"))==0 then
-			StunUnit(target,0.4,"stagger")
+		local data=HERO[GetPlayerId(GetOwningPlayer(caster))]
+		if data then
+			if GetUnitAbilityLevel(target,FourCC("BNms"))==0 then
+				local addTime=0
+				if not data.StaggerTimeFromTalon then data.StaggerTimeFromTalon=0 end
+				if data.StaggerTimeFromTalon then
+					addTime=data.StaggerTimeFromTalon
+				end
+				StunUnit(target,0.4+addTime,"stagger")
+			end
 		end
 	else
 		--print("наш герой получил урон")
@@ -238,11 +249,29 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 	SetRect(GlobalRect, x - range, y - range, x + range, y +range)
 	EnumDestructablesInRect(GlobalRect,nil,function ()
 		local d=GetEnumDestructable()
-		if GetDestructableLife(d)>0 and unitZ<=GetTerrainZ(x,y)+50 then
+		if GetDestructableLife(d)>0  then --and unitZ<=GetTerrainZ(x,y)+50
 			content=true
+			--print("эх")
 			if iskill then
 				if not IsDestructableInvulnerable(d) then
 					SetDestructableLife(d,GetDestructableLife(d)-damage)
+					--print("урон по декору")
+					if GetDestructableLife(d)<1 or GetDestructableLife(d) <= 0 then
+						--print("смерть декора")
+						if hero then
+							if GetRandomInt(1,2)==1 then
+								if  GetDestructableTypeId(d)==FourCC("B004") then
+									--print("умер ящик, создаём мимика")
+									local new=CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
+									IssueTargetOrder(new,"attack",hero)
+								end
+
+							else
+								--print("даём золото за сундук")
+								UnitAddGold(hero,GetRandomInt(2,5))
+							end
+						end
+					end
 				end
 				if GetDestructableLife(d)>=1 then
 					SetDestructableAnimation(d,"Stand Hit")

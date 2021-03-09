@@ -213,7 +213,43 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
     end
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
-        CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        local tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        UpdateTalonDescriptionForFrame(talon,tt)
+        if pos==1 then
+           -- print("изучена нж")
+            data.HealForLvlUp=talon.DS[talon.level]
+            ActLvl23Action(talon,function()
+                data.HealForLvlUp=talon.DS[talon.level]
+            end)
+        end
+        if pos==2 then
+            data.StaggerTimeFromTalon=talon.DS[talon.level]
+            ActLvl23Action(talon,function()
+                data.StaggerTimeFromTalon=talon.DS[talon.level]
+            end)
+        end
+        if pos==3 then
+            data.DashDamageON=talon.DS[talon.level]
+            --print("изучен "..(data.DashDamageON))
+            ActLvl23Action(talon,function()
+                data.DashDamageON=talon.DS[talon.level]
+            end)
+        end
+        if pos==4 then
+            SetUnitMoveSpeed(data.UnitHero,GetUnitMoveSpeed(data.UnitHero)*1.2)
+            ActLvl23Action(talon,function()
+                SetUnitMoveSpeed(data.UnitHero,GetUnitMoveSpeed(data.UnitHero)*1.2)
+            end)
+        end
+        if pos==5 then
+            data.BigStaggerQ=talon.DS[talon.level]
+            ActLvl23Action(talon,function()
+                data.BigStaggerQ=talon.DS[talon.level]
+            end)
+        end
+        if pos==6 then
+
+        end
     end
     if godName=="HeroBeastMaster" and  talon.level==1 then
         if not data.BeastCountTalon then data.BeastCountTalon=0 end
@@ -277,7 +313,7 @@ function UpdateTalonDescriptionForFrame(talon,toolTipFH)
         if talon.level==2 then
             lvl2=true
             local new=talon:updateDescriptionCurrent()
-            BlzFrameSetText(toolTipFH,ColorText2(talon.name..": \n")..new)
+            BlzFrameSetText(toolTipFH,ColorText2(talon.name.." ур. "..(talon.level)..": \n")..new)
             --BlzFrameSetText(toolTipFH,new)
         end
         if lvl2 then
@@ -289,7 +325,7 @@ function UpdateTalonDescriptionForFrame(talon,toolTipFH)
         if talon.level==3 then
             lvl3=true
             local new=talon:updateDescriptionCurrent()
-            BlzFrameSetText(toolTipFH,ColorText2(talon.name..": \n")..new)
+            BlzFrameSetText(toolTipFH,ColorText2(talon.name.." ур. "..(talon.level)..": \n")..new)
             --BlzFrameSetText(toolTipFH,new)
         end
         if lvl3 then

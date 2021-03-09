@@ -66,7 +66,7 @@ function StunArea(hero,x,y,range,duration)
 		if e == nil then break end
 		if UnitAlive(e) and IsUnitEnemy(e,GetOwningPlayer(hero)) and not IsUnitType(e,UNIT_TYPE_STRUCTURE) then
 			--	print(GetUnitName(e))
-			StunUnit(e,duration)
+			StunUnit(e,duration,"stagger")
 		end
 		GroupRemoveUnit(perebor,e)
 	end

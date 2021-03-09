@@ -275,10 +275,14 @@ function InitWASD(hero)
                 if data.IsMoving then -- двигается
                     data.DirectionMove=angle
 
-                        speed=5
-
+                        speed=GetUnitMoveSpeed(hero)/38
+                        --print(speed)
                     if  data.isAttacking or (data.ReleaseQ and data.CDSpellQ>0) or data.ReleaseRMB then
                         speed=0.5
+                    end
+                    SetUnitTimeScale(hero,(speed*20)/100)
+                    if data.ReleaseQ then --нормализация скорости
+                        SetUnitTimeScale(hero,1)
                     end
                     local x,y=GetUnitXY(hero)
                     local nx,ny=MoveXY(x,y,speed,angle)
@@ -619,7 +623,7 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero,3)
-                if data.QJump2Pointer  then --FIXME может ломать управление
+                if data.QJump2Pointer  then --FIXED может ломать управление
                     --if not data.ReleaseQ then
                     --print("Q в курсор")
                         StartFrameCD(data.SpellQCDTime,data.cdFrameHandleQ)
@@ -1058,6 +1062,15 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
         --print("1")
         local tempDamageGroup=CreateGroup()
         local damageOnWall=false
+        local effDash=nil
+        if flag=="ignore" then
+            local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+            if data.DashDamageON then
+                local effDashModel="Hive\\Valiant Charge\\Valiant Charge Fel\\Valiant Charge Fel"
+                effDash=AddSpecialEffectTarget(effDashModel,hero,"origin")
+            end
+        end
+
         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
             currentdistance = currentdistance + speed
             --print(currentdistance)
@@ -1074,9 +1087,14 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                     damageOnWall=true
                 end
             end
-            if flag=="ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce then
+            if flag=="ignore"  then
                 local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
                 --print("попытка нанести урон в рывке")
+
+                if data.DashDamageON then
+                    UnitDamageArea(hero,data.DashDamageON,newX, newY,80)
+                    --print("урон рывком")
+                end
                 ----------------------------Лечим союзника в рывке
 
                 if data.HealDashAllyCDFH then
@@ -1096,23 +1114,25 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                     end
                 end
                 -----------------------------
-                local range=300
-                local is,du=UnitDamageArea(hero,0,newX, newY,200)
-                if is then
-                    if data.TaurenDash then
-                        range=400
-                        --data.BaseDashDamage=data.BaseDashDamage*2
-                    end
-                    if not IsUnitInGroup(du,tempDamageGroup) then
-                        GroupAddUnit(tempDamageGroup,du)
-                        if UnitDamageArea(hero,data.BaseDashDamage,newX, newY,range,"longForce") then
-                            normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
-                          --  print("нанесение урона во время рывка рывка")
+                if data.AttackInForce then
+                    local range=300
+                    local is,du=UnitDamageArea(hero,0,newX, newY,200)
+                    if is then
+                        if data.TaurenDash then
+                            range=400
+                            --data.BaseDashDamage=data.BaseDashDamage*2
                         end
-                    else
-                     --   print("повторное нанесение урона ни к ечму не привело")
-                    end
+                        if not IsUnitInGroup(du,tempDamageGroup) then
+                            GroupAddUnit(tempDamageGroup,du)
+                            if UnitDamageArea(hero,data.BaseDashDamage,newX, newY,range,"longForce") then
+                                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone"..GetRandomInt(1,3),GetUnitXY(HERO[0].UnitHero))
+                                --  print("нанесение урона во время рывка рывка")
+                            end
+                        else
+                            --   print("повторное нанесение урона ни к ечму не привело")
+                        end
 
+                    end
                 end
             end
 
@@ -1124,6 +1144,9 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                 --or (data.OnWater and data.OnTorrent==false)
                 --data.IsDisabled=false
                 --data.OnWater=false
+                if  effDash then
+                    DestroyEffect(effDash)
+                end
                 if flag=="ignore" then
                     --print("перезарядка атаки в рывке")
                     --HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --
@@ -1259,7 +1282,7 @@ function UnitDamageArea(u,damage,x,y,range,flag)
 end
 
 GlobalRect=Rect(0,0,0,0)
-function PointContentDestructable (x,y,range,iskill,damage,flag)
+function PointContentDestructableOld (x,y,range,iskill,damage,flag)
     local content=false
     if range==nil then range=80 end
     if iskill==nil then iskill=false end
@@ -1360,6 +1383,12 @@ function PlayUnitAnimationFromChat()
         if GetEventPlayerChatString()=="g" or GetEventPlayerChatString()=="п"  then
             local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateMerchantAndGoods(x,y)
+            return
+        end
+
+        if GetEventPlayerChatString()=="a" or GetEventPlayerChatString()=="ф"  then
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "HeroTaurenChieftain")
             return
         end
         SetUnitAnimationByIndex(data.UnitHero,s)

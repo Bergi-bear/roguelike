@@ -8,7 +8,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
-            InitEvenDestructable()
+           -- InitEvenDestructable()
         end)
     end
 end
@@ -26,9 +26,14 @@ function InitEvenDestructable()
     end)
     TriggerAddAction(thisTrigger,function()
         local d=GetDyingDestructable()
-        if  GetDestructableTypeId(d)==FourCC("B004") then
-           -- print("умер ящик, создаём мимика")
-            CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
+        local r=GetRandomInt(1,2)
+        if GetRandomInt(1,2)==1 then
+            if  GetDestructableTypeId(d)==FourCC("B004") then
+                -- print("умер ящик, создаём мимика")
+                local new=CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
+            end
+        else
+
         end
     end)
         --print("Всего мимиков будет:"..k)
