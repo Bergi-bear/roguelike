@@ -493,7 +493,7 @@ function CreateWASDActions()
 
                 local dist=200
                 local delay=0.2
-                if data.ReleaseQ then
+                if data.ReleaseQ and not data.QJump2Pointer then
                    -- print("сплеш в рывке, пробуем прыгнуть прыжок")
                     dist=400
                     delay=0.3
@@ -555,7 +555,6 @@ function CreateWASDActions()
                     --print("Рывок ветра") --Создаёт ураганное торнато впереди себя
                     if not data.tasks[7] then
                         data.tasks[7]=true
-                        --print("Первый раз сделал краш")
                     end
                     data.DirectionMove=-180+AngleBetweenXY(GetPlayerMouseX[data.pid],GetPlayerMouseY[data.pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
                     dist=400
@@ -620,14 +619,23 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero,3)
-                if data.QJump2Pointer then
-                    StartFrameCD(data.SpellQCDTime,data.cdFrameHandleQ)
-                    --SpellSlashQ(data)
-                    local angle=-180+AngleBetweenXY(GetPlayerMouseX[data.pid],GetPlayerMouseY[data.pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
-                    local dist=DistanceBetweenXY(GetPlayerMouseX[data.pid],GetPlayerMouseY[data.pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))
-                    if dist>=500 then dist=500 end
-                    BlzSetUnitFacingEx(data.UnitHero,angle)
-                    UnitAddForceSimple(data.UnitHero,angle,20, dist,"qjump")
+                if data.QJump2Pointer  then --FIXME может ломать управление
+                    --if not data.ReleaseQ then
+                    --print("Q в курсор")
+                        StartFrameCD(data.SpellQCDTime,data.cdFrameHandleQ)
+                        --SpellSlashQ(data)
+                        local angle=-180+AngleBetweenXY(GetPlayerMouseX[data.pid],GetPlayerMouseY[data.pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
+                        local dist=DistanceBetweenXY(GetPlayerMouseX[data.pid],GetPlayerMouseY[data.pid],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))
+                        if dist>=500 then dist=500 end
+                        BlzSetUnitFacingEx(data.UnitHero,angle)
+                        UnitAddForceSimple(data.UnitHero,angle,20, dist,"qjump")
+                    TimerStart(CreateTimer(), 5, false, function()
+                        if data.ReleaseQ then
+                            --print("выход из зависания")
+                            data.ReleaseQ = false
+                        end
+                    end)
+                    --end
                 else
                     TimerStart(CreateTimer(), 0.35, false, function() --задержка перед ударом
                         StartFrameCD(data.SpellQCDTime,data.cdFrameHandleQ)
@@ -783,14 +791,16 @@ function CreateWASDActions()
                         local maxDist=1000
                         local delay=0
                         if data.isSpined then
-                          --  print("Бросок молота метра")
+                          --  print("Бросок молота ветра")
+
+                            if not data.tasks[9] then
+                                data.tasks[9]=true
+                                --print("Первый раз бросил молот ветра")
+                            end
                             effModel="Hive\\Culling Slash\\Culling Slash\\Culling Slash"
                             speed=70
                             maxDist=2000
                             delay=maxDist/2
-                            if not data.tasks[7] then
-                          --      data.tasks[7]=true
-                            end
                         end
 
                         CreateAndForceBullet(data.UnitHero,angle,speed,effModel,xs,ys,data.DamageThrow,maxDist,delay)
@@ -1072,7 +1082,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                 if data.HealDashAllyCDFH then
                     if not data.HealDashAllyCurrentCD then data.HealDashAllyCurrentCD=1 end
                     if data.HealDashAllyCurrentCD<=0 then
-                        local ally=FindAnyAllyUnit(data,150)
+                        local ally=FindAnyAllyUnit(data,200)
                         if ally then --есть кого полечить
                             local talon=GlobalTalons[data.pid+1]["ShadowHunter"][1]
                             local cd=talon.DS[talon.level]
@@ -1134,6 +1144,8 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                             end)
                         end
                     end
+
+                    data.ReleaseQ = false
                 end
                 if flag=="forceAttack" then
                     BlzPauseUnitEx(hero,false)
@@ -1144,6 +1156,11 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                 if flag=="qjump" then
                     local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
                     SpellSlashQ(data)
+                    if data.DoubleClap then
+                        TimerStart(CreateTimer(), 0.35, false, function()
+                            SpellSlashQ(data)
+                        end)
+                    end
                     data.ReleaseQ = false
                 end
                 DestroyGroup(tempDamageGroup)

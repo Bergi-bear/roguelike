@@ -8,7 +8,6 @@ function SpellSlashQ(data)
     local hero=data.UnitHero
     if not data.tasks[3] then
         data.tasks[3]=true
-        --print("Первый раз сделал краш")
     end
     local damage=250
     if data.GreatDamageDashQ then

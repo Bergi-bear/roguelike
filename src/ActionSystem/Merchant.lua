@@ -13,9 +13,8 @@ function CreateMerchantAndGoods(x,y)
         "CodoHeart",
     }
 
-
-    CreateGodTalon(x,y+(200),table[GetRandomInt(1,#table)],GetRandomInt(0,300))
-    CreateGodTalon(x,y-(200),table[GetRandomInt(1,#table)],GetRandomInt(0,300))
-    CreateGodTalon(x+200,y,table[GetRandomInt(1,#table)],GetRandomInt(0,300))
-    CreateGodTalon(x-200,y,table[GetRandomInt(1,#table)],GetRandomInt(0,300))
+    CreateGodTalon(x,y+(200),"CodoHeart",GetRandomInt(0,300))
+    CreateGodTalon(x,y-(200),"PeonDidal",GetRandomInt(0,300))
+   -- CreateGodTalon(x+200,y,table[GetRandomInt(1,#table)],GetRandomInt(0,300))
+   -- CreateGodTalon(x-200,y,table[GetRandomInt(1,#table)],GetRandomInt(0,300))
 end
