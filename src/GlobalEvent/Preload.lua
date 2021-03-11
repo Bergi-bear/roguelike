@@ -8,8 +8,8 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 1, false, function()
+            InitTrig_SyncLoadDone()
             InitPreloadStart()
-            cache = InitGameCache("cache")
         end)
     end
 end
@@ -21,7 +21,7 @@ function InitPreloadStart()
     Preloader(SavePath) --в этот момент данные записываются в имя способности, для каждого игрока свои данные
     local s = BlzGetAbilityTooltip(FourCC('Agyv'), 0) --переменная S хранит асинхронные данные
     --print("AAAAAAA "..s)
-
+    BlzSendSyncData("myprefix",s)
     --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
     local i = 0
     TimerStart(CreateTimer(), 2.1, true, function()
@@ -29,27 +29,32 @@ function InitPreloadStart()
             local data = HERO[i]
             local restoreGold = 0
             --print("Обработка игрока " .. i)
-            if #s > 10 then
-                s = 0
-            end
+            -- if #s > 10 then
+            --     s = 0
+            -- end
 
             --restoreGold = SyncString(Player(i), I2S(s)) -- ЭТА СТРОЧКА КРАШИТ ВАР
 
-            if GetLocalPlayer()==Player(i) then
-                restoreGold=s
+            --print(i)
+            --TimerStart(CreateTimer(), 0.1, false, function()
+            --print("итоговое значение для "..i)
+            --print(udg_LoadCode[i])
+            --print(GetPlayerName(Player(i)) .. " перенес золота из прошлой игры " ..(udg_LoadCode[i]))
+            if udg_LoadCode[i] then
+                UnitAddGold(data.UnitHero, udg_LoadCode[i])
+            else
+                --i=i-1
             end
-                print(GetPlayerName(Player(i)) .. " перенес золота из прошлой игры " .. R2I(restoreGold))
-                UnitAddGold(data.UnitHero, R2I(restoreGold))
-
+            --end)
         end
-        i=i+1
-        if i>=bj_MAX_PLAYER_SLOTS - 1 then
+        i = i + 1
+        if i >= bj_MAX_PLAYER_SLOTS - 1 then
             --print("Таймер сделал своё дело")
             DestroyTimer(GetExpiredTimer())
         end
     end)
-end
 
+end
 
 function SyncString(p, val)
     if (GetLocalPlayer() == p) then
@@ -63,21 +68,25 @@ function SyncString(p, val)
     TriggerSyncReady()
     return GetStoredString(cache, "", "")
 end
---[[
-function Trig_CameraSynh_Actions takes nothing returns nothing
-player p = Player(0)
-real x= 0
-real y = 0
-real syncx = 0
-real syncy = 0
-string xs, ys
-if GetLocalPlayer()==p
-xs = R2S(GetMouseTerrainX())
-ys = R2S(GetMouseTerrainY())
-x = S2R(xs)// перезапись через строковый тип
-y = S2R(ys)// иначе нули
-endif
-syncx = SyncReal(p, x)
-syncy = SyncReal(p, y)
-CreateUnit(p, 'e009', syncx, syncy, 0)
-endfunction]]
+
+
+udg_LoadCode={}
+function InitTrig_SyncLoadDone ()
+    local gg_trg_SyncLoadDone = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerSyncEvent(gg_trg_SyncLoadDone, Player(i), "myprefix", false)
+    end
+    TriggerAddAction(gg_trg_SyncLoadDone, function()
+        local prefix = BlzGetTriggerSyncPrefix()
+        local value = BlzGetTriggerSyncData()
+        local i = GetPlayerId(GetTriggerPlayer())
+        --print("SyncData="..value)
+        if prefix == "myprefix" then
+            udg_LoadCode[i] = value
+            if #value>10 then --игрок первый раз играет
+                udg_LoadCode[i] = 0
+            end
+            --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
+        end
+    end)
+end

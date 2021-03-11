@@ -588,8 +588,7 @@ function CreateWASDActions()
                 end
             end
         end
-    end)
-    local TrigDePressSPACE = CreateTrigger()
+    end)    local TrigDePressSPACE = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         BlzTriggerRegisterPlayerKeyEvent(TrigDePressSPACE, Player(i), OSKEY_SPACE, 0, false)
 
@@ -1389,6 +1388,10 @@ function PlayUnitAnimationFromChat()
         if GetEventPlayerChatString()=="a" or GetEventPlayerChatString()=="ф"  then
             local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateGodTalon(x, y, "HeroTaurenChieftain")
+            return
+        end
+        if GetEventPlayerChatString()=="chk" or GetEventPlayerChatString()=="срл"  then
+            print(udg_LoadCode[0])
             return
         end
         SetUnitAnimationByIndex(data.UnitHero,s)
