@@ -184,6 +184,14 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
             UpdateTalonDescriptionForFrame(talon,tt)
         end
+        if pos==9 then --джагернаут
+            local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            UpdateTalonDescriptionForFrame(talon,tt)
+            data.SpinChargesMAX=data.SpinChargesMAX+talon.DS[talon.level]
+            ActLvl23Action(talon,function()
+                data.StarTime2Spin=data.StarTime2Spin+talon.DS[talon.level]
+            end)
+        end
 
     end
     if godName=="ShadowHunter" and  talon.level==1 then
@@ -304,6 +312,10 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==9 then
             data.QJump2Pointer=true
         end
+        if pos==10 then
+            data.DestroyMissile=false
+        end
+
     end
 end
 

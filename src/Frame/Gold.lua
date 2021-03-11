@@ -8,7 +8,7 @@ function AddGold(data,amount)
         data.gold=0
     end
     data.gold=data.gold+amount
-    BlzFrameSetText(data.GoldTextFH,data.gold)
+    BlzFrameSetText(data.GoldTextFH,R2I(data.gold))
 end
 
 function RewardGoldForKill(hero)

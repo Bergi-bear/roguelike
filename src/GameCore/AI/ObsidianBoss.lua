@@ -26,7 +26,17 @@ function StartObsidianBoss(boss)
         if BossFight then -- если идёт бой и каждую фазу
             sec = sec + 1
             if GetUnitLifePercent(boss)<=25 then
+                TimerStart(CreateTimer(), 2, true, function()
+                    local hero=GetRandomEnemyHero()
+                    if hero then
+                        local angle=AngleBetweenUnits(boss,hero)
+                        CreateAndForceBullet(boss,angle,30,"",x,y,50,1500)
+                    end
 
+                    if phase~=2 then
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end)
             else
 
             end
@@ -41,7 +51,7 @@ function StartObsidianBoss(boss)
             --фазы
             if phase == 1 and PhaseOn then
                 PhaseOn = false
-                print("Призываем скелетов")
+                --print("Призываем скелетов")
                 TimerStart(CreateTimer(), 2, true, function()
                     local xr,yr=MoveXY(x,y,400,GetRandomInt(0,360))
                     if GetTerrainZ(xr,yr)<=GetTerrainZ(x,y) then
@@ -54,12 +64,52 @@ function StartObsidianBoss(boss)
             end
             if phase == 2 and PhaseOn then
                 PhaseOn = false
-                print("Буллет хелл")
+                --print("Буллет хелл")
+                local hero=GetRandomEnemyHero()
+                if hero then
+                   -- IssuePointOrder(boss,"move",GetUnitXY(hero))
+                end
+                local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
+                BlzSetSpecialEffectColor(mark,255,0,0)
+                BlzSetSpecialEffectScale(mark,2)
+
+                local r=GetRandomInt(1,2)
+                TimerStart(CreateTimer(), 2, false, function()
+                    DestroyEffect(mark)
+                    BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
+                    TimerStart(CreateTimer(), 0.1, true, function()
+                        hero=GetRandomEnemyHero()
+                        if hero then
+                            x,y=GetUnitXY(boss)
+                            local angle=AngleBetweenUnits(boss,hero)
+                            if r==1 then
+                                angle=GetRandomInt(0,360)
+                            end
+                            CreateAndForceBullet(boss,angle,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,50,1500)
+                        end
+
+                        if phase~=2 then
+                            DestroyTimer(GetExpiredTimer())
+                        end
+                    end)
+                end)
 
             end
             if phase == 3 and PhaseOn  then -- запуск волны
                 PhaseOn = false
-                print("Прыгаем на случайного героя")
+                --print("Прыгаем на случайного героя")
+                local hero=GetRandomEnemyHero()
+                if hero then
+                    IssuePointOrder(boss,"move",GetUnitXY(hero))
+                end
+                local xr,yr=MoveXY(x,y,400,GetRandomInt(0,360))
+                if GetTerrainZ(xr,yr)<=GetTerrainZ(x,y) then
+                    CreateCreepDelay(FourCC("u000"),xr,yr,1,"summon")
+                end
+                local xr,yr=MoveXY(x,y,400,GetRandomInt(0,360))
+                if GetTerrainZ(xr,yr)<=GetTerrainZ(x,y) then
+                    CreateCreepDelay(FourCC("u000"),xr,yr,1,"summon")
+                end
             end
         else-- перезапуск боссфайта
 
@@ -69,30 +119,7 @@ end
 
 
 
-function MarkAndFall(x,y,effModel,hero)
-    local mark=AddSpecialEffect("Snipe Target",x,y)
-    BlzSetSpecialEffectScale(mark,5)
-    TimerStart(CreateTimer(), 2, false, function()
-        local FallenEff=AddSpecialEffect(effModel,x,y)
-        BlzSetSpecialEffectZ(FallenEff,1000)
-        BlzSetSpecialEffectYaw(FallenEff, math.rad(GetRandomReal(0,360)))
-        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-            local z=BlzGetLocalSpecialEffectZ(FallenEff)
 
-            BlzSetSpecialEffectZ(FallenEff,z-25)
-            if z<=GetTerrainZ(x,y) then
-                DestroyEffect(mark)
-                BlzSetSpecialEffectPosition(mark,5000,5000,0)
-                DestroyTimer(GetExpiredTimer())
-                DestroyEffect(FallenEff)
-                BlzSetSpecialEffectPosition(FallenEff,5000,5000,0)
-                DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",x,y))
-                UnitDamageArea(hero,50,x,y,150) --при падении камня
-                UnitDamageArea(mainHero,50,x,y,150)
-            end
-        end)
-    end)
-end
 
 function CreateFirePillar(xs,ys,boss,zone)
     ys=ys+700
@@ -159,28 +186,17 @@ function BossDamaged(boss)
         local isEventDamaged = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGED)
         local target          = GetTriggerUnit() -- тот кто получил урон
         local caster          = GetEventDamageSource() -- тот кто нанёс урон
-
-
         if isEventDamaged then
             if target==boss then--  босс получает 100 урона
                 bossTakenDamage=bossTakenDamage+damage
-                if bossTakenDamage>=100 then
+                if bossTakenDamage>=500 then
                     bossTakenDamage=0
-                    local angle=AngleBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero))/bj_DEGTORAD
-
-                    CreateFireLine(boss,angle,DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero)))
-                end
-            end
-            if caster==boss then
-                local r=GetRandomInt(1,5)
-                if r==1 and IsUnitInRange(boss,mainHero,300) then
-                    SpireCast(boss,GetUnitXY(mainHero))
+                    local angle=AngleBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(caster))/bj_DEGTORAD
+                    CreateFireLine(boss,angle,DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(caster)))
                 end
             end
         end
-
     end)
-
 end
 
 function CreateFireLine(boss,angle,distance)
@@ -191,8 +207,9 @@ function CreateFireLine(boss,angle,distance)
     local mark={}
     for i=1,step do
         x,y=MoveXY(x,y,speed,angle)
-        mark[i]=AddSpecialEffect("Snipe Target",x,y)
-        BlzSetSpecialEffectScale(mark[i],5)
+        mark[i]=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
+        BlzSetSpecialEffectColor(mark[i],255,0,0)
+        BlzSetSpecialEffectScale(mark[i],1.7)
     end
 
     TimerStart(CreateTimer(), 2, false, function()
@@ -204,6 +221,9 @@ function CreateFireLine(boss,angle,distance)
         TimerStart(CreateTimer(), 1/16, true, function()
             x,y=MoveXY(x,y,speed,angle)
             local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+            TimerStart(CreateTimer(), 1, false, function()
+                DestroyEffect(eff)
+            end)
             UnitDamageArea(boss,99,x,y,speed)
             distance=distance-speed
             if distance<=0 then

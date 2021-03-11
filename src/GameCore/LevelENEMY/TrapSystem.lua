@@ -31,6 +31,7 @@ function ReplaceID2SwordSpike(id)
     --print("найденно "..k.." а в таблице "..#all)
     for i=1,#all do
         -- print("заменён "..GetUnitName(all[i]))
+        PauseUnit(all[i],true)
         ShowUnit(all[i],false)
         SetUnitInvulnerable(all[i],true)
         CreateSwordSpike(all[i])

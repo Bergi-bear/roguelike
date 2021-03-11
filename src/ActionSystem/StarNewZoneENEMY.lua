@@ -87,7 +87,7 @@ function Enter2NewZone(flag)
                 --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
                 if not flag then
                     StartEnemyWave(DestinyEnemies[CurrentGameZone])
-                   -- StartEnemyWave(401)
+                    --StartEnemyWave(401) --Временная волна для тестов
                 end
                 if flag=="Merchant" then
                     --print("Создаём торговца и предметы для торговли") --TODO
@@ -99,13 +99,18 @@ function Enter2NewZone(flag)
                 --StartEnemyWave(5)
             else
 
-                print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
+                TimerStart(CreateTimer(),3, false, function()
+                    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+                        CustomVictoryBJ(Player(i),true,true)
+                    end
+                end)
+               -- print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
 
             end
         else
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
             StartEnemyWave(401)
-            print("в этой зоне должен быть босс")
+            --print("в этой зоне должен быть босс")
         end
         CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
@@ -186,7 +191,7 @@ function StartEnemyWave(waveNumber)
             --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
         }
-        maxOnWave=10
+        maxOnWave=4
     end
 
     if waveNumber==4 then
@@ -344,17 +349,17 @@ function StartEnemyWave(waveNumber)
     end
     if waveNumber==19 then
         listID={
-            FourCC("nsko"),FourCC("nsko"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("unec"),
+            FourCC("u000"),FourCC("u000"),FourCC("unec"),FourCC("unec"),FourCC("n000"),
+            FourCC("u000"),FourCC("u000"),FourCC("unec"),FourCC("unec"),FourCC("n000"),
+            FourCC("u000"),FourCC("u000"),FourCC("unec"),FourCC("unec"),FourCC("n000")
         }
         maxOnWave=5
     end
     if waveNumber==20 then
         listID={
-            FourCC("nsko"),FourCC("nsko"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("unec"),
+            FourCC("u000"),FourCC("u000"),FourCC("u000"),
+            FourCC("u000"),FourCC("u000"),FourCC("u000"),
+            FourCC("u000"),FourCC("u000"),FourCC("u000")
         }
         maxOnWave=3
     end

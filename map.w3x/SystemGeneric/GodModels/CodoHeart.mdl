@@ -68,7 +68,7 @@ Textures 11 {
 		Image "Textures\GenericGlow2b.blp",
 	}
 	Bitmap {
-		Image "SystemGeneric\\GodModels\\CodoHeart.blp",
+		Image "CodoHeart.blp",
 	}
 	Bitmap {
 		Image "ReplaceableTextures\Water\D_Water00.blp",

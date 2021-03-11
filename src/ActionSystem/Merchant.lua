@@ -5,16 +5,14 @@
 ---
 function CreateMerchantAndGoods(x,y)
     local table={
-        "PeonDidal",
-        --"HeroBlademaster",
-        --"HeroTaurenChieftain",
-        --"ShadowHunter",
-        --"Trall",
-        "CodoHeart",
+        "HeroBlademaster",
+        "HeroTaurenChieftain",
+        "ShadowHunter",
+        "Trall",
     }
 
-    CreateGodTalon(x,y+(200),"CodoHeart",GetRandomInt(0,300))
-    CreateGodTalon(x,y-(200),"PeonDidal",GetRandomInt(0,300))
-   -- CreateGodTalon(x+200,y,table[GetRandomInt(1,#table)],GetRandomInt(0,300))
-   -- CreateGodTalon(x-200,y,table[GetRandomInt(1,#table)],GetRandomInt(0,300))
+    CreateGodTalon(x,y+(200),"CodoHeart",GetRandomInt(75,100))
+    CreateGodTalon(x,y-(200),"PeonDidal",GetRandomInt(175,225))
+    CreateGodTalon(x+200,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
+    CreateGodTalon(x-200,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
 end

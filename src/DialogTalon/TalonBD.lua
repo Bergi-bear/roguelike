@@ -102,7 +102,7 @@ do
                         }),]]
                     },
                     HeroBlademaster={
-                        Talon:new({
+                        Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWindWalkOn.blp",
                             name = "Ветряной шаг смерти",
                             description = "Падение здоровья меньше 30%% вызывает невидимость. Перезарядка DS сек",
@@ -111,7 +111,7 @@ do
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
                             DS={10,5,3}
                         }),
-                        Talon:new({
+                        Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
                             name = "Боевая ярость",
                             description = "Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек",
@@ -120,7 +120,7 @@ do
                             tooltip = "Изучение этого таланта открывает доступ к таланту на множитель критического урона",
                             DS={6,4,3}
                         }),
-                        Talon:new({
+                        Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCriticalStrike.blp",
                             name = "Уязвимые места",
                             description = "Увеличивает силу критического удара на DS",
@@ -130,7 +130,7 @@ do
                             DS={2,3,4},
                             dependence = 2
                         }),
-                        Talon:new({
+                        Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
                             name = "Иллюзорный рывок",
                             description = "Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек",
@@ -145,7 +145,7 @@ do
                             description = "Увеличивает урон на DS раза от вращающийся атаки ",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
+                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
                             DS={1.5,2,2.5}
                         }),
                         Talon:new({--6
@@ -176,6 +176,17 @@ do
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
                             DS={10,20,35},
                             --ultR = true
+                        }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBattleStations.blp",
+                            name = "Джагернаут",
+                            description = "Добавляет заряды для способности вращающийся удар",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            DS={20,40,60},
+                            dependence=5
+                            --ultF = true
                         }),
                     },
                     ShadowHunter={
@@ -323,7 +334,7 @@ do
                         }),
                     },
                     PeonDidal={
-                        Talon:new({
+                        Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
                             name = "Короткое комбо",
                             description = "Сокращает комбо до DS ударов, и задержку финального удара на 0.3",
@@ -332,7 +343,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={3}
                         }),
-                        Talon:new({
+                        Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
                             name = "Кирка героя",
                             description = "Увеличивает урон обычных атака на DS%%",
@@ -341,7 +352,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={30}
                         }),
-                        Talon:new({
+                        Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
                             name = "Бронелом",
                             description = "Все ваши атаки наносят DS кратный урон по врагам с щитом",
@@ -350,7 +361,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={5}
                         }),
-                        Talon:new({
+                        Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
                             name = "Разбег минотавра",
                             description = "Атака в рывке, наносят на DS%% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше",
@@ -359,7 +370,7 @@ do
                             tooltip = "Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке",
                             DS={100}
                         }),
-                        Talon:new({
+                        Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
                             name = "Удар проклятой души",
                             description = "Попадания обычной атакой восстанавливают DS%% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS%% от макс здоровья (не может быть смертельным)",
@@ -368,7 +379,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={2}
                         }),
-                        Talon:new({
+                        Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
                             name = "Двойной Клеп",
                             description = "Мощный удар бьёт DS",
@@ -377,7 +388,7 @@ do
                             tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
                             DS={"дважды"}
                         }),
-                        Talon:new({
+                        Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
                             name = "Пронзающий пространство удар",
                             description = "Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500",
@@ -386,7 +397,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={50}
                         }),
-                        Talon:new({
+                        Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
                             name = "Удар сатира",
                             description = "Увеличивает любой урон в спину в DS раза",
@@ -395,14 +406,14 @@ do
                             tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
                             DS={3}
                         }),
-                        Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWalkerAdeptTraining.blp",
-                            name = "Пространственный клеп",
-                            description = "При активации мощного удара, DS. Максимальная дистанция: 500",
+                        Talon:new({--10
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
+                            name = "Мертвый бассейн",
+                            description = "Рывок, вращение и атака могут отражать снаряды, обратно во врагов",
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
-                            DS={"совершает прыжок в область курсора"}
+                            tooltip = "Снаряд полетит в позицию врага, в которой он находился в момент отражения",
+                            DS={""}
                         }),
                     }
                 }

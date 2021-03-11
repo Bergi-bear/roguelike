@@ -87,9 +87,23 @@ function RemoveLife(data)
             print("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате")
         else
             TimerStart(CreateTimer(),3, false, function()
+                local savedGold=0
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                    CustomDefeatBJ(Player(i),"Поражение")
+                    if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+                        local gdata=HERO[i]
+                        if GetLocalPlayer()==Player(i) then
+                            savedGold=gdata.gold
+                        end
+                        print(GetPlayerName(Player(i)).. " унёс с собой "..gdata.gold.." золота ")
+
+                        TimerStart(CreateTimer(),2, false, function()
+                            CustomDefeatBJ(Player(i),"Поражение")
+                        end)
+                    end
                 end
+                Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..R2I(savedGold).."\",0)".."\n//")
+                PreloadGenEnd(SavePath)
+                PreloadGenClear()
             end)
         end
     end

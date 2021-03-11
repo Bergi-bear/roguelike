@@ -86,15 +86,17 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 			local data=HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
 			if data.UnitHero and GetUnitTypeId(DamagingUnit)==HeroID then
 				--print("атакован наш герой")
-				if data.Reflected or  data.SpinReflect then
+				if data.Reflected or  data.SpinReflect or data.AttackInForce then
 					--print("отбит снаряд")
 					if not data.DestroyMissile then
+						FlyTextTagShieldXY(nx,ny,"Отбит",GetOwningPlayer(data.UnitHero))
 						heroCurrent=DamagingUnit
 						reverse=true
 						angleCurrent=AngleBetweenUnits(DamagingUnit,hero)
 					else
 						reverse=true
 						--print("снаряд уничтожен будет")
+						FlyTextTagShieldXY(nx,ny,"Разрушен",GetOwningPlayer(data.UnitHero))
 						DestroyEffect(bullet)
 						DestroyTimer(GetExpiredTimer())
 					end

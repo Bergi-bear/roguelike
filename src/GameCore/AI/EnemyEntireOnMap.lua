@@ -40,6 +40,12 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("uobs") then
             StartObsidianBoss(unit)
         end
+        if GetUnitTypeId(unit)==FourCC("u000") then
+            ImpaleBug(unit)
+        end
+        if GetUnitTypeId(unit)==FourCC("n000") then --мимик
+            Patrol(unit)
+        end
     end)
 end
 
@@ -69,9 +75,120 @@ function GetRandomEnemyHero()
     return table[r]
 end
 
+function Patrol(unit)
+    TimerStart(CreateTimer(), 2, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            if GetUnitCurrentOrder(unit)~=String2OrderIdBJ("attack") then
+                local xh,yh=GetUnitXY(unit)
+                local rx,ry=xh+GetRandomInt(-500,500),yh+GetRandomInt(-500,500)
+                IssuePointOrder(unit,"attack", rx,ry)
+            end
+        end
+    end)
+end
 
+function ImpaleBug(unit)
+    local sec=0
+    UnitAddAbility(unit,FourCC("Abun"))
+    BlzSetUnitMaxHP(unit,1500)
+    HealUnit(unit,1500)
+    local period=GetRandomReal(0.5,1.5)
+    TimerStart(CreateTimer(), period, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            local hero=GetRandomEnemyHero()
+            local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+            sec=sec-period
+            if dist<=800 and sec<=0 and hero then
+                if not IsUnitStunned(unit) then
+                    sec=5
+                    --print(dist.." дистанция")
+                    local x,y=GetUnitXY(hero)
 
+                    local angle=AngleBetweenUnits(unit,hero)
+                    BlzPauseUnitEx(unit,true)
+                    local f=GetUnitFacing(unit)
+                    x,y=MoveXY(x,y,200,f)
+                    SetUnitAnimation(unit,"spell")
+                    --if not GR then GR=0 end
+                    --GR=GR+1
+                    --print(GR)
+                    --SetUnitAnimationByIndex(unit,1)
+                    SetUnitTimeScale(unit,0.27)
 
+                    -- CreateVisualMarkTimedXY("SystemGeneric\\Redline\\cone",1,GetUnitXY(unit))
+                    --local eff=AddSpecialEffect("SystemGeneric\\Redline\\line",GetUnitXY(unit))
+                    --BlzSetSpecialEffectColor(eff,255,255,255)
+                    --BlzSetSpecialEffectZ(eff,GetTerrainZ(GetUnitXY(unit))+50)
+                    --BlzSetSpecialEffectYaw(eff,math.rad(f))
+                    --BlzSetSpecialEffectMatrixScale(eff,3,1,1)
+                    local t=CreateTimer()
+                    local havAStun=false
+                    TimerStart(t, 0.1, true, function()
+                        if IsUnitStunned(unit) then
+                            havAStun=true
+                        end
+                    end)
+
+                    TimerStart(CreateTimer(), 1.5, false, function()
+                        DestroyTimer(t)
+                       -- DestroyEffect(eff)
+                        --BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                        if not IsUnitStunned(unit) and not havAStun then
+                            CustomImpale(unit,x,y,f)
+                        end
+                        --if not IssuePointOrder(unit,"impale",x,y) then
+                            --print("не могу кастануть импалу")
+                        --end
+                    end)
+
+                    TimerStart(CreateTimer(), 1.7, false, function()
+                        SetUnitTimeScale(unit,1)
+                        BlzPauseUnitEx(unit,false)
+                    end)
+
+                end
+            else
+                if hero then
+                    if dist>=400 then
+                        IssuePointOrder(unit,"move",GetUnitXY(hero))
+                    else
+                        SetUnitTimeScale(unit,1)
+                        if not IsUnitStunned(unit) then
+                            SetUnitFacing(unit,AngleBetweenUnits(unit,hero))
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end
+
+function CustomImpale(unit,endX,endY,f)
+    local x,y=GetUnitXY(unit)
+    local dist=1000--DistanceBetweenXY(x,y,endX,endY)
+    local angle=f--AngleBetweenXY(x,y,endX,endY) / bj_DEGTORAD
+    local step=120
+    normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleLand",x,y)
+    TimerStart(CreateTimer(), 0.1, true, function()
+        dist=dist-step
+        x,y=MoveXY(x,y,step,angle)
+        local eff=AddSpecialEffect("Abilities\\Spells\\Undead\\Impale\\ImpaleMissTarget.mdl",x,y)
+        BlzSetSpecialEffectYaw(eff,math.rad(f))
+        DestroyEffect(eff)
+        if UnitDamageArea(unit,50,x,y,120) then
+            normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit",x,y)
+        else
+           -- normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleLand",x,y)
+        end
+        if dist<=0 or not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
 
 
 
@@ -154,7 +271,9 @@ function PudgeSlash(unit)
                     end)
                 end
             else
-                IssuePointOrder(unit,"move",GetUnitXY(hero))
+                if hero then
+                    IssuePointOrder(unit,"move",GetUnitXY(hero))
+                end
             end
         end
     end)
@@ -215,11 +334,13 @@ function SpawnZombie(unit)
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
-            local new =CreateUnit(GetOwningPlayer(unit),FourCC("nzom"),GetUnitX(unit),GetUnitY(unit),0)
-            local hero=GetRandomEnemyHero()
-            UnitApplyTimedLife(new, FourCC('BTLF'), 20)
-            if hero then
-                IssueTargetOrder(new,"attack",hero)
+            if not IsUnitPaused(unit) then
+                local new =CreateUnit(GetOwningPlayer(unit),FourCC("nzom"),GetUnitX(unit),GetUnitY(unit),0)
+                local hero=GetRandomEnemyHero()
+                UnitApplyTimedLife(new, FourCC('BTLF'), 20)
+                if hero then
+                    IssueTargetOrder(new,"attack",hero)
+                end
             end
         end
     end)
@@ -229,7 +350,8 @@ end
 
 
 function JumpAI(unit)
-    TimerStart(CreateTimer(), 5, true, function()
+    local p=GetRandomReal(4,8)
+    TimerStart(CreateTimer(), p, true, function()
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
@@ -242,9 +364,9 @@ function JumpAI(unit)
                     local angle=AngleBetweenUnits(unit,hero)
                     BlzPauseUnitEx(unit,true)
                     SetUnitAnimation(unit,"attack")
-                    SetUnitTimeScale(unit,0.7)
+                    SetUnitTimeScale(unit,0.5)
                     CreateVisualMarkTimedXY("SystemGeneric\\Alarm",1,GetUnitXY(hero))
-                    TimerStart(CreateTimer(), 0.5, false, function()
+                    TimerStart(CreateTimer(), 1, false, function()
                         UnitAddForceSimple(unit,angle,20,dist,"forceAttack")
                     end)
                 end

@@ -126,9 +126,6 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17867.1, -13580.5, 358.484, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17879.9, -13417.8, 23.588, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14462.1, -12665.1, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 5803.9, -7698.3, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 5917.6, -7696.6, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 6027.2, -7696.9, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14464.5, -12809.1, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14466.7, -12939.5, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14601.0, -12663.5, 0.000, FourCC("hkni"))
@@ -187,20 +184,9 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21683.4, -13511.0, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 22095.8, -13534.0, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21895.2, -13278.9, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23375.8, -12837.7, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23204.4, -12652.4, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23580.5, -12626.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23401.2, -12448.4, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23736.7, -13203.5, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23565.3, -13018.2, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23941.3, -12992.4, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23762.1, -12814.2, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24109.3, -13587.0, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23938.0, -13401.7, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24314.0, -13375.8, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24134.7, -13197.7, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24306.2, -13770.2, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 24510.9, -13559.0, 158.490, FourCC("nglm"))
 end
 
 function CreateNeutralHostile()
@@ -270,7 +256,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 11665.9, -18588.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 12308.1, -19512.1, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 12308.8, -20782.0, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13992.6, -19411.1, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13989.4, -19324.4, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15750.3, -18594.1, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16466.2, -19445.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 11693.3, -17120.5, 296.730, FourCC("hdhw"))
@@ -315,7 +301,7 @@ function CreateRegions()
     gg_rct_B6A = Rect(15392.0, -6848.0, 15520.0, -6432.0)
     gg_rct_E7A = Rect(14848.0, -5024.0, 15136.0, -4416.0)
     gg_rct_S7A = Rect(14848.0, -4448.0, 16160.0, -3520.0)
-    gg_rct_B7A = Rect(15456.0, -4192.0, 15584.0, -3776.0)
+    gg_rct_B7A = Rect(15456.0, -4128.0, 15520.0, -3776.0)
     gg_rct_S8A = Rect(18240.0, -4608.0, 19552.0, -3680.0)
     gg_rct_B8A = Rect(18848.0, -4352.0, 18976.0, -3936.0)
     gg_rct_S9A = Rect(21376.0, -3808.0, 23456.0, -2688.0)
@@ -347,7 +333,7 @@ function CreateRegions()
     gg_rct_S17A = Rect(13792.0, -16768.0, 15072.0, -15680.0)
     gg_rct_B17A = Rect(14368.0, -16416.0, 14496.0, -15936.0)
     gg_rct_E17A = Rect(13952.0, -17280.0, 14240.0, -16640.0)
-    gg_rct_B18A = Rect(10752.0, -16512.0, 12032.0, -15840.0)
+    gg_rct_B18A = Rect(10752.0, -16512.0, 11936.0, -15840.0)
     gg_rct_S18A = Rect(10080.0, -16896.0, 12640.0, -15456.0)
     gg_rct_E18A = Rect(10272.0, -17376.0, 10624.0, -16736.0)
     gg_rct_E19A = Rect(9536.0, -20896.0, 10080.0, -20480.0)
@@ -1201,9 +1187,10 @@ function CreateEActions()
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+                local x,y=GetUnitXY(data.EPointUnit)
                 KillUnit(data.EPointUnit)
                 TimerStart(CreateTimer(),7, false, function()
-                    CreateGodTalon(GetUnitX(data.EPointUnit), GetUnitY(data.EPointUnit), "PeonDidal")
+                    CreateGodTalon(x,y, "PeonDidal")
                 end)
             end
             if data.UseAction == "SoFar" then
@@ -1232,66 +1219,99 @@ function CreateEActions()
             ---------------ДАРЫ БОГОВ---------------------------/
             ----------------------------------------------------/
             if data.UseAction == "Trall" then
-                local message = "Провидец, я выбираю тебя"
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                AllActionsEnabled(true)--активация всех переходов
-                TimerStart(CreateTimer(), 1, false, function()
-                    --print("Создаём диалоговое окно для всех игроков Jsore")
-                    CreateDialogTalon("Trall") -- Сюда передаётся trall
-                    normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat"..GetRandomInt(1,4),GetUnitXY(data.UnitHero))
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                end)
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
+                if data.gold>=dataPoint.TalonPrice then
+                    local message = "Провидец, я выбираю тебя"
+                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    data.Completed = true
+                    AllActionsEnabled(true)--активация всех переходов
+                    TimerStart(CreateTimer(), 1, false, function()
+                        --print("Создаём диалоговое окно для всех игроков Jsore")
+                        CreateDialogTalon("Trall") -- Сюда передаётся trall
+                        normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat"..GetRandomInt(1,4),GetUnitXY(data.UnitHero))
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                    end)
+                    data.DoAction = false
+                    data.UseAction = ""
+                    KillUnit(data.EPointUnit)
+                    if dataPoint.TalonPrice>0 then
+                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                        AddGold(data,-dataPoint.TalonPrice)
+                    end
+                else
+                    normal_sound("Sound\\Interface\\Error",GetUnitXY(data.UnitHero))
+                end
                 --GetTerrainZ()
             end
             if data.UseAction == "HeroBlademaster" then
-                local message = "Надели меня силой своего клинка"
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                AllActionsEnabled(true)
-                TimerStart(CreateTimer(), 1, false, function()
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                    CreateDialogTalon("HeroBlademaster")
-                    normal_sound("Units\\Orc\\HeroBladeMaster\\HeroBladeMasterPissed"..GetRandomInt(1,4),GetUnitXY(data.UnitHero))
-                    --активация всех переходов
-                end)
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
+                if data.gold>=dataPoint.TalonPrice then
+                    local message = "Надели меня силой своего клинка"
+                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    data.Completed = true
+                    AllActionsEnabled(true)
+                    TimerStart(CreateTimer(), 1, false, function()
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("HeroBlademaster")
+                        normal_sound("Units\\Orc\\HeroBladeMaster\\HeroBladeMasterPissed"..GetRandomInt(1,4),GetUnitXY(data.UnitHero))
+                        --активация всех переходов
+                    end)
+                    data.DoAction = false
+                    data.UseAction = ""
+                    KillUnit(data.EPointUnit)
+                    if dataPoint.TalonPrice>0 then
+                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                        AddGold(data,-dataPoint.TalonPrice)
+                    end
+                else
+                    normal_sound("Sound\\Interface\\Error",GetUnitXY(data.UnitHero))
+                end
             end
             if data.UseAction == "HeroTaurenChieftain" then
-                local message = "Держите оборону"
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                AllActionsEnabled(true)
-                TimerStart(CreateTimer(), 1, false, function()
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                    CreateDialogTalon("HeroTaurenChieftain")
-                    normal_sound("Units\\Orc\\HeroTaurenChieftain\\HeroTaurenChieftainPissed"..GetRandomInt(1,6),GetUnitXY(data.UnitHero))
-                    --активация всех переходов
-                end)
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
+                if data.gold>=dataPoint.TalonPrice then
+                    local message = "Держите оборону"
+                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    data.Completed = true
+                    AllActionsEnabled(true)
+                    TimerStart(CreateTimer(), 1, false, function()
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("HeroTaurenChieftain")
+                        normal_sound("Units\\Orc\\HeroTaurenChieftain\\HeroTaurenChieftainPissed"..GetRandomInt(1,6),GetUnitXY(data.UnitHero))
+                        --активация всех переходов
+                    end)
+                    data.DoAction = false
+                    data.UseAction = ""
+                    KillUnit(data.EPointUnit)
+                    if dataPoint.TalonPrice>0 then
+                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                        AddGold(data,-dataPoint.TalonPrice)
+                    end
+                else
+                    normal_sound("Sound\\Interface\\Error",GetUnitXY(data.UnitHero))
+                end
             end
             if data.UseAction == "ShadowHunter" then
-                local message = "Я отомщу за тебя"
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                AllActionsEnabled(true)
-                TimerStart(CreateTimer(), 1, false, function()
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                    CreateDialogTalon("ShadowHunter")
-                    normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
-                    --активация всех переходов
-                end)
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
+                if data.gold>=dataPoint.TalonPrice then
+                    local message = "Я отомщу за тебя"
+                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    data.Completed = true
+                    AllActionsEnabled(true)
+                    TimerStart(CreateTimer(), 1, false, function()
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("ShadowHunter")
+                        normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
+                        --активация всех переходов
+                    end)
+                    data.DoAction = false
+                    data.UseAction = ""
+                    KillUnit(data.EPointUnit)
+                    if dataPoint.TalonPrice>0 then
+                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                        AddGold(data,-dataPoint.TalonPrice)
+                    end
+                else
+                    normal_sound("Sound\\Interface\\Error",GetUnitXY(data.UnitHero))
+                end
             end
+            --[[
             if data.UseAction == "HeroArchMage" then
                 local message = "Гендальф белый"
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
@@ -1342,8 +1362,9 @@ function CreateEActions()
                 data.UseAction = ""
                 KillUnit(data.EPointUnit)
             end
+            ]]
             if data.UseAction == "HeroBeastMaster" then
-                local message = "Сила братьев"
+                local message = "Хочу повелевать твоими зверями"
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 data.Completed = true
                 DestroyGodTalon(dataPoint.TripleTalon)
@@ -1376,7 +1397,7 @@ function CreateEActions()
                         AddGold(data,-dataPoint.TalonPrice)
                     end
                 else
-                    --print("недостаточно золота, звук")
+                    normal_sound("Sound\\Interface\\Error",GetUnitXY(data.UnitHero))
                 end
             end
             if data.UseAction == "GoldReward" then
@@ -1411,7 +1432,7 @@ function CreateEActions()
                         AddGold(data,-dataPoint.TalonPrice)
                     end
                 else
-                   -- print("недостаточно золота, звук")
+                    normal_sound("Sound\\Interface\\Error",GetUnitXY(data.UnitHero))
                 end
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
@@ -1515,18 +1536,16 @@ end
 ---
 function CreateMerchantAndGoods(x,y)
     local table={
-        "PeonDidal",
-        --"HeroBlademaster",
-        --"HeroTaurenChieftain",
-        --"ShadowHunter",
-        --"Trall",
-        "CodoHeart",
+        "HeroBlademaster",
+        "HeroTaurenChieftain",
+        "ShadowHunter",
+        "Trall",
     }
 
-    CreateGodTalon(x,y+(200),"CodoHeart",GetRandomInt(0,300))
-    CreateGodTalon(x,y-(200),"PeonDidal",GetRandomInt(0,300))
-   -- CreateGodTalon(x+200,y,table[GetRandomInt(1,#table)],GetRandomInt(0,300))
-   -- CreateGodTalon(x-200,y,table[GetRandomInt(1,#table)],GetRandomInt(0,300))
+    CreateGodTalon(x,y+(200),"CodoHeart",GetRandomInt(75,100))
+    CreateGodTalon(x,y-(200),"PeonDidal",GetRandomInt(175,225))
+    CreateGodTalon(x+200,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
+    CreateGodTalon(x-200,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -1691,7 +1710,7 @@ function Enter2NewZone(flag)
                 --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
                 if not flag then
                     StartEnemyWave(DestinyEnemies[CurrentGameZone])
-                   -- StartEnemyWave(401)
+                    --StartEnemyWave(401) --Временная волна для тестов
                 end
                 if flag=="Merchant" then
                     --print("Создаём торговца и предметы для торговли") --TODO
@@ -1703,13 +1722,18 @@ function Enter2NewZone(flag)
                 --StartEnemyWave(5)
             else
 
-                print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
+                TimerStart(CreateTimer(),3, false, function()
+                    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+                        CustomVictoryBJ(Player(i),true,true)
+                    end
+                end)
+               -- print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
 
             end
         else
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
             StartEnemyWave(401)
-            print("в этой зоне должен быть босс")
+            --print("в этой зоне должен быть босс")
         end
         CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
@@ -1790,7 +1814,7 @@ function StartEnemyWave(waveNumber)
             --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
         }
-        maxOnWave=10
+        maxOnWave=4
     end
 
     if waveNumber==4 then
@@ -1948,17 +1972,17 @@ function StartEnemyWave(waveNumber)
     end
     if waveNumber==19 then
         listID={
-            FourCC("nsko"),FourCC("nsko"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("unec"),
+            FourCC("u000"),FourCC("u000"),FourCC("unec"),FourCC("unec"),FourCC("n000"),
+            FourCC("u000"),FourCC("u000"),FourCC("unec"),FourCC("unec"),FourCC("n000"),
+            FourCC("u000"),FourCC("u000"),FourCC("unec"),FourCC("unec"),FourCC("n000")
         }
         maxOnWave=5
     end
     if waveNumber==20 then
         listID={
-            FourCC("nsko"),FourCC("nsko"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("unec"),
+            FourCC("u000"),FourCC("u000"),FourCC("u000"),
+            FourCC("u000"),FourCC("u000"),FourCC("u000"),
+            FourCC("u000"),FourCC("u000"),FourCC("u000")
         }
         maxOnWave=3
     end
@@ -2589,6 +2613,14 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
             UpdateTalonDescriptionForFrame(talon,tt)
         end
+        if pos==9 then --джагернаут
+            local tt=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            UpdateTalonDescriptionForFrame(talon,tt)
+            data.SpinChargesMAX=data.SpinChargesMAX+talon.DS[talon.level]
+            ActLvl23Action(talon,function()
+                data.StarTime2Spin=data.StarTime2Spin+talon.DS[talon.level]
+            end)
+        end
 
     end
     if godName=="ShadowHunter" and  talon.level==1 then
@@ -2709,6 +2741,10 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==9 then
             data.QJump2Pointer=true
         end
+        if pos==10 then
+            data.DestroyMissile=false
+        end
+
     end
 end
 
@@ -2950,7 +2986,7 @@ do
                         }),]]
                     },
                     HeroBlademaster={
-                        Talon:new({
+                        Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWindWalkOn.blp",
                             name = "Ветряной шаг смерти",
                             description = "Падение здоровья меньше 30% вызывает невидимость. Перезарядка DS сек",
@@ -2959,7 +2995,7 @@ do
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
                             DS={10,5,3}
                         }),
-                        Talon:new({
+                        Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
                             name = "Боевая ярость",
                             description = "Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек",
@@ -2968,7 +3004,7 @@ do
                             tooltip = "Изучение этого таланта открывает доступ к таланту на множитель критического урона",
                             DS={6,4,3}
                         }),
-                        Talon:new({
+                        Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCriticalStrike.blp",
                             name = "Уязвимые места",
                             description = "Увеличивает силу критического удара на DS",
@@ -2978,7 +3014,7 @@ do
                             DS={2,3,4},
                             dependence = 2
                         }),
-                        Talon:new({
+                        Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
                             name = "Иллюзорный рывок",
                             description = "Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек",
@@ -2993,7 +3029,7 @@ do
                             description = "Увеличивает урон на DS раза от вращающийся атаки ",
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку атаку",
+                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
                             DS={1.5,2,2.5}
                         }),
                         Talon:new({--6
@@ -3024,6 +3060,17 @@ do
                             tooltip = "Вы умрёте, как только потеряете всё здоровье",
                             DS={10,20,35},
                             --ultR = true
+                        }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBattleStations.blp",
+                            name = "Джагернаут",
+                            description = "Добавляет заряды для способности вращающийся удар",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            DS={20,40,60},
+                            dependence=5
+                            --ultF = true
                         }),
                     },
                     ShadowHunter={
@@ -3171,7 +3218,7 @@ do
                         }),
                     },
                     PeonDidal={
-                        Talon:new({
+                        Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
                             name = "Короткое комбо",
                             description = "Сокращает комбо до DS ударов, и задержку финального удара на 0.3",
@@ -3180,7 +3227,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={3}
                         }),
-                        Talon:new({
+                        Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
                             name = "Кирка героя",
                             description = "Увеличивает урон обычных атака на DS%",
@@ -3189,7 +3236,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={30}
                         }),
-                        Talon:new({
+                        Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
                             name = "Бронелом",
                             description = "Все ваши атаки наносят DS кратный урон по врагам с щитом",
@@ -3198,7 +3245,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={5}
                         }),
-                        Talon:new({
+                        Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
                             name = "Разбег минотавра",
                             description = "Атака в рывке, наносят на DS% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше",
@@ -3207,7 +3254,7 @@ do
                             tooltip = "Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке",
                             DS={100}
                         }),
-                        Talon:new({
+                        Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
                             name = "Удар проклятой души",
                             description = "Попадания обычной атакой восстанавливают DS% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS% от макс здоровья (не может быть смертельным)",
@@ -3216,7 +3263,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={2}
                         }),
-                        Talon:new({
+                        Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
                             name = "Двойной Клеп",
                             description = "Мощный удар бьёт DS",
@@ -3225,7 +3272,7 @@ do
                             tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
                             DS={"дважды"}
                         }),
-                        Talon:new({
+                        Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
                             name = "Пронзающий пространство удар",
                             description = "Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500",
@@ -3234,7 +3281,7 @@ do
                             tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
                             DS={50}
                         }),
-                        Talon:new({
+                        Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
                             name = "Удар сатира",
                             description = "Увеличивает любой урон в спину в DS раза",
@@ -3243,14 +3290,14 @@ do
                             tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
                             DS={3}
                         }),
-                        Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWalkerAdeptTraining.blp",
-                            name = "Пространственный клеп",
-                            description = "При активации мощного удара, DS. Максимальная дистанция: 500",
+                        Talon:new({--10
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
+                            name = "Мертвый бассейн",
+                            description = "Рывок, вращение и атака могут отражать снаряды, обратно во врагов",
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
-                            DS={"совершает прыжок в область курсора"}
+                            tooltip = "Снаряд полетит в позицию врага, в которой он находился в момент отражения",
+                            DS={""}
                         }),
                     }
                 }
@@ -3606,7 +3653,7 @@ function AddGold(data,amount)
         data.gold=0
     end
     data.gold=data.gold+amount
-    BlzFrameSetText(data.GoldTextFH,data.gold)
+    BlzFrameSetText(data.GoldTextFH,R2I(data.gold))
 end
 
 function RewardGoldForKill(hero)
@@ -3701,9 +3748,23 @@ function RemoveLife(data)
             print("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате")
         else
             TimerStart(CreateTimer(),3, false, function()
+                local savedGold=0
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                    CustomDefeatBJ(Player(i),"Поражение")
+                    if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+                        local gdata=HERO[i]
+                        if GetLocalPlayer()==Player(i) then
+                            savedGold=gdata.gold
+                        end
+                        print(GetPlayerName(Player(i)).. " унёс с собой "..gdata.gold.." золота ")
+
+                        TimerStart(CreateTimer(),2, false, function()
+                            CustomDefeatBJ(Player(i),"Поражение")
+                        end)
+                    end
                 end
+                Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..R2I(savedGold).."\",0)".."\n//")
+                PreloadGenEnd(SavePath)
+                PreloadGenClear()
             end)
         end
     end
@@ -3774,9 +3835,11 @@ function CreateGodTalon(x, y, name, price)
     x = x - 16
     local r,g,b=0,0,0
     if not name or name=="" then
-        print("ошибка, при создании дара, не определена награда комнаты")
-        --return
-        name="CodoHeart"
+        --print("ошибка, при создании дара, не определена награда комнаты")
+        CreateMerchantAndGoods(x,y)
+        AllActionsEnabled(true)
+        return
+        --name="CodoHeart"
     end
     if not price then price=0 end
     local eff = AddSpecialEffect("SystemGeneric\\GodModels\\" .. name, x, y)
@@ -3934,6 +3997,12 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit)==FourCC("uobs") then
             StartObsidianBoss(unit)
         end
+        if GetUnitTypeId(unit)==FourCC("u000") then
+            ImpaleBug(unit)
+        end
+        if GetUnitTypeId(unit)==FourCC("n000") then --мимик
+            Patrol(unit)
+        end
     end)
 end
 
@@ -3963,9 +4032,120 @@ function GetRandomEnemyHero()
     return table[r]
 end
 
+function Patrol(unit)
+    TimerStart(CreateTimer(), 2, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            if GetUnitCurrentOrder(unit)~=String2OrderIdBJ("attack") then
+                local xh,yh=GetUnitXY(unit)
+                local rx,ry=xh+GetRandomInt(-500,500),yh+GetRandomInt(-500,500)
+                IssuePointOrder(unit,"attack", rx,ry)
+            end
+        end
+    end)
+end
 
+function ImpaleBug(unit)
+    local sec=0
+    UnitAddAbility(unit,FourCC("Abun"))
+    BlzSetUnitMaxHP(unit,1500)
+    HealUnit(unit,1500)
+    local period=GetRandomReal(0.5,1.5)
+    TimerStart(CreateTimer(), period, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            local hero=GetRandomEnemyHero()
+            local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+            sec=sec-period
+            if dist<=800 and sec<=0 and hero then
+                if not IsUnitStunned(unit) then
+                    sec=5
+                    --print(dist.." дистанция")
+                    local x,y=GetUnitXY(hero)
 
+                    local angle=AngleBetweenUnits(unit,hero)
+                    BlzPauseUnitEx(unit,true)
+                    local f=GetUnitFacing(unit)
+                    x,y=MoveXY(x,y,200,f)
+                    SetUnitAnimation(unit,"spell")
+                    --if not GR then GR=0 end
+                    --GR=GR+1
+                    --print(GR)
+                    --SetUnitAnimationByIndex(unit,1)
+                    SetUnitTimeScale(unit,0.27)
 
+                    -- CreateVisualMarkTimedXY("SystemGeneric\\Redline\\cone",1,GetUnitXY(unit))
+                    --local eff=AddSpecialEffect("SystemGeneric\\Redline\\line",GetUnitXY(unit))
+                    --BlzSetSpecialEffectColor(eff,255,255,255)
+                    --BlzSetSpecialEffectZ(eff,GetTerrainZ(GetUnitXY(unit))+50)
+                    --BlzSetSpecialEffectYaw(eff,math.rad(f))
+                    --BlzSetSpecialEffectMatrixScale(eff,3,1,1)
+                    local t=CreateTimer()
+                    local havAStun=false
+                    TimerStart(t, 0.1, true, function()
+                        if IsUnitStunned(unit) then
+                            havAStun=true
+                        end
+                    end)
+
+                    TimerStart(CreateTimer(), 1.5, false, function()
+                        DestroyTimer(t)
+                       -- DestroyEffect(eff)
+                        --BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                        if not IsUnitStunned(unit) and not havAStun then
+                            CustomImpale(unit,x,y,f)
+                        end
+                        --if not IssuePointOrder(unit,"impale",x,y) then
+                            --print("не могу кастануть импалу")
+                        --end
+                    end)
+
+                    TimerStart(CreateTimer(), 1.7, false, function()
+                        SetUnitTimeScale(unit,1)
+                        BlzPauseUnitEx(unit,false)
+                    end)
+
+                end
+            else
+                if hero then
+                    if dist>=400 then
+                        IssuePointOrder(unit,"move",GetUnitXY(hero))
+                    else
+                        SetUnitTimeScale(unit,1)
+                        if not IsUnitStunned(unit) then
+                            SetUnitFacing(unit,AngleBetweenUnits(unit,hero))
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end
+
+function CustomImpale(unit,endX,endY,f)
+    local x,y=GetUnitXY(unit)
+    local dist=1000--DistanceBetweenXY(x,y,endX,endY)
+    local angle=f--AngleBetweenXY(x,y,endX,endY) / bj_DEGTORAD
+    local step=120
+    normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleLand",x,y)
+    TimerStart(CreateTimer(), 0.1, true, function()
+        dist=dist-step
+        x,y=MoveXY(x,y,step,angle)
+        local eff=AddSpecialEffect("Abilities\\Spells\\Undead\\Impale\\ImpaleMissTarget.mdl",x,y)
+        BlzSetSpecialEffectYaw(eff,math.rad(f))
+        DestroyEffect(eff)
+        if UnitDamageArea(unit,50,x,y,120) then
+            normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit",x,y)
+        else
+           -- normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleLand",x,y)
+        end
+        if dist<=0 or not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
 
 
 
@@ -4048,7 +4228,9 @@ function PudgeSlash(unit)
                     end)
                 end
             else
-                IssuePointOrder(unit,"move",GetUnitXY(hero))
+                if hero then
+                    IssuePointOrder(unit,"move",GetUnitXY(hero))
+                end
             end
         end
     end)
@@ -4109,11 +4291,13 @@ function SpawnZombie(unit)
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
-            local new =CreateUnit(GetOwningPlayer(unit),FourCC("nzom"),GetUnitX(unit),GetUnitY(unit),0)
-            local hero=GetRandomEnemyHero()
-            UnitApplyTimedLife(new, FourCC('BTLF'), 20)
-            if hero then
-                IssueTargetOrder(new,"attack",hero)
+            if not IsUnitPaused(unit) then
+                local new =CreateUnit(GetOwningPlayer(unit),FourCC("nzom"),GetUnitX(unit),GetUnitY(unit),0)
+                local hero=GetRandomEnemyHero()
+                UnitApplyTimedLife(new, FourCC('BTLF'), 20)
+                if hero then
+                    IssueTargetOrder(new,"attack",hero)
+                end
             end
         end
     end)
@@ -4123,7 +4307,8 @@ end
 
 
 function JumpAI(unit)
-    TimerStart(CreateTimer(), 5, true, function()
+    local p=GetRandomReal(4,8)
+    TimerStart(CreateTimer(), p, true, function()
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
@@ -4136,9 +4321,9 @@ function JumpAI(unit)
                     local angle=AngleBetweenUnits(unit,hero)
                     BlzPauseUnitEx(unit,true)
                     SetUnitAnimation(unit,"attack")
-                    SetUnitTimeScale(unit,0.7)
+                    SetUnitTimeScale(unit,0.5)
                     CreateVisualMarkTimedXY("SystemGeneric\\Alarm",1,GetUnitXY(hero))
-                    TimerStart(CreateTimer(), 0.5, false, function()
+                    TimerStart(CreateTimer(), 1, false, function()
                         UnitAddForceSimple(unit,angle,20,dist,"forceAttack")
                     end)
                 end
@@ -4187,7 +4372,17 @@ function StartObsidianBoss(boss)
         if BossFight then -- если идёт бой и каждую фазу
             sec = sec + 1
             if GetUnitLifePercent(boss)<=25 then
+                TimerStart(CreateTimer(), 2, true, function()
+                    local hero=GetRandomEnemyHero()
+                    if hero then
+                        local angle=AngleBetweenUnits(boss,hero)
+                        CreateAndForceBullet(boss,angle,30,"",x,y,50,1500)
+                    end
 
+                    if phase~=2 then
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end)
             else
 
             end
@@ -4202,7 +4397,7 @@ function StartObsidianBoss(boss)
             --фазы
             if phase == 1 and PhaseOn then
                 PhaseOn = false
-                print("Призываем скелетов")
+                --print("Призываем скелетов")
                 TimerStart(CreateTimer(), 2, true, function()
                     local xr,yr=MoveXY(x,y,400,GetRandomInt(0,360))
                     if GetTerrainZ(xr,yr)<=GetTerrainZ(x,y) then
@@ -4215,12 +4410,52 @@ function StartObsidianBoss(boss)
             end
             if phase == 2 and PhaseOn then
                 PhaseOn = false
-                print("Буллет хелл")
+                --print("Буллет хелл")
+                local hero=GetRandomEnemyHero()
+                if hero then
+                   -- IssuePointOrder(boss,"move",GetUnitXY(hero))
+                end
+                local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
+                BlzSetSpecialEffectColor(mark,255,0,0)
+                BlzSetSpecialEffectScale(mark,2)
+
+                local r=GetRandomInt(1,2)
+                TimerStart(CreateTimer(), 2, false, function()
+                    DestroyEffect(mark)
+                    BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
+                    TimerStart(CreateTimer(), 0.1, true, function()
+                        hero=GetRandomEnemyHero()
+                        if hero then
+                            x,y=GetUnitXY(boss)
+                            local angle=AngleBetweenUnits(boss,hero)
+                            if r==1 then
+                                angle=GetRandomInt(0,360)
+                            end
+                            CreateAndForceBullet(boss,angle,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,50,1500)
+                        end
+
+                        if phase~=2 then
+                            DestroyTimer(GetExpiredTimer())
+                        end
+                    end)
+                end)
 
             end
             if phase == 3 and PhaseOn  then -- запуск волны
                 PhaseOn = false
-                print("Прыгаем на случайного героя")
+                --print("Прыгаем на случайного героя")
+                local hero=GetRandomEnemyHero()
+                if hero then
+                    IssuePointOrder(boss,"move",GetUnitXY(hero))
+                end
+                local xr,yr=MoveXY(x,y,400,GetRandomInt(0,360))
+                if GetTerrainZ(xr,yr)<=GetTerrainZ(x,y) then
+                    CreateCreepDelay(FourCC("u000"),xr,yr,1,"summon")
+                end
+                local xr,yr=MoveXY(x,y,400,GetRandomInt(0,360))
+                if GetTerrainZ(xr,yr)<=GetTerrainZ(x,y) then
+                    CreateCreepDelay(FourCC("u000"),xr,yr,1,"summon")
+                end
             end
         else-- перезапуск боссфайта
 
@@ -4230,30 +4465,7 @@ end
 
 
 
-function MarkAndFall(x,y,effModel,hero)
-    local mark=AddSpecialEffect("Snipe Target",x,y)
-    BlzSetSpecialEffectScale(mark,5)
-    TimerStart(CreateTimer(), 2, false, function()
-        local FallenEff=AddSpecialEffect(effModel,x,y)
-        BlzSetSpecialEffectZ(FallenEff,1000)
-        BlzSetSpecialEffectYaw(FallenEff, math.rad(GetRandomReal(0,360)))
-        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-            local z=BlzGetLocalSpecialEffectZ(FallenEff)
 
-            BlzSetSpecialEffectZ(FallenEff,z-25)
-            if z<=GetTerrainZ(x,y) then
-                DestroyEffect(mark)
-                BlzSetSpecialEffectPosition(mark,5000,5000,0)
-                DestroyTimer(GetExpiredTimer())
-                DestroyEffect(FallenEff)
-                BlzSetSpecialEffectPosition(FallenEff,5000,5000,0)
-                DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",x,y))
-                UnitDamageArea(hero,50,x,y,150) --при падении камня
-                UnitDamageArea(mainHero,50,x,y,150)
-            end
-        end)
-    end)
-end
 
 function CreateFirePillar(xs,ys,boss,zone)
     ys=ys+700
@@ -4320,28 +4532,17 @@ function BossDamaged(boss)
         local isEventDamaged = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGED)
         local target          = GetTriggerUnit() -- тот кто получил урон
         local caster          = GetEventDamageSource() -- тот кто нанёс урон
-
-
         if isEventDamaged then
             if target==boss then--  босс получает 100 урона
                 bossTakenDamage=bossTakenDamage+damage
-                if bossTakenDamage>=100 then
+                if bossTakenDamage>=500 then
                     bossTakenDamage=0
-                    local angle=AngleBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero))/bj_DEGTORAD
-
-                    CreateFireLine(boss,angle,DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero)))
-                end
-            end
-            if caster==boss then
-                local r=GetRandomInt(1,5)
-                if r==1 and IsUnitInRange(boss,mainHero,300) then
-                    SpireCast(boss,GetUnitXY(mainHero))
+                    local angle=AngleBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(caster))/bj_DEGTORAD
+                    CreateFireLine(boss,angle,DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(caster)))
                 end
             end
         end
-
     end)
-
 end
 
 function CreateFireLine(boss,angle,distance)
@@ -4352,8 +4553,9 @@ function CreateFireLine(boss,angle,distance)
     local mark={}
     for i=1,step do
         x,y=MoveXY(x,y,speed,angle)
-        mark[i]=AddSpecialEffect("Snipe Target",x,y)
-        BlzSetSpecialEffectScale(mark[i],5)
+        mark[i]=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
+        BlzSetSpecialEffectColor(mark[i],255,0,0)
+        BlzSetSpecialEffectScale(mark[i],1.7)
     end
 
     TimerStart(CreateTimer(), 2, false, function()
@@ -4365,6 +4567,9 @@ function CreateFireLine(boss,angle,distance)
         TimerStart(CreateTimer(), 1/16, true, function()
             x,y=MoveXY(x,y,speed,angle)
             local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+            TimerStart(CreateTimer(), 1, false, function()
+                DestroyEffect(eff)
+            end)
             UnitDamageArea(boss,99,x,y,speed)
             distance=distance-speed
             if distance<=0 then
@@ -4574,6 +4779,7 @@ function ReplaceID2SwordSpike(id)
     --print("найденно "..k.." а в таблице "..#all)
     for i=1,#all do
         -- print("заменён "..GetUnitName(all[i]))
+        PauseUnit(all[i],true)
         ShowUnit(all[i],false)
         SetUnitInvulnerable(all[i],true)
         CreateSwordSpike(all[i])
@@ -4734,15 +4940,17 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 			local data=HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
 			if data.UnitHero and GetUnitTypeId(DamagingUnit)==HeroID then
 				--print("атакован наш герой")
-				if data.Reflected or  data.SpinReflect then
+				if data.Reflected or  data.SpinReflect or data.AttackInForce then
 					--print("отбит снаряд")
 					if not data.DestroyMissile then
+						FlyTextTagShieldXY(nx,ny,"Отбит",GetOwningPlayer(data.UnitHero))
 						heroCurrent=DamagingUnit
 						reverse=true
 						angleCurrent=AngleBetweenUnits(DamagingUnit,hero)
 					else
 						reverse=true
 						--print("снаряд уничтожен будет")
+						FlyTextTagShieldXY(nx,ny,"Разрушен",GetOwningPlayer(data.UnitHero))
 						DestroyEffect(bullet)
 						DestroyTimer(GetExpiredTimer())
 					end
@@ -5208,6 +5416,102 @@ TriggerAddAction = function(trig, callback)
 	end
 	realTriggerAddAction(trig, pcallback)
 end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 11.03.2021 1:23
+---
+do
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 1, false, function()
+            InitPreloadStart()
+            cache = InitGameCache("cache")
+        end)
+    end
+end
+
+function InitPreloadStart()
+    --print("Start preload tester")
+    --PreloadGenClear()
+    SavePath = "save\\PeonRPG2.txt"
+    Preloader(SavePath) --в этот момент данные записываются в имя способности, для каждого игрока свои данные
+    local s = BlzGetAbilityTooltip(FourCC('Agyv'), 0) --переменная S хранит асинхронные данные
+    --print("AAAAAAA "..s)
+
+    --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+    local i = 0
+    TimerStart(CreateTimer(), 2.1, true, function()
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
+            local restoreGold = 0
+            --print("Обработка игрока " .. i)
+            if #s > 10 then
+                -- размер > 10 Значит описание стандартное
+                --print(GetPlayerName(Player(i)) .. " начинает с чистого листа")
+                s = 0
+                --Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..s.."\",0)".."\n//")
+                --PreloadGenEnd(SavePath)
+                --PreloadGenClear()
+            end
+            --if GetLocalPlayer() == Player(i) then
+            --print("попытка синхронизации данных " .. s)
+            --restoreGold = SyncString(Player(i), I2S(s)) -- ЭТА СТРОЧКА КРАШИТ ВАР
+
+            if GetLocalPlayer()==Player(i) then
+                restoreGold=s
+            end
+
+            --print(restoreGold)
+            --end
+
+            --переменная RestoredGold нуждается в синхронизации
+            --TimerStart(CreateTimer(), 2.2, false, function()
+                print(GetPlayerName(Player(i)) .. " перенес золота из прошлой игры " .. R2I(restoreGold))
+                UnitAddGold(data.UnitHero, R2I(restoreGold))
+           -- end)
+
+        end
+        i=i+1
+        if i>=bj_MAX_PLAYER_SLOTS - 1 then
+            print("Таймер сделал своё дело")
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+
+function SyncString(p, val)
+    if (GetLocalPlayer() == p) then
+        StoreString(cache, "", "", val)
+    end
+    TriggerSyncStart()
+    if (GetLocalPlayer() == p) then
+        SyncStoredString(cache, "", "")
+    end
+    TriggerSleepAction(2) -- меньшнее   значение    вызывает    десинх
+    TriggerSyncReady()
+    return GetStoredString(cache, "", "")
+end
+--[[
+function Trig_CameraSynh_Actions takes nothing returns nothing
+player p = Player(0)
+real x= 0
+real y = 0
+real syncx = 0
+real syncy = 0
+string xs, ys
+if GetLocalPlayer()==p
+xs = R2S(GetMouseTerrainX())
+ys = R2S(GetMouseTerrainY())
+x = S2R(xs)// перезапись через строковый тип
+y = S2R(ys)// иначе нули
+endif
+syncx = SyncReal(p, x)
+syncy = SyncReal(p, y)
+CreateUnit(p, 'e009', syncx, syncy, 0)
+endfunction]]
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.

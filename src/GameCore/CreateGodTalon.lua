@@ -8,9 +8,11 @@ function CreateGodTalon(x, y, name, price)
     x = x - 16
     local r,g,b=0,0,0
     if not name or name=="" then
-        print("ошибка, при создании дара, не определена награда комнаты")
-        --return
-        name="CodoHeart"
+        --print("ошибка, при создании дара, не определена награда комнаты")
+        CreateMerchantAndGoods(x,y)
+        AllActionsEnabled(true)
+        return
+        --name="CodoHeart"
     end
     if not price then price=0 end
     local eff = AddSpecialEffect("SystemGeneric\\GodModels\\" .. name, x, y)
