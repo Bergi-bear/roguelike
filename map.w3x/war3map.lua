@@ -34,7 +34,6 @@ gg_rct_E12A = nil
 gg_rct_E10A = nil
 gg_rct_E9A = nil
 gg_rct_E8A = nil
-gg_rct_TrapTest = nil
 gg_rct_S13A = nil
 gg_rct_B13A = nil
 gg_rct_E13A = nil
@@ -79,6 +78,7 @@ gg_trg_FFF = nil
 gg_trg_TrapTest = nil
 gg_trg_DDDD = nil
 gg_trg_UPUP = nil
+gg_trg_Melee_Initialization = nil
 function InitGlobals()
 end
 
@@ -89,7 +89,8 @@ function CreateUnitsForPlayer0()
     local t
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14009.9, -9536.5, 106.153, FourCC("hfoo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18814.4, -13607.0, 104.626, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18795.7, -13620.8, 104.626, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 15548.9, -9742.5, 106.153, FourCC("hfoo"))
 end
 
 function CreateUnitsForPlayer23()
@@ -102,24 +103,24 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 12993.8, -10352.6, 205.385, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 13151.2, -10344.0, 175.655, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 13329.0, -10354.7, 245.969, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17387.2, -13805.4, 10.613, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17389.9, -13664.3, 256.956, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17388.3, -13511.6, 208.955, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17382.9, -13341.8, 186.597, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17378.2, -13138.1, 8.438, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17336.2, -12562.1, 313.746, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17388.8, -13693.9, 10.613, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17130.1, -12925.3, 256.956, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17380.4, -13532.4, 208.955, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17378.0, -13358.4, 186.597, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17373.4, -13169.4, 8.438, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17371.2, -12644.8, 313.746, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17855.1, -12572.1, 36.443, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17864.8, -12749.7, 112.031, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17866.1, -12945.6, 120.732, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17864.0, -13108.4, 308.824, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17601.1, -12823.3, 284.961, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17352.2, -12777.7, 152.275, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17371.1, -12950.2, 152.275, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17873.4, -13276.4, 49.550, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18406.4, -13782.6, 12.085, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18402.4, -13674.7, 19.315, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18409.3, -13563.0, 226.106, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18421.6, -13266.2, 197.419, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18421.0, -13129.8, 13.085, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18247.8, -13103.1, 13.085, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18429.8, -13091.4, 76.830, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18438.7, -12924.3, 154.912, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18157.3, -13522.6, 53.890, FourCC("hpea"))
@@ -145,7 +146,6 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14773.8, -4143.4, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14774.5, -4269.9, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14775.9, -4407.9, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14776.6, -4543.4, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14888.2, -3517.8, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15007.5, -3514.6, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15126.5, -3514.5, 0.000, FourCC("hkni"))
@@ -158,16 +158,12 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15975.4, -3517.1, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16096.1, -3518.0, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16211.6, -3517.2, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16022.3, -10050.3, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16140.4, -10056.7, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16253.5, -10058.1, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 16371.6, -10059.9, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15357.9, -6040.6, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15357.0, -6164.1, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15359.9, -6296.0, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15361.9, -6424.6, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15360.0, -6552.2, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15360.1, -6678.7, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15727.6, -6415.1, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15618.9, -6415.1, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14701.4, -6498.4, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14581.1, -6496.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14704.6, -6374.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14583.3, -6376.4, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21642.1, -12794.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 22046.4, -12811.1, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21844.6, -13001.9, 158.490, FourCC("nglm"))
@@ -184,9 +180,9 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21683.4, -13511.0, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 22095.8, -13534.0, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21895.2, -13278.9, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23204.4, -12652.4, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23378.2, -12611.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23580.5, -12626.5, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23401.2, -12448.4, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23380.4, -12780.0, 158.490, FourCC("nglm"))
 end
 
 function CreateNeutralHostile()
@@ -196,6 +192,7 @@ function CreateNeutralHostile()
     local t
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18358.9, -10416.3, 158.494, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14487.0, -5834.5, 247.300, FourCC("e001"))
 end
 
 function CreateNeutralPassive()
@@ -223,24 +220,24 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 6609.1, -6318.2, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14723.3, -11742.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15593.5, -12742.6, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 12921.9, -8445.1, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13956.3, -8439.0, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15105.0, -5955.8, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16339.8, -6695.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13250.4, -8489.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14153.7, -8504.4, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15282.0, -5697.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22838.9, -2647.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19460.5, -6346.2, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20181.6, -7151.3, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18059.0, -10068.1, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18954.1, -10061.5, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18566.8, -12546.0, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23316.1, -6190.3, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23963.3, -7013.3, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22910.0, -2550.1, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18642.9, -12476.2, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23221.4, -6302.6, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23787.8, -6878.0, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14887.0, -7466.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23570.1, -3386.6, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19767.5, -4197.4, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18586.4, -3501.3, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16262.5, -4084.7, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21386.7, -9892.8, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22292.0, -9896.7, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19817.0, -3857.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18674.9, -3617.5, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16229.5, -3827.2, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21344.1, -9882.2, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22537.0, -9883.1, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20762.6, -12449.6, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21627.4, -12448.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14911.2, -6273.5, 350.440, FourCC("hfoo"))
@@ -248,8 +245,8 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14733.6, -15490.8, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16773.5, -15406.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 17658.9, -15422.6, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20223.3, -15586.5, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21477.3, -16233.5, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20351.1, -15620.7, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21371.4, -15991.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23151.0, -15354.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24399.1, -15980.1, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24078.0, -12430.6, 296.730, FourCC("hdhw"))
@@ -262,6 +259,159 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 11693.3, -17120.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 12701.9, -16296.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 11802.2, -15301.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15263.6, -7462.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15052.8, -7203.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15260.7, -6957.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14844.2, -6916.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13086.4, -10417.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13040.1, -9918.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13067.2, -8859.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14494.4, -6985.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14634.1, -6694.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15122.0, -6671.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15626.8, -6648.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15997.9, -6728.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16258.8, -7032.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16388.7, -6710.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16339.2, -6454.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16367.4, -6165.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16027.7, -6277.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15575.0, -6080.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15208.5, -6045.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14813.9, -5863.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15428.1, -6404.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14937.8, -4434.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15214.0, -4447.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15006.0, -3963.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15152.5, -3716.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15336.1, -3975.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15681.3, -3721.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15692.8, -3989.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16094.9, -3814.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18143.5, -4212.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18633.5, -3856.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18729.6, -4625.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19065.9, -4505.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19177.3, -3958.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19513.3, -3950.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19729.0, -3645.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19671.0, -4187.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19586.1, -4511.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18075.9, -3856.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18929.9, -4052.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18343.8, -4077.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18908.2, -4724.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19082.8, -3630.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21548.6, -4600.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21786.4, -4553.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21745.7, -4195.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21514.4, -4024.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21803.7, -3927.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21527.8, -3739.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22000.6, -3565.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21939.5, -3238.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21618.1, -3013.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21934.5, -2851.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22417.6, -2852.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22756.3, -3132.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22943.9, -2864.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23353.0, -2922.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23066.0, -3195.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23392.9, -3548.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22802.2, -3492.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23206.7, -3839.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22843.2, -4001.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22840.6, -4419.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23169.7, -4298.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23142.1, -4572.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22436.4, -3368.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22302.7, -3560.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15427.0, -3719.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16523.1, -7255.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21835.8, -7982.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21894.4, -7701.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22210.1, -7824.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22018.2, -8440.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22305.4, -8182.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22454.5, -8389.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22621.8, -7974.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22741.9, -7673.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22842.3, -8180.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22888.7, -8426.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23373.2, -8321.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23147.0, -7921.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23613.3, -8129.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23616.3, -7810.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23122.6, -7545.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23434.5, -7573.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23706.2, -7275.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23198.1, -7136.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23543.9, -6937.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23187.0, -6617.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23615.8, -6483.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13490.2, -9370.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13441.9, -10047.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13721.7, -10350.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14295.0, -10383.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13893.6, -9964.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13891.0, -9291.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13428.6, -8701.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14393.3, -8925.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14441.7, -9627.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14729.8, -10283.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15102.2, -10375.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15196.0, -9743.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14909.7, -9263.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14690.5, -8929.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15223.3, -8944.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15543.9, -9419.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15669.5, -9992.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16065.1, -9988.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16002.6, -9480.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15900.7, -8903.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21544.7, -10046.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21542.2, -10501.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21947.8, -10225.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21621.6, -10874.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21861.7, -10814.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21985.3, -11016.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22570.2, -10711.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22393.5, -11016.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22276.1, -10380.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22540.8, -10321.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22529.8, -10021.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21487.4, -11107.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22254.8, -10106.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13138.9, -13232.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13710.9, -13265.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14380.8, -13355.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14225.1, -12825.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13697.1, -12492.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13227.6, -12059.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13879.7, -12007.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14389.1, -12003.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14488.4, -12358.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14933.2, -11960.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15354.8, -11990.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15339.2, -12462.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14718.5, -12760.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15374.5, -12792.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14791.1, -13238.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15256.3, -13297.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13098.2, -12365.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19857.8, -16776.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20241.1, -16755.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20067.1, -16422.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19658.5, -16227.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19978.9, -16014.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20133.4, -15647.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20645.1, -15669.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21135.5, -15739.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20892.5, -16249.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21201.8, -16302.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21161.0, -16802.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20951.0, -16568.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20722.5, -16819.7, 247.300, FourCC("e001"))
 end
 
 function CreatePlayerBuildings()
@@ -287,44 +437,43 @@ function CreateRegions()
     gg_rct_B3A = Rect(13440.0, -10112.0, 15616.0, -8800.0)
     gg_rct_S3A = Rect(12864.0, -10624.0, 16256.0, -8640.0)
     gg_rct_S2A = Rect(17088.0, -13760.0, 18848.0, -12608.0)
-    gg_rct_E3A = Rect(13152.0, -11104.0, 13504.0, -10464.0)
+    gg_rct_E3A = Rect(13344.0, -11104.0, 13696.0, -10464.0)
     gg_rct_E1A = Rect(13216.0, -13696.0, 13568.0, -13216.0)
     gg_rct_E2A = Rect(16704.0, -13536.0, 17184.0, -13120.0)
     gg_rct_E4A = Rect(18144.0, -11776.0, 18432.0, -11232.0)
     gg_rct_S4A = Rect(18080.0, -11264.0, 19360.0, -10176.0)
     gg_rct_B4A = Rect(18656.0, -10912.0, 18784.0, -10432.0)
-    gg_rct_E5A = Rect(17376.0, -8512.0, 17920.0, -8096.0)
+    gg_rct_E5A = Rect(17408.0, -8576.0, 17952.0, -8160.0)
     gg_rct_S5A = Rect(17952.0, -8608.0, 19968.0, -6560.0)
     gg_rct_B5A = Rect(18528.0, -8256.0, 19392.0, -6848.0)
-    gg_rct_E6A = Rect(15232.0, -7680.0, 15520.0, -7072.0)
-    gg_rct_S6A = Rect(14784.0, -7104.0, 16096.0, -6176.0)
-    gg_rct_B6A = Rect(15392.0, -6848.0, 15520.0, -6432.0)
-    gg_rct_E7A = Rect(14848.0, -5024.0, 15136.0, -4416.0)
-    gg_rct_S7A = Rect(14848.0, -4448.0, 16160.0, -3520.0)
+    gg_rct_E6A = Rect(15168.0, -7648.0, 15456.0, -7392.0)
+    gg_rct_S6A = Rect(14208.0, -7680.0, 16608.0, -5696.0)
+    gg_rct_B6A = Rect(15232.0, -6880.0, 15648.0, -6432.0)
+    gg_rct_E7A = Rect(14944.0, -4544.0, 15232.0, -4384.0)
+    gg_rct_S7A = Rect(14848.0, -4576.0, 16288.0, -3584.0)
     gg_rct_B7A = Rect(15456.0, -4128.0, 15520.0, -3776.0)
-    gg_rct_S8A = Rect(18240.0, -4608.0, 19552.0, -3680.0)
-    gg_rct_B8A = Rect(18848.0, -4352.0, 18976.0, -3936.0)
-    gg_rct_S9A = Rect(21376.0, -3808.0, 23456.0, -2688.0)
+    gg_rct_S8A = Rect(17984.0, -4832.0, 19808.0, -3488.0)
+    gg_rct_B8A = Rect(18880.0, -4352.0, 18944.0, -3936.0)
+    gg_rct_S9A = Rect(21376.0, -4736.0, 23584.0, -2688.0)
     gg_rct_B9A = Rect(22144.0, -4448.0, 22624.0, -3072.0)
-    gg_rct_S10A = Rect(21696.0, -8576.0, 23840.0, -7488.0)
+    gg_rct_S10A = Rect(21696.0, -8576.0, 23840.0, -6432.0)
     gg_rct_B10A = Rect(22528.0, -8128.0, 23008.0, -6816.0)
-    gg_rct_S11A = Rect(21408.0, -11168.0, 22688.0, -10080.0)
+    gg_rct_S11A = Rect(21344.0, -11232.0, 22752.0, -9920.0)
     gg_rct_B11A = Rect(21984.0, -10816.0, 22112.0, -10336.0)
     gg_rct_E11A = Rect(21504.0, -11648.0, 21792.0, -11040.0)
     gg_rct_S12A = Rect(20736.0, -13728.0, 22016.0, -12640.0)
     gg_rct_B12A = Rect(21312.0, -13376.0, 21440.0, -12896.0)
     gg_rct_E12A = Rect(20832.0, -14240.0, 21120.0, -13696.0)
-    gg_rct_E10A = Rect(21248.0, -8320.0, 21760.0, -8032.0)
-    gg_rct_E9A = Rect(20864.0, -4640.0, 21376.0, -4352.0)
-    gg_rct_E8A = Rect(18688.0, -5280.0, 18976.0, -4672.0)
-    gg_rct_TrapTest = Rect(22784.0, -4864.0, 23040.0, -4384.0)
-    gg_rct_S13A = Rect(23328.0, -13696.0, 24608.0, -12608.0)
+    gg_rct_E10A = Rect(21504.0, -8352.0, 22048.0, -8064.0)
+    gg_rct_E9A = Rect(21440.0, -4512.0, 21632.0, -4224.0)
+    gg_rct_E8A = Rect(18688.0, -5056.0, 18976.0, -4640.0)
+    gg_rct_S13A = Rect(23392.0, -13696.0, 24512.0, -12608.0)
     gg_rct_B13A = Rect(23904.0, -13408.0, 23968.0, -12928.0)
-    gg_rct_E13A = Rect(23296.0, -14176.0, 23584.0, -13632.0)
+    gg_rct_E13A = Rect(23296.0, -14176.0, 23552.0, -13632.0)
     gg_rct_S14A = Rect(22688.0, -16512.0, 24224.0, -15424.0)
     gg_rct_B14A = Rect(23392.0, -16160.0, 23520.0, -15680.0)
     gg_rct_E14A = Rect(23296.0, -16992.0, 23584.0, -16352.0)
-    gg_rct_S15A = Rect(19712.0, -16736.0, 21344.0, -15648.0)
+    gg_rct_S15A = Rect(18656.0, -16960.0, 21312.0, -14400.0)
     gg_rct_B15A = Rect(20480.0, -16384.0, 20608.0, -15904.0)
     gg_rct_E15A = Rect(20352.0, -17280.0, 20640.0, -16512.0)
     gg_rct_S16A = Rect(16704.0, -16672.0, 18144.0, -15520.0)
@@ -1164,6 +1313,10 @@ function CreateEActions()
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 if not FirstGoto then
                     FirstGoto=true
+                    TimerStart(CreateTimer(),2, false, function()
+                        --SetDayNightModels("DNCLordaeron","DNCLordaeron")
+                        SetDayNightModels("","")
+                    end)
                 else
                     DestroyDecorInArea(data, 400)
                 end
@@ -1508,7 +1661,9 @@ function DestroyDecorInArea(data, range)
     local x, y = GetUnitXY(data.UnitHero)
     SetRect(GlobalRect, x - range, y - range, x + range, y + range)
     EnumDestructablesInRect(GlobalRect, nil, function()
-        KillDestructable(GetEnumDestructable())
+        if GetDestructableTypeId(GetEnumDestructable())==FourCC('B000') then --каменная дверь для точек выхода
+            KillDestructable(GetEnumDestructable())
+        end
     end)
 end
 
@@ -1636,102 +1791,126 @@ do
         end)
     end
 end
-CurrentGameZone=0
-GameZone={
-    recEnter=nil,
-    rectBound=nil,
-    rectSpawn=nil,
-    reward=nil
+CurrentGameZone = 0
+GameZone = {
+    recEnter = nil,
+    rectBound = nil,
+    rectSpawn = nil,
+    reward = nil
 }
 function InitAllZones()
-    SetZone(1,gg_rct_E1A,gg_rct_B1A,gg_rct_S1A)
-    SetZone(2,gg_rct_E2A,gg_rct_B2A,gg_rct_S2A)
-    SetZone(3,gg_rct_E3A,gg_rct_B3A,gg_rct_S3A)
-    SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
-    SetZone(5,gg_rct_E5A,gg_rct_B5A,gg_rct_S5A)
-    SetZone(6,gg_rct_E6A,gg_rct_B6A,gg_rct_S6A)
+    SetZone(1, gg_rct_E1A, gg_rct_B1A, gg_rct_S1A)
+    SetZone(2, gg_rct_E2A, gg_rct_B2A, gg_rct_S2A)
+    SetZone(3, gg_rct_E3A, gg_rct_B3A, gg_rct_S3A)
+    SetZone(4, gg_rct_E4A, gg_rct_B4A, gg_rct_S4A)
+    SetZone(5, gg_rct_E5A, gg_rct_B5A, gg_rct_S5A)
+    SetZone(6, gg_rct_E6A, gg_rct_B6A, gg_rct_S6A)
     ---------------------------------------------------
-    SetZone(7,gg_rct_E7A,gg_rct_B7A,gg_rct_S7A)
-    SetZone(8,gg_rct_E8A,gg_rct_B8A,gg_rct_S8A)
-    SetZone(9,gg_rct_E9A,gg_rct_B9A,gg_rct_S9A)
-    SetZone(10,gg_rct_E10A,gg_rct_B10A,gg_rct_S10A)
-    SetZone(11,gg_rct_E11A,gg_rct_B11A,gg_rct_S11A)
-    SetZone(12,gg_rct_E12A,gg_rct_B12A,gg_rct_S12A)
+    SetZone(7, gg_rct_E7A, gg_rct_B7A, gg_rct_S7A)
+    SetZone(8, gg_rct_E8A, gg_rct_B8A, gg_rct_S8A)
+    SetZone(9, gg_rct_E9A, gg_rct_B9A, gg_rct_S9A)
+    SetZone(10, gg_rct_E10A, gg_rct_B10A, gg_rct_S10A)
+    SetZone(11, gg_rct_E11A, gg_rct_B11A, gg_rct_S11A)
+    SetZone(12, gg_rct_E12A, gg_rct_B12A, gg_rct_S12A)
     -------------------------------------------------------
-    SetZone(13,gg_rct_E13A,gg_rct_B13A,gg_rct_S13A)
-    SetZone(14,gg_rct_E14A,gg_rct_B14A,gg_rct_S14A)
-    SetZone(15,gg_rct_E15A,gg_rct_B15A,gg_rct_S15A)
-    SetZone(16,gg_rct_E16A,gg_rct_B16A,gg_rct_S16A)
-    SetZone(17,gg_rct_E17A,gg_rct_B17A,gg_rct_S17A)
+    SetZone(13, gg_rct_E13A, gg_rct_B13A, gg_rct_S13A)
+    SetZone(14, gg_rct_E14A, gg_rct_B14A, gg_rct_S14A)
+    SetZone(15, gg_rct_E15A, gg_rct_B15A, gg_rct_S15A)
+    SetZone(16, gg_rct_E16A, gg_rct_B16A, gg_rct_S16A)
+    SetZone(17, gg_rct_E17A, gg_rct_B17A, gg_rct_S17A)
     -------------------------------------------------------
-    SetZone(18,gg_rct_E18A,gg_rct_B18A,gg_rct_S18A)
-    SetZone(19,gg_rct_E19A,gg_rct_B19A,gg_rct_S19A)
-    SetZone(20,gg_rct_E20A,gg_rct_B20A,gg_rct_S20A)
+    SetZone(18, gg_rct_E18A, gg_rct_B18A, gg_rct_S18A)
+    SetZone(19, gg_rct_E19A, gg_rct_B19A, gg_rct_S19A)
+    SetZone(20, gg_rct_E20A, gg_rct_B20A, gg_rct_S20A)
 
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
-    Destiny=GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
-    DestinyEnemies=GetRandomIntTable(1, #GameZone, #GameZone)
+    Destiny = GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
+    DestinyEnemies = GetRandomIntTable(1, #GameZone, #GameZone)
     for i = 1, #Destiny do
         --print(Destiny[i])
     end
 
 end
 
-function SetZone(number,recEnter,rectBound,rectSpawn)
+function SetZone(number, recEnter, rectBound, rectSpawn)
     if recEnter and rectBound and rectSpawn then
-        GameZone[number]={
-            recEnter=recEnter,
-            rectBound=rectBound,
-            rectSpawn=rectSpawn
+        GameZone[number] = {
+            recEnter = recEnter,
+            rectBound = rectBound,
+            rectSpawn = rectSpawn,
+            x = {},
+            y = {},
         }
+        AddSpawnPoint2TableXY(GameZone[number])
     else
         --print("Ошибка, игровая зона №"..number.." ещё не создана в WE")
     end
 end
 
-
+function AddSpawnPoint2TableXY(data)
+    local e = nil
+    local k = 1
+    local id=FourCC("e001")
+    data.x={}
+    data.y={}
+    GroupEnumUnitsInRect(perebor, data.rectSpawn, nil)
+    while true do
+        e = FirstOfGroup(perebor)
+        if e == nil then
+            break
+        end
+        if UnitAlive(e) and GetUnitTypeId(e) == id then
+            data.x[k]=GetUnitX(e)
+            data.y[k]=GetUnitY(e)
+            RemoveUnit(e)
+            k=k+1
+            --print("наполнение k"..k-1)
+        end
+        GroupRemoveUnit(perebor, e)
+    end
+end
 
 function Enter2NewZone(flag)
-    CurrentGameZone=CurrentGameZone+1
-    if CurrentGameZone==1 then
+    CurrentGameZone = CurrentGameZone + 1
+    if CurrentGameZone == 1 then
         --print("убираем обучение")
         DestroyAllLearHelpers()
     end
     --print(" вошел в зону .. "..CurrentGameZone.. " для судьбы это зона "..Destiny[CurrentGameZone].. " а награда то какая? наверное ")
 
     CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
-    TimerStart(CreateTimer(),2, false, function()
+    TimerStart(CreateTimer(), 2, false, function()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
-        if CurrentGameZone~=20 then
+        if CurrentGameZone ~= 20 then
             if Destiny[CurrentGameZone] then
-                MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
+                MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter, GameZone[Destiny[CurrentGameZone]].rectBound)
                 --StartEnemyWave(Destiny[CurrentGameZone])
                 --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
                 if not flag then
                     StartEnemyWave(DestinyEnemies[CurrentGameZone])
                     --StartEnemyWave(401) --Временная волна для тестов
                 end
-                if flag=="Merchant" then
+                if flag == "Merchant" then
                     --print("Создаём торговца и предметы для торговли") --TODO
                     AllActionsEnabled(true)
-                    local x=GetRectCenterX(GameZone[Destiny[CurrentGameZone]].rectSpawn)
-                    local y=GetRectCenterY(GameZone[Destiny[CurrentGameZone]].rectSpawn)
-                    CreateMerchantAndGoods(x,y)
+                    local x = GetRectCenterX(GameZone[Destiny[CurrentGameZone]].rectSpawn)
+                    local y = GetRectCenterY(GameZone[Destiny[CurrentGameZone]].rectSpawn)
+                    CreateMerchantAndGoods(x, y)
                 end
                 --StartEnemyWave(5)
             else
 
-                TimerStart(CreateTimer(),3, false, function()
+                TimerStart(CreateTimer(), 3, false, function()
                     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                        CustomVictoryBJ(Player(i),true,true)
+                        CustomVictoryBJ(Player(i), true, true)
                     end
                 end)
-               -- print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
+                -- print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
 
             end
         else
-            MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter,GameZone[Destiny[CurrentGameZone]].rectBound)
+            MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter, GameZone[Destiny[CurrentGameZone]].rectBound)
             StartEnemyWave(401)
             --print("в этой зоне должен быть босс")
         end
@@ -1741,11 +1920,15 @@ end
 
 function GetRandomIntTable(min, max, count)
     local keys = {}
-    local out  = {}
-    if min == max then return { min } end
-    if max < min then min, max = max, min end
+    local out = {}
+    if min == max then
+        return { min }
+    end
+    if max < min then
+        min, max = max, min
+    end
     local limit = math.abs(max - min) + 1
-    count       = count == nil and limit or math.min(limit, count)
+    count = count == nil and limit or math.min(limit, count)
     if limit <= count then
         local ints = {}
         for i = min, max do
@@ -1767,254 +1950,254 @@ function GetRandomIntTable(min, max, count)
     end
 end
 
-function MoveAllHeroAndBound(recEnter,rectBound)
-    local x,y=GetRectCenterX(recEnter),GetRectCenterY(recEnter)
-    local x2,y2=GetRectCenterX(rectBound),GetRectCenterY(rectBound)
-    EnumDestructablesInRect(recEnter,nil,function()
+function MoveAllHeroAndBound(recEnter, rectBound)
+    local x, y = GetRectCenterX(recEnter), GetRectCenterY(recEnter)
+    local x2, y2 = GetRectCenterX(rectBound), GetRectCenterY(rectBound)
+    EnumDestructablesInRect(recEnter, nil, function()
         KillDestructable(GetEnumDestructable())
     end)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            local data=HERO[i]
-            SetCameraBoundsToRectForPlayerBJ(Player(i),rectBound)
-            SetUnitPosition(data.UnitHero,x,y)
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
+            SetCameraBoundsToRectForPlayerBJ(Player(i), rectBound)
+            SetUnitPosition(data.UnitHero, x, y)
         end
     end
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
 end
 
 function StartEnemyWave(waveNumber)
-    local listID={}
-    local maxOnWave=1
-    if waveNumber==1 then
-        listID={  -- скелетов по 5
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+    local listID = {}
+    local maxOnWave = 1
+    if waveNumber == 1 then
+        listID = {  -- скелетов по 5
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
         }
-        maxOnWave=5
+        maxOnWave = 5
     end
 
-    if waveNumber==2 then
-        listID={  --
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+    if waveNumber == 2 then
+        listID = {  --
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             FourCC("nsko"),
         }
-        maxOnWave=5
+        maxOnWave = 5
     end
-    if waveNumber==3 then
-        listID={  -- скелетов по 5
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+    if waveNumber == 3 then
+        listID = {  -- скелетов по 5
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
             --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
         }
-        maxOnWave=4
+        maxOnWave = 4
     end
 
-    if waveNumber==4 then
-        listID={  -- Очень много жуков
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+    if waveNumber == 4 then
+        listID = {  -- Очень много жуков
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
         }
-        maxOnWave=10
+        maxOnWave = 10
     end
 
-    if waveNumber==5 then
-        listID={  -- Пуджи
-            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
-            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
-            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
-            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+    if waveNumber == 5 then
+        listID = {  -- Пуджи
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
         }
-        maxOnWave=3
+        maxOnWave = 3
     end
 
-    if waveNumber==6 then
-        listID={  -- некроманты
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
+    if waveNumber == 6 then
+        listID = {  -- некроманты
+            FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"),
+            FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"),
         }
-        maxOnWave=5
+        maxOnWave = 5
     end
 
-    if waveNumber==7 then
-        listID={
-            FourCC("uabo"),FourCC("uabo"),FourCC("unec"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("uabo"),FourCC("uabo"),FourCC("unec"),
-            FourCC("uabo"),FourCC("uabo"),FourCC("unec"),
-            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+    if waveNumber == 7 then
+        listID = {
+            FourCC("uabo"), FourCC("uabo"), FourCC("unec"),
+            FourCC("unec"), FourCC("unec"), FourCC("unec"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("unec"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("unec"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
         }
-        maxOnWave=3
+        maxOnWave = 3
     end
-    if waveNumber==8 then
-        listID={
+    if waveNumber == 8 then
+        listID = {
             FourCC("uabo"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
-            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
-            FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
             FourCC("ucs1"),
         }
-        maxOnWave=9
+        maxOnWave = 9
     end
-    if waveNumber==9 then
-        listID={
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+    if waveNumber == 9 then
+        listID = {
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
         }
-        maxOnWave=20
+        maxOnWave = 20
     end
-    if waveNumber==10 then
-        listID={
-            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+    if waveNumber == 10 then
+        listID = {
+            FourCC("unec"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("unec"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("unec"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("unec"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
         }
-        maxOnWave=4
+        maxOnWave = 4
     end
-    if waveNumber==11 then
-        listID={
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
-            FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),FourCC("ucs1"),
+    if waveNumber == 11 then
+        listID = {
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
         }
-        maxOnWave=9
+        maxOnWave = 9
     end
-    if waveNumber==12 then
-        listID={
-                FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-                FourCC("unec"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
-                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
-                FourCC("unec"),FourCC("unec"),FourCC("unec"),
+    if waveNumber == 12 then
+        listID = {
+            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("unec"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("unec"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("unec"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+            FourCC("unec"), FourCC("unec"), FourCC("unec"),
         }
-        maxOnWave=5
+        maxOnWave = 5
     end
-    if waveNumber==13 then
-        listID={
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+    if waveNumber == 13 then
+        listID = {
+            FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+            FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+            FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+            FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+            FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
 
         }
-        maxOnWave=5
+        maxOnWave = 5
     end
-    if waveNumber==14 then
-        listID={
-                FourCC("uzig"),FourCC("uzig")
+    if waveNumber == 14 then
+        listID = {
+            FourCC("uzig"), FourCC("uzig")
         }
-        maxOnWave=2
+        maxOnWave = 2
     end
-    if waveNumber==15 then
-        listID={
-            FourCC("uzig"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("uzig"),FourCC("n000"),FourCC("n000"),
+    if waveNumber == 15 then
+        listID = {
+            FourCC("uzig"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+            FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"),
+            FourCC("uzig"), FourCC("n000"), FourCC("n000"),
         }
-        maxOnWave=4
+        maxOnWave = 4
     end
-    if waveNumber==16 then
-        listID={
-            FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("n000"),FourCC("n000"),FourCC("n000"),
+    if waveNumber == 16 then
+        listID = {
+            FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+            FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"),
+            FourCC("n000"), FourCC("n000"), FourCC("n000"),
         }
-        maxOnWave=4
+        maxOnWave = 4
     end
-    if waveNumber==17 then
-        listID={
-            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+    if waveNumber == 17 then
+        listID = {
+            FourCC("uzig"), FourCC("nsko"), FourCC("nsko"),
+            FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"),
+            FourCC("uzig"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
         }
-        maxOnWave=4
+        maxOnWave = 4
     end
-    if waveNumber==18 then
-        listID={
-            FourCC("nsko"),FourCC("nsko"),
-            FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),FourCC("unec"),
-            FourCC("uzig"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
+    if waveNumber == 18 then
+        listID = {
+            FourCC("nsko"), FourCC("nsko"),
+            FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"),
+            FourCC("uzig"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
         }
-        maxOnWave=7
+        maxOnWave = 7
     end
-    if waveNumber==19 then
-        listID={
-            FourCC("u000"),FourCC("u000"),FourCC("unec"),FourCC("unec"),FourCC("n000"),
-            FourCC("u000"),FourCC("u000"),FourCC("unec"),FourCC("unec"),FourCC("n000"),
-            FourCC("u000"),FourCC("u000"),FourCC("unec"),FourCC("unec"),FourCC("n000")
+    if waveNumber == 19 then
+        listID = {
+            FourCC("u000"), FourCC("u000"), FourCC("unec"), FourCC("unec"), FourCC("n000"),
+            FourCC("u000"), FourCC("u000"), FourCC("unec"), FourCC("unec"), FourCC("n000"),
+            FourCC("u000"), FourCC("u000"), FourCC("unec"), FourCC("unec"), FourCC("n000")
         }
-        maxOnWave=5
+        maxOnWave = 5
     end
-    if waveNumber==20 then
-        listID={
-            FourCC("u000"),FourCC("u000"),FourCC("u000"),
-            FourCC("u000"),FourCC("u000"),FourCC("u000"),
-            FourCC("u000"),FourCC("u000"),FourCC("u000")
+    if waveNumber == 20 then
+        listID = {
+            FourCC("u000"), FourCC("u000"), FourCC("u000"),
+            FourCC("u000"), FourCC("u000"), FourCC("u000"),
+            FourCC("u000"), FourCC("u000"), FourCC("u000")
         }
-        maxOnWave=3
+        maxOnWave = 3
     end
 
-    if waveNumber==401 then
-        listID={
+    if waveNumber == 401 then
+        listID = {
             FourCC("uobs")
         }
-        maxOnWave=1
+        maxOnWave = 1
     end
 
     if listID[1] then
-        StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,maxOnWave)
+        StartWave(GameZone[Destiny[CurrentGameZone]], listID, maxOnWave)
     else
-        listID={FourCC("nsko")}
-        StartWave(GameZone[Destiny[CurrentGameZone]].rectSpawn,listID,1)
+        listID = { FourCC("nsko") }
+        StartWave(GameZone[Destiny[CurrentGameZone]], listID, 1)
         --print("В волне врагов "..waveNumber..", нет ни одного ID, так и задумано?")
     end
 end
 
-LiveOnWave=0-- живые на волне
-CurrentOnWave=0
+LiveOnWave = 0-- живые на волне
+CurrentOnWave = 0
 
 function GetActiveCountPlayer()
-    local k=0
+    local k = 0
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            local data=HERO[i]
-            local hero=data.UnitHero
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
+            local hero = data.UnitHero
             --local x,y=GetUnitXY(hero)
-            if  UnitAlive(hero) then
-                k=k+1
+            if UnitAlive(hero) or data.life>0 then
+                k = k + 1
             end
 
         end
@@ -2022,72 +2205,86 @@ function GetActiveCountPlayer()
     return k
 end
 
-function StartWave(rect,listID,max)
+function StartWave(dataGZ, listID, max)
     -- print("start wave "..max)
-    local CountPlayers=GetActiveCountPlayer()
-    if CountPlayers>=2 then
-        for _=2,CountPlayers do
-            for i=1,#listID do
-                table.insert(listID,listID[i])
+    local rect=dataGZ.rectSpawn
+    local CountPlayers = GetActiveCountPlayer()
+    if CountPlayers >= 2 then
+        for _ = 2, CountPlayers do
+            for i = 1, #listID do
+                table.insert(listID, listID[i])
             end
         end
     end
 
-    local MaxOnWave=#listID
-    LiveOnWave=0
+    local MaxOnWave = #listID
+    LiveOnWave = 0
     --CurrentOnWave=max
-    local k=1
+    local k = 1
     --print(0)
     for i = 1, max do
-        local loc=GetRandomLocInRect(rect)
-        local x,y=GetLocationX(loc),GetLocationY(loc)
-        CreateCreepDelay(listID[k],x,y,0.9,k)
+        local loc = GetRandomLocInRect(rect)
+        local x, y = GetLocationX(loc), GetLocationY(loc)
+        if dataGZ.x[1] then --существует хотя бы первый элемент
+            --print("есть ручные точки спавна "..#(dataGZ.x))
+            local m=GetRandomInt(1,#(dataGZ.x))
+            if dataGZ.x[m] then
+                x,y=dataGZ.x[m],dataGZ.y[m]
+            else
+                print("Ошибка, не могу получить координаты "..m)
+            end
+        end
+        CreateCreepDelay(listID[k], x, y, 0.9, k)
         --MaxOnWave=MaxOnWave-1
-        k=k+1
+        k = k + 1
     end
-    TimerStart(CreateTimer(),1, true, function()
+    TimerStart(CreateTimer(), 1, true, function()
         --if LiveOnWave<max-1 and k<=MaxOnWave then
 
 
-            --local loc=GetRandomLocInRect(rect)
-            --local x,y=GetLocationX(loc),GetLocationY(loc)
-            --CreateCreepDelay(listID[k],x,y,1.5,k)
-            --k=k+1
-            for i = 1, max do
-                if LiveOnWave<=max-1 and k<=MaxOnWave then
-                    --print("убит из пачки, создаём следующего"..k)
-                    local loc=GetRandomLocInRect(rect)
-                    local x,y=GetLocationX(loc),GetLocationY(loc)
-                    CreateCreepDelay(listID[k],x,y,0.9,k)
-                    --MaxOnWave=MaxOnWave-1
-                    k=k+1
+        --local loc=GetRandomLocInRect(rect)
+        --local x,y=GetLocationX(loc),GetLocationY(loc)
+        --CreateCreepDelay(listID[k],x,y,1.5,k)
+        --k=k+1
+        for i = 1, max do
+            if LiveOnWave <= max - 1 and k <= MaxOnWave then
+                --print("убит из пачки, создаём следующего"..k)
+                local loc = GetRandomLocInRect(rect)
+                local x, y = GetLocationX(loc), GetLocationY(loc)
+                if dataGZ.x[1] then --существует хотя бы первый элемент
+                    local m=GetRandomInt(1,#(dataGZ.x))
+                    x,y=dataGZ.x[m],dataGZ.y[m]
                 end
+                CreateCreepDelay(listID[k], x, y, 0.9, k)
+                --MaxOnWave=MaxOnWave-1
+                k = k + 1
             end
-       -- end
-        if LiveOnWave<=0 and k>=max then
+        end
+        -- end
+        if LiveOnWave <= 0 and k >= max then
             --print("все убиты даём награду")
-            local x,y=GetRectCenterX(rect),GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
-            CreateGodTalon(x,y,GLOBAL_REWARD)
+            local x, y = GetRectCenterX(rect), GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
+            CreateGodTalon(x, y, GLOBAL_REWARD)
             ReviveAllHero()
             DestroyTimer(GetExpiredTimer())
         end
     end)
 end
 
-function CreateCreepDelay(id,x,y,delay,flag)
-    local eff=AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl",x,y)
-    if flag~="summon" then
-        LiveOnWave=LiveOnWave+1
+function CreateCreepDelay(id, x, y, delay, flag)
+    local eff = AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl", x, y)
+    if flag ~= "summon" then
+        LiveOnWave = LiveOnWave + 1
     end
-    TimerStart(CreateTimer(),delay, false, function()
+    TimerStart(CreateTimer(), delay, false, function()
         --print("create new")
-        local new=CreateUnit(Player(10),id,x,y,GetRandomInt(0,360))
-        if flag~="summon" then
+        local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
+        if flag ~= "summon" then
             DestroyEffect(eff)
-            TimerStart(CreateTimer(),delay, true, function()
+            TimerStart(CreateTimer(), delay, true, function()
                 if not UnitAlive(new) then
                     DestroyTimer(GetExpiredTimer())
-                    LiveOnWave=LiveOnWave-1
+                    LiveOnWave = LiveOnWave - 1
                 end
                 --print(LiveOnWave[k])
             end)
@@ -2437,7 +2634,9 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
     local data=HERO[pid-1]
     local talon=GlobalTalons[pid][godName][pos]
     local x,y,size=0.02,0.015,0.03
-    print(GetPlayerName(Player(pid)).. " выбрал "..talon.name.." уровень "..talon.level)
+    if GetActiveCountPlayer()>1 then
+        print(GetPlayerName(Player(pid-1)).. " выбрал "..talon.name.." уровень "..talon.level)
+    end
     if godName=="Trall" and  talon.level==1 then
         if pos==1 then
             CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil,"chargeAttackLight")
@@ -3716,7 +3915,7 @@ function CreateGoldInterFace(data)
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetText(text, "0")
     BlzFrameSetScale(text, 2)
-    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, GoldFrame, FRAMEPOINT_RIGHT, 0.015, 0.0)
+    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, GoldFrame, FRAMEPOINT_RIGHT, 0.02, 0.0)
     BlzFrameSetVisible(text, GetLocalPlayer() == Player(data.pid))
     data.GoldTextFH=text
 end
@@ -3744,7 +3943,7 @@ function RemoveLife(data)
     data.life=data.life-1
     --print("потеря жизни")
     if data.life<0 then
-        if GetActiveCountPlayer()>1 then
+        if GetActiveCountPlayer()>=1 then
             print("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате")
         else
             TimerStart(CreateTimer(),3, false, function()
@@ -3944,6 +4143,7 @@ function CreationPeonsForAllPlayer()
             UnitAddAbility(hero,FourCC("abun"))
             UnitAddAbility(hero,FourCC("Abun"))
             UnitAddAbility(hero,FourCC("AInv"))
+            AddSpecialEffectTarget("war3mapImported\\Light",hero,"origin")
             --print("толкаем")
             UnitAddForceSimple(hero, 0, 10, 10)
             --print("1")
@@ -4291,7 +4491,7 @@ function SpawnZombie(unit)
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
-            if not IsUnitPaused(unit) then
+            if not IsUnitStunned(unit) then
                 local new =CreateUnit(GetOwningPlayer(unit),FourCC("nzom"),GetUnitX(unit),GetUnitY(unit),0)
                 local hero=GetRandomEnemyHero()
                 UnitApplyTimedLife(new, FourCC('BTLF'), 20)
@@ -7806,23 +8006,11 @@ function InitTrig_FFF()
     TriggerAddAction(gg_trg_FFF, Trig_FFF_Actions)
 end
 
-function Trig_TrapTest_Func001A()
-    KillDestructable(GetEnumDestructable())
-end
-
-function Trig_TrapTest_Func002A()
-    KillUnit(GetEnumUnit())
-    DisableTrigger(GetTriggeringTrigger())
-end
-
 function Trig_TrapTest_Actions()
-    EnumDestructablesInRectAll(gg_rct_TrapTest, Trig_TrapTest_Func001A)
-    ForGroupBJ(GetUnitsInRectAll(gg_rct_TrapTest), Trig_TrapTest_Func002A)
 end
 
 function InitTrig_TrapTest()
     gg_trg_TrapTest = CreateTrigger()
-    TriggerRegisterEnterRectSimple(gg_trg_TrapTest, gg_rct_TrapTest)
     TriggerAddAction(gg_trg_TrapTest, Trig_TrapTest_Actions)
 end
 
@@ -7844,11 +8032,26 @@ function InitTrig_UPUP()
     TriggerAddAction(gg_trg_UPUP, Trig_UPUP_Actions)
 end
 
+function Trig_Melee_Initialization_Actions()
+    SetTimeOfDay(1.00)
+    SetTimeOfDayScalePercentBJ(0.00)
+end
+
+function InitTrig_Melee_Initialization()
+    gg_trg_Melee_Initialization = CreateTrigger()
+    TriggerAddAction(gg_trg_Melee_Initialization, Trig_Melee_Initialization_Actions)
+end
+
 function InitCustomTriggers()
     InitTrig_FFF()
     InitTrig_TrapTest()
     InitTrig_DDDD()
     InitTrig_UPUP()
+    InitTrig_Melee_Initialization()
+end
+
+function RunInitializationTriggers()
+    ConditionalTriggerExecute(gg_trg_Melee_Initialization)
 end
 
 function InitCustomPlayerSlots()
@@ -7924,8 +8127,6 @@ end
 function main()
     SetCameraBounds(512.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -26624.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 25088.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -2048.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 512.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -2048.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 25088.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -26624.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
     SetDayNightModels("Environment\\DNC\\DNCLordaeron\\DNCLordaeronTerrain\\DNCLordaeronTerrain.mdl", "Environment\\DNC\\DNCLordaeron\\DNCLordaeronUnit\\DNCLordaeronUnit.mdl")
-    SetTerrainFogEx(0, 2000.0, 6000.0, 1.000, 0.706, 0.863, 0.824)
-    SetWaterBaseColor(128, 200, 200, 255)
     NewSoundEnvironment("Default")
     SetAmbientDaySound("SunkenRuinsDay")
     SetAmbientNightSound("SunkenRuinsNight")
@@ -7936,11 +8137,12 @@ function main()
     InitBlizzard()
     InitGlobals()
     InitCustomTriggers()
+    RunInitializationTriggers()
 end
 
 function config()
-    SetMapName("TRIGSTR_001")
-    SetMapDescription("TRIGSTR_003")
+    SetMapName("")
+    SetMapDescription("")
     SetPlayers(4)
     SetTeams(4)
     SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)

@@ -334,7 +334,7 @@ function SpawnZombie(unit)
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
-            if not IsUnitPaused(unit) then
+            if not IsUnitStunned(unit) then
                 local new =CreateUnit(GetOwningPlayer(unit),FourCC("nzom"),GetUnitX(unit),GetUnitY(unit),0)
                 local hero=GetRandomEnemyHero()
                 UnitApplyTimedLife(new, FourCC('BTLF'), 20)

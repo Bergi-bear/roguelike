@@ -300,6 +300,10 @@ function CreateEActions()
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 if not FirstGoto then
                     FirstGoto=true
+                    TimerStart(CreateTimer(),2, false, function()
+                        --SetDayNightModels("DNCLordaeron","DNCLordaeron")
+                        SetDayNightModels("","")
+                    end)
                 else
                     DestroyDecorInArea(data, 400)
                 end
@@ -644,6 +648,8 @@ function DestroyDecorInArea(data, range)
     local x, y = GetUnitXY(data.UnitHero)
     SetRect(GlobalRect, x - range, y - range, x + range, y + range)
     EnumDestructablesInRect(GlobalRect, nil, function()
-        KillDestructable(GetEnumDestructable())
+        if GetDestructableTypeId(GetEnumDestructable())==FourCC('B000') then --каменная дверь для точек выхода
+            KillDestructable(GetEnumDestructable())
+        end
     end)
 end

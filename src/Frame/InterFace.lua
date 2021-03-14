@@ -55,7 +55,7 @@ function CreateGoldInterFace(data)
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetText(text, "0")
     BlzFrameSetScale(text, 2)
-    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, GoldFrame, FRAMEPOINT_RIGHT, 0.015, 0.0)
+    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, GoldFrame, FRAMEPOINT_RIGHT, 0.02, 0.0)
     BlzFrameSetVisible(text, GetLocalPlayer() == Player(data.pid))
     data.GoldTextFH=text
 end
@@ -83,7 +83,7 @@ function RemoveLife(data)
     data.life=data.life-1
     --print("потеря жизни")
     if data.life<0 then
-        if GetActiveCountPlayer()>1 then
+        if GetActiveCountPlayer()>=1 then
             print("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате")
         else
             TimerStart(CreateTimer(),3, false, function()
