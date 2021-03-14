@@ -89,7 +89,7 @@ function CreateUnitsForPlayer0()
     local t
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14009.9, -9536.5, 106.153, FourCC("hfoo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18795.7, -13620.8, 104.626, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18796.6, -13588.6, 104.626, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 15548.9, -9742.5, 106.153, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14205.1, -12158.3, 106.153, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23097.5, -7426.9, 106.153, FourCC("hfoo"))
@@ -129,6 +129,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18157.3, -13522.6, 53.890, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17867.1, -13580.5, 358.484, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17879.9, -13417.8, 23.588, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15620.7, -6529.8, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14462.1, -12665.1, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14464.5, -12809.1, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14466.7, -12939.5, 0.000, FourCC("hkni"))
@@ -187,9 +188,32 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23580.5, -12626.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23380.4, -12780.0, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 13649.5, -16152.2, 355.219, FourCC("hsor"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 6327.8, -8068.8, 172.426, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 11775.6, -20471.3, 256.956, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14192.1, -16465.8, 175.943, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14585.9, -15306.1, 264.587, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15730.0, -6534.2, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15619.2, -6651.9, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15737.3, -6650.8, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15618.8, -6765.9, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15736.5, -6764.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15620.5, -6300.0, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15733.9, -6302.2, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15625.5, -6183.0, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15733.1, -6185.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15627.8, -6070.7, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15733.9, -6070.0, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 11777.7, -20990.6, 256.956, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 10927.0, -20484.1, 175.249, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 10925.1, -20978.1, 180.773, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 11509.3, -16430.6, 125.541, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 11002.4, -16422.7, 39.093, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17455.3, -16170.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17568.0, -16168.3, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17453.6, -16050.9, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17565.8, -16048.4, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 19560.9, -16098.3, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 19561.7, -16235.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 19558.9, -16377.7, 0.000, FourCC("hkni"))
 end
 
 function CreateNeutralHostile()
@@ -227,8 +251,8 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 6609.1, -6318.2, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14723.3, -11742.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15593.5, -12742.6, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13129.0, -8520.1, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13965.7, -8500.0, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13131.3, -8512.6, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13959.3, -8504.1, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15444.4, -5707.6, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22838.9, -2647.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19460.5, -6346.2, 296.730, FourCC("hdhw"))
@@ -345,10 +369,8 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22842.3, -8180.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22888.7, -8426.6, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23373.2, -8321.9, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23147.0, -7921.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23613.3, -8129.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23616.3, -7810.6, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23122.6, -7545.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23434.5, -7573.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23706.2, -7275.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23198.1, -7136.7, 247.300, FourCC("e001"))
@@ -458,13 +480,27 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11511.0, -16108.2, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11709.4, -16488.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11883.8, -16724.0, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 12105.0, -16254.8, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11881.3, -15637.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 12202.7, -15677.9, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 12371.9, -16015.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 12445.7, -16333.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 12044.9, -15957.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 10571.0, -15381.1, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10383.3, -19213.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10318.2, -19676.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10349.9, -20409.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10257.9, -20751.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10475.2, -20068.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10696.3, -20476.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10851.1, -20979.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11989.1, -20970.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 12034.7, -20629.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 12040.1, -20090.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11836.7, -19636.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11248.9, -19639.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 12065.8, -19235.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11265.3, -19153.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10804.9, -19691.0, 247.300, FourCC("e001"))
 end
 
 function CreatePlayerBuildings()
@@ -511,7 +547,7 @@ function CreateRegions()
     gg_rct_B9A = Rect(22144.0, -4448.0, 22624.0, -3072.0)
     gg_rct_S10A = Rect(21696.0, -8576.0, 23840.0, -6432.0)
     gg_rct_B10A = Rect(22528.0, -8128.0, 23008.0, -6816.0)
-    gg_rct_S11A = Rect(21344.0, -11232.0, 22752.0, -9920.0)
+    gg_rct_S11A = Rect(21344.0, -11232.0, 22752.0, -9280.0)
     gg_rct_B11A = Rect(21984.0, -10816.0, 22112.0, -10336.0)
     gg_rct_E11A = Rect(21504.0, -11648.0, 21792.0, -11040.0)
     gg_rct_S12A = Rect(20736.0, -13728.0, 22016.0, -12640.0)
@@ -533,13 +569,13 @@ function CreateRegions()
     gg_rct_B16A = Rect(17344.0, -16320.0, 17472.0, -15840.0)
     gg_rct_E16A = Rect(16896.0, -17152.0, 17184.0, -16608.0)
     gg_rct_S17A = Rect(13536.0, -16896.0, 15168.0, -14112.0)
-    gg_rct_B17A = Rect(14368.0, -16416.0, 14496.0, -15936.0)
+    gg_rct_B17A = Rect(14368.0, -16416.0, 14496.0, -15808.0)
     gg_rct_E17A = Rect(13952.0, -17280.0, 14240.0, -16640.0)
     gg_rct_B18A = Rect(10752.0, -16512.0, 11936.0, -15840.0)
     gg_rct_S18A = Rect(10080.0, -16992.0, 12672.0, -15360.0)
     gg_rct_E18A = Rect(10272.0, -17376.0, 10624.0, -16736.0)
     gg_rct_E19A = Rect(9536.0, -20896.0, 10080.0, -20480.0)
-    gg_rct_S19A = Rect(10112.0, -20992.0, 12128.0, -18944.0)
+    gg_rct_S19A = Rect(9856.0, -21056.0, 12224.0, -18944.0)
     gg_rct_B19A = Rect(10688.0, -20640.0, 11552.0, -19232.0)
     gg_rct_E20A = Rect(13696.0, -20608.0, 14240.0, -20192.0)
     gg_rct_S20A = Rect(14272.0, -20928.0, 16288.0, -18880.0)
@@ -1825,6 +1861,7 @@ function InitHealPoint()
     --print(k)
     for i=1,k do
         local u=unitTable[i]
+        SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
         CreateEnterPoint(x,y,"        Выпить", 'Heal', true)
@@ -2374,6 +2411,17 @@ function CreateCreepDelay(id, x, y, delay, flag)
     local eff = AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl", x, y)
     if flag ~= "summon" then
         LiveOnWave = LiveOnWave + 1
+    else
+        local dataGZ=GameZone[Destiny[CurrentGameZone]]
+        if dataGZ.x[1] then --существует хотя бы первый элемент
+            --print("есть ручные точки спавна "..#(dataGZ.x))
+            local m=GetRandomInt(1,#(dataGZ.x))
+            if dataGZ.x[m] then
+                x,y=dataGZ.x[m],dataGZ.y[m]
+            else
+                print("Ошибка, не могу получить координаты "..m)
+            end
+        end
     end
     TimerStart(CreateTimer(), delay, false, function()
         --print("create new")
@@ -3040,6 +3088,7 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             data.QJump2Pointer=true
         end
         if pos==10 then
+            --print("изучено отбитие снарядов")
             data.DestroyMissile=false
         end
 
@@ -3588,6 +3637,15 @@ do
                             tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
                             DS={3}
                         }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = "Пространственный клеп",
+                            description = "Мощный удар делает рывок область курсора ",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            DS={3}
+                        }),
                         Talon:new({--10
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
                             name = "Мертвый бассейн",
@@ -3595,7 +3653,7 @@ do
                             level = 0,
                             rarity = "epic",
                             tooltip = "Снаряд полетит в позицию врага, в которой он находился в момент отражения",
-                            DS={""}
+                            DS={1}
                         }),
                     }
                 }
@@ -8243,8 +8301,8 @@ function main()
 end
 
 function config()
-    SetMapName("")
-    SetMapDescription("")
+    SetMapName("TRIGSTR_223")
+    SetMapDescription("TRIGSTR_225")
     SetPlayers(4)
     SetTeams(4)
     SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)

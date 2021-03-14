@@ -297,7 +297,7 @@ function NecroAttackAndArrow(unit)
                     --SetUnitTimeScale(unit,0.7)
                     SetUnitFacing(unit,angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
-                        CreateAndForceBullet(unit,angle,20,"Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl",nil,nil,50,3000)
+                        CreateAndForceBullet(unit,angle,10,"Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl",nil,nil,50,3000)
                         BlzPauseUnitEx(unit,false)
                     end)
                 else

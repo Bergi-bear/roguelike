@@ -406,6 +406,15 @@ do
                             tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
                             DS={3}
                         }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = "Пространственный клеп",
+                            description = "Мощный удар делает рывок область курсора ",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            DS={3}
+                        }),
                         Talon:new({--10
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
                             name = "Мертвый бассейн",

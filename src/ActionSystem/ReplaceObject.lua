@@ -10,6 +10,7 @@ function InitHealPoint()
     --print(k)
     for i=1,k do
         local u=unitTable[i]
+        SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
         CreateEnterPoint(x,y,"        Выпить", 'Heal', true)

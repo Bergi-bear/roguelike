@@ -192,7 +192,9 @@ function MoveAllHeroAndBound(recEnter, rectBound)
     local x, y = GetRectCenterX(recEnter), GetRectCenterY(recEnter)
     local x2, y2 = GetRectCenterX(rectBound), GetRectCenterY(rectBound)
     EnumDestructablesInRect(recEnter, nil, function()
-        KillDestructable(GetEnumDestructable())
+        if GetDestructableTypeId(GetEnumDestructable())==FourCC('B000') then --каменная дверь для точек выхода
+            KillDestructable(GetEnumDestructable())
+        end
     end)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
@@ -513,6 +515,17 @@ function CreateCreepDelay(id, x, y, delay, flag)
     local eff = AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl", x, y)
     if flag ~= "summon" then
         LiveOnWave = LiveOnWave + 1
+    else
+        local dataGZ=GameZone[Destiny[CurrentGameZone]]
+        if dataGZ.x[1] then --существует хотя бы первый элемент
+            --print("есть ручные точки спавна "..#(dataGZ.x))
+            local m=GetRandomInt(1,#(dataGZ.x))
+            if dataGZ.x[m] then
+                x,y=dataGZ.x[m],dataGZ.y[m]
+            else
+                print("Ошибка, не могу получить координаты "..m)
+            end
+        end
     end
     TimerStart(CreateTimer(), delay, false, function()
         --print("create new")
