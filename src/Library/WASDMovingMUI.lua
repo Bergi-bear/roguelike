@@ -8,19 +8,7 @@
 --- Created by Bergi.
 --- DateTime: 21.10.2020 0:13
 FREE_CAMERA=false
-do
-    WLD={ --Белый лист из дестрактаблей
-        [1]=FourCC('YTfc'),
-        [2]=FourCC('YTLb'),
-        [3]=FourCC('YtLc'),
-        [4]=FourCC('YTac'),
-        [5]=FourCC('YTpc'),
-        [6]=FourCC('YTab'),
-        [7]=FourCC('YTfb'),
-        [8]=FourCC('YTpb'),
 
-    }
-end
 
 do
     local InitGlobalsOrigin = InitGlobals

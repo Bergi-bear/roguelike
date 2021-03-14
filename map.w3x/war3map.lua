@@ -2090,7 +2090,9 @@ function MoveAllHeroAndBound(recEnter, rectBound)
     local x, y = GetRectCenterX(recEnter), GetRectCenterY(recEnter)
     local x2, y2 = GetRectCenterX(rectBound), GetRectCenterY(rectBound)
     EnumDestructablesInRect(recEnter, nil, function()
-        KillDestructable(GetEnumDestructable())
+        if GetDestructableTypeId(GetEnumDestructable())==FourCC('B000') then --каменная дверь для точек выхода
+            KillDestructable(GetEnumDestructable())
+        end
     end)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
@@ -4611,7 +4613,7 @@ function NecroAttackAndArrow(unit)
                     --SetUnitTimeScale(unit,0.7)
                     SetUnitFacing(unit,angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
-                        CreateAndForceBullet(unit,angle,20,"Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl",nil,nil,50,3000)
+                        CreateAndForceBullet(unit,angle,10,"Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl",nil,nil,50,3000)
                         BlzPauseUnitEx(unit,false)
                     end)
                 else
@@ -4627,7 +4629,7 @@ end
 
 Bugs=CreateGroup()
 function SinergyBug(unit)
-
+--[[
     GroupAddUnit(Bugs,unit)
     TimerStart(CreateTimer(), 1, true, function()
         if not UnitAlive(unit) then
@@ -4638,7 +4640,8 @@ function SinergyBug(unit)
             end)
         end
     end)
-
+]]
+    IssuePointOrder(unit,"attack",GetUnitXY(GetRandomEnemyHero()))
 end
 
 function SpawnZombie(unit)
@@ -4998,9 +5001,13 @@ end
 --- DateTime: 18.02.2021 0:00
 ---
 do
-    TimerStart(CreateTimer(), 1, false, function()
-        CreateTaskForAllPlayer()
-    end)
+    local InitGlobalsOrigin = InitGlobals -- записываем InitGlobals в переменную
+    function InitGlobals()
+        InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
+        TimerStart(CreateTimer(), 1, false, function()
+            CreateTaskForAllPlayer()
+        end)
+    end
 end
 SimpleTaskPos = {}
 function CreateTaskForAllPlayer()
@@ -5982,16 +5989,21 @@ end
 --- DateTime: 12.02.2021 15:24
 ---
 do
-    TimerStart(CreateTimer(), .1, false, function()
-        HideEverything()
-        IsSystemON=true
-        InitCamControl()
-        --InitMouseMoveTrigger()
-        --MouseHider(3, 0) -- 0 для красного игрока
-        --CreateUI()
-        --RestoreMiniPap()
-    end)
+local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), .1, false, function()
+            HideEverything()
+            IsSystemON=true
+            InitCamControl()
+            --InitMouseMoveTrigger()
+            --MouseHider(3, 0) -- 0 для красного игрока
+            --CreateUI()
+            --RestoreMiniPap()
+        end)
+    end
 end
+
 function HideEverything()
     --BlzFrameSetVisible(BlzGetFrameByName("ConsoleUIBackdrop", 0), false)
     BlzFrameSetAbsPoint ( BlzGetFrameByName ( "ConsoleUIBackdrop" , 0 ) , FRAMEPOINT_TOPRIGHT , 0 , - 0,8 )
@@ -6765,19 +6777,7 @@ end
 --- Created by Bergi.
 --- DateTime: 21.10.2020 0:13
 FREE_CAMERA=false
-do
-    WLD={ --Белый лист из дестрактаблей
-        [1]=FourCC('YTfc'),
-        [2]=FourCC('YTLb'),
-        [3]=FourCC('YtLc'),
-        [4]=FourCC('YTac'),
-        [5]=FourCC('YTpc'),
-        [6]=FourCC('YTab'),
-        [7]=FourCC('YTfb'),
-        [8]=FourCC('YTpb'),
 
-    }
-end
 
 do
     local InitGlobalsOrigin = InitGlobals

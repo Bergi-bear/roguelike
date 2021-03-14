@@ -4,9 +4,13 @@
 --- DateTime: 18.02.2021 0:00
 ---
 do
-    TimerStart(CreateTimer(), 1, false, function()
-        CreateTaskForAllPlayer()
-    end)
+    local InitGlobalsOrigin = InitGlobals -- записываем InitGlobals в переменную
+    function InitGlobals()
+        InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
+        TimerStart(CreateTimer(), 1, false, function()
+            CreateTaskForAllPlayer()
+        end)
+    end
 end
 SimpleTaskPos = {}
 function CreateTaskForAllPlayer()

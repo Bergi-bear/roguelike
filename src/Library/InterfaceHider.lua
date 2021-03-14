@@ -4,19 +4,24 @@
 --- DateTime: 12.02.2021 15:24
 ---
 do
-    TimerStart(CreateTimer(), .1, false, function()
-        HideEverything()
-        IsSystemON=true
-        InitCamControl()
-        --InitMouseMoveTrigger()
-        --MouseHider(3, 0) -- 0 для красного игрока
-        --CreateUI()
-        --RestoreMiniPap()
-    end)
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), .1, false, function()
+            HideEverything()
+            IsSystemON = true
+            InitCamControl()
+            --InitMouseMoveTrigger()
+            --MouseHider(3, 0) -- 0 для красного игрока
+            --CreateUI()
+            --RestoreMiniPap()
+        end)
+    end
 end
+
 function HideEverything()
     --BlzFrameSetVisible(BlzGetFrameByName("ConsoleUIBackdrop", 0), false)
-    BlzFrameSetAbsPoint ( BlzGetFrameByName ( "ConsoleUIBackdrop" , 0 ) , FRAMEPOINT_TOPRIGHT , 0 , - 0,8 )
+    BlzFrameSetAbsPoint(BlzGetFrameByName("ConsoleUIBackdrop", 0), FRAMEPOINT_TOPRIGHT, 0, -0, 8)
     for i = 0, 11 do
         --BlzFrameSetVisible(BlzGetFrameByName("CommandButton_"..i, 0), false) --отключить
         BlzFrameSetSize(BlzGetFrameByName("CommandButton_" .. i, 0), 0, 0)--скрыть, но работать будут по хоткеям
@@ -32,7 +37,6 @@ function ShowEverything()
     end
     BlzHideOriginFrames(false)--скрыть всё
 end
-
 
 CamZ = {}
 Step = 100 -- шаг подъёма камеры
@@ -110,12 +114,12 @@ function MouseHider(delay, pid)
 end
 
 function CreateUI()
-    ui={}
-    tt={}
-    ui[1]=CreateSimpleFrameGlue(0.02, 0.56,"ReplaceableTextures\\CommandButtons\\BTNPurge",1)
-    ui[2]=CreateSimpleFrameGlue(0.02+0.039, 0.56,"ReplaceableTextures\\CommandButtons\\BTNSpy",2)
-    ui[3]=CreateSimpleFrameGlue(0.02+0.039*2, 0.56,"ReplaceableTextures\\CommandButtons\\BTNCryptFiendUnBurrow",3)
-    tt[1],tt[2],tt[3]=CreateToolTipBox()
+    ui = {}
+    tt = {}
+    ui[1] = CreateSimpleFrameGlue(0.02, 0.56, "ReplaceableTextures\\CommandButtons\\BTNPurge", 1)
+    ui[2] = CreateSimpleFrameGlue(0.02 + 0.039, 0.56, "ReplaceableTextures\\CommandButtons\\BTNSpy", 2)
+    ui[3] = CreateSimpleFrameGlue(0.02 + 0.039 * 2, 0.56, "ReplaceableTextures\\CommandButtons\\BTNCryptFiendUnBurrow", 3)
+    tt[1], tt[2], tt[3] = CreateToolTipBox()
 
 end
 
@@ -139,26 +143,26 @@ function CreateSimpleFrameGlue(posX, PosY, texture, flag)
         -- print("Нажата кнопка ")
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-        if flag==1 then
+        if flag == 1 then
             ClearTextMessages()
         end
-        if flag==2 then
+        if flag == 2 then
             if mapIsVisible then
-                mapIsVisible=false
+                mapIsVisible = false
             else
-                mapIsVisible=true
+                mapIsVisible = true
             end
             BlzFrameSetVisible(map, mapIsVisible)
         end
-        if flag==3 then
+        if flag == 3 then
             if IsSystemON then
-                IsSystemON=false
-                mapIsVisible=true
+                IsSystemON = false
+                mapIsVisible = true
                 ShowEverything()
                 BlzFrameSetTexture(buttonIconFrame, "ReplaceableTextures\\CommandButtons\\BTNCryptFiendBurrow", 0, true)
             else
-                IsSystemON=true
-                mapIsVisible=false
+                IsSystemON = true
+                mapIsVisible = false
                 HideEverything()
                 BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
             end
@@ -169,56 +173,55 @@ function CreateSimpleFrameGlue(posX, PosY, texture, flag)
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
     TriggerAddAction(TrigMOUSE_ENTER, function()
         --print("показать подсказку "..flag)
-        mouseOnFrame=true
-        BlzFrameSetVisible(tt[1],true)
-        if flag==1 then
-            SetTooltipText(tt[3],"Очистить экран от сообщений")
-        elseif flag==2 then
-            SetTooltipText(tt[3],"Включить/выключить миникарту")
-        elseif flag==3 then
-            SetTooltipText(tt[3],"Включить/выключить интерфейс")
+        mouseOnFrame = true
+        BlzFrameSetVisible(tt[1], true)
+        if flag == 1 then
+            SetTooltipText(tt[3], "Очистить экран от сообщений")
+        elseif flag == 2 then
+            SetTooltipText(tt[3], "Включить/выключить миникарту")
+        elseif flag == 3 then
+            SetTooltipText(tt[3], "Включить/выключить интерфейс")
         end
 
     end)
     local TrigMOUSE_LEAVE = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, SelfFrame, FRAMEEVENT_MOUSE_LEAVE)
     TriggerAddAction(TrigMOUSE_LEAVE, function()
-        mouseOnFrame=false
-        BlzFrameSetVisible(tt[1],false)
+        mouseOnFrame = false
+        BlzFrameSetVisible(tt[1], false)
     end)
     return SelfFrame
 end
 
-
 function RestoreMiniPap()
-    map=BlzGetOriginFrame(ORIGIN_FRAME_MINIMAP, 0)
-    mapIsVisible=false
+    map = BlzGetOriginFrame(ORIGIN_FRAME_MINIMAP, 0)
+    mapIsVisible = false
     BlzFrameSetVisible(map, false)
 end
 
 function CustomUIShow(show)
-    for i=1,#ui do
-        BlzFrameSetVisible(ui[i],show)
+    for i = 1, #ui do
+        BlzFrameSetVisible(ui[i], show)
     end
 end
 
-mouseOnFrame=false
+mouseOnFrame = false
 --mainTooltip=nil
 function CreateToolTipBox()
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.04+0.04, 0.6-0.04-0.04)
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.04 + 0.04, 0.6 - 0.04 - 0.04)
     BlzFrameSetSize(tooltip, 0.2, 0.04)
     BlzFrameSetSize(backdrop, 0.2, 0.04)
     BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetAlpha(backdrop,100)
-    BlzFrameSetText(text,"Первичный текст")
+    BlzFrameSetAlpha(backdrop, 100)
+    BlzFrameSetText(text, "Первичный текст")
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetVisible(tooltip,false)
-    return tooltip,backdrop,text
+    BlzFrameSetVisible(tooltip, false)
+    return tooltip, backdrop, text
 end
 
-function SetTooltipText(text,tips)
-    BlzFrameSetText(text,tips)
+function SetTooltipText(text, tips)
+    BlzFrameSetText(text, tips)
 end

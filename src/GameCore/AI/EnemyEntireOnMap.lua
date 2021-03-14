@@ -313,7 +313,7 @@ end
 
 Bugs=CreateGroup()
 function SinergyBug(unit)
-
+--[[
     GroupAddUnit(Bugs,unit)
     TimerStart(CreateTimer(), 1, true, function()
         if not UnitAlive(unit) then
@@ -324,7 +324,8 @@ function SinergyBug(unit)
             end)
         end
     end)
-
+]]
+    IssuePointOrder(unit,"attack",GetUnitXY(GetRandomEnemyHero()))
 end
 
 function SpawnZombie(unit)
