@@ -11,6 +11,7 @@ do
         TimerStart(CreateTimer(), 2, false, function()
             ReplaceALLUnitId2PointExit(FourCC("hdhw"))
             InitHealPoint()
+            InitFireBallPoint() --это не экшен поинт
             CreateEActions()
             InitFinObjectInArea()
             AllActionsEnabled(true)

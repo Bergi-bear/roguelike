@@ -94,7 +94,7 @@ function RemoveLife(data)
                         if GetLocalPlayer()==Player(i) then
                             savedGold=gdata.gold
                         end
-                        print(GetPlayerName(Player(i)).. " унёс с собой "..gdata.gold.." золота ")
+                        print(GetPlayerName(Player(i)).. " унёс с собой "..R2I(gdata.gold).." золота ")
 
                         TimerStart(CreateTimer(),2, false, function()
                             CustomDefeatBJ(Player(i),"Поражение")

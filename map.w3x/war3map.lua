@@ -91,6 +91,9 @@ function CreateUnitsForPlayer0()
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14009.9, -9536.5, 106.153, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18795.7, -13620.8, 104.626, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 15548.9, -9742.5, 106.153, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14205.1, -12158.3, 106.153, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23097.5, -7426.9, 106.153, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23248.6, -2702.1, 106.153, FourCC("hfoo"))
 end
 
 function CreateUnitsForPlayer23()
@@ -183,6 +186,10 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23378.2, -12611.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23580.5, -12626.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23380.4, -12780.0, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 13649.5, -16152.2, -4.781, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 6327.8, -8068.8, 172.426, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14192.1, -16465.8, 175.943, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14585.9, -15306.1, 264.587, FourCC("hsor"))
 end
 
 function CreateNeutralHostile()
@@ -220,12 +227,12 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 6609.1, -6318.2, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14723.3, -11742.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15593.5, -12742.6, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13250.4, -8489.8, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14153.7, -8504.4, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15282.0, -5697.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13129.0, -8520.1, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13965.7, -8500.0, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15444.4, -5707.6, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22838.9, -2647.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19460.5, -6346.2, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20181.6, -7151.3, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20093.5, -6644.0, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18059.0, -10068.1, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18954.1, -10061.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18642.9, -12476.2, 296.730, FourCC("hdhw"))
@@ -241,8 +248,8 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20762.6, -12449.6, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21627.4, -12448.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14911.2, -6273.5, 350.440, FourCC("hfoo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13847.8, -15487.9, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14733.6, -15490.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14166.7, -15343.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15048.6, -15216.7, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16773.5, -15406.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 17658.9, -15422.6, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20351.1, -15620.7, 296.730, FourCC("hdhw"))
@@ -412,6 +419,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21161.0, -16802.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20951.0, -16568.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20722.5, -16819.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16526.3, -6118.2, 296.730, FourCC("hdhw"))
 end
 
 function CreatePlayerBuildings()
@@ -448,7 +456,7 @@ function CreateRegions()
     gg_rct_B5A = Rect(18528.0, -8256.0, 19392.0, -6848.0)
     gg_rct_E6A = Rect(15168.0, -7648.0, 15456.0, -7392.0)
     gg_rct_S6A = Rect(14208.0, -7680.0, 16608.0, -5696.0)
-    gg_rct_B6A = Rect(15232.0, -6880.0, 15648.0, -6432.0)
+    gg_rct_B6A = Rect(15232.0, -7008.0, 15648.0, -6368.0)
     gg_rct_E7A = Rect(14944.0, -4544.0, 15232.0, -4384.0)
     gg_rct_S7A = Rect(14848.0, -4576.0, 16288.0, -3584.0)
     gg_rct_B7A = Rect(15456.0, -4128.0, 15520.0, -3776.0)
@@ -1024,6 +1032,7 @@ do
         TimerStart(CreateTimer(), 2, false, function()
             ReplaceALLUnitId2PointExit(FourCC("hdhw"))
             InitHealPoint()
+            InitFireBallPoint() --это не экшен поинт
             CreateEActions()
             InitFinObjectInArea()
             AllActionsEnabled(true)
@@ -1670,23 +1679,6 @@ end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
---- DateTime: 08.03.2021 4:00
----
-function InitHealPoint()
-    local id=FourCC("hfoo")
-    local _,_,unitTable=FindUnitOfType(id)
-    local k=#unitTable
-    --print(k)
-    for i=1,k do
-        local u=unitTable[i]
-        local x,y=GetUnitXY(u)
-        SetUnitInvulnerable(u,true)
-        CreateEnterPoint(x,y,"        Выпить", 'Heal', true)
-    end
-end
----
---- Generated by EmmyLua(https://github.com/EmmyLua)
---- Created by Bergi.
 --- DateTime: 09.03.2021 2:43
 ---
 function CreateMerchantAndGoods(x,y)
@@ -1775,6 +1767,52 @@ function RegistrationAnyEntire()
             end)
         end
     end
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 08.03.2021 4:00
+---
+function InitHealPoint()
+    local id=FourCC("hfoo")
+    local _,_,unitTable=FindUnitOfType(id)
+    local k=#unitTable
+    --print(k)
+    for i=1,k do
+        local u=unitTable[i]
+        local x,y=GetUnitXY(u)
+        SetUnitInvulnerable(u,true)
+        CreateEnterPoint(x,y,"        Выпить", 'Heal', true)
+    end
+end
+
+
+
+
+function InitFireBallPoint()
+    local id=FourCC("hsor")
+    local _,_,unitTable=FindUnitOfType(id)
+    local k=#unitTable
+    --print(k)
+    for i=1,k do
+        local u=unitTable[i]
+        local x,y=GetUnitXY(u)
+        SetUnitInvulnerable(u,true)
+        ShowUnit(u,false)
+        AddSpecialEffect("Doodads\\Ashenvale\\Props\\Brazier\\Brazier",x,y)
+        CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
+        StartBulletInPeriod(u)
+    end
+end
+----------------------------------------------------
+----------------------Вспомогательные функции-------
+----------------------------------------------------
+function StartBulletInPeriod(unit)
+    TimerStart(CreateTimer(), 1, true, function()
+        local x,y=GetUnitXY(unit)
+        --x,y=MoveXY(x,y,100)
+        CreateAndForceBullet(unit,GetUnitFacing(unit),30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,100)
+    end)
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -1900,11 +1938,27 @@ function Enter2NewZone(flag)
                 end
                 --StartEnemyWave(5)
             else
-
                 TimerStart(CreateTimer(), 3, false, function()
-                    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                        CustomVictoryBJ(Player(i), true, true)
-                    end
+                    TimerStart(CreateTimer(),3, false, function()
+                        local savedGold=0
+                        for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+                            if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+                                local gdata=HERO[i]
+                                if GetLocalPlayer()==Player(i) then
+                                    savedGold=gdata.gold
+                                end
+                                print(GetPlayerName(Player(i)).. " унёс с собой "..R2I(gdata.gold).." золота ")
+
+                                TimerStart(CreateTimer(),2, false, function()
+                                    CustomVictoryBJ(Player(i), true, true)
+                                end)
+                            end
+                        end
+                        Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..R2I(savedGold).."\",0)".."\n//")
+                        PreloadGenEnd(SavePath)
+                        PreloadGenClear()
+                    end)
+
                 end)
                 -- print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
 
@@ -1986,7 +2040,7 @@ function StartEnemyWave(waveNumber)
             FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             FourCC("nsko"),
         }
-        maxOnWave = 5
+        maxOnWave = 3
     end
     if waveNumber == 3 then
         listID = {  -- скелетов по 5
@@ -3954,7 +4008,7 @@ function RemoveLife(data)
                         if GetLocalPlayer()==Player(i) then
                             savedGold=gdata.gold
                         end
-                        print(GetPlayerName(Player(i)).. " унёс с собой "..gdata.gold.." золота ")
+                        print(GetPlayerName(Player(i)).. " унёс с собой "..R2I(gdata.gold).." золота ")
 
                         TimerStart(CreateTimer(),2, false, function()
                             CustomDefeatBJ(Player(i),"Поражение")
@@ -5556,7 +5610,9 @@ function InitDeathEvent()
     TriggerAddAction(this, function()
         local u=GetTriggerUnit()
         local killer=GetKillingUnit()
-        if IsUnitType(killer,UNIT_TYPE_HERO) then
+
+        if GetPlayerController(GetOwningPlayer(killer))==MAP_CONTROL_USER then
+            killer=HERO[GetPlayerId(GetOwningPlayer(killer))].UnitHero
             RewardGoldForKill(killer)
         end
     end)

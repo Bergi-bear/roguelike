@@ -122,11 +122,27 @@ function Enter2NewZone(flag)
                 end
                 --StartEnemyWave(5)
             else
-
                 TimerStart(CreateTimer(), 3, false, function()
-                    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                        CustomVictoryBJ(Player(i), true, true)
-                    end
+                    TimerStart(CreateTimer(),3, false, function()
+                        local savedGold=0
+                        for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+                            if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+                                local gdata=HERO[i]
+                                if GetLocalPlayer()==Player(i) then
+                                    savedGold=gdata.gold
+                                end
+                                print(GetPlayerName(Player(i)).. " унёс с собой "..R2I(gdata.gold).." золота ")
+
+                                TimerStart(CreateTimer(),2, false, function()
+                                    CustomVictoryBJ(Player(i), true, true)
+                                end)
+                            end
+                        end
+                        Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..R2I(savedGold).."\",0)".."\n//")
+                        PreloadGenEnd(SavePath)
+                        PreloadGenClear()
+                    end)
+
                 end)
                 -- print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
 
@@ -208,7 +224,7 @@ function StartEnemyWave(waveNumber)
             FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             FourCC("nsko"),
         }
-        maxOnWave = 5
+        maxOnWave = 3
     end
     if waveNumber == 3 then
         listID = {  -- скелетов по 5

@@ -18,7 +18,9 @@ function InitDeathEvent()
     TriggerAddAction(this, function()
         local u=GetTriggerUnit()
         local killer=GetKillingUnit()
-        if IsUnitType(killer,UNIT_TYPE_HERO) then
+
+        if GetPlayerController(GetOwningPlayer(killer))==MAP_CONTROL_USER then
+            killer=HERO[GetPlayerId(GetOwningPlayer(killer))].UnitHero
             RewardGoldForKill(killer)
         end
     end)
