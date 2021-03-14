@@ -315,6 +315,7 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             data.QJump2Pointer=true
         end
         if pos==10 then
+            print("изучено отбитие снарядов")
             data.DestroyMissile=false
         end
 
