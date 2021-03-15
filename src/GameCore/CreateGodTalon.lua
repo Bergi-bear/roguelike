@@ -85,6 +85,7 @@ function DestroyGodTalon(table)
     DestroyEffect(table[2])
     KillDestructable(table[3])
     DestroyTextTag(table[4])
+    RemoveDestructable(table[3])
 end
 
 

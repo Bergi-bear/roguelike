@@ -9,8 +9,16 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 1, false, function()
             DrawInterFace()
+            ReturnFPS()
         end)
     end
+end
+
+function ReturnFPS()
+    BlzFrameSetVisible(BlzGetFrameByName("ResourceBarFrame",0),true)
+    local fps=BlzGetFrameByName("ResourceBarFrame",0)
+    BlzFrameClearAllPoints(fps)
+    BlzFrameSetAbsPoint(fps, FRAMEPOINT_CENTER, 0.9 ,0.61)
 end
 
 function DrawInterFace()

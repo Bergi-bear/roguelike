@@ -7,12 +7,19 @@ do
     local InitGlobalsOrigin = InitGlobals
     function InitGlobals()
         InitGlobalsOrigin()
+        PreloadigLags()
         TimerStart(CreateTimer(), 1, false, function()
             InitTrig_SyncLoadDone()
             InitPreloadStart()
         end)
     end
 end
+
+function PreloadigLags()
+    local temp=CreateUnit(Player(0),FourCC("uzig"),OutPoint,OutPoint,0)
+    KillUnit(temp)
+end
+
 
 function InitPreloadStart()
     --print("Start preload tester")

@@ -4,15 +4,6 @@
 --- DateTime: 03.06.2020 17:02
 ---
 
-do --Инициализация
-	TimerStart(CreateTimer(), 0.1, false, function()
-		--if BlzLoadTOCFile("SystemGeneric\\Main.toc") then
-		--print("успех")
-		--else
-			--print("провал загрузки ток кастом бара")
-		--end
-	end)
-end
 
 
 function CallingBarCreate(u,cd,text,support)
