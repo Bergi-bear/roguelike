@@ -8175,7 +8175,7 @@ function PlayUnitAnimationFromChat()
         end
         if GetEventPlayerChatString()=="dnc0" then
             print("смена днс на нормлаьную")
-            SetDayNightModels("dncundergroundterrain","dncundergroundterrain")
+            SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
             print("post")
             return
         end
@@ -8190,13 +8190,23 @@ function PlayUnitAnimationFromChat()
             return
         end
         if GetEventPlayerChatString()=="dnc3"  then
-            SetDayNightModels("dncundergroundterrainHD3","dncundergroundterrainHD3")
+            SetDayNightModels("dncundergroundterrainHDmdl3","dncundergroundterrainHDmdl3")
             print("dnc3")
             return
         end
         if GetEventPlayerChatString()=="dnc4" then
-            SetDayNightModels("dncundergroundterrainHD4","dncundergroundterrainHD4")
+            SetDayNightModels("dncundergroundterrainHDmdl4","dncundergroundterrainHDmdl4")
             print("dnc4")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc5" then
+            SetDayNightModels("dncundergroundterrainHDmdl5","dncundergroundterrainHDmdl5")
+            print("dnc5")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc6" then
+            SetDayNightModels("dncundergroundterrainHDmdl6","dncundergroundterrainHDmdl6")
+            print("dnc6")
             return
         end
         SetUnitAnimationByIndex(data.UnitHero,s)

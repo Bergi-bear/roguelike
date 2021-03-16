@@ -305,10 +305,10 @@ function CreateEActions()
                     FirstGoto=true
                     TimerStart(CreateTimer(),2, false, function()
                         --SetDayNightModels("DNCLordaeron","DNCLordaeron")
-                        SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
+                       -- SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
                         SetTimeOfDay(2)
-                        SetTimeOfDayScalePercentBJ(1000)
-                        --SetDayNightModels("","")
+                        SetTimeOfDayScalePercentBJ(0)
+                        SetDayNightModels("","")
                     end)
                 else
                     DestroyDecorInArea(data, 400)
