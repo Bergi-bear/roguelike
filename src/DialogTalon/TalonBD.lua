@@ -9,86 +9,90 @@ do
                     Trall = {--Тралл Провидец
                         [1] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-                            name = "Удар молнией",
-                            description = "Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500",
+                            name = L("Удар молнией","Lightning strike"),
+                            description = L("Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500","Every 4 normal strikes release a bolt of lightning that deals 50 DS damage to random enemies within a radius of 500"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов","Быстро нажимайте LMB чтобы совершить серию ударов"),
                             DS={3,4,5}
 
                         }),
                         [2] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
-                            name = "Громовая кирка",
-                            description = "Кирка отскакивает на DS случайных врагов",
+                            name = L("Громовая кирка","Thunder Pickaxe"),
+                            description = L("Кирка отскакивает на DS случайных врагов","Pickaxe bounces on DS random enemies"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку","Press the RMB in the specified direction to throw the pickaxe there"),
                             DS={2,3,4}
                         }),
                         [3] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
-                            name = "Волк компаньон",
-                            description = "Призывает автономного волка, сражающего на вашей стороне. Перезарядка возрождения DS сек.",
+                            name = L("Волк компаньон","The Wolf Companion"),
+                            description = L("Призывает автономного волка, сражающегося на вашей стороне. Перезарядка возрождения DS сек.","Summons an autonomous wolf fighting on your side. Respawn cooldown DS sec."),
                             level = 0,
                             rarity = "normal",
-                            tooltip = " Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед.",
+                            tooltip = L("Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед.","The wolf tries to attack a random target, and patrols the area around the hero. The wolf will be instantly teleported to if it moves away to a distance of more than 1000"),
                             DS={60,40,20}
                         }),
                         [4] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
-                            name = "Воронка прозрения",
-                            description = "Вращающаяся атака втягивает врагов в центр воронки, область захвата +DS ",
+                            name = L("Воронка прозрения","The Funnel of Insight"),
+                            description = L("Вращающаяся атака втягивает врагов в центр воронки, область захвата +DS","Rotating attack draws enemies into the center of the funnel, capture area +DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку","Hold the LMB to make a spinning attack"),
                             DS={100,150,200}
                         }),
                         [5] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
-                            name = "Зов Провидца",
-                            description = "Вызывает землетрясение вокруг героя и наносит 100 урона врагам вокруг. Максимальное число зарядов: DS ",
+                            name = L("Зов Провидца","Call Far Seer"),
+                            description = L("Вызывает землетрясение вокруг героя и наносит 100 урона врагам вокруг. Максимальное число зарядов: DS","Causes an earthquake around the hero and deals 100 damage to enemies around him. Maximum number of charges: DS"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
+                            tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.","To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
                             DS={10,20,30},
                             ultF = true
                         }),
                         [6] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
-                            name = "Запасы складов пеонов",
-                            description = "Добавляет заряды к броску кирки +DS",
+                            name = L("Запасы складов пеонов","Warehouse inventory"),
+                            description = L("Добавляет заряды к броску кирки +DS","Adds charges to the pickaxe roll +DS"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку","Press the RMB in the specified direction to throw the pickaxe there"),
                             DS={1,2,3}
                         }),
                         [7] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
-                            name = "Предвидение боли",
-                            description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек",
+                            name = L("Предвидение боли","Предвидение боли"),
+                            description = L("Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек","Make a dash immediately after taking damage to instantly restore your lost health. Cooldown DS sec"),
                             level = 0,
                             rarity = "rare",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения","Press SPACE to make a dash in the direction of movement"),
                             DS={10,8,5}
                         }),
                         [8] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCorpseExplode.blp",
-                            name = "Предвидение смерти",
-                            description = "Делает героя неуязвимым при получении смертельного урона на 2 сек. Презарядка DS сек",
+                            name = L("Предвидение смерти","Foreseeing death"),
+                            description =L( "Делает героя неуязвимым при получении смертельного урона на 2 сек. Перезарядка DS сек","Makes the hero invulnerable when taking fatal damage for 2 seconds. Cooldown DS sec"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={60,40,30}
                         }),
                         [9] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
-                            name = "Ясновидение",
-                            description = "Позволяет DS",
+                            name = L("Ясновидение","Foresight"),
+                            description = L("Позволяет DS","Allows DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше",
-                            DS={"Видеть невидимое","Видеть невидимое и показывает скрытые проходы","Видеть невидимое, показывает скрытые проходы и решения головоломок"}
+                            tooltip = L("В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше","В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше"),
+                            DS={
+                                L("Видеть невидимое","See the invisible"),
+                                L("Видеть невидимое и показывает скрытые проходы","See the invisible and shows hidden passages"),
+                                L("Видеть невидимое, показывает скрытые проходы и решения головоломок","See the invisible, shows hidden passages and puzzle solutions")
+                                }
                         }),
                         --[[[10] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
@@ -104,86 +108,86 @@ do
                     HeroBlademaster={
                         Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWindWalkOn.blp",
-                            name = "Ветряной шаг смерти",
-                            description = "Падение здоровья меньше 30%% вызывает невидимость. Перезарядка DS сек",
+                            name = L("Ветряной шаг смерти","Wind Death Step"),
+                            description = L("Падение здоровья меньше 30%% вызывает невидимость. Перезарядка DS сек"," Health drop less than 30%% causes invisibility. Cooldown DS sec"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={10,5,3}
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
-                            name = "Боевая ярость",
-                            description = "Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек",
+                            name = L("Боевая ярость","Battle Rage"),
+                            description = L("Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек", "Any outgoing damage can be critical X 1.5 Cooldown: DS sec"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Изучение этого таланта открывает доступ к таланту на множитель критического урона",
+                            tooltip = L("Изучение этого таланта открывает доступ к таланту на множитель критического урона"," Learning this talent gives you access to the talent for a critical damage multiplier"),
                             DS={6,4,3}
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCriticalStrike.blp",
-                            name = "Уязвимые места",
-                            description = "Увеличивает силу критического удара на DS",
+                            name = L("Уязвимые места","Vulnerabilities"),
+                            description = L("Увеличивает силу критического удара на DS","Increases critical strike strength by DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
+                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники"," The more damage you deal, the faster your opponents die"),
                             DS={2,3,4},
                             dependence = 2
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
-                            name = "Иллюзорный рывок",
-                            description = "Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек",
+                            name = L("Иллюзорный рывок", "Illusionary dash"),
+                            description = L("Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек","Returns immediately after the dash, deals damage=DS at the reverse point, reload 10 seconds"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Иллюзии не наносят урона и получают 200%% урона",
+                            tooltip = L("Будьте внимательны, эта способность ломает привычные механики"," Be careful, this ability breaks the usual mechanics"),
                             DS={100,150,200}
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
-                            name = "Большой размах",
-                            description = "Увеличивает урон на DS раза от вращающийся атаки ",
+                            name = L("Большой размах","Large Swing"),
+                            description = L("Увеличивает урон на DS раза от вращающийся атаки ","Increases damage by DS times from rotating attack"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку","Hold LMB to make a spinning attack"),
                             DS={1.5,2,2.5}
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
-                            name = "Дополнительный рывок",
-                            description = "Добавляет заряды к способности рывок + DS",
+                            name = L("Дополнительный рывок","Extra Dash"),
+                            description = L("Добавляет заряды к способности рывок + DS","Adds charges to the Dash + DS ability"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения","Press SPACE to make a dash in the direction of movement"),
                             DS={1,2,3}
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp",
-                            name = "Мастер меча но не магии",
-                            description = "Уменьшает скорость старта раскрутки на DS сек.",
+                            name = L("Мастер меча но не магии", "Master of the sword but not magic"),
+                            description = L("Уменьшает скорость старта раскрутки на DS сек."," Reduces the start speed of promotion by DS sec."),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку"," Hold LMB to make a spinning attack"),
                             DS={0.2,0.4,0.6},
                             --ultR = true
                         }),
                         Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSelfDestruct.blp",
-                            name = "Камикадце",
-                            description = "Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз",
+                            name = L("Камикадзе","Kamikaze"),
+                            description = L("Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз","Any damage the hero deals while dead increases by DS times"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={10,20,35},
                             --ultR = true
                         }),
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBattleStations.blp",
-                            name = "Джагернаут",
-                            description = "Добавляет заряды для способности вращающийся удар",
+                            name = L("Джагернаут", " Juggernaut"),
+                            description = L("Добавляет DS заряды для способности вращающийся удар"," Adds DS charges for the Spinning Kick ability"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку"," Hold LMB to make a spinning attack"),
                             DS={20,40,60},
                             dependence=5
                             --ultF = true
@@ -192,29 +196,29 @@ do
                     ShadowHunter={
                         Talon:new({ --1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
-                            name = "Я по могу тебе",
-                            description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек",
+                            name = L("Я по могу тебе", "I'll help you"),
+                            description = L("Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек"," Jumping through an ally heals it by 100 points. Cooldown DS sec"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения"," Press SPACE to make a dash in the direction of movement"),
                             DS={20,15,10}
                         }),
                         Talon:new({ --2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSerpentWard.blp",
-                            name = "Ты в ловушке",
-                            description = "Создаёт кольцо змей, в точке начала рывка. Перезарядка DS",
+                            name = L("Ты в ловушке","You're trapped"),
+                            description = L("Создаёт кольцо змей, в точке начала рывка. Перезарядка DS"," Creates a ring of snakes, at the start point of the snatch. Cooldown DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения"," Press SPACE to make a dash in the direction of movement"),
                             DS={12,9,5}
                         }),
                         Talon:new({ --3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHex.blp",
-                            name = "Метательный лягушонок",
-                            description = "Заменяет бросок кирки на бросок лягушки, превращает врага в лягушку на 3 секунды. Перезарядка: DS",
+                            name = L("Метательный лягушонок","Throwing Frog"),
+                            description = L("Заменяет бросок кирки на бросок лягушки, превращает врага в лягушку на 3 секунды. Перезарядка: DS"," Replaces the pickaxe throw with the frog throw, turns the enemy into a frog for 3 seconds. Cooldown: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"," Press RMB in the specified direction to throw the pickaxe there"),
                             DS={12,10,8}
                         }),
                         --[[
@@ -231,67 +235,67 @@ do
                         ]]
                         Talon:new({--4
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
-                            name = "Спираль смерти",
-                            description = "Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS",
+                            name = L("Спираль смерти","Death Spiral"),
+                            description = L("Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS"," Releases a deadly blade in the direction of the dash. Cooldown: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения"," Press SPACE to make a dash in the direction of movement"),
                             DS={5,4,3}
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRegenerate.blp",--ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
-                            name = "Регенерация тролля",
-                            description = "Исцеляет героя каждые 5 секунду во время боя на DS%%",
+                            name = L("Регенерация тролля","Troll Regeneration"),
+                            description = L("Исцеляет героя каждые 5 секунду во время боя на DS%%","Heals hero every 5 seconds during DS%% combat"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={5,7,9}
                         }),
                     },
                     HeroTaurenChieftain={
                         Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp",
-                            name = "Новая жизнь",
-                            description = "Исцеляет героя на DS%% при получении уровня",
+                            name = L("Новая жизнь","New Life"),
+                            description = L("Исцеляет героя на DS%% при получении уровня","Heals hero at DS%% when gaining level"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={30,50,100}
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
-                            name = "Мощь быка",
-                            description = "Увеличивает длительность стазиса врагов на DS от любых источников урона",
+                            name = L("Мощь быка","Bull Power"),
+                            description = L("Увеличивает длительность стазиса врагов на DS от любых источников урона","Increases enemy stasis duration by DS from any damage sources"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников",
+                            tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников"," Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
                             DS={0.1,0.15,0.2}
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNShockWave.blp",
-                            name = "Волна силы",
-                            description = "Наносит урон рывком. Урон: DS",
+                            name = L("Волна силы", "Force Wave"),
+                            description = L("Наносит урон рывком. Урон: DS"," Deals damage with a dash. Damage: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения"," Press SPACE to make a dash in the direction of movement"),
                             DS={50,80,100}
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCommand.blp",
-                            name = "Выносливость",
-                            description = "Увеличивает скорость движения на DS %%",
+                            name = L("Выносливость","Endurance"),
+                            description = L("Увеличивает скорость движения на DS %%"," Increases movement speed by DS %%"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Используйте кнопки WASD, чтобы перемещаться",
+                            tooltip = L("Используйте кнопки WASD, чтобы перемещаться"," Use the WASD buttons to navigate"),
                             DS={20,40,60}
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
-                            name = "Могучий удар",
-                            description = "Увеличивает длительность стазиса от способности Мощный удар на DS и радиус поражения на 100",
+                            name = L("Могучий удар"," Mighty Blow"),
+                            description = L("Увеличивает длительность стазиса от способности Мощный удар на DS и радиус поражения на 100", "Increases the stasis duration from the Powerful Strike ability by DS and the damage radius by 100"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади"," Press Q to strike a powerful blow over a large area"),
                             DS={0.5,0.8,1.4}
                         }),
                     },
@@ -336,92 +340,92 @@ do
                     PeonDidal={
                         Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                            name = "Короткое комбо",
-                            description = "Сокращает комбо до DS ударов, и задержку финального удара на 0.3",
+                            name = L("Короткое комбо","Short combo"),
+                            description = L("Сокращает комбо до DS ударов, и задержку финального удара на 0.3","Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов"," Quickly press LMB to make a series of hits"),
                             DS={3}
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
-                            name = "Кирка героя",
-                            description = "Увеличивает урон обычных атака на DS%%",
+                            name = L("Кирка героя","Hero Pickaxe"),
+                            description = L("Увеличивает урон обычных атака на DS%%"," Increases normal attack damage by DS%%"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов"," Quickly press LMB to make a series of hits"),
                             DS={30}
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
-                            name = "Бронелом",
-                            description = "Все ваши атаки наносят DS кратный урон по врагам с щитом",
+                            name = L("Бронелом","Shield breaker"),
+                            description = L("Все ваши атаки наносят DS кратный урон по врагам с щитом", "All your attacks deal DS multiple damage to enemies with a shield"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов"," Quickly press LMB to make a series of hits"),
                             DS={5}
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
-                            name = "Разбег минотавра",
-                            description = "Атака в рывке, наносят на DS%% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше",
+                            name = L("Разбег минотавра"," Minotaur run-up"),
+                            description = L("Атака в рывке, наносят на DS%% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше", "Attack in a dash, deal DS%% more damage, increases the hit area and pushes 3 times further away"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке",
+                            tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке"," Quickly press LMB after SPACE to make a snatch attack"),
                             DS={100}
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
-                            name = "Удар проклятой души",
-                            description = "Попадания обычной атакой восстанавливают DS%% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS%% от макс здоровья (не может быть смертельным)",
+                            name = L("Удар проклятой души","Cursed soul strike"),
+                            description = L("Попадания обычной атакой восстанавливают DS%% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS%% от макс здоровья (не может быть смертельным)"," Hits with a normal attack restore DS%% of max health health units, in case of a miss, you will lose DS%% of max health (cannot be fatal)"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке"," Quickly press LMB after SPACE to make a snatch attack"),
                             DS={2}
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
-                            name = "Двойной Клеп",
-                            description = "Мощный удар бьёт DS",
+                            name = L("Двойной Клеп"," Double Clip"),
+                            description = L("Мощный удар бьёт DS","Powerful punch beats DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
-                            DS={"дважды"}
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to strike a powerful blow over a large area"),
+                            DS={L("дважды","twice")}
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
-                            name = "Пронзающий пространство удар",
-                            description = "Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500",
+                            name = L("Пронзающий пространство удар","A space-piercing blow"),
+                            description = L("Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500"," A normal hit deals additional DS damage on the line in front of it. Distance: 500"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов"," Quickly press LMB to make a series of hits"),
                             DS={50}
                         }),
                         Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
-                            name = "Удар сатира",
-                            description = "Увеличивает любой урон в спину в DS раза",
+                            name = L("Удар сатира"," Punch satyr"),
+                            description = L("Увеличивает любой урон в спину в DS раза","Increases any back damage by DS times"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
+                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники"," The more damage you deal, the faster your opponents die"),
                             DS={3}
                         }),
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
-                            name = "Пространственный клеп",
-                            description = "Мощный удар делает рывок область курсора ",
+                            name = L("Пространственный клеп"," Spatial Clip"),
+                            description =L("Мощный удар делает рывок область курсора ", " A powerful kick makes the cursor area dash "),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади"," Press Q to deliver a powerful strike over a large area"),
                             DS={3}
                         }),
                         Talon:new({--10
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
-                            name = "Мертвый бассейн",
-                            description = "Рывок, вращение и атака могут отражать снаряды, обратно во врагов",
+                            name = L("Мертвый бассейн", " Dead pool"),
+                            description = L("Рывок, вращение и атака могут отражать снаряды, обратно во врагов","Dash, spin, and attack can deflect projectiles back at enemies"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Снаряд полетит в позицию врага, в которой он находился в момент отражения",
+                            tooltip = L("Снаряд полетит в позицию врага, в которой он находился в момент отражения"," The projectile will fly to the position of the enemy in which it was at the time of reflection"),
                             DS={1}
                         }),
                     }

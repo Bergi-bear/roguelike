@@ -24,19 +24,20 @@ DisabledIconPath={
     "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNWhirlwind", -- стальной вихрь
 }
 
-AbilityDescriptionRus={
-    "Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади",
-    "Запускает кирку в указанном направлении и наносиит урон первому врагу на пути",
-    "Делает небольшой рывок в направлении текущего движения",
-    "Наносит увеличенный урон по большой площади",
-    "Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг"
-}
+
 
 function GetPassiveIco(s)
     return string.gsub(s, "CommandButtons\\BTN","CommandButtonsDisabled\\DISBTN")
 end
 
 function CreateBaseFrames(x,y)
+    AbilityDescriptionRus={
+        L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади","Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),
+        L("Запускает кирку в указанном направлении и наносит урон первому врагу на пути","Launches the pickaxe in the specified direction and deals damage to the first enemy on the way"),
+        L("Делает небольшой рывок в направлении текущего движения","Makes a small leap in the direction of the current movement"),
+        L("Наносит увеличенный урон по большой площади","Deals increased damage over a large area"),
+        L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг","Hold down the LMB to start spinning and deal damage to all enemies around"),
+    }
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER  then
             local step=0.03
@@ -44,11 +45,11 @@ function CreateBaseFrames(x,y)
            -- AllAbilityFrames[i]={
            --     ReadyToReload={},
            --    ClickTrig={}}
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],"Обычный удар",data,AbilityIconPath[1],nil,"SystemGeneric\\DDSSymbols\\lmb","attackNormal")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],"Бросок кирки",data,AbilityIconPath[2],nil,"SystemGeneric\\DDSSymbols\\rmb","throw")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],"Рывок",data,AbilityIconPath[3],nil,"SystemGeneric\\DDSSymbols\\space","dash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],"Мощный удар",data,AbilityIconPath[4],nil,"SystemGeneric\\DDSSymbols\\q","splash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],"Вращение",data,AbilityIconPath[5],nil,"SystemGeneric\\DDSSymbols\\lmb","spin")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],L("Обычный удар","Normal strike"),data,AbilityIconPath[1],nil,"SystemGeneric\\DDSSymbols\\lmb","attackNormal")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],L("Бросок кирки","Throwing a pickaxe"),data,AbilityIconPath[2],nil,"SystemGeneric\\DDSSymbols\\rmb","throw")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],L("Рывок","Dash"),data,AbilityIconPath[3],nil,"SystemGeneric\\DDSSymbols\\space","dash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],L("Мощный удар","Powerful blow"),data,AbilityIconPath[4],nil,"SystemGeneric\\DDSSymbols\\q","splash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],L("Вращение","Spin"),data,AbilityIconPath[5],nil,"SystemGeneric\\DDSSymbols\\lmb","spin")
             --CreateUniversalFrame(x,y,step,"Призывает волков",data,"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
             --CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
             --CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
@@ -210,21 +211,21 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
         --data.attackNormalTooltipTextFH=text
         local nativeTextString=BlzFrameGetText(text)
         TimerStart(CreateTimer(),2, true, function()
-            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.DamageInSeries[1]))..", "..ColorText2(R2I(data.DamageInSeries[2]))..", "..ColorText2(R2I(data.DamageInSeries[3]))..", "..ColorText2(R2I(data.DamageInSeries[4]))..", "..ColorText2(R2I(data.DamageInSeries[5])).." ед. урона")
+            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(data.DamageInSeries[1]))..", "..ColorText2(R2I(data.DamageInSeries[2]))..", "..ColorText2(R2I(data.DamageInSeries[3]))..", "..ColorText2(R2I(data.DamageInSeries[4]))..", "..ColorText2(R2I(data.DamageInSeries[5]))..L(" ед. урона"," damage"))
         end)
     end
     if flag=="dash" then
         --data.attackNormalTooltipTextFH=text
         local nativeTextString=BlzFrameGetText(text)
         TimerStart(CreateTimer(),2, true, function()
-            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.BaseDashDamage)).." ед. урона, если совершить атаку")
+            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(data.BaseDashDamage))..L(" ед. урона, если совершить атаку"," damage if you make an attack"))
         end)
     end
     if flag=="throw" then
         --data.attackNormalTooltipTextFH=text
         local nativeTextString=BlzFrameGetText(text)
         TimerStart(CreateTimer(),2, true, function()
-            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.DamageThrow)).." ед. урона")
+            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(data.DamageThrow))..L(" ед. урона"," damage"))
         end)
     end
     if flag=="spin" then
@@ -237,12 +238,9 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
                 local m=talon.DS[talon.level]
                 damage=damage*m
             end
-            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(damage)).." ед. урона")
+            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(damage))..L(" ед. урона"," damage"))
         end)
     end
-
-
-
     --- Создаём 3 события
     local ClickTrig = CreateTrigger()
     BlzTriggerRegisterFrameEvent(ClickTrig, face, FRAMEEVENT_CONTROL_CLICK)

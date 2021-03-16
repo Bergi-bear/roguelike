@@ -21,15 +21,15 @@ function CreateTaskForAllPlayer()
             local frames = {}
             local chk = {}
             local text={}
-            frames[1],_,text[1],_,chk[1] = CreateSimpleTask("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов", Player(i))
-            frames[2],_,text[2],_,chk[2] = CreateSimpleTask("Удерживайте LMB, чтобы выполнить вращающуюся атаку", Player(i))
-            frames[3],_,text[3],_,chk[3] = CreateSimpleTask("Нажмите Q, чтобы совершить сокрушительный удар", Player(i))
-            frames[4],_,text[4],_,chk[4] = CreateSimpleTask("Нажмите RMB, чтобы метнуть молот", Player(i))
-            frames[5],_,text[5],_,chk[5] = CreateSimpleTask("Нажмите SPACE, чтобы совершить рывок", Player(i))
-            frames[6],_,text[6],_,chk[6] = CreateSimpleTask("Совершите атаку в рывке Space+LMB", Player(i))
-            frames[7],_,text[7],_,chk[7] = CreateSimpleTask("Когда удерживаете LMB нажмите SPACE, для рывка ветра", Player(i))
-            frames[8],_,text[8],_,chk[8] = CreateSimpleTask("Нажмите Q+SPACE, чтобы сделать мощный выпад", Player(i))
-            frames[9],_,text[9],_,chk[9] = CreateSimpleTask("Используйте бросок кирки RMB, во время вращения LMB", Player(i))
+            frames[1],_,text[1],_,chk[1] = CreateSimpleTask(L("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов","Quickly press LMB to make a series of 5 hits"), Player(i))
+            frames[2],_,text[2],_,chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы выполнить вращающуюся атаку","Hold LMB to perform a rotating attack"), Player(i))
+            frames[3],_,text[3],_,chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы совершить мощный удар","Press Q to make a powerful kick"), Player(i))
+            frames[4],_,text[4],_,chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот","Press RMB to throw a pick"), Player(i))
+            frames[5],_,text[5],_,chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок","Press SPACE to dash"), Player(i))
+            frames[6],_,text[6],_,chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB","Take a leap attack Space+LMB"), Player(i))
+            frames[7],_,text[7],_,chk[7] = CreateSimpleTask(L("Когда удерживаете LMB нажмите SPACE, для рывка ветра","When holding LMB press SPACE to leap wind"), Player(i))
+            frames[8],_,text[8],_,chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад","Press Q+SPACE to unleash a powerful attack"), Player(i))
+            frames[9],_,text[9],_,chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB","Use throw picks RMB, during rotation LMB"), Player(i))
             data.chk=chk
             local completed = false
 

@@ -43,10 +43,10 @@ function CreateGodTalon(x, y, name, price)
     end)
     --local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
     --print("Создали дар")
-    local textE="       Принять дар"
+    local textE=L("       Принять дар","               Get a gift")
 
     if price>0 then
-        textE="        Купить за "..price
+        textE=L("        Купить за ","               Buy for ")..price
     end
 
     local tempUnit=CreateEnterPoint(x,y,textE, name, true)

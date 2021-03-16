@@ -13,7 +13,7 @@ function InitHealPoint()
         SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
-        CreateEnterPoint(x,y,"        Выпить", 'Heal', true)
+        CreateEnterPoint(x,y,L("        Выпить","                Drink"), 'Heal', true)
     end
 end
 

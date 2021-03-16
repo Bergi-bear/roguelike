@@ -92,7 +92,7 @@ function RemoveLife(data)
     --print("потеря жизни")
     if data.life<0 then
         if GetActiveCountPlayer()>=1 then
-            print("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате")
+            print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате","You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
         else
             TimerStart(CreateTimer(),3, false, function()
                 local savedGold=0
@@ -102,10 +102,10 @@ function RemoveLife(data)
                         if GetLocalPlayer()==Player(i) then
                             savedGold=gdata.gold
                         end
-                        print(GetPlayerName(Player(i)).. " унёс с собой "..R2I(gdata.gold).." золота ")
+                        print(GetPlayerName(Player(i))..L(" унёс с собой "..R2I(gdata.gold).." золота ","took with me" ..R2I (gdata.gold).. " gold "))
 
                         TimerStart(CreateTimer(),2, false, function()
-                            CustomDefeatBJ(Player(i),"Поражение")
+                            CustomDefeatBJ(Player(i),L("Поражение","Defeat"))
                         end)
                     end
                 end

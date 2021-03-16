@@ -35,14 +35,14 @@ PreViewIcon = { -- Таблица случайных иконок которые
 }
 
 function InitFinObjectInArea()
-    CreateEnterPoint(5300, -9000, "   Подняться на борт", "StartSheep", true)--зона корабля
-    CreateEnterPoint(2100, -13250, "      Выйти наружу", "ExitSheep", true)
-    CreateEnterPoint(5400, -8300, "   Исследовать лодку", "Board", true) --Левая лодка
-    CreateEnterPoint(5500, -6900, "  Войти", "BackDor", true) --Вечно закрытые ворота
-    CreateEnterPoint(7700, -8000, "     Преисполниться", "StartBonus", true) --Синий огонь
-    CreateEnterPoint(7800, -6600, "    Посмотреть вдаль", "SoFar", true) --на краю берега справа
-    CreateEnterPoint(7000, -9200, "        Рыбачить", "Fish", true) -- внизу на берегу
-    CreateEnterPoint(7200, -7600, "       Отдохноуть", "NoWorking", true) -- возле деревьев
+    CreateEnterPoint(5300, -9000, L("   Подняться на борт","               Climb aboard"), "StartSheep", true)--зона корабля
+    CreateEnterPoint(2100, -13250, L("      Выйти наружу","      Go outside"), "ExitSheep", true)
+    CreateEnterPoint(5400, -8300, L("   Исследовать лодку","               Explore the boat"), "Board", true) --Левая лодка
+    CreateEnterPoint(5500, -6900, L("  Войти","Enter"), "BackDor", true) --Вечно закрытые ворота
+    CreateEnterPoint(7700, -8000, L("     Преисполниться","          Fill up"), "StartBonus", true) --Синий огонь
+    CreateEnterPoint(7800, -6600, L("    Посмотреть вдаль","                Look into the distance"), "SoFar", true) --на краю берега справа
+    CreateEnterPoint(7000, -9200, L("        Рыбачить","        Fishing"), "Fish", true) -- внизу на берегу
+    CreateEnterPoint(7200, -7600, L("       Отдохнуть","              Take a break"), "NoWorking", true) -- возле деревьев
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -67,10 +67,10 @@ function ReplaceALLUnitId2PointExit(id)
     local k = #unitTable
     --print(k)
     local d = GetRandomInt(1, k)-- рандомизатор молота дидала
-    local m = GetRandomInt(1, k)-- рандомизатор молота дидала
+    local m = GetRandomInt(1, k)-- рандомизатор магазина
     if m==d then
         m = GetRandomInt(1, k)
-        print("Супер ошибка, вы выиграли в лотерею, расскажите автору об этом случае")
+        --print("Супер ошибка, вы выиграли в лотерею, расскажите автору об этом случае")
     end
     for i = 1, k do
         local u = unitTable[i]
@@ -79,12 +79,12 @@ function ReplaceALLUnitId2PointExit(id)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
         if i == d then
-            CreateEnterPoint(x, y, "        Продолжить", 'Goto', false, "PeonDidal", u)
+            CreateEnterPoint(x, y, L("        Продолжить","                Continue"), 'Goto', false, "PeonDidal", u)
             -- print("создана 1 награда с пеоном дидалом")
         elseif i==m then
-            CreateEnterPoint(x, y, "        Продолжить", 'Goto', false, "Merchant", u)
+            CreateEnterPoint(x, y, L("        Продолжить","                Continue"), 'Goto', false, "Merchant", u)
         else
-            CreateEnterPoint(x, y, "        Продолжить", 'Goto', false, nil, u)
+            CreateEnterPoint(x, y, L("        Продолжить","                Continue"), 'Goto', false, nil, u)
         end
     end
 end
@@ -241,7 +241,7 @@ function CreateEActions()
             --print("e is pressed")
             --ТУТ ПЕРЕЧИСЛЯЕМ ДЕЙСТВИЯ ЧЕРЕЗ ИФ
             if data.UseAction == "StartSheep" then
-                local message = "Кто-то убрал трап, я не могу подняться сейчас на борт"
+                local message = L("Кто-то убрал трап, я не могу подняться сейчас на борт","Someone removed the ladder, I can't get on board now")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
@@ -253,7 +253,7 @@ function CreateEActions()
             end
 
             if data.UseAction == "ExitSheep" then
-                local message = "На свежий воздух"
+                local message = L("На свежий воздух","Get some fresh air")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
@@ -265,14 +265,14 @@ function CreateEActions()
             end
 
             if data.UseAction == "Board" then
-                local message = "Здесь ничего нет"
+                local message = L("Здесь ничего нет","There's nothing here")
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "BackDor" then
-                local message = "Даже не похоже, что эту дверь можно открыть снаружи"
+                local message = L("Даже не похоже, что эту дверь можно открыть снаружи","It doesnt even look like this door can be opened from the outside")
                 CreateInfoBoxForAllPlayerTimed(data, message, 4)
                 data.DoAction = false
                 data.UseAction = ""
@@ -283,10 +283,12 @@ function CreateEActions()
             if data.UseAction == "Goto" then
                 --local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
                 local rm = {
-                    "Что нас ждём внутри?",
-                    "Надеюсь, что будет полегче",
-                    "Откройся, Сезам",
-                    "А что же там?"
+                    L("Что нас ждёт внутри?","What awaits us inside?"),
+                    L("Надеюсь, что будет полегче","I hope it will be easier"),
+                    L("Откройся, Сезам","Open up, Sesame"),
+                    L("А что же там?","And what is there?"),
+                    L("Надеюсь, там не заставят работать","I hope they won't make you work there"),
+                    L("Это лучшая работа в мире","This is the best job in the world")
                 }
                 --GLOBAL_REWARD = data.CurrentReward
                 if dataPoint.CurrentReward == "Merchant" then
@@ -303,7 +305,10 @@ function CreateEActions()
                     FirstGoto=true
                     TimerStart(CreateTimer(),2, false, function()
                         --SetDayNightModels("DNCLordaeron","DNCLordaeron")
-                        SetDayNightModels("","")
+                        SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
+                        SetTimeOfDay(2)
+                        SetTimeOfDayScalePercentBJ(1000)
+                        --SetDayNightModels("","")
                     end)
                 else
                     DestroyDecorInArea(data, 400)
@@ -321,8 +326,8 @@ function CreateEActions()
             end
 
             if data.UseAction == "StartBonus" then
-                local message1 = "Я в своём познании настолько преисполнился, что как будто бы уже 100"
-                local message2 = "триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет"
+                local message1 = L("Я в своём познании настолько преисполнился, что как будто бы уже 100","I'm so full of my knowledge that it's like I'm already 100")
+                local message2 = L("триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет","I've lived on trillions and trillions of similar planets for trillions and trillions of years")
                 CreateInfoBoxForAllPlayerTimed(data, message2, 5)
                 CreateInfoBoxForAllPlayerTimed(data, message1, 7)
                 data.Completed = true
@@ -335,14 +340,14 @@ function CreateEActions()
                 end)
             end
             if data.UseAction == "SoFar" then
-                local message = "Ничего не видно без оптического прибора"
+                local message = L("Ничего не видно без оптического прибора","Ничего не видно без оптического прибора")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "Fish" then
-                local message = "Руками, без удочки"
+                local message = L("Руками, без удочки, сам-то попробуй","With your hands, without a fishing rod, try it yourself")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
@@ -350,7 +355,7 @@ function CreateEActions()
 
             end
             if data.UseAction == "NoWorking" then
-                local message = "Я здесь не для отдыха"
+                local message = L("Я здесь не для отдыха","I'm not here to rest")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
@@ -361,7 +366,7 @@ function CreateEActions()
             ----------------------------------------------------/
             if data.UseAction == "Trall" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Провидец, я выбираю тебя"
+                    local message = L("Провидец, я выбираю тебя","Seer, I choose you")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     AllActionsEnabled(true)--активация всех переходов
@@ -385,7 +390,7 @@ function CreateEActions()
             end
             if data.UseAction == "HeroBlademaster" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Надели меня силой своего клинка"
+                    local message =L( "Надели меня силой своего клинка","Give me the power of your blade")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     AllActionsEnabled(true)
@@ -408,7 +413,7 @@ function CreateEActions()
             end
             if data.UseAction == "HeroTaurenChieftain" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Держите оборону"
+                    local message = L("Держите оборону","Hold the line")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     AllActionsEnabled(true)
@@ -431,7 +436,7 @@ function CreateEActions()
             end
             if data.UseAction == "ShadowHunter" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Я отомщу за тебя"
+                    local message = L("Я отомщу за тебя","I will avenge you")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     AllActionsEnabled(true)
@@ -521,7 +526,7 @@ function CreateEActions()
             ----------------------------------------------------/
             if data.UseAction == "CodoHeart" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Сила кодоя"
+                    local message = L("Сила кодоя","Kodoi Power")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     TimerStart(CreateTimer(), 1, false, function()
@@ -542,7 +547,7 @@ function CreateEActions()
                 end
             end
             if data.UseAction == "GoldReward" then
-                local message = "Звонкая монета"
+                local message = L("Звонкая монета","Ringing Coin")
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 data.Completed = true
                 DestroyGodTalon(dataPoint.TripleTalon)
@@ -559,7 +564,7 @@ function CreateEActions()
 
             if data.UseAction == "PeonDidal" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Сила братьев"
+                    local message = L("Сила братьев","Power of Brothers")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     DestroyGodTalon(dataPoint.TripleTalon)
@@ -578,7 +583,17 @@ function CreateEActions()
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
             if data.UseAction == "Heal" then
-                local message = { "Целебно", "Я полон сил", "Холодная", "Как заново родился", "Готов к битве", "Кажется я уже переполнен" }
+                local message = {
+                    L("Целебно","Curative"),
+                    L("Я полон сил","I'm full of energy"),
+                    L("Холодная","Cold"),
+                    L("Как заново родился","How was I born again"),
+                    L("Готов к битве","Ready for battle"),
+                    L("Кажется я уже переполнен","I think I'm already full"),
+                    L("На вкус как кола","It tastes like cola"),
+                    L("Сладкий Бубалех","Sweet Bubaleh"),
+
+                }
                 CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                 if UnitHasAnyEnemyInRange(data.UnitHero, 500) then
                     HealUnit(data.UnitHero, 50)

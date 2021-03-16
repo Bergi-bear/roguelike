@@ -96,7 +96,7 @@ function OnPostDamage()
 
 		if IsPointInSector(x,y,xe,ye,GetUnitFacing(target)-180,90,200) then
 			BlzSetEventDamage(damage*data.BackDamage)
-			FlyTextTagShieldXY(x,y,"Удар в спину",GetOwningPlayer(caster))
+			FlyTextTagShieldXY(x,y,L("Удар в спину","Back stab"),GetOwningPlayer(caster))
 		end
 		if GetUnitAbilityLevel(target,FourCC("BNms"))>0 and data.ShieldBreakerIsLearn then
 			BlzSetEventDamage(damage*5)

@@ -1137,14 +1137,14 @@ PreViewIcon = { -- Таблица случайных иконок которые
 }
 
 function InitFinObjectInArea()
-    CreateEnterPoint(5300, -9000, "   Подняться на борт", "StartSheep", true)--зона корабля
-    CreateEnterPoint(2100, -13250, "      Выйти наружу", "ExitSheep", true)
-    CreateEnterPoint(5400, -8300, "   Исследовать лодку", "Board", true) --Левая лодка
-    CreateEnterPoint(5500, -6900, "  Войти", "BackDor", true) --Вечно закрытые ворота
-    CreateEnterPoint(7700, -8000, "     Преисполниться", "StartBonus", true) --Синий огонь
-    CreateEnterPoint(7800, -6600, "    Посмотреть вдаль", "SoFar", true) --на краю берега справа
-    CreateEnterPoint(7000, -9200, "        Рыбачить", "Fish", true) -- внизу на берегу
-    CreateEnterPoint(7200, -7600, "       Отдохноуть", "NoWorking", true) -- возле деревьев
+    CreateEnterPoint(5300, -9000, L("   Подняться на борт","               Climb aboard"), "StartSheep", true)--зона корабля
+    CreateEnterPoint(2100, -13250, L("      Выйти наружу","      Go outside"), "ExitSheep", true)
+    CreateEnterPoint(5400, -8300, L("   Исследовать лодку","               Explore the boat"), "Board", true) --Левая лодка
+    CreateEnterPoint(5500, -6900, L("  Войти","Enter"), "BackDor", true) --Вечно закрытые ворота
+    CreateEnterPoint(7700, -8000, L("     Преисполниться","          Fill up"), "StartBonus", true) --Синий огонь
+    CreateEnterPoint(7800, -6600, L("    Посмотреть вдаль","                Look into the distance"), "SoFar", true) --на краю берега справа
+    CreateEnterPoint(7000, -9200, L("        Рыбачить","        Fishing"), "Fish", true) -- внизу на берегу
+    CreateEnterPoint(7200, -7600, L("       Отдохнуть","              Take a break"), "NoWorking", true) -- возле деревьев
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -1169,10 +1169,10 @@ function ReplaceALLUnitId2PointExit(id)
     local k = #unitTable
     --print(k)
     local d = GetRandomInt(1, k)-- рандомизатор молота дидала
-    local m = GetRandomInt(1, k)-- рандомизатор молота дидала
+    local m = GetRandomInt(1, k)-- рандомизатор магазина
     if m==d then
         m = GetRandomInt(1, k)
-        print("Супер ошибка, вы выиграли в лотерею, расскажите автору об этом случае")
+        --print("Супер ошибка, вы выиграли в лотерею, расскажите автору об этом случае")
     end
     for i = 1, k do
         local u = unitTable[i]
@@ -1181,12 +1181,12 @@ function ReplaceALLUnitId2PointExit(id)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
         if i == d then
-            CreateEnterPoint(x, y, "        Продолжить", 'Goto', false, "PeonDidal", u)
+            CreateEnterPoint(x, y, L("        Продолжить","                Continue"), 'Goto', false, "PeonDidal", u)
             -- print("создана 1 награда с пеоном дидалом")
         elseif i==m then
-            CreateEnterPoint(x, y, "        Продолжить", 'Goto', false, "Merchant", u)
+            CreateEnterPoint(x, y, L("        Продолжить","                Continue"), 'Goto', false, "Merchant", u)
         else
-            CreateEnterPoint(x, y, "        Продолжить", 'Goto', false, nil, u)
+            CreateEnterPoint(x, y, L("        Продолжить","                Continue"), 'Goto', false, nil, u)
         end
     end
 end
@@ -1343,7 +1343,7 @@ function CreateEActions()
             --print("e is pressed")
             --ТУТ ПЕРЕЧИСЛЯЕМ ДЕЙСТВИЯ ЧЕРЕЗ ИФ
             if data.UseAction == "StartSheep" then
-                local message = "Кто-то убрал трап, я не могу подняться сейчас на борт"
+                local message = L("Кто-то убрал трап, я не могу подняться сейчас на борт","Someone removed the ladder, I can't get on board now")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
@@ -1355,7 +1355,7 @@ function CreateEActions()
             end
 
             if data.UseAction == "ExitSheep" then
-                local message = "На свежий воздух"
+                local message = L("На свежий воздух","Get some fresh air")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
@@ -1367,14 +1367,14 @@ function CreateEActions()
             end
 
             if data.UseAction == "Board" then
-                local message = "Здесь ничего нет"
+                local message = L("Здесь ничего нет","There's nothing here")
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "BackDor" then
-                local message = "Даже не похоже, что эту дверь можно открыть снаружи"
+                local message = L("Даже не похоже, что эту дверь можно открыть снаружи","It doesnt even look like this door can be opened from the outside")
                 CreateInfoBoxForAllPlayerTimed(data, message, 4)
                 data.DoAction = false
                 data.UseAction = ""
@@ -1385,10 +1385,12 @@ function CreateEActions()
             if data.UseAction == "Goto" then
                 --local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
                 local rm = {
-                    "Что нас ждём внутри?",
-                    "Надеюсь, что будет полегче",
-                    "Откройся, Сезам",
-                    "А что же там?"
+                    L("Что нас ждёт внутри?","What awaits us inside?"),
+                    L("Надеюсь, что будет полегче","I hope it will be easier"),
+                    L("Откройся, Сезам","Open up, Sesame"),
+                    L("А что же там?","And what is there?"),
+                    L("Надеюсь, там не заставят работать","I hope they won't make you work there"),
+                    L("Это лучшая работа в мире","This is the best job in the world")
                 }
                 --GLOBAL_REWARD = data.CurrentReward
                 if dataPoint.CurrentReward == "Merchant" then
@@ -1405,7 +1407,10 @@ function CreateEActions()
                     FirstGoto=true
                     TimerStart(CreateTimer(),2, false, function()
                         --SetDayNightModels("DNCLordaeron","DNCLordaeron")
-                        SetDayNightModels("","")
+                        SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
+                        SetTimeOfDay(2)
+                        SetTimeOfDayScalePercentBJ(1000)
+                        --SetDayNightModels("","")
                     end)
                 else
                     DestroyDecorInArea(data, 400)
@@ -1423,8 +1428,8 @@ function CreateEActions()
             end
 
             if data.UseAction == "StartBonus" then
-                local message1 = "Я в своём познании настолько преисполнился, что как будто бы уже 100"
-                local message2 = "триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет"
+                local message1 = L("Я в своём познании настолько преисполнился, что как будто бы уже 100","I'm so full of my knowledge that it's like I'm already 100")
+                local message2 = L("триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет","I've lived on trillions and trillions of similar planets for trillions and trillions of years")
                 CreateInfoBoxForAllPlayerTimed(data, message2, 5)
                 CreateInfoBoxForAllPlayerTimed(data, message1, 7)
                 data.Completed = true
@@ -1437,14 +1442,14 @@ function CreateEActions()
                 end)
             end
             if data.UseAction == "SoFar" then
-                local message = "Ничего не видно без оптического прибора"
+                local message = L("Ничего не видно без оптического прибора","Ничего не видно без оптического прибора")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "Fish" then
-                local message = "Руками, без удочки"
+                local message = L("Руками, без удочки, сам-то попробуй","With your hands, without a fishing rod, try it yourself")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
@@ -1452,7 +1457,7 @@ function CreateEActions()
 
             end
             if data.UseAction == "NoWorking" then
-                local message = "Я здесь не для отдыха"
+                local message = L("Я здесь не для отдыха","I'm not here to rest")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
@@ -1463,7 +1468,7 @@ function CreateEActions()
             ----------------------------------------------------/
             if data.UseAction == "Trall" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Провидец, я выбираю тебя"
+                    local message = L("Провидец, я выбираю тебя","Seer, I choose you")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     AllActionsEnabled(true)--активация всех переходов
@@ -1487,7 +1492,7 @@ function CreateEActions()
             end
             if data.UseAction == "HeroBlademaster" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Надели меня силой своего клинка"
+                    local message =L( "Надели меня силой своего клинка","Give me the power of your blade")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     AllActionsEnabled(true)
@@ -1510,7 +1515,7 @@ function CreateEActions()
             end
             if data.UseAction == "HeroTaurenChieftain" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Держите оборону"
+                    local message = L("Держите оборону","Hold the line")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     AllActionsEnabled(true)
@@ -1533,7 +1538,7 @@ function CreateEActions()
             end
             if data.UseAction == "ShadowHunter" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Я отомщу за тебя"
+                    local message = L("Я отомщу за тебя","I will avenge you")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     AllActionsEnabled(true)
@@ -1623,7 +1628,7 @@ function CreateEActions()
             ----------------------------------------------------/
             if data.UseAction == "CodoHeart" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Сила кодоя"
+                    local message = L("Сила кодоя","Kodoi Power")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     TimerStart(CreateTimer(), 1, false, function()
@@ -1644,7 +1649,7 @@ function CreateEActions()
                 end
             end
             if data.UseAction == "GoldReward" then
-                local message = "Звонкая монета"
+                local message = L("Звонкая монета","Ringing Coin")
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 data.Completed = true
                 DestroyGodTalon(dataPoint.TripleTalon)
@@ -1661,7 +1666,7 @@ function CreateEActions()
 
             if data.UseAction == "PeonDidal" then
                 if data.gold>=dataPoint.TalonPrice then
-                    local message = "Сила братьев"
+                    local message = L("Сила братьев","Power of Brothers")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     data.Completed = true
                     DestroyGodTalon(dataPoint.TripleTalon)
@@ -1680,7 +1685,17 @@ function CreateEActions()
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
             if data.UseAction == "Heal" then
-                local message = { "Целебно", "Я полон сил", "Холодная", "Как заново родился", "Готов к битве", "Кажется я уже переполнен" }
+                local message = {
+                    L("Целебно","Curative"),
+                    L("Я полон сил","I'm full of energy"),
+                    L("Холодная","Cold"),
+                    L("Как заново родился","How was I born again"),
+                    L("Готов к битве","Ready for battle"),
+                    L("Кажется я уже переполнен","I think I'm already full"),
+                    L("На вкус как кола","It tastes like cola"),
+                    L("Сладкий Бубалех","Sweet Bubaleh"),
+
+                }
                 CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                 if UnitHasAnyEnemyInRange(data.UnitHero, 500) then
                     HealUnit(data.UnitHero, 50)
@@ -1864,7 +1879,7 @@ function InitHealPoint()
         SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
-        CreateEnterPoint(x,y,"        Выпить", 'Heal', true)
+        CreateEnterPoint(x,y,L("        Выпить","                Drink"), 'Heal', true)
     end
 end
 
@@ -3242,86 +3257,90 @@ do
                     Trall = {--Тралл Провидец
                         [1] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-                            name = "Удар молнией",
-                            description = "Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500",
+                            name = L("Удар молнией","Lightning strike"),
+                            description = L("Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500","Every 4 normal strikes release a bolt of lightning that deals 50 DS damage to random enemies within a radius of 500"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов","Быстро нажимайте LMB чтобы совершить серию ударов"),
                             DS={3,4,5}
 
                         }),
                         [2] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
-                            name = "Громовая кирка",
-                            description = "Кирка отскакивает на DS случайных врагов",
+                            name = L("Громовая кирка","Thunder Pickaxe"),
+                            description = L("Кирка отскакивает на DS случайных врагов","Pickaxe bounces on DS random enemies"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку","Press the RMB in the specified direction to throw the pickaxe there"),
                             DS={2,3,4}
                         }),
                         [3] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
-                            name = "Волк компаньон",
-                            description = "Призывает автономного волка, сражающего на вашей стороне. Перезарядка возрождения DS сек.",
+                            name = L("Волк компаньон","The Wolf Companion"),
+                            description = L("Призывает автономного волка, сражающегося на вашей стороне. Перезарядка возрождения DS сек.","Summons an autonomous wolf fighting on your side. Respawn cooldown DS sec."),
                             level = 0,
                             rarity = "normal",
-                            tooltip = " Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед.",
+                            tooltip = L("Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед.","The wolf tries to attack a random target, and patrols the area around the hero. The wolf will be instantly teleported to if it moves away to a distance of more than 1000"),
                             DS={60,40,20}
                         }),
                         [4] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
-                            name = "Воронка прозрения",
-                            description = "Вращающаяся атака втягивает врагов в центр воронки, область захвата +DS ",
+                            name = L("Воронка прозрения","The Funnel of Insight"),
+                            description = L("Вращающаяся атака втягивает врагов в центр воронки, область захвата +DS","Rotating attack draws enemies into the center of the funnel, capture area +DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку","Hold the LMB to make a spinning attack"),
                             DS={100,150,200}
                         }),
                         [5] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
-                            name = "Зов Провидца",
-                            description = "Вызывает землетрясение вокруг героя и наносит 100 урона врагам вокруг. Максимальное число зарядов: DS ",
+                            name = L("Зов Провидца","Call Far Seer"),
+                            description = L("Вызывает землетрясение вокруг героя и наносит 100 урона врагам вокруг. Максимальное число зарядов: DS","Causes an earthquake around the hero and deals 100 damage to enemies around him. Maximum number of charges: DS"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
+                            tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.","To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
                             DS={10,20,30},
                             ultF = true
                         }),
                         [6] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
-                            name = "Запасы складов пеонов",
-                            description = "Добавляет заряды к броску кирки +DS",
+                            name = L("Запасы складов пеонов","Warehouse inventory"),
+                            description = L("Добавляет заряды к броску кирки +DS","Adds charges to the pickaxe roll +DS"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку","Press the RMB in the specified direction to throw the pickaxe there"),
                             DS={1,2,3}
                         }),
                         [7] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
-                            name = "Предвидение боли",
-                            description = "Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек",
+                            name = L("Предвидение боли","Предвидение боли"),
+                            description = L("Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек","Make a dash immediately after taking damage to instantly restore your lost health. Cooldown DS sec"),
                             level = 0,
                             rarity = "rare",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения","Press SPACE to make a dash in the direction of movement"),
                             DS={10,8,5}
                         }),
                         [8] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCorpseExplode.blp",
-                            name = "Предвидение смерти",
-                            description = "Делает героя неуязвимым при получении смертельного урона на 2 сек. Презарядка DS сек",
+                            name = L("Предвидение смерти","Foreseeing death"),
+                            description =L( "Делает героя неуязвимым при получении смертельного урона на 2 сек. Перезарядка DS сек","Makes the hero invulnerable when taking fatal damage for 2 seconds. Cooldown DS sec"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={60,40,30}
                         }),
                         [9] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
-                            name = "Ясновидение",
-                            description = "Позволяет DS",
+                            name = L("Ясновидение","Foresight"),
+                            description = L("Позволяет DS","Allows DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше",
-                            DS={"Видеть невидимое","Видеть невидимое и показывает скрытые проходы","Видеть невидимое, показывает скрытые проходы и решения головоломок"}
+                            tooltip = L("В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше","В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше"),
+                            DS={
+                                L("Видеть невидимое","See the invisible"),
+                                L("Видеть невидимое и показывает скрытые проходы","See the invisible and shows hidden passages"),
+                                L("Видеть невидимое, показывает скрытые проходы и решения головоломок","See the invisible, shows hidden passages and puzzle solutions")
+                                }
                         }),
                         --[[[10] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
@@ -3337,86 +3356,86 @@ do
                     HeroBlademaster={
                         Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWindWalkOn.blp",
-                            name = "Ветряной шаг смерти",
-                            description = "Падение здоровья меньше 30% вызывает невидимость. Перезарядка DS сек",
+                            name = L("Ветряной шаг смерти","Wind Death Step"),
+                            description = L("Падение здоровья меньше 30% вызывает невидимость. Перезарядка DS сек"," Health drop less than 30% causes invisibility. Cooldown DS sec"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={10,5,3}
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
-                            name = "Боевая ярость",
-                            description = "Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек",
+                            name = L("Боевая ярость","Battle Rage"),
+                            description = L("Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек", "Any outgoing damage can be critical X 1.5 Cooldown: DS sec"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Изучение этого таланта открывает доступ к таланту на множитель критического урона",
+                            tooltip = L("Изучение этого таланта открывает доступ к таланту на множитель критического урона"," Learning this talent gives you access to the talent for a critical damage multiplier"),
                             DS={6,4,3}
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCriticalStrike.blp",
-                            name = "Уязвимые места",
-                            description = "Увеличивает силу критического удара на DS",
+                            name = L("Уязвимые места","Vulnerabilities"),
+                            description = L("Увеличивает силу критического удара на DS","Increases critical strike strength by DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
+                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники"," The more damage you deal, the faster your opponents die"),
                             DS={2,3,4},
                             dependence = 2
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
-                            name = "Иллюзорный рывок",
-                            description = "Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек",
+                            name = L("Иллюзорный рывок", "Illusionary dash"),
+                            description = L("Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек","Returns immediately after the dash, deals damage=DS at the reverse point, reload 10 seconds"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Иллюзии не наносят урона и получают 200% урона",
+                            tooltip = L("Будьте внимательны, эта способность ломает привычные механики"," Be careful, this ability breaks the usual mechanics"),
                             DS={100,150,200}
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
-                            name = "Большой размах",
-                            description = "Увеличивает урон на DS раза от вращающийся атаки ",
+                            name = L("Большой размах","Large Swing"),
+                            description = L("Увеличивает урон на DS раза от вращающийся атаки ","Increases damage by DS times from rotating attack"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку","Hold LMB to make a spinning attack"),
                             DS={1.5,2,2.5}
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
-                            name = "Дополнительный рывок",
-                            description = "Добавляет заряды к способности рывок + DS",
+                            name = L("Дополнительный рывок","Extra Dash"),
+                            description = L("Добавляет заряды к способности рывок + DS","Adds charges to the Dash + DS ability"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения","Press SPACE to make a dash in the direction of movement"),
                             DS={1,2,3}
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp",
-                            name = "Мастер меча но не магии",
-                            description = "Уменьшает скорость старта раскрутки на DS сек.",
+                            name = L("Мастер меча но не магии", "Master of the sword but not magic"),
+                            description = L("Уменьшает скорость старта раскрутки на DS сек."," Reduces the start speed of promotion by DS sec."),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку"," Hold LMB to make a spinning attack"),
                             DS={0.2,0.4,0.6},
                             --ultR = true
                         }),
                         Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSelfDestruct.blp",
-                            name = "Камикадце",
-                            description = "Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз",
+                            name = L("Камикадзе","Kamikaze"),
+                            description = L("Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз","Any damage the hero deals while dead increases by DS times"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={10,20,35},
                             --ultR = true
                         }),
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBattleStations.blp",
-                            name = "Джагернаут",
-                            description = "Добавляет заряды для способности вращающийся удар",
+                            name = L("Джагернаут", " Juggernaut"),
+                            description = L("Добавляет DS заряды для способности вращающийся удар"," Adds DS charges for the Spinning Kick ability"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Удерживайте LMB чтобы совершить вращающуюся атаку",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку"," Hold LMB to make a spinning attack"),
                             DS={20,40,60},
                             dependence=5
                             --ultF = true
@@ -3425,29 +3444,29 @@ do
                     ShadowHunter={
                         Talon:new({ --1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
-                            name = "Я по могу тебе",
-                            description = "Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек",
+                            name = L("Я по могу тебе", "I'll help you"),
+                            description = L("Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек"," Jumping through an ally heals it by 100 points. Cooldown DS sec"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения"," Press SPACE to make a dash in the direction of movement"),
                             DS={20,15,10}
                         }),
                         Talon:new({ --2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSerpentWard.blp",
-                            name = "Ты в ловушке",
-                            description = "Создаёт кольцо змей, в точке начала рывка. Перезарядка DS",
+                            name = L("Ты в ловушке","You're trapped"),
+                            description = L("Создаёт кольцо змей, в точке начала рывка. Перезарядка DS"," Creates a ring of snakes, at the start point of the snatch. Cooldown DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения"," Press SPACE to make a dash in the direction of movement"),
                             DS={12,9,5}
                         }),
                         Talon:new({ --3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHex.blp",
-                            name = "Метательный лягушонок",
-                            description = "Заменяет бросок кирки на бросок лягушки, превращает врага в лягушку на 3 секунды. Перезарядка: DS",
+                            name = L("Метательный лягушонок","Throwing Frog"),
+                            description = L("Заменяет бросок кирки на бросок лягушки, превращает врага в лягушку на 3 секунды. Перезарядка: DS"," Replaces the pickaxe throw with the frog throw, turns the enemy into a frog for 3 seconds. Cooldown: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите RMB в указанном направлении, чтобы метнуть туда кирку",
+                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку"," Press RMB in the specified direction to throw the pickaxe there"),
                             DS={12,10,8}
                         }),
                         --[[
@@ -3464,67 +3483,67 @@ do
                         ]]
                         Talon:new({--4
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
-                            name = "Спираль смерти",
-                            description = "Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS",
+                            name = L("Спираль смерти","Death Spiral"),
+                            description = L("Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS"," Releases a deadly blade in the direction of the dash. Cooldown: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения"," Press SPACE to make a dash in the direction of movement"),
                             DS={5,4,3}
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRegenerate.blp",--ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
-                            name = "Регенерация тролля",
-                            description = "Исцеляет героя каждые 5 секунду во время боя на DS%",
+                            name = L("Регенерация тролля","Troll Regeneration"),
+                            description = L("Исцеляет героя каждые 5 секунду во время боя на DS%","Heals hero every 5 seconds during DS% combat"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={5,7,9}
                         }),
                     },
                     HeroTaurenChieftain={
                         Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp",
-                            name = "Новая жизнь",
-                            description = "Исцеляет героя на DS% при получении уровня",
+                            name = L("Новая жизнь","New Life"),
+                            description = L("Исцеляет героя на DS% при получении уровня","Heals hero at DS% when gaining level"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Вы умрёте, как только потеряете всё здоровье",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье","You will die as soon as you lose all health"),
                             DS={30,50,100}
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
-                            name = "Мощь быка",
-                            description = "Увеличивает длительность стазиса врагов на DS от любых источников урона",
+                            name = L("Мощь быка","Bull Power"),
+                            description = L("Увеличивает длительность стазиса врагов на DS от любых источников урона","Increases enemy stasis duration by DS from any damage sources"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников",
+                            tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников"," Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
                             DS={0.1,0.15,0.2}
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNShockWave.blp",
-                            name = "Волна силы",
-                            description = "Наносит урон рывком. Урон: DS",
+                            name = L("Волна силы", "Force Wave"),
+                            description = L("Наносит урон рывком. Урон: DS"," Deals damage with a dash. Damage: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите SPACE, чтобы совершить рывок в направлении движения",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения"," Press SPACE to make a dash in the direction of movement"),
                             DS={50,80,100}
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCommand.blp",
-                            name = "Выносливость",
-                            description = "Увеличивает скорость движения на DS %",
+                            name = L("Выносливость","Endurance"),
+                            description = L("Увеличивает скорость движения на DS %"," Increases movement speed by DS %"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Используйте кнопки WASD, чтобы перемещаться",
+                            tooltip = L("Используйте кнопки WASD, чтобы перемещаться"," Use the WASD buttons to navigate"),
                             DS={20,40,60}
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
-                            name = "Могучий удар",
-                            description = "Увеличивает длительность стазиса от способности Мощный удар на DS и радиус поражения на 100",
+                            name = L("Могучий удар"," Mighty Blow"),
+                            description = L("Увеличивает длительность стазиса от способности Мощный удар на DS и радиус поражения на 100", "Increases the stasis duration from the Powerful Strike ability by DS and the damage radius by 100"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади"," Press Q to strike a powerful blow over a large area"),
                             DS={0.5,0.8,1.4}
                         }),
                     },
@@ -3569,92 +3588,92 @@ do
                     PeonDidal={
                         Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                            name = "Короткое комбо",
-                            description = "Сокращает комбо до DS ударов, и задержку финального удара на 0.3",
+                            name = L("Короткое комбо","Short combo"),
+                            description = L("Сокращает комбо до DS ударов, и задержку финального удара на 0.3","Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов"," Quickly press LMB to make a series of hits"),
                             DS={3}
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
-                            name = "Кирка героя",
-                            description = "Увеличивает урон обычных атака на DS%",
+                            name = L("Кирка героя","Hero Pickaxe"),
+                            description = L("Увеличивает урон обычных атака на DS%"," Increases normal attack damage by DS%"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов"," Quickly press LMB to make a series of hits"),
                             DS={30}
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
-                            name = "Бронелом",
-                            description = "Все ваши атаки наносят DS кратный урон по врагам с щитом",
+                            name = L("Бронелом","Shield breaker"),
+                            description = L("Все ваши атаки наносят DS кратный урон по врагам с щитом", "All your attacks deal DS multiple damage to enemies with a shield"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов"," Quickly press LMB to make a series of hits"),
                             DS={5}
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
-                            name = "Разбег минотавра",
-                            description = "Атака в рывке, наносят на DS% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше",
+                            name = L("Разбег минотавра"," Minotaur run-up"),
+                            description = L("Атака в рывке, наносят на DS% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше", "Attack in a dash, deal DS% more damage, increases the hit area and pushes 3 times further away"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке",
+                            tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке"," Quickly press LMB after SPACE to make a snatch attack"),
                             DS={100}
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
-                            name = "Удар проклятой души",
-                            description = "Попадания обычной атакой восстанавливают DS% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS% от макс здоровья (не может быть смертельным)",
+                            name = L("Удар проклятой души","Cursed soul strike"),
+                            description = L("Попадания обычной атакой восстанавливают DS% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS% от макс здоровья (не может быть смертельным)"," Hits with a normal attack restore DS% of max health health units, in case of a miss, you will lose DS% of max health (cannot be fatal)"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке"," Quickly press LMB after SPACE to make a snatch attack"),
                             DS={2}
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
-                            name = "Двойной Клеп",
-                            description = "Мощный удар бьёт DS",
+                            name = L("Двойной Клеп"," Double Clip"),
+                            description = L("Мощный удар бьёт DS","Powerful punch beats DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
-                            DS={"дважды"}
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to strike a powerful blow over a large area"),
+                            DS={L("дважды","twice")}
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
-                            name = "Пронзающий пространство удар",
-                            description = "Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500",
+                            name = L("Пронзающий пространство удар","A space-piercing blow"),
+                            description = L("Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500"," A normal hit deals additional DS damage on the line in front of it. Distance: 500"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Быстро нажимайте LMB чтобы совершить серию ударов",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов"," Quickly press LMB to make a series of hits"),
                             DS={50}
                         }),
                         Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
-                            name = "Удар сатира",
-                            description = "Увеличивает любой урон в спину в DS раза",
+                            name = L("Удар сатира"," Punch satyr"),
+                            description = L("Увеличивает любой урон в спину в DS раза","Increases any back damage by DS times"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Чем больше урона вы наносите, тем быстрее умирают противники",
+                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники"," The more damage you deal, the faster your opponents die"),
                             DS={3}
                         }),
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
-                            name = "Пространственный клеп",
-                            description = "Мощный удар делает рывок область курсора ",
+                            name = L("Пространственный клеп"," Spatial Clip"),
+                            description =L("Мощный удар делает рывок область курсора ", " A powerful kick makes the cursor area dash "),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Нажмите Q, чтобы нанести мощный удар по большой площади",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади"," Press Q to deliver a powerful strike over a large area"),
                             DS={3}
                         }),
                         Talon:new({--10
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
-                            name = "Мертвый бассейн",
-                            description = "Рывок, вращение и атака могут отражать снаряды, обратно во врагов",
+                            name = L("Мертвый бассейн", " Dead pool"),
+                            description = L("Рывок, вращение и атака могут отражать снаряды, обратно во врагов","Dash, spin, and attack can deflect projectiles back at enemies"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = "Снаряд полетит в позицию врага, в которой он находился в момент отражения",
+                            tooltip = L("Снаряд полетит в позицию врага, в которой он находился в момент отражения"," The projectile will fly to the position of the enemy in which it was at the time of reflection"),
                             DS={1}
                         }),
                     }
@@ -3689,19 +3708,20 @@ DisabledIconPath={
     "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNWhirlwind", -- стальной вихрь
 }
 
-AbilityDescriptionRus={
-    "Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади",
-    "Запускает кирку в указанном направлении и наносиит урон первому врагу на пути",
-    "Делает небольшой рывок в направлении текущего движения",
-    "Наносит увеличенный урон по большой площади",
-    "Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг"
-}
+
 
 function GetPassiveIco(s)
     return string.gsub(s, "CommandButtons\\BTN","CommandButtonsDisabled\\DISBTN")
 end
 
 function CreateBaseFrames(x,y)
+    AbilityDescriptionRus={
+        L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади","Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),
+        L("Запускает кирку в указанном направлении и наносит урон первому врагу на пути","Launches the pickaxe in the specified direction and deals damage to the first enemy on the way"),
+        L("Делает небольшой рывок в направлении текущего движения","Makes a small leap in the direction of the current movement"),
+        L("Наносит увеличенный урон по большой площади","Deals increased damage over a large area"),
+        L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг","Hold down the LMB to start spinning and deal damage to all enemies around"),
+    }
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER  then
             local step=0.03
@@ -3709,11 +3729,11 @@ function CreateBaseFrames(x,y)
            -- AllAbilityFrames[i]={
            --     ReadyToReload={},
            --    ClickTrig={}}
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],"Обычный удар",data,AbilityIconPath[1],nil,"SystemGeneric\\DDSSymbols\\lmb","attackNormal")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],"Бросок кирки",data,AbilityIconPath[2],nil,"SystemGeneric\\DDSSymbols\\rmb","throw")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],"Рывок",data,AbilityIconPath[3],nil,"SystemGeneric\\DDSSymbols\\space","dash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],"Мощный удар",data,AbilityIconPath[4],nil,"SystemGeneric\\DDSSymbols\\q","splash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],"Вращение",data,AbilityIconPath[5],nil,"SystemGeneric\\DDSSymbols\\lmb","spin")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],L("Обычный удар","Normal strike"),data,AbilityIconPath[1],nil,"SystemGeneric\\DDSSymbols\\lmb","attackNormal")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],L("Бросок кирки","Throwing a pickaxe"),data,AbilityIconPath[2],nil,"SystemGeneric\\DDSSymbols\\rmb","throw")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],L("Рывок","Dash"),data,AbilityIconPath[3],nil,"SystemGeneric\\DDSSymbols\\space","dash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],L("Мощный удар","Powerful blow"),data,AbilityIconPath[4],nil,"SystemGeneric\\DDSSymbols\\q","splash")
+            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],L("Вращение","Spin"),data,AbilityIconPath[5],nil,"SystemGeneric\\DDSSymbols\\lmb","spin")
             --CreateUniversalFrame(x,y,step,"Призывает волков",data,"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
             --CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
             --CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
@@ -3875,21 +3895,21 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
         --data.attackNormalTooltipTextFH=text
         local nativeTextString=BlzFrameGetText(text)
         TimerStart(CreateTimer(),2, true, function()
-            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.DamageInSeries[1]))..", "..ColorText2(R2I(data.DamageInSeries[2]))..", "..ColorText2(R2I(data.DamageInSeries[3]))..", "..ColorText2(R2I(data.DamageInSeries[4]))..", "..ColorText2(R2I(data.DamageInSeries[5])).." ед. урона")
+            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(data.DamageInSeries[1]))..", "..ColorText2(R2I(data.DamageInSeries[2]))..", "..ColorText2(R2I(data.DamageInSeries[3]))..", "..ColorText2(R2I(data.DamageInSeries[4]))..", "..ColorText2(R2I(data.DamageInSeries[5]))..L(" ед. урона"," damage"))
         end)
     end
     if flag=="dash" then
         --data.attackNormalTooltipTextFH=text
         local nativeTextString=BlzFrameGetText(text)
         TimerStart(CreateTimer(),2, true, function()
-            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.BaseDashDamage)).." ед. урона, если совершить атаку")
+            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(data.BaseDashDamage))..L(" ед. урона, если совершить атаку"," damage if you make an attack"))
         end)
     end
     if flag=="throw" then
         --data.attackNormalTooltipTextFH=text
         local nativeTextString=BlzFrameGetText(text)
         TimerStart(CreateTimer(),2, true, function()
-            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(data.DamageThrow)).." ед. урона")
+            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(data.DamageThrow))..L(" ед. урона"," damage"))
         end)
     end
     if flag=="spin" then
@@ -3902,12 +3922,9 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
                 local m=talon.DS[talon.level]
                 damage=damage*m
             end
-            BlzFrameSetText(text,nativeTextString.."\nНаносит: "..ColorText2(R2I(damage)).." ед. урона")
+            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(damage))..L(" ед. урона"," damage"))
         end)
     end
-
-
-
     --- Создаём 3 события
     local ClickTrig = CreateTrigger()
     BlzTriggerRegisterFrameEvent(ClickTrig, face, FRAMEEVENT_CONTROL_CLICK)
@@ -4111,7 +4128,7 @@ function RemoveLife(data)
     --print("потеря жизни")
     if data.life<0 then
         if GetActiveCountPlayer()>=1 then
-            print("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате")
+            print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате","You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
         else
             TimerStart(CreateTimer(),3, false, function()
                 local savedGold=0
@@ -4121,10 +4138,10 @@ function RemoveLife(data)
                         if GetLocalPlayer()==Player(i) then
                             savedGold=gdata.gold
                         end
-                        print(GetPlayerName(Player(i)).. " унёс с собой "..R2I(gdata.gold).." золота ")
+                        print(GetPlayerName(Player(i))..L(" унёс с собой "..R2I(gdata.gold).." золота ","took with me" ..R2I (gdata.gold).. " gold "))
 
                         TimerStart(CreateTimer(),2, false, function()
-                            CustomDefeatBJ(Player(i),"Поражение")
+                            CustomDefeatBJ(Player(i),L("Поражение","Defeat"))
                         end)
                     end
                 end
@@ -4236,10 +4253,10 @@ function CreateGodTalon(x, y, name, price)
     end)
     --local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
     --print("Создали дар")
-    local textE="       Принять дар"
+    local textE=L("       Принять дар","               Get a gift")
 
     if price>0 then
-        textE="        Купить за "..price
+        textE=L("        Купить за ","               Buy for ")..price
     end
 
     local tempUnit=CreateEnterPoint(x,y,textE, name, true)
@@ -5027,15 +5044,15 @@ function CreateTaskForAllPlayer()
             local frames = {}
             local chk = {}
             local text={}
-            frames[1],_,text[1],_,chk[1] = CreateSimpleTask("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов", Player(i))
-            frames[2],_,text[2],_,chk[2] = CreateSimpleTask("Удерживайте LMB, чтобы выполнить вращающуюся атаку", Player(i))
-            frames[3],_,text[3],_,chk[3] = CreateSimpleTask("Нажмите Q, чтобы совершить сокрушительный удар", Player(i))
-            frames[4],_,text[4],_,chk[4] = CreateSimpleTask("Нажмите RMB, чтобы метнуть молот", Player(i))
-            frames[5],_,text[5],_,chk[5] = CreateSimpleTask("Нажмите SPACE, чтобы совершить рывок", Player(i))
-            frames[6],_,text[6],_,chk[6] = CreateSimpleTask("Совершите атаку в рывке Space+LMB", Player(i))
-            frames[7],_,text[7],_,chk[7] = CreateSimpleTask("Когда удерживаете LMB нажмите SPACE, для рывка ветра", Player(i))
-            frames[8],_,text[8],_,chk[8] = CreateSimpleTask("Нажмите Q+SPACE, чтобы сделать мощный выпад", Player(i))
-            frames[9],_,text[9],_,chk[9] = CreateSimpleTask("Используйте бросок кирки RMB, во время вращения LMB", Player(i))
+            frames[1],_,text[1],_,chk[1] = CreateSimpleTask(L("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов","Quickly press LMB to make a series of 5 hits"), Player(i))
+            frames[2],_,text[2],_,chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы выполнить вращающуюся атаку","Hold LMB to perform a rotating attack"), Player(i))
+            frames[3],_,text[3],_,chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы совершить мощный удар","Press Q to make a powerful kick"), Player(i))
+            frames[4],_,text[4],_,chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот","Press RMB to throw a pick"), Player(i))
+            frames[5],_,text[5],_,chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок","Press SPACE to dash"), Player(i))
+            frames[6],_,text[6],_,chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB","Take a leap attack Space+LMB"), Player(i))
+            frames[7],_,text[7],_,chk[7] = CreateSimpleTask(L("Когда удерживаете LMB нажмите SPACE, для рывка ветра","When holding LMB press SPACE to leap wind"), Player(i))
+            frames[8],_,text[8],_,chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад","Press Q+SPACE to unleash a powerful attack"), Player(i))
+            frames[9],_,text[9],_,chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB","Use throw picks RMB, during rotation LMB"), Player(i))
             data.chk=chk
             local completed = false
 
@@ -5521,7 +5538,7 @@ function OnPostDamage()
 
 		if IsPointInSector(x,y,xe,ye,GetUnitFacing(target)-180,90,200) then
 			BlzSetEventDamage(damage*data.BackDamage)
-			FlyTextTagShieldXY(x,y,"Удар в спину",GetOwningPlayer(caster))
+			FlyTextTagShieldXY(x,y,L("Удар в спину","Back stab"),GetOwningPlayer(caster))
 		end
 		if GetUnitAbilityLevel(target,FourCC("BNms"))>0 and data.ShieldBreakerIsLearn then
 			BlzSetEventDamage(damage*5)
@@ -7842,7 +7859,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                 local PerepadZ = GetTerrainZ(MoveXY(x,y,120,angle))-GetTerrainZ(x, y)
                 --print(PerepadZ)
                 if (PointContentDestructable(newX, newY,120,false) or PerepadZ > 20) and not damageOnWall   then
-                    FlyTextTagShieldXY(x,y,"Удар о стену",GetOwningPlayer(pushing))
+                    FlyTextTagShieldXY(x,y,L("Удар о стену","Wall hit"),GetOwningPlayer(pushing))
                     UnitDamageTarget( pushing, hero, 100, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
                     --print("удар о декор или стенку")
                     damageOnWall=true
@@ -8154,6 +8171,32 @@ function PlayUnitAnimationFromChat()
         end
         if GetEventPlayerChatString()=="chk" or GetEventPlayerChatString()=="срл"  then
             print(udg_LoadCode[0])
+            return
+        end
+        if GetEventPlayerChatString()=="dnc0" then
+            print("смена днс на нормлаьную")
+            SetDayNightModels("dncundergroundterrain","dncundergroundterrain")
+            print("post")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc1"  then
+            SetDayNightModels("dncundergroundterrainHD1","dncundergroundterrainHD1")
+            print("dnc1")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc2" then
+            SetDayNightModels("dncundergroundterrainHD2","dncundergroundterrainHD2")
+            print("dnc2")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc3"  then
+            SetDayNightModels("dncundergroundterrainHD3","dncundergroundterrainHD3")
+            print("dnc3")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc4" then
+            SetDayNightModels("dncundergroundterrainHD4","dncundergroundterrainHD4")
+            print("dnc4")
             return
         end
         SetUnitAnimationByIndex(data.UnitHero,s)

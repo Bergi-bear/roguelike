@@ -1068,7 +1068,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
                 local PerepadZ = GetTerrainZ(MoveXY(x,y,120,angle))-GetTerrainZ(x, y)
                 --print(PerepadZ)
                 if (PointContentDestructable(newX, newY,120,false) or PerepadZ > 20) and not damageOnWall   then
-                    FlyTextTagShieldXY(x,y,"Удар о стену",GetOwningPlayer(pushing))
+                    FlyTextTagShieldXY(x,y,L("Удар о стену","Wall hit"),GetOwningPlayer(pushing))
                     UnitDamageTarget( pushing, hero, 100, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
                     --print("удар о декор или стенку")
                     damageOnWall=true
@@ -1380,6 +1380,32 @@ function PlayUnitAnimationFromChat()
         end
         if GetEventPlayerChatString()=="chk" or GetEventPlayerChatString()=="срл"  then
             print(udg_LoadCode[0])
+            return
+        end
+        if GetEventPlayerChatString()=="dnc0" then
+            print("смена днс на нормлаьную")
+            SetDayNightModels("dncundergroundterrain","dncundergroundterrain")
+            print("post")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc1"  then
+            SetDayNightModels("dncundergroundterrainHD1","dncundergroundterrainHD1")
+            print("dnc1")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc2" then
+            SetDayNightModels("dncundergroundterrainHD2","dncundergroundterrainHD2")
+            print("dnc2")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc3"  then
+            SetDayNightModels("dncundergroundterrainHD3","dncundergroundterrainHD3")
+            print("dnc3")
+            return
+        end
+        if GetEventPlayerChatString()=="dnc4" then
+            SetDayNightModels("dncundergroundterrainHD4","dncundergroundterrainHD4")
+            print("dnc4")
             return
         end
         SetUnitAnimationByIndex(data.UnitHero,s)
