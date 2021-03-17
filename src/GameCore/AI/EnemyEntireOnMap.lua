@@ -238,6 +238,9 @@ function PudgeSlash(unit)
                     BlzSetSpecialEffectMatrixScale(eff1,0.5,1.5,1)
                     BlzSetSpecialEffectMatrixScale(eff2,0.5,1.5,1)
 
+                    local BreakCast=false
+                    local t=CreateTimer()
+
                     TimerStart(CreateTimer(), 1.5, false, function()
                         DestroyEffect(eff)
                         DestroyEffect(eff1)
@@ -245,17 +248,29 @@ function PudgeSlash(unit)
                         BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
                         BlzSetSpecialEffectPosition(eff1,OutPoint,OutPoint,0)
                         BlzSetSpecialEffectPosition(eff2,OutPoint,OutPoint,0)
+                        DestroyTimer(t)
                     end)
 
+
+                    TimerStart( t,0.1, true, function()
+                        if IsUnitStunned(unit) then
+                            DestroyEffect(eff)
+                            DestroyEffect(eff1)
+                            DestroyEffect(eff2)
+                            BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                            BlzSetSpecialEffectPosition(eff1,OutPoint,OutPoint,0)
+                            BlzSetSpecialEffectPosition(eff2,OutPoint,OutPoint,0)
+                            BreakCast=true
+                            DestroyTimer(GetExpiredTimer())
+                            ResetUnitAnimation(unit)
+                        end
+                    end)
+
+
                     TimerStart(CreateTimer(), 1, false, function()
-                        -- x1, x2 - координаты проверяемой точки
-                        -- x2, y2 - координаты вершины сектора
-                        -- orientation - ориентация сектора в мировых координатах
-                        -- width - уголовой размер сектора в градусах
-                        -- radius - окружности которой принадлежит сектор
                         BlzPauseUnitEx(unit,false)
                         SetUnitTimeScale(unit,1)
-                        if not IsUnitStunned(unit) then
+                        if not IsUnitStunned(unit) and not BreakCast then
                             normal_sound("Sound\\Units\\Combat\\MetalHeavyBashFlesh3",GetUnitXY(unit))
                             local is,_,_,all=UnitDamageArea(unit,0,GetUnitX(unit),GetUnitY(unit),400)
                             for i=1,#all do
@@ -289,7 +304,7 @@ function NecroAttackAndArrow(unit)
         else
             local hero=GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
-            if not IsUnitStunned(unit) and hero then
+            if not IsUnitStunned(unit) and hero and not IsUnitType(unit,UNIT_TYPE_POLYMORPHED) then
                 if not IsUnitInRange(hero,unit,300 ) then
                     local angle=AngleBetweenUnits(unit,hero)
                     BlzPauseUnitEx(unit,true)
@@ -313,19 +328,18 @@ end
 
 Bugs=CreateGroup()
 function SinergyBug(unit)
---[[
-    GroupAddUnit(Bugs,unit)
+    local hero=GetRandomEnemyHero()
     TimerStart(CreateTimer(), 1, true, function()
-        if not UnitAlive(unit) then
+        if not UnitAlive(unit) or not hero then
             DestroyTimer(GetTriggerUnit())
-            ForGroup(Bugs,function()
-                local e=GetEnumUnit()
-                IssueTargetOrder(e,"attack",GetRandomEnemyHero())
-            end)
+        else
+            hero=GetRandomEnemyHero()
+            if hero then
+                IssuePointOrder(unit,"attack",GetUnitXY(hero))
+            end
         end
     end)
-]]
-    IssuePointOrder(unit,"attack",GetUnitXY(GetRandomEnemyHero()))
+
 end
 
 function SpawnZombie(unit)

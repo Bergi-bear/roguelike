@@ -8,7 +8,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
-           -- InitEvenDestructable()
+           -- InitEvenDestructable() --этот триггер не работает
         end)
     end
 end
@@ -18,9 +18,8 @@ function InitEvenDestructable()
     EnumDestructablesInRect(bj_mapInitialPlayableArea,nil,function()
         local d=GetEnumDestructable()
 
-        if GetDestructableTypeId(d)==FourCC("B004") then
+        if GetDestructableTypeId(d)==FourCC("B004")  or GetDestructableTypeId(d)==FourCC("B008") then
             k=k+1
-
         end
         TriggerRegisterDeathEvent(thisTrigger,d)
     end)
@@ -31,6 +30,14 @@ function InitEvenDestructable()
             if  GetDestructableTypeId(d)==FourCC("B004") then
                 -- print("умер ящик, создаём мимика")
                 local new=CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
+            end
+            if  GetDestructableTypeId(d)==FourCC("B008") then
+                --print("умер горшок")
+                local x,y=GetDestructableX(d),GetDestructableY(d)
+                DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",x,y))
+                TimerStart(CreateTimer(), 0.6, false, function()
+                    RemoveDestructable(d)
+                end)
             end
         else
 

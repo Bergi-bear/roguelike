@@ -259,17 +259,29 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 					if GetDestructableLife(d)<1 or GetDestructableLife(d) <= 0 then
 						--print("смерть декора")
 						if hero then
+
 							if GetRandomInt(1,2)==1 then
 								if  GetDestructableTypeId(d)==FourCC("B004") then
 									--print("умер ящик, создаём мимика")
 									local new=CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
 									IssueTargetOrder(new,"attack",hero)
 								end
-
 							else
 								--print("даём золото за сундук")
 								UnitAddGold(hero,GetRandomInt(2,5))
 							end
+
+							if  GetDestructableTypeId(d)==FourCC("B008") then
+								--print("умер горшок")
+								local dx,dy=GetDestructableX(d),GetDestructableY(d)
+								normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", dx,dy,60)
+								DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",dx,dy))
+								TimerStart(CreateTimer(), 0.6, false, function()
+									RemoveDestructable(d)
+								end)
+							end
+
+
 						end
 					end
 				end

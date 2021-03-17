@@ -6,6 +6,7 @@
 function HealUnit(hero,amount,flag,eff)
     --1 или nil Сколько вылчено
     --2 Сверхлечение
+    if not amount then amount=99999 end
     if not eff then eff="Abilities\\Spells\\Human\\Heal\\HealTarget" end
     local p=GetOwningPlayer(hero)
     local MaxHP=BlzGetUnitMaxHP(hero)

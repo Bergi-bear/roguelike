@@ -110,7 +110,8 @@ function Enter2NewZone(flag)
                 --StartEnemyWave(Destiny[CurrentGameZone])
                 --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
                 if not flag then
-                    StartEnemyWave(DestinyEnemies[CurrentGameZone])
+                    --StartEnemyWave(DestinyEnemies[CurrentGameZone]) --случайные волны
+                    StartEnemyWave(CurrentGameZone) --волны по порядку
                     --StartEnemyWave(401) --Временная волна для тестов
                 end
                 if flag == "Merchant" then
@@ -206,38 +207,102 @@ function MoveAllHeroAndBound(recEnter, rectBound)
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
 end
 
+
+EnemyList={
+    FourCC("nsko"), -- скелет
+    FourCC("ucs1"), -- мелкий жук
+    FourCC("uabo"), -- пудж
+    FourCC("unec"), -- некромант
+    FourCC("u000"), -- большой жук
+    FourCC("n000"), -- мимик
+}
+
 function StartEnemyWave(waveNumber)
     local listID = {}
     local maxOnWave = 1
     if waveNumber == 1 then
-        listID = {  -- скелетов по 5
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-        }
-        maxOnWave = 5
+        local r=GetRandomInt(1,5)
+        if r==1 then
+            listID = {--скелеты
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            }
+            maxOnWave = 1
+        elseif r==2 then
+            listID = {--жуки
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            }
+            maxOnWave = 2
+        elseif r==3 then
+            listID = {--пуджи
+                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            }
+            maxOnWave = 1
+        elseif r==4 then
+            listID = { -- некроманты
+                FourCC("unec"),FourCC("unec"),
+                FourCC("unec"),FourCC("unec"),
+            }
+            maxOnWave = 2
+        elseif r==5 then
+            listID = { --мимики
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+            }
+            maxOnWave = 5
+        end
+
     end
 
     if waveNumber == 2 then
-        listID = {  --
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"),
-        }
-        maxOnWave = 3
+        local r=GetRandomInt(1,3)
+        if r==1 then
+            listID = {
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            }
+            maxOnWave = 1
+        elseif r==2 then
+            listID = {
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            }
+            maxOnWave = 2
+        elseif r==3 then
+            listID = {
+                FourCC("unec"),FourCC("unec"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("unec"),FourCC("unec"),
+            }
+            maxOnWave = 2
+        end
     end
     if waveNumber == 3 then
-        listID = {  -- скелетов по 5
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-        }
-        maxOnWave = 4
+        local r=GetRandomInt(1,3)
+        if r==1 then
+            listID = {
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("uabo"), FourCC("uabo"), FourCC("nsko"), FourCC("unec"), FourCC("unec"),
+            }
+            maxOnWave = 3
+        elseif r==2 then
+            listID = {
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            }
+            maxOnWave = 2
+        elseif r==3 then
+            listID = {
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+            }
+            maxOnWave = 4
+        end
     end
 
     if waveNumber == 4 then
@@ -249,23 +314,51 @@ function StartEnemyWave(waveNumber)
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
         }
-        maxOnWave = 10
+        maxOnWave = 8
     end
+
 
     if waveNumber == 5 then
-        listID = {  -- Пуджи
-            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
-            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
-            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
-            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
-        }
-        maxOnWave = 3
+        local r=GetRandomInt(1,3)
+        if r==1 then
+            listID = {  -- Пуджи
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+
+            }
+            maxOnWave = 3
+        elseif r==2 then
+            listID = {
+                FourCC("uzig"),FourCC("uzig")
+            }
+            maxOnWave=2
+        elseif r==3 then
+            listID = {
+                FourCC("unec"),FourCC("unec"),FourCC("unec"),
+                FourCC("unec"),FourCC("unec"),FourCC("unec"),
+                FourCC("unec"),FourCC("unec"),FourCC("unec")
+            }
+            maxOnWave=3
+        end
+    end
+    if waveNumber>=6 and waveNumber<=40 then --рандомизатор
+        listID = {}
+        local zig=false
+        for i=1, R2I(waveNumber*2.6) do
+            listID[i]=EnemyList[GetRandomInt(1,#EnemyList)]
+            local r=GetRandomInt(1,10)
+            if waveNumber>=12 then
+                if not zig and r==1 then
+                    zig=true
+                    listID[i]=FourCC("uzig")
+                end
+            end
+        end
+        maxOnWave = GetRandomInt(3,waveNumber//2)
     end
 
+    --[[
     if waveNumber == 6 then
         listID = {  -- некроманты
             FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"),
@@ -409,7 +502,7 @@ function StartEnemyWave(waveNumber)
         }
         maxOnWave = 3
     end
-
+]]
     if waveNumber == 401 then
         listID = {
             FourCC("uobs")
@@ -452,7 +545,7 @@ function StartWave(dataGZ, listID, max)
     if CountPlayers >= 2 then
         for _ = 2, CountPlayers do
             for i = 1, #listID do
-                table.insert(listID, listID[i])
+                --table.insert(listID, listID[i]) -- отключено из за большо числа врагов
             end
         end
     end
@@ -530,6 +623,18 @@ function CreateCreepDelay(id, x, y, delay, flag)
     TimerStart(CreateTimer(), delay, false, function()
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
+        local a=BlzGetUnitMaxHP(new)
+        if CountPlayers>=2 then
+
+            BlzSetUnitMaxHP(new,a*CountPlayers/1.5)
+            HealUnit(new)
+        end
+        if CurrentGameZone>=10 then
+            local r=GetRandomInt(1,22-CurrentGameZone)
+            UnitAddShield(new,a*1.5)
+        end
+
+
         if flag ~= "summon" then
             DestroyEffect(eff)
             TimerStart(CreateTimer(), delay, true, function()

@@ -85,6 +85,7 @@ function InitHeroTable(hero)
         InvulPreDeathCurrentCD=1, --кулдаун бессмертия от трала
         LifeFHTable={},
         gold=0,
+        ShowGold=true, -- показ накопления золота
     }
 end
 

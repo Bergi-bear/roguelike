@@ -27,7 +27,23 @@ function AddMaxLife(hero,amount)
 end
 
 function UnitAddGold(hero,amount)
-    FlyTextTagGoldBounty(hero,"+"..I2S(amount),GetOwningPlayer(hero))
-    normal_sound("SystemGeneric\\ReceiveGold",GetUnitXY(hero))
-    AddGold(HERO[GetPlayerId(GetOwningPlayer(hero))],amount)
+    local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+    data.ShowGoldSec=0.3
+    if not data.ShowGoldAmount then data.ShowGoldAmount=0 end
+    data.ShowGoldAmount=data.ShowGoldAmount+amount
+    if data.ShowGold then
+        data.ShowGold=false
+        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+            data.ShowGoldSec=data.ShowGoldSec-TIMER_PERIOD
+            if data.ShowGoldSec<=0 then
+                data.ShowGold=true
+                DestroyTimer(GetExpiredTimer())
+                FlyTextTagGoldBounty(hero,"+"..I2S(data.ShowGoldAmount),GetOwningPlayer(hero))
+                normal_sound("SystemGeneric\\ReceiveGold",GetUnitXY(hero))
+                AddGold(data,amount)
+                data.ShowGoldAmount=0
+            end
+        end)
+    end
+
 end

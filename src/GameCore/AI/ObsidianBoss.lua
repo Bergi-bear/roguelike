@@ -4,7 +4,7 @@
 --- DateTime: 09.03.2021 16:51
 ---
 function StartObsidianBoss(boss)
-    print("запущен ИИ босса")
+    --print("запущен ИИ босса")
     BlzSetUnitMaxHP(boss,10000)
     HealUnit(boss,10000)
     UnitAddShield(boss,5000)

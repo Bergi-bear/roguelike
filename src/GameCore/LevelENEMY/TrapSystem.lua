@@ -91,13 +91,21 @@ end
 function CreateSawTrap(hero)
     local x,y=GetUnitXY(hero)
     local eff=AddSpecialEffect("SystemGeneric\\TrapSaw",x,y)
+    local showBlood=true
+    local sec=0
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         local is,unit=UnitDamageArea(hero,10,x,y,90,"blackHole")
+        sec=sec-TIMER_PERIOD
+        if sec<=0 then showBlood=true end
         if is and GetUnitTypeId(unit)==HeroID then--and IsUnitType(unit)==UNIT_TYPE_HERO
             --print("эффект крови")
-            local effb=AddSpecialEffect("SystemGeneric\\D9_blood_effect1",GetUnitXY(unit))
-            BlzSetSpecialEffectScale(effb,0.1)
-            DestroyEffect(effb)
+            if showBlood then
+                local effb=AddSpecialEffect("SystemGeneric\\D9_blood_effect1",GetUnitXY(unit))
+                BlzSetSpecialEffectScale(effb,0.1)
+                DestroyEffect(effb)
+                showBlood=false
+                sec=1
+            end
         end
         if not UnitAlive(hero) then
             DestroyTimer(GetExpiredTimer())

@@ -89,10 +89,9 @@ function CreateUnitsForPlayer0()
     local t
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14009.9, -9536.5, 106.153, FourCC("hfoo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18796.6, -13588.6, 104.626, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18773.5, -13565.3, 104.626, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 15548.9, -9742.5, 106.153, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14205.1, -12158.3, 106.153, FourCC("hfoo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23097.5, -7426.9, 106.153, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23248.6, -2702.1, 106.153, FourCC("hfoo"))
 end
 
@@ -187,10 +186,13 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23378.2, -12611.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23580.5, -12626.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23380.4, -12780.0, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22477.4, -7509.7, -89.891, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22669.3, -7518.4, 269.708, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 13649.5, -16152.2, 355.219, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 11775.6, -20471.3, 256.956, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14192.1, -16465.8, 175.943, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14585.9, -15306.1, 264.587, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22565.0, -7515.2, 268.067, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15730.0, -6534.2, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15619.2, -6651.9, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15737.3, -6650.8, 0.000, FourCC("hkni"))
@@ -206,7 +208,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 10927.0, -20484.1, 175.249, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 10925.1, -20978.1, 180.773, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 11509.3, -16430.6, 125.541, FourCC("hsor"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 11002.4, -16422.7, 39.093, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 11017.0, -16431.3, 90.803, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17455.3, -16170.5, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17568.0, -16168.3, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17453.6, -16050.9, 0.000, FourCC("hkni"))
@@ -214,6 +216,8 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 19560.9, -16098.3, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 19561.7, -16235.6, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 19558.9, -16377.7, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 23295.6, -8406.8, 273.052, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 23300.5, -8549.8, 273.052, FourCC("hpea"))
 end
 
 function CreateNeutralHostile()
@@ -249,7 +253,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("nskk"), 7336.3, -6776.6, 278.280, FourCC("nskk"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 7495.7, -7044.5, 350.440, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 6609.1, -6318.2, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14723.3, -11742.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14686.8, -11809.0, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15593.5, -12742.6, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13131.3, -8512.6, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13959.3, -8504.1, 296.730, FourCC("hdhw"))
@@ -441,6 +445,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20951.0, -16568.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20722.5, -16819.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16526.3, -6118.2, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23097.5, -7426.9, 106.150, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16875.3, -15884.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17202.8, -15578.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17185.9, -15960.3, 247.300, FourCC("e001"))
@@ -476,7 +481,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10248.2, -15907.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10274.8, -15695.6, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10769.2, -15629.0, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11017.4, -15998.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11132.0, -15969.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11511.0, -16108.2, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11709.4, -16488.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11883.8, -16724.0, 247.300, FourCC("e001"))
@@ -545,7 +550,7 @@ function CreateRegions()
     gg_rct_B8A = Rect(18880.0, -4352.0, 18944.0, -3936.0)
     gg_rct_S9A = Rect(21376.0, -4736.0, 23584.0, -2688.0)
     gg_rct_B9A = Rect(22144.0, -4448.0, 22624.0, -3072.0)
-    gg_rct_S10A = Rect(21696.0, -8576.0, 23840.0, -6432.0)
+    gg_rct_S10A = Rect(21696.0, -9088.0, 24224.0, -6432.0)
     gg_rct_B10A = Rect(22528.0, -8128.0, 23008.0, -6816.0)
     gg_rct_S11A = Rect(21344.0, -11232.0, 22752.0, -9280.0)
     gg_rct_B11A = Rect(21984.0, -10816.0, 22112.0, -10336.0)
@@ -565,20 +570,20 @@ function CreateRegions()
     gg_rct_S15A = Rect(18656.0, -16960.0, 21312.0, -14400.0)
     gg_rct_B15A = Rect(20480.0, -16384.0, 20608.0, -15904.0)
     gg_rct_E15A = Rect(20352.0, -17280.0, 20640.0, -16512.0)
-    gg_rct_S16A = Rect(16704.0, -16800.0, 18144.0, -15424.0)
+    gg_rct_S16A = Rect(16352.0, -16800.0, 18144.0, -15136.0)
     gg_rct_B16A = Rect(17344.0, -16320.0, 17472.0, -15840.0)
     gg_rct_E16A = Rect(16896.0, -17152.0, 17184.0, -16608.0)
     gg_rct_S17A = Rect(13536.0, -16896.0, 15168.0, -14112.0)
     gg_rct_B17A = Rect(14368.0, -16416.0, 14496.0, -15808.0)
     gg_rct_E17A = Rect(13952.0, -17280.0, 14240.0, -16640.0)
     gg_rct_B18A = Rect(10752.0, -16512.0, 11936.0, -15840.0)
-    gg_rct_S18A = Rect(10080.0, -16992.0, 12672.0, -15360.0)
+    gg_rct_S18A = Rect(10080.0, -16992.0, 13152.0, -15360.0)
     gg_rct_E18A = Rect(10272.0, -17376.0, 10624.0, -16736.0)
     gg_rct_E19A = Rect(9536.0, -20896.0, 10080.0, -20480.0)
     gg_rct_S19A = Rect(9856.0, -21056.0, 12224.0, -18944.0)
     gg_rct_B19A = Rect(10688.0, -20640.0, 11552.0, -19232.0)
     gg_rct_E20A = Rect(13696.0, -20608.0, 14240.0, -20192.0)
-    gg_rct_S20A = Rect(14272.0, -20928.0, 16288.0, -18880.0)
+    gg_rct_S20A = Rect(14272.0, -21280.0, 16288.0, -18880.0)
     gg_rct_B20A = Rect(14848.0, -20576.0, 15712.0, -19168.0)
 end
 
@@ -1096,9 +1101,25 @@ function AddMaxLife(hero,amount)
 end
 
 function UnitAddGold(hero,amount)
-    FlyTextTagGoldBounty(hero,"+"..I2S(amount),GetOwningPlayer(hero))
-    normal_sound("SystemGeneric\\ReceiveGold",GetUnitXY(hero))
-    AddGold(HERO[GetPlayerId(GetOwningPlayer(hero))],amount)
+    local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+    data.ShowGoldSec=0.3
+    if not data.ShowGoldAmount then data.ShowGoldAmount=0 end
+    data.ShowGoldAmount=data.ShowGoldAmount+amount
+    if data.ShowGold then
+        data.ShowGold=false
+        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+            data.ShowGoldSec=data.ShowGoldSec-TIMER_PERIOD
+            if data.ShowGoldSec<=0 then
+                data.ShowGold=true
+                DestroyTimer(GetExpiredTimer())
+                FlyTextTagGoldBounty(hero,"+"..I2S(data.ShowGoldAmount),GetOwningPlayer(hero))
+                normal_sound("SystemGeneric\\ReceiveGold",GetUnitXY(hero))
+                AddGold(data,amount)
+                data.ShowGoldAmount=0
+            end
+        end)
+    end
+
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -1407,10 +1428,10 @@ function CreateEActions()
                     FirstGoto=true
                     TimerStart(CreateTimer(),2, false, function()
                         --SetDayNightModels("DNCLordaeron","DNCLordaeron")
-                        SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
+                       -- SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
                         SetTimeOfDay(2)
-                        SetTimeOfDayScalePercentBJ(1000)
-                        --SetDayNightModels("","")
+                        SetTimeOfDayScalePercentBJ(0)
+                        SetDayNightModels("","")
                     end)
                 else
                     DestroyDecorInArea(data, 400)
@@ -1914,6 +1935,52 @@ end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
+--- DateTime: 16.03.2021 18:55
+---
+do
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 1.5, false, function()
+            InitSmileActions()
+        end)
+    end
+end
+
+function InitSmileActions()
+    -----------------------------------------------------------------OSKEY_F
+    local gg_trg_EventUp1 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(gg_trg_EventUp1, Player(i), OSKEY_1, 2, true)
+    end
+    TriggerAddAction(gg_trg_EventUp1, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        if not data.Release1ctrl and not data.ShowSmile1 and not data.ShowEmotion then
+            data.Release1ctrl = true
+            data.ShowSmile1 = true
+            data.ShowEmotion=true
+            local eff=AddSpecialEffectTarget("SystemGeneric\\Smiles\\smileys_1",data.UnitHero,"overhead")
+            TimerStart(CreateTimer(), 5, false, function()
+                DestroyEffect(eff)
+                data.ShowSmile1=false
+                data.ShowEmotion=false
+            end)
+        end
+    end)
+    local TrigDepress1 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigDepress1, Player(i), OSKEY_1, 2, false)
+    end
+    TriggerAddAction(TrigDepress1, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        data.Release1ctrl = false
+    end)
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
 --- DateTime: 18.02.2021 18:37
 ---
 do
@@ -2023,7 +2090,8 @@ function Enter2NewZone(flag)
                 --StartEnemyWave(Destiny[CurrentGameZone])
                 --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
                 if not flag then
-                    StartEnemyWave(DestinyEnemies[CurrentGameZone])
+                    --StartEnemyWave(DestinyEnemies[CurrentGameZone]) --случайные волны
+                    StartEnemyWave(CurrentGameZone) --волны по порядку
                     --StartEnemyWave(401) --Временная волна для тестов
                 end
                 if flag == "Merchant" then
@@ -2119,38 +2187,102 @@ function MoveAllHeroAndBound(recEnter, rectBound)
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
 end
 
+
+EnemyList={
+    FourCC("nsko"), -- скелет
+    FourCC("ucs1"), -- мелкий жук
+    FourCC("uabo"), -- пудж
+    FourCC("unec"), -- некромант
+    FourCC("u000"), -- большой жук
+    FourCC("n000"), -- мимик
+}
+
 function StartEnemyWave(waveNumber)
     local listID = {}
     local maxOnWave = 1
     if waveNumber == 1 then
-        listID = {  -- скелетов по 5
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-        }
-        maxOnWave = 5
+        local r=GetRandomInt(1,5)
+        if r==1 then
+            listID = {--скелеты
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            }
+            maxOnWave = 1
+        elseif r==2 then
+            listID = {--жуки
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            }
+            maxOnWave = 2
+        elseif r==3 then
+            listID = {--пуджи
+                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            }
+            maxOnWave = 1
+        elseif r==4 then
+            listID = { -- некроманты
+                FourCC("unec"),FourCC("unec"),
+                FourCC("unec"),FourCC("unec"),
+            }
+            maxOnWave = 2
+        elseif r==5 then
+            listID = { --мимики
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+            }
+            maxOnWave = 5
+        end
+
     end
 
     if waveNumber == 2 then
-        listID = {  --
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"),
-        }
-        maxOnWave = 3
+        local r=GetRandomInt(1,3)
+        if r==1 then
+            listID = {
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+            }
+            maxOnWave = 1
+        elseif r==2 then
+            listID = {
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            }
+            maxOnWave = 2
+        elseif r==3 then
+            listID = {
+                FourCC("unec"),FourCC("unec"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("unec"),FourCC("unec"),
+            }
+            maxOnWave = 2
+        end
     end
     if waveNumber == 3 then
-        listID = {  -- скелетов по 5
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-            --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-            --FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),FourCC("nsko"),
-        }
-        maxOnWave = 4
+        local r=GetRandomInt(1,3)
+        if r==1 then
+            listID = {
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("uabo"), FourCC("uabo"), FourCC("nsko"), FourCC("unec"), FourCC("unec"),
+            }
+            maxOnWave = 3
+        elseif r==2 then
+            listID = {
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+                FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
+            }
+            maxOnWave = 2
+        elseif r==3 then
+            listID = {
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+            }
+            maxOnWave = 4
+        end
     end
 
     if waveNumber == 4 then
@@ -2162,23 +2294,51 @@ function StartEnemyWave(waveNumber)
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
         }
-        maxOnWave = 10
+        maxOnWave = 8
     end
+
 
     if waveNumber == 5 then
-        listID = {  -- Пуджи
-            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
-            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
-            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
-            FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
-        }
-        maxOnWave = 3
+        local r=GetRandomInt(1,3)
+        if r==1 then
+            listID = {  -- Пуджи
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
+
+            }
+            maxOnWave = 3
+        elseif r==2 then
+            listID = {
+                FourCC("uzig"),FourCC("uzig")
+            }
+            maxOnWave=2
+        elseif r==3 then
+            listID = {
+                FourCC("unec"),FourCC("unec"),FourCC("unec"),
+                FourCC("unec"),FourCC("unec"),FourCC("unec"),
+                FourCC("unec"),FourCC("unec"),FourCC("unec")
+            }
+            maxOnWave=3
+        end
+    end
+    if waveNumber>=6 and waveNumber<=40 then --рандомизатор
+        listID = {}
+        local zig=false
+        for i=1, R2I(waveNumber*2.6) do
+            listID[i]=EnemyList[GetRandomInt(1,#EnemyList)]
+            local r=GetRandomInt(1,10)
+            if waveNumber>=12 then
+                if not zig and r==1 then
+                    zig=true
+                    listID[i]=FourCC("uzig")
+                end
+            end
+        end
+        maxOnWave = GetRandomInt(3,waveNumber//2)
     end
 
+    --[[
     if waveNumber == 6 then
         listID = {  -- некроманты
             FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"), FourCC("unec"),
@@ -2322,7 +2482,7 @@ function StartEnemyWave(waveNumber)
         }
         maxOnWave = 3
     end
-
+]]
     if waveNumber == 401 then
         listID = {
             FourCC("uobs")
@@ -2365,7 +2525,7 @@ function StartWave(dataGZ, listID, max)
     if CountPlayers >= 2 then
         for _ = 2, CountPlayers do
             for i = 1, #listID do
-                table.insert(listID, listID[i])
+                --table.insert(listID, listID[i]) -- отключено из за большо числа врагов
             end
         end
     end
@@ -2443,6 +2603,18 @@ function CreateCreepDelay(id, x, y, delay, flag)
     TimerStart(CreateTimer(), delay, false, function()
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
+        local a=BlzGetUnitMaxHP(new)
+        if CountPlayers>=2 then
+
+            BlzSetUnitMaxHP(new,a*CountPlayers/1.5)
+            HealUnit(new)
+        end
+        if CurrentGameZone>=10 then
+            local r=GetRandomInt(1,22-CurrentGameZone)
+            UnitAddShield(new,a*1.5)
+        end
+
+
         if flag ~= "summon" then
             DestroyEffect(eff)
             TimerStart(CreateTimer(), delay, true, function()
@@ -4580,6 +4752,9 @@ function PudgeSlash(unit)
                     BlzSetSpecialEffectMatrixScale(eff1,0.5,1.5,1)
                     BlzSetSpecialEffectMatrixScale(eff2,0.5,1.5,1)
 
+                    local BreakCast=false
+                    local t=CreateTimer()
+
                     TimerStart(CreateTimer(), 1.5, false, function()
                         DestroyEffect(eff)
                         DestroyEffect(eff1)
@@ -4587,17 +4762,29 @@ function PudgeSlash(unit)
                         BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
                         BlzSetSpecialEffectPosition(eff1,OutPoint,OutPoint,0)
                         BlzSetSpecialEffectPosition(eff2,OutPoint,OutPoint,0)
+                        DestroyTimer(t)
                     end)
 
+
+                    TimerStart( t,0.1, true, function()
+                        if IsUnitStunned(unit) then
+                            DestroyEffect(eff)
+                            DestroyEffect(eff1)
+                            DestroyEffect(eff2)
+                            BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
+                            BlzSetSpecialEffectPosition(eff1,OutPoint,OutPoint,0)
+                            BlzSetSpecialEffectPosition(eff2,OutPoint,OutPoint,0)
+                            BreakCast=true
+                            DestroyTimer(GetExpiredTimer())
+                            ResetUnitAnimation(unit)
+                        end
+                    end)
+
+
                     TimerStart(CreateTimer(), 1, false, function()
-                        -- x1, x2 - координаты проверяемой точки
-                        -- x2, y2 - координаты вершины сектора
-                        -- orientation - ориентация сектора в мировых координатах
-                        -- width - уголовой размер сектора в градусах
-                        -- radius - окружности которой принадлежит сектор
                         BlzPauseUnitEx(unit,false)
                         SetUnitTimeScale(unit,1)
-                        if not IsUnitStunned(unit) then
+                        if not IsUnitStunned(unit) and not BreakCast then
                             normal_sound("Sound\\Units\\Combat\\MetalHeavyBashFlesh3",GetUnitXY(unit))
                             local is,_,_,all=UnitDamageArea(unit,0,GetUnitX(unit),GetUnitY(unit),400)
                             for i=1,#all do
@@ -4631,7 +4818,7 @@ function NecroAttackAndArrow(unit)
         else
             local hero=GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
-            if not IsUnitStunned(unit) and hero then
+            if not IsUnitStunned(unit) and hero and not IsUnitType(unit,UNIT_TYPE_POLYMORPHED) then
                 if not IsUnitInRange(hero,unit,300 ) then
                     local angle=AngleBetweenUnits(unit,hero)
                     BlzPauseUnitEx(unit,true)
@@ -4655,19 +4842,18 @@ end
 
 Bugs=CreateGroup()
 function SinergyBug(unit)
---[[
-    GroupAddUnit(Bugs,unit)
+    local hero=GetRandomEnemyHero()
     TimerStart(CreateTimer(), 1, true, function()
-        if not UnitAlive(unit) then
+        if not UnitAlive(unit) or not hero then
             DestroyTimer(GetTriggerUnit())
-            ForGroup(Bugs,function()
-                local e=GetEnumUnit()
-                IssueTargetOrder(e,"attack",GetRandomEnemyHero())
-            end)
+        else
+            hero=GetRandomEnemyHero()
+            if hero then
+                IssuePointOrder(unit,"attack",GetUnitXY(hero))
+            end
         end
     end)
-]]
-    IssuePointOrder(unit,"attack",GetUnitXY(GetRandomEnemyHero()))
+
 end
 
 function SpawnZombie(unit)
@@ -4736,7 +4922,7 @@ end
 --- DateTime: 09.03.2021 16:51
 ---
 function StartObsidianBoss(boss)
-    print("запущен ИИ босса")
+    --print("запущен ИИ босса")
     BlzSetUnitMaxHP(boss,10000)
     HealUnit(boss,10000)
     UnitAddShield(boss,5000)
@@ -4991,7 +5177,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
-           -- InitEvenDestructable()
+           -- InitEvenDestructable() --этот триггер не работает
         end)
     end
 end
@@ -5001,9 +5187,8 @@ function InitEvenDestructable()
     EnumDestructablesInRect(bj_mapInitialPlayableArea,nil,function()
         local d=GetEnumDestructable()
 
-        if GetDestructableTypeId(d)==FourCC("B004") then
+        if GetDestructableTypeId(d)==FourCC("B004")  or GetDestructableTypeId(d)==FourCC("B008") then
             k=k+1
-
         end
         TriggerRegisterDeathEvent(thisTrigger,d)
     end)
@@ -5014,6 +5199,14 @@ function InitEvenDestructable()
             if  GetDestructableTypeId(d)==FourCC("B004") then
                 -- print("умер ящик, создаём мимика")
                 local new=CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
+            end
+            if  GetDestructableTypeId(d)==FourCC("B008") then
+                --print("умер горшок")
+                local x,y=GetDestructableX(d),GetDestructableY(d)
+                DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",x,y))
+                TimerStart(CreateTimer(), 0.6, false, function()
+                    RemoveDestructable(d)
+                end)
             end
         else
 
@@ -5229,13 +5422,21 @@ end
 function CreateSawTrap(hero)
     local x,y=GetUnitXY(hero)
     local eff=AddSpecialEffect("SystemGeneric\\TrapSaw",x,y)
+    local showBlood=true
+    local sec=0
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         local is,unit=UnitDamageArea(hero,10,x,y,90,"blackHole")
+        sec=sec-TIMER_PERIOD
+        if sec<=0 then showBlood=true end
         if is and GetUnitTypeId(unit)==HeroID then--and IsUnitType(unit)==UNIT_TYPE_HERO
             --print("эффект крови")
-            local effb=AddSpecialEffect("SystemGeneric\\D9_blood_effect1",GetUnitXY(unit))
-            BlzSetSpecialEffectScale(effb,0.1)
-            DestroyEffect(effb)
+            if showBlood then
+                local effb=AddSpecialEffect("SystemGeneric\\D9_blood_effect1",GetUnitXY(unit))
+                BlzSetSpecialEffectScale(effb,0.1)
+                DestroyEffect(effb)
+                showBlood=false
+                sec=1
+            end
         end
         if not UnitAlive(hero) then
             DestroyTimer(GetExpiredTimer())
@@ -5701,17 +5902,29 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 					if GetDestructableLife(d)<1 or GetDestructableLife(d) <= 0 then
 						--print("смерть декора")
 						if hero then
+
 							if GetRandomInt(1,2)==1 then
 								if  GetDestructableTypeId(d)==FourCC("B004") then
 									--print("умер ящик, создаём мимика")
 									local new=CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
 									IssueTargetOrder(new,"attack",hero)
 								end
-
 							else
 								--print("даём золото за сундук")
 								UnitAddGold(hero,GetRandomInt(2,5))
 							end
+
+							if  GetDestructableTypeId(d)==FourCC("B008") then
+								--print("умер горшок")
+								local dx,dy=GetDestructableX(d),GetDestructableY(d)
+								normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", dx,dy,60)
+								DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",dx,dy))
+								TimerStart(CreateTimer(), 0.6, false, function()
+									RemoveDestructable(d)
+								end)
+							end
+
+
 						end
 					end
 				end
@@ -5987,6 +6200,7 @@ end
 function HealUnit(hero,amount,flag,eff)
     --1 или nil Сколько вылчено
     --2 Сверхлечение
+    if not amount then amount=99999 end
     if not eff then eff="Abilities\\Spells\\Human\\Heal\\HealTarget" end
     local p=GetOwningPlayer(hero)
     local MaxHP=BlzGetUnitMaxHP(hero)
@@ -6526,10 +6740,11 @@ end
 --- Created by Bergi.
 --- DateTime: 13.02.2021 18:35
 ---
-function normal_sound (s,x,y)
+function normal_sound (s,x,y,volume)
     local  snd = CreateSound(s, false, true, true, 10, 10, "CombatSoundsEAX")
+    if not volume then volume=127 end
     SetSoundChannel(snd, 40)
-    SetSoundVolume(snd, 127)
+    SetSoundVolume(snd, volume)
     SetSoundPitch(snd, 1)
     SetSoundDistances(snd, 600, 10000)
     SetSoundDistanceCutoff(snd, 2100)
@@ -6876,6 +7091,7 @@ function InitHeroTable(hero)
         InvulPreDeathCurrentCD=1, --кулдаун бессмертия от трала
         LifeFHTable={},
         gold=0,
+        ShowGold=true, -- показ накопления золота
     }
 end
 
