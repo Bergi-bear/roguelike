@@ -30,6 +30,7 @@ function CreateTaskForAllPlayer()
             frames[7],_,text[7],_,chk[7] = CreateSimpleTask(L("Когда удерживаете LMB нажмите SPACE, для рывка ветра","When holding LMB press SPACE to leap wind"), Player(i))
             frames[8],_,text[8],_,chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад","Press Q+SPACE to unleash a powerful attack"), Player(i))
             frames[9],_,text[9],_,chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB","Use throw picks RMB, during rotation LMB"), Player(i))
+            frames[10],_,text[10],_,chk[10] = CreateSimpleTask(L("Во время вращения LMB нажмите Q","While the LMB is rotating, press Q"), Player(i))
             data.chk=chk
             local completed = false
 
@@ -107,7 +108,7 @@ function DestroyAllLearHelpers()
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) then
             local data=HERO[i]
             SimpleTaskPos[i]=0
-            for j=1,9 do
+            for j=1,10 do
                 data.tasks[j]=true
             end
         end

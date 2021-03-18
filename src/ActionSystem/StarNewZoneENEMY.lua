@@ -355,7 +355,7 @@ function StartEnemyWave(waveNumber)
                 end
             end
         end
-        maxOnWave = GetRandomInt(3,waveNumber//2)
+        maxOnWave =waveNumber//2
     end
 
     --[[
@@ -542,6 +542,7 @@ function StartWave(dataGZ, listID, max)
     -- print("start wave "..max)
     local rect=dataGZ.rectSpawn
     local CountPlayers = GetActiveCountPlayer()
+    G_CountPlayers=CountPlayers
     if CountPlayers >= 2 then
         for _ = 2, CountPlayers do
             for i = 1, #listID do
@@ -624,14 +625,16 @@ function CreateCreepDelay(id, x, y, delay, flag)
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
         local a=BlzGetUnitMaxHP(new)
-        if CountPlayers>=2 then
+        if G_CountPlayers>=2 then
 
             BlzSetUnitMaxHP(new,a*CountPlayers/1.5)
             HealUnit(new)
         end
         if CurrentGameZone>=10 then
             local r=GetRandomInt(1,22-CurrentGameZone)
-            UnitAddShield(new,a*1.5)
+            if r==1 then
+                UnitAddShield(new,R2I(a*1.5))
+            end
         end
 
 

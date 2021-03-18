@@ -18,6 +18,8 @@ function SpellSlashQ(data)
     if data.BigStaggerQ then
         range=range+100
     end
+
+
     local x, y = MoveXY(GetUnitX(hero), GetUnitY(hero), 80, GetUnitFacing(hero))
     local eff=AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
     if data.BigStaggerQ then
@@ -28,4 +30,28 @@ function SpellSlashQ(data)
     if data.BigStaggerQ then
         StunArea(hero,x,y,range,data.BigStaggerQ)
     end
+
+    if data.isSpined then
+       -- print("Круговой Клеп")
+
+        if not data.tasks[10] then
+            data.tasks[10] = true
+        end
+
+        if not data.SpinClap then
+            data.SpinClap=true
+            local k=7
+            TimerStart(CreateTimer(),.1,true, function()
+                k=k-1
+                if k>1 then
+                    SpellSlashQ(data)
+                end
+                if k<=0 then
+                    DestroyTimer(GetExpiredTimer())
+                    data.SpinClap=false
+                end
+            end)
+        end
+    end
+
 end

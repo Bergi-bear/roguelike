@@ -611,6 +611,8 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero,3)
+
+
                 if data.QJump2Pointer  then --FIXED может ломать управление
                     --if not data.ReleaseQ then
                     --print("Q в курсор")
@@ -1224,10 +1226,12 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                 deadDamage=true
                 FlyTextTagCriticalStrike(u,"Камикадце",GetOwningPlayer(u))
                 damage=damage*m
+                ReviveHero(u,GetUnitX(u),GetUnitY(u),true)
+                SetUnitState(u,UNIT_STATE_LIFE,1)
             end
         end
 
-        if UnitAlive(e) and (UnitAlive(u) or deadDamage) and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
+        if UnitAlive(e) and (UnitAlive(u) or deadDamage or flag=="all") and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
             if flag=="shotForce" then
                 UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
             end

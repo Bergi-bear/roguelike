@@ -58,7 +58,9 @@ function StartAndReleaseSpin(data)
             end)
             if not data.isSpined or data.SpinCharges<=0 or not UnitAlive(hero) then
                 --print("stopspin")
-               data.SpinReflect=false
+                data.SpinReflect=false
+                data.isSpined=false
+                data.PressSpin=false
                 DestroyTimer(GetExpiredTimer())
             end
         end)
