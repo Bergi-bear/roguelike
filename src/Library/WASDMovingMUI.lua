@@ -1397,6 +1397,13 @@ function PlayUnitAnimationFromChat()
             CreateGodTalon(x, y, "HeroTaurenChieftain")
             return
         end
+
+        if GetEventPlayerChatString()=="c" or GetEventPlayerChatString()=="с"  then
+            local x,y=GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "ChaosBlademaster")
+            return
+        end
+        -----------Игры со светом
         if GetEventPlayerChatString()=="chk" or GetEventPlayerChatString()=="срл"  then
             print(udg_LoadCode[0])
             return

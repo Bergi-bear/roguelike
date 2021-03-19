@@ -43,7 +43,8 @@ function InitFinObjectInArea()
     CreateEnterPoint(7800, -6600, L("    Посмотреть вдаль","                Look into the distance"), "SoFar", true) --на краю берега справа
     CreateEnterPoint(7000, -9200, L("        Рыбачить","        Fishing"), "Fish", true) -- внизу на берегу
     CreateEnterPoint(7200, -7600, L("       Отдохнуть","                  Take a break"), "NoWorking", true) -- возле деревьев
-    CreateEnterPoint(7200, -7600, L("       Прочитать","                  Reading"), "Read1", false) --первый обелиск
+    CreateEnterPoint(18329, -3724, L("       Прочитать","                  Reading"), "Read1", false) --первый обелиск
+
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение

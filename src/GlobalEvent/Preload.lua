@@ -57,7 +57,7 @@ function InitPreloadStart()
                 if tonumber(udg_LoadCode[i]) then
                 else
                     udg_LoadCode[i]=50
-                    print("FirstGame")
+                    --print("FirstGame")
                 end
                 UnitAddGold(data.UnitHero, udg_LoadCode[i])
             else

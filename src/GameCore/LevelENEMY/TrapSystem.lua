@@ -10,6 +10,7 @@ do
         TimerStart(CreateTimer(), 3, false, function()
             ReplaceID2SawTrap(FourCC("hpea"))
             ReplaceID2SwordSpike(FourCC("hkni"))
+            StartAllSaw()
         end)
     end
 end
