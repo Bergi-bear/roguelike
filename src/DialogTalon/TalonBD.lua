@@ -298,6 +298,15 @@ do
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади"," Press Q to strike a powerful blow over a large area"),
                             DS={0.5,0.8,1.4}
                         }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
+                            name = L("Ловушка на кодоев","Codo trap"),
+                            description = L("Ловушка наносят ХDS урона по врагам", "Trap deals XDS damage to enemies"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Работает только на огненные мины и кнопки с шипами","Works only on fire mines and buttons with spikes"),
+                            DS={2,3,5}
+                        }),
                     },
                     HeroBeastMaster={ -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({

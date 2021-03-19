@@ -10,7 +10,7 @@ function GiveForAll(reward)
             if data then
                 local hero=data.UnitHero
                 if reward=="CodoHeart" then
-                    AddMaxLife(hero,100)
+                    AddMaxLife(hero,25)
                 end
                 if reward=="GoldReward" then
                     UnitAddGold(hero,100)

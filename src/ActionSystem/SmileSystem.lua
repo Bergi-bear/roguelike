@@ -14,7 +14,7 @@ do
 end
 
 function InitSmileActions()
-    -----------------------------------------------------------------OSKEY_F
+    -----------------------------------------------------------------ctrl+1
     local gg_trg_EventUp1 = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         BlzTriggerRegisterPlayerKeyEvent(gg_trg_EventUp1, Player(i), OSKEY_1, 2, true)
@@ -43,4 +43,32 @@ function InitSmileActions()
         local data = HERO[pid]
         data.Release1ctrl = false
     end)
+
+    -----------------------------------------------------------------ONLY CTRL
+    local TrigPressCTRL = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigPressCTRL, Player(i), OSKEY_LCONTROL, 2, true)
+    end
+    TriggerAddAction(TrigPressCTRL, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        if not data.ReleaseCTRL  then
+            data.ReleaseCTRL = true
+            --print("нажат контрол")
+        end
+    end)
+    local TrigDePressCTRL = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigDePressCTRL, Player(i), OSKEY_LCONTROL, 0, false)
+    end
+    TriggerAddAction(TrigDePressCTRL, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+       -- print("отпущен")
+        data.ReleaseCTRL = false
+    end)
+
+
+
+
 end

@@ -61,6 +61,29 @@ function StartObsidianBoss(boss)
                         DestroyTimer(GetExpiredTimer())
                     end
                 end)
+
+
+                local r=1
+                TimerStart(CreateTimer(), 2, false, function()
+                    TimerStart(CreateTimer(), 0.1, true, function()
+                        local hero=GetRandomEnemyHero()
+                        if hero then
+                            x,y=GetUnitXY(boss)
+                            local angle=AngleBetweenUnits(boss,hero)
+                            if r==1 then
+                                angle=GetRandomInt(0,360)
+                            end
+                            CreateAndForceBullet(boss,angle,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,50,1500)
+                        end
+
+                        if phase~=1 then
+                            DestroyTimer(GetExpiredTimer())
+                        end
+                    end)
+                end)
+
+
+
             end
             if phase == 2 and PhaseOn then
                 PhaseOn = false

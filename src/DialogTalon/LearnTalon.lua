@@ -258,8 +258,11 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
                 data.BigStaggerQ=talon.DS[talon.level]
             end)
         end
-        if pos==6 then
-
+        if pos==6 then -- Урон от ловушек
+            data.AddDamageTrap=talon.DS[talon.level]
+            ActLvl23Action(talon,function()
+                data.AddDamageTrap=talon.DS[talon.level]
+            end)
         end
     end
     if godName=="HeroBeastMaster" and  talon.level==1 then

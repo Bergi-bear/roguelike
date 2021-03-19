@@ -40,7 +40,7 @@ function RegistrationAnyEntire()
                         end)
                     end
                 end
-                if GetUnitTypeId(entering)==FourCC('nglm') then --МИНА
+                if GetUnitTypeId(entering)==FourCC('nglm') then --МИНА mine mina
                     local x,y=GetUnitXY(entering)
                     local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
                     BlzSetSpecialEffectColor(mark,255,0,0)
@@ -59,8 +59,7 @@ function RegistrationAnyEntire()
 
                         TimerStart(CreateTimer(), 2, false, function()
                             --print("наносим урон")
-
-                            UnitDamageArea(entering,150,x,y,200)
+                            UnitDamageArea(hero,150,x,y,200,"all")
                             KillUnit(entering)
                             DestroyEffect(mark)
                             BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)

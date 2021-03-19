@@ -42,7 +42,8 @@ function InitFinObjectInArea()
     CreateEnterPoint(7700, -8000, L("     Преисполниться","          Fill up"), "StartBonus", true) --Синий огонь
     CreateEnterPoint(7800, -6600, L("    Посмотреть вдаль","                Look into the distance"), "SoFar", true) --на краю берега справа
     CreateEnterPoint(7000, -9200, L("        Рыбачить","        Fishing"), "Fish", true) -- внизу на берегу
-    CreateEnterPoint(7200, -7600, L("       Отдохнуть","              Take a break"), "NoWorking", true) -- возле деревьев
+    CreateEnterPoint(7200, -7600, L("       Отдохнуть","                  Take a break"), "NoWorking", true) -- возле деревьев
+    CreateEnterPoint(7200, -7600, L("       Прочитать","                  Reading"), "Read1", false) --первый обелиск
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -361,6 +362,13 @@ function CreateEActions()
                 data.DoAction = false
                 data.UseAction = ""
             end
+            if data.UseAction == "Read1" then
+                local message = L("Я здесь не для отдыха","I'm not here to rest")
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
             ----------------------------------------------------/
             ---------------ДАРЫ БОГОВ---------------------------/
             ----------------------------------------------------/
@@ -639,7 +647,7 @@ function CreateInfoBoxForAllPlayerTimed(data, message, timed)
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local size = #message * 0.004
+    local size = #message * 0.007
     if size <= 0.12 then
         size = 0.12
     end

@@ -86,6 +86,7 @@ function InitHeroTable(hero)
         LifeFHTable={},
         gold=0,
         ShowGold=true, -- показ накопления золота
+        ShowGoldAmount=0,
     }
 end
 
@@ -680,7 +681,11 @@ function CreateWASDActions()
                 end
 
                 if not data.SpaceForce then
-                    attack(data)
+                    if not data.ReleaseCTRL then
+                        attack(data)
+                    else
+                        CreateForUnitWayToPoint(data.UnitHero, BlzGetTriggerPlayerMouseX(), BlzGetTriggerPlayerMouseY())
+                    end
                 else
                     --if data.DashCharges>0
                     if not data.AttackInForce then
@@ -1223,8 +1228,10 @@ function UnitDamageArea(u,damage,x,y,range,flag)
             local talon=GlobalTalons[GetPlayerId(GetOwningPlayer(u))+1]["HeroBlademaster"][8]
             if talon.level>0 then
                 local m=talon.DS[talon.level]
+                local data=HERO[GetPlayerId(GetOwningPlayer(u))]
                 deadDamage=true
                 FlyTextTagCriticalStrike(u,"Камикадце",GetOwningPlayer(u))
+                data.life=data.life+1
                 damage=damage*m
                 ReviveHero(u,GetUnitX(u),GetUnitY(u),true)
                 SetUnitState(u,UNIT_STATE_LIFE,1)
@@ -1234,6 +1241,13 @@ function UnitDamageArea(u,damage,x,y,range,flag)
         if UnitAlive(e) and (UnitAlive(u) or deadDamage or flag=="all") and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
             if flag=="shotForce" then
                 UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
+            end
+            if flag=="all" then
+                local data=HERO[GetPlayerId(GetOwningPlayer(u))]
+                if not data.AddDamageTrap then data.AddDamageTrap=0 end
+                if data.AddDamageTrap>0 then --Повышенный урон от ловушек
+                    damage=damage*data.AddDamageTrap
+                end
             end
             if flag=="blackHole" then
                 if not IsUnitInRange(e,u,15) then

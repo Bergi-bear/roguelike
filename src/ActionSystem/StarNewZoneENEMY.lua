@@ -627,13 +627,13 @@ function CreateCreepDelay(id, x, y, delay, flag)
         local a=BlzGetUnitMaxHP(new)
         if G_CountPlayers>=2 then
 
-            BlzSetUnitMaxHP(new,a*CountPlayers/1.5)
+            BlzSetUnitMaxHP(new,R2I(a*G_CountPlayers))
             HealUnit(new)
         end
         if CurrentGameZone>=10 then
             local r=GetRandomInt(1,22-CurrentGameZone)
             if r==1 then
-                UnitAddShield(new,R2I(a*1.5))
+                UnitAddShield(new,R2I(a*3))
             end
         end
 

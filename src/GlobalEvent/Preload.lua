@@ -36,9 +36,14 @@ function InitPreloadStart()
             local data = HERO[i]
             local restoreGold = 0
             --print("Обработка игрока " .. i)
-            -- if #s > 10 then
-            --     s = 0
-            -- end
+
+            --if #(udg_LoadCode[i]) > 10 then
+            --    udg_LoadCode[i]=50
+            --    print("FirstGame")
+            --end
+            if not udg_LoadCode[i] then
+                udg_LoadCode[i]=50
+            end
 
             --restoreGold = SyncString(Player(i), I2S(s)) -- ЭТА СТРОЧКА КРАШИТ ВАР
 
@@ -47,7 +52,13 @@ function InitPreloadStart()
             --print("итоговое значение для "..i)
             --print(udg_LoadCode[i])
             --print(GetPlayerName(Player(i)) .. " перенес золота из прошлой игры " ..(udg_LoadCode[i]))
+
             if udg_LoadCode[i] then
+                if tonumber(udg_LoadCode[i]) then
+                else
+                    udg_LoadCode[i]=50
+                    print("FirstGame")
+                end
                 UnitAddGold(data.UnitHero, udg_LoadCode[i])
             else
                 --i=i-1
