@@ -27,15 +27,17 @@ function RegistrationAnyEntire()
 
                     local dataPoint=EnterPointTable[GetHandleId(entering)]
                     --print("подошел к "..dataPoint.UseAction)
-                    if dataPoint.isActive then
+                    if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering
                         BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
+                        data.ShowActionWindows=true
                         TimerStart(CreateTimer(), 0.1, true, function()
-                            if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) then
+                            if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) or not dataPoint.isActive then
                                 BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
                                 data.UseAction=""
+                                data.ShowActionWindows=false
                             end
                         end)
                     end
@@ -45,6 +47,7 @@ function RegistrationAnyEntire()
                     local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
                     BlzSetSpecialEffectColor(mark,255,0,0)
                     BlzSetSpecialEffectScale(mark,1.2)
+                    SetUnitInvulnerable(entering,true)
                     local act=false
                     if not act then
                         act=true

@@ -102,6 +102,7 @@ function RemoveLife(data)
                         if GetLocalPlayer()==Player(i) then
                             savedGold=gdata.gold
                         end
+
                         print(GetPlayerName(Player(i))..L(" унёс с собой "..R2I(gdata.gold).." золота ","took with me " ..R2I (gdata.gold).. " gold "))
 
                         TimerStart(CreateTimer(),2, false, function()

@@ -23,6 +23,7 @@ function CreateRoundSawZ(hero,ChainCount,angle,z)
 	-- установки
 	BlzSetSpecialEffectScale(saw,0.9)
 	local DamageDealer=CreateUnit(GetOwningPlayer(hero),DummyID,xs,ys,0)
+	SetUnitInvulnerable(DamageDealer,true)
 	ShowUnit(DamageDealer,false)
 	local SS=true
 	local DeadUnitOnSaw=nil
@@ -45,13 +46,13 @@ function CreateRoundSawZ(hero,ChainCount,angle,z)
 		OnDamage,ReflectorUnit=UnitDamageArea(DamageDealer,20,nx,ny,150,z-90,CollisionEffect)
 
 		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit)  then
-			local tl = Location(GetUnitXY(hero))
+			--[[local tl = Location(GetUnitXY(hero))
 			PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
 			RemoveLocation(tl)
 			local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0) --звуковой дамми и его блок
 			UnitAddAbility(dummy,FourCC('Apsh'))
 			IssueImmediateOrder(dummy,"phaseshift")
-			UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)
+			UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)]]
 
 			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
 				if UnitAlive(ReflectorUnit) then
@@ -67,8 +68,12 @@ function CreateRoundSawZ(hero,ChainCount,angle,z)
 		end
 		if DeadUnitOnSaw then
 			if not UnitAlive(DeadUnitOnSaw) then
-				SetCameraQuickPosition(nx,ny)
-				SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(DeadUnitOnSaw), DamageDealer, 10, 10, true) -- не дергается
+				if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
+					SetCameraQuickPosition(nx,ny)
+					SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(DeadUnitOnSaw), DamageDealer, 10, 10, true) -- не дергается
+					local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
+					data.CameraOnSaw=true
+				end
 				--SetCameraPosition(nx,ny)
 				SetUnitX(DeadUnitOnSaw,nx)
 				SetUnitY(DeadUnitOnSaw,ny)
@@ -149,14 +154,14 @@ function CreateGroundSaw(hero,angle,z)
 		UnitDamageArea(hero,20,nx,ny,60,z-90,CollisionEffect)
 
 		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
-			local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0)
-			UnitAddAbility(dummy,FourCC('Apsh'))
-			IssueImmediateOrder(dummy,"phaseshift")-- поддельный звук пилы
-			UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)
+			--local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0)
+			--UnitAddAbility(dummy,FourCC('Apsh'))
+			--IssueImmediateOrder(dummy,"phaseshift")-- поддельный звук пилы
+			--UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)
 			--ShowUnit(dummy,false)
-			local tl = Location(GetUnitXY(hero))
-			PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
-			RemoveLocation(tl)
+			--local tl = Location(GetUnitXY(hero))
+			--PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
+			--RemoveLocation(tl)
 		end
 
 
@@ -184,8 +189,8 @@ end
 function StartAllSaw()
 	local e--временный юнит
 	local k=0
-	local id=FourCC('h001') -- колонная с пилой
-	local idg=FourCC('e004') --
+	local id=FourCC('hmtm') -- колонная с пилой
+	local idg=FourCC('hrif') -- пила по земле
 	GroupEnumUnitsInRect(perebor,bj_mapInitialPlayableArea,nil)
 	while true do
 		e = FirstOfGroup(perebor)
@@ -193,6 +198,7 @@ function StartAllSaw()
 		if UnitAlive(e) and GetUnitTypeId(e)==id then
 			--k=k+1
 			CreateRoundSawZ(e,6,GetRandomInt(0,360))
+			ShowUnit(e,false)
 		end
 		if UnitAlive(e) and GetUnitTypeId(e)==idg then
 			k=k+1

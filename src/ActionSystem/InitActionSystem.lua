@@ -11,6 +11,7 @@ do
         TimerStart(CreateTimer(), 2, false, function()
             ReplaceALLUnitId2PointExit(FourCC("hdhw"))
             InitHealPoint()
+            InitMagazine()
             InitFireBallPoint() --это не экшен поинт
             CreateEActions()
             InitFinObjectInArea()
@@ -44,7 +45,7 @@ function InitFinObjectInArea()
     CreateEnterPoint(7000, -9200, L("        Рыбачить","        Fishing"), "Fish", true) -- внизу на берегу
     CreateEnterPoint(7200, -7600, L("       Отдохнуть","                  Take a break"), "NoWorking", true) -- возле деревьев
     CreateEnterPoint(18329, -3724, L("       Прочитать","                  Reading"), "Read1", false) --первый обелиск
-
+    CreateEnterPoint(13400, -9448, L("         Открыть","                  Open"), "Open1", false)
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -116,6 +117,10 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
         preView = AddSpecialEffect("SystemGeneric\\GodModels\\" .. reward, x, y)
         BlzSetSpecialEffectYaw(preView, math.rad(90))
         BlzSetSpecialEffectScale(preView, 2)
+        BlzSetSpecialEffectColor(preView, 255, 255, 255)
+
+
+
         --print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
         --GLOBAL_REWARD=reward
 
@@ -141,6 +146,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
     dataPoint.isActive = isActive
     dataPoint.CurrentReward = reward
     dataPoint.preView = preView
+    dataPoint.Unit = tempUnit
 
     if actionFlag == "Goto" then
         local _, k, tempTable = FindUnitOfType(FourCC("hdhw"), 1500, x, y)
@@ -191,7 +197,7 @@ end
 
 function AllActionsEnabled(enable)
     for i = 1, #ActionList do
-        if ActionList[i].actionFlag == "Goto" then
+        if ActionList[i].actionFlag == "Goto" or ActionList[i].actionFlag=="Read1" or ActionList[i].actionFlag=="Open1"  then
             local dataPoint = ActionList[i].self
             dataPoint.isActive = enable
             ActionList[i].isActive = enable
@@ -364,11 +370,31 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Read1" then
-                local message = L("Я здесь не для отдыха","I'm not here to rest")
+                local message = L("Не могу понять, что тут написано","?????")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+            end
+            if data.UseAction == "Open1" then
+                local message = L("Победите всех врагов","Defeat all enemies")
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                StartEnemyWave(44)
+               KillUnit(data.EPointUnit)
+            end
+            if data.UseAction == "RotationFire" then
+                --local message = L("Я здесь не для отдыха","I'm not here to rest")
+                --CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                --data.Completed = true
+                --data.DoAction = false
+                --data.UseAction = ""
+                dataPoint.AngleFireRotation=dataPoint.AngleFireRotation+90
+                local x,y=GetUnitXY(data.UnitHero)
+                FlyTextTagShieldXY(x,y,L("Поворачиваем","Rotate"),GetOwningPlayer(data.UnitHero))
+                --print("Поворачиваем")
             end
             ----------------------------------------------------/
             ---------------ДАРЫ БОГОВ---------------------------/
@@ -615,15 +641,19 @@ function CreateEActions()
                 data.DoAction = false
                 data.UseAction = ""
             end
-            if data.UseAction == "Merchant" then
-                local message = "Не спеши, выбирай с умом"
+            if data.UseAction == "Buying" then
+                local message = L("Не спеши, выбирай с умом","Take your time, choose wisely")
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 data.Completed = true
-                DestroyGodTalon(dataPoint.TripleTalon)
+                --DestroyGodTalon(dataPoint.TripleTalon)
                 --CreateDialogTalon("Merchant")
-                AllActionsEnabled(true)
+                --AllActionsEnabled(true)
                 data.DoAction = false
                 data.UseAction = ""
+                dataPoint.isActive=false
+                TimerStart(CreateTimer(), 1.6, false, function()
+                    CreateMerchantAndGoods(GetUnitXY(dataPoint.Unit))
+                end)
                 --KillUnit(data.EPointUnit)
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end

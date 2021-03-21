@@ -1,3 +1,4 @@
+udg_Quest1Complete = false
 gg_rct_B1A = nil
 gg_rct_S1A = nil
 gg_rct_B2A = nil
@@ -58,6 +59,9 @@ gg_rct_B19A = nil
 gg_rct_E20A = nil
 gg_rct_S20A = nil
 gg_rct_B20A = nil
+gg_rct_S21A = nil
+gg_rct_B21A = nil
+gg_rct_E21A = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -73,13 +77,27 @@ gg_cam_Camera_012 = nil
 gg_cam_Camera_013 = nil
 gg_cam_Camera_014 = nil
 gg_cam_Camera_015 = nil
+gg_trg_DeadB1 = nil
 gg_trg_TEST = nil
 gg_trg_FFF = nil
 gg_trg_TrapTest = nil
 gg_trg_DDDD = nil
 gg_trg_UPUP = nil
 gg_trg_Melee_Initialization = nil
+gg_dest_B009_5532 = nil
+gg_dest_B009_5531 = nil
+gg_dest_B009_5530 = nil
 function InitGlobals()
+    udg_Quest1Complete = false
+end
+
+function CreateAllDestructables()
+    local d
+    local t
+    local life
+    gg_dest_B009_5531 = BlzCreateDestructableZWithSkin(FourCC("B009"), 17785.5, -6974.2, 1273.2, 88.867, 1.000, 0, FourCC("B009"))
+    gg_dest_B009_5530 = BlzCreateDestructableZWithSkin(FourCC("B009"), 18800.5, -6281.1, 1279.6, 359.441, 1.000, 0, FourCC("B009"))
+    gg_dest_B009_5532 = BlzCreateDestructableZWithSkin(FourCC("B009"), 20082.7, -7742.6, 1273.2, 270.462, 1.000, 0, FourCC("B009"))
 end
 
 function CreateUnitsForPlayer0()
@@ -112,12 +130,11 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17373.4, -13169.4, 8.438, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17371.2, -12644.8, 313.746, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17855.1, -12572.1, 36.443, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17864.8, -12749.7, 112.031, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17866.1, -12945.6, 120.732, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17864.0, -13108.4, 308.824, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 17857.0, -12661.6, 270.879, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 17891.2, -13722.3, 91.401, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 18845.7, -12668.3, 178.025, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17601.1, -12823.3, 284.961, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17371.1, -12950.2, 152.275, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17873.4, -13276.4, 49.550, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18406.4, -13782.6, 12.085, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18402.4, -13674.7, 19.315, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18409.3, -13563.0, 226.106, FourCC("hpea"))
@@ -126,8 +143,6 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18429.8, -13091.4, 76.830, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18438.7, -12924.3, 154.912, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18157.3, -13522.6, 53.890, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17867.1, -13580.5, 358.484, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17879.9, -13417.8, 23.588, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15620.7, -6529.8, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14462.1, -12665.1, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14464.5, -12809.1, 0.000, FourCC("hkni"))
@@ -218,6 +233,13 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 19558.9, -16377.7, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 23295.6, -8406.8, 273.052, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 23300.5, -8549.8, 273.052, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 19294.8, -7739.0, 270.047, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 15400.4, -19832.0, 356.698, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 18748.3, -8074.6, 242.850, FourCC("hmtm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 22962.1, -3664.7, 242.850, FourCC("hmtm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 11000.4, -19994.9, 91.255, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 11576.9, -19978.0, 93.173, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 18537.3, -4471.4, 358.307, FourCC("hrif"))
 end
 
 function CreateNeutralHostile()
@@ -251,6 +273,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("ncrb"), 5735.4, -9244.0, 200.287, FourCC("ncrb"))
     u = BlzCreateUnitWithSkin(p, FourCC("ncrb"), 5352.2, -9124.6, 18.754, FourCC("ncrb"))
     u = BlzCreateUnitWithSkin(p, FourCC("nskk"), 7336.3, -6776.6, 278.280, FourCC("nskk"))
+    u = BlzCreateUnitWithSkin(p, FourCC("ncgb"), 5616.9, -7111.3, 310.461, FourCC("ncgb"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 7495.7, -7044.5, 350.440, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 6609.1, -6318.2, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14686.8, -11809.0, 296.730, FourCC("hdhw"))
@@ -511,7 +534,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14683.0, -19559.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14483.9, -20637.6, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14629.9, -19985.8, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15574.4, -19880.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15625.2, -19984.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14726.0, -21048.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14964.0, -20730.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15198.2, -20960.4, 247.300, FourCC("e001"))
@@ -528,6 +551,21 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15474.6, -20256.9, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15058.7, -20206.6, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15357.9, -19573.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 20359.5, -18625.8, 350.440, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19651.2, -20250.3, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20420.3, -20324.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20290.1, -20068.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19907.7, -20122.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19954.4, -19824.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20027.9, -19424.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19869.3, -18550.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19909.2, -19013.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20711.6, -18871.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21032.4, -18585.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21309.7, -19287.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20867.7, -19324.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21134.2, -19734.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21066.3, -20177.5, 247.300, FourCC("e001"))
 end
 
 function CreatePlayerBuildings()
@@ -591,7 +629,7 @@ function CreateRegions()
     gg_rct_E14A = Rect(23296.0, -16992.0, 23584.0, -16352.0)
     gg_rct_S15A = Rect(18656.0, -16960.0, 21312.0, -14400.0)
     gg_rct_B15A = Rect(20480.0, -16384.0, 20608.0, -15904.0)
-    gg_rct_E15A = Rect(20352.0, -17280.0, 20640.0, -16512.0)
+    gg_rct_E15A = Rect(20416.0, -17216.0, 20672.0, -16832.0)
     gg_rct_S16A = Rect(16352.0, -16800.0, 18144.0, -15136.0)
     gg_rct_B16A = Rect(17344.0, -16320.0, 17472.0, -15840.0)
     gg_rct_E16A = Rect(16896.0, -17152.0, 17184.0, -16608.0)
@@ -607,6 +645,9 @@ function CreateRegions()
     gg_rct_E20A = Rect(13696.0, -20608.0, 14240.0, -20192.0)
     gg_rct_S20A = Rect(14272.0, -21280.0, 16288.0, -18880.0)
     gg_rct_B20A = Rect(14848.0, -20576.0, 15712.0, -19168.0)
+    gg_rct_S21A = Rect(19648.0, -20576.0, 21472.0, -18368.0)
+    gg_rct_B21A = Rect(20480.0, -19872.0, 20544.0, -19232.0)
+    gg_rct_E21A = Rect(21248.0, -20288.0, 21504.0, -19904.0)
 end
 
 function CreateCameras()
@@ -879,6 +920,55 @@ end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
+--- DateTime: 20.03.2021 19:38
+---
+function CreateTotemInLine(data)
+    local hero = data.UnitHero
+    local x, y = GetUnitXY(hero)
+    local step = 60
+    local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitXY(hero))
+    local angle = AngleBetweenXY(GetUnitX(hero), GetUnitY(hero), GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
+    local maxBlock = dist // step
+    --print("требуется блоков="..maxBlock)
+    if maxBlock > 10 then
+        maxBlock = 10
+    end
+    if maxBlock < 2 then
+        maxBlock = 2
+    end
+    local i = 1
+    TimerStart(CreateTimer(), 0.05, true, function()
+        i = i + 1
+        if data.TotemCharges > 0 then
+            x, y = MoveXY(x, y, step, angle)
+            data.TotemCharges=data.TotemCharges-1
+            BlzFrameSetText(data.TotemChargesFH, data.TotemCharges)
+            CreateTotemElement(x, y,angle)
+            UnitDamageArea(hero,100,x,y,150,"ForceTotem")
+        else
+            --break
+        end
+        if i>=maxBlock then
+           DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+function CreateTotemElement(x, y,angle)
+    local collision = CreateDestructable(FourCC("B00A"), x, y, 0, 1, 1)
+    local eff = AddSpecialEffect("units\\orc\\StasisTotem\\StasisTotem", x, y)
+    local effStomp=AddSpecialEffect("Abilities\\Spells\\Human\\Polymorph\\PolyMorphDoneGround", x, y)
+    DestroyEffect(effStomp)
+    BlzSetSpecialEffectYaw(eff, math.rad(angle))
+    TimerStart(CreateTimer(), 5, false, function()
+        KillDestructable(collision)
+        RemoveDestructable(collision)
+        DestroyEffect(eff)
+    end)
+end
+
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
 --- DateTime: 14.02.2021 2:37
 ---
 
@@ -1077,18 +1167,16 @@ function CreateActionsF()
                    -- print("нужно 10 зарядов")
                 end
             end
-            --[[
-            if GlobalTalons[data.pid+1]["ShadowHunter"][4].level>0 then
-                --print("Есть ульта трала, пытаюсь скастовать")
-
-                data.CallWooDooCurrentCD=0
-                if data.CallTrallCharges>9 then
-                    data.CallTrallReady=false
-                    CallWooDoo(data)
+           -- Ульта быка
+            if data.TotemChargesMax then
+                --print("Есть ульта пытаюсь скастовать")
+                if data.TotemCharges>=2 then
+                    --print("вот тут и создаём тотем")
+                    CreateTotemInLine(data)
                 else
-                    -- print("нужно 10 зарядов")
+                    print("нужно 2 зарядов")
                 end
-            end]]
+            end
 
         end
     end)
@@ -1184,6 +1272,7 @@ do
         TimerStart(CreateTimer(), 2, false, function()
             ReplaceALLUnitId2PointExit(FourCC("hdhw"))
             InitHealPoint()
+            InitMagazine()
             InitFireBallPoint() --это не экшен поинт
             CreateEActions()
             InitFinObjectInArea()
@@ -1217,7 +1306,7 @@ function InitFinObjectInArea()
     CreateEnterPoint(7000, -9200, L("        Рыбачить","        Fishing"), "Fish", true) -- внизу на берегу
     CreateEnterPoint(7200, -7600, L("       Отдохнуть","                  Take a break"), "NoWorking", true) -- возле деревьев
     CreateEnterPoint(18329, -3724, L("       Прочитать","                  Reading"), "Read1", false) --первый обелиск
-
+    CreateEnterPoint(13400, -9448, L("       Открыть","                  Open"), "Open1", false)
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -1289,6 +1378,10 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
         preView = AddSpecialEffect("SystemGeneric\\GodModels\\" .. reward, x, y)
         BlzSetSpecialEffectYaw(preView, math.rad(90))
         BlzSetSpecialEffectScale(preView, 2)
+        BlzSetSpecialEffectColor(preView, 255, 255, 255)
+
+
+
         --print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
         --GLOBAL_REWARD=reward
 
@@ -1314,6 +1407,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
     dataPoint.isActive = isActive
     dataPoint.CurrentReward = reward
     dataPoint.preView = preView
+    dataPoint.Unit = tempUnit
 
     if actionFlag == "Goto" then
         local _, k, tempTable = FindUnitOfType(FourCC("hdhw"), 1500, x, y)
@@ -1364,7 +1458,7 @@ end
 
 function AllActionsEnabled(enable)
     for i = 1, #ActionList do
-        if ActionList[i].actionFlag == "Goto" then
+        if ActionList[i].actionFlag == "Goto" or ActionList[i].actionFlag=="Read1" or ActionList[i].actionFlag=="Open1"  then
             local dataPoint = ActionList[i].self
             dataPoint.isActive = enable
             ActionList[i].isActive = enable
@@ -1537,11 +1631,30 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Read1" then
-                local message = L("Я здесь не для отдыха","I'm not here to rest")
+                local message = L("Не могу понять, что тут написано","?????")
                 CreateInfoBoxForAllPlayerTimed(data, message, 5)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+            end
+            if data.UseAction == "Open1" then
+                local message = L("Продержитесь 60 секунд","Hold on for 60 seconds")
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                StartEnemyWave(44)
+            end
+            if data.UseAction == "RotationFire" then
+                --local message = L("Я здесь не для отдыха","I'm not here to rest")
+                --CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                --data.Completed = true
+                --data.DoAction = false
+                --data.UseAction = ""
+                dataPoint.AngleFireRotation=dataPoint.AngleFireRotation+90
+                local x,y=GetUnitXY(data.UnitHero)
+                FlyTextTagShieldXY(x,y,L("Поворачиваем","Rotate"),GetOwningPlayer(data.UnitHero))
+                --print("Поворачиваем")
             end
             ----------------------------------------------------/
             ---------------ДАРЫ БОГОВ---------------------------/
@@ -1788,15 +1901,19 @@ function CreateEActions()
                 data.DoAction = false
                 data.UseAction = ""
             end
-            if data.UseAction == "Merchant" then
-                local message = "Не спеши, выбирай с умом"
+            if data.UseAction == "Buying" then
+                local message = L("Не спеши, выбирай с умом","Take your time, choose wisely")
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 data.Completed = true
-                DestroyGodTalon(dataPoint.TripleTalon)
+                --DestroyGodTalon(dataPoint.TripleTalon)
                 --CreateDialogTalon("Merchant")
-                AllActionsEnabled(true)
+                --AllActionsEnabled(true)
                 data.DoAction = false
                 data.UseAction = ""
+                dataPoint.isActive=false
+                TimerStart(CreateTimer(), 1.6, false, function()
+                    CreateMerchantAndGoods(GetUnitXY(dataPoint.Unit))
+                end)
                 --KillUnit(data.EPointUnit)
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
@@ -1899,15 +2016,17 @@ function RegistrationAnyEntire()
 
                     local dataPoint=EnterPointTable[GetHandleId(entering)]
                     --print("подошел к "..dataPoint.UseAction)
-                    if dataPoint.isActive then
+                    if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering
                         BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
+                        data.ShowActionWindows=true
                         TimerStart(CreateTimer(), 0.1, true, function()
-                            if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) then
+                            if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) or not dataPoint.isActive then
                                 BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
                                 data.UseAction=""
+                                data.ShowActionWindows=false
                             end
                         end)
                     end
@@ -1917,6 +2036,7 @@ function RegistrationAnyEntire()
                     local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
                     BlzSetSpecialEffectColor(mark,255,0,0)
                     BlzSetSpecialEffectScale(mark,1.2)
+                    SetUnitInvulnerable(entering,true)
                     local act=false
                     if not act then
                         act=true
@@ -1962,6 +2082,20 @@ function InitHealPoint()
     end
 end
 
+function InitMagazine()
+    local id=FourCC("ncgb")
+    local _,_,unitTable=FindUnitOfType(id)
+    local k=#unitTable
+    --print(k)
+    for i=1,k do
+        local u=unitTable[i]
+        SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
+        SetUnitInvulnerable(u,true)
+        local x,y=GetUnitXY(u)
+        SetUnitInvulnerable(u,true)
+        CreateEnterPoint(x,y,L("        Купить","                Buy"), 'Buying', true)
+    end
+end
 
 
 
@@ -1977,17 +2111,22 @@ function InitFireBallPoint()
         ShowUnit(u,false)
         AddSpecialEffect("Doodads\\Ashenvale\\Props\\Brazier\\Brazier",x,y)
         CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
-        StartBulletInPeriod(u)
+        local tempUnit=CreateEnterPoint(x,y,L("          Повернуть","                   Rotate"),"RotationFire",true)
+        local dataPoint=EnterPointTable[GetHandleId(tempUnit)]
+        dataPoint.AngleFireRotation=GetUnitFacing(u)
+        StartBulletInPeriod(u,dataPoint)
     end
 end
 ----------------------------------------------------
 ----------------------Вспомогательные функции-------
 ----------------------------------------------------
-function StartBulletInPeriod(unit)
+function StartBulletInPeriod(unit,dataPoint)
+
     TimerStart(CreateTimer(), 1, true, function()
         local x,y=GetUnitXY(unit)
+
         --x,y=MoveXY(x,y,100)
-        CreateAndForceBullet(unit,GetUnitFacing(unit),30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,100)
+        CreateAndForceBullet(unit,dataPoint.AngleFireRotation,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,100)
     end)
 end
 ---
@@ -2110,11 +2249,12 @@ function InitAllZones()
     SetZone(18, gg_rct_E18A, gg_rct_B18A, gg_rct_S18A)
     SetZone(19, gg_rct_E19A, gg_rct_B19A, gg_rct_S19A)
     SetZone(20, gg_rct_E20A, gg_rct_B20A, gg_rct_S20A)
+    SetZone(21, gg_rct_E21A, gg_rct_B21A, gg_rct_S21A)
 
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
-    Destiny = GetRandomIntTable(1, #GameZone, #GameZone) -- судьба и распределение порядка игровых зон
-    DestinyEnemies = GetRandomIntTable(1, #GameZone, #GameZone)
+    Destiny = GetRandomIntTable(1, 20, 20) -- судьба и распределение порядка игровых зон #GameZone
+    DestinyEnemies = GetRandomIntTable(1, 20, 20)
     for i = 1, #Destiny do
         --print(Destiny[i])
     end
@@ -2380,6 +2520,41 @@ function StartEnemyWave(waveNumber)
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+        }
+        maxOnWave = 8
+    end
+    if waveNumber == 44 then
+        listID = {  -- Очень много жуков
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+
         }
         maxOnWave = 8
     end
@@ -3278,8 +3453,11 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
     end
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
-        local tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
-        UpdateTalonDescriptionForFrame(talon,tt)
+        local tt,CdFH=nil,nil
+        if pos~=7 then
+            tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            UpdateTalonDescriptionForFrame(talon,tt)
+        end
         if pos==1 then
            -- print("изучена нж")
             data.HealForLvlUp=talon.DS[talon.level]
@@ -3316,6 +3494,18 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             data.AddDamageTrap=talon.DS[talon.level]
             ActLvl23Action(talon,function()
                 data.AddDamageTrap=talon.DS[talon.level]
+            end)
+        end
+        if pos==7 then -- ульта
+            --print("получена ульта")
+            data.TotemChargesMax=talon.DS[talon.level]
+            tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\f","callTauren")
+
+            --StartRegeneration
+
+            UpdateTalonDescriptionForFrame(talon,tt)
+            ActLvl23Action(talon,function()
+                data.TotemChargesMax=talon.DS[talon.level]
             end)
         end
     end
@@ -3822,6 +4012,17 @@ do
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
                             DS = { 2, 3, 5 }
                         }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\commandbuttons\\BTNSmash.blp",
+                            name = L("Тотем кодоев", "Codo totem"),
+                            description = L("Создаёт непроходимый тотем и наносит 100 урона всем врагам на пути от героя и до курсора. Минимально 2 заряда, максимум 10", "Trap deals XDS damage to enemies"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
+                            DS = { 10, 20, 30 },
+                            ultF=true
+                        }),
+
                     },
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
@@ -4030,10 +4231,10 @@ end
 --- DateTime: 21.02.2021 15:15
 ---
 
-AllAbilityFrames={
-   -- ReadyToReload={}
+AllAbilityFrames = {
+    -- ReadyToReload={}
 }
-AbilityIconPath={
+AbilityIconPath = {
     "ReplaceableTextures\\CommandButtons\\BTNGatherGold", --кирка
     "ReplaceableTextures\\CommandButtons\\BTNStormBolt", -- молоток
     "ReplaceableTextures\\CommandButtons\\BTNEvasion", --рывок
@@ -4041,8 +4242,7 @@ AbilityIconPath={
     "ReplaceableTextures\\CommandButtons\\BTNWhirlwind", -- стальной вихрь
 }
 
-
-DisabledIconPath={
+DisabledIconPath = {
     "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNGatherGold", --кирка
     "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNStormBolt", -- молоток
     "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNEvasion", --рывок
@@ -4050,32 +4250,30 @@ DisabledIconPath={
     "ReplaceableTextures\\CommandButtonsDisabled\\DISBTNWhirlwind", -- стальной вихрь
 }
 
-
-
 function GetPassiveIco(s)
-    return string.gsub(s, "CommandButtons\\BTN","CommandButtonsDisabled\\DISBTN")
+    return string.gsub(s, "CommandButtons\\BTN", "CommandButtonsDisabled\\DISBTN")
 end
 
-function CreateBaseFrames(x,y)
-    AbilityDescriptionRus={
-        L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади","Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),
-        L("Запускает кирку в указанном направлении и наносит урон первому врагу на пути","Launches the pickaxe in the specified direction and deals damage to the first enemy on the way"),
-        L("Делает небольшой рывок в направлении текущего движения","Makes a small leap in the direction of the current movement"),
-        L("Наносит увеличенный урон по большой площади","Deals increased damage over a large area"),
-        L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг","Hold down the LMB to start spinning and deal damage to all enemies around"),
+function CreateBaseFrames(x, y)
+    AbilityDescriptionRus = {
+        L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади", "Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),
+        L("Запускает кирку в указанном направлении и наносит урон первому врагу на пути", "Launches the pickaxe in the specified direction and deals damage to the first enemy on the way"),
+        L("Делает небольшой рывок в направлении текущего движения", "Makes a small leap in the direction of the current movement"),
+        L("Наносит увеличенный урон по большой площади", "Deals increased damage over a large area"),
+        L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг", "Hold down the LMB to start spinning and deal damage to all enemies around"),
     }
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER  then
-            local step=0.03
-            local data=HERO[i]
-           -- AllAbilityFrames[i]={
-           --     ReadyToReload={},
-           --    ClickTrig={}}
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[1],L("Обычный удар","Normal strike"),data,AbilityIconPath[1],nil,"SystemGeneric\\DDSSymbols\\lmb","attackNormal")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[2],L("Бросок кирки","Throwing a pickaxe"),data,AbilityIconPath[2],nil,"SystemGeneric\\DDSSymbols\\rmb","throw")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[3],L("Рывок","Dash"),data,AbilityIconPath[3],nil,"SystemGeneric\\DDSSymbols\\space","dash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[4],L("Мощный удар","Powerful blow"),data,AbilityIconPath[4],nil,"SystemGeneric\\DDSSymbols\\q","splash")
-            CreateUniversalFrame(x,y,step,AbilityDescriptionRus[5],L("Вращение","Spin"),data,AbilityIconPath[5],nil,"SystemGeneric\\DDSSymbols\\lmb","spin")
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local step = 0.03
+            local data = HERO[i]
+            -- AllAbilityFrames[i]={
+            --     ReadyToReload={},
+            --    ClickTrig={}}
+            CreateUniversalFrame(x, y, step, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
+            CreateUniversalFrame(x, y, step, AbilityDescriptionRus[2], L("Бросок кирки", "Throwing a pickaxe"), data, AbilityIconPath[2], nil, "SystemGeneric\\DDSSymbols\\rmb", "throw")
+            CreateUniversalFrame(x, y, step, AbilityDescriptionRus[3], L("Рывок", "Dash"), data, AbilityIconPath[3], nil, "SystemGeneric\\DDSSymbols\\space", "dash")
+            CreateUniversalFrame(x, y, step, AbilityDescriptionRus[4], L("Мощный удар", "Powerful blow"), data, AbilityIconPath[4], nil, "SystemGeneric\\DDSSymbols\\q", "splash")
+            CreateUniversalFrame(x, y, step, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
             --CreateUniversalFrame(x,y,step,"Призывает волков",data,"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
             --CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
             --CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
@@ -4084,130 +4282,143 @@ function CreateBaseFrames(x,y)
     end
 end
 
-function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTexture,passiveTexture,hotkeyTexture,flag)
+function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activeTexture, passiveTexture, hotkeyTexture, flag)
     if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
         print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
     end
     if not flag then
-        flag="пустышка"
+        flag = "пустышка"
     end
 
     --print("создан универсальный фрейм "..flag.." для "..GetPlayerName(Player(data.pid)))
     if not hotkeyTexture then
-        hotkeyTexture="SystemGeneric\\DDSSymbols\\empty"
+        hotkeyTexture = "SystemGeneric\\DDSSymbols\\empty"
     end
-    if not passiveTexture  or passiveTexture=="" then
-        passiveTexture=GetPassiveIco(activeTexture)
+    if not passiveTexture or passiveTexture == "" then
+        passiveTexture = GetPassiveIco(activeTexture)
     end
-    local visionPlayer=Player(data.pid)
+    local visionPlayer = Player(data.pid)
     local face = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateSimpleFrame("MyBar", face, 0) -- фрейм перезарядки
     local cdtext = BlzGetFrameByName("MyBarText", 0)
     local cdICO = BlzGetFrameByName("MyBarBackground", 0)
-    local hotkey= BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', face, '', 0)
-    local k=data.countFrame
+    local hotkey = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', face, '', 0)
+    local k = data.countFrame
 
-
-    if flag=="spin" then
-        data.SpinChargesFH=MakeFrameCharged(face,data.SpinCharges)
+    if flag == "spin" then
+        data.SpinChargesFH = MakeFrameCharged(face, data.SpinCharges)
     end
-    if flag=="throw" then
-        data.ThrowChargesFH=MakeFrameCharged(face,data.ThrowCharges)
-        data.ThrowChargesCDFH=buttonIconFrame
+    if flag == "throw" then
+        data.ThrowChargesFH = MakeFrameCharged(face, data.ThrowCharges)
+        data.ThrowChargesCDFH = buttonIconFrame
     end
-    if flag=="splash" then
-        data.cdFrameHandleQ=buttonIconFrame
-    end
-
-    if flag=="dash" then
-        data.DashChargesFH=MakeFrameCharged(face,data.DashCharges)
-        data.DashChargesCDFH=buttonIconFrame
+    if flag == "splash" then
+        data.cdFrameHandleQ = buttonIconFrame
     end
 
-    if flag=="chargeAttackLight" then
-        data.chargeAttackLightChargesMAX=4
-        data.chargeAttackLightCharges=1
-        data.chargeAttackLightFH=MakeFrameCharged(face,data.chargeAttackLightCharges)
+    if flag == "dash" then
+        data.DashChargesFH = MakeFrameCharged(face, data.DashCharges)
+        data.DashChargesCDFH = buttonIconFrame
+    end
+
+    if flag == "chargeAttackLight" then
+        data.chargeAttackLightChargesMAX = 4
+        data.chargeAttackLightCharges = 1
+        data.chargeAttackLightFH = MakeFrameCharged(face, data.chargeAttackLightCharges)
         --data.chargeAttackLightCDFH=buttonIconFrame
     end
-    if flag=="rebound" then
-        data.ReboundCDFH=buttonIconFrame
+    if flag == "rebound" then
+        data.ReboundCDFH = buttonIconFrame
     end
-    if flag=="callTrall" then
-        local talon=GlobalTalons[data.pid+1]["Trall"][5]
-        data.CallTrallCharges=talon.DS[1]
+    if flag == "callTrall" then
+        local talon = GlobalTalons[data.pid + 1]["Trall"][5]
+        data.CallTrallCharges = talon.DS[1]
         --data.CallTrallChargesMAX=talon.ds[1]
-        data.CallTrallFH=MakeFrameCharged(face,data.CallTrallCharges)
+        data.CallTrallFH = MakeFrameCharged(face, data.CallTrallCharges)
         --data.CallTrallCDFH=buttonIconFrame
-        data.CallTrallReady=true
-        TimerStart(CreateTimer(), 2, true, function() -- РЕгенерация ульты
-            if data.CallTrallCharges<talon.DS[talon.level] then
-                data.CallTrallCharges=data.CallTrallCharges+1
-                BlzFrameSetText(data.CallTrallFH,data.CallTrallCharges)
+        data.CallTrallReady = true
+        TimerStart(CreateTimer(), 2, true, function()
+            -- РЕгенерация ульты
+            if data.CallTrallCharges < talon.DS[talon.level] then
+                data.CallTrallCharges = data.CallTrallCharges + 1
+                BlzFrameSetText(data.CallTrallFH, data.CallTrallCharges)
             end
         end)
     end
-    if flag=="healDash" then
-        data.HealDashCDFH=buttonIconFrame
-    end
-    if flag=="invulPreDeath" then
-        data.InvulPreDeathCDFH=buttonIconFrame
+    if flag == "callTauren" then
+        data.TotemChargesFH = MakeFrameCharged(face, data.TotemChargesMax)
+        data.TotemCharges=data.TotemChargesMax
+        local talon = GlobalTalons[data.pid + 1]["HeroTaurenChieftain"][7]
+        TimerStart(CreateTimer(), 2, true, function()
+            -- Регенерация ульты
+            if data.TotemCharges < talon.DS[talon.level] then
+                data.TotemCharges = data.TotemCharges + 1
+                BlzFrameSetText(data.TotemChargesFH, data.TotemCharges)
+            end
+        end)
     end
 
-    if flag=="wolfSummon" then
-       -- data.wolfSummonCDFH=buttonIconFrame
-        data.SpiritWolf=nil
-        local sec=0
-        local talon=GlobalTalons[data.pid+1]["Trall"][3]
+    if flag == "healDash" then
+        data.HealDashCDFH = buttonIconFrame
+    end
+    if flag == "invulPreDeath" then
+        data.InvulPreDeathCDFH = buttonIconFrame
+    end
+
+    if flag == "wolfSummon" then
+        -- data.wolfSummonCDFH=buttonIconFrame
+        data.SpiritWolf = nil
+        local sec = 0
+        local talon = GlobalTalons[data.pid + 1]["Trall"][3]
         TimerStart(CreateTimer(), 1, true, function()
-            local cdSec=talon.DS[talon.level]
-            local effmodel="Abilities\\Spells\\NightElf\\Blink\\BlinkCaster"
-            sec=sec-1
-            if not data.SpiritWolf and UnitAlive(data.UnitHero) and sec<0 then
-                StartFrameCD(cdSec,buttonIconFrame)
-                sec=cdSec
-                data.SpiritWolf=CreateUnit(Player(data.pid),FourCC("osw1"),GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),GetUnitFacing(data.UnitHero))
-                DestroyEffect(AddSpecialEffect(effmodel,GetUnitXY(data.SpiritWolf)))
-                BlzSetUnitMaxHP(data.SpiritWolf,1000*talon.level)
-                HealUnit(data.SpiritWolf,3000)
-                BlzSetUnitBaseDamage(data.SpiritWolf,50*talon.level,0)
+            local cdSec = talon.DS[talon.level]
+            local effmodel = "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster"
+            sec = sec - 1
+            if not data.SpiritWolf and UnitAlive(data.UnitHero) and sec < 0 then
+                StartFrameCD(cdSec, buttonIconFrame)
+                sec = cdSec
+                data.SpiritWolf = CreateUnit(Player(data.pid), FourCC("osw1"), GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetUnitFacing(data.UnitHero))
+                DestroyEffect(AddSpecialEffect(effmodel, GetUnitXY(data.SpiritWolf)))
+                BlzSetUnitMaxHP(data.SpiritWolf, 1000 * talon.level)
+                HealUnit(data.SpiritWolf, 3000)
+                BlzSetUnitBaseDamage(data.SpiritWolf, 50 * talon.level, 0)
             end
 
             if data.SpiritWolf then
                 if UnitAlive(data.SpiritWolf) then
-                    local xh,yh=GetUnitXY(data.UnitHero)
-                    local dist=DistanceBetweenXY(GetUnitX(data.SpiritWolf),GetUnitY(data.SpiritWolf),xh,yh)
-                    if dist>600 then
-                        DestroyEffect(AddSpecialEffect(effmodel,GetUnitXY(data.SpiritWolf)))
-                        DestroyEffect(AddSpecialEffect(effmodel,xh,yh))
-                        local r=GetRandomInt(-50,50)
-                        SetUnitPosition(data.SpiritWolf,xh+r,yh+r)
+                    local xh, yh = GetUnitXY(data.UnitHero)
+                    local dist = DistanceBetweenXY(GetUnitX(data.SpiritWolf), GetUnitY(data.SpiritWolf), xh, yh)
+                    if dist > 600 then
+                        DestroyEffect(AddSpecialEffect(effmodel, GetUnitXY(data.SpiritWolf)))
+                        DestroyEffect(AddSpecialEffect(effmodel, xh, yh))
+                        local r = GetRandomInt(-50, 50)
+                        SetUnitPosition(data.SpiritWolf, xh + r, yh + r)
                     else
-                        if GetUnitCurrentOrder(data.SpiritWolf)~=String2OrderIdBJ("attack") then
-                            local rx,ry=xh+GetRandomInt(-500,500),yh+GetRandomInt(-500,500)
-                            IssuePointOrder(data.SpiritWolf,"attack", rx,ry)
+                        if GetUnitCurrentOrder(data.SpiritWolf) ~= String2OrderIdBJ("attack") then
+                            local rx, ry = xh + GetRandomInt(-500, 500), yh + GetRandomInt(-500, 500)
+                            IssuePointOrder(data.SpiritWolf, "attack", rx, ry)
                         end
                     end
                 else
-                    data.SpiritWolf=nil
+                    data.SpiritWolf = nil
                 end
             end
         end)
     end
-    if flag=="WindWalk" then
-        data.WindWalkCDFH=buttonIconFrame
+    if flag == "WindWalk" then
+        data.WindWalkCDFH = buttonIconFrame
     end
-    if flag=="CriticalStrike" then
-        data.CriticalStrikeCDFH=buttonIconFrame
+    if flag == "CriticalStrike" then
+        data.CriticalStrikeCDFH = buttonIconFrame
     end
-    if flag=="IllusionDash" then
-        data.IllusionDashCDFH=buttonIconFrame
+    if flag == "IllusionDash" then
+        data.IllusionDashCDFH = buttonIconFrame
 
     end
 
--------------------------------------------------------------------
---------------------------------------------------------------------
-    BlzFrameSetAbsPoint(face, FRAMEPOINT_CENTER, x+k*size, y) -- +(data.pid*size) проверка мультиплеера
+    -------------------------------------------------------------------
+    --------------------------------------------------------------------
+    BlzFrameSetAbsPoint(face, FRAMEPOINT_CENTER, x + k * size, y) -- +(data.pid*size) проверка мультиплеера
     BlzFrameSetSize(face, size, size)
     BlzFrameSetAllPoints(buttonIconFrame, face)
     BlzFrameSetValue(buttonIconFrame, 100) -- начальная перезарядка
@@ -4218,7 +4429,7 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
 
     BlzFrameSetTexture(hotkey, hotkeyTexture, 0, true)
     BlzFrameSetPoint(hotkey, FRAMEPOINT_CENTER, face, FRAMEPOINT_CENTER, 0.0, 0.02)
-    BlzFrameSetSize(hotkey, size, size/3)
+    BlzFrameSetSize(hotkey, size, size / 3)
     --BlzFrameSetParent(face, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     --BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     --BlzFrameSetParent(cdtext, BlzGetFrameByName("ConsoleUIBackdrop", 0))
@@ -4226,45 +4437,45 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
 
     --- Устанавливаем видимость, каждый игрок видит свой набор фреймов и свои кулдауны
     --BlzFrameSetVisible(face,false)
-    BlzFrameSetVisible(face,GetLocalPlayer()==visionPlayer)
-    BlzFrameSetVisible(buttonIconFrame,GetLocalPlayer()==visionPlayer)
+    BlzFrameSetVisible(face, GetLocalPlayer() == visionPlayer)
+    BlzFrameSetVisible(buttonIconFrame, GetLocalPlayer() == visionPlayer)
     --- tooltip
-    local tooltip,backdrop,text=CreateToolTipBoxSize(x+k*size,y+size*2,size*5,size*3,toolTipTex,toolTipHeader)
+    local tooltip, backdrop, text = CreateToolTipBoxSize(x + k * size, y + size * 2, size * 5, size * 3, toolTipTex, toolTipHeader)
     ---------------------------------------------------
     ----------------ДИНАМИЧЕСКИЕ ОПИСАНИЯ--------------
     ---------------------------------------------------
-    if flag=="attackNormal" then
+    if flag == "attackNormal" then
         --data.attackNormalTooltipTextFH=text
-        local nativeTextString=BlzFrameGetText(text)
-        TimerStart(CreateTimer(),2, true, function()
-            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(data.DamageInSeries[1]))..", "..ColorText2(R2I(data.DamageInSeries[2]))..", "..ColorText2(R2I(data.DamageInSeries[3]))..", "..ColorText2(R2I(data.DamageInSeries[4]))..", "..ColorText2(R2I(data.DamageInSeries[5]))..L(" ед. урона"," damage"))
+        local nativeTextString = BlzFrameGetText(text)
+        TimerStart(CreateTimer(), 2, true, function()
+            BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(data.DamageInSeries[1])) .. ", " .. ColorText2(R2I(data.DamageInSeries[2])) .. ", " .. ColorText2(R2I(data.DamageInSeries[3])) .. ", " .. ColorText2(R2I(data.DamageInSeries[4])) .. ", " .. ColorText2(R2I(data.DamageInSeries[5])) .. L(" ед. урона", " damage"))
         end)
     end
-    if flag=="dash" then
+    if flag == "dash" then
         --data.attackNormalTooltipTextFH=text
-        local nativeTextString=BlzFrameGetText(text)
-        TimerStart(CreateTimer(),2, true, function()
-            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(data.BaseDashDamage))..L(" ед. урона, если совершить атаку"," damage if you make an attack"))
+        local nativeTextString = BlzFrameGetText(text)
+        TimerStart(CreateTimer(), 2, true, function()
+            BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(data.BaseDashDamage)) .. L(" ед. урона, если совершить атаку", " damage if you make an attack"))
         end)
     end
-    if flag=="throw" then
+    if flag == "throw" then
         --data.attackNormalTooltipTextFH=text
-        local nativeTextString=BlzFrameGetText(text)
-        TimerStart(CreateTimer(),2, true, function()
-            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(data.DamageThrow))..L(" ед. урона"," damage"))
+        local nativeTextString = BlzFrameGetText(text)
+        TimerStart(CreateTimer(), 2, true, function()
+            BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(data.DamageThrow)) .. L(" ед. урона", " damage"))
         end)
     end
-    if flag=="spin" then
+    if flag == "spin" then
         --data.attackNormalTooltipTextFH=text
-        local nativeTextString=BlzFrameGetText(text)
-        TimerStart(CreateTimer(),2, true, function()
-            local damage=data.SpinBaseDamage
+        local nativeTextString = BlzFrameGetText(text)
+        TimerStart(CreateTimer(), 2, true, function()
+            local damage = data.SpinBaseDamage
             if data.SpinHasAddDamage then
-                local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][5]
-                local m=talon.DS[talon.level]
-                damage=damage*m
+                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][5]
+                local m = talon.DS[talon.level]
+                damage = damage * m
             end
-            BlzFrameSetText(text,nativeTextString..L("\nНаносит: ","\nDealing: ")..ColorText2(R2I(damage))..L(" ед. урона"," damage"))
+            BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(damage)) .. L(" ед. урона", " damage"))
         end)
     end
     --- Создаём 3 события
@@ -4282,82 +4493,80 @@ function CreateUniversalFrame(x,y,size,toolTipTex,toolTipHeader,data,activeTextu
     local TrigMOUSE_ENTER = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, face, FRAMEEVENT_MOUSE_ENTER)
     TriggerAddAction(TrigMOUSE_ENTER, function()
-       -- print("показать подсказку ")
-        BlzFrameSetVisible(tooltip,GetLocalPlayer()==GetTriggerPlayer())
+        -- print("показать подсказку ")
+        BlzFrameSetVisible(tooltip, GetLocalPlayer() == GetTriggerPlayer())
     end)
     local TrigMOUSE_LEAVE = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, face, FRAMEEVENT_MOUSE_LEAVE)
     TriggerAddAction(TrigMOUSE_LEAVE, function()
         --mouseOnFrame=false
-        BlzFrameSetVisible(tooltip,false)
+        BlzFrameSetVisible(tooltip, false)
     end)
 
     ---Глобализация
-    data.countFrame=k+1
-    return text,buttonIconFrame
+    data.countFrame = k + 1
+    return text, buttonIconFrame
 end
 
-
-function CreateToolTipBoxSize(x,y,sizeX,sizeY,toolTipTex,toolTipHeader)
+function CreateToolTipBoxSize(x, y, sizeX, sizeY, toolTipTex, toolTipHeader)
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
     BlzFrameSetParent(tooltip, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(backdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y+0.01)
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y + 0.01)
     BlzFrameSetSize(tooltip, sizeX, sizeY)
     BlzFrameSetSize(backdrop, sizeX, sizeY)
-    BlzFrameSetSize(text, sizeX*.85, sizeY*.7)
+    BlzFrameSetSize(text, sizeX * .85, sizeY * .7)
     BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetAlpha(backdrop,100)
-    BlzFrameSetText(text,ColorText2(toolTipHeader..": \n")..toolTipTex)
+    BlzFrameSetAlpha(backdrop, 100)
+    BlzFrameSetText(text, ColorText2(toolTipHeader .. ": \n") .. toolTipTex)
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetVisible(tooltip,false)
-    return tooltip,backdrop,text
+    BlzFrameSetVisible(tooltip, false)
+    return tooltip, backdrop, text
 end
 
-
 function ColorText2(s)
-    s="|cffffcc00"..s.."|r"
+    s = "|cffffcc00" .. s .. "|r"
     return s
 end
 
-function StartFrameCD(cd,fh)
-    local amount=5/cd
-    local full=0
+function StartFrameCD(cd, fh)
+    local amount = 5 / cd
+    local full = 0
 
     TimerStart(CreateTimer(), 0.05, true, function()
-        full=full+amount
+        full = full + amount
         BlzFrameSetValue(fh, full)
-        if full>=100 then
+        if full >= 100 then
             DestroyTimer(GetExpiredTimer())
-            full=0
+            full = 0
         end
     end)
 end
 
 function StartAllFrameCD(player)
-    local pid=GetPlayerId(player)
-    local data=AllAbilityFrames[pid]
-    for i=1,4 do --#data.ReadyToReload[i]
-        StartFrameCD(TotalReload,data.ReadyToReload[i])
+    local pid = GetPlayerId(player)
+    local data = AllAbilityFrames[pid]
+    for i = 1, 4 do
+        --#data.ReadyToReload[i]
+        StartFrameCD(TotalReload, data.ReadyToReload[i])
         DisableTrigger(data.ClickTrig[i])
-        TimerStart(CreateTimer(),TotalReload, false, function()
+        TimerStart(CreateTimer(), TotalReload, false, function()
             EnableTrigger(data.ClickTrig[i])
         end)
     end
 end
 
-
-function MakeFrameCharged(fh,ch)
-    local chargesBox=BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', fh, '', 0)-- рамка
+function MakeFrameCharged(fh, ch)
+    local chargesBox = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', fh, '', 0)-- рамка
     BlzFrameSetTexture(chargesBox, "UI\\Widgets\\Console\\Human\\CommandButton\\human-button-lvls-overlay", 0, true)
-    BlzFrameSetSize(chargesBox, NextPoint/2, NextPoint/3)
+    BlzFrameSetSize(chargesBox, NextPoint / 2, NextPoint / 3)
     BlzFrameSetPoint(chargesBox, FRAMEPOINT_BOTTOMRIGHT, fh, FRAMEPOINT_BOTTOMRIGHT, 0.001, 0.0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", fh, "", 0)
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, chargesBox, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetText(text,I2S(R2I(ch)))
+    BlzFrameSetText(text, I2S(R2I(ch)))
     return text
 end
 ---
@@ -4480,6 +4689,7 @@ function RemoveLife(data)
                         if GetLocalPlayer()==Player(i) then
                             savedGold=gdata.gold
                         end
+
                         print(GetPlayerName(Player(i))..L(" унёс с собой "..R2I(gdata.gold).." золота ","took with me " ..R2I (gdata.gold).. " gold "))
 
                         TimerStart(CreateTimer(),2, false, function()
@@ -4645,7 +4855,7 @@ end
 HeroID = FourCC("O000")
 NextPoint=0.039
 OutPoint=6000
-
+DummyID=FourCC("ewsp")
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -5548,6 +5758,7 @@ function CreateRoundSawZ(hero,ChainCount,angle,z)
 	-- установки
 	BlzSetSpecialEffectScale(saw,0.9)
 	local DamageDealer=CreateUnit(GetOwningPlayer(hero),DummyID,xs,ys,0)
+	SetUnitInvulnerable(DamageDealer,true)
 	ShowUnit(DamageDealer,false)
 	local SS=true
 	local DeadUnitOnSaw=nil
@@ -5570,13 +5781,13 @@ function CreateRoundSawZ(hero,ChainCount,angle,z)
 		OnDamage,ReflectorUnit=UnitDamageArea(DamageDealer,20,nx,ny,150,z-90,CollisionEffect)
 
 		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit)  then
-			local tl = Location(GetUnitXY(hero))
+			--[[local tl = Location(GetUnitXY(hero))
 			PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
 			RemoveLocation(tl)
 			local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0) --звуковой дамми и его блок
 			UnitAddAbility(dummy,FourCC('Apsh'))
 			IssueImmediateOrder(dummy,"phaseshift")
-			UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)
+			UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)]]
 
 			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
 				if UnitAlive(ReflectorUnit) then
@@ -5592,8 +5803,12 @@ function CreateRoundSawZ(hero,ChainCount,angle,z)
 		end
 		if DeadUnitOnSaw then
 			if not UnitAlive(DeadUnitOnSaw) then
-				SetCameraQuickPosition(nx,ny)
-				SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(DeadUnitOnSaw), DamageDealer, 10, 10, true) -- не дергается
+				if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
+					SetCameraQuickPosition(nx,ny)
+					SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(DeadUnitOnSaw), DamageDealer, 10, 10, true) -- не дергается
+					local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
+					data.CameraOnSaw=true
+				end
 				--SetCameraPosition(nx,ny)
 				SetUnitX(DeadUnitOnSaw,nx)
 				SetUnitY(DeadUnitOnSaw,ny)
@@ -5674,14 +5889,14 @@ function CreateGroundSaw(hero,angle,z)
 		UnitDamageArea(hero,20,nx,ny,60,z-90,CollisionEffect)
 
 		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
-			local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0)
-			UnitAddAbility(dummy,FourCC('Apsh'))
-			IssueImmediateOrder(dummy,"phaseshift")-- поддельный звук пилы
-			UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)
+			--local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0)
+			--UnitAddAbility(dummy,FourCC('Apsh'))
+			--IssueImmediateOrder(dummy,"phaseshift")-- поддельный звук пилы
+			--UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)
 			--ShowUnit(dummy,false)
-			local tl = Location(GetUnitXY(hero))
-			PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
-			RemoveLocation(tl)
+			--local tl = Location(GetUnitXY(hero))
+			--PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
+			--RemoveLocation(tl)
 		end
 
 
@@ -5709,8 +5924,8 @@ end
 function StartAllSaw()
 	local e--временный юнит
 	local k=0
-	local id=FourCC('h001') -- колонная с пилой
-	local idg=FourCC('e004') --
+	local id=FourCC('hmtm') -- колонная с пилой
+	local idg=FourCC('hrif') -- пила по земле
 	GroupEnumUnitsInRect(perebor,bj_mapInitialPlayableArea,nil)
 	while true do
 		e = FirstOfGroup(perebor)
@@ -5718,6 +5933,7 @@ function StartAllSaw()
 		if UnitAlive(e) and GetUnitTypeId(e)==id then
 			--k=k+1
 			CreateRoundSawZ(e,6,GetRandomInt(0,360))
+			ShowUnit(e,false)
 		end
 		if UnitAlive(e) and GetUnitTypeId(e)==idg then
 			k=k+1
@@ -6060,6 +6276,7 @@ function OnPostDamage()
 	local target= GetTriggerUnit() -- тот кто получил урон
 	local caster= GetEventDamageSource() -- тот кто нанёс урон
 
+	--print(GetUnitName(target))
 
 	if GetUnitTypeId(target)~=HeroID then
 		--print("кто-то другой получил урон")
@@ -6284,6 +6501,7 @@ end
 GlobalRect=Rect(0,0,0,0)
 function PointContentDestructable (x,y,range,iskill,damage,hero)
 	local content=false
+	local contentedDest=nil
 	local unitZ=GetUnitZ(hero)
 	if range==nil then range=80 end
 	if iskill==nil then iskill=false end
@@ -6293,6 +6511,7 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 		local d=GetEnumDestructable()
 		if GetDestructableLife(d)>0  then --and unitZ<=GetTerrainZ(x,y)+50
 			content=true
+			contentedDest=d
 			--print("эх")
 			if iskill then
 				if not IsDestructableInvulnerable(d) then
@@ -6301,7 +6520,6 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 					if GetDestructableLife(d)<1 or GetDestructableLife(d) <= 0 then
 						--print("смерть декора")
 						if hero then
-
 							if GetRandomInt(1,2)==1 then
 								if  GetDestructableTypeId(d)==FourCC("B004") then
 									--print("умер ящик, создаём мимика")
@@ -6310,7 +6528,9 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 								end
 							else
 								--print("даём золото за сундук")
-								UnitAddGold(hero,GetRandomInt(2,5))
+								if GetDestructableTypeId(d)==FourCC("B008") or GetDestructableTypeId(d)==FourCC("B004")  then
+									UnitAddGold(hero,GetRandomInt(2,5))
+								end
 							end
 
 							if  GetDestructableTypeId(d)==FourCC("B008") then
@@ -6335,7 +6555,7 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 		else
 		end
 	end)
-	return content
+	return content, contentedDest
 end
 
 ---
@@ -7673,7 +7893,7 @@ function InitWASD(hero)
             --print("Эффект смерти")
 
             local x,y=GetUnitXY(hero)
-            if not data.CameraStabUnit then
+            if not data.CameraStabUnit and not data.CameraOnSaw then
                 data.CameraStabUnit=CreateUnit(Player(data.pid),FourCC("hdhw"),x,y,0)
                 ShowUnit(data.CameraStabUnit,false)
                 RemoveLife(data)
@@ -7686,7 +7906,7 @@ function InitWASD(hero)
             end
             TimerStart(CreateTimer(),3, false, function()
                 if data.life>=0 then
-
+                    data.CameraOnSaw=false
                     ReviveHero(hero,x,y,true)
                     SetUnitInvulnerable(hero,true)
                     TimerStart(CreateTimer(),2, false, function()
@@ -8606,11 +8826,13 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
         local tempDamageGroup=CreateGroup()
         local damageOnWall=false
         local effDash=nil
+        local ignoreDest=false
         if flag=="ignore" then
             local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
             if data.DashDamageON then
                 local effDashModel="Hive\\Valiant Charge\\Valiant Charge Fel\\Valiant Charge Fel"
                 effDash=AddSpecialEffectTarget(effDashModel,hero,"origin")
+                ignoreDest=data.IgnoreDest -- проходимость свкозь бордюры
             end
         end
 
@@ -8619,7 +8841,24 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
             --print(currentdistance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
-            SetUnitPositionSmooth(hero, newX, newY)
+            if flag=="ignore" and true then -- TODO, заменить на ignoreDest
+               -- print("попытка")
+                local is,d=PointContentDestructable(newX, newY,120,false)
+                if is then
+                   -- print("есть какой-то декор")
+                end
+                if GetDestructableTypeId(d)==FourCC("B00A") then
+                    SetUnitX(hero,newX)
+                    SetUnitY(hero,newY)
+                    --print("пройти на сквозь")
+                else
+                    SetUnitPositionSmooth(hero, newX, newY)
+                end
+            else
+                SetUnitPositionSmooth(hero, newX, newY)
+            end
+
+
             if GetUnitTypeId(hero)~=HeroID and GetUnitTypeId(pushing)==HeroID then
                 local PerepadZ = GetTerrainZ(MoveXY(x,y,120,angle))-GetTerrainZ(x, y)
                 --print(PerepadZ)
@@ -8778,8 +9017,8 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                 local m=talon.DS[talon.level]
                 local data=HERO[GetPlayerId(GetOwningPlayer(u))]
                 deadDamage=true
-                FlyTextTagCriticalStrike(u,"Камикадце",GetOwningPlayer(u))
-                data.life=data.life+1
+                FlyTextTagCriticalStrike(u,L("Камикадзе", "Kamikaze"),GetOwningPlayer(u))
+                AddLife(data)
                 damage=damage*m
                 ReviveHero(u,GetUnitX(u),GetUnitY(u),true)
                 SetUnitState(u,UNIT_STATE_LIFE,1)
@@ -8788,7 +9027,12 @@ function UnitDamageArea(u,damage,x,y,range,flag)
 
         if UnitAlive(e) and (UnitAlive(u) or deadDamage or flag=="all") and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
             if flag=="shotForce" then
-                UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
+                UnitAddForceSimple(e,AngleBetweenUnits(u,e),20,300,nil,u)
+            end
+            if flag=="ForceTotem" then
+                --print("толкаем тотемом")
+                local tempA=AngleBetweenXY(x,y,GetUnitXY(e))/bj_DEGTORAD
+                UnitAddForceSimple(e,tempA,20,300,nil,u)
             end
             if flag=="all" then
                 local data=HERO[GetPlayerId(GetOwningPlayer(u))]
@@ -8808,6 +9052,7 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                 -- orientation - ориентация сектора в мировых координатах
                 -- width - уголовой размер сектора в градусах
                 -- radius - окружности которой принадлежит сектор
+                --print("толчек")
                 local data=HERO[GetPlayerId(GetOwningPlayer(u))]
                 local xb,yb=MoveXY(GetUnitX(u),GetUnitY(u),80,GetUnitFacing(u)-180)
                 local speed=20
@@ -8997,6 +9242,53 @@ function PlayUnitAnimationFromChat()
     end)
 end
 --CUSTOM_CODE
+function Trig_DeadB1_Conditions()
+    if (not (udg_Quest1Complete == false)) then
+        return false
+    end
+    return true
+end
+
+function Trig_DeadB1_Func002Func006C()
+    if (not (IsDestructableDeadBJ(gg_dest_B009_5531) == true)) then
+        return false
+    end
+    if (not (IsDestructableDeadBJ(gg_dest_B009_5530) == true)) then
+        return false
+    end
+    if (not (IsDestructableDeadBJ(gg_dest_B009_5532) == true)) then
+        return false
+    end
+    return true
+end
+
+function Trig_DeadB1_Func002C()
+    if (not Trig_DeadB1_Func002Func006C()) then
+        return false
+    end
+    return true
+end
+
+function Trig_DeadB1_Actions()
+    if (Trig_DeadB1_Func002C()) then
+        DisplayTextToForce(GetPlayersAll(), "TRIGSTR_233")
+                CreateGodTalon(GetDestructableX(GetDyingDestructable()),GetDestructableY(GetDyingDestructable()),"CodoHeart")
+        udg_Quest1Complete = true
+    else
+        TriggerSleepAction(2)
+        DestructableRestoreLife(GetDyingDestructable(), GetDestructableMaxLife(GetDyingDestructable()), true)
+    end
+end
+
+function InitTrig_DeadB1()
+    gg_trg_DeadB1 = CreateTrigger()
+    TriggerRegisterDeathEvent(gg_trg_DeadB1, gg_dest_B009_5531)
+    TriggerRegisterDeathEvent(gg_trg_DeadB1, gg_dest_B009_5530)
+    TriggerRegisterDeathEvent(gg_trg_DeadB1, gg_dest_B009_5532)
+    TriggerAddCondition(gg_trg_DeadB1, Condition(Trig_DeadB1_Conditions))
+    TriggerAddAction(gg_trg_DeadB1, Trig_DeadB1_Actions)
+end
+
 function Trig_FFF_Actions()
 end
 
@@ -9043,6 +9335,7 @@ function InitTrig_Melee_Initialization()
 end
 
 function InitCustomTriggers()
+    InitTrig_DeadB1()
     InitTrig_FFF()
     InitTrig_TrapTest()
     InitTrig_DDDD()
@@ -9075,6 +9368,16 @@ function InitCustomPlayerSlots()
     SetPlayerRacePreference(Player(3), RACE_PREF_ORC)
     SetPlayerRaceSelectable(Player(3), false)
     SetPlayerController(Player(3), MAP_CONTROL_USER)
+    SetPlayerStartLocation(Player(4), 4)
+    SetPlayerColor(Player(4), ConvertPlayerColor(4))
+    SetPlayerRacePreference(Player(4), RACE_PREF_ORC)
+    SetPlayerRaceSelectable(Player(4), false)
+    SetPlayerController(Player(4), MAP_CONTROL_USER)
+    SetPlayerStartLocation(Player(5), 5)
+    SetPlayerColor(Player(5), ConvertPlayerColor(5))
+    SetPlayerRacePreference(Player(5), RACE_PREF_ORC)
+    SetPlayerRaceSelectable(Player(5), false)
+    SetPlayerController(Player(5), MAP_CONTROL_USER)
 end
 
 function InitCustomTeams()
@@ -9086,43 +9389,90 @@ function InitCustomTeams()
     SetPlayerState(Player(2), PLAYER_STATE_ALLIED_VICTORY, 1)
     SetPlayerTeam(Player(3), 0)
     SetPlayerState(Player(3), PLAYER_STATE_ALLIED_VICTORY, 1)
+    SetPlayerTeam(Player(4), 0)
+    SetPlayerState(Player(4), PLAYER_STATE_ALLIED_VICTORY, 1)
+    SetPlayerTeam(Player(5), 0)
+    SetPlayerState(Player(5), PLAYER_STATE_ALLIED_VICTORY, 1)
     SetPlayerAllianceStateAllyBJ(Player(0), Player(1), true)
     SetPlayerAllianceStateAllyBJ(Player(0), Player(2), true)
     SetPlayerAllianceStateAllyBJ(Player(0), Player(3), true)
+    SetPlayerAllianceStateAllyBJ(Player(0), Player(4), true)
+    SetPlayerAllianceStateAllyBJ(Player(0), Player(5), true)
     SetPlayerAllianceStateAllyBJ(Player(1), Player(0), true)
     SetPlayerAllianceStateAllyBJ(Player(1), Player(2), true)
     SetPlayerAllianceStateAllyBJ(Player(1), Player(3), true)
+    SetPlayerAllianceStateAllyBJ(Player(1), Player(4), true)
+    SetPlayerAllianceStateAllyBJ(Player(1), Player(5), true)
     SetPlayerAllianceStateAllyBJ(Player(2), Player(0), true)
     SetPlayerAllianceStateAllyBJ(Player(2), Player(1), true)
     SetPlayerAllianceStateAllyBJ(Player(2), Player(3), true)
+    SetPlayerAllianceStateAllyBJ(Player(2), Player(4), true)
+    SetPlayerAllianceStateAllyBJ(Player(2), Player(5), true)
     SetPlayerAllianceStateAllyBJ(Player(3), Player(0), true)
     SetPlayerAllianceStateAllyBJ(Player(3), Player(1), true)
     SetPlayerAllianceStateAllyBJ(Player(3), Player(2), true)
+    SetPlayerAllianceStateAllyBJ(Player(3), Player(4), true)
+    SetPlayerAllianceStateAllyBJ(Player(3), Player(5), true)
+    SetPlayerAllianceStateAllyBJ(Player(4), Player(0), true)
+    SetPlayerAllianceStateAllyBJ(Player(4), Player(1), true)
+    SetPlayerAllianceStateAllyBJ(Player(4), Player(2), true)
+    SetPlayerAllianceStateAllyBJ(Player(4), Player(3), true)
+    SetPlayerAllianceStateAllyBJ(Player(4), Player(5), true)
+    SetPlayerAllianceStateAllyBJ(Player(5), Player(0), true)
+    SetPlayerAllianceStateAllyBJ(Player(5), Player(1), true)
+    SetPlayerAllianceStateAllyBJ(Player(5), Player(2), true)
+    SetPlayerAllianceStateAllyBJ(Player(5), Player(3), true)
+    SetPlayerAllianceStateAllyBJ(Player(5), Player(4), true)
     SetPlayerAllianceStateVisionBJ(Player(0), Player(1), true)
     SetPlayerAllianceStateVisionBJ(Player(0), Player(2), true)
     SetPlayerAllianceStateVisionBJ(Player(0), Player(3), true)
+    SetPlayerAllianceStateVisionBJ(Player(0), Player(4), true)
+    SetPlayerAllianceStateVisionBJ(Player(0), Player(5), true)
     SetPlayerAllianceStateVisionBJ(Player(1), Player(0), true)
     SetPlayerAllianceStateVisionBJ(Player(1), Player(2), true)
     SetPlayerAllianceStateVisionBJ(Player(1), Player(3), true)
+    SetPlayerAllianceStateVisionBJ(Player(1), Player(4), true)
+    SetPlayerAllianceStateVisionBJ(Player(1), Player(5), true)
     SetPlayerAllianceStateVisionBJ(Player(2), Player(0), true)
     SetPlayerAllianceStateVisionBJ(Player(2), Player(1), true)
     SetPlayerAllianceStateVisionBJ(Player(2), Player(3), true)
+    SetPlayerAllianceStateVisionBJ(Player(2), Player(4), true)
+    SetPlayerAllianceStateVisionBJ(Player(2), Player(5), true)
     SetPlayerAllianceStateVisionBJ(Player(3), Player(0), true)
     SetPlayerAllianceStateVisionBJ(Player(3), Player(1), true)
     SetPlayerAllianceStateVisionBJ(Player(3), Player(2), true)
+    SetPlayerAllianceStateVisionBJ(Player(3), Player(4), true)
+    SetPlayerAllianceStateVisionBJ(Player(3), Player(5), true)
+    SetPlayerAllianceStateVisionBJ(Player(4), Player(0), true)
+    SetPlayerAllianceStateVisionBJ(Player(4), Player(1), true)
+    SetPlayerAllianceStateVisionBJ(Player(4), Player(2), true)
+    SetPlayerAllianceStateVisionBJ(Player(4), Player(3), true)
+    SetPlayerAllianceStateVisionBJ(Player(4), Player(5), true)
+    SetPlayerAllianceStateVisionBJ(Player(5), Player(0), true)
+    SetPlayerAllianceStateVisionBJ(Player(5), Player(1), true)
+    SetPlayerAllianceStateVisionBJ(Player(5), Player(2), true)
+    SetPlayerAllianceStateVisionBJ(Player(5), Player(3), true)
+    SetPlayerAllianceStateVisionBJ(Player(5), Player(4), true)
 end
 
 function InitAllyPriorities()
     SetStartLocPrioCount(0, 2)
-    SetStartLocPrio(0, 0, 1, MAP_LOC_PRIO_HIGH)
-    SetStartLocPrio(0, 1, 2, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(0, 0, 2, MAP_LOC_PRIO_LOW)
+    SetStartLocPrio(0, 1, 4, MAP_LOC_PRIO_HIGH)
     SetStartLocPrioCount(1, 2)
-    SetStartLocPrio(1, 0, 0, MAP_LOC_PRIO_LOW)
-    SetStartLocPrio(1, 1, 3, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(1, 0, 4, MAP_LOC_PRIO_LOW)
+    SetStartLocPrio(1, 1, 5, MAP_LOC_PRIO_HIGH)
     SetStartLocPrioCount(2, 1)
     SetStartLocPrio(2, 0, 0, MAP_LOC_PRIO_HIGH)
-    SetStartLocPrioCount(3, 1)
+    SetStartLocPrioCount(3, 2)
     SetStartLocPrio(3, 0, 1, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(3, 1, 5, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrioCount(4, 3)
+    SetStartLocPrio(4, 0, 0, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(4, 1, 1, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(4, 2, 5, MAP_LOC_PRIO_LOW)
+    SetStartLocPrioCount(5, 1)
+    SetStartLocPrio(5, 0, 1, MAP_LOC_PRIO_HIGH)
 end
 
 function main()
@@ -9134,6 +9484,7 @@ function main()
     SetMapMusic("Music", true, 0)
     CreateRegions()
     CreateCameras()
+    CreateAllDestructables()
     CreateAllUnits()
     InitBlizzard()
     InitGlobals()
@@ -9142,15 +9493,17 @@ function main()
 end
 
 function config()
-    SetMapName("TRIGSTR_223")
-    SetMapDescription("TRIGSTR_225")
-    SetPlayers(4)
-    SetTeams(4)
+    SetMapName("TRIGSTR_229")
+    SetMapDescription("TRIGSTR_231")
+    SetPlayers(6)
+    SetTeams(6)
     SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)
     DefineStartLocation(0, 7232.0, -8320.0)
     DefineStartLocation(1, 5888.0, -8576.0)
     DefineStartLocation(2, 8128.0, -7488.0)
     DefineStartLocation(3, 5056.0, -8064.0)
+    DefineStartLocation(4, 6592.0, -8832.0)
+    DefineStartLocation(5, 5568.0, -8960.0)
     InitCustomPlayerSlots()
     InitCustomTeams()
     InitAllyPriorities()

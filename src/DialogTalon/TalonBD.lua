@@ -307,6 +307,17 @@ do
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
                             DS = { 2, 3, 5 }
                         }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\commandbuttons\\BTNSmash.blp",
+                            name = L("Тотем кодоев", "Codo totem"),
+                            description = L("Создаёт непроходимый тотем и наносит 100 урона всем врагам на пути от героя и до курсора. Минимально 2 заряда, максимум 10", "Trap deals XDS damage to enemies"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
+                            DS = { 10, 20, 30 },
+                            ultF=true
+                        }),
+
                     },
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({

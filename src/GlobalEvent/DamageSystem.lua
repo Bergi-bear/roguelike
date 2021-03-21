@@ -18,6 +18,7 @@ function OnPostDamage()
 	local target= GetTriggerUnit() -- тот кто получил урон
 	local caster= GetEventDamageSource() -- тот кто нанёс урон
 
+	--print(GetUnitName(target))
 
 	if GetUnitTypeId(target)~=HeroID then
 		--print("кто-то другой получил урон")
@@ -242,6 +243,7 @@ end
 GlobalRect=Rect(0,0,0,0)
 function PointContentDestructable (x,y,range,iskill,damage,hero)
 	local content=false
+	local contentedDest=nil
 	local unitZ=GetUnitZ(hero)
 	if range==nil then range=80 end
 	if iskill==nil then iskill=false end
@@ -251,6 +253,7 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 		local d=GetEnumDestructable()
 		if GetDestructableLife(d)>0  then --and unitZ<=GetTerrainZ(x,y)+50
 			content=true
+			contentedDest=d
 			--print("эх")
 			if iskill then
 				if not IsDestructableInvulnerable(d) then
@@ -259,7 +262,6 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 					if GetDestructableLife(d)<1 or GetDestructableLife(d) <= 0 then
 						--print("смерть декора")
 						if hero then
-
 							if GetRandomInt(1,2)==1 then
 								if  GetDestructableTypeId(d)==FourCC("B004") then
 									--print("умер ящик, создаём мимика")
@@ -268,7 +270,9 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 								end
 							else
 								--print("даём золото за сундук")
-								UnitAddGold(hero,GetRandomInt(2,5))
+								if GetDestructableTypeId(d)==FourCC("B008") or GetDestructableTypeId(d)==FourCC("B004")  then
+									UnitAddGold(hero,GetRandomInt(2,5))
+								end
 							end
 
 							if  GetDestructableTypeId(d)==FourCC("B008") then
@@ -293,5 +297,5 @@ function PointContentDestructable (x,y,range,iskill,damage,hero)
 		else
 		end
 	end)
-	return content
+	return content, contentedDest
 end

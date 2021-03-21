@@ -17,6 +17,20 @@ function InitHealPoint()
     end
 end
 
+function InitMagazine()
+    local id=FourCC("ncgb")
+    local _,_,unitTable=FindUnitOfType(id)
+    local k=#unitTable
+    --print(k)
+    for i=1,k do
+        local u=unitTable[i]
+        SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
+        SetUnitInvulnerable(u,true)
+        local x,y=GetUnitXY(u)
+        SetUnitInvulnerable(u,true)
+        CreateEnterPoint(x,y,L("        Купить","                Buy"), 'Buying', true)
+    end
+end
 
 
 
@@ -32,16 +46,21 @@ function InitFireBallPoint()
         ShowUnit(u,false)
         AddSpecialEffect("Doodads\\Ashenvale\\Props\\Brazier\\Brazier",x,y)
         CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
-        StartBulletInPeriod(u)
+        local tempUnit=CreateEnterPoint(x,y,L("          Повернуть","                   Rotate"),"RotationFire",true)
+        local dataPoint=EnterPointTable[GetHandleId(tempUnit)]
+        dataPoint.AngleFireRotation=GetUnitFacing(u)
+        StartBulletInPeriod(u,dataPoint)
     end
 end
 ----------------------------------------------------
 ----------------------Вспомогательные функции-------
 ----------------------------------------------------
-function StartBulletInPeriod(unit)
+function StartBulletInPeriod(unit,dataPoint)
+
     TimerStart(CreateTimer(), 1, true, function()
         local x,y=GetUnitXY(unit)
+
         --x,y=MoveXY(x,y,100)
-        CreateAndForceBullet(unit,GetUnitFacing(unit),30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,100)
+        CreateAndForceBullet(unit,dataPoint.AngleFireRotation,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,100)
     end)
 end

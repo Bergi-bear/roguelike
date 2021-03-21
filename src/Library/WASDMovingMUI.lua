@@ -125,7 +125,7 @@ function InitWASD(hero)
             --print("Эффект смерти")
 
             local x,y=GetUnitXY(hero)
-            if not data.CameraStabUnit then
+            if not data.CameraStabUnit and not data.CameraOnSaw then
                 data.CameraStabUnit=CreateUnit(Player(data.pid),FourCC("hdhw"),x,y,0)
                 ShowUnit(data.CameraStabUnit,false)
                 RemoveLife(data)
@@ -138,7 +138,7 @@ function InitWASD(hero)
             end
             TimerStart(CreateTimer(),3, false, function()
                 if data.life>=0 then
-
+                    data.CameraOnSaw=false
                     ReviveHero(hero,x,y,true)
                     SetUnitInvulnerable(hero,true)
                     TimerStart(CreateTimer(),2, false, function()
@@ -1058,11 +1058,13 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
         local tempDamageGroup=CreateGroup()
         local damageOnWall=false
         local effDash=nil
+        local ignoreDest=false
         if flag=="ignore" then
             local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
             if data.DashDamageON then
                 local effDashModel="Hive\\Valiant Charge\\Valiant Charge Fel\\Valiant Charge Fel"
                 effDash=AddSpecialEffectTarget(effDashModel,hero,"origin")
+                ignoreDest=data.IgnoreDest -- проходимость свкозь бордюры
             end
         end
 
@@ -1071,7 +1073,24 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag,pushing)
             --print(currentdistance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
-            SetUnitPositionSmooth(hero, newX, newY)
+            if flag=="ignore" and true then -- TODO, заменить на ignoreDest
+               -- print("попытка")
+                local is,d=PointContentDestructable(newX, newY,120,false)
+                if is then
+                   -- print("есть какой-то декор")
+                end
+                if GetDestructableTypeId(d)==FourCC("B00A") then
+                    SetUnitX(hero,newX)
+                    SetUnitY(hero,newY)
+                    --print("пройти на сквозь")
+                else
+                    SetUnitPositionSmooth(hero, newX, newY)
+                end
+            else
+                SetUnitPositionSmooth(hero, newX, newY)
+            end
+
+
             if GetUnitTypeId(hero)~=HeroID and GetUnitTypeId(pushing)==HeroID then
                 local PerepadZ = GetTerrainZ(MoveXY(x,y,120,angle))-GetTerrainZ(x, y)
                 --print(PerepadZ)
@@ -1230,8 +1249,8 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                 local m=talon.DS[talon.level]
                 local data=HERO[GetPlayerId(GetOwningPlayer(u))]
                 deadDamage=true
-                FlyTextTagCriticalStrike(u,"Камикадце",GetOwningPlayer(u))
-                data.life=data.life+1
+                FlyTextTagCriticalStrike(u,L("Камикадзе", "Kamikaze"),GetOwningPlayer(u))
+                AddLife(data)
                 damage=damage*m
                 ReviveHero(u,GetUnitX(u),GetUnitY(u),true)
                 SetUnitState(u,UNIT_STATE_LIFE,1)
@@ -1240,7 +1259,12 @@ function UnitDamageArea(u,damage,x,y,range,flag)
 
         if UnitAlive(e) and (UnitAlive(u) or deadDamage or flag=="all") and (IsUnitEnemy(e,GetOwningPlayer(u)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then --
             if flag=="shotForce" then
-                UnitAddForceSimple(e,AngleBetweenUnits(u,e),10,50)
+                UnitAddForceSimple(e,AngleBetweenUnits(u,e),20,300,nil,u)
+            end
+            if flag=="ForceTotem" then
+                --print("толкаем тотемом")
+                local tempA=AngleBetweenXY(x,y,GetUnitXY(e))/bj_DEGTORAD
+                UnitAddForceSimple(e,tempA,20,300,nil,u)
             end
             if flag=="all" then
                 local data=HERO[GetPlayerId(GetOwningPlayer(u))]
@@ -1260,6 +1284,7 @@ function UnitDamageArea(u,damage,x,y,range,flag)
                 -- orientation - ориентация сектора в мировых координатах
                 -- width - уголовой размер сектора в градусах
                 -- radius - окружности которой принадлежит сектор
+                --print("толчек")
                 local data=HERO[GetPlayerId(GetOwningPlayer(u))]
                 local xb,yb=MoveXY(GetUnitX(u),GetUnitY(u),80,GetUnitFacing(u)-180)
                 local speed=20

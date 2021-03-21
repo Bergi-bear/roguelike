@@ -34,18 +34,16 @@ function CreateActionsF()
                    -- print("нужно 10 зарядов")
                 end
             end
-            --[[
-            if GlobalTalons[data.pid+1]["ShadowHunter"][4].level>0 then
-                --print("Есть ульта трала, пытаюсь скастовать")
-
-                data.CallWooDooCurrentCD=0
-                if data.CallTrallCharges>9 then
-                    data.CallTrallReady=false
-                    CallWooDoo(data)
+           -- Ульта быка
+            if data.TotemChargesMax then
+                --print("Есть ульта пытаюсь скастовать")
+                if data.TotemCharges>=2 then
+                    --print("вот тут и создаём тотем")
+                    CreateTotemInLine(data)
                 else
-                    -- print("нужно 10 зарядов")
+                    print("нужно 2 зарядов")
                 end
-            end]]
+            end
 
         end
     end)

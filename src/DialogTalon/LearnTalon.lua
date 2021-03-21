@@ -224,8 +224,11 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         end
     end
     if godName=="HeroTaurenChieftain" and  talon.level==1 then
-        local tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
-        UpdateTalonDescriptionForFrame(talon,tt)
+        local tt,CdFH=nil,nil
+        if pos~=7 then
+            tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+            UpdateTalonDescriptionForFrame(talon,tt)
+        end
         if pos==1 then
            -- print("изучена нж")
             data.HealForLvlUp=talon.DS[talon.level]
@@ -262,6 +265,18 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             data.AddDamageTrap=talon.DS[talon.level]
             ActLvl23Action(talon,function()
                 data.AddDamageTrap=talon.DS[talon.level]
+            end)
+        end
+        if pos==7 then -- ульта
+            --print("получена ульта")
+            data.TotemChargesMax=talon.DS[talon.level]
+            tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),"SystemGeneric\\DDSSymbols\\f","callTauren")
+
+            --StartRegeneration
+
+            UpdateTalonDescriptionForFrame(talon,tt)
+            ActLvl23Action(talon,function()
+                data.TotemChargesMax=talon.DS[talon.level]
             end)
         end
     end
