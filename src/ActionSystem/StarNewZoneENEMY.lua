@@ -352,7 +352,7 @@ function StartEnemyWave(waveNumber)
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
 
         }
-        maxOnWave = 8
+        maxOnWave = 20
     end
 
 

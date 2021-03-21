@@ -20,8 +20,18 @@ function InitDeathEvent()
         local killer=GetKillingUnit()
 
         if GetPlayerController(GetOwningPlayer(killer))==MAP_CONTROL_USER then
-            killer=HERO[GetPlayerId(GetOwningPlayer(killer))].UnitHero
+            local data=HERO[GetPlayerId(GetOwningPlayer(killer))]
+            killer=data.UnitHero
             RewardGoldForKill(killer)
+            if data.RechargeSpinOnKill then
+                data.SpinCharges = data.SpinCharges + data.RechargeSpinOnKill
+                BlzFrameSetText(data.SpinChargesFH, data.SpinCharges)
+            end
+            if data.MeleeLifeSteal then
+                if IsUnitInRange(u,killer,250) then
+                    HealUnit(killer,data.MeleeLifeSteal)
+                end
+            end
         end
     end)
 end

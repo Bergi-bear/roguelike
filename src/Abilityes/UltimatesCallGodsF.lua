@@ -41,7 +41,8 @@ function CreateActionsF()
                     --print("вот тут и создаём тотем")
                     CreateTotemInLine(data)
                 else
-                    print("нужно 2 зарядов")
+                    local x,y=GetUnitXY(data.UnitHero)
+                    FlyTextTagShieldXY(x,y,L("Нет зарядов","No charges"),GetOwningPlayer(data.UnitHero))
                 end
             end
 

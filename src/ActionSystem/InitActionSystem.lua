@@ -32,7 +32,8 @@ PreViewIcon = { -- Таблица случайных иконок которые
     "ShadowHunter",
     "Trall",
     "CodoHeart",
-    "GoldReward"
+    "GoldReward",
+    "ChaosGrom"
 }
 
 function InitFinObjectInArea()
@@ -273,11 +274,17 @@ function CreateEActions()
             end
 
             if data.UseAction == "Board" then
-                local message = L("Здесь ничего нет","There's nothing here")
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                data.DoAction = false
-                data.UseAction = ""
+                if dataPoint.RewardBordGold then
+                    local message = L("Здесь ничего нет","There's nothing here")
+                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    data.Completed = true
+                    data.DoAction = false
+                    data.UseAction = ""
+                else
+                    UnitAddGold(data.UnitHero,GetRandomInt(1,50))
+                    dataPoint.RewardBordGold=true
+                end
+
             end
             if data.UseAction == "BackDor" then
                 local message = L("Даже не похоже, что эту дверь можно открыть снаружи","It doesnt even look like this door can be opened from the outside")
@@ -665,6 +672,19 @@ function CreateEActions()
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+                if data.DeathFountain then
+                    --print("заражаем фонтан")
+                    local x,y=GetUnitXY(data.EPointUnit)
+                    for i=1,12 do
+                        local eff=AddSpecialEffect("Doodads\\Terrain\\CliffDoodad\\Waterfall\\Waterfall",x,y)
+                        BlzSetSpecialEffectYaw(eff,math.rad(-180+30*i))
+                        BlzSetSpecialEffectColor(eff,255,0,0)
+                    end
+                    KillUnit(data.EPointUnit)
+                    TimerStart(CreateTimer(), 2, true, function()
+                        UnitDamageArea(data.UnitHero,data.DamageOfFountain,x,y,500,"Blood")
+                    end)
+                end
             end
             if data.UseAction == "Buying" then
                 local message = L("Не спеши, выбирай с умом","Take your time, choose wisely")

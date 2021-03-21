@@ -6,49 +6,56 @@
 
 function SpellSlashQ(data)
     local hero = data.UnitHero
+    local flag=nil
     if not data.tasks[3] then
         data.tasks[3] = true
     end
     local damage = 250
-    local range=200
+    local range = 200
+    if data.DashAndDamageQ then
+        damage = damage + data.DashAndDamageQ
+    end
     if data.GreatDamageDashQ then
         damage = 2 * damage
         data.GreatDamageDashQ = false
     end
     if data.BigStaggerQ then
-        range=range+100
+        range = range + 100
     end
-
 
     local x, y = MoveXY(GetUnitX(hero), GetUnitY(hero), 80, GetUnitFacing(hero))
-    local eff=AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
+    local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
     if data.BigStaggerQ then
-        BlzSetSpecialEffectScale(eff,1.4)
+        BlzSetSpecialEffectScale(eff, 1.4)
     end
     DestroyEffect(eff)
-    UnitDamageArea(hero, damage, x, y, range)
+    if data.DashAndDamageQ then
+        flag="ForceTotem"
+    end
+
+    UnitDamageArea(hero, damage, x, y, range,flag )
     if data.BigStaggerQ then
-        StunArea(hero,x,y,range,data.BigStaggerQ)
+        StunArea(hero, x, y, range, data.BigStaggerQ)
     end
 
     if data.isSpined then
-       -- print("Круговой Клеп")
+        -- print("Круговой Клеп")
 
         if not data.tasks[10] then
             data.tasks[10] = true
         end
 
         if not data.SpinClap then
-            data.SpinClap=true
-            local k=7
-            TimerStart(CreateTimer(),.1,true, function()
-                k=k-1
-                if k>1 then
+            data.SpinClap = true
+            local k = 7
+            TimerStart(CreateTimer(), .1, true, function()
+                k = k - 1
+                if k > 1 then
                     SpellSlashQ(data)
                 end
-                if k<=0 then
+                if k <= 0 then
                     DestroyTimer(GetExpiredTimer())
-                    data.SpinClap=false
+                    data.SpinClap = false
                 end
             end)
         end

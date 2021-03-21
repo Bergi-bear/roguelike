@@ -9,6 +9,7 @@ function CreateMerchantAndGoods(x,y)
         "HeroTaurenChieftain",
         "ShadowHunter",
         "Trall",
+        "ChaosGrom",
     }
 
     CreateGodTalon(x,y+(200),"CodoHeart",GetRandomInt(75,100))

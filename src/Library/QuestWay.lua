@@ -81,7 +81,7 @@ function CreateForUnitWayToPoint(hero, xEnd, yEnd)
             -- local angle=AngleBetweenXY(x,y,point[i-1].x,point[i-1].y)/bj_DEGTORAD
             BlzSetSpecialEffectYaw(eff[i], math.rad(angle))
             BlzSetSpecialEffectPitch(eff[i], math.rad(-90))
-            BlzSetSpecialEffectZ(eff[i], BlzGetLocalUnitZ(hero) + 40)
+            BlzSetSpecialEffectZ(eff[i], GetTerrainZ(x,y )+ 40)
             --print("eff "..i)
             i = i + 1
             if i == 4 then

@@ -56,6 +56,7 @@ function RegistrationAnyEntire()
                                 local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
                                 TimerStart(CreateTimer(), 1.8, false, function()
                                     DestroyEffect(eff)
+
                                 end)
                             end
                         end)
@@ -66,6 +67,7 @@ function RegistrationAnyEntire()
                             KillUnit(entering)
                             DestroyEffect(mark)
                             BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
+                            CreateUnit(GetOwningPlayer(entering),FourCC('nglm'),x,y,0)
                         end)
 
                     end

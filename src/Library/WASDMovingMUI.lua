@@ -1026,7 +1026,6 @@ function attack(data)
 
                         if data.ChaosSpinOnAttackCDFH then
 
-
                             if data.ChaosSpinOnAttackCurrentCD <= 0  then
                                 --print("условия выполнены")
                                 --print("Вращение при ударе")
@@ -1132,7 +1131,11 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 --print(PerepadZ)
                 if (PointContentDestructable(newX, newY, 120, false) or PerepadZ > 20) and not damageOnWall then
                     FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
-                    UnitDamageTarget(pushing, hero, 100, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+                    local data=HERO[GetPlayerId(GetOwningPlayer(pushing))]
+                    local damage=100
+                    if not data.WallDamage then data.WallDamage=0 end
+                    damage=damage+data.WallDamage
+                    UnitDamageTarget(pushing, hero, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
                     --print("удар о декор или стенку")
                     damageOnWall = true
                 end
