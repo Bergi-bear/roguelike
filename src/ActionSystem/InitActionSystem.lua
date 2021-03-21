@@ -492,6 +492,31 @@ function CreateEActions()
                     normal_sound("Sound\\Interface\\Error",GetUnitXY(data.UnitHero))
                 end
             end
+            if data.UseAction == "ChaosGrom" then
+                if data.gold>=dataPoint.TalonPrice then
+                    local message = L("Проклятый","Cursed")
+                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    data.Completed = true
+                    AllActionsEnabled(true)
+                    TimerStart(CreateTimer(), 1, false, function()
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("ChaosGrom")
+                        --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
+                        --активация всех переходов
+                    end)
+                    data.DoAction = false
+                    data.UseAction = ""
+                    KillUnit(data.EPointUnit)
+                    if dataPoint.TalonPrice>0 then
+                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                        AddGold(data,-dataPoint.TalonPrice)
+                    end
+                else
+                    normal_sound("Sound\\Interface\\Error",GetUnitXY(data.UnitHero))
+                end
+            end
+
+
             --[[
             if data.UseAction == "HeroArchMage" then
                 local message = "Гендальф белый"

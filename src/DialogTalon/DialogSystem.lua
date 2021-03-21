@@ -18,9 +18,9 @@ function CreateDialogTalon(godName)
         title = "Кирка Дидала"
     elseif godName == "HeroBeastMaster" then
         title = "Дары повелителя зверей"
-    elseif godName == "ChaosBlademaster" then
+    elseif godName == "ChaosGrom" then
         title = "Дары Адского крика"
-        --ReplaceableTextures\CommandButtons\BTNChaosBlademaster.blp
+        --ReplaceableTextures\CommandButtons\BTNChaosGrom.blp
     end
 
     talons = {}

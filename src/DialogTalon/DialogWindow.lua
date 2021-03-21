@@ -16,6 +16,7 @@ do
                 "ShadowHunter",
                 "PeonDidal",
                 "HeroBeastMaster",
+                "ChaosGrom"
             }
 
             DialogTalon = {}

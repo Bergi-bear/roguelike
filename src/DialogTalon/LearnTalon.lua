@@ -214,9 +214,6 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
         if pos==4 then
             data.HasWhirl=true
         end
-        if pos==4 then
-            data.HasWhirl=true
-        end
         if pos==5 then
             data.TrollHealCDFH=CdFH
             data.TrollHealCurrentCD=0
@@ -336,7 +333,18 @@ function LearnCurrentTalonForPlayer(pid,godName,pos)
             --print("изучено отбитие снарядов")
             data.DestroyMissile=false
         end
-
+    end
+    if godName=="ChaosGrom" and  talon.level==1 then
+        local tt,CdFH=CreateUniversalFrame(x,y,size,talon:updateDescriptionCurrent(),talon.name,data,talon.icon,GetPassiveIco(talon.icon),nil)
+        UpdateTalonDescriptionForFrame(talon,tt)
+        if pos==1 then
+            data.ChaosSpinOnAttackCDFH=CdFH
+            data.ChaosSpinOnAttackCD=talon.DS[talon.level]
+            data.ChaosSpinOnAttackCurrentCD=0
+            ActLvl23Action(talon,function()
+                data.ChaosSpinOnAttackCD=talon.DS[talon.level]
+            end)
+        end
     end
 end
 

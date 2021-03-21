@@ -54,7 +54,7 @@ function UnitAddShield(unit,amount)
     BlzSetUnitMaxMana(unit,amount)
     SetUnitState(unit,UNIT_STATE_MANA,amount)
     if not IssueImmediateOrder(unit,"manashieldon") then
-        print("Не могу активировать щит")
+       -- print("Не могу активировать щит")
     end
 end
 

@@ -315,7 +315,7 @@ do
                             rarity = "normal",
                             tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
                             DS = { 10, 20, 30 },
-                            ultF=true
+                            ultF = true
                         }),
 
                     },
@@ -448,72 +448,72 @@ do
                             tooltip = L("Снаряд полетит в позицию врага, в которой он находился в момент отражения", "The projectile will fly to the position of the enemy in which it was at the time of reflection"),
                             DS = { 1 }
                         }),
-                        ChaosBlademaster = { --TODO Сделать перевод
-                            Talon:new({--1
-                                icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                                name = L("Яростный удар", "Short combo"),
-                                description = L("Нанесение урона обычной атакой активирует вращение на 1 секунду. Перезарядка: DS sec", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
-                                level = 0,
-                                rarity = "normal",
-                                tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Quickly press LMB to make a series of hits"),
-                                DS = { 5,4,3 }
-                            }),
-                            Talon:new({--2
-                                icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                                name = L("Заражение", "Short combo"),
-                                description = L("Делает фонтан непригодным для питья, но фонтан наносит DS урона в секунду врагам в радиусе 500", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
-                                level = 0,
-                                rarity = "normal",
-                                tooltip = L("Используйте Е возле источника воды, чтобы заразить его", "Quickly press LMB to make a series of hits"),
-                                DS = { 10,30,60 }
-                            }),
-                            Talon:new({--3
-                                icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                                name = L("Буйная кровь", "Short combo"),
-                                description = L("Восстанавливает заряды вращения при убийстве врагов +DS", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
-                                level = 0,
-                                rarity = "normal",
-                                tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
-                                DS = { 1,2,3 }
-                            }),
-                            Talon:new({--4
-                                icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                                name = L("Топор лесоруба", "Short combo"),
-                                description = L("Летает вокруг героя и наносит DS урона касанием", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
-                                level = 0,
-                                rarity = "normal",
-                                tooltip = L("Засчитывается как обычная атака и накладывает эффект обычной атаки", "Hold the LMB to make a spinning attack"),
-                                DS = { 1,2,3 }
-                            }),
-                            Talon:new({--5
-                                icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                                name = L("Сквозь землю", "Short combo"),
-                                description = L("Способность Q отбрасывает врагов в стороны и наносит дополнительный урон DS", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
-                                level = 0,
-                                rarity = "normal",
-                                tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
-                                DS = { 50,80,120 }
-                            }),
-                            Talon:new({--6
-                                icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                                name = L("Кровожадность", "Short combo"),
-                                description = L("Убийство врагов в ближнем бою восстанавливает здоровье +DS", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
-                                level = 0,
-                                rarity = "normal",
-                                tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
-                                DS = { 1,2,3 }
-                            }),
-                            Talon:new({--7
-                                icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                                name = L("Касание смерти", "Short combo"),
-                                description = L("Следующая ваша атака моментально убьет врага (не босса), но вы потеряете DS здоровья,", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
-                                level = 0,
-                                rarity = "normal",
-                                tooltip = L("Эта способность не может вас убить, всегда оставляет 1 единицу", " Press Q to deliver a powerful strike over a large area"),
-                                DS = { 1,2,3 },
-                                ultR=true,
-                            }),
-                        }
+                    },
+                    ChaosGrom = { --TODO Сделать перевод
+                        Talon:new({--1
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
+                            name = L("Яростный удар", "Short combo"),
+                            description = L("Нанесение урона обычной атакой активирует вращение на 1 секунду. Перезарядка: DS sec", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Quickly press LMB to make a series of hits"),
+                            DS = { 5, 4, 3 }
+                        }),
+                        Talon:new({--2
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
+                            name = L("Заражение", "Short combo"),
+                            description = L("Делает фонтан непригодным для питья, но фонтан наносит DS урона в секунду врагам в радиусе 500", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Используйте Е возле источника воды, чтобы заразить его", "Quickly press LMB to make a series of hits"),
+                            DS = { 10, 30, 60 }
+                        }),
+                        Talon:new({--3
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
+                            name = L("Буйная кровь", "Short combo"),
+                            description = L("Восстанавливает заряды вращения при убийстве врагов +DS", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
+                            DS = { 1, 2, 3 }
+                        }),
+                        Talon:new({--4
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
+                            name = L("Топор лесоруба", "Short combo"),
+                            description = L("Летает вокруг героя и наносит DS урона касанием", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Засчитывается как обычная атака и накладывает эффект обычной атаки", "Hold the LMB to make a spinning attack"),
+                            DS = { 1, 2, 3 }
+                        }),
+                        Talon:new({--5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
+                            name = L("Сквозь землю", "Short combo"),
+                            description = L("Способность Q отбрасывает врагов в стороны и наносит дополнительный урон DS", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
+                            DS = { 50, 80, 120 }
+                        }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
+                            name = L("Кровожадность", "Short combo"),
+                            description = L("Убийство врагов в ближнем бою восстанавливает здоровье +DS", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
+                            DS = { 1, 2, 3 }
+                        }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
+                            name = L("Касание смерти", "Short combo"),
+                            description = L("Следующая ваша атака моментально убьет врага (не босса), но вы потеряете DS здоровья,", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Эта способность не может вас убить, всегда оставляет 1 единицу", " Press Q to deliver a powerful strike over a large area"),
+                            DS = { 1, 2, 3 },
+                            ultR = true,
+                        }),
                     }
                 }
             end
