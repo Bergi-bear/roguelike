@@ -1026,7 +1026,7 @@ function attack(data)
 
                         if data.ChaosSpinOnAttackCDFH then
 
-                            if data.ChaosSpinOnAttackCurrentCD <= 0  then
+                            if data.ChaosSpinOnAttackCurrentCD <= 0 then
                                 --print("условия выполнены")
                                 --print("Вращение при ударе")
                                 data.ChaosSpinOnAttackCurrentCD = data.ChaosSpinOnAttackCD
@@ -1131,10 +1131,12 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 --print(PerepadZ)
                 if (PointContentDestructable(newX, newY, 120, false) or PerepadZ > 20) and not damageOnWall then
                     FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
-                    local data=HERO[GetPlayerId(GetOwningPlayer(pushing))]
-                    local damage=100
-                    if not data.WallDamage then data.WallDamage=0 end
-                    damage=damage+data.WallDamage
+                    local data = HERO[GetPlayerId(GetOwningPlayer(pushing))]
+                    local damage = 100
+                    if not data.WallDamage then
+                        data.WallDamage = 0
+                    end
+                    damage = damage + data.WallDamage
                     UnitDamageTarget(pushing, hero, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
                     --print("удар о декор или стенку")
                     damageOnWall = true
@@ -1303,8 +1305,8 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                 SetUnitState(u, UNIT_STATE_LIFE, 1)
             end
         end
-
-        if UnitAlive(e) and (UnitAlive(u) or deadDamage or flag == "all") and (IsUnitEnemy(e, GetOwningPlayer(u)) or GetOwningPlayer(e) == Player(PLAYER_NEUTRAL_PASSIVE)) then
+        --
+        if UnitAlive(e) and (UnitAlive(u) or deadDamage)  and (IsUnitEnemy(e, GetOwningPlayer(u)) or GetOwningPlayer(e) == Player(PLAYER_NEUTRAL_PASSIVE) or flag == "all") then
             --
             if flag == "shotForce" then
                 UnitAddForceSimple(e, AngleBetweenUnits(u, e), 20, 300, nil, u)
@@ -1314,15 +1316,16 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                 local tempA = AngleBetweenXY(x, y, GetUnitXY(e)) / bj_DEGTORAD
                 UnitAddForceSimple(e, tempA, 20, 300, nil, u)
             end
-            if flag == "all" then
+            if flag == "all" and GetPlayerController(GetOwningPlayer(u))==MAP_CONTROL_USER then
                 local data = HERO[GetPlayerId(GetOwningPlayer(u))]
                 if not data.AddDamageTrap then
-                    data.AddDamageTrap = 0
+                    data.AddDamageTrap = 1
                 end
                 if data.AddDamageTrap > 0 then
                     --Повышенный урон от ловушек
-                    damage = damage * data.AddDamageTrap
                 end
+                --print("урон от ловушки")
+                damage = damage * data.AddDamageTrap
             end
             if flag == "blackHole" then
                 if not IsUnitInRange(e, u, 15) then
@@ -1351,7 +1354,6 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                     damage = 0
                 end
             end
-
             UnitDamageTarget(u, e, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
             isdamage = true
             hero = e

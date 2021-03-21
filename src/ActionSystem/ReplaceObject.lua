@@ -49,6 +49,7 @@ function InitFireBallPoint()
         local tempUnit=CreateEnterPoint(x,y,L("          Повернуть","                   Rotate"),"RotationFire",true)
         local dataPoint=EnterPointTable[GetHandleId(tempUnit)]
         dataPoint.AngleFireRotation=GetUnitFacing(u)
+        dataPoint.UnitFireRotation=u
         StartBulletInPeriod(u,dataPoint)
     end
 end
@@ -56,10 +57,8 @@ end
 ----------------------Вспомогательные функции-------
 ----------------------------------------------------
 function StartBulletInPeriod(unit,dataPoint)
-
     TimerStart(CreateTimer(), 1, true, function()
         local x,y=GetUnitXY(unit)
-
         --x,y=MoveXY(x,y,100)
         CreateAndForceBullet(unit,dataPoint.AngleFireRotation,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,100)
     end)

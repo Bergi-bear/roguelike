@@ -110,7 +110,12 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 		local PerepadZ = zGround - z
 		if not reverse and delay<=0 and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
 			PointContentDestructable(x, y, CollisionRange, true,0,heroCurrent)
-			UnitDamageArea(heroCurrent, damage, x, y, CollisionRange)
+			local flag=nil
+			if GetUnitTypeId(heroCurrent)==FourCC("hsor") then
+				flag="all"
+			end
+
+			UnitDamageArea(heroCurrent, damage, x, y, CollisionRange,flag) -- УРОН ПРИ ПОПАДАНИИ
 			if DamagingUnit  and IsUnitType(heroCurrent,UNIT_TYPE_HERO) then
 				-- тут был показ урона
 			end

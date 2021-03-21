@@ -462,8 +462,8 @@ do
                     ChaosGrom = { --TODO Сделать перевод
                         Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGhoulFrenzy.blp",
-                            name = L("Яростный удар", "Short combo"),
-                            description = L("Нанесение урона обычной атакой активирует вращение на 1 секунду. Перезарядка: DS sec", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            name = L("Яростный удар", "Furious strike"),
+                            description = L("Нанесение урона обычной атакой активирует вращение на 1 секунду. Перезарядка: DS сек", "Dealing damage with a normal attack activates the spin for 1 second. Cooldown: DS sec"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Quickly press LMB to make a series of hits"),
@@ -471,17 +471,17 @@ do
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFountainOfLifeBlood.blp",
-                            name = L("Заражение", "Short combo"),
-                            description = L("Делает фонтан непригодным для питья, но фонтан наносит DS урона в секунду врагам в радиусе 500", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            name = L("Заражение", "Infection"),
+                            description = L("Делает фонтан непригодным для питья, но фонтан наносит DS урона в секунду врагам в радиусе 500", "Makes the fountain undrinkable, but the fountain deals DS damage per second to enemies within a radius of 500"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Используйте Е возле источника воды, чтобы заразить его", "Quickly press LMB to make a series of hits"),
+                            tooltip = L("Используйте Е возле источника воды, чтобы заразить его", "Use E near a water source to infect it"),
                             DS = { 100, 150, 250 }
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNIncinerate.blp",
-                            name = L("Буйная кровь", "Short combo"),
-                            description = L("Восстанавливает заряды вращения при убийстве врагов +DS. Игнорирует лимит", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            name = L("Буйная кровь", "Буйная кровь"),
+                            description = L("Восстанавливает заряды вращения при убийстве врагов +DS. Игнорирует лимит", "Restores spin charges when killing enemies +DS. Ignores the limit"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
@@ -489,17 +489,17 @@ do
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
-                            name = L("Топор лесоруба", "Short combo"),
-                            description = L("Летает вокруг героя и наносит DS урона касанием", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            name = L("Топор лесоруба", "Woodcutter's Axe"),
+                            description = L("Летает вокруг героя и наносит DS урона касанием", "Flies around the hero and deals DS damage with a touch"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Неизвестно на какой магии это всё работает", "Hold the LMB to make a spinning attack"),
-                            DS = { 30, 50, 90 }
+                            tooltip = L("Неизвестно на какой магии это всё работает", "It is not known on what magic it all works"),
+                            DS = { 80, 120, 160 }
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNImpale.blp",
-                            name = L("Сквозь землю", "Short combo"),
-                            description = L("Способность Q отбрасывает врагов в стороны и наносит дополнительный урон DS", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            name = L("Сквозь землю", "Through ground"),
+                            description = L("Способность Q отбрасывает врагов в стороны и наносит дополнительный урон DS", "The Q ability knocks enemies aside and deals additional DS damage."),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
@@ -507,8 +507,8 @@ do
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRedDragonDevour.blp",
-                            name = L("Кровожадность", "Short combo"),
-                            description = L("Убийство врагов в ближнем бою восстанавливает здоровье +DS", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            name = L("Кровожадность", "Bloodthirstiness"),
+                            description = L("Убийство врагов в ближнем бою восстанавливает здоровье +DS", "Killing enemies in melee restores health +DS"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),

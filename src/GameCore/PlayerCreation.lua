@@ -22,7 +22,11 @@ function CreationPeonsForAllPlayer()
             UnitAddAbility(hero,FourCC("abun"))
             UnitAddAbility(hero,FourCC("Abun"))
             UnitAddAbility(hero,FourCC("AInv"))
-            AddSpecialEffectTarget("war3mapImported\\Light",hero,"origin")
+            local effModel="war3mapImported\\Light"
+            if not GetLocalPlayer()==Player(i) then
+                effModel=""
+            end
+            AddSpecialEffectTarget(effModel,hero,"origin")
             --print("толкаем")
             UnitAddForceSimple(hero, 0, 10, 10)
             --print("1")

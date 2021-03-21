@@ -5,9 +5,10 @@
 ---
 function StartObsidianBoss(boss)
     --print("запущен ИИ босса")
-    BlzSetUnitMaxHP(boss,10000)
-    HealUnit(boss,10000)
-    UnitAddShield(boss,5000)
+    local STATA=10000*GetActiveCountPlayer()
+    BlzSetUnitMaxHP(boss,STATA)
+    HealUnit(boss,STATA)
+    UnitAddShield(boss,STATA/2)
     UnitAddAbility(boss,FourCC("Abun"))
     local bsx,bsy=GetUnitXY(boss) --стартовая позиция босса
     --BOSS=boss

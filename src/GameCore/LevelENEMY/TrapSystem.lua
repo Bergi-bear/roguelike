@@ -69,7 +69,7 @@ function CreateSwordSpike (hero)
                     DestroyEffect(mark)
                     BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
                     BlzSetSpecialEffectTimeScale(eff,.5)
-                    UnitDamageArea(enemy,100,x,y,100,"all") -- Урон от ловушки
+                    UnitDamageArea(enemy,300,x,y,100,"all") -- Урон от ловушки
                 end)
             end
         end

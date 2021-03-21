@@ -62,7 +62,7 @@ function RegistrationAnyEntire()
                         end)
 
                         TimerStart(CreateTimer(), 2, false, function()
-                            --print("наносим урон")
+                            --print("наносим урон миной")
                             UnitDamageArea(hero,150,x,y,200,"all")
                             KillUnit(entering)
                             DestroyEffect(mark)
