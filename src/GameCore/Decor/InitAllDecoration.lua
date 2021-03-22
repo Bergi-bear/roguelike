@@ -8,7 +8,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
-           -- InitEvenDestructable() --этот триггер не работает
+           InitEvenDestructable() --этот триггер не работает
         end)
     end
 end

@@ -263,7 +263,7 @@ do
                             DS = { 30, 50, 100 }
                         }),
                         Talon:new({--2
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWalkerAdeptTraining.blp",
                             name = L("Мощь быка", "Bull Power"),
                             description = L("Увеличивает длительность стазиса врагов на DS от любых источников урона", "Increases enemy stasis duration by DS from any damage sources"),
                             level = 0,

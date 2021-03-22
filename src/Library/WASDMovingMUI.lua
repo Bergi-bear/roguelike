@@ -234,7 +234,7 @@ function InitWASD(hero)
             angle = 180
             data.IsMoving = true
         end
-
+        --[[
         if data.ReleaseW and data.ReleaseS and not data.ReleaseA and not data.ReleaseD then
             data.ReleaseW = false
             data.ReleaseS = false
@@ -249,7 +249,7 @@ function InitWASD(hero)
             data.IsMoving = false
             DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", GetUnitXY(data.UnitHero)))
             --print("слишком много кнопок нажато")
-        end
+        end]]
 
         if not UnitAlive(hero) then
             --data.ReleaseW=false
@@ -290,8 +290,11 @@ function InitWASD(hero)
                     local stator = false
                     if newX == x and newY == y then
                         --print("предположительно упёрся в стенку")
-                        stator = true
-                        ResetUnitAnimation(hero)
+
+                        if not MiniChargeOnArea(data) then
+                            stator = true
+                            ResetUnitAnimation(hero)
+                        end -- Расталкиваем всех юнитов
                         --data.animStand=3
                     end
                     if animWalk == 0 and not stator then
@@ -1103,6 +1106,13 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             end
         end
 
+        if true and IsUnitType(hero,UNIT_TYPE_HERO) then--повышение отзывчивости
+            local x, y = GetUnitX(hero), GetUnitY(hero)
+            local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
+            SetUnitPositionSmooth(hero, newX, newY)
+        end
+        
+        
         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
             currentdistance = currentdistance + speed
             --print(currentdistance)
@@ -1306,7 +1316,7 @@ function UnitDamageArea(u, damage, x, y, range, flag)
             end
         end
         --
-        if UnitAlive(e) and (UnitAlive(u) or deadDamage)  and (IsUnitEnemy(e, GetOwningPlayer(u)) or GetOwningPlayer(e) == Player(PLAYER_NEUTRAL_PASSIVE) or flag == "all") then
+        if UnitAlive(e) and (UnitAlive(u) or deadDamage) and (IsUnitEnemy(e, GetOwningPlayer(u)) or GetOwningPlayer(e) == Player(PLAYER_NEUTRAL_PASSIVE) or flag == "all") then
             --
             if flag == "shotForce" then
                 UnitAddForceSimple(e, AngleBetweenUnits(u, e), 20, 300, nil, u)
@@ -1316,7 +1326,7 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                 local tempA = AngleBetweenXY(x, y, GetUnitXY(e)) / bj_DEGTORAD
                 UnitAddForceSimple(e, tempA, 20, 300, nil, u)
             end
-            if flag == "all" and GetPlayerController(GetOwningPlayer(u))==MAP_CONTROL_USER then
+            if flag == "all" and GetPlayerController(GetOwningPlayer(u)) == MAP_CONTROL_USER then
                 local data = HERO[GetPlayerId(GetOwningPlayer(u))]
                 if not data.AddDamageTrap then
                     data.AddDamageTrap = 1
