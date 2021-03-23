@@ -120,7 +120,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     end
     if flag == "callTauren" then
         data.TotemChargesFH = MakeFrameCharged(face, data.TotemChargesMax)
-        data.TotemCharges=data.TotemChargesMax
+        data.TotemCharges = data.TotemChargesMax
         local talon = GlobalTalons[data.pid + 1]["HeroTaurenChieftain"][7]
         TimerStart(CreateTimer(), 2, true, function()
             -- Регенерация ульты
@@ -238,6 +238,15 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
             BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(data.DamageThrow)) .. L(" ед. урона", " damage"))
         end)
     end
+
+    if flag == "splash" then
+        --data.attackNormalTooltipTextFH=text
+        local nativeTextString = BlzFrameGetText(text)
+        TimerStart(CreateTimer(), 2, true, function()
+            BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(data.DamageSplash)) .. L(" ед. урона", " damage"))
+        end)
+    end
+
     if flag == "spin" then
         --data.attackNormalTooltipTextFH=text
         local nativeTextString = BlzFrameGetText(text)

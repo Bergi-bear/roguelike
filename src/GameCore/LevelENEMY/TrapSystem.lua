@@ -60,11 +60,11 @@ function CreateSwordSpike (hero)
                 BlzSetSpecialEffectScale(mark,0.7)
 
 
-                TimerStart(CreateTimer(), 1, false, function()
+                TimerStart(CreateTimer(), 0.2, false, function()
                     BlzPlaySpecialEffect(eff,ANIM_TYPE_BIRTH)
                     normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit",x,y)
                 end)
-                TimerStart(CreateTimer(), 1.3, false, function()
+                TimerStart(CreateTimer(), 0.5, false, function()
                     --print("наносим урон")
                     DestroyEffect(mark)
                     BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)

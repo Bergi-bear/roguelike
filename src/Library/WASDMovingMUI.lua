@@ -86,6 +86,7 @@ function InitHeroTable(hero)
         gold = 0,
         ShowGold = true, -- показ накопления золота
         ShowGoldAmount = 0,
+        DamageSplash=250,--урон от Q
     }
 end
 
@@ -1118,7 +1119,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             --print(currentdistance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
-            if flag == "ignore" and true then
+            if flag == "ignore" and false then
                 -- TODO, заменить на ignoreDest
                 -- print("попытка")
                 local is, d = PointContentDestructable(newX, newY, 120, false)

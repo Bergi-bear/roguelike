@@ -18,6 +18,10 @@ end
 function PreloadigLags()
     local temp=CreateUnit(Player(0),FourCC("uzig"),OutPoint,OutPoint,0)
     KillUnit(temp)
+    temp=CreateUnit(Player(0),FourCC("uabo"),OutPoint,OutPoint,0)
+    KillUnit(temp)
+    temp=CreateUnit(Player(0),FourCC("u000"),OutPoint,OutPoint,0)
+    KillUnit(temp)
 end
 
 

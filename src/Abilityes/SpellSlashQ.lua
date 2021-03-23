@@ -10,11 +10,11 @@ function SpellSlashQ(data)
     if not data.tasks[3] then
         data.tasks[3] = true
     end
-    local damage = 250
+    local damage = data.DamageSplash
     local range = 200
-    if data.DashAndDamageQ then
-        damage = damage + data.DashAndDamageQ
-    end
+    --if data.DashAndDamageQ then
+    --    damage = damage + data.DashAndDamageQ
+    --end
     if data.GreatDamageDashQ then
         damage = 2 * damage
         data.GreatDamageDashQ = false

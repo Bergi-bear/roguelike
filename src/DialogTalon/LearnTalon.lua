@@ -380,7 +380,9 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         end
         if pos == 5 then
             data.DashAndDamageQ=talon.DS[talon.level]
+            data.DamageSplash=data.DamageSplash+50
             ActLvl23Action(talon, function()
+                data.DamageSplash=data.DamageSplash+50
                 data.DashAndDamageQ = talon.DS[talon.level]
             end)
         end

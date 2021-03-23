@@ -380,7 +380,7 @@ do
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
                             name = L("Кирка героя", "Hero Pickaxe"),
-                            description = L("Увеличивает урон обычных атака на DS%%", " Increases normal attack damage by DS%%"),
+                            description = L("Увеличивает урон обычных атак на DS%%", " Increases normal attack damage by DS%%"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
@@ -459,7 +459,7 @@ do
                             DS = { 1 }
                         }),
                     },
-                    ChaosGrom = { --TODO Сделать перевод
+                    ChaosGrom = {
                         Talon:new({--1
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGhoulFrenzy.blp",
                             name = L("Яростный удар", "Furious strike"),
@@ -503,7 +503,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
-                            DS = { 50, 80, 120 }
+                            DS = { 50, 100, 150 }
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRedDragonDevour.blp",

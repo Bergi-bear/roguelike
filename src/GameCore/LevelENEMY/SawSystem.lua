@@ -46,7 +46,10 @@ function CreateRoundSawZ(hero,ChainCount,angle,z)
 		OnDamage,ReflectorUnit=UnitDamageArea(DamageDealer,20,nx,ny,150,z-90,CollisionEffect)
 
 		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit)  then
-			normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1",nx,ny)
+			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
+				normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1",nx,ny)
+			end
+			DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl",GetUnitXY(ReflectorUnit)))
 			--[[local tl = Location(GetUnitXY(hero))
 			PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
 			RemoveLocation(tl)
@@ -155,7 +158,10 @@ function CreateGroundSaw(hero,angle,z)
 		UnitDamageArea(hero,20,nx,ny,60,z-90,CollisionEffect)
 
 		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
-			normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1",nx,ny)
+			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
+				normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1",nx,ny)
+			end
+			DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl",GetUnitXY(ReflectorUnit)))
 			--local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0)
 			--UnitAddAbility(dummy,FourCC('Apsh'))
 			--IssueImmediateOrder(dummy,"phaseshift")-- поддельный звук пилы
