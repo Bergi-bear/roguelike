@@ -38,6 +38,7 @@ function CallingBarCreate(u,cd,text,support)
 			--print("destroy")
 			CallingBarDestroy(u,bar)
 		end
+
 	end)
 	return bar
 end

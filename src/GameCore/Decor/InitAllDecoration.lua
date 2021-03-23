@@ -9,6 +9,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
            InitEvenDestructable() --этот триггер не работает
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -37,6 +38,7 @@ function InitEvenDestructable()
                 DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",x,y))
                 TimerStart(CreateTimer(), 0.6, false, function()
                     RemoveDestructable(d)
+                    DestroyTimer(GetExpiredTimer())
                 end)
             end
         else

@@ -525,7 +525,7 @@ function CreateCreepDelay(id, x, y, delay, flag)
         if CurrentGameZone>=10 then
             local r=GetRandomInt(1,22-CurrentGameZone)
             if r==1 then
-                UnitAddShield(new,R2I(a*3))
+                UnitAddShield(new,R2I(a*1.5))
             end
         end
 

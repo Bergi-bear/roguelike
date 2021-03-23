@@ -45,5 +45,4 @@ function UnitAddGold(hero,amount)
             end
         end)
     end
-
 end

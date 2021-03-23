@@ -11,6 +11,7 @@ do
         InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
         TimerStart(CreateTimer(), 2, false, function()
             InitEnemyEntire()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -148,6 +149,7 @@ function ImpaleBug(unit)
                     TimerStart(CreateTimer(), 1.7, false, function()
                         SetUnitTimeScale(unit,1)
                         BlzPauseUnitEx(unit,false)
+                        DestroyTimer(GetExpiredTimer())
                     end)
 
                 end

@@ -14,6 +14,7 @@ function InitTrollRegenerate(data,talon)
             data.TrollHealCurrentCD=5
             TimerStart(CreateTimer(), 5, false, function()
                 data.TrollHealCurrentCD=0
+                DestroyTimer(GetExpiredTimer())
             end)
         end
     end)

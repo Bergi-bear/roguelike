@@ -11,6 +11,7 @@ do
         TimerStart(CreateTimer(), 1, false, function()
             InitTrig_SyncLoadDone()
             InitPreloadStart()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end

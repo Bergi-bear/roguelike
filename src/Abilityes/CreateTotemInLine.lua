@@ -22,27 +22,29 @@ function CreateTotemInLine(data)
         i = i + 1
         if data.TotemCharges > 0 then
             x, y = MoveXY(x, y, step, angle)
-            data.TotemCharges=data.TotemCharges-1
+            data.TotemCharges = data.TotemCharges - 1
             BlzFrameSetText(data.TotemChargesFH, data.TotemCharges)
-            CreateTotemElement(x, y,angle)
-            UnitDamageArea(hero,100,x,y,150,"ForceTotem")
+            CreateTotemElement(x, y, angle)
+            UnitDamageArea(hero, 100, x, y, 150, "ForceTotem")
         else
             --break
         end
-        if i>=maxBlock then
-           DestroyTimer(GetExpiredTimer())
+        if i >= maxBlock then
+            DestroyTimer(GetExpiredTimer())
         end
     end)
 end
-function CreateTotemElement(x, y,angle)
+function CreateTotemElement(x, y, angle)
     local collision = CreateDestructable(FourCC("B00A"), x, y, 0, 1, 1)
     local eff = AddSpecialEffect("units\\orc\\StasisTotem\\StasisTotem", x, y)
-    local effStomp=AddSpecialEffect("Abilities\\Spells\\Human\\Polymorph\\PolyMorphDoneGround", x, y)
+    local effStomp = AddSpecialEffect("Abilities\\Spells\\Human\\Polymorph\\PolyMorphDoneGround", x, y)
     DestroyEffect(effStomp)
     BlzSetSpecialEffectYaw(eff, math.rad(angle))
     TimerStart(CreateTimer(), 5, false, function()
         KillDestructable(collision)
         RemoveDestructable(collision)
         DestroyEffect(eff)
+        PauseTimer(GetExpiredTimer())
+        DestroyTimer(GetExpiredTimer())
     end)
 end

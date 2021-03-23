@@ -9,6 +9,7 @@ do
         InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
         TimerStart(CreateTimer(), 1, false, function()
             CreateTaskForAllPlayer()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end

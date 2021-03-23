@@ -16,6 +16,8 @@ do
         TimerStart(CreateTimer(), .1, false, function()
             InitMouseMoveTrigger()
             PlayUnitAnimationFromChat()
+            PauseTimer(GetExpiredTimer())
+            DestroyTimer(GetExpiredTimer())
             --InitWASD(hero) --переместить в первый выбор героя
         end)
     end
@@ -86,7 +88,8 @@ function InitHeroTable(hero)
         gold = 0,
         ShowGold = true, -- показ накопления золота
         ShowGoldAmount = 0,
-        DamageSplash=250,--урон от Q
+        DamageSplash = 250, --урон от Q
+        HealRate=1, -- Эффективность исцеления
     }
 end
 
@@ -1107,13 +1110,13 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             end
         end
 
-        if true and IsUnitType(hero,UNIT_TYPE_HERO) then--повышение отзывчивости
+        if true and IsUnitType(hero, UNIT_TYPE_HERO) then
+            --повышение отзывчивости
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
             SetUnitPositionSmooth(hero, newX, newY)
         end
-        
-        
+
         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
             currentdistance = currentdistance + speed
             --print(currentdistance)
@@ -1308,12 +1311,25 @@ function UnitDamageArea(u, damage, x, y, range, flag)
             if talon.level > 0 then
                 local m = talon.DS[talon.level]
                 local data = HERO[GetPlayerId(GetOwningPlayer(u))]
-                deadDamage = true
-                FlyTextTagCriticalStrike(u, L("Камикадзе", "Kamikaze"), GetOwningPlayer(u))
-                AddLife(data)
-                damage = damage * m
-                ReviveHero(u, GetUnitX(u), GetUnitY(u), true)
-                SetUnitState(u, UNIT_STATE_LIFE, 1)
+
+                if data.KamikazeCurrentCD <= 0 then
+                    local cd = 7
+                    data.KamikazeCurrentCD = cd
+                    StartFrameCD(cd, data.KamikazeCDGH)
+                    ---постоянные блок
+                    deadDamage = true
+                    FlyTextTagCriticalStrike(u, L("Камикадзе", "Kamikaze"), GetOwningPlayer(u))
+                    AddLife(data)
+                    damage = damage * m
+                    ReviveHero(u, GetUnitX(u), GetUnitY(u), true)
+                    SetUnitState(u, UNIT_STATE_LIFE, 1)
+                    ------
+                    TimerStart(CreateTimer(), cd, false, function()
+                        data.KamikazeCurrentCD = 0
+                    end)
+                end
+
+
             end
         end
         --

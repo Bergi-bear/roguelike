@@ -10,6 +10,7 @@ do
         TimerStart(CreateTimer(), 1, false, function()
             DrawInterFace()
             ReturnFPS()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -107,6 +108,7 @@ function RemoveLife(data)
 
                         TimerStart(CreateTimer(),2, false, function()
                             CustomDefeatBJ(Player(i),L("Поражение","Defeat"))
+                            DestroyTimer(GetExpiredTimer())
                         end)
                     end
                 end

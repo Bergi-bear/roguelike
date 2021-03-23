@@ -9,6 +9,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 1, false, function()
             InitLvlUp()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end

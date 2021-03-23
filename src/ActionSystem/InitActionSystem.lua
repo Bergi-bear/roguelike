@@ -16,6 +16,8 @@ do
             CreateEActions()
             InitFinObjectInArea()
             AllActionsEnabled(true)
+            PauseTimer(GetExpiredTimer())
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -328,6 +330,8 @@ function CreateEActions()
                         SetTimeOfDay(2)
                         SetTimeOfDayScalePercentBJ(0)
                         SetDayNightModels("", "")
+                        PauseTimer(GetExpiredTimer())
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 else
                     DestroyDecorInArea(data, 400)
@@ -356,6 +360,8 @@ function CreateEActions()
                 KillUnit(data.EPointUnit)
                 TimerStart(CreateTimer(), 7, false, function()
                     CreateGodTalon(x, y, "PeonDidal")
+                    PauseTimer(GetExpiredTimer())
+                    DestroyTimer(GetExpiredTimer())
                 end)
             end
             if data.UseAction == "SoFar" then
@@ -402,7 +408,7 @@ function CreateEActions()
                 --data.Completed = true
                 --data.DoAction = false
                 --data.UseAction = ""
-                SetUnitOwner(dataPoint.UnitFireRotation,GetOwningPlayer(data.UnitHero))
+                SetUnitOwner(dataPoint.UnitFireRotation, GetOwningPlayer(data.UnitHero))
                 dataPoint.AngleFireRotation = dataPoint.AngleFireRotation + 90
                 local x, y = GetUnitXY(data.UnitHero)
                 FlyTextTagShieldXY(x, y, L("Поворачиваем", "Rotate"), GetOwningPlayer(data.UnitHero))
@@ -422,6 +428,8 @@ function CreateEActions()
                         CreateDialogTalon("Trall") -- Сюда передаётся trall
                         normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
                         DestroyGodTalon(dataPoint.TripleTalon)
+                        PauseTimer(GetExpiredTimer())
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     data.DoAction = false
                     data.UseAction = ""
@@ -445,6 +453,8 @@ function CreateEActions()
                         DestroyGodTalon(dataPoint.TripleTalon)
                         CreateDialogTalon("HeroBlademaster")
                         normal_sound("Units\\Orc\\HeroBladeMaster\\HeroBladeMasterPissed" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
+                        PauseTimer(GetExpiredTimer())
+                        DestroyTimer(GetExpiredTimer())
                         --активация всех переходов
                     end)
                     data.DoAction = false
@@ -468,6 +478,8 @@ function CreateEActions()
                         DestroyGodTalon(dataPoint.TripleTalon)
                         CreateDialogTalon("HeroTaurenChieftain")
                         normal_sound("Units\\Orc\\HeroTaurenChieftain\\HeroTaurenChieftainPissed" .. GetRandomInt(1, 6), GetUnitXY(data.UnitHero))
+                                                PauseTimer(GetExpiredTimer())
+                        DestroyTimer(GetExpiredTimer())
                         --активация всех переходов
                     end)
                     data.DoAction = false
@@ -491,6 +503,8 @@ function CreateEActions()
                         DestroyGodTalon(dataPoint.TripleTalon)
                         CreateDialogTalon("ShadowHunter")
                         normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed" .. GetRandomInt(1, 9), GetUnitXY(data.UnitHero))
+                                                PauseTimer(GetExpiredTimer())
+                        DestroyTimer(GetExpiredTimer())
                         --активация всех переходов
                     end)
                     data.DoAction = false
@@ -684,8 +698,10 @@ function CreateEActions()
                         local eff = AddSpecialEffect("Doodads\\Terrain\\CliffDoodad\\Waterfall\\Waterfall", x, y)
                         BlzSetSpecialEffectYaw(eff, math.rad(-180 + 30 * i))
                         BlzSetSpecialEffectColor(eff, 255, 0, 0)
+                        BlzSetSpecialEffectScale(eff, 0.5)
                     end
                     KillUnit(data.EPointUnit)
+                    AddMaxLife(data.UnitHero, 25)
                     TimerStart(CreateTimer(), 2, true, function()
                         UnitDamageArea(data.UnitHero, data.DamageOfFountain, x, y, 500, "Blood")
                     end)

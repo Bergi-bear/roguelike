@@ -11,6 +11,7 @@ do
             ReplaceID2SawTrap(FourCC("hpea"))
             ReplaceID2SwordSpike(FourCC("hkni"))
             StartAllSaw()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -63,6 +64,7 @@ function CreateSwordSpike (hero)
                 TimerStart(CreateTimer(), 0.2, false, function()
                     BlzPlaySpecialEffect(eff,ANIM_TYPE_BIRTH)
                     normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit",x,y)
+                    DestroyTimer(GetExpiredTimer())
                 end)
                 TimerStart(CreateTimer(), 0.5, false, function()
                     --print("наносим урон")
@@ -70,6 +72,7 @@ function CreateSwordSpike (hero)
                     BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
                     BlzSetSpecialEffectTimeScale(eff,.5)
                     UnitDamageArea(enemy,300,x,y,100,"all") -- Урон от ловушки
+                    DestroyTimer(GetExpiredTimer())
                 end)
             end
         end

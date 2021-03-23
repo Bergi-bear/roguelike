@@ -251,6 +251,15 @@ do
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 5, 7, 9 }
                         }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNHeal.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
+                            name = L("Великий лекарь", "Great Healer"),
+                            description = L("Повышает эффективность получения лечения X DS", "Increases the performance of receiving healing X DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 1.5, 2, 2.5 }
+                        }),
                     },
                     HeroTaurenChieftain = {
                         Talon:new({--1
@@ -472,7 +481,7 @@ do
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFountainOfLifeBlood.blp",
                             name = L("Заражение", "Infection"),
-                            description = L("Делает фонтан непригодным для питья, но фонтан наносит DS урона в секунду врагам в радиусе 500", "Makes the fountain undrinkable, but the fountain deals DS damage per second to enemies within a radius of 500"),
+                            description = L("Делает фонтан непригодным для питья, но фонтан наносит DS урона в секунду врагам в радиусе 500, а вы получаете эффект сердца кодоя +25", "Makes the fountain undrinkable, but the fountain deals DS damage per second to enemies within a radius of 500, add 25 max hp"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Используйте Е возле источника воды, чтобы заразить его", "Use E near a water source to infect it"),

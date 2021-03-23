@@ -10,6 +10,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
             CreationPeonsForAllPlayer()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -22,12 +23,12 @@ function CreationPeonsForAllPlayer()
             UnitAddAbility(hero,FourCC("abun"))
             UnitAddAbility(hero,FourCC("Abun"))
             UnitAddAbility(hero,FourCC("AInv"))
-            local effModel="war3mapImported\\Light"
-            if not GetLocalPlayer()==Player(i) then
-                effModel=""
+            local effModel=""
+            if GetLocalPlayer()==Player(i) then
+                effModel="war3mapImported\\Light"
             end
             AddSpecialEffectTarget(effModel,hero,"origin")
-            --print("толкаем")
+            --==print("толкаем")
             UnitAddForceSimple(hero, 0, 10, 10)
             --print("1")
             BlzSetUnitMaxHP(hero,200)

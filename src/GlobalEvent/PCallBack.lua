@@ -3,6 +3,17 @@
 --- Created by Bergi.
 --- DateTime: 27.05.2020 23:15
 ---
+---
+do
+  local DestroyTimerOrigin = DestroyTimer -- записываем DestroyTimer в переменную
+  local PauseTimerCached = PauseTimer -- локальная переменная используется для более быстрого вызова функции в дальнейшем
+  function DestroyTimer(t)
+	PauseTimerCached(t)  -- вызываем PauseTimer из переменной
+	DestroyTimerOrigin(t) -- вызываем DestroyTimer из переменной
+  end
+end
+
+
 local realTimerStart = TimerStart
 TimerStart = function(timer, duration, repeating, callback)
 	local pcallback = function()

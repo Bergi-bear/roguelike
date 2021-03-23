@@ -56,6 +56,8 @@ function FindNewEnemyForLight(hero,xs,ys)
            -- print("где эффект")
             TimerStart(CreateTimer(),0.5, false, function()
                 DestroyEffect(eff)
+                PauseTimer(GetExpiredTimer())
+                DestroyTimer(GetExpiredTimer())
             end)
             UnitDamageTarget( hero, e, 50, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
             normal_sound("Abilities\\Spells\\Orc\\LightningBolt\\LightningBolt",x,y) -- не работает

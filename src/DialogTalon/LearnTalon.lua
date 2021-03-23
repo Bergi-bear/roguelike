@@ -185,8 +185,11 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         end
         if pos == 8 then
             --камикадце
-            local tt = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
             UpdateTalonDescriptionForFrame(talon, tt)
+            data.KamikazeCurrentCD = 0
+            data.KamikazeCDGH = CdFH
+
         end
         if pos == 9 then
             --джагернаут
@@ -221,6 +224,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.TrollHealCDFH = CdFH
             data.TrollHealCurrentCD = 0
             InitTrollRegenerate(data, talon)
+        end
+        if pos == 6 then
+            data.HealRate = data.HealRate + 0.5
+            ActLvl23Action(talon, function()
+                data.HealRate = data.HealRate + 0.5
+            end)
         end
     end
     if godName == "HeroTaurenChieftain" and talon.level == 1 then
@@ -366,28 +375,28 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             end)
         end
         if pos == 3 then
-            data.RechargeSpinOnKill=talon.DS[talon.level]
+            data.RechargeSpinOnKill = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.RechargeSpinOnKill = talon.DS[talon.level]
             end)
         end
         if pos == 4 then
             AddAxe(data)
-            data.FlyingAxeDamage=talon.DS[talon.level]
+            data.FlyingAxeDamage = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.FlyingAxeDamage = talon.DS[talon.level]
             end)
         end
         if pos == 5 then
-            data.DashAndDamageQ=talon.DS[talon.level]
-            data.DamageSplash=data.DamageSplash+50
+            data.DashAndDamageQ = talon.DS[talon.level]
+            data.DamageSplash = data.DamageSplash + 50
             ActLvl23Action(talon, function()
-                data.DamageSplash=data.DamageSplash+50
+                data.DamageSplash = data.DamageSplash + 50
                 data.DashAndDamageQ = talon.DS[talon.level]
             end)
         end
         if pos == 6 then
-            data.MeleeLifeSteal=talon.DS[talon.level]
+            data.MeleeLifeSteal = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.MeleeLifeSteal = talon.DS[talon.level]
             end)

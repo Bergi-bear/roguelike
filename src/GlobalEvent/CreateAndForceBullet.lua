@@ -30,6 +30,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,ma
 					effectmodel="units\\critters\\Frog\\Frog"
 					TimerStart(CreateTimer(), cd, false, function()
 						data.FrogThrowCurrentCD=0
+						DestroyTimer(GetExpiredTimer())
 					end)
 					-- print("кольцо змей")
 				end
