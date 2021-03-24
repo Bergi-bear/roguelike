@@ -69,7 +69,7 @@ function InitCamControl()
         end
     end)
 end
-
+--[[
 GetPlayerMouseX = {}
 GetPlayerMouseY = {}
 function InitMouseMoveTrigger2()
@@ -88,6 +88,7 @@ function InitMouseMoveTrigger2()
         end
     end)
 end
+]]
 
 function MouseHider(delay, pid)
     local pointer = BlzFrameGetChild(BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 13)

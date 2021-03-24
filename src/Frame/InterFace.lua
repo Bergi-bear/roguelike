@@ -96,12 +96,12 @@ function RemoveLife(data)
             print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате","You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
         else
             TimerStart(CreateTimer(),3, false, function()
-                local savedGold=0
+                local SaveCode="error"
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
                     if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
                         local gdata=HERO[i]
                         if GetLocalPlayer()==Player(i) then
-                            savedGold=gdata.gold
+                            SaveCode=R2I(gdata.gold)..","..R2I(LoadedGameCount[i])..","
                         end
 
                         print(GetPlayerName(Player(i))..L(" унёс с собой "..R2I(gdata.gold).." золота ","took with me " ..R2I (gdata.gold).. " gold "))
@@ -112,7 +112,8 @@ function RemoveLife(data)
                         end)
                     end
                 end
-                Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..R2I(savedGold).."\",0)".."\n//")
+
+                Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..SaveCode.."\",0)".."\n//")
                 PreloadGenEnd(SavePath)
                 PreloadGenClear()
             end)

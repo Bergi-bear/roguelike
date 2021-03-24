@@ -87,14 +87,18 @@ function InitHeroTable(hero)
         LifeFHTable = {},
         gold = 0,
         ShowGold = true, -- показ накопления золота
+        ShowHeal = true,
         ShowGoldAmount = 0,
+        ShowHealAmount = 0,
         DamageSplash = 250, --урон от Q
-        HealRate=1, -- Эффективность исцеления
+        HealRate = 1, -- Эффективность исцеления
+        DistMouse = 0,
+        AngleMouse = 0,
     }
 end
 
 function InitWASD(hero)
-    --print("initwasdSTART")
+   -- print("initwasdSTART")
     InitHeroTable(hero)
     CreateWASDActions()
     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
@@ -117,13 +121,40 @@ function InitWASD(hero)
             --IssueImmediateOrder(hero, "stop")
         end
     end)
-
+    data.preX = GetPlayerMouseX[data.pid]
+    data.preY = GetPlayerMouseY[data.pid]
+    --mouseEff = AddSpecialEffect(SawDiskModel, GetUnitXY(hero))
     --local heroSelf=data.UnitHero
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         -- основной таймер для обработки всего
         --data.UnitHero=mainHero -- костыль для смены героя
         hero = data.UnitHero -- костыль для смены героя
+        local hx,hy=GetUnitXY(hero)
 
+
+
+        if data.preX ~= GetPlayerMouseX[data.pid] or data.preY ~= GetPlayerMouseY[data.pid] then
+            --print("курсор движется "..GetPlayerMouseX[data.pid])
+            data.MouseMove = true
+        else
+            data.MouseMove = false
+            --print("на месте "..GetPlayerName(GetOwningPlayer(hero)))
+        end
+        data.preX = GetPlayerMouseX[data.pid]
+        data.preY = GetPlayerMouseY[data.pid]
+
+        data.fakeX, data.fakeY = GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]
+        if not data.MouseMove then
+            --print("юнит идёт со статичным курсором")
+            -- GetPlayerMouseX[data.pid] = GetPlayerMouseX[data.pid] + dx
+            --GetPlayerMouseY[data.pid] = GetPlayerMouseY[data.pid] + dy
+            data.fakeX, data.fakeY = MoveXY(hx,hy, data.DistMouse, data.AngleMouse)
+        else
+            data.DistMouse = DistanceBetweenXY(hx,hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid])
+            data.AngleMouse = AngleBetweenXY(hx,hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
+            --print("пошевелил " .. data.DistMouse)
+        end
+        --BlzSetSpecialEffectPosition(mouseEff, data.fakeX, data.fakeY, GetTerrainZ(data.fakeX, data.fakeY) + 50)
 
         if not UnitAlive(hero) then
             --print("Эффект смерти")
@@ -136,7 +167,9 @@ function InitWASD(hero)
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
-
+            if data.CameraStabUnit then
+                SetUnitPositionSmooth(data.CameraStabUnit,data.fakeX, data.fakeY)
+            end
             if GetLocalPlayer() == GetOwningPlayer(hero) then
                 -- SetCameraQuickPosition(x,y)
             end
@@ -238,7 +271,7 @@ function InitWASD(hero)
             angle = 180
             data.IsMoving = true
         end
-        --[[
+
         if data.ReleaseW and data.ReleaseS and not data.ReleaseA and not data.ReleaseD then
             data.ReleaseW = false
             data.ReleaseS = false
@@ -253,8 +286,7 @@ function InitWASD(hero)
             data.IsMoving = false
             DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", GetUnitXY(data.UnitHero)))
             --print("слишком много кнопок нажато")
-        end]]
-
+        end
         if not UnitAlive(hero) then
             --data.ReleaseW=false
             --data.ReleaseA=false
@@ -284,11 +316,16 @@ function InitWASD(hero)
                     end
                     local x, y = GetUnitXY(hero)
                     local nx, ny = MoveXY(x, y, speed, angle)
+                    local dx, dy = nx - x, ny - y
+
                     if not data.isAttacking then
                         SetUnitFacing(hero, angle)-- место для поворота в движении
                     end
 
                     SetUnitPositionSmooth(hero, nx, ny)-- блок движения
+
+
+
 
                     local newX, newY = GetUnitXY(hero)
                     local stator = false
@@ -568,7 +605,7 @@ function CreateWASDActions()
                     if not data.tasks[7] then
                         data.tasks[7] = true
                     end
-                    data.DirectionMove = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    data.DirectionMove = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     dist = 400
                 end
 
@@ -636,7 +673,7 @@ function CreateWASDActions()
                     --print("Q в курсор")
                     StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
                     --SpellSlashQ(data)
-                    local angle = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    local angle = -180 + AngleBetweenXY(data.fakeX,data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero))
                     if dist >= 500 then
                         dist = 500
@@ -1257,6 +1294,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     if data.DoubleClap then
                         TimerStart(CreateTimer(), 0.35, false, function()
                             SpellSlashQ(data)
+                            DestroyTimer(GetExpiredTimer())
                         end)
                     end
                     data.ReleaseQ = false
@@ -1269,10 +1307,10 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         end)
     end
 end
-
 GetPlayerMouseX = {}
 GetPlayerMouseY = {}
 function InitMouseMoveTrigger()
+
     local MouseMoveTrigger = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         local player = Player(i)
@@ -1285,6 +1323,7 @@ function InitMouseMoveTrigger()
         if BlzGetTriggerPlayerMouseX() ~= 0 then
             GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
             GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
+
         end
     end)
 end

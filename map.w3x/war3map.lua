@@ -4817,12 +4817,12 @@ function RemoveLife(data)
             print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате","You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
         else
             TimerStart(CreateTimer(),3, false, function()
-                local savedGold=0
+                local SaveCode="error"
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
                     if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
                         local gdata=HERO[i]
                         if GetLocalPlayer()==Player(i) then
-                            savedGold=gdata.gold
+                            SaveCode=R2I(gdata.gold)..","..R2I(LoadedGameCount[i])..","
                         end
 
                         print(GetPlayerName(Player(i))..L(" унёс с собой "..R2I(gdata.gold).." золота ","took with me " ..R2I (gdata.gold).. " gold "))
@@ -4833,7 +4833,8 @@ function RemoveLife(data)
                         end)
                     end
                 end
-                Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..R2I(savedGold).."\",0)".."\n//")
+
+                Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..SaveCode.."\",0)".."\n//")
                 PreloadGenEnd(SavePath)
                 PreloadGenClear()
             end)
@@ -5030,7 +5031,7 @@ end
 
 function CreationPeonsForAllPlayer()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  then-- and GetPlayerController(Player(i))==MAP_CONTROL_USER
+        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  and GetPlayerController(Player(i))==MAP_CONTROL_USER then
             local x,y=GetPlayerStartLocationX(Player(i)),GetPlayerStartLocationY(Player(i))
             local hero=CreateUnit(Player(i),HeroID,x,y,0)
             UnitAddAbility(hero,FourCC("abun"))
@@ -5800,7 +5801,7 @@ end
 SimpleTaskPos = {}
 function CreateTaskForAllPlayer()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) then
+        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  and GetPlayerController(Player(i))==MAP_CONTROL_USER then
             SimpleTaskPos[i] = 0
             local data = HERO[i]
             local frames = {}
@@ -5890,7 +5891,7 @@ end
 
 function DestroyAllLearHelpers()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) then
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
             local data=HERO[i]
             SimpleTaskPos[i]=0
             for j=1,10 do
@@ -6897,14 +6898,13 @@ do
 end
 
 function PreloadigLags()
-    local temp=CreateUnit(Player(0),FourCC("uzig"),OutPoint,OutPoint,0)
+    local temp = CreateUnit(Player(0), FourCC("uzig"), OutPoint, OutPoint, 0)
     KillUnit(temp)
-    temp=CreateUnit(Player(0),FourCC("uabo"),OutPoint,OutPoint,0)
+    temp = CreateUnit(Player(0), FourCC("uabo"), OutPoint, OutPoint, 0)
     KillUnit(temp)
-    temp=CreateUnit(Player(0),FourCC("u000"),OutPoint,OutPoint,0)
+    temp = CreateUnit(Player(0), FourCC("u000"), OutPoint, OutPoint, 0)
     KillUnit(temp)
 end
-
 
 function InitPreloadStart()
     --print("Start preload tester")
@@ -6913,7 +6913,7 @@ function InitPreloadStart()
     Preloader(SavePath) --в этот момент данные записываются в имя способности, для каждого игрока свои данные
     local s = BlzGetAbilityTooltip(FourCC('Agyv'), 0) --переменная S хранит асинхронные данные
     --print("AAAAAAA "..s)
-    BlzSendSyncData("myprefix",s)
+    BlzSendSyncData("myprefix", s)
     --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
     local i = 0
     TimerStart(CreateTimer(), 2.1, true, function()
@@ -6927,7 +6927,7 @@ function InitPreloadStart()
             --    print("FirstGame")
             --end
             if not udg_LoadCode[i] then
-                udg_LoadCode[i]=50
+                udg_LoadCode[i] = 50
             end
 
             --restoreGold = SyncString(Player(i), I2S(s)) -- ЭТА СТРОЧКА КРАШИТ ВАР
@@ -6939,12 +6939,15 @@ function InitPreloadStart()
             --print(GetPlayerName(Player(i)) .. " перенес золота из прошлой игры " ..(udg_LoadCode[i]))
 
             if udg_LoadCode[i] then
-                if tonumber(udg_LoadCode[i]) then
+                if tonumber(LoadedGold[i]) then
                 else
-                    udg_LoadCode[i]=50
+                    LoadedGold[i] = 50
+                    LoadedGameCount[i] = 0
                     --print("FirstGame")
                 end
-                UnitAddGold(data.UnitHero, udg_LoadCode[i])
+                print("число завершенных игр " .. LoadedGameCount[i])
+                LoadedGameCount[i] = LoadedGameCount[i] + 1
+                UnitAddGold(data.UnitHero, LoadedGold[i])
             else
                 --i=i-1
             end
@@ -6972,8 +6975,9 @@ function SyncString(p, val)
     return GetStoredString(cache, "", "")
 end
 
-
-udg_LoadCode={}
+udg_LoadCode = {}
+LoadedGold = {}
+LoadedGameCount = {}
 function InitTrig_SyncLoadDone ()
     local gg_trg_SyncLoadDone = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -6985,14 +6989,36 @@ function InitTrig_SyncLoadDone ()
         local i = GetPlayerId(GetTriggerPlayer())
         --print("SyncData="..value)
         if prefix == "myprefix" then
+            local t = split(value, ",")-- разрезаем наталицу отдельныйх данных
             udg_LoadCode[i] = value
-            if #value>10 then --игрок первый раз играет
+            LoadedGold[i] = t[1]
+            LoadedGameCount[i] = t[2]
+            --print(t[2])
+            if #value > 10 then
+                --игрок первый раз играет
                 udg_LoadCode[i] = 0
+                LoadedGold[i] = 0
+                LoadedGameCount[i] = 0
+            end
+            if not LoadedGameCount[i] then
+                LoadedGameCount[i]=0
             end
             --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
         end
     end)
 end
+
+function split(str, sep)
+    if sep == nil then
+        local words = {}
+        for word in str:gmatch("%w+") do
+            table.insert(words, word)
+        end
+        return words
+    end
+    return { str:match((str:gsub("[^" .. sep .. "]*" .. sep, "([^" .. sep .. "]*)" .. sep))) } -- BUG!! doesnt return last value
+end
+
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -7107,7 +7133,7 @@ function HealUnit(hero, amount, flag, eff)
             if not data.ShowHealAmount then
                 data.ShowHealAmount = 0
             end
-            data.ShowHealAmount = data.ShowGoldAmount + amount
+            data.ShowHealAmount = data.ShowHealAmount + amount
             if data.ShowHeal then
                 data.ShowHeal = false
                 TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
@@ -7156,6 +7182,7 @@ end
 function HideEverything()
     --BlzFrameSetVisible(BlzGetFrameByName("ConsoleUIBackdrop", 0), false)
     BlzFrameSetAbsPoint(BlzGetFrameByName("ConsoleUIBackdrop", 0), FRAMEPOINT_TOPRIGHT, 0, -0, 8)
+    BlzFrameSetSize(BlzGetFrameByName("CommandButton_" .. 0, 0), 0, 0)-- M в позиции 0,0
     for i = 1, 11 do
         BlzFrameSetVisible(BlzGetFrameByName("CommandButton_"..i, 0), false) --отключить
         --BlzFrameSetSize(BlzGetFrameByName("CommandButton_" .. i, 0), 0, 0)--скрыть, но работать будут по хоткеям
@@ -7201,7 +7228,7 @@ function InitCamControl()
         end
     end)
 end
-
+--[[
 GetPlayerMouseX = {}
 GetPlayerMouseY = {}
 function InitMouseMoveTrigger2()
@@ -7220,6 +7247,7 @@ function InitMouseMoveTrigger2()
         end
     end)
 end
+]]
 
 function MouseHider(delay, pid)
     local pointer = BlzFrameGetChild(BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 13)
@@ -8137,14 +8165,18 @@ function InitHeroTable(hero)
         LifeFHTable = {},
         gold = 0,
         ShowGold = true, -- показ накопления золота
+        ShowHeal = true,
         ShowGoldAmount = 0,
+        ShowHealAmount = 0,
         DamageSplash = 250, --урон от Q
-        HealRate=1, -- Эффективность исцеления
+        HealRate = 1, -- Эффективность исцеления
+        DistMouse = 0,
+        AngleMouse = 0,
     }
 end
 
 function InitWASD(hero)
-    --print("initwasdSTART")
+   -- print("initwasdSTART")
     InitHeroTable(hero)
     CreateWASDActions()
     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
@@ -8167,13 +8199,40 @@ function InitWASD(hero)
             --IssueImmediateOrder(hero, "stop")
         end
     end)
-
+    data.preX = GetPlayerMouseX[data.pid]
+    data.preY = GetPlayerMouseY[data.pid]
+    --mouseEff = AddSpecialEffect(SawDiskModel, GetUnitXY(hero))
     --local heroSelf=data.UnitHero
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         -- основной таймер для обработки всего
         --data.UnitHero=mainHero -- костыль для смены героя
         hero = data.UnitHero -- костыль для смены героя
+        local hx,hy=GetUnitXY(hero)
 
+
+
+        if data.preX ~= GetPlayerMouseX[data.pid] or data.preY ~= GetPlayerMouseY[data.pid] then
+            --print("курсор движется "..GetPlayerMouseX[data.pid])
+            data.MouseMove = true
+        else
+            data.MouseMove = false
+            --print("на месте "..GetPlayerName(GetOwningPlayer(hero)))
+        end
+        data.preX = GetPlayerMouseX[data.pid]
+        data.preY = GetPlayerMouseY[data.pid]
+
+        data.fakeX, data.fakeY = GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]
+        if not data.MouseMove then
+            --print("юнит идёт со статичным курсором")
+            -- GetPlayerMouseX[data.pid] = GetPlayerMouseX[data.pid] + dx
+            --GetPlayerMouseY[data.pid] = GetPlayerMouseY[data.pid] + dy
+            data.fakeX, data.fakeY = MoveXY(hx,hy, data.DistMouse, data.AngleMouse)
+        else
+            data.DistMouse = DistanceBetweenXY(hx,hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid])
+            data.AngleMouse = AngleBetweenXY(hx,hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
+            --print("пошевелил " .. data.DistMouse)
+        end
+        --BlzSetSpecialEffectPosition(mouseEff, data.fakeX, data.fakeY, GetTerrainZ(data.fakeX, data.fakeY) + 50)
 
         if not UnitAlive(hero) then
             --print("Эффект смерти")
@@ -8186,7 +8245,9 @@ function InitWASD(hero)
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
-
+            if data.CameraStabUnit then
+                SetUnitPositionSmooth(data.CameraStabUnit,data.fakeX, data.fakeY)
+            end
             if GetLocalPlayer() == GetOwningPlayer(hero) then
                 -- SetCameraQuickPosition(x,y)
             end
@@ -8288,7 +8349,7 @@ function InitWASD(hero)
             angle = 180
             data.IsMoving = true
         end
-        --[[
+
         if data.ReleaseW and data.ReleaseS and not data.ReleaseA and not data.ReleaseD then
             data.ReleaseW = false
             data.ReleaseS = false
@@ -8303,8 +8364,7 @@ function InitWASD(hero)
             data.IsMoving = false
             DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", GetUnitXY(data.UnitHero)))
             --print("слишком много кнопок нажато")
-        end]]
-
+        end
         if not UnitAlive(hero) then
             --data.ReleaseW=false
             --data.ReleaseA=false
@@ -8334,11 +8394,16 @@ function InitWASD(hero)
                     end
                     local x, y = GetUnitXY(hero)
                     local nx, ny = MoveXY(x, y, speed, angle)
+                    local dx, dy = nx - x, ny - y
+
                     if not data.isAttacking then
                         SetUnitFacing(hero, angle)-- место для поворота в движении
                     end
 
                     SetUnitPositionSmooth(hero, nx, ny)-- блок движения
+
+
+
 
                     local newX, newY = GetUnitXY(hero)
                     local stator = false
@@ -8618,7 +8683,7 @@ function CreateWASDActions()
                     if not data.tasks[7] then
                         data.tasks[7] = true
                     end
-                    data.DirectionMove = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    data.DirectionMove = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     dist = 400
                 end
 
@@ -8686,7 +8751,7 @@ function CreateWASDActions()
                     --print("Q в курсор")
                     StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
                     --SpellSlashQ(data)
-                    local angle = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    local angle = -180 + AngleBetweenXY(data.fakeX,data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero))
                     if dist >= 500 then
                         dist = 500
@@ -9307,6 +9372,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     if data.DoubleClap then
                         TimerStart(CreateTimer(), 0.35, false, function()
                             SpellSlashQ(data)
+                            DestroyTimer(GetExpiredTimer())
                         end)
                     end
                     data.ReleaseQ = false
@@ -9319,10 +9385,10 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         end)
     end
 end
-
 GetPlayerMouseX = {}
 GetPlayerMouseY = {}
 function InitMouseMoveTrigger()
+
     local MouseMoveTrigger = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         local player = Player(i)
@@ -9335,6 +9401,7 @@ function InitMouseMoveTrigger()
         if BlzGetTriggerPlayerMouseX() ~= 0 then
             GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
             GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
+
         end
     end)
 end

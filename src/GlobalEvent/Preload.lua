@@ -17,14 +17,13 @@ do
 end
 
 function PreloadigLags()
-    local temp=CreateUnit(Player(0),FourCC("uzig"),OutPoint,OutPoint,0)
+    local temp = CreateUnit(Player(0), FourCC("uzig"), OutPoint, OutPoint, 0)
     KillUnit(temp)
-    temp=CreateUnit(Player(0),FourCC("uabo"),OutPoint,OutPoint,0)
+    temp = CreateUnit(Player(0), FourCC("uabo"), OutPoint, OutPoint, 0)
     KillUnit(temp)
-    temp=CreateUnit(Player(0),FourCC("u000"),OutPoint,OutPoint,0)
+    temp = CreateUnit(Player(0), FourCC("u000"), OutPoint, OutPoint, 0)
     KillUnit(temp)
 end
-
 
 function InitPreloadStart()
     --print("Start preload tester")
@@ -33,7 +32,7 @@ function InitPreloadStart()
     Preloader(SavePath) --в этот момент данные записываются в имя способности, для каждого игрока свои данные
     local s = BlzGetAbilityTooltip(FourCC('Agyv'), 0) --переменная S хранит асинхронные данные
     --print("AAAAAAA "..s)
-    BlzSendSyncData("myprefix",s)
+    BlzSendSyncData("myprefix", s)
     --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
     local i = 0
     TimerStart(CreateTimer(), 2.1, true, function()
@@ -47,7 +46,7 @@ function InitPreloadStart()
             --    print("FirstGame")
             --end
             if not udg_LoadCode[i] then
-                udg_LoadCode[i]=50
+                udg_LoadCode[i] = 50
             end
 
             --restoreGold = SyncString(Player(i), I2S(s)) -- ЭТА СТРОЧКА КРАШИТ ВАР
@@ -59,12 +58,15 @@ function InitPreloadStart()
             --print(GetPlayerName(Player(i)) .. " перенес золота из прошлой игры " ..(udg_LoadCode[i]))
 
             if udg_LoadCode[i] then
-                if tonumber(udg_LoadCode[i]) then
+                if tonumber(LoadedGold[i]) then
                 else
-                    udg_LoadCode[i]=50
+                    LoadedGold[i] = 50
+                    LoadedGameCount[i] = 0
                     --print("FirstGame")
                 end
-                UnitAddGold(data.UnitHero, udg_LoadCode[i])
+                print(GetPlayerName(Player(i)).."Число завершенных игр " .. LoadedGameCount[i])
+                LoadedGameCount[i] = LoadedGameCount[i] + 1
+                UnitAddGold(data.UnitHero, LoadedGold[i])
             else
                 --i=i-1
             end
@@ -92,8 +94,9 @@ function SyncString(p, val)
     return GetStoredString(cache, "", "")
 end
 
-
-udg_LoadCode={}
+udg_LoadCode = {}
+LoadedGold = {}
+LoadedGameCount = {}
 function InitTrig_SyncLoadDone ()
     local gg_trg_SyncLoadDone = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -105,11 +108,32 @@ function InitTrig_SyncLoadDone ()
         local i = GetPlayerId(GetTriggerPlayer())
         --print("SyncData="..value)
         if prefix == "myprefix" then
+            local t = split(value, ",")-- разрезаем наталицу отдельныйх данных
             udg_LoadCode[i] = value
-            if #value>10 then --игрок первый раз играет
+            LoadedGold[i] = t[1]
+            LoadedGameCount[i] = t[2]
+            --print(t[2])
+            if #value > 10 then
+                --игрок первый раз играет
                 udg_LoadCode[i] = 0
+                LoadedGold[i] = 0
+                LoadedGameCount[i] = 0
+            end
+            if not LoadedGameCount[i] then
+                LoadedGameCount[i]=0
             end
             --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
         end
     end)
+end
+
+function split(str, sep)
+    if sep == nil then
+        local words = {}
+        for word in str:gmatch("%%w+") do
+            table.insert(words, word)
+        end
+        return words
+    end
+    return { str:match((str:gsub("[^" .. sep .. "]*" .. sep, "([^" .. sep .. "]*)" .. sep))) } -- BUG!! doesnt return last value
 end

@@ -39,7 +39,7 @@ function HealUnit(hero, amount, flag, eff)
             if not data.ShowHealAmount then
                 data.ShowHealAmount = 0
             end
-            data.ShowHealAmount = data.ShowGoldAmount + amount
+            data.ShowHealAmount = data.ShowHealAmount + amount
             if data.ShowHeal then
                 data.ShowHeal = false
                 TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
