@@ -108,14 +108,12 @@ function RemoveLife(data)
 
                         TimerStart(CreateTimer(),2, false, function()
                             CustomDefeatBJ(Player(i),L("Поражение","Defeat"))
+                            DisableTrigger(GetTriggeringTrigger())
                             DestroyTimer(GetExpiredTimer())
                         end)
                     end
                 end
-
-                Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..SaveCode.."\",0)".."\n//")
-                PreloadGenEnd(SavePath)
-                PreloadGenClear()
+                SaveResult(SaveCode)
             end)
         end
     end

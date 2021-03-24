@@ -35,7 +35,7 @@ function InitPreloadStart()
     BlzSendSyncData("myprefix", s)
     --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
     local i = 0
-    TimerStart(CreateTimer(), 2.1, true, function()
+    TimerStart(CreateTimer(), .2, true, function()
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
             local data = HERO[i]
             local restoreGold = 0
@@ -64,7 +64,7 @@ function InitPreloadStart()
                     LoadedGameCount[i] = 0
                     --print("FirstGame")
                 end
-                print(GetPlayerName(Player(i)).."Число завершенных игр " .. LoadedGameCount[i])
+                print(GetPlayerName(Player(i)) .. " Число завершенных игр " .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
                 UnitAddGold(data.UnitHero, LoadedGold[i])
             else
@@ -120,7 +120,7 @@ function InitTrig_SyncLoadDone ()
                 LoadedGameCount[i] = 0
             end
             if not LoadedGameCount[i] then
-                LoadedGameCount[i]=0
+                LoadedGameCount[i] = 0
             end
             --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
         end
@@ -136,4 +136,10 @@ function split(str, sep)
         return words
     end
     return { str:match((str:gsub("[^" .. sep .. "]*" .. sep, "([^" .. sep .. "]*)" .. sep))) } -- BUG!! doesnt return last value
+end
+
+function SaveResult(SaveCode)
+    Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\"" .. SaveCode .. "\",0)" .. "\n//")
+    PreloadGenEnd(SavePath)
+    PreloadGenClear()
 end

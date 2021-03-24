@@ -17,97 +17,104 @@ do
 end
 
 function ReplaceID2SawTrap(id)
-    local tmp,k,all=FindUnitOfType(id)
+    local tmp, k, all = FindUnitOfType(id)
     --print("найденно "..k.." а в таблице "..#all)
-    for i=1,#all do
-       -- print("заменён "..GetUnitName(all[i]))
-        ShowUnit(all[i],false)
-        SetUnitInvulnerable(all[i],true)
+    for i = 1, #all do
+        -- print("заменён "..GetUnitName(all[i]))
+        ShowUnit(all[i], false)
+        SetUnitInvulnerable(all[i], true)
         CreateSawTrap(all[i])
     end
 end
 
-
 function ReplaceID2SwordSpike(id)
-    local tmp,k,all=FindUnitOfType(id)
+    local tmp, k, all = FindUnitOfType(id)
     --print("найденно "..k.." а в таблице "..#all)
-    for i=1,#all do
+    for i = 1, #all do
         -- print("заменён "..GetUnitName(all[i]))
-        PauseUnit(all[i],true)
-        ShowUnit(all[i],false)
-        SetUnitInvulnerable(all[i],true)
+        PauseUnit(all[i], true)
+        ShowUnit(all[i], false)
+        SetUnitInvulnerable(all[i], true)
         CreateSwordSpike(all[i])
     end
 end
 
-
 function CreateSwordSpike (hero)
-    local x,y=GetUnitXY(hero)
-    local eff=AddSpecialEffect("SystemGeneric\\SwordImpaleMissTarget.mdl",x,y)
-    local border=AddSpecialEffect("Doodads\\Cinematic\\FootSwitch\\FootSwitch.mdl",x,y)
-    BlzSetSpecialEffectZ(border,GetTerrainZ(x,y)-50)
-    BlzPlaySpecialEffect(eff,ANIM_TYPE_DEATH)
-    local active=false
-    local sec=0
+    local x, y = GetUnitXY(hero)
+    local eff = AddSpecialEffect("SystemGeneric\\SwordImpaleMissTarget.mdl", x, y)
+    local border = AddSpecialEffect("Doodads\\Cinematic\\FootSwitch\\FootSwitch.mdl", x, y)
+    BlzSetSpecialEffectZ(border, GetTerrainZ(x, y) - 50)
+    BlzPlaySpecialEffect(eff, ANIM_TYPE_DEATH)
+    local active = false
+    local sec = 0
     TimerStart(CreateTimer(), 0.1, true, function()
-        local _,enemy=UnitDamageArea(hero,0,x,y,100)
+        local _, enemy = UnitDamageArea(hero, 0, x, y, 100)
         if enemy then
-            if IsUnitType(enemy,UNIT_TYPE_HERO) and not active then
+            if IsUnitType(enemy, UNIT_TYPE_HERO) and not active then
                 --print("Ловушка активирована")
-                active=true
+                active = true
 
-                local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
-                BlzSetSpecialEffectColor(mark,255,0,0)
-                BlzSetSpecialEffectScale(mark,0.7)
+                local mark = AddSpecialEffect("SystemGeneric\\Alarm", x, y)
+                BlzSetSpecialEffectColor(mark, 255, 0, 0)
+                BlzSetSpecialEffectScale(mark, 0.7)
 
-
-                TimerStart(CreateTimer(), 0.2, false, function()
-                    BlzPlaySpecialEffect(eff,ANIM_TYPE_BIRTH)
-                    normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit",x,y)
+                TimerStart(CreateTimer(), 0.3, false, function()
+                    BlzPlaySpecialEffect(eff, ANIM_TYPE_BIRTH)
+                    normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit", x, y)
                     DestroyTimer(GetExpiredTimer())
                 end)
-                TimerStart(CreateTimer(), 0.5, false, function()
+                TimerStart(CreateTimer(), 0.6, false, function()
                     --print("наносим урон")
                     DestroyEffect(mark)
-                    BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
-                    BlzSetSpecialEffectTimeScale(eff,.5)
-                    UnitDamageArea(enemy,300,x,y,100,"all") -- Урон от ловушки
+                    BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
+                    BlzSetSpecialEffectTimeScale(eff, .5)
+                    local damage = 300
+                    if IsUnitType(enemy, UNIT_TYPE_HERO) then
+                        local data = GetUnitData(enemy)
+                        if not data.AddDamageTrap then
+                            data.AddDamageTrap = 1
+                        end
+                        damage = damage * data.AddDamageTrap
+                        --print(damage)
+                    end
+                    UnitDamageArea(enemy, damage, x, y, 100, "all") -- Урон от ловушки
                     DestroyTimer(GetExpiredTimer())
                 end)
             end
         end
 
         if active then
-            sec=sec+0.1
-            if sec>=2 then
-                sec=0
-                active=false
-                BlzPlaySpecialEffect(eff,ANIM_TYPE_DEATH)
-                BlzSetSpecialEffectTimeScale(eff,1)
+            sec = sec + 0.1
+            if sec >= 2 then
+                sec = 0
+                active = false
+                BlzPlaySpecialEffect(eff, ANIM_TYPE_DEATH)
+                BlzSetSpecialEffectTimeScale(eff, 1)
             end
         end
     end)
 end
 
-
-
 function CreateSawTrap(hero)
-    local x,y=GetUnitXY(hero)
-    local eff=AddSpecialEffect("SystemGeneric\\TrapSaw",x,y)
-    local showBlood=true
-    local sec=0
+    local x, y = GetUnitXY(hero)
+    local eff = AddSpecialEffect("SystemGeneric\\TrapSaw", x, y)
+    local showBlood = true
+    local sec = 0
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-        local is,unit=UnitDamageArea(hero,10,x,y,90,"blackHole")
-        sec=sec-TIMER_PERIOD
-        if sec<=0 then showBlood=true end
-        if is and GetUnitTypeId(unit)==HeroID then--and IsUnitType(unit)==UNIT_TYPE_HERO
+        local is, unit = UnitDamageArea(hero, 10, x, y, 90, "blackHole")
+        sec = sec - TIMER_PERIOD
+        if sec <= 0 then
+            showBlood = true
+        end
+        if is and GetUnitTypeId(unit) == HeroID then
+            --and IsUnitType(unit)==UNIT_TYPE_HERO
             --print("эффект крови")
             if showBlood then
-                local effb=AddSpecialEffect("SystemGeneric\\D9_blood_effect1",GetUnitXY(unit))
-                BlzSetSpecialEffectScale(effb,0.1)
+                local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(unit))
+                BlzSetSpecialEffectScale(effb, 0.1)
                 DestroyEffect(effb)
-                showBlood=false
-                sec=1
+                showBlood = false
+                sec = 1
             end
         end
         if not UnitAlive(hero) then

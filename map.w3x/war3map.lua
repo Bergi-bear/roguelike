@@ -1783,7 +1783,7 @@ function CreateEActions()
                 --data.Completed = true
                 --data.DoAction = false
                 --data.UseAction = ""
-                SetUnitOwner(dataPoint.UnitFireRotation, GetOwningPlayer(data.UnitHero))
+                --SetUnitOwner(dataPoint.UnitFireRotation, GetOwningPlayer(data.UnitHero))
                 dataPoint.AngleFireRotation = dataPoint.AngleFireRotation + 90
                 local x, y = GetUnitXY(data.UnitHero)
                 FlyTextTagShieldXY(x, y, L("Поворачиваем", "Rotate"), GetOwningPlayer(data.UnitHero))
@@ -2438,7 +2438,7 @@ function InitAllZones()
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny = GetRandomIntTable(1, 20, 20) -- судьба и распределение порядка игровых зон #GameZone
-    Destiny[21]=21
+    Destiny[21] = 21
     DestinyEnemies = GetRandomIntTable(1, 20, 20)
     for i = 1, #Destiny do
         --print(Destiny[i])
@@ -2464,9 +2464,9 @@ end
 function AddSpawnPoint2TableXY(data)
     local e = nil
     local k = 1
-    local id=FourCC("e001")
-    data.x={}
-    data.y={}
+    local id = FourCC("e001")
+    data.x = {}
+    data.y = {}
     GroupEnumUnitsInRect(perebor, data.rectSpawn, nil)
     while true do
         e = FirstOfGroup(perebor)
@@ -2474,10 +2474,10 @@ function AddSpawnPoint2TableXY(data)
             break
         end
         if UnitAlive(e) and GetUnitTypeId(e) == id then
-            data.x[k]=GetUnitX(e)
-            data.y[k]=GetUnitY(e)
+            data.x[k] = GetUnitX(e)
+            data.y[k] = GetUnitY(e)
             RemoveUnit(e)
-            k=k+1
+            k = k + 1
             --print("наполнение k"..k-1)
         end
         GroupRemoveUnit(perebor, e)
@@ -2515,24 +2515,22 @@ function Enter2NewZone(flag)
                 --StartEnemyWave(5)
             else
                 TimerStart(CreateTimer(), 3, false, function()
-                    TimerStart(CreateTimer(),3, false, function()
-                        local savedGold=0
+                    TimerStart(CreateTimer(), 3, false, function()
+                        local SaveCode = 0
                         for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                            if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-                                local gdata=HERO[i]
-                                if GetLocalPlayer()==Player(i) then
-                                    savedGold=gdata.gold
+                            if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+                                local gdata = HERO[i]
+                                if GetLocalPlayer() == Player(i) then
+                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","
                                 end
-                                print(GetPlayerName(Player(i)).. " унёс с собой "..R2I(gdata.gold).." золота ")
+                                print(GetPlayerName(Player(i)) .. " унёс с собой " .. R2I(gdata.gold) .. " золота ")
 
-                                TimerStart(CreateTimer(),2, false, function()
+                                TimerStart(CreateTimer(), 2, false, function()
                                     CustomVictoryBJ(Player(i), true, true)
                                 end)
                             end
                         end
-                        Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..R2I(savedGold).."\",0)".."\n//")
-                        PreloadGenEnd(SavePath)
-                        PreloadGenClear()
+                        SaveResult(SaveCode)
                     end)
 
                 end)
@@ -2584,7 +2582,8 @@ function MoveAllHeroAndBound(recEnter, rectBound)
     local x, y = GetRectCenterX(recEnter), GetRectCenterY(recEnter)
     local x2, y2 = GetRectCenterX(rectBound), GetRectCenterY(rectBound)
     EnumDestructablesInRect(recEnter, nil, function()
-        if GetDestructableTypeId(GetEnumDestructable())==FourCC('B000') then --каменная дверь для точек выхода
+        if GetDestructableTypeId(GetEnumDestructable()) == FourCC('B000') then
+            --каменная дверь для точек выхода
             KillDestructable(GetEnumDestructable())
         end
     end)
@@ -2598,8 +2597,7 @@ function MoveAllHeroAndBound(recEnter, rectBound)
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
 end
 
-
-EnemyList={
+EnemyList = {
     FourCC("nsko"), -- скелет
     FourCC("ucs1"), -- мелкий жук
     FourCC("uabo"), -- пудж
@@ -2612,33 +2610,33 @@ function StartEnemyWave(waveNumber)
     local listID = {}
     local maxOnWave = 1
     if waveNumber == 1 then
-        local r=GetRandomInt(1,5)
-        if r==1 then
+        local r = GetRandomInt(1, 5)
+        if r == 1 then
             listID = {--скелеты
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             }
             maxOnWave = 1
-        elseif r==2 then
+        elseif r == 2 then
             listID = {--жуки
                 FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
                 FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             }
             maxOnWave = 2
-        elseif r==3 then
+        elseif r == 3 then
             listID = {--пуджи
-                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
             }
             maxOnWave = 1
-        elseif r==4 then
+        elseif r == 4 then
             listID = { -- некроманты
-                FourCC("unec"),FourCC("unec"),
-                FourCC("unec"),FourCC("unec"),
+                FourCC("unec"), FourCC("unec"),
+                FourCC("unec"), FourCC("unec"),
             }
             maxOnWave = 2
-        elseif r==5 then
+        elseif r == 5 then
             listID = { --мимики
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
             }
             maxOnWave = 5
         end
@@ -2646,38 +2644,38 @@ function StartEnemyWave(waveNumber)
     end
 
     if waveNumber == 2 then
-        local r=GetRandomInt(1,3)
-        if r==1 then
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
             listID = {
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
             }
             maxOnWave = 1
-        elseif r==2 then
+        elseif r == 2 then
             listID = {
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             }
             maxOnWave = 2
-        elseif r==3 then
+        elseif r == 3 then
             listID = {
-                FourCC("unec"),FourCC("unec"),
+                FourCC("unec"), FourCC("unec"),
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-                FourCC("unec"),FourCC("unec"),
+                FourCC("unec"), FourCC("unec"),
             }
             maxOnWave = 2
         end
     end
     if waveNumber == 3 then
-        local r=GetRandomInt(1,3)
-        if r==1 then
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
             listID = {
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
                 FourCC("uabo"), FourCC("uabo"), FourCC("nsko"), FourCC("unec"), FourCC("unec"),
             }
             maxOnWave = 3
-        elseif r==2 then
+        elseif r == 2 then
             listID = {
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
@@ -2685,12 +2683,12 @@ function StartEnemyWave(waveNumber)
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             }
             maxOnWave = 2
-        elseif r==3 then
+        elseif r == 3 then
             listID = {
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
             }
             maxOnWave = 4
         end
@@ -2744,44 +2742,44 @@ function StartEnemyWave(waveNumber)
         maxOnWave = 20
     end
 
-
     if waveNumber == 5 then
-        local r=GetRandomInt(1,3)
-        if r==1 then
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
             listID = {  -- Пуджи
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
 
             }
             maxOnWave = 3
-        elseif r==2 then
+        elseif r == 2 then
             listID = {
-                FourCC("uzig"),FourCC("uzig")
+                FourCC("uzig"), FourCC("uzig")
             }
-            maxOnWave=2
-        elseif r==3 then
+            maxOnWave = 2
+        elseif r == 3 then
             listID = {
-                FourCC("unec"),FourCC("unec"),FourCC("unec"),
-                FourCC("unec"),FourCC("unec"),FourCC("unec"),
-                FourCC("unec"),FourCC("unec"),FourCC("unec")
+                FourCC("unec"), FourCC("unec"), FourCC("unec"),
+                FourCC("unec"), FourCC("unec"), FourCC("unec"),
+                FourCC("unec"), FourCC("unec"), FourCC("unec")
             }
-            maxOnWave=3
+            maxOnWave = 3
         end
     end
-    if waveNumber>=6 and waveNumber<=20 then --рандомизатор
+    if waveNumber >= 6 and waveNumber <= 20 then
+        --рандомизатор
         listID = {}
-        local zig=false
-        for i=1, R2I(waveNumber*2.6) do
-            listID[i]=EnemyList[GetRandomInt(1,#EnemyList)]
-            local r=GetRandomInt(1,10)
-            if waveNumber>=12 then
-                if not zig and r==1 then
-                    zig=true
-                    listID[i]=FourCC("uzig")
+        local zig = false
+        for i = 1, R2I(waveNumber * 2.6) do
+            listID[i] = EnemyList[GetRandomInt(1, #EnemyList)]
+            local r = GetRandomInt(1, 10)
+            if waveNumber >= 12 then
+                if not zig and r == 1 then
+                    zig = true
+                    listID[i] = FourCC("uzig")
                 end
             end
         end
-        maxOnWave =waveNumber//2
+        maxOnWave = waveNumber // 2
     end
 
     if waveNumber == 401 then
@@ -2810,7 +2808,7 @@ function GetActiveCountPlayer()
             local data = HERO[i]
             local hero = data.UnitHero
             --local x,y=GetUnitXY(hero)
-            if UnitAlive(hero) or data.life>0 then
+            if UnitAlive(hero) or data.life > 0 then
                 k = k + 1
             end
 
@@ -2821,9 +2819,9 @@ end
 
 function StartWave(dataGZ, listID, max)
     -- print("start wave "..max)
-    local rect=dataGZ.rectSpawn
+    local rect = dataGZ.rectSpawn
     local CountPlayers = GetActiveCountPlayer()
-    G_CountPlayers=CountPlayers
+    G_CountPlayers = CountPlayers
     if CountPlayers >= 2 then
         for _ = 2, CountPlayers do
             for i = 1, #listID do
@@ -2840,13 +2838,14 @@ function StartWave(dataGZ, listID, max)
     for i = 1, max do
         local loc = GetRandomLocInRect(rect)
         local x, y = GetLocationX(loc), GetLocationY(loc)
-        if dataGZ.x[1] then --существует хотя бы первый элемент
+        if dataGZ.x[1] then
+            --существует хотя бы первый элемент
             --print("есть ручные точки спавна "..#(dataGZ.x))
-            local m=GetRandomInt(1,#(dataGZ.x))
+            local m = GetRandomInt(1, #(dataGZ.x))
             if dataGZ.x[m] then
-                x,y=dataGZ.x[m],dataGZ.y[m]
+                x, y = dataGZ.x[m], dataGZ.y[m]
             else
-                print("Ошибка, не могу получить координаты "..m)
+                print("Ошибка, не могу получить координаты " .. m)
             end
         end
         CreateCreepDelay(listID[k], x, y, 0.9, k)
@@ -2866,9 +2865,10 @@ function StartWave(dataGZ, listID, max)
                 --print("убит из пачки, создаём следующего"..k)
                 local loc = GetRandomLocInRect(rect)
                 local x, y = GetLocationX(loc), GetLocationY(loc)
-                if dataGZ.x[1] then --существует хотя бы первый элемент
-                    local m=GetRandomInt(1,#(dataGZ.x))
-                    x,y=dataGZ.x[m],dataGZ.y[m]
+                if dataGZ.x[1] then
+                    --существует хотя бы первый элемент
+                    local m = GetRandomInt(1, #(dataGZ.x))
+                    x, y = dataGZ.x[m], dataGZ.y[m]
                 end
                 CreateCreepDelay(listID[k], x, y, 0.9, k)
                 --MaxOnWave=MaxOnWave-1
@@ -2891,33 +2891,33 @@ function CreateCreepDelay(id, x, y, delay, flag)
     if flag ~= "summon" then
         LiveOnWave = LiveOnWave + 1
     else
-        local dataGZ=GameZone[Destiny[CurrentGameZone]]
-        if dataGZ.x[1] then --существует хотя бы первый элемент
+        local dataGZ = GameZone[Destiny[CurrentGameZone]]
+        if dataGZ.x[1] then
+            --существует хотя бы первый элемент
             --print("есть ручные точки спавна "..#(dataGZ.x))
-            local m=GetRandomInt(1,#(dataGZ.x))
+            local m = GetRandomInt(1, #(dataGZ.x))
             if dataGZ.x[m] then
-                x,y=dataGZ.x[m],dataGZ.y[m]
+                x, y = dataGZ.x[m], dataGZ.y[m]
             else
-                print("Ошибка, не могу получить координаты "..m)
+                print("Ошибка, не могу получить координаты " .. m)
             end
         end
     end
     TimerStart(CreateTimer(), delay, false, function()
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
-        local a=BlzGetUnitMaxHP(new)
-        if G_CountPlayers>=2 then
+        local a = BlzGetUnitMaxHP(new)
+        if G_CountPlayers >= 2 then
 
-            BlzSetUnitMaxHP(new,R2I(a*G_CountPlayers))
+            BlzSetUnitMaxHP(new, R2I(a * G_CountPlayers))
             HealUnit(new)
         end
-        if CurrentGameZone>=10 then
-            local r=GetRandomInt(1,22-CurrentGameZone)
-            if r==1 then
-                UnitAddShield(new,R2I(a*1.5))
+        if CurrentGameZone >= 10 then
+            local r = GetRandomInt(1, 22 - CurrentGameZone)
+            if r == 1 then
+                UnitAddShield(new, R2I(a * 1.5))
             end
         end
-
 
         if flag ~= "summon" then
             DestroyEffect(eff)
@@ -3501,6 +3501,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 data.HealRate = data.HealRate + 0.5
             end)
         end
+        if pos == 7 then
+            data.IframesOnDash = true
+            ActLvl23Action(talon, function()
+                data.IframesOnDash = true
+            end, function() -- 3 уровень
+
+            end)
+        end
     end
     if godName == "HeroTaurenChieftain" and talon.level == 1 then
         local tt, CdFH = nil, nil
@@ -3543,6 +3551,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 6 then
             -- Урон от ловушек
             data.AddDamageTrap = talon.DS[talon.level]
+            data.DamageTrapResist = 0.5
             ActLvl23Action(talon, function()
                 data.AddDamageTrap = talon.DS[talon.level]
             end)
@@ -3702,7 +3711,7 @@ function UpdateTalonDescriptionForFrame(talon, toolTipFH)
     end)
 end
 
-function ActLvl23Action(talon, f)
+function ActLvl23Action(talon, f, f2)
     local lvl2 = false
     local lvl3 = false
     TimerStart(CreateTimer(), 1, true, function()
@@ -3718,7 +3727,11 @@ function ActLvl23Action(talon, f)
     TimerStart(CreateTimer(), 1, true, function()
         if talon.level == 3 then
             lvl3 = true
-            f()
+            if not f2 then
+                f()
+            else
+                f2()
+            end
             --print("уровень 3 получен")
         end
         if lvl3 then
@@ -4070,6 +4083,15 @@ do
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 1.5, 2, 2.5 }
                         }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNLocustSwarm.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
+                            name = L("Теневой рывок", "Great Healer"),
+                            description = L("Позволяет проходить DS", "Increases the performance of receiving healing X DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
+                            DS = { "сквозь здания","сквозь здания и делает героя неуязвимым","сквозь здания и делает героя неуязвимым и разрушает щит врагов" }
+                        }),
                     },
                     HeroTaurenChieftain = {
                         Talon:new({--1
@@ -4119,8 +4141,8 @@ do
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
-                            name = L("Ловушка на кодоев", "Codo trap"),
-                            description = L("Ловушка наносят ХDS урона по врагам", "Trap deals XDS damage to enemies"),
+                            name = L("Кодойская ловушка", "Codo trap"),
+                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%", "Trap deals X DS damage to enemies"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
@@ -4829,14 +4851,12 @@ function RemoveLife(data)
 
                         TimerStart(CreateTimer(),2, false, function()
                             CustomDefeatBJ(Player(i),L("Поражение","Defeat"))
+                            DisableTrigger(GetTriggeringTrigger())
                             DestroyTimer(GetExpiredTimer())
                         end)
                     end
                 end
-
-                Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..SaveCode.."\",0)".."\n//")
-                PreloadGenEnd(SavePath)
-                PreloadGenClear()
+                SaveResult(SaveCode)
             end)
         end
     end
@@ -6138,97 +6158,104 @@ do
 end
 
 function ReplaceID2SawTrap(id)
-    local tmp,k,all=FindUnitOfType(id)
+    local tmp, k, all = FindUnitOfType(id)
     --print("найденно "..k.." а в таблице "..#all)
-    for i=1,#all do
-       -- print("заменён "..GetUnitName(all[i]))
-        ShowUnit(all[i],false)
-        SetUnitInvulnerable(all[i],true)
+    for i = 1, #all do
+        -- print("заменён "..GetUnitName(all[i]))
+        ShowUnit(all[i], false)
+        SetUnitInvulnerable(all[i], true)
         CreateSawTrap(all[i])
     end
 end
 
-
 function ReplaceID2SwordSpike(id)
-    local tmp,k,all=FindUnitOfType(id)
+    local tmp, k, all = FindUnitOfType(id)
     --print("найденно "..k.." а в таблице "..#all)
-    for i=1,#all do
+    for i = 1, #all do
         -- print("заменён "..GetUnitName(all[i]))
-        PauseUnit(all[i],true)
-        ShowUnit(all[i],false)
-        SetUnitInvulnerable(all[i],true)
+        PauseUnit(all[i], true)
+        ShowUnit(all[i], false)
+        SetUnitInvulnerable(all[i], true)
         CreateSwordSpike(all[i])
     end
 end
 
-
 function CreateSwordSpike (hero)
-    local x,y=GetUnitXY(hero)
-    local eff=AddSpecialEffect("SystemGeneric\\SwordImpaleMissTarget.mdl",x,y)
-    local border=AddSpecialEffect("Doodads\\Cinematic\\FootSwitch\\FootSwitch.mdl",x,y)
-    BlzSetSpecialEffectZ(border,GetTerrainZ(x,y)-50)
-    BlzPlaySpecialEffect(eff,ANIM_TYPE_DEATH)
-    local active=false
-    local sec=0
+    local x, y = GetUnitXY(hero)
+    local eff = AddSpecialEffect("SystemGeneric\\SwordImpaleMissTarget.mdl", x, y)
+    local border = AddSpecialEffect("Doodads\\Cinematic\\FootSwitch\\FootSwitch.mdl", x, y)
+    BlzSetSpecialEffectZ(border, GetTerrainZ(x, y) - 50)
+    BlzPlaySpecialEffect(eff, ANIM_TYPE_DEATH)
+    local active = false
+    local sec = 0
     TimerStart(CreateTimer(), 0.1, true, function()
-        local _,enemy=UnitDamageArea(hero,0,x,y,100)
+        local _, enemy = UnitDamageArea(hero, 0, x, y, 100)
         if enemy then
-            if IsUnitType(enemy,UNIT_TYPE_HERO) and not active then
+            if IsUnitType(enemy, UNIT_TYPE_HERO) and not active then
                 --print("Ловушка активирована")
-                active=true
+                active = true
 
-                local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
-                BlzSetSpecialEffectColor(mark,255,0,0)
-                BlzSetSpecialEffectScale(mark,0.7)
+                local mark = AddSpecialEffect("SystemGeneric\\Alarm", x, y)
+                BlzSetSpecialEffectColor(mark, 255, 0, 0)
+                BlzSetSpecialEffectScale(mark, 0.7)
 
-
-                TimerStart(CreateTimer(), 0.2, false, function()
-                    BlzPlaySpecialEffect(eff,ANIM_TYPE_BIRTH)
-                    normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit",x,y)
+                TimerStart(CreateTimer(), 0.3, false, function()
+                    BlzPlaySpecialEffect(eff, ANIM_TYPE_BIRTH)
+                    normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit", x, y)
                     DestroyTimer(GetExpiredTimer())
                 end)
-                TimerStart(CreateTimer(), 0.5, false, function()
+                TimerStart(CreateTimer(), 0.6, false, function()
                     --print("наносим урон")
                     DestroyEffect(mark)
-                    BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
-                    BlzSetSpecialEffectTimeScale(eff,.5)
-                    UnitDamageArea(enemy,300,x,y,100,"all") -- Урон от ловушки
+                    BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
+                    BlzSetSpecialEffectTimeScale(eff, .5)
+                    local damage = 300
+                    if IsUnitType(enemy, UNIT_TYPE_HERO) then
+                        local data = GetUnitData(enemy)
+                        if not data.AddDamageTrap then
+                            data.AddDamageTrap = 1
+                        end
+                        damage = damage * data.AddDamageTrap
+                        print(damage)
+                    end
+                    UnitDamageArea(enemy, damage, x, y, 100, "all") -- Урон от ловушки
                     DestroyTimer(GetExpiredTimer())
                 end)
             end
         end
 
         if active then
-            sec=sec+0.1
-            if sec>=2 then
-                sec=0
-                active=false
-                BlzPlaySpecialEffect(eff,ANIM_TYPE_DEATH)
-                BlzSetSpecialEffectTimeScale(eff,1)
+            sec = sec + 0.1
+            if sec >= 2 then
+                sec = 0
+                active = false
+                BlzPlaySpecialEffect(eff, ANIM_TYPE_DEATH)
+                BlzSetSpecialEffectTimeScale(eff, 1)
             end
         end
     end)
 end
 
-
-
 function CreateSawTrap(hero)
-    local x,y=GetUnitXY(hero)
-    local eff=AddSpecialEffect("SystemGeneric\\TrapSaw",x,y)
-    local showBlood=true
-    local sec=0
+    local x, y = GetUnitXY(hero)
+    local eff = AddSpecialEffect("SystemGeneric\\TrapSaw", x, y)
+    local showBlood = true
+    local sec = 0
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-        local is,unit=UnitDamageArea(hero,10,x,y,90,"blackHole")
-        sec=sec-TIMER_PERIOD
-        if sec<=0 then showBlood=true end
-        if is and GetUnitTypeId(unit)==HeroID then--and IsUnitType(unit)==UNIT_TYPE_HERO
+        local is, unit = UnitDamageArea(hero, 10, x, y, 90, "blackHole")
+        sec = sec - TIMER_PERIOD
+        if sec <= 0 then
+            showBlood = true
+        end
+        if is and GetUnitTypeId(unit) == HeroID then
+            --and IsUnitType(unit)==UNIT_TYPE_HERO
             --print("эффект крови")
             if showBlood then
-                local effb=AddSpecialEffect("SystemGeneric\\D9_blood_effect1",GetUnitXY(unit))
-                BlzSetSpecialEffectScale(effb,0.1)
+                local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(unit))
+                BlzSetSpecialEffectScale(effb, 0.1)
                 DestroyEffect(effb)
-                showBlood=false
-                sec=1
+                showBlood = false
+                sec = 1
             end
         end
         if not UnitAlive(hero) then
@@ -6916,7 +6943,7 @@ function InitPreloadStart()
     BlzSendSyncData("myprefix", s)
     --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
     local i = 0
-    TimerStart(CreateTimer(), 2.1, true, function()
+    TimerStart(CreateTimer(), .2, true, function()
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
             local data = HERO[i]
             local restoreGold = 0
@@ -6945,7 +6972,7 @@ function InitPreloadStart()
                     LoadedGameCount[i] = 0
                     --print("FirstGame")
                 end
-                print("число завершенных игр " .. LoadedGameCount[i])
+                print(GetPlayerName(Player(i)) .. " Число завершенных игр " .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
                 UnitAddGold(data.UnitHero, LoadedGold[i])
             else
@@ -7001,7 +7028,7 @@ function InitTrig_SyncLoadDone ()
                 LoadedGameCount[i] = 0
             end
             if not LoadedGameCount[i] then
-                LoadedGameCount[i]=0
+                LoadedGameCount[i] = 0
             end
             --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
         end
@@ -7019,6 +7046,11 @@ function split(str, sep)
     return { str:match((str:gsub("[^" .. sep .. "]*" .. sep, "([^" .. sep .. "]*)" .. sep))) } -- BUG!! doesnt return last value
 end
 
+function SaveResult(SaveCode)
+    Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\"" .. SaveCode .. "\",0)" .. "\n//")
+    PreloadGenEnd(SavePath)
+    PreloadGenClear()
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -8176,7 +8208,7 @@ function InitHeroTable(hero)
 end
 
 function InitWASD(hero)
-   -- print("initwasdSTART")
+    -- print("initwasdSTART")
     InitHeroTable(hero)
     CreateWASDActions()
     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
@@ -8207,9 +8239,7 @@ function InitWASD(hero)
         -- основной таймер для обработки всего
         --data.UnitHero=mainHero -- костыль для смены героя
         hero = data.UnitHero -- костыль для смены героя
-        local hx,hy=GetUnitXY(hero)
-
-
+        local hx, hy = GetUnitXY(hero)
 
         if data.preX ~= GetPlayerMouseX[data.pid] or data.preY ~= GetPlayerMouseY[data.pid] then
             --print("курсор движется "..GetPlayerMouseX[data.pid])
@@ -8226,10 +8256,10 @@ function InitWASD(hero)
             --print("юнит идёт со статичным курсором")
             -- GetPlayerMouseX[data.pid] = GetPlayerMouseX[data.pid] + dx
             --GetPlayerMouseY[data.pid] = GetPlayerMouseY[data.pid] + dy
-            data.fakeX, data.fakeY = MoveXY(hx,hy, data.DistMouse, data.AngleMouse)
+            data.fakeX, data.fakeY = MoveXY(hx, hy, data.DistMouse, data.AngleMouse)
         else
-            data.DistMouse = DistanceBetweenXY(hx,hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid])
-            data.AngleMouse = AngleBetweenXY(hx,hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
+            data.DistMouse = DistanceBetweenXY(hx, hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid])
+            data.AngleMouse = AngleBetweenXY(hx, hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
             --print("пошевелил " .. data.DistMouse)
         end
         --BlzSetSpecialEffectPosition(mouseEff, data.fakeX, data.fakeY, GetTerrainZ(data.fakeX, data.fakeY) + 50)
@@ -8246,7 +8276,7 @@ function InitWASD(hero)
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
             if data.CameraStabUnit then
-                SetUnitPositionSmooth(data.CameraStabUnit,data.fakeX, data.fakeY)
+                SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
             end
             if GetLocalPlayer() == GetOwningPlayer(hero) then
                 -- SetCameraQuickPosition(x,y)
@@ -8751,7 +8781,7 @@ function CreateWASDActions()
                     --print("Q в курсор")
                     StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
                     --SpellSlashQ(data)
-                    local angle = -180 + AngleBetweenXY(data.fakeX,data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero))
                     if dist >= 500 then
                         dist = 500
@@ -9237,8 +9267,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             --print(currentdistance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
-            if flag == "ignore" and false then
-                -- TODO, заменить на ignoreDest
+            if flag == "ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].IframesOnDash then
                 -- print("попытка")
                 local is, d = PointContentDestructable(newX, newY, 120, false)
                 if is then
@@ -9465,11 +9494,10 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                 if not data.AddDamageTrap then
                     data.AddDamageTrap = 1
                 end
-                if data.AddDamageTrap > 0 then
-                    --Повышенный урон от ловушек
-                end
+                --damage = data.AddDamageTrap
+
                 --print("урон от ловушки")
-                damage = damage * data.AddDamageTrap
+                damage = damage / data.DamageTrapResist
             end
             if flag == "blackHole" then
                 if not IsUnitInRange(e, u, 15) then
@@ -9677,6 +9705,16 @@ function PlayUnitAnimationFromChat()
         SetUnitAnimationByIndex(data.UnitHero, s)
         --print(GetUnitName(mainHero).." "..s)
     end)
+end
+
+function GetUnitData(hero)
+    local data = nil
+    if HERO[GetPlayerId(GetOwningPlayer(hero))] then
+        data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+    else
+        print("Ошибка при использовании таблицы HERO")
+    end
+    return data
 end
 --CUSTOM_CODE
 function Trig_EndLabirinth1_Conditions()

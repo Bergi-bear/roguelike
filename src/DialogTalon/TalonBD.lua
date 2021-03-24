@@ -260,6 +260,15 @@ do
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 1.5, 2, 2.5 }
                         }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNLocustSwarm.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
+                            name = L("Теневой рывок", "Great Healer"),
+                            description = L("Позволяет проходить DS", "Increases the performance of receiving healing X DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
+                            DS = { "сквозь здания","сквозь здания и делает героя неуязвимым","сквозь здания и делает героя неуязвимым и разрушает щит врагов" }
+                        }),
                     },
                     HeroTaurenChieftain = {
                         Talon:new({--1
@@ -309,8 +318,8 @@ do
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
-                            name = L("Ловушка на кодоев", "Codo trap"),
-                            description = L("Ловушка наносят ХDS урона по врагам", "Trap deals XDS damage to enemies"),
+                            name = L("Кодойская ловушка", "Codo trap"),
+                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%%", "Trap deals X DS damage to enemies"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),

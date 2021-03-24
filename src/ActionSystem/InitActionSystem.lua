@@ -408,7 +408,7 @@ function CreateEActions()
                 --data.Completed = true
                 --data.DoAction = false
                 --data.UseAction = ""
-                SetUnitOwner(dataPoint.UnitFireRotation, GetOwningPlayer(data.UnitHero))
+                --SetUnitOwner(dataPoint.UnitFireRotation, GetOwningPlayer(data.UnitHero))
                 dataPoint.AngleFireRotation = dataPoint.AngleFireRotation + 90
                 local x, y = GetUnitXY(data.UnitHero)
                 FlyTextTagShieldXY(x, y, L("Поворачиваем", "Rotate"), GetOwningPlayer(data.UnitHero))

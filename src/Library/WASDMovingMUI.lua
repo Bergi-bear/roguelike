@@ -98,7 +98,7 @@ function InitHeroTable(hero)
 end
 
 function InitWASD(hero)
-   -- print("initwasdSTART")
+    -- print("initwasdSTART")
     InitHeroTable(hero)
     CreateWASDActions()
     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
@@ -129,9 +129,7 @@ function InitWASD(hero)
         -- основной таймер для обработки всего
         --data.UnitHero=mainHero -- костыль для смены героя
         hero = data.UnitHero -- костыль для смены героя
-        local hx,hy=GetUnitXY(hero)
-
-
+        local hx, hy = GetUnitXY(hero)
 
         if data.preX ~= GetPlayerMouseX[data.pid] or data.preY ~= GetPlayerMouseY[data.pid] then
             --print("курсор движется "..GetPlayerMouseX[data.pid])
@@ -148,10 +146,10 @@ function InitWASD(hero)
             --print("юнит идёт со статичным курсором")
             -- GetPlayerMouseX[data.pid] = GetPlayerMouseX[data.pid] + dx
             --GetPlayerMouseY[data.pid] = GetPlayerMouseY[data.pid] + dy
-            data.fakeX, data.fakeY = MoveXY(hx,hy, data.DistMouse, data.AngleMouse)
+            data.fakeX, data.fakeY = MoveXY(hx, hy, data.DistMouse, data.AngleMouse)
         else
-            data.DistMouse = DistanceBetweenXY(hx,hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid])
-            data.AngleMouse = AngleBetweenXY(hx,hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
+            data.DistMouse = DistanceBetweenXY(hx, hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid])
+            data.AngleMouse = AngleBetweenXY(hx, hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
             --print("пошевелил " .. data.DistMouse)
         end
         --BlzSetSpecialEffectPosition(mouseEff, data.fakeX, data.fakeY, GetTerrainZ(data.fakeX, data.fakeY) + 50)
@@ -168,7 +166,7 @@ function InitWASD(hero)
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
             if data.CameraStabUnit then
-                SetUnitPositionSmooth(data.CameraStabUnit,data.fakeX, data.fakeY)
+                SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
             end
             if GetLocalPlayer() == GetOwningPlayer(hero) then
                 -- SetCameraQuickPosition(x,y)
@@ -673,7 +671,7 @@ function CreateWASDActions()
                     --print("Q в курсор")
                     StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
                     --SpellSlashQ(data)
-                    local angle = -180 + AngleBetweenXY(data.fakeX,data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero))
                     if dist >= 500 then
                         dist = 500
@@ -1159,8 +1157,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             --print(currentdistance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
-            if flag == "ignore" and false then
-                -- TODO, заменить на ignoreDest
+            if flag == "ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].IframesOnDash then
                 -- print("попытка")
                 local is, d = PointContentDestructable(newX, newY, 120, false)
                 if is then
@@ -1387,11 +1384,10 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                 if not data.AddDamageTrap then
                     data.AddDamageTrap = 1
                 end
-                if data.AddDamageTrap > 0 then
-                    --Повышенный урон от ловушек
-                end
+                --damage = data.AddDamageTrap
+
                 --print("урон от ловушки")
-                damage = damage * data.AddDamageTrap
+                damage = damage / data.DamageTrapResist
             end
             if flag == "blackHole" then
                 if not IsUnitInRange(e, u, 15) then
@@ -1599,4 +1595,14 @@ function PlayUnitAnimationFromChat()
         SetUnitAnimationByIndex(data.UnitHero, s)
         --print(GetUnitName(mainHero).." "..s)
     end)
+end
+
+function GetUnitData(hero)
+    local data = nil
+    if HERO[GetPlayerId(GetOwningPlayer(hero))] then
+        data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+    else
+        print("Ошибка при использовании таблицы HERO")
+    end
+    return data
 end

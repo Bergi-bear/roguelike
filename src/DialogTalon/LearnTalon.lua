@@ -231,6 +231,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 data.HealRate = data.HealRate + 0.5
             end)
         end
+        if pos == 7 then
+            data.IframesOnDash = true
+            ActLvl23Action(talon, function()
+                data.IframesOnDash = true
+            end, function() -- 3 уровень
+
+            end)
+        end
     end
     if godName == "HeroTaurenChieftain" and talon.level == 1 then
         local tt, CdFH = nil, nil
@@ -273,6 +281,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 6 then
             -- Урон от ловушек
             data.AddDamageTrap = talon.DS[talon.level]
+            data.DamageTrapResist = 0.5
             ActLvl23Action(talon, function()
                 data.AddDamageTrap = talon.DS[talon.level]
             end)
@@ -432,7 +441,7 @@ function UpdateTalonDescriptionForFrame(talon, toolTipFH)
     end)
 end
 
-function ActLvl23Action(talon, f)
+function ActLvl23Action(talon, f, f2)
     local lvl2 = false
     local lvl3 = false
     TimerStart(CreateTimer(), 1, true, function()
@@ -448,7 +457,11 @@ function ActLvl23Action(talon, f)
     TimerStart(CreateTimer(), 1, true, function()
         if talon.level == 3 then
             lvl3 = true
-            f()
+            if not f2 then
+                f()
+            else
+                f2()
+            end
             --print("уровень 3 получен")
         end
         if lvl3 then

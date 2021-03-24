@@ -49,7 +49,7 @@ function InitAllZones()
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny = GetRandomIntTable(1, 20, 20) -- судьба и распределение порядка игровых зон #GameZone
-    Destiny[21]=21
+    Destiny[21] = 21
     DestinyEnemies = GetRandomIntTable(1, 20, 20)
     for i = 1, #Destiny do
         --print(Destiny[i])
@@ -75,9 +75,9 @@ end
 function AddSpawnPoint2TableXY(data)
     local e = nil
     local k = 1
-    local id=FourCC("e001")
-    data.x={}
-    data.y={}
+    local id = FourCC("e001")
+    data.x = {}
+    data.y = {}
     GroupEnumUnitsInRect(perebor, data.rectSpawn, nil)
     while true do
         e = FirstOfGroup(perebor)
@@ -85,10 +85,10 @@ function AddSpawnPoint2TableXY(data)
             break
         end
         if UnitAlive(e) and GetUnitTypeId(e) == id then
-            data.x[k]=GetUnitX(e)
-            data.y[k]=GetUnitY(e)
+            data.x[k] = GetUnitX(e)
+            data.y[k] = GetUnitY(e)
             RemoveUnit(e)
-            k=k+1
+            k = k + 1
             --print("наполнение k"..k-1)
         end
         GroupRemoveUnit(perebor, e)
@@ -126,24 +126,22 @@ function Enter2NewZone(flag)
                 --StartEnemyWave(5)
             else
                 TimerStart(CreateTimer(), 3, false, function()
-                    TimerStart(CreateTimer(),3, false, function()
-                        local savedGold=0
+                    TimerStart(CreateTimer(), 3, false, function()
+                        local SaveCode = 0
                         for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                            if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-                                local gdata=HERO[i]
-                                if GetLocalPlayer()==Player(i) then
-                                    savedGold=gdata.gold
+                            if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+                                local gdata = HERO[i]
+                                if GetLocalPlayer() == Player(i) then
+                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","
                                 end
-                                print(GetPlayerName(Player(i)).. " унёс с собой "..R2I(gdata.gold).." золота ")
+                                print(GetPlayerName(Player(i)) .. " унёс с собой " .. R2I(gdata.gold) .. " золота ")
 
-                                TimerStart(CreateTimer(),2, false, function()
+                                TimerStart(CreateTimer(), 2, false, function()
                                     CustomVictoryBJ(Player(i), true, true)
                                 end)
                             end
                         end
-                        Preload("\")\ncall BlzSetAbilityTooltip ('Agyv',\""..R2I(savedGold).."\",0)".."\n//")
-                        PreloadGenEnd(SavePath)
-                        PreloadGenClear()
+                        SaveResult(SaveCode)
                     end)
 
                 end)
@@ -195,7 +193,8 @@ function MoveAllHeroAndBound(recEnter, rectBound)
     local x, y = GetRectCenterX(recEnter), GetRectCenterY(recEnter)
     local x2, y2 = GetRectCenterX(rectBound), GetRectCenterY(rectBound)
     EnumDestructablesInRect(recEnter, nil, function()
-        if GetDestructableTypeId(GetEnumDestructable())==FourCC('B000') then --каменная дверь для точек выхода
+        if GetDestructableTypeId(GetEnumDestructable()) == FourCC('B000') then
+            --каменная дверь для точек выхода
             KillDestructable(GetEnumDestructable())
         end
     end)
@@ -209,8 +208,7 @@ function MoveAllHeroAndBound(recEnter, rectBound)
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
 end
 
-
-EnemyList={
+EnemyList = {
     FourCC("nsko"), -- скелет
     FourCC("ucs1"), -- мелкий жук
     FourCC("uabo"), -- пудж
@@ -223,33 +221,33 @@ function StartEnemyWave(waveNumber)
     local listID = {}
     local maxOnWave = 1
     if waveNumber == 1 then
-        local r=GetRandomInt(1,5)
-        if r==1 then
+        local r = GetRandomInt(1, 5)
+        if r == 1 then
             listID = {--скелеты
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             }
             maxOnWave = 1
-        elseif r==2 then
+        elseif r == 2 then
             listID = {--жуки
                 FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
                 FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             }
             maxOnWave = 2
-        elseif r==3 then
+        elseif r == 3 then
             listID = {--пуджи
-                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
             }
             maxOnWave = 1
-        elseif r==4 then
+        elseif r == 4 then
             listID = { -- некроманты
-                FourCC("unec"),FourCC("unec"),
-                FourCC("unec"),FourCC("unec"),
+                FourCC("unec"), FourCC("unec"),
+                FourCC("unec"), FourCC("unec"),
             }
             maxOnWave = 2
-        elseif r==5 then
+        elseif r == 5 then
             listID = { --мимики
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
             }
             maxOnWave = 5
         end
@@ -257,38 +255,38 @@ function StartEnemyWave(waveNumber)
     end
 
     if waveNumber == 2 then
-        local r=GetRandomInt(1,3)
-        if r==1 then
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
             listID = {
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-                FourCC("uabo"),FourCC("uabo"),FourCC("uabo"),
+                FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
             }
             maxOnWave = 1
-        elseif r==2 then
+        elseif r == 2 then
             listID = {
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             }
             maxOnWave = 2
-        elseif r==3 then
+        elseif r == 3 then
             listID = {
-                FourCC("unec"),FourCC("unec"),
+                FourCC("unec"), FourCC("unec"),
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
-                FourCC("unec"),FourCC("unec"),
+                FourCC("unec"), FourCC("unec"),
             }
             maxOnWave = 2
         end
     end
     if waveNumber == 3 then
-        local r=GetRandomInt(1,3)
-        if r==1 then
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
             listID = {
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
                 FourCC("uabo"), FourCC("uabo"), FourCC("nsko"), FourCC("unec"), FourCC("unec"),
             }
             maxOnWave = 3
-        elseif r==2 then
+        elseif r == 2 then
             listID = {
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
@@ -296,12 +294,12 @@ function StartEnemyWave(waveNumber)
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             }
             maxOnWave = 2
-        elseif r==3 then
+        elseif r == 3 then
             listID = {
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
-                FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
+                FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
             }
             maxOnWave = 4
         end
@@ -355,44 +353,44 @@ function StartEnemyWave(waveNumber)
         maxOnWave = 20
     end
 
-
     if waveNumber == 5 then
-        local r=GetRandomInt(1,3)
-        if r==1 then
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
             listID = {  -- Пуджи
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
 
             }
             maxOnWave = 3
-        elseif r==2 then
+        elseif r == 2 then
             listID = {
-                FourCC("uzig"),FourCC("uzig")
+                FourCC("uzig"), FourCC("uzig")
             }
-            maxOnWave=2
-        elseif r==3 then
+            maxOnWave = 2
+        elseif r == 3 then
             listID = {
-                FourCC("unec"),FourCC("unec"),FourCC("unec"),
-                FourCC("unec"),FourCC("unec"),FourCC("unec"),
-                FourCC("unec"),FourCC("unec"),FourCC("unec")
+                FourCC("unec"), FourCC("unec"), FourCC("unec"),
+                FourCC("unec"), FourCC("unec"), FourCC("unec"),
+                FourCC("unec"), FourCC("unec"), FourCC("unec")
             }
-            maxOnWave=3
+            maxOnWave = 3
         end
     end
-    if waveNumber>=6 and waveNumber<=20 then --рандомизатор
+    if waveNumber >= 6 and waveNumber <= 20 then
+        --рандомизатор
         listID = {}
-        local zig=false
-        for i=1, R2I(waveNumber*2.6) do
-            listID[i]=EnemyList[GetRandomInt(1,#EnemyList)]
-            local r=GetRandomInt(1,10)
-            if waveNumber>=12 then
-                if not zig and r==1 then
-                    zig=true
-                    listID[i]=FourCC("uzig")
+        local zig = false
+        for i = 1, R2I(waveNumber * 2.6) do
+            listID[i] = EnemyList[GetRandomInt(1, #EnemyList)]
+            local r = GetRandomInt(1, 10)
+            if waveNumber >= 12 then
+                if not zig and r == 1 then
+                    zig = true
+                    listID[i] = FourCC("uzig")
                 end
             end
         end
-        maxOnWave =waveNumber//2
+        maxOnWave = waveNumber // 2
     end
 
     if waveNumber == 401 then
@@ -421,7 +419,7 @@ function GetActiveCountPlayer()
             local data = HERO[i]
             local hero = data.UnitHero
             --local x,y=GetUnitXY(hero)
-            if UnitAlive(hero) or data.life>0 then
+            if UnitAlive(hero) or data.life > 0 then
                 k = k + 1
             end
 
@@ -432,9 +430,9 @@ end
 
 function StartWave(dataGZ, listID, max)
     -- print("start wave "..max)
-    local rect=dataGZ.rectSpawn
+    local rect = dataGZ.rectSpawn
     local CountPlayers = GetActiveCountPlayer()
-    G_CountPlayers=CountPlayers
+    G_CountPlayers = CountPlayers
     if CountPlayers >= 2 then
         for _ = 2, CountPlayers do
             for i = 1, #listID do
@@ -451,13 +449,14 @@ function StartWave(dataGZ, listID, max)
     for i = 1, max do
         local loc = GetRandomLocInRect(rect)
         local x, y = GetLocationX(loc), GetLocationY(loc)
-        if dataGZ.x[1] then --существует хотя бы первый элемент
+        if dataGZ.x[1] then
+            --существует хотя бы первый элемент
             --print("есть ручные точки спавна "..#(dataGZ.x))
-            local m=GetRandomInt(1,#(dataGZ.x))
+            local m = GetRandomInt(1, #(dataGZ.x))
             if dataGZ.x[m] then
-                x,y=dataGZ.x[m],dataGZ.y[m]
+                x, y = dataGZ.x[m], dataGZ.y[m]
             else
-                print("Ошибка, не могу получить координаты "..m)
+                print("Ошибка, не могу получить координаты " .. m)
             end
         end
         CreateCreepDelay(listID[k], x, y, 0.9, k)
@@ -477,9 +476,10 @@ function StartWave(dataGZ, listID, max)
                 --print("убит из пачки, создаём следующего"..k)
                 local loc = GetRandomLocInRect(rect)
                 local x, y = GetLocationX(loc), GetLocationY(loc)
-                if dataGZ.x[1] then --существует хотя бы первый элемент
-                    local m=GetRandomInt(1,#(dataGZ.x))
-                    x,y=dataGZ.x[m],dataGZ.y[m]
+                if dataGZ.x[1] then
+                    --существует хотя бы первый элемент
+                    local m = GetRandomInt(1, #(dataGZ.x))
+                    x, y = dataGZ.x[m], dataGZ.y[m]
                 end
                 CreateCreepDelay(listID[k], x, y, 0.9, k)
                 --MaxOnWave=MaxOnWave-1
@@ -502,33 +502,33 @@ function CreateCreepDelay(id, x, y, delay, flag)
     if flag ~= "summon" then
         LiveOnWave = LiveOnWave + 1
     else
-        local dataGZ=GameZone[Destiny[CurrentGameZone]]
-        if dataGZ.x[1] then --существует хотя бы первый элемент
+        local dataGZ = GameZone[Destiny[CurrentGameZone]]
+        if dataGZ.x[1] then
+            --существует хотя бы первый элемент
             --print("есть ручные точки спавна "..#(dataGZ.x))
-            local m=GetRandomInt(1,#(dataGZ.x))
+            local m = GetRandomInt(1, #(dataGZ.x))
             if dataGZ.x[m] then
-                x,y=dataGZ.x[m],dataGZ.y[m]
+                x, y = dataGZ.x[m], dataGZ.y[m]
             else
-                print("Ошибка, не могу получить координаты "..m)
+                print("Ошибка, не могу получить координаты " .. m)
             end
         end
     end
     TimerStart(CreateTimer(), delay, false, function()
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
-        local a=BlzGetUnitMaxHP(new)
-        if G_CountPlayers>=2 then
+        local a = BlzGetUnitMaxHP(new)
+        if G_CountPlayers >= 2 then
 
-            BlzSetUnitMaxHP(new,R2I(a*G_CountPlayers))
+            BlzSetUnitMaxHP(new, R2I(a * G_CountPlayers))
             HealUnit(new)
         end
-        if CurrentGameZone>=10 then
-            local r=GetRandomInt(1,22-CurrentGameZone)
-            if r==1 then
-                UnitAddShield(new,R2I(a*1.5))
+        if CurrentGameZone >= 10 then
+            local r = GetRandomInt(1, 22 - CurrentGameZone)
+            if r == 1 then
+                UnitAddShield(new, R2I(a * 1.5))
             end
         end
-
 
         if flag ~= "summon" then
             DestroyEffect(eff)
