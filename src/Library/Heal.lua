@@ -39,7 +39,7 @@ function HealUnit(hero, amount, flag, eff)
             if not data.ShowHealAmount then
                 data.ShowHealAmount = 0
             end
-            data.ShowHealAmount = data.ShowHealAmount + amount
+            data.ShowHealAmount = data.ShowHealAmount + TotalHeal
             if data.ShowHeal then
                 data.ShowHeal = false
                 TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
@@ -48,7 +48,7 @@ function HealUnit(hero, amount, flag, eff)
                         data.ShowHeal = true
                         DestroyTimer(GetExpiredTimer())
                         if TotalHeal > 1 then
-                            FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(TotalHeal), p)
+                            FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(data.ShowHealAmount), p)
                         end
                         data.ShowHealAmount = 0
                     end

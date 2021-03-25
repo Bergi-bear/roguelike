@@ -301,7 +301,7 @@ function CreateEActions()
             -----------------------------------------------------
             -----------------------------------------------------
             -----------------------------------------------------
-            if data.UseAction == "Goto" then
+            if data.UseAction == "Goto" and ChkAllPlayerTalonClosedWindow() then
                 --local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
                 local rm = {
                     L("Что нас ждёт внутри?", "What awaits us inside?"),
@@ -370,6 +370,7 @@ function CreateEActions()
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+
             end
             if data.UseAction == "Fish" then
                 local message = L("Руками, без удочки, сам-то попробуй", "With your hands, without a fishing rod, try it yourself")
@@ -417,195 +418,171 @@ function CreateEActions()
             ----------------------------------------------------/
             ---------------ДАРЫ БОГОВ---------------------------/
             ----------------------------------------------------/
-            if data.UseAction == "Trall" then
-                if data.gold >= dataPoint.TalonPrice then
-                    local message = L("Провидец, я выбираю тебя", "Seer, I choose you")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                    data.Completed = true
-                    AllActionsEnabled(true)--активация всех переходов
-                    TimerStart(CreateTimer(), 1, false, function()
-                        --print("Создаём диалоговое окно для всех игроков Jsore")
-                        CreateDialogTalon("Trall") -- Сюда передаётся trall
-                        normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
-                        DestroyGodTalon(dataPoint.TripleTalon)
-                        PauseTimer(GetExpiredTimer())
-                        DestroyTimer(GetExpiredTimer())
-                    end)
-                    data.DoAction = false
-                    data.UseAction = ""
-                    KillUnit(data.EPointUnit)
-                    if dataPoint.TalonPrice > 0 then
-                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
-                        AddGold(data, -dataPoint.TalonPrice)
+            if ChkAllPlayerTalonClosedWindow() then
+                if data.UseAction == "Trall" then
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = L("Провидец, я выбираю тебя", "Seer, I choose you")
+                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        data.Completed = true
+                        AllActionsEnabled(true)--активация всех переходов
+                        TimerStart(CreateTimer(), 1, false, function()
+                            --print("Создаём диалоговое окно для всех игроков Jsore")
+                            CreateDialogTalon("Trall") -- Сюда передаётся trall
+                            normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
+                            DestroyGodTalon(dataPoint.TripleTalon)
+                            PauseTimer(GetExpiredTimer())
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
                     end
-                else
-                    normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
+                    --GetTerrainZ()
                 end
-                --GetTerrainZ()
-            end
-            if data.UseAction == "HeroBlademaster" then
-                if data.gold >= dataPoint.TalonPrice then
-                    local message = L("Надели меня силой своего клинка", "Give me the power of your blade")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                    data.Completed = true
-                    AllActionsEnabled(true)
-                    TimerStart(CreateTimer(), 1, false, function()
-                        DestroyGodTalon(dataPoint.TripleTalon)
-                        CreateDialogTalon("HeroBlademaster")
-                        normal_sound("Units\\Orc\\HeroBladeMaster\\HeroBladeMasterPissed" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
-                        PauseTimer(GetExpiredTimer())
-                        DestroyTimer(GetExpiredTimer())
-                        --активация всех переходов
-                    end)
-                    data.DoAction = false
-                    data.UseAction = ""
-                    KillUnit(data.EPointUnit)
-                    if dataPoint.TalonPrice > 0 then
-                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
-                        AddGold(data, -dataPoint.TalonPrice)
+                if data.UseAction == "HeroBlademaster" then
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = L("Надели меня силой своего клинка", "Give me the power of your blade")
+                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        data.Completed = true
+                        AllActionsEnabled(true)
+                        TimerStart(CreateTimer(), 1, false, function()
+                            DestroyGodTalon(dataPoint.TripleTalon)
+                            CreateDialogTalon("HeroBlademaster")
+                            normal_sound("Units\\Orc\\HeroBladeMaster\\HeroBladeMasterPissed" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
+                            PauseTimer(GetExpiredTimer())
+                            DestroyTimer(GetExpiredTimer())
+                            --активация всех переходов
+                        end)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        data.ShowActionWindows = false
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
                     end
-                else
-                    normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
                 end
-            end
-            if data.UseAction == "HeroTaurenChieftain" then
-                if data.gold >= dataPoint.TalonPrice then
-                    local message = L("Держите оборону", "Hold the line")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                    data.Completed = true
-                    AllActionsEnabled(true)
-                    TimerStart(CreateTimer(), 1, false, function()
-                        DestroyGodTalon(dataPoint.TripleTalon)
-                        CreateDialogTalon("HeroTaurenChieftain")
-                        normal_sound("Units\\Orc\\HeroTaurenChieftain\\HeroTaurenChieftainPissed" .. GetRandomInt(1, 6), GetUnitXY(data.UnitHero))
-                                                PauseTimer(GetExpiredTimer())
-                        DestroyTimer(GetExpiredTimer())
-                        --активация всех переходов
-                    end)
-                    data.DoAction = false
-                    data.UseAction = ""
-                    KillUnit(data.EPointUnit)
-                    if dataPoint.TalonPrice > 0 then
-                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
-                        AddGold(data, -dataPoint.TalonPrice)
+                if data.UseAction == "HeroTaurenChieftain" then
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = L("Держите оборону", "Hold the line")
+                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        data.Completed = true
+                        AllActionsEnabled(true)
+                        TimerStart(CreateTimer(), 1, false, function()
+                            DestroyGodTalon(dataPoint.TripleTalon)
+                            CreateDialogTalon("HeroTaurenChieftain")
+                            normal_sound("Units\\Orc\\HeroTaurenChieftain\\HeroTaurenChieftainPissed" .. GetRandomInt(1, 6), GetUnitXY(data.UnitHero))
+                            PauseTimer(GetExpiredTimer())
+                            DestroyTimer(GetExpiredTimer())
+                            --активация всех переходов
+                        end)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        data.ShowActionWindows = false
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
                     end
-                else
-                    normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
                 end
-            end
-            if data.UseAction == "ShadowHunter" then
-                if data.gold >= dataPoint.TalonPrice then
-                    local message = L("Я отомщу за тебя", "I will avenge you")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                    data.Completed = true
-                    AllActionsEnabled(true)
-                    TimerStart(CreateTimer(), 1, false, function()
-                        DestroyGodTalon(dataPoint.TripleTalon)
-                        CreateDialogTalon("ShadowHunter")
-                        normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed" .. GetRandomInt(1, 9), GetUnitXY(data.UnitHero))
-                                                PauseTimer(GetExpiredTimer())
-                        DestroyTimer(GetExpiredTimer())
-                        --активация всех переходов
-                    end)
-                    data.DoAction = false
-                    data.UseAction = ""
-                    KillUnit(data.EPointUnit)
-                    if dataPoint.TalonPrice > 0 then
-                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
-                        AddGold(data, -dataPoint.TalonPrice)
+                if data.UseAction == "ShadowHunter" then
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = L("Я отомщу за тебя", "I will avenge you")
+                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        data.Completed = true
+                        AllActionsEnabled(true)
+                        TimerStart(CreateTimer(), 1, false, function()
+                            DestroyGodTalon(dataPoint.TripleTalon)
+                            CreateDialogTalon("ShadowHunter")
+                            normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed" .. GetRandomInt(1, 9), GetUnitXY(data.UnitHero))
+                            PauseTimer(GetExpiredTimer())
+                            DestroyTimer(GetExpiredTimer())
+                            --активация всех переходов
+                        end)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        data.ShowActionWindows = false
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
                     end
-                else
-                    normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
                 end
-            end
-            if data.UseAction == "ChaosGrom" then
-                if data.gold >= dataPoint.TalonPrice then
-                    local message = L("Проклятый", "Cursed")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                    data.Completed = true
-                    AllActionsEnabled(true)
-                    TimerStart(CreateTimer(), 1, false, function()
-                        DestroyGodTalon(dataPoint.TripleTalon)
-                        CreateDialogTalon("ChaosGrom")
-                        --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
-                        --активация всех переходов
-                    end)
-                    data.DoAction = false
-                    data.UseAction = ""
-                    KillUnit(data.EPointUnit)
-                    if dataPoint.TalonPrice > 0 then
-                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
-                        AddGold(data, -dataPoint.TalonPrice)
+                if data.UseAction == "ChaosGrom" then
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = L("Проклятый", "Cursed")
+                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        data.Completed = true
+                        AllActionsEnabled(true)
+                        TimerStart(CreateTimer(), 1, false, function()
+                            DestroyGodTalon(dataPoint.TripleTalon)
+                            CreateDialogTalon("ChaosGrom")
+                            --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
+                            --активация всех переходов
+                        end)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        data.ShowActionWindows = false
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
                     end
-                else
-                    normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
                 end
-            end
 
+                if data.UseAction == "HeroBeastMaster" then
+                    local message = "Хочу повелевать твоими зверями"
+                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    data.Completed = true
+                    DestroyGodTalon(dataPoint.TripleTalon)
+                    CreateDialogTalon("HeroBeastMaster")
+                    AllActionsEnabled(true)
+                    data.DoAction = false
+                    data.UseAction = ""
+                    data.ShowActionWindows = false
+                    KillUnit(data.EPointUnit)
+                    --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
+                end
+                if data.UseAction == "PeonDidal" then
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = L("Сила братьев", "Power of Brothers")
+                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        data.Completed = true
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("PeonDidal")
+                        AllActionsEnabled(true)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        data.ShowActionWindows = false
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
+                    end
+                    --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
+                end
 
-            --[[
-            if data.UseAction == "HeroArchMage" then
-                local message = "Гендальф белый"
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                AllActionsEnabled(true)
-                TimerStart(CreateTimer(), 1, false, function()
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                end)
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
-            end
-            if data.UseAction == "HeroPaladin" then
-                local message = "За твоего отца"
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                AllActionsEnabled(true)
-                TimerStart(CreateTimer(), 1, false, function()
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                    --активация всех переходов
-                end)
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
-            end
-            if data.UseAction == "HeroBloodElfPrince" then
-                local message = "Инвокер, ты ли это?"
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                AllActionsEnabled(true)
-                TimerStart(CreateTimer(), 1, false, function()
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                    --активация всех переходов
-                end)
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
-            end
-            if data.UseAction == "HeroMountainKing" then
-                local message = "Помоги мне подраться"
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                TimerStart(CreateTimer(), 1, false, function()
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                    AllActionsEnabled(true)--активация всех переходов
-                end)
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
-            end
-            ]]
-            if data.UseAction == "HeroBeastMaster" then
-                local message = "Хочу повелевать твоими зверями"
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                data.Completed = true
-                DestroyGodTalon(dataPoint.TripleTalon)
-                CreateDialogTalon("HeroBeastMaster")
-                AllActionsEnabled(true)
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
-                --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
             ----------------------------------------------------/
             ---------------Прочие дары--------------------------/
@@ -622,6 +599,7 @@ function CreateEActions()
                     end)
                     data.DoAction = false
                     data.UseAction = ""
+                    data.ShowActionWindows = false
                     KillUnit(data.EPointUnit)
                     GiveForAll("CodoHeart")
                     if dataPoint.TalonPrice > 0 then
@@ -644,30 +622,11 @@ function CreateEActions()
                 end)
                 data.DoAction = false
                 data.UseAction = ""
+                data.ShowActionWindows = false
                 KillUnit(data.EPointUnit)
                 normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
             end
 
-            if data.UseAction == "PeonDidal" then
-                if data.gold >= dataPoint.TalonPrice then
-                    local message = L("Сила братьев", "Power of Brothers")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                    data.Completed = true
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                    CreateDialogTalon("PeonDidal")
-                    AllActionsEnabled(true)
-                    data.DoAction = false
-                    data.UseAction = ""
-                    KillUnit(data.EPointUnit)
-                    if dataPoint.TalonPrice > 0 then
-                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
-                        AddGold(data, -dataPoint.TalonPrice)
-                    end
-                else
-                    normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
-                end
-                --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
-            end
             if data.UseAction == "Heal" then
                 local message = {
                     L("Целебно", "Curative"),
@@ -691,6 +650,7 @@ function CreateEActions()
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
+                data.ShowActionWindows = false
                 if data.DeathFountain then
                     --print("заражаем фонтан")
                     local x, y = GetUnitXY(data.EPointUnit)

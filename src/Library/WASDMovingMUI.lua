@@ -94,6 +94,7 @@ function InitHeroTable(hero)
         HealRate = 1, -- Эффективность исцеления
         DistMouse = 0,
         AngleMouse = 0,
+        TalonWindowIsOpen = true,
     }
 end
 
@@ -1379,15 +1380,19 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                 local tempA = AngleBetweenXY(x, y, GetUnitXY(e)) / bj_DEGTORAD
                 UnitAddForceSimple(e, tempA, 20, 300, nil, u)
             end
-            if flag == "all" and GetPlayerController(GetOwningPlayer(u)) == MAP_CONTROL_USER then
-                local data = HERO[GetPlayerId(GetOwningPlayer(u))]
-                if not data.AddDamageTrap then
-                    data.AddDamageTrap = 1
-                end
-                --damage = data.AddDamageTrap
+            if flag == "all"  then
+                if GetPlayerController(GetOwningPlayer(u)) == MAP_CONTROL_USER then
+                    local data = HERO[GetPlayerId(GetOwningPlayer(u))]
+                    if not data.AddDamageTrap then
+                        data.AddDamageTrap = 1
+                    end
+                    --damage = data.AddDamageTrap
 
-                --print("урон от ловушки")
-                damage = damage / data.DamageTrapResist
+                    --print("урон от ловушки")
+                    damage = damage / data.AddDamageTrap
+                else
+
+                end
             end
             if flag == "blackHole" then
                 if not IsUnitInRange(e, u, 15) then

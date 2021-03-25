@@ -98,25 +98,28 @@ function CreateDialogTalon(godName)
     end
 
     for i = 1, bj_MAX_PLAYERS do
-        DialogTalon.IsOpen[i] = false
-        BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
-        BlzFrameSetText(DialogTalon.Title[i], title)
+        if IsPlayerSlotState(Player(i-1), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            DialogTalon.IsOpen[i] = false
+            BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
+            BlzFrameSetText(DialogTalon.Title[i], title)
 
-        for j = 1, #talons[i] do
+            for j = 1, #talons[i] do
 
-            BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j]:getIcon(), 0, true)
-            BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j]:getName())
-            BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
-            BlzFrameSetText(DialogTalon.TalonButtons.TooltipDescription[i][j], talons[i][j]:getTooltip())
+                BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j]:getIcon(), 0, true)
+                BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j]:getName())
+                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
+                BlzFrameSetText(DialogTalon.TalonButtons.TooltipDescription[i][j], talons[i][j]:getTooltip())
 
-            BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "")
-            if talons[i][j]:getLevel() > 0 then
-                BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
+                BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "")
+                if talons[i][j]:getLevel() > 0 then
+                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
+                end
             end
+            local data=HERO[i-1]
+            data.TalonWindowIsOpen = false
+            -- Показываем окно всем
+            BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
+            SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
         end
-
-        -- Показываем окно всем
-        BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
-        SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
     end
 end

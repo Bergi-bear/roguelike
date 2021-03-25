@@ -25,10 +25,11 @@ function SpellSlashQ(data)
 
     local x, y = MoveXY(GetUnitX(hero), GetUnitY(hero), 80, GetUnitFacing(hero))
     local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
+    DestroyEffect(eff)
     if data.BigStaggerQ then
         BlzSetSpecialEffectScale(eff, 1.4)
     end
-    DestroyEffect(eff)
+
     if data.DashAndDamageQ then
         flag="ForceTotem"
     end

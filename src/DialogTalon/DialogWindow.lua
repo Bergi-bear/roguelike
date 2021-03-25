@@ -4,7 +4,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 3, false, function()
             if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
-                print("ошибка загрузки ".."SystemGeneric\\Main.toc")
+                print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
             end
 
             local GAME_UI = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
@@ -133,7 +133,10 @@ do
                             BlzFrameSetEnable(BlzGetTriggerFrame(), true)
                             SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close")
                             --LearnCurrentTalonForPlayer(i,GodName,listOfNumbers[i][j])
-                            LearnCurrentTalonForPlayer(i,GodName,index[i][j])
+                            LearnCurrentTalonForPlayer(i, GodName, index[i][j])
+                            local data = HERO[i - 1]
+                            data.TalonWindowIsOpen = true
+                            ChkAllPlayerTalonClosedWindow()
                         end
                     end)
 
@@ -153,4 +156,23 @@ do
             end
         end)
     end
+end
+
+AllPlayerTalonClosedWindow = true
+function ChkAllPlayerTalonClosedWindow()
+    local result = false
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
+            if data.TalonWindowIsOpen then
+                result = true
+                --print("все выбрали свои таланты")
+            else
+                print("Ожидание игрока "..GetPlayerName(Player(i)))
+                result = false
+            end
+        end
+    end
+    AllPlayerTalonClosedWindow=result
+    return AllPlayerTalonClosedWindow
 end

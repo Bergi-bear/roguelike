@@ -8,18 +8,28 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
+            EnemyList = {
+                FourCC("nsko"), -- скелет
+                FourCC("ucs1"), -- мелкий жук
+                FourCC("uabo"), -- пудж
+                FourCC("unec"), -- некромант
+                FourCC("u000"), -- большой жук
+                FourCC("n000"), -- мимик
+                FourCC("ugar"), -- гаргулья
+            }
+            CurrentGameZone = 0
+            GameZone = {
+                recEnter = nil,
+                rectBound = nil,
+                rectSpawn = nil,
+                reward = nil
+            }
             InitAllZones()
 
         end)
     end
 end
-CurrentGameZone = 0
-GameZone = {
-    recEnter = nil,
-    rectBound = nil,
-    rectSpawn = nil,
-    reward = nil
-}
+
 function InitAllZones()
     SetZone(1, gg_rct_E1A, gg_rct_B1A, gg_rct_S1A)
     SetZone(2, gg_rct_E2A, gg_rct_B2A, gg_rct_S2A)
@@ -208,20 +218,11 @@ function MoveAllHeroAndBound(recEnter, rectBound)
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
 end
 
-EnemyList = {
-    FourCC("nsko"), -- скелет
-    FourCC("ucs1"), -- мелкий жук
-    FourCC("uabo"), -- пудж
-    FourCC("unec"), -- некромант
-    FourCC("u000"), -- большой жук
-    FourCC("n000"), -- мимик
-}
-
 function StartEnemyWave(waveNumber)
     local listID = {}
     local maxOnWave = 1
     if waveNumber == 1 then
-        local r = GetRandomInt(1, 5)
+        local r = GetRandomInt(1, 6)
         if r == 1 then
             listID = {--скелеты
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
@@ -250,6 +251,11 @@ function StartEnemyWave(waveNumber)
                 FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
             }
             maxOnWave = 5
+        elseif r == 6 then
+            listID = { --гули
+                FourCC("ugar"), FourCC("ugar"), FourCC("ugar"), FourCC("ugar"),
+            }
+            maxOnWave = 2
         end
 
     end
@@ -354,7 +360,7 @@ function StartEnemyWave(waveNumber)
     end
 
     if waveNumber == 5 then
-        local r = GetRandomInt(1, 3)
+        local r = GetRandomInt(1, 4)
         if r == 1 then
             listID = {  -- Пуджи
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
@@ -374,7 +380,14 @@ function StartEnemyWave(waveNumber)
                 FourCC("unec"), FourCC("unec"), FourCC("unec")
             }
             maxOnWave = 3
+        elseif r == 4 then
+            listID = {
+                FourCC("ugar"), FourCC("ugar"), FourCC("ugar"), FourCC("ugar"), FourCC("ugar"), FourCC("ugar")
+
+            }
+            maxOnWave = 3
         end
+
     end
     if waveNumber >= 6 and waveNumber <= 20 then
         --рандомизатор
@@ -383,6 +396,12 @@ function StartEnemyWave(waveNumber)
         for i = 1, R2I(waveNumber * 2.6) do
             listID[i] = EnemyList[GetRandomInt(1, #EnemyList)]
             local r = GetRandomInt(1, 10)
+            if waveNumber <=11 then
+                if listID[i] == FourCC("ugar") then
+                    listID[i] = FourCC("unec")
+                end
+            end
+
             if waveNumber >= 12 then
                 if not zig and r == 1 then
                     zig = true

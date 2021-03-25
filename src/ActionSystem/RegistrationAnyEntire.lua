@@ -24,7 +24,6 @@ function RegistrationAnyEntire()
             TriggerAddAction(enterTrig,function()
                 local entering=GetTriggerUnit()
                 if GetUnitTypeId(entering)==FourCC('hdhw') then
-
                     local dataPoint=EnterPointTable[GetHandleId(entering)]
                     --print("подошел к "..dataPoint.UseAction)
                     if dataPoint.isActive and not data.ShowActionWindows then

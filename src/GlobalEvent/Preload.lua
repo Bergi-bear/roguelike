@@ -64,7 +64,7 @@ function InitPreloadStart()
                     LoadedGameCount[i] = 0
                     --print("FirstGame")
                 end
-                print(GetPlayerName(Player(i)) .. " Число завершенных игр " .. LoadedGameCount[i])
+                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ","Number of completed games") .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
                 UnitAddGold(data.UnitHero, LoadedGold[i])
             else
