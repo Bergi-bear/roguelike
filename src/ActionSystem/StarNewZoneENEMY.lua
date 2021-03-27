@@ -411,12 +411,18 @@ function StartEnemyWave(waveNumber)
         end
         maxOnWave = waveNumber // 2
     end
-
+    if waveNumber == 21 then -- Новый биом
+                listID = {
+            FourCC("nsko"),FourCC("nsko")
+        }
+        print("если вывидите это сообщение, то вы в принципе уже победили")
+        maxOnWave = 2
+    end
     if waveNumber == 401 then
         listID = {
-            FourCC("uobs")
+            FourCC("uobs"),FourCC("uobs")
         }
-        maxOnWave = 1
+        maxOnWave = 2
     end
 
     if listID[1] then

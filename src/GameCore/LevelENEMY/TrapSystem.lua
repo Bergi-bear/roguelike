@@ -43,17 +43,18 @@ function CreateSwordSpike (hero)
     local x, y = GetUnitXY(hero)
     local eff = AddSpecialEffect("SystemGeneric\\SwordImpaleMissTarget.mdl", x, y)
     local border = AddSpecialEffect("Doodads\\Cinematic\\FootSwitch\\FootSwitch.mdl", x, y)
+    local img = CreateImageForTrap(x, y)
     BlzSetSpecialEffectZ(border, GetTerrainZ(x, y) - 50)
     BlzPlaySpecialEffect(eff, ANIM_TYPE_DEATH)
     local active = false
     local sec = 0
     TimerStart(CreateTimer(), 0.1, true, function()
-        local _, enemy = UnitDamageArea(hero, 0, x, y, 100)
+        local _, enemy = UnitDamageArea(hero, 0, x, y, 80)
         if enemy then
             if IsUnitType(enemy, UNIT_TYPE_HERO) and not active then
                 --print("Ловушка активирована")
                 active = true
-
+                SetImageColor(img, 255, 0, 0, 255)
                 local mark = AddSpecialEffect("SystemGeneric\\Alarm", x, y)
                 BlzSetSpecialEffectColor(mark, 255, 0, 0)
                 BlzSetSpecialEffectScale(mark, 0.7)
@@ -63,12 +64,16 @@ function CreateSwordSpike (hero)
                     normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit", x, y)
                     DestroyTimer(GetExpiredTimer())
                 end)
+                TimerStart(CreateTimer(), 0.8, false, function()
+                    SetImageColor(img,255,255,255,255)
+                     DestroyTimer(GetExpiredTimer())
+                end)
                 TimerStart(CreateTimer(), 0.6, false, function()
                     --print("наносим урон")
                     DestroyEffect(mark)
                     BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
                     BlzSetSpecialEffectTimeScale(eff, .5)
-                    local damage = 300
+                    local damage = 180
                     if IsUnitType(enemy, UNIT_TYPE_HERO) then
                         local data = GetUnitData(enemy)
                         if not data.AddDamageTrap then
@@ -77,7 +82,7 @@ function CreateSwordSpike (hero)
                         damage = damage * data.AddDamageTrap
                         --print(damage)
                     end
-                    UnitDamageArea(enemy, damage, x, y, 100, "all") -- Урон от ловушки
+                    UnitDamageArea(enemy, damage, x, y, 80, "all") -- Урон от ловушки
                     DestroyTimer(GetExpiredTimer())
                 end)
             end
@@ -93,6 +98,15 @@ function CreateSwordSpike (hero)
             end
         end
     end)
+end
+
+function CreateImageForTrap(x, y)
+    -- "SystemGeneric\\Pavement.blp"
+    local img = CreateImage("SystemGeneric\\Pavement.blp", 256, 256, 0, x, y, 0, 256 / 2, 256 / 2, 0, 4)
+    --SetImageColor(img, 0, 255, 0, 128)
+    SetImageRenderAlways(img, true)
+    ShowImage(img, true)
+    return img
 end
 
 function CreateSawTrap(hero)

@@ -626,6 +626,39 @@ function CreateEActions()
                 KillUnit(data.EPointUnit)
                 normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
             end
+            if data.UseAction == "Life" then
+                if data.gold >= dataPoint.TalonPrice then
+                    local message = {
+                        L("Запасная жизнь", "Spare life"),
+                        L("Перерождение", "Rebirth"),
+                        L("Умирать - не работать", "Die-don't work"),
+                        L("Время жить", "Time to live"),
+                        L("И какой ценой я это получил?", "And at what price did I get it?"),
+                        L("Вкус к жизни уже не вернуть", "The taste of life can not be returned"),
+                        L("В хозяйстве всегда пригодится", "The farm is always useful"),
+                        L("Пригодится ли это вне храма?", "Will it be useful outside the temple?"),
+                        L("Предохраняться не помешает", "It doesn't hurt to protect yourself"),
+                        L("И почему я каждый раз воскресаю?", "И почему я каждый раз воскресаю?"),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
+                    data.Completed = true
+                    DestroyGodTalon(dataPoint.TripleTalon)
+                    AllActionsEnabled(true)
+                    AddLife(data)
+
+                    data.DoAction = false
+                    data.UseAction = ""
+                    data.ShowActionWindows = false
+                    KillUnit(data.EPointUnit)
+                    if dataPoint.TalonPrice > 0 then
+                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                        AddGold(data, -dataPoint.TalonPrice)
+                    end
+                    normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                else
+                    normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
+                end
+            end
 
             if data.UseAction == "Heal" then
                 local message = {

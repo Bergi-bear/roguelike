@@ -92,7 +92,7 @@ function AddLife(data)
     end
     data.life = data.life + 1
 
-    local lifeIco = "SystemGeneric\\peonlife"
+    local lifeIco = "ReplaceableTextures\\CommandButtons\\BTNAnkh.blp"--"SystemGeneric\\peonlife"
     local lifeFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetParent(lifeFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetTexture(lifeFrame, lifeIco, 0, true)
@@ -153,11 +153,12 @@ end
 function CreateHPBar(hero)
     local intoBar = "SystemGeneric\\ColorHP"
     local rama2 = "SystemGeneric\\hp"
-
+    --print(BlzGetLocalClientWidth())
     local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetTexture(into, intoBar, 0, true)
     BlzFrameSetSize(into, 0.02 * 0.95, 0.21)
+    BlzFrameClearAllPoints(into)
     BlzFrameSetAbsPoint(into, FRAMEPOINT_BOTTOM, -0.12, 0.079)
     BlzFrameSetVisible(into, GetLocalPlayer() == GetOwningPlayer(hero))
 

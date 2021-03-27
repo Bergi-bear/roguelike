@@ -1,0 +1,1632 @@
+//Modified with MdlVis.
+Version {
+	FormatVersion 800,
+}
+Model "Item_Orb_Strength_by_General_Frank" {
+	NumGeosets 6,
+	NumGeosetAnims 6,
+	NumHelpers 1,
+	NumBones 9,
+	NumAttachments 3,
+	NumParticleEmitters2 6,
+	NumRibbonEmitters 3,
+	NumEvents 1,
+	BlendTime 150,
+	MinimumExtent { -40, -47.9416, 2.4 },
+	MaximumExtent { 40, 47.9416, 107.941 },
+	BoundsRadius 67.7995,
+}
+Sequences 4 {
+	Anim "Stand" {
+		Interval { 0, 3000 },
+		MinimumExtent { -40, -47.9416, 2.4 },
+		MaximumExtent { 40, 47.9416, 107.941 },
+		BoundsRadius 67.7995,
+	}
+	Anim "Portrait" {
+		Interval { 4000, 7000 },
+		MinimumExtent { -40, -47.9416, 2.4 },
+		MaximumExtent { 40, 47.9416, 107.941 },
+		BoundsRadius 67.7995,
+	}
+	Anim "Birth" {
+		Interval { 8000, 9000 },
+		NonLooping,
+		MinimumExtent { -40, -47.9416, 2.4 },
+		MaximumExtent { 40, 47.9416, 107.941 },
+		BoundsRadius 67.7995,
+	}
+	Anim "Death" {
+		Interval { 10000, 11000 },
+		NonLooping,
+		MinimumExtent { -40, -47.9416, 2.4 },
+		MaximumExtent { 40, 47.9416, 107.941 },
+		BoundsRadius 67.7995,
+	}
+}
+GlobalSequences 3 {
+	Duration 6000,
+	Duration 4000,
+	Duration 100,
+}
+Textures 11 {
+	Bitmap {
+		Image "Textures\Shadow.blp",
+	}
+	Bitmap {
+		Image "Textures\BloodElf-SpellThief.blp",
+	}
+	Bitmap {
+		Image "Textures\Shockwave10.blp",
+	}
+	Bitmap {
+		Image "Textures\GenericGlow2b.blp",
+	}
+	Bitmap {
+		Image "ReplaceableTextures\CommandButtons\BTNAdvancedUnholyStrength.blp",
+	}
+	Bitmap {
+		Image "ReplaceableTextures\Water\D_Water00.blp",
+	}
+	Bitmap {
+		Image "Textures\pixies1.blp",
+	}
+	Bitmap {
+		Image "Textures\GenericGlow64.blp",
+	}
+	Bitmap {
+		Image "Textures\Zap1_Red.blp",
+	}
+	Bitmap {
+		Image "Textures\RibbonNE1_White.blp",
+	}
+	Bitmap {
+		Image "ReplaceableTextures\CommandButtonsDisabled\DISBTNAdvancedUnholyStrength.blp",
+	}
+}
+Materials 7 {
+	Material {
+		Layer {
+			FilterMode Blend,
+			Unshaded,
+			static TextureID 0,
+			Alpha 9 {
+				Linear,
+				0: 0.8,
+				3000: 0.8,
+				4000: 0.8,
+				7000: 0.8,
+				8000: 0.8,
+				9000: 0.8,
+				10000: 0.8,
+				10250: 0,
+				11000: 0,
+			}
+		}
+	}
+	Material {
+		Layer {
+			FilterMode Transparent,
+			Unshaded,
+			Unfogged,
+			TwoSided,
+			static TextureID 1,
+			static Alpha 0.77,
+		}
+	}
+	Material {
+		Layer {
+			FilterMode AddAlpha,
+			Unshaded,
+			Unfogged,
+			TwoSided,
+			static TextureID 2,
+			TVertexAnimId 0,
+			Alpha 9 {
+				Linear,
+				0: 0.35,
+				3000: 0.35,
+				4000: 0.35,
+				7000: 0.35,
+				8000: 0.35,
+				9000: 0.35,
+				10000: 0.35,
+				10500: 0,
+				11000: 0,
+			}
+		}
+		Layer {
+			FilterMode AddAlpha,
+			Unshaded,
+			Unfogged,
+			TwoSided,
+			static TextureID 2,
+			TVertexAnimId 1,
+			Alpha 9 {
+				Linear,
+				0: 0.35,
+				3000: 0.35,
+				4000: 0.35,
+				7000: 0.35,
+				8000: 0.35,
+				9000: 0.35,
+				10000: 0.35,
+				10500: 0,
+				11000: 0,
+			}
+		}
+	}
+	Material {
+		Layer {
+			FilterMode AddAlpha,
+			Unshaded,
+			Unfogged,
+			TwoSided,
+			static TextureID 5,
+		}
+		Layer {
+			FilterMode Blend,
+			TwoSided,
+			static TextureID 1,
+			static Alpha 0.85,
+		}
+	}
+	Material {
+		Layer {
+			FilterMode AddAlpha,
+			Unshaded,
+			Unfogged,
+			TwoSided,
+			static TextureID 3,
+			Alpha 9 {
+				Linear,
+				0: 0.5,
+				3000: 0.5,
+				4000: 0.5,
+				7000: 0.5,
+				8000: 0.5,
+				9000: 0.5,
+				10000: 0.5,
+				10500: 0,
+				11000: 0,
+			}
+		}
+	}
+	Material {
+		Layer {
+			FilterMode AddAlpha,
+			Unshaded,
+			Unfogged,
+			TwoSided,
+			static TextureID 4,
+		}
+	}
+	Material {
+		Layer {
+			FilterMode Additive,
+			Unshaded,
+			Unfogged,
+			TwoSided,
+			static TextureID 8,
+		}
+		Layer {
+			FilterMode Additive,
+			Unshaded,
+			Unfogged,
+			TwoSided,
+			static TextureID 9,
+		}
+	}
+}
+TextureAnims 2 {
+	TVertexAnim {
+		Rotation 5 {
+			Linear,
+			GlobalSeqId 1,
+			0: { 0, 0, 0, 1 },
+			1000: { 0, 0, 0.707107, 0.707107 },
+			2000: { 0, 0, 1, 0 },
+			3000: { 0, 0, 0.707107, -0.707107 },
+			4000: { 0, 0, 0, 1 },
+		}
+	}
+	TVertexAnim {
+		Rotation 5 {
+			Linear,
+			GlobalSeqId 1,
+			0: { 0, 0, 0, 1 },
+			1000: { 0, 0, 0.707107, -0.707107 },
+			2000: { 0, 0, -1, 0 },
+			3000: { 0, 0, 0.707107, 0.707107 },
+			4000: { 0, 0, 0, 1 },
+		}
+	}
+}
+Geoset {
+	Vertices 48 {
+		{ 10.4, -26.8, 70.4 },
+		{ 12, -20.8, 60 },
+		{ 8.4, -20.8, 68.4 },
+		{ 14.8, -26.8, 60 },
+		{ 10.4, -26.8, 49.6 },
+		{ 8.4, -20.8, 51.6 },
+		{ -8.4, -20.8, 68.4 },
+		{ -12, -20.8, 60 },
+		{ -10.4, -26.8, 70.4 },
+		{ -14.8, -26.8, 60 },
+		{ -8.4, -20.8, 51.6 },
+		{ -10.4, -26.8, 49.6 },
+		{ 0, -20.8, 72 },
+		{ 0, -26.8, 74.8 },
+		{ 0, -20.8, 48 },
+		{ 0, -26.8, 45.2 },
+		{ 8.4, 20.8, 68.4 },
+		{ 12, 20.8, 60 },
+		{ 10.4, 26.8, 70.4 },
+		{ 14.8, 26.8, 60 },
+		{ 8.4, 20.8, 51.6 },
+		{ 10.4, 26.8, 49.6 },
+		{ -10.4, 26.8, 70.4 },
+		{ -12, 20.8, 60 },
+		{ -8.4, 20.8, 68.4 },
+		{ -14.8, 26.8, 60 },
+		{ -10.4, 26.8, 49.6 },
+		{ -8.4, 20.8, 51.6 },
+		{ 0, 20.8, 72 },
+		{ 0, 26.8, 74.8 },
+		{ 0, 20.8, 48 },
+		{ 0, 26.8, 45.2 },
+		{ 14, -16.8, 74 },
+		{ 20, -16.8, 60 },
+		{ 14, -16.8, 46 },
+		{ -14, -16.8, 74 },
+		{ -20, -16.8, 60 },
+		{ -14, -16.8, 46 },
+		{ 0, -16.8, 80 },
+		{ 0, -16.8, 40 },
+		{ 14, 16.8, 74 },
+		{ 20, 16.8, 60 },
+		{ 14, 16.8, 46 },
+		{ -14, 16.8, 74 },
+		{ -20, 16.8, 60 },
+		{ -14, 16.8, 46 },
+		{ 0, 16.8, 80 },
+		{ 0, 16.8, 40 },
+	}
+	Normals 48 {
+		{ 0.6405438, 0.4235651, 0.6405437 },
+		{ 0.9364994, -0.3506691, -3.436289E-9 },
+		{ 0.6634013, -0.3461174, 0.6634015 },
+		{ 0.9061831, 0.4228855, 2.070763E-9 },
+		{ 0.6405437, 0.4235651, -0.6405439 },
+		{ 0.6634013, -0.3461174, -0.6634015 },
+		{ -0.6634013, -0.3461174, 0.6634015 },
+		{ -0.9364994, -0.3506691, -3.436289E-9 },
+		{ -0.6405438, 0.4235651, 0.6405437 },
+		{ -0.9061831, 0.4228855, 2.070763E-9 },
+		{ -0.6634013, -0.3461174, -0.6634015 },
+		{ -0.6405437, 0.4235651, -0.6405439 },
+		{ -2.000855E-9, -0.3506691, 0.9364995 },
+		{ 3.687575E-9, 0.4228859, 0.906183 },
+		{ 3.436289E-9, -0.3506692, -0.9364994 },
+		{ -7.259461E-9, 0.4228854, -0.9061832 },
+		{ 0.6634013, 0.3461174, 0.6634015 },
+		{ 0.9364994, 0.3506691, -3.436289E-9 },
+		{ 0.6405438, -0.4235651, 0.6405437 },
+		{ 0.9061831, -0.4228855, 2.070763E-9 },
+		{ 0.6634013, 0.3461174, -0.6634015 },
+		{ 0.6405437, -0.4235651, -0.6405439 },
+		{ -0.6405438, -0.4235651, 0.6405437 },
+		{ -0.9364994, 0.3506691, -3.436289E-9 },
+		{ -0.6634013, 0.3461174, 0.6634015 },
+		{ -0.9061831, -0.4228855, 2.070763E-9 },
+		{ -0.6405437, -0.4235651, -0.6405439 },
+		{ -0.6634013, 0.3461174, -0.6634015 },
+		{ -2.000855E-9, 0.3506691, 0.9364995 },
+		{ 3.687575E-9, -0.4228859, 0.906183 },
+		{ 3.436289E-9, 0.3506692, -0.9364994 },
+		{ -7.259461E-9, -0.4228854, -0.9061832 },
+		{ 0.3187883, -0.8926074, 0.3187884 },
+		{ 0.4472136, -0.8944272, -2.002795E-9 },
+		{ 0.3187883, -0.8926074, -0.3187884 },
+		{ -0.3187883, -0.8926074, 0.3187884 },
+		{ -0.4472136, -0.8944272, -2.002795E-9 },
+		{ -0.3187883, -0.8926074, -0.3187884 },
+		{ 2.002795E-9, -0.8944272, 0.4472136 },
+		{ 2.002795E-9, -0.8944272, -0.4472136 },
+		{ 0.3187883, 0.8926074, 0.3187884 },
+		{ 0.4472136, 0.8944272, -2.002795E-9 },
+		{ 0.3187883, 0.8926074, -0.3187884 },
+		{ -0.3187883, 0.8926074, 0.3187884 },
+		{ -0.4472136, 0.8944272, -2.002795E-9 },
+		{ -0.3187883, 0.8926074, -0.3187884 },
+		{ 2.002795E-9, 0.8944272, 0.4472136 },
+		{ 2.002795E-9, 0.8944272, -0.4472136 },
+	}
+	TVertices 48 {
+		{ 0.296465, 0.260742 },
+		{ 0.373852, 0.36839 },
+		{ 0.368567, 0.24821 },
+		{ 0.306581, 0.35148 },
+		{ 0.296465, 0.260742 },
+		{ 0.368567, 0.24821 },
+		{ 0.368567, 0.24821 },
+		{ 0.373852, 0.36839 },
+		{ 0.296465, 0.260742 },
+		{ 0.306581, 0.35148 },
+		{ 0.368567, 0.24821 },
+		{ 0.296465, 0.260742 },
+		{ 0.373852, 0.36839 },
+		{ 0.306581, 0.35148 },
+		{ 0.373852, 0.36839 },
+		{ 0.306581, 0.35148 },
+		{ 0.368567, 0.24821 },
+		{ 0.373852, 0.36839 },
+		{ 0.296465, 0.260742 },
+		{ 0.306581, 0.35148 },
+		{ 0.368567, 0.24821 },
+		{ 0.296465, 0.260742 },
+		{ 0.296465, 0.260742 },
+		{ 0.373852, 0.36839 },
+		{ 0.368567, 0.24821 },
+		{ 0.306581, 0.35148 },
+		{ 0.296465, 0.260742 },
+		{ 0.368567, 0.24821 },
+		{ 0.373852, 0.36839 },
+		{ 0.306581, 0.35148 },
+		{ 0.373852, 0.36839 },
+		{ 0.306581, 0.35148 },
+		{ 0.296465, 0.260742 },
+		{ 0.306581, 0.35148 },
+		{ 0.296465, 0.260742 },
+		{ 0.296465, 0.260742 },
+		{ 0.306581, 0.35148 },
+		{ 0.296465, 0.260742 },
+		{ 0.306581, 0.35148 },
+		{ 0.306581, 0.35148 },
+		{ 0.296465, 0.260742 },
+		{ 0.306581, 0.35148 },
+		{ 0.296465, 0.260742 },
+		{ 0.296465, 0.260742 },
+		{ 0.306581, 0.35148 },
+		{ 0.296465, 0.260742 },
+		{ 0.306581, 0.35148 },
+		{ 0.306581, 0.35148 },
+	}
+	VertexGroup {
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+	}
+	Faces 1 192 {
+		Triangles {
+			{ 0, 1, 2, 3, 1, 0, 4, 5, 1, 4, 1, 3, 6, 7, 8, 8, 7, 9, 7, 10, 11, 9, 7, 11, 8, 12, 6, 13, 12, 8, 0, 2, 12, 0, 12, 13, 10, 14, 11, 11, 14, 15, 14, 5, 4, 15, 14, 4, 16, 17, 18, 18, 17, 19, 17, 20, 21, 19, 17, 21, 22, 23, 24, 25, 23, 22, 26, 27, 23, 26, 23, 25, 24, 28, 22, 22, 28, 29, 28, 16, 18, 29, 28, 18, 26, 30, 27, 31, 30, 26, 21, 20, 30, 21, 30, 31, 2, 1, 32, 32, 1, 33, 1, 5, 34, 33, 1, 34, 35, 7, 6, 36, 7, 35, 37, 10, 7, 37, 7, 36, 6, 12, 35, 35, 12, 38, 12, 2, 32, 38, 12, 32, 37, 14, 10, 39, 14, 37, 34, 5, 14, 34, 14, 39, 40, 17, 16, 41, 17, 40, 42, 20, 17, 42, 17, 41, 24, 23, 43, 43, 23, 44, 23, 27, 45, 44, 23, 45, 43, 28, 24, 46, 28, 43, 40, 16, 28, 40, 28, 46, 27, 30, 45, 45, 30, 47, 30, 20, 42, 47, 30, 42 },
+		}
+	}
+	Groups 1 1 {
+		Matrices { 1 },
+	}
+	MinimumExtent { -20, -26.8, 40 },
+	MaximumExtent { 20, 26.8, 80 },
+	BoundsRadius 77.92920,
+	Anim {
+		MinimumExtent { -20, -26.79999924, 40 },
+		MaximumExtent { 20, 26.8, 80 },
+		BoundsRadius 77.9292,
+	}
+	Anim {
+		MinimumExtent { -20, -26.79999924, 40 },
+		MaximumExtent { 20, 26.8, 80 },
+		BoundsRadius 77.9292,
+	}
+	Anim {
+		MinimumExtent { -20, -26.79999924, 40 },
+		MaximumExtent { 20, 26.8, 80 },
+		BoundsRadius 77.9292,
+	}
+	Anim {
+		MinimumExtent { -20, -26.79999924, 40 },
+		MaximumExtent { 20, 26.8, 80 },
+		BoundsRadius 77.9292,
+	}
+	MaterialID 1,
+	SelectionGroup 0,
+}
+Geoset {
+	Vertices 58 {
+		{ 0, 22.4, 60 },
+		{ 0, 20.8, 72 },
+		{ 8.4, 20.8, 68.4 },
+		{ 0, -22.4, 60 },
+		{ 8.4, -20.8, 68.4 },
+		{ 0, -20.8, 72 },
+		{ 12, 20.8, 60 },
+		{ 12, -20.8, 60 },
+		{ 8.4, 20.8, 51.6 },
+		{ 8.4, -20.8, 51.6 },
+		{ 0, 20.8, 48 },
+		{ 0, -20.8, 48 },
+		{ -8.4, 20.8, 51.6 },
+		{ -8.4, -20.8, 51.6 },
+		{ -12, 20.8, 60 },
+		{ -12, -20.8, 60 },
+		{ -8.4, 20.8, 68.4 },
+		{ -8.4, -20.8, 68.4 },
+		{ 0, 20.8, 72 },
+		{ 0, 12, 80.8 },
+		{ 14.8, 12, 74.8 },
+		{ 8.4, 20.8, 68.4 },
+		{ 12, 20.8, 60 },
+		{ 20.8, 12, 60 },
+		{ 14.8, 12, 45.2 },
+		{ 8.4, 20.8, 51.6 },
+		{ 0, 20.8, 48 },
+		{ 0, 12, 39.2 },
+		{ -14.8, 12, 45.2 },
+		{ -8.4, 20.8, 51.6 },
+		{ -12, 20.8, 60 },
+		{ -20.8, 12, 60 },
+		{ -14.8, 12, 74.8 },
+		{ -8.4, 20.8, 68.4 },
+		{ 0, -2E-6, 84 },
+		{ 17.2, -2E-6, 77.2 },
+		{ 24, -1E-6, 60 },
+		{ 17.2, -1E-6, 42.8 },
+		{ 0, 0, 36 },
+		{ -17.2, -1E-6, 42.8 },
+		{ -24, -1E-6, 60 },
+		{ -17.2, -2E-6, 77.2 },
+		{ 0, -12, 80.8 },
+		{ 14.8, -12, 74.8 },
+		{ 20.8, -12, 60 },
+		{ 14.8, -12, 45.2 },
+		{ 0, -12, 39.2 },
+		{ -14.8, -12, 45.2 },
+		{ -20.8, -12, 60 },
+		{ -14.8, -12, 74.8 },
+		{ 0, -20.8, 72 },
+		{ 8.4, -20.8, 68.4 },
+		{ 12, -20.8, 60 },
+		{ 8.4, -20.8, 51.6 },
+		{ 0, -20.8, 48 },
+		{ -8.4, -20.8, 51.6 },
+		{ -12, -20.8, 60 },
+		{ -8.4, -20.8, 68.4 },
+	}
+	Normals 58 {
+		{ 7.363833E-10, 1, -1.330711E-9 },
+		{ -9.049062E-10, 0.8986101, 0.4387481 },
+		{ 0.3092282, 0.8993085, 0.3092283 },
+		{ 7.363833E-10, -1, -1.330711E-9 },
+		{ 0.3092282, -0.8993085, 0.3092283 },
+		{ -9.049062E-10, -0.8986101, 0.4387481 },
+		{ 0.4387482, 0.8986101, -1.45528E-8 },
+		{ 0.4387482, -0.8986101, -1.45528E-8 },
+		{ 0.3092283, 0.8993084, -0.3092283 },
+		{ 0.3092283, -0.8993084, -0.3092283 },
+		{ -1.883385E-9, 0.89861, -0.4387482 },
+		{ -1.883385E-9, -0.89861, -0.4387482 },
+		{ -0.3092283, 0.8993084, -0.3092283 },
+		{ -0.3092283, -0.8993084, -0.3092283 },
+		{ -0.4387482, 0.8986101, -1.676572E-8 },
+		{ -0.4387482, -0.8986101, -1.676572E-8 },
+		{ -0.3092282, 0.8993085, 0.3092283 },
+		{ -0.3092282, -0.8993085, 0.3092283 },
+		{ -9.049062E-10, 0.8986101, 0.4387481 },
+		{ -2.736117E-9, 0.5031866, 0.8641778 },
+		{ 0.6077085, 0.5112543, 0.6077085 },
+		{ 0.3092282, 0.8993085, 0.3092283 },
+		{ 0.4387482, 0.8986101, -1.45528E-8 },
+		{ 0.8641778, 0.5031866, -4.395492E-8 },
+		{ 0.6077084, 0.5112543, -0.6077084 },
+		{ 0.3092283, 0.8993084, -0.3092283 },
+		{ -1.883385E-9, 0.89861, -0.4387482 },
+		{ -5.608803E-9, 0.5031867, -0.8641778 },
+		{ -0.6077084, 0.5112543, -0.6077084 },
+		{ -0.3092283, 0.8993084, -0.3092283 },
+		{ -0.4387482, 0.8986101, -1.676572E-8 },
+		{ -0.8641778, 0.5031866, -5.25629E-8 },
+		{ -0.6077085, 0.5112542, 0.6077085 },
+		{ -0.3092282, 0.8993085, 0.3092283 },
+		{ 2.805105E-10, -3.644645E-8, 1 },
+		{ 0.7071068, -3.21158E-8, 0.7071068 },
+		{ 1, -2.697512E-8, -1.434893E-9 },
+		{ 0.7071068, -3.41588E-8, -0.7071068 },
+		{ -1.056435E-8, -1.271631E-8, -1 },
+		{ -0.7071068, -2.949834E-8, -0.7071068 },
+		{ -1, -2.412709E-8, -2.447903E-9 },
+		{ -0.7071068, -3.632781E-8, 0.7071067 },
+		{ -9.51065E-10, -0.5031867, 0.8641778 },
+		{ 0.6077085, -0.5112543, 0.6077085 },
+		{ 0.8641778, -0.5031866, -4.668538E-8 },
+		{ 0.6077085, -0.5112543, -0.6077084 },
+		{ 5.497637E-9, -0.5031866, -0.8641778 },
+		{ -0.6077084, -0.5112543, -0.6077084 },
+		{ -0.8641778, -0.5031866, -5.070851E-8 },
+		{ -0.6077085, -0.5112543, 0.6077085 },
+		{ -9.049062E-10, -0.8986101, 0.4387481 },
+		{ 0.3092282, -0.8993085, 0.3092283 },
+		{ 0.4387482, -0.8986101, -1.45528E-8 },
+		{ 0.3092283, -0.8993084, -0.3092283 },
+		{ -1.883385E-9, -0.89861, -0.4387482 },
+		{ -0.3092283, -0.8993084, -0.3092283 },
+		{ -0.4387482, -0.8986101, -1.676572E-8 },
+		{ -0.3092282, -0.8993085, 0.3092283 },
+	}
+	TVertices 58 {
+		{ 0.362434, 0.561287 },
+		{ 0.490446, 0.544232 },
+		{ 0.455768, 0.661005 },
+		{ 0.362434, 0.561287 },
+		{ 0.455768, 0.661005 },
+		{ 0.490446, 0.544232 },
+		{ 0.490446, 0.544232 },
+		{ 0.490446, 0.544232 },
+		{ 0.455768, 0.661005 },
+		{ 0.455768, 0.661005 },
+		{ 0.490446, 0.544232 },
+		{ 0.490446, 0.544232 },
+		{ 0.455768, 0.661005 },
+		{ 0.455768, 0.661005 },
+		{ 0.490446, 0.544232 },
+		{ 0.490446, 0.544232 },
+		{ 0.455768, 0.661005 },
+		{ 0.455768, 0.661005 },
+		{ 0.972076, 0.451034 },
+		{ 0.909586, 0.451034 },
+		{ 0.909586, 0.559158 },
+		{ 0.972076, 0.559158 },
+		{ 0.972076, 0.451034 },
+		{ 0.909586, 0.451034 },
+		{ 0.909586, 0.559158 },
+		{ 0.972076, 0.559158 },
+		{ 0.972076, 0.451034 },
+		{ 0.909586, 0.451034 },
+		{ 0.909586, 0.559158 },
+		{ 0.972076, 0.559158 },
+		{ 0.972076, 0.451034 },
+		{ 0.909586, 0.451034 },
+		{ 0.909586, 0.559158 },
+		{ 0.972076, 0.559158 },
+		{ 0.847097, 0.451034 },
+		{ 0.847097, 0.559158 },
+		{ 0.847097, 0.451034 },
+		{ 0.847097, 0.559158 },
+		{ 0.847097, 0.451034 },
+		{ 0.847097, 0.559158 },
+		{ 0.847097, 0.451034 },
+		{ 0.847097, 0.559158 },
+		{ 0.909586, 0.451034 },
+		{ 0.909586, 0.559158 },
+		{ 0.909586, 0.451034 },
+		{ 0.909586, 0.559158 },
+		{ 0.909586, 0.451034 },
+		{ 0.909586, 0.559158 },
+		{ 0.909586, 0.451034 },
+		{ 0.909586, 0.559158 },
+		{ 0.972076, 0.451034 },
+		{ 0.972076, 0.559158 },
+		{ 0.972076, 0.451034 },
+		{ 0.972076, 0.559158 },
+		{ 0.972076, 0.451034 },
+		{ 0.972076, 0.559158 },
+		{ 0.972076, 0.451034 },
+		{ 0.972076, 0.559158 },
+	}
+	VertexGroup {
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+	}
+	Faces 1 240 {
+		Triangles {
+			{ 0, 1, 2, 3, 4, 5, 0, 2, 6, 3, 7, 4, 0, 6, 8, 3, 9, 7, 0, 8, 10, 3, 11, 9, 0, 10, 12, 3, 13, 11, 0, 12, 14, 3, 15, 13, 0, 14, 16, 3, 17, 15, 0, 16, 1, 3, 5, 17, 18, 19, 20, 18, 20, 21, 21, 20, 22, 20, 23, 22, 22, 23, 24, 22, 24, 25, 25, 24, 26, 24, 27, 26, 26, 27, 28, 26, 28, 29, 29, 28, 30, 28, 31, 30, 30, 31, 32, 30, 32, 33, 33, 32, 18, 32, 19, 18, 19, 34, 20, 34, 35, 20, 20, 35, 36, 20, 36, 23, 23, 36, 24, 36, 37, 24, 24, 37, 38, 24, 38, 27, 27, 38, 28, 38, 39, 28, 28, 39, 40, 28, 40, 31, 31, 40, 32, 40, 41, 32, 32, 41, 34, 32, 34, 19, 34, 42, 43, 34, 43, 35, 35, 43, 36, 43, 44, 36, 36, 44, 45, 36, 45, 37, 37, 45, 38, 45, 46, 38, 38, 46, 47, 38, 47, 39, 39, 47, 40, 47, 48, 40, 40, 48, 49, 40, 49, 41, 41, 49, 34, 49, 42, 34, 42, 50, 43, 50, 51, 43, 43, 51, 52, 43, 52, 44, 44, 52, 45, 52, 53, 45, 45, 53, 54, 45, 54, 46, 46, 54, 47, 54, 55, 47, 47, 55, 56, 47, 56, 48, 48, 56, 49, 56, 57, 49, 49, 57, 50, 49, 50, 42 },
+		}
+	}
+	Groups 1 1 {
+		Matrices { 1 },
+	}
+	MinimumExtent { -24, -22.4, 36 },
+	MaximumExtent { 24, 22.4, 84 },
+	BoundsRadius 81.33289,
+	Anim {
+		MinimumExtent { -24, -22.39999962, 36 },
+		MaximumExtent { 24, 22.4, 84 },
+		BoundsRadius 81.33289,
+	}
+	Anim {
+		MinimumExtent { -24, -22.39999962, 36 },
+		MaximumExtent { 24, 22.4, 84 },
+		BoundsRadius 81.33289,
+	}
+	Anim {
+		MinimumExtent { -24, -22.39999962, 36 },
+		MaximumExtent { 24, 22.4, 84 },
+		BoundsRadius 81.33289,
+	}
+	Anim {
+		MinimumExtent { -24, -22.39999962, 36 },
+		MaximumExtent { 24, 22.4, 84 },
+		BoundsRadius 81.33289,
+	}
+	MaterialID 3,
+	SelectionGroup 0,
+}
+Geoset {
+	Vertices 4 {
+		{ 0, -43.6, 103.6 },
+		{ 0, -43.6, 16.4 },
+		{ 0, 43.6, 16.4 },
+		{ 0, 43.6, 103.6 },
+	}
+	Normals 4 {
+		{ 1, 0, 0 },
+		{ 1, 0, 0 },
+		{ 1, 0, 0 },
+		{ 1, 0, 0 },
+	}
+	TVertices 4 {
+		{ 0, 0 },
+		{ 0, 1 },
+		{ 1, 1 },
+		{ 1, 0 },
+	}
+	VertexGroup {
+		0,
+		0,
+		0,
+		0,
+	}
+	Faces 1 6 {
+		Triangles {
+			{ 0, 1, 2, 0, 2, 3 },
+		}
+	}
+	Groups 1 1 {
+		Matrices { 2 },
+	}
+	MinimumExtent { 0, -43.6, 16.4 },
+	MaximumExtent { 0, 43.6, 103.6 },
+	BoundsRadius 123.31942,
+	Anim {
+		MinimumExtent { 0, -43.59999847, 16.39999962 },
+		MaximumExtent { 0, 43.6, 103.6 },
+		BoundsRadius 123.3194,
+	}
+	Anim {
+		MinimumExtent { 0, -43.59999847, 16.39999962 },
+		MaximumExtent { 0, 43.6, 103.6 },
+		BoundsRadius 123.3194,
+	}
+	Anim {
+		MinimumExtent { 0, -43.59999847, 16.39999962 },
+		MaximumExtent { 0, 43.6, 103.6 },
+		BoundsRadius 123.3194,
+	}
+	Anim {
+		MinimumExtent { 0, -43.59999847, 16.39999962 },
+		MaximumExtent { 0, 43.6, 103.6 },
+		BoundsRadius 123.3194,
+	}
+	MaterialID 2,
+	SelectionGroup 0,
+}
+Geoset {
+	Vertices 4 {
+		{ 40, 40, 2.4 },
+		{ -40, 40, 2.4 },
+		{ -40, -40, 2.4 },
+		{ 40, -40, 2.4 },
+	}
+	Normals 4 {
+		{ 0, 0, 1 },
+		{ 0, 0, 1 },
+		{ 0, 0, 1 },
+		{ 0, 0, 1 },
+	}
+	TVertices 4 {
+		{ 0, 0 },
+		{ 0, 1 },
+		{ 1, 1 },
+		{ 1, 0 },
+	}
+	VertexGroup {
+		0,
+		0,
+		0,
+		0,
+	}
+	Faces 1 6 {
+		Triangles {
+			{ 0, 1, 2, 0, 2, 3 },
+		}
+	}
+	Groups 1 1 {
+		Matrices { 4 },
+	}
+	MinimumExtent { -40, -40, 2.4 },
+	MaximumExtent { 40, 40, 2.4 },
+	BoundsRadius 113.13708,
+	Anim {
+		MinimumExtent { -40, -40, 2.400000095 },
+		MaximumExtent { 40, 40, 2.4 },
+		BoundsRadius 113.1371,
+	}
+	Anim {
+		MinimumExtent { -40, -40, 2.400000095 },
+		MaximumExtent { 40, 40, 2.4 },
+		BoundsRadius 113.1371,
+	}
+	Anim {
+		MinimumExtent { -40, -40, 2.400000095 },
+		MaximumExtent { 40, 40, 2.4 },
+		BoundsRadius 113.1371,
+	}
+	Anim {
+		MinimumExtent { -40, -40, 2.400000095 },
+		MaximumExtent { 40, 40, 2.4 },
+		BoundsRadius 113.1371,
+	}
+	MaterialID 0,
+	SelectionGroup 0,
+}
+Geoset {
+	Vertices 4 {
+		{ 0.4, -47.9416, 107.941 },
+		{ 0.4, -47.9416, 12.0584 },
+		{ 0.4, 47.9416, 12.0584 },
+		{ 0.4, 47.9416, 107.941 },
+	}
+	Normals 4 {
+		{ 1, 0, 0 },
+		{ 1, 0, 0 },
+		{ 1, 0, 0 },
+		{ 1, 0, 0 },
+	}
+	TVertices 4 {
+		{ 0, 0 },
+		{ 0, 1 },
+		{ 1, 1 },
+		{ 1, 0 },
+	}
+	VertexGroup {
+		0,
+		0,
+		0,
+		0,
+	}
+	Faces 1 6 {
+		Triangles {
+			{ 0, 1, 2, 0, 2, 3 },
+		}
+	}
+	Groups 1 1 {
+		Matrices { 2 },
+	}
+	MinimumExtent { 0.400000006, -47.9416, 12.0584 },
+	MaximumExtent { 0.400000006, 47.9416, 107.941 },
+	BoundsRadius 135.59891,
+	Anim {
+		MinimumExtent { 0.400000006, -47.9416008, 12.05840015 },
+		MaximumExtent { 0.4, 47.9416, 107.941 },
+		BoundsRadius 135.5989,
+	}
+	Anim {
+		MinimumExtent { 0.400000006, -47.9416008, 12.05840015 },
+		MaximumExtent { 0.4, 47.9416, 107.941 },
+		BoundsRadius 135.5989,
+	}
+	Anim {
+		MinimumExtent { 0.400000006, -47.9416008, 12.05840015 },
+		MaximumExtent { 0.4, 47.9416, 107.941 },
+		BoundsRadius 135.5989,
+	}
+	Anim {
+		MinimumExtent { 0.400000006, -47.9416008, 12.05840015 },
+		MaximumExtent { 0.4, 47.9416, 107.941 },
+		BoundsRadius 135.5989,
+	}
+	MaterialID 4,
+	SelectionGroup 0,
+}
+Geoset {
+	Vertices 4 {
+		{ 0.4, -14.8, 74.8 },
+		{ 0.4, -14.8, 45.6 },
+		{ 0.4, 14.4, 45.6 },
+		{ 0.4, 14.4, 74.8 },
+	}
+	Normals 4 {
+		{ 1, 0, 0 },
+		{ 1, 0, 0 },
+		{ 1, 0, 0 },
+		{ 1, 0, 0 },
+	}
+	TVertices 4 {
+		{ 0.0625, 0.0625 },
+		{ 0.0625, 0.9375 },
+		{ 0.9375, 0.9375 },
+		{ 0.9375, 0.0625 },
+	}
+	VertexGroup {
+		0,
+		0,
+		0,
+		0,
+	}
+	Faces 1 6 {
+		Triangles {
+			{ 0, 1, 2, 0, 2, 3 },
+		}
+	}
+	Groups 1 1 {
+		Matrices { 2 },
+	}
+	MinimumExtent { 0.400000006, -14.8, 45.6 },
+	MaximumExtent { 0.400000006, 14.4, 74.8 },
+	BoundsRadius 41.29504,
+	Anim {
+		MinimumExtent { 0.400000006, -14.80000019, 45.59999847 },
+		MaximumExtent { 0.4, 14.4, 74.8 },
+		BoundsRadius 41.29504,
+	}
+	Anim {
+		MinimumExtent { 0.400000006, -14.80000019, 45.59999847 },
+		MaximumExtent { 0.4, 14.4, 74.8 },
+		BoundsRadius 41.29504,
+	}
+	Anim {
+		MinimumExtent { 0.400000006, -14.80000019, 45.59999847 },
+		MaximumExtent { 0.4, 14.4, 74.8 },
+		BoundsRadius 41.29504,
+	}
+	Anim {
+		MinimumExtent { 0.400000006, -14.80000019, 45.59999847 },
+		MaximumExtent { 0.4, 14.4, 74.8 },
+		BoundsRadius 41.29504,
+	}
+	MaterialID 5,
+	SelectionGroup 0,
+}
+GeosetAnim {
+	Alpha 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 1,
+		11000: 0,
+	}
+	GeosetId 0,
+}
+GeosetAnim {
+	Alpha 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 1,
+		11000: 0,
+	}
+	GeosetId 1,
+}
+GeosetAnim {
+	Alpha 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 1,
+		11000: 0,
+	}
+	static Color { 0.25098, 0.501961, 1 },
+	GeosetId 2,
+}
+GeosetAnim {
+	Alpha 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 1,
+		11000: 0,
+	}
+	static Color { 1, 1, 1 },
+	GeosetId 3,
+}
+GeosetAnim {
+	Alpha 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 1,
+		11000: 0,
+	}
+	static Color { 0.25098, 0.501961, 1 },
+	GeosetId 4,
+}
+GeosetAnim {
+	Alpha 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 1,
+		11000: 0,
+	}
+	static Color { 1, 1, 1 },
+	GeosetId 5,
+}
+Bone "0_Origin" {
+	ObjectId 0,
+	Parent 9,
+	GeosetId Multiple,
+	GeosetAnimId None,
+}
+Bone "1_Orb_Main" {
+	ObjectId 1,
+	Parent 0,
+	GeosetId Multiple,
+	GeosetAnimId None,
+	Translation 5 {
+		Linear,
+		0: { 0, 0, 0 },
+		750: { 0, 0, -4 },
+		1500: { 0, 0, 0 },
+		2250: { 0, 0, 4 },
+		3000: { 0, 0, 0 },
+	}
+	Rotation 5 {
+		Linear,
+		GlobalSeqId 0,
+		0: { 0, 0, 0, 1 },
+		1500: { 0, -0.707107, 0, 0.707107 },
+		3000: { 0, -1, 0, 0 },
+		4550: { 0, -0.707107, 0, -0.707107 },
+		6000: { 0, 0, 0, 1 },
+	}
+	Scaling 3 {
+		Linear,
+		10000: { 1, 1, 1 },
+		10250: { 0, 0, 0 },
+		11000: { 0, 0, 0 },
+	}
+}
+Bone "2_Symbol" {
+	ObjectId 2,
+	Parent 1,
+	Billboarded,
+	GeosetId Multiple,
+	GeosetAnimId None,
+}
+Bone "3_Glows" {
+	ObjectId 3,
+	Parent 1,
+	Billboarded,
+	GeosetId Multiple,
+	GeosetAnimId None,
+}
+Bone "4_Shadow" {
+	ObjectId 4,
+	Parent 0,
+	BillboardedLockZ,
+	GeosetId Multiple,
+	GeosetAnimId None,
+}
+Bone "5_Ribbon_Heading" {
+	ObjectId 5,
+	Parent 8,
+	GeosetId Multiple,
+	GeosetAnimId None,
+	Rotation 5 {
+		Linear,
+		GlobalSeqId 1,
+		0: { 0, 0, 0, 1 },
+		1000: { 0, 0, 0.707107, 0.707107 },
+		2000: { 0, 0, 1, 0 },
+		3000: { 0, 0, 0.707107, -0.707107 },
+		4000: { 0, 0, 0, 1 },
+	}
+}
+Bone "6_Ribbon_Bank" {
+	ObjectId 6,
+	Parent 8,
+	GeosetId Multiple,
+	GeosetAnimId None,
+	Rotation 5 {
+		Linear,
+		GlobalSeqId 1,
+		0: { 0, 0, 0, 1 },
+		1000: { 0.707107, 0, 0, 0.707107 },
+		2000: { 1, 0, 0, 0 },
+		3000: { 0.707107, 0, 0, -0.707107 },
+		4000: { 0, 0, 0, 1 },
+	}
+}
+Bone "7_Ribbon_Attitude" {
+	ObjectId 7,
+	Parent 8,
+	GeosetId Multiple,
+	GeosetAnimId None,
+	Rotation 5 {
+		Linear,
+		GlobalSeqId 1,
+		0: { 0, 0, 0, 1 },
+		1000: { 0, 0.707107, 0, 0.707107 },
+		2000: { 0, 1, 0, 0 },
+		3000: { 0, 0.707107, 0, -0.707107 },
+		4000: { 0, 0, 0, 1 },
+	}
+}
+Bone "8_Ribbon_Base" {
+	ObjectId 8,
+	Parent 0,
+	GeosetId Multiple,
+	GeosetAnimId None,
+	Rotation 2 {
+		DontInterp,
+		GlobalSeqId 2,
+		0: { 0.382683, 0, 0, 0.92388 },
+		100: { 0.382683, 0, 0, 0.92388 },
+	}
+}
+Helper "Root" {
+	ObjectId 9,
+}
+Attachment "Chest Ref " {
+	ObjectId 10,
+	Parent 1,
+	AttachmentID 0,
+}
+Attachment "Origin Ref " {
+	ObjectId 11,
+	Parent 9,
+	AttachmentID 1,
+}
+Attachment "Overhead Ref " {
+	ObjectId 12,
+	Parent 9,
+	AttachmentID 2,
+}
+PivotPoints 24 {
+	{ 0, 0, 0 },
+	{ 0, 0, 60 },
+	{ 0.4, 0, 60 },
+	{ 0, 0, 60 },
+	{ 0, 0, 2.4 },
+	{ 0, 0, 60 },
+	{ 0, 0, 60 },
+	{ 0, 0, 60 },
+	{ 0, 0, 60 },
+	{ 0, 0, 0 },
+	{ 0, 0, 60 },
+	{ 0, 0, 1.2 },
+	{ 0, 0, 96 },
+	{ 0, -21.2, 60 },
+	{ 0, 21.2, 60 },
+	{ 0, -21.2, 60 },
+	{ 0, 21.2, 60 },
+	{ 0, -21.2, 60 },
+	{ 0, 21.2, 60 },
+	{ 0, 35, 60 },
+	{ 0, 35, 60 },
+	{ 0, 0, 95 },
+	{ 0, 0, 1.2 },
+	{ 0, 0, 0 },
+}
+ParticleEmitter2 "GenericGlow64_Right" {
+	ObjectId 13,
+	Parent 1,
+	Unshaded,
+	Unfogged,
+	static Speed 75,
+	static Variation 0.08,
+	static Latitude 0,
+	static Gravity -24,
+	Visibility 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 0,
+		11000: 0,
+	}
+	LifeSpan 0.2,
+	static EmissionRate 20,
+	static Width 20,
+	static Length 20,
+	Additive,
+	Rows 1,
+	Columns 1,
+	Head,
+	TailLength 0.35,
+	Time 0,
+	SegmentColor {
+		Color { 0, 0.501961, 1 },
+		Color { 0.054902, 0.729412, 0.996078 },
+		Color { 0.615686, 0.894118, 1 },
+	},
+	Alpha {50, 35, 25},
+	ParticleScaling {12, 8, 2.4},
+	LifeSpanUVAnim {0, 32, 1},
+	DecayUVAnim {33, 64, 1},
+	TailUVAnim {0, 0, 1},
+	TailDecayUVAnim {0, 0, 1},
+	TextureID 7,
+	Rotation 2 {
+		DontInterp,
+		GlobalSeqId 2,
+		0: { 0.707107, 0, 0, 0.707107 },
+		100: { 0.707107, 0, 0, 0.707107 },
+	}
+}
+ParticleEmitter2 "GenericGlow64_Left" {
+	ObjectId 14,
+	Parent 1,
+	Unshaded,
+	Unfogged,
+	static Speed 75,
+	static Variation 0.08,
+	static Latitude 0,
+	static Gravity -24,
+	Visibility 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 0,
+		11000: 0,
+	}
+	LifeSpan 0.2,
+	static EmissionRate 20,
+	static Width 20,
+	static Length 20,
+	Additive,
+	Rows 1,
+	Columns 1,
+	Head,
+	TailLength 0.35,
+	Time 0,
+	SegmentColor {
+		Color { 0, 0.501961, 1 },
+		Color { 0.054902, 0.729412, 0.996078 },
+		Color { 0.615686, 0.894118, 1 },
+	},
+	Alpha {50, 35, 25},
+	ParticleScaling {12, 8, 2.4},
+	LifeSpanUVAnim {0, 32, 1},
+	DecayUVAnim {33, 64, 1},
+	TailUVAnim {0, 0, 1},
+	TailDecayUVAnim {0, 0, 1},
+	TextureID 7,
+	Rotation 2 {
+		DontInterp,
+		GlobalSeqId 2,
+		0: { -0.707107, 0, 0, 0.707107 },
+		100: { -0.707107, 0, 0, 0.707107 },
+	}
+}
+ParticleEmitter2 "Pixies_Right" {
+	ObjectId 15,
+	Parent 1,
+	Unshaded,
+	Unfogged,
+	static Speed 75,
+	static Variation 0.08,
+	static Latitude 0,
+	static Gravity -24,
+	Visibility 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 0,
+		11000: 0,
+	}
+	LifeSpan 0.25,
+	static EmissionRate 24,
+	static Width 20,
+	static Length 20,
+	Additive,
+	Rows 1,
+	Columns 1,
+	Head,
+	TailLength 0.35,
+	Time 0,
+	SegmentColor {
+		Color { 0, 0.501961, 1 },
+		Color { 0.054902, 0.729412, 0.996078 },
+		Color { 0.756863, 0.933333, 1 },
+	},
+	Alpha {150, 75, 50},
+	ParticleScaling {12, 8, 2},
+	LifeSpanUVAnim {0, 32, 1},
+	DecayUVAnim {33, 64, 1},
+	TailUVAnim {0, 0, 1},
+	TailDecayUVAnim {0, 0, 1},
+	TextureID 6,
+	Rotation 2 {
+		DontInterp,
+		GlobalSeqId 2,
+		0: { 0.707107, 0, 0, 0.707107 },
+		100: { 0.707107, 0, 0, 0.707107 },
+	}
+}
+ParticleEmitter2 "Pixies_Left" {
+	ObjectId 16,
+	Parent 1,
+	Unshaded,
+	Unfogged,
+	static Speed 75,
+	static Variation 0.08,
+	static Latitude 0,
+	static Gravity -24,
+	Visibility 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 0,
+		11000: 0,
+	}
+	LifeSpan 0.25,
+	static EmissionRate 24,
+	static Width 20,
+	static Length 20,
+	Additive,
+	Rows 1,
+	Columns 1,
+	Head,
+	TailLength 0.35,
+	Time 0,
+	SegmentColor {
+		Color { 0, 0.501961, 1 },
+		Color { 0.054902, 0.729412, 0.996078 },
+		Color { 0.756863, 0.933333, 1 },
+	},
+	Alpha {150, 75, 50},
+	ParticleScaling {12, 8, 2},
+	LifeSpanUVAnim {0, 32, 1},
+	DecayUVAnim {33, 64, 1},
+	TailUVAnim {0, 0, 1},
+	TailDecayUVAnim {0, 0, 1},
+	TextureID 6,
+	Rotation 2 {
+		DontInterp,
+		GlobalSeqId 2,
+		0: { -0.707107, 0, 0, 0.707107 },
+		100: { -0.707107, 0, 0, 0.707107 },
+	}
+}
+ParticleEmitter2 "DISBTNAdvancedUnholyStrength_Right" {
+	ObjectId 17,
+	Parent 1,
+	Unshaded,
+	Unfogged,
+	static Speed 75,
+	static Variation 0.08,
+	static Latitude 0,
+	static Gravity -24,
+	Visibility 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 0,
+		11000: 0,
+	}
+	LifeSpan 0.25,
+	static EmissionRate 20,
+	static Width 20,
+	static Length 20,
+	Additive,
+	Rows 1,
+	Columns 1,
+	Head,
+	TailLength 0.35,
+	Time 0,
+	SegmentColor {
+		Color { 0, 0.501961, 1 },
+		Color { 0.054902, 0.729412, 0.996078 },
+		Color { 0.717647, 0.921569, 1 },
+	},
+	Alpha {255, 175, 100},
+	ParticleScaling {12, 8, 2},
+	LifeSpanUVAnim {0, 32, 1},
+	DecayUVAnim {33, 64, 1},
+	TailUVAnim {0, 0, 1},
+	TailDecayUVAnim {0, 0, 1},
+	TextureID 10,
+	Rotation 2 {
+		DontInterp,
+		GlobalSeqId 2,
+		0: { 0.707107, 0, 0, 0.707107 },
+		100: { 0.707107, 0, 0, 0.707107 },
+	}
+}
+ParticleEmitter2 "DISBTNAdvancedUnholyStrength_Left" {
+	ObjectId 18,
+	Parent 1,
+	Unshaded,
+	Unfogged,
+	static Speed 75,
+	static Variation 0.08,
+	static Latitude 0,
+	static Gravity -24,
+	Visibility 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 0,
+		11000: 0,
+	}
+	LifeSpan 0.25,
+	static EmissionRate 20,
+	static Width 20,
+	static Length 20,
+	Additive,
+	Rows 1,
+	Columns 1,
+	Head,
+	TailLength 0.35,
+	Time 0,
+	SegmentColor {
+		Color { 0, 0.501961, 1 },
+		Color { 0.054902, 0.729412, 0.996078 },
+		Color { 0.717647, 0.921569, 1 },
+	},
+	Alpha {255, 175, 100},
+	ParticleScaling {12, 8, 2},
+	LifeSpanUVAnim {0, 32, 1},
+	DecayUVAnim {33, 64, 1},
+	TailUVAnim {0, 0, 1},
+	TailDecayUVAnim {0, 0, 1},
+	TextureID 10,
+	Rotation 2 {
+		DontInterp,
+		GlobalSeqId 2,
+		0: { -0.707107, 0, 0, 0.707107 },
+		100: { -0.707107, 0, 0, 0.707107 },
+	}
+}
+RibbonEmitter "Ribbon_1" {
+	ObjectId 19,
+	Parent 5,
+	static HeightAbove 5,
+	static HeightBelow 5,
+	static Alpha 1,
+	static Color { 0.054902, 0.729412, 0.996078 },
+	static TextureSlot 0,
+	Visibility 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 0,
+		11000: 0,
+	}
+	EmissionRate 32,
+	LifeSpan 2.4,
+	Gravity 0,
+	Rows 1,
+	Columns 1,
+	MaterialID 6,
+}
+RibbonEmitter "Ribbon_2" {
+	ObjectId 20,
+	Parent 6,
+	static HeightAbove 5,
+	static HeightBelow 5,
+	static Alpha 1,
+	static Color { 0.054902, 0.729412, 0.996078 },
+	static TextureSlot 0,
+	Visibility 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 0,
+		11000: 0,
+	}
+	EmissionRate 32,
+	LifeSpan 2.4,
+	Gravity 0,
+	Rows 1,
+	Columns 1,
+	MaterialID 6,
+}
+RibbonEmitter "Ribbon_3" {
+	ObjectId 21,
+	Parent 7,
+	static HeightAbove 5,
+	static HeightBelow 5,
+	static Alpha 1,
+	static Color { 0.054902, 0.729412, 0.996078 },
+	static TextureSlot 0,
+	Visibility 8 {
+		DontInterp,
+		0: 1,
+		3000: 1,
+		4000: 1,
+		7000: 1,
+		8000: 1,
+		9000: 1,
+		10000: 0,
+		11000: 0,
+	}
+	EmissionRate 32,
+	LifeSpan 2.4,
+	Gravity 0,
+	Rows 1,
+	Columns 1,
+	MaterialID 6,
+}
+Camera "Camera01" {
+	Position { 120, 0, 60 },
+	FieldOfView 0.785398,
+	FarClip 1000,
+	NearClip 8,
+	Target {
+		Position { 0, 0, 60 },
+	}
+}
+EventObject "SPNXTOBO" {
+	ObjectId 22,
+	Parent 9,
+	EventTrack 1 {
+		10000,
+	}
+}
+CollisionShape "Sphere_1" {
+	ObjectId 23,
+	Parent 0,
+	Sphere,
+	Vertices 1 {
+		{ 0, 0, 60 },
+	}
+	BoundsRadius 40,
+}

@@ -307,7 +307,6 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                         end
                         if GetDestructableTypeId(d) == FourCC("B008") then
                             --print("умерла ваза горшок в событии проверки")
-
                             normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", dx, dy, 60)
                             DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", dx, dy))
                             TimerStart(CreateTimer(), 0.6, false, function()
@@ -318,8 +317,9 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                         if GetDestructableTypeId(d) == FourCC("BTsc") then
                             local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", dx, dy)
                             DestroyEffect(eff)
+                            --print("смерть балки от рук"..GetUnitName(hero))
                             if hero then
-                                UnitDamageArea(hero, 500, dx, dy, 150)
+                                UnitDamageArea(hero, 1000, dx, dy, 300)
                             end
                         end
                     end

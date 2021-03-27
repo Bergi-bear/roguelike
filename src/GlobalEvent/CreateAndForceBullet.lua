@@ -190,7 +190,7 @@ function FindAnyAllyUnit(data, range)
         if e == nil then
             break
         end
-        if UnitAlive(e) and IsUnitAlly(e, Player(data.pid)) and not find and e ~= unit then
+        if UnitAlive(e) and IsUnitAlly(e, Player(data.pid)) and not find and e ~= unit and GetUnitLifePercent(e)<=99 then
             find = e
             --print("нашел")
         end

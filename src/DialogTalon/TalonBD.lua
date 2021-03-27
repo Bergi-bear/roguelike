@@ -174,7 +174,7 @@ do
                         Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSelfDestruct.blp",
                             name = L("Камикадзе", "Kamikaze"),
-                            description = L("Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз", "Any damage the hero deals while dead increases by DS times"),
+                            description = L("Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз, герой не умрёт и останется с 1 пунктом здоровья", "Any damage that the hero deals while dead increases by DS times, the hero will not die and will remain with 1 health point"),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
@@ -402,7 +402,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
-                            DS = { 30 }
+                            DS = { 50 }
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",

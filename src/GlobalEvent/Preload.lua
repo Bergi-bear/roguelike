@@ -8,7 +8,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         PreloadigLags()
-        TimerStart(CreateTimer(), 1.5, false, function()
+        TimerStart(CreateTimer(), 3.5, false, function()
             InitTrig_SyncLoadDone()
             InitPreloadStart()
             DestroyTimer(GetExpiredTimer())

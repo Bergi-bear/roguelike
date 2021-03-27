@@ -8,12 +8,12 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 1.5, false, function()
-            InitSmileActions()
+            EmotionSystem()
         end)
     end
 end
 
-function InitSmileActions()
+function EmotionSystem()
     -----------------------------------------------------------------ctrl+1
     local gg_trg_EventUp1 = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -42,6 +42,35 @@ function InitSmileActions()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
         data.Release1ctrl = false
+    end)
+        -----------------------------------------------------------------ctrl+2
+    local gg_trg_EventUp2 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(gg_trg_EventUp2, Player(i), OSKEY_2, 2, true)
+    end
+    TriggerAddAction(gg_trg_EventUp2, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        if not data.Release2ctrl and not data.ShowSmile2 and not data.ShowEmotion then
+            data.Release2ctrl = true
+            data.ShowSmile2 = true
+            data.ShowEmotion=true
+            local eff=AddSpecialEffectTarget("SystemGeneric\\Idea",data.UnitHero,"overhead")
+            TimerStart(CreateTimer(), 5, false, function()
+                DestroyEffect(eff)
+                data.ShowSmile2=false
+                data.ShowEmotion=false
+            end)
+        end
+    end)
+    local TrigDepress2 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigDepress2, Player(i), OSKEY_2, 2, false)
+    end
+    TriggerAddAction(TrigDepress2, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        data.Release2ctrl = false
     end)
 
     -----------------------------------------------------------------ONLY CTRL

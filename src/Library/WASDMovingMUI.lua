@@ -616,7 +616,11 @@ function CreateWASDActions()
 
                 UnitAddForceSimple(data.UnitHero, data.DirectionMove, 25, dist, "ignore")
                 data.SpaceForce = true
-                local eff = AddSpecialEffectTarget("Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul", data.UnitHero, "origin")
+                local effModel="Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul"
+                if data.IframesOnDash then
+                    effModel="SystemGeneric\\InkMissile.mdx"
+                end
+                local eff = AddSpecialEffectTarget(effModel, data.UnitHero, "origin")
 
                 TimerStart(CreateTimer(), delay, false, function()
                     DestroyEffect(eff)
@@ -1209,6 +1213,11 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         local ally = FindAnyAllyUnit(data, 200)
                         if ally then
                             --есть кого полечить
+                            --Abilities\Spells\Human\HolyBolt\HolyBoltSpecialArt.mdl
+                            local effHeal=AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl",GetUnitXY(hero))
+                            BlzSetSpecialEffectYaw(effHeal,math.rad(angle))
+                            BlzSetSpecialEffectPitch(effHeal, math.rad(-90))
+                            DestroyEffect(effHeal)
                             local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][1]
                             local cd = talon.DS[talon.level]
                             StartFrameCD(cd, data.HealDashAllyCDFH)
@@ -1609,6 +1618,11 @@ function PlayUnitAnimationFromChat()
         if GetEventPlayerChatString() == "dnc6" then
             SetDayNightModels("dncundergroundterrainHDmdl6", "dncundergroundterrainHDmdl6")
             print("dnc6")
+            return
+        end
+        if GetEventPlayerChatString() == "life" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "Life")
             return
         end
         SetUnitAnimationByIndex(data.UnitHero, s)

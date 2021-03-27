@@ -8,42 +8,42 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
-           InitEvenDestructable() --Кто угодно убивает декор
+            InitEvenDestructable() --Кто угодно убивает декор
             DestroyTimer(GetExpiredTimer())
         end)
     end
 end
 function InitEvenDestructable()
-    local thisTrigger=CreateTrigger()
-    local k=0
-    EnumDestructablesInRect(bj_mapInitialPlayableArea,nil,function()
-        local d=GetEnumDestructable()
+    local thisTrigger = CreateTrigger()
+    local k = 0
+    EnumDestructablesInRect(bj_mapInitialPlayableArea, nil, function()
+        local d = GetEnumDestructable()
 
-        if GetDestructableTypeId(d)==FourCC("B004")  or GetDestructableTypeId(d)==FourCC("B008") then
-            k=k+1
+        if GetDestructableTypeId(d) == FourCC("B004") or GetDestructableTypeId(d) == FourCC("B008") then
+            k = k + 1
         end
-        TriggerRegisterDeathEvent(thisTrigger,d)
+        TriggerRegisterDeathEvent(thisTrigger, d)
     end)
-    TriggerAddAction(thisTrigger,function()
-        local d=GetDyingDestructable()
-        local r=GetRandomInt(1,2)
-        if GetRandomInt(1,2)==1 then
-            if  GetDestructableTypeId(d)==FourCC("B004") then
+    TriggerAddAction(thisTrigger, function()
+        local d = GetDyingDestructable()
+        local r = GetRandomInt(1, 2)
+        if GetRandomInt(1, 2) == 1 then
+            if GetDestructableTypeId(d) == FourCC("B004") then
                 -- print("умер ящик, создаём мимика")
-                local new=CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
+                local new = CreateUnit(Player(10), FourCC("n000"), GetDestructableX(d), GetDestructableY(d), 0)
             end
-            if  GetDestructableTypeId(d)==FourCC("B008") then
-                --print("умерла ваза")
-                local x,y=GetDestructableX(d),GetDestructableY(d)
-                DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",x,y))
-                TimerStart(CreateTimer(), 0.6, false, function()
-                    RemoveDestructable(d)
-                    DestroyTimer(GetExpiredTimer())
-                end)
-            end
-        else
-
         end
+
+        if GetDestructableTypeId(d) == FourCC("B008") then
+            --print("умерла ваза")
+            local x, y = GetDestructableX(d), GetDestructableY(d)
+            DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", x, y))
+            TimerStart(CreateTimer(), 0.6, false, function()
+                RemoveDestructable(d)
+                DestroyTimer(GetExpiredTimer())
+            end)
+        end
+
     end)
-        --print("Всего мимиков будет:"..k)
+    --print("Всего мимиков будет:"..k)
 end

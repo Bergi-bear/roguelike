@@ -97,6 +97,19 @@ function StoneUnStone(unit)
                 if enemy then
                     IssuePointOrder(unit, "attack", x, y)
                 end
+                if IsUnitInRange(unit, enemy, 250) then
+                    if IssueImmediateOrder(unit, "stoneform") then
+                        -- print("приземление")
+                        CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, GetUnitXY(unit))
+                        TimerStart(CreateTimer(), 1, false, function()
+                            if UnitAlive(unit) then
+                                local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", GetUnitXY(unit))
+                                DestroyEffect(eff)
+                                UnitDamageArea(unit, 150, GetUnitX(unit), GetUnitY(unit), 150)
+                            end
+                        end)
+                    end
+                end
             end
             if GetUnitLifePercent(unit) < 50 then
                 if IssueImmediateOrder(unit, "stoneform") then
@@ -106,11 +119,9 @@ function StoneUnStone(unit)
                         if UnitAlive(unit) then
                             local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", GetUnitXY(unit))
                             DestroyEffect(eff)
-                            UnitDamageArea(unit,150,GetUnitX(unit),GetUnitY(unit),150)
+                            UnitDamageArea(unit, 150, GetUnitX(unit), GetUnitY(unit), 150)
                         end
                     end)
-                else
-                    --print("ошибка каменной формы")
                 end
             end
             if GetUnitLifePercent(unit) > 90 then
