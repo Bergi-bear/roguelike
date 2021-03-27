@@ -8,7 +8,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
-           InitEvenDestructable() --этот триггер не работает
+           InitEvenDestructable() --Кто угодно убивает декор
             DestroyTimer(GetExpiredTimer())
         end)
     end
@@ -33,7 +33,7 @@ function InitEvenDestructable()
                 local new=CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
             end
             if  GetDestructableTypeId(d)==FourCC("B008") then
-                --print("умер горшок")
+                --print("умерла ваза")
                 local x,y=GetDestructableX(d),GetDestructableY(d)
                 DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",x,y))
                 TimerStart(CreateTimer(), 0.6, false, function()

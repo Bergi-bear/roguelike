@@ -10,6 +10,13 @@ function AddGold(data,amount)
     data.gold=data.gold+amount
     BlzFrameSetText(data.GoldTextFH,R2I(data.gold))
 end
+function AddChaos(data,amount)
+    if not data.chaosPoint then
+        data.chaosPoint=0
+    end
+    data.chaosPoint=data.chaosPoint+amount
+    BlzFrameSetText(data.ChaosTextFH,R2I(data.chaosPoint))
+end
 
 function RewardGoldForKill(hero)
     UnitAddGold(hero,1)

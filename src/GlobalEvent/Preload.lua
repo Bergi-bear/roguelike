@@ -8,7 +8,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         PreloadigLags()
-        TimerStart(CreateTimer(), 1, false, function()
+        TimerStart(CreateTimer(), 1.5, false, function()
             InitTrig_SyncLoadDone()
             InitPreloadStart()
             DestroyTimer(GetExpiredTimer())
@@ -38,35 +38,27 @@ function InitPreloadStart()
     TimerStart(CreateTimer(), .2, true, function()
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
             local data = HERO[i]
-            local restoreGold = 0
-            --print("Обработка игрока " .. i)
-
-            --if #(udg_LoadCode[i]) > 10 then
-            --    udg_LoadCode[i]=50
-            --    print("FirstGame")
-            --end
             if not udg_LoadCode[i] then
                 udg_LoadCode[i] = 50
+                LoadedGameCount[i] = 0
+                LoadedChaos[i]=0
             end
-
-            --restoreGold = SyncString(Player(i), I2S(s)) -- ЭТА СТРОЧКА КРАШИТ ВАР
-
-            --print(i)
-            --TimerStart(CreateTimer(), 0.1, false, function()
-            --print("итоговое значение для "..i)
-            --print(udg_LoadCode[i])
-            --print(GetPlayerName(Player(i)) .. " перенес золота из прошлой игры " ..(udg_LoadCode[i]))
 
             if udg_LoadCode[i] then
                 if tonumber(LoadedGold[i]) then
                 else
                     LoadedGold[i] = 50
                     LoadedGameCount[i] = 0
+                    LoadedChaos[i]=0
                     --print("FirstGame")
                 end
                 print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ","Number of completed games") .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
+                if LoadedGameCount[i]>2 then
+                    AllCompletedForPlayer(i)
+                end
                 UnitAddGold(data.UnitHero, LoadedGold[i])
+                AddChaos(data,LoadedChaos[i])
             else
                 --i=i-1
             end
@@ -81,22 +73,11 @@ function InitPreloadStart()
 
 end
 
-function SyncString(p, val)
-    if (GetLocalPlayer() == p) then
-        StoreString(cache, "", "", val)
-    end
-    TriggerSyncStart()
-    if (GetLocalPlayer() == p) then
-        SyncStoredString(cache, "", "")
-    end
-    TriggerSleepAction(2) -- меньшнее   значение    вызывает    десинх
-    TriggerSyncReady()
-    return GetStoredString(cache, "", "")
-end
 
 udg_LoadCode = {}
 LoadedGold = {}
 LoadedGameCount = {}
+LoadedChaos={}
 function InitTrig_SyncLoadDone ()
     local gg_trg_SyncLoadDone = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -112,15 +93,20 @@ function InitTrig_SyncLoadDone ()
             udg_LoadCode[i] = value
             LoadedGold[i] = t[1]
             LoadedGameCount[i] = t[2]
+            LoadedChaos[i]=t[3]
             --print(t[2])
-            if #value > 10 then
+            if value == "error" then
                 --игрок первый раз играет
                 udg_LoadCode[i] = 0
                 LoadedGold[i] = 0
                 LoadedGameCount[i] = 0
+                LoadedChaos[i]=0
             end
             if not LoadedGameCount[i] then
                 LoadedGameCount[i] = 0
+            end
+            if not LoadedChaos[i] then
+                LoadedChaos[i] = 0
             end
             --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
         end
@@ -143,3 +129,4 @@ function SaveResult(SaveCode)
     PreloadGenEnd(SavePath)
     PreloadGenClear()
 end
+

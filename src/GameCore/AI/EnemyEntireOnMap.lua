@@ -86,7 +86,7 @@ function GetRandomEnemyHero()
 end
 
 function StoneUnStone(unit)
-    BlzSetUnitMaxHP(unit, 1200)
+    BlzSetUnitMaxHP(unit, 1800)
     TimerStart(CreateTimer(), 1, true, function()
         if not UnitAlive(unit) then
             DestroyTimer(GetExpiredTimer())

@@ -1373,14 +1373,28 @@ function UnitDamageArea(u, damage, x, y, range, flag)
         if UnitAlive(e) and (UnitAlive(u) or deadDamage) and (IsUnitEnemy(e, GetOwningPlayer(u)) or GetOwningPlayer(e) == Player(PLAYER_NEUTRAL_PASSIVE) or flag == "all") then
             --
             if flag == "shotForce" then
-                UnitAddForceSimple(e, AngleBetweenUnits(u, e), 20, 300, nil, u)
+                --конусный урон при финальном ударе
+                -- x1, x2 - координаты проверяемой точки
+                -- x2, y2 - координаты вершины сектора
+                -- orientation - ориентация сектора в мировых координатах
+                -- width - уголовой размер сектора в градусах
+                -- radius - окружности которой принадлежит сектор
+                --print("толчек")
+                --local data = HERO[GetPlayerId(GetOwningPlayer(u))]
+                local xb, yb = MoveXY(GetUnitX(u), GetUnitY(u), 60, GetUnitFacing(u) - 180)
+                local speed = 20
+                local dist = 300
+
+                if IsPointInSector(GetUnitX(e), GetUnitY(e), xb, yb, GetUnitFacing(u), 90, range) then
+                    UnitAddForceSimple(e, AngleBetweenUnits(u, e), speed, dist, nil, u)
+                end
             end
             if flag == "ForceTotem" then
                 --print("толкаем тотемом")
                 local tempA = AngleBetweenXY(x, y, GetUnitXY(e)) / bj_DEGTORAD
                 UnitAddForceSimple(e, tempA, 20, 300, nil, u)
             end
-            if flag == "all"  then
+            if flag == "all" then
                 if GetPlayerController(GetOwningPlayer(u)) == MAP_CONTROL_USER then
                     local data = HERO[GetPlayerId(GetOwningPlayer(u))]
                     if not data.AddDamageTrap then
@@ -1415,7 +1429,7 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                     speed = speed * 2
                     dist = dist * 3
                 end
-                if IsPointInSector(GetUnitX(e), GetUnitY(e), xb, yb, GetUnitFacing(u), 90, range) then
+                if IsPointInSector(GetUnitX(e), GetUnitY(e), xb, yb, GetUnitFacing(u), 70, range) then
                     UnitAddForceSimple(e, AngleBetweenUnits(u, e), speed, dist, nil, u)
                 else
                     damage = 0

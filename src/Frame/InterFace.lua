@@ -16,10 +16,10 @@ do
 end
 
 function ReturnFPS()
-    BlzFrameSetVisible(BlzGetFrameByName("ResourceBarFrame",0),true)
-    local fps=BlzGetFrameByName("ResourceBarFrame",0)
+    BlzFrameSetVisible(BlzGetFrameByName("ResourceBarFrame", 0), true)
+    local fps = BlzGetFrameByName("ResourceBarFrame", 0)
     BlzFrameClearAllPoints(fps)
-    BlzFrameSetAbsPoint(fps, FRAMEPOINT_CENTER, 0.9 ,0.61)
+    BlzFrameSetAbsPoint(fps, FRAMEPOINT_CENTER, 0.9, 0.61)
 end
 
 function DrawInterFace()
@@ -29,6 +29,7 @@ function DrawInterFace()
             CreateHPBar(HERO[i].UnitHero)
             CreateLifeInterface(HERO[i])
             CreateGoldInterFace(HERO[i])
+            CreateChaosInterFace(HERO[i])
         end
     end
     CreateBaseFrames(0.02, 0.015) -- 5 стандартных скилов
@@ -43,7 +44,6 @@ function DrawSelectionPortrait()
     BlzFrameSetAbsPoint(Portrait, FRAMEPOINT_LEFT, 0.0, 0.04)
 end
 
-
 function CreateLifeInterface(data)
     AddLife(data)
     AddLife(data)
@@ -51,13 +51,30 @@ function CreateLifeInterface(data)
     --AddLife(data)
 end
 
-function CreateGoldInterFace(data)
-    local goldIco="Textures\\GOLDCoin.blp"
+function CreateChaosInterFace(data)
+    local goldIco = "ReplaceableTextures\\CommandButtons\\BTNBanish.blp"
     local GoldFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetParent(GoldFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetTexture(GoldFrame, goldIco, 0, true)
-    BlzFrameSetSize(GoldFrame, NextPoint/2, NextPoint/2)
-    BlzFrameSetAbsPoint(GoldFrame, FRAMEPOINT_CENTER, 0.85,0.02)
+    BlzFrameSetSize(GoldFrame, NextPoint / 2, NextPoint / 2)
+    BlzFrameSetAbsPoint(GoldFrame, FRAMEPOINT_CENTER, 0.85, 0.04)
+    BlzFrameSetVisible(GoldFrame, GetLocalPlayer() == Player(data.pid))
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", GoldFrame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "0")
+    BlzFrameSetScale(text, 2)
+    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, GoldFrame, FRAMEPOINT_RIGHT, 0.02, 0.0)
+    BlzFrameSetVisible(text, GetLocalPlayer() == Player(data.pid))
+    data.ChaosTextFH = text
+end
+
+function CreateGoldInterFace(data)
+    local goldIco = "Textures\\GOLDCoin.blp"
+    local GoldFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(GoldFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(GoldFrame, goldIco, 0, true)
+    BlzFrameSetSize(GoldFrame, NextPoint / 2, NextPoint / 2)
+    BlzFrameSetAbsPoint(GoldFrame, FRAMEPOINT_CENTER, 0.85, 0.02)
     BlzFrameSetVisible(GoldFrame, GetLocalPlayer() == Player(data.pid))
 
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", GoldFrame, "", 0)
@@ -66,48 +83,48 @@ function CreateGoldInterFace(data)
     BlzFrameSetScale(text, 2)
     BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, GoldFrame, FRAMEPOINT_RIGHT, 0.02, 0.0)
     BlzFrameSetVisible(text, GetLocalPlayer() == Player(data.pid))
-    data.GoldTextFH=text
+    data.GoldTextFH = text
 end
 
 function AddLife(data)
     if not data.life then
-        data.life=0
+        data.life = 0
     end
-    data.life=data.life+1
+    data.life = data.life + 1
 
-    local lifeIco="SystemGeneric\\peonlife"
+    local lifeIco = "SystemGeneric\\peonlife"
     local lifeFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetParent(lifeFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetTexture(lifeFrame, lifeIco, 0, true)
-    BlzFrameSetSize(lifeFrame, NextPoint/3, NextPoint/3)
-    BlzFrameSetAbsPoint(lifeFrame, FRAMEPOINT_CENTER, -0.045, 0.01+((NextPoint/2)*(data.life-1)))
+    BlzFrameSetSize(lifeFrame, NextPoint / 3, NextPoint / 3)
+    BlzFrameSetAbsPoint(lifeFrame, FRAMEPOINT_CENTER, -0.045, 0.01 + ((NextPoint / 2) * (data.life - 1)))
     BlzFrameSetVisible(lifeFrame, GetLocalPlayer() == Player(data.pid))
-    data.LifeFHTable[data.life]=lifeFrame
+    data.LifeFHTable[data.life] = lifeFrame
     --print("жизнь")
 end
 
 function RemoveLife(data)
-    BlzFrameSetVisible(data.LifeFHTable[data.life],false)
+    BlzFrameSetVisible(data.LifeFHTable[data.life], false)
     BlzDestroyFrame(data.LifeFHTable[data.life])
-    data.life=data.life-1
+    data.life = data.life - 1
     --print("потеря жизни")
-    if data.life<0 then
-        if GetActiveCountPlayer()>=1 then
-            print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате","You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
+    if data.life < 0 then
+        if GetActiveCountPlayer() >= 1 then
+            print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате", "You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
         else
-            TimerStart(CreateTimer(),3, false, function()
-                local SaveCode="error"
+            TimerStart(CreateTimer(), 3, false, function()
+                local SaveCode = "error"
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                    if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER and data.life<0 then
-                        local gdata=HERO[i]
-                        if GetLocalPlayer()==Player(i) then
-                            SaveCode=R2I(gdata.gold)..","..R2I(LoadedGameCount[i])..","
+                    if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER and data.life < 0 then
+                        local gdata = HERO[i]
+                        if GetLocalPlayer() == Player(i) then
+                            SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","..R2I(gdata.chaosPoint)..","
                         end
 
-                        print(GetPlayerName(Player(i))..L(" унёс с собой "..R2I(gdata.gold).." золота ","took with me " ..R2I (gdata.gold).. " gold "))
+                        print(GetPlayerName(Player(i)) .. L(" унёс с собой " .. R2I(gdata.gold) .. " золота ", "took with me " .. R2I(gdata.gold) .. " gold "))
 
-                        TimerStart(CreateTimer(),2, false, function()
-                            CustomDefeatBJ(Player(i),L("Поражение","Defeat"))
+                        TimerStart(CreateTimer(), 2, false, function()
+                            CustomDefeatBJ(Player(i), L("Поражение", "Defeat"))
                             DisableTrigger(GetTriggeringTrigger())
                             DestroyTimer(GetExpiredTimer())
                         end)
@@ -119,17 +136,15 @@ function RemoveLife(data)
     end
 end
 
-
-
 function ReviveAllHero()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            local data=HERO[i]
-            local hero=data.UnitHero
-            local x,y=GetUnitXY(hero)
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
+            local hero = data.UnitHero
+            local x, y = GetUnitXY(hero)
             if not UnitAlive(hero) then
-                data.life=0
-                ReviveHero(hero,x,y,true)
+                data.life = 0
+                ReviveHero(hero, x, y, true)
             end
         end
     end
@@ -161,9 +176,9 @@ function CreateHPBar(hero)
         hp = GetUnitLifePercent(hero)
         if not UnitAlive(hero) then
             hp = 0
-           -- print("Юнит мерт, сводим бар до нуля")
+            -- print("Юнит мерт, сводим бар до нуля")
             BlzFrameSetSize(into, 0.02 * 0.95, 0)
-            BlzFrameSetVisible(into,false)
+            BlzFrameSetVisible(into, false)
             BlzFrameSetText(textCurrent, hp)
             BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
         else

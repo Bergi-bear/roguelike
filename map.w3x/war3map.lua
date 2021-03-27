@@ -2491,7 +2491,7 @@ function Enter2NewZone(flag)
                             if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
                                 local gdata = HERO[i]
                                 if GetLocalPlayer() == Player(i) then
-                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","
+                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","..R2I(gdata.chaosPoint)..","
                                 end
                                 print(GetPlayerName(Player(i)) .. " унёс с собой " .. R2I(gdata.gold) .. " золота ")
 
@@ -4741,6 +4741,13 @@ function AddGold(data,amount)
     data.gold=data.gold+amount
     BlzFrameSetText(data.GoldTextFH,R2I(data.gold))
 end
+function AddChaos(data,amount)
+    if not data.chaosPoint then
+        data.chaosPoint=0
+    end
+    data.chaosPoint=data.chaosPoint+amount
+    BlzFrameSetText(data.ChaosTextFH,R2I(data.chaosPoint))
+end
 
 function RewardGoldForKill(hero)
     UnitAddGold(hero,1)
@@ -4763,10 +4770,10 @@ do
 end
 
 function ReturnFPS()
-    BlzFrameSetVisible(BlzGetFrameByName("ResourceBarFrame",0),true)
-    local fps=BlzGetFrameByName("ResourceBarFrame",0)
+    BlzFrameSetVisible(BlzGetFrameByName("ResourceBarFrame", 0), true)
+    local fps = BlzGetFrameByName("ResourceBarFrame", 0)
     BlzFrameClearAllPoints(fps)
-    BlzFrameSetAbsPoint(fps, FRAMEPOINT_CENTER, 0.9 ,0.61)
+    BlzFrameSetAbsPoint(fps, FRAMEPOINT_CENTER, 0.9, 0.61)
 end
 
 function DrawInterFace()
@@ -4776,6 +4783,7 @@ function DrawInterFace()
             CreateHPBar(HERO[i].UnitHero)
             CreateLifeInterface(HERO[i])
             CreateGoldInterFace(HERO[i])
+            CreateChaosInterFace(HERO[i])
         end
     end
     CreateBaseFrames(0.02, 0.015) -- 5 стандартных скилов
@@ -4790,7 +4798,6 @@ function DrawSelectionPortrait()
     BlzFrameSetAbsPoint(Portrait, FRAMEPOINT_LEFT, 0.0, 0.04)
 end
 
-
 function CreateLifeInterface(data)
     AddLife(data)
     AddLife(data)
@@ -4798,13 +4805,30 @@ function CreateLifeInterface(data)
     --AddLife(data)
 end
 
-function CreateGoldInterFace(data)
-    local goldIco="Textures\\GOLDCoin.blp"
+function CreateChaosInterFace(data)
+    local goldIco = "ReplaceableTextures\\CommandButtons\\BTNBanish.blp"
     local GoldFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetParent(GoldFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetTexture(GoldFrame, goldIco, 0, true)
-    BlzFrameSetSize(GoldFrame, NextPoint/2, NextPoint/2)
-    BlzFrameSetAbsPoint(GoldFrame, FRAMEPOINT_CENTER, 0.85,0.02)
+    BlzFrameSetSize(GoldFrame, NextPoint / 2, NextPoint / 2)
+    BlzFrameSetAbsPoint(GoldFrame, FRAMEPOINT_CENTER, 0.85, 0.04)
+    BlzFrameSetVisible(GoldFrame, GetLocalPlayer() == Player(data.pid))
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", GoldFrame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "0")
+    BlzFrameSetScale(text, 2)
+    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, GoldFrame, FRAMEPOINT_RIGHT, 0.02, 0.0)
+    BlzFrameSetVisible(text, GetLocalPlayer() == Player(data.pid))
+    data.ChaosTextFH = text
+end
+
+function CreateGoldInterFace(data)
+    local goldIco = "Textures\\GOLDCoin.blp"
+    local GoldFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(GoldFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(GoldFrame, goldIco, 0, true)
+    BlzFrameSetSize(GoldFrame, NextPoint / 2, NextPoint / 2)
+    BlzFrameSetAbsPoint(GoldFrame, FRAMEPOINT_CENTER, 0.85, 0.02)
     BlzFrameSetVisible(GoldFrame, GetLocalPlayer() == Player(data.pid))
 
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", GoldFrame, "", 0)
@@ -4813,48 +4837,48 @@ function CreateGoldInterFace(data)
     BlzFrameSetScale(text, 2)
     BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, GoldFrame, FRAMEPOINT_RIGHT, 0.02, 0.0)
     BlzFrameSetVisible(text, GetLocalPlayer() == Player(data.pid))
-    data.GoldTextFH=text
+    data.GoldTextFH = text
 end
 
 function AddLife(data)
     if not data.life then
-        data.life=0
+        data.life = 0
     end
-    data.life=data.life+1
+    data.life = data.life + 1
 
-    local lifeIco="SystemGeneric\\peonlife"
+    local lifeIco = "SystemGeneric\\peonlife"
     local lifeFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetParent(lifeFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetTexture(lifeFrame, lifeIco, 0, true)
-    BlzFrameSetSize(lifeFrame, NextPoint/3, NextPoint/3)
-    BlzFrameSetAbsPoint(lifeFrame, FRAMEPOINT_CENTER, -0.045, 0.01+((NextPoint/2)*(data.life-1)))
+    BlzFrameSetSize(lifeFrame, NextPoint / 3, NextPoint / 3)
+    BlzFrameSetAbsPoint(lifeFrame, FRAMEPOINT_CENTER, -0.045, 0.01 + ((NextPoint / 2) * (data.life - 1)))
     BlzFrameSetVisible(lifeFrame, GetLocalPlayer() == Player(data.pid))
-    data.LifeFHTable[data.life]=lifeFrame
+    data.LifeFHTable[data.life] = lifeFrame
     --print("жизнь")
 end
 
 function RemoveLife(data)
-    BlzFrameSetVisible(data.LifeFHTable[data.life],false)
+    BlzFrameSetVisible(data.LifeFHTable[data.life], false)
     BlzDestroyFrame(data.LifeFHTable[data.life])
-    data.life=data.life-1
+    data.life = data.life - 1
     --print("потеря жизни")
-    if data.life<0 then
-        if GetActiveCountPlayer()>=1 then
-            print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате","You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
+    if data.life < 0 then
+        if GetActiveCountPlayer() >= 1 then
+            print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате", "You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
         else
-            TimerStart(CreateTimer(),3, false, function()
-                local SaveCode="error"
+            TimerStart(CreateTimer(), 3, false, function()
+                local SaveCode = "error"
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                    if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER and data.life<0 then
-                        local gdata=HERO[i]
-                        if GetLocalPlayer()==Player(i) then
-                            SaveCode=R2I(gdata.gold)..","..R2I(LoadedGameCount[i])..","
+                    if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER and data.life < 0 then
+                        local gdata = HERO[i]
+                        if GetLocalPlayer() == Player(i) then
+                            SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","..R2I(gdata.chaosPoint)..","
                         end
 
-                        print(GetPlayerName(Player(i))..L(" унёс с собой "..R2I(gdata.gold).." золота ","took with me " ..R2I (gdata.gold).. " gold "))
+                        print(GetPlayerName(Player(i)) .. L(" унёс с собой " .. R2I(gdata.gold) .. " золота ", "took with me " .. R2I(gdata.gold) .. " gold "))
 
-                        TimerStart(CreateTimer(),2, false, function()
-                            CustomDefeatBJ(Player(i),L("Поражение","Defeat"))
+                        TimerStart(CreateTimer(), 2, false, function()
+                            CustomDefeatBJ(Player(i), L("Поражение", "Defeat"))
                             DisableTrigger(GetTriggeringTrigger())
                             DestroyTimer(GetExpiredTimer())
                         end)
@@ -4866,17 +4890,15 @@ function RemoveLife(data)
     end
 end
 
-
-
 function ReviveAllHero()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            local data=HERO[i]
-            local hero=data.UnitHero
-            local x,y=GetUnitXY(hero)
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
+            local hero = data.UnitHero
+            local x, y = GetUnitXY(hero)
             if not UnitAlive(hero) then
-                data.life=0
-                ReviveHero(hero,x,y,true)
+                data.life = 0
+                ReviveHero(hero, x, y, true)
             end
         end
     end
@@ -4908,9 +4930,9 @@ function CreateHPBar(hero)
         hp = GetUnitLifePercent(hero)
         if not UnitAlive(hero) then
             hp = 0
-           -- print("Юнит мерт, сводим бар до нуля")
+            -- print("Юнит мерт, сводим бар до нуля")
             BlzFrameSetSize(into, 0.02 * 0.95, 0)
-            BlzFrameSetVisible(into,false)
+            BlzFrameSetVisible(into, false)
             BlzFrameSetText(textCurrent, hp)
             BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
         else
@@ -5165,7 +5187,7 @@ function GetRandomEnemyHero()
 end
 
 function StoneUnStone(unit)
-    BlzSetUnitMaxHP(unit, 1200)
+    BlzSetUnitMaxHP(unit, 1800)
     TimerStart(CreateTimer(), 1, true, function()
         if not UnitAlive(unit) then
             DestroyTimer(GetExpiredTimer())
@@ -5803,7 +5825,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .2, false, function()
-           InitEvenDestructable() --этот триггер не работает
+           InitEvenDestructable() --Кто угодно убивает декор
             DestroyTimer(GetExpiredTimer())
         end)
     end
@@ -5828,7 +5850,7 @@ function InitEvenDestructable()
                 local new=CreateUnit(Player(10),FourCC("n000"),GetDestructableX(d),GetDestructableY(d),0)
             end
             if  GetDestructableTypeId(d)==FourCC("B008") then
-                --print("умер горшок")
+                --print("умерла ваза")
                 local x,y=GetDestructableX(d),GetDestructableY(d)
                 DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",x,y))
                 TimerStart(CreateTimer(), 0.6, false, function()
@@ -5860,35 +5882,35 @@ end
 SimpleTaskPos = {}
 function CreateTaskForAllPlayer()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
             SimpleTaskPos[i] = 0
             local data = HERO[i]
             local frames = {}
             local chk = {}
-            local text={}
-            frames[1],_,text[1],_,chk[1] = CreateSimpleTask(L("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов","Quickly press LMB to make a series of 5 hits"), Player(i))
-            frames[2],_,text[2],_,chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы выполнить вращающуюся атаку","Hold LMB to perform a rotating attack"), Player(i))
-            frames[3],_,text[3],_,chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы совершить мощный удар","Press Q to make a powerful kick"), Player(i))
-            frames[4],_,text[4],_,chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот","Press RMB to throw a pick"), Player(i))
-            frames[5],_,text[5],_,chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок","Press SPACE to dash"), Player(i))
-            frames[6],_,text[6],_,chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB","Take a leap attack Space+LMB"), Player(i))
-            frames[7],_,text[7],_,chk[7] = CreateSimpleTask(L("Когда удерживаете LMB нажмите SPACE, для рывка ветра","When holding LMB press SPACE to leap wind"), Player(i))
-            frames[8],_,text[8],_,chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад","Press Q+SPACE to unleash a powerful attack"), Player(i))
-            frames[9],_,text[9],_,chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB","Use throw picks RMB, during rotation LMB"), Player(i))
-            frames[10],_,text[10],_,chk[10] = CreateSimpleTask(L("Во время вращения LMB нажмите Q","While the LMB is rotating, press Q"), Player(i))
-            data.chk=chk
+            local text = {}
+            frames[1], _, text[1], _, chk[1] = CreateSimpleTask(L("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов", "Quickly press LMB to make a series of 5 hits"), Player(i))
+            frames[2], _, text[2], _, chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы выполнить вращающуюся атаку", "Hold LMB to perform a rotating attack"), Player(i))
+            frames[3], _, text[3], _, chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы совершить мощный удар", "Press Q to make a powerful kick"), Player(i))
+            frames[4], _, text[4], _, chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот", "Press RMB to throw a pick"), Player(i))
+            frames[5], _, text[5], _, chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок", "Press SPACE to dash"), Player(i))
+            frames[6], _, text[6], _, chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB", "Take a leap attack Space+LMB"), Player(i))
+            frames[7], _, text[7], _, chk[7] = CreateSimpleTask(L("Когда удерживаете LMB нажмите SPACE, для рывка ветра", "When holding LMB press SPACE to leap wind"), Player(i))
+            frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
+            frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB", "Use throw picks RMB, during rotation LMB"), Player(i))
+            frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("Во время вращения LMB нажмите Q", "While the LMB is rotating, press Q"), Player(i))
+            data.chk = chk
             local completed = false
 
             TimerStart(CreateTimer(), 1, true, function()
                 for k = 1, #frames do
                     if data.tasks[k] then
                         completed = true
-                        BlzFrameSetVisible(chk[k], GetLocalPlayer()==Player(i))
-                        BlzFrameSetTextColor(text[k],BlzConvertColor(255, 120, 120, 120))
+                        BlzFrameSetVisible(chk[k], GetLocalPlayer() == Player(i))
+                        BlzFrameSetTextColor(text[k], BlzConvertColor(255, 120, 120, 120))
                     end
                 end
 
-                for k = 1, #frames  do
+                for k = 1, #frames do
                     if not data.tasks[k] then
                         completed = false
                     end
@@ -5950,13 +5972,17 @@ end
 
 function DestroyAllLearHelpers()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            local data=HERO[i]
-            SimpleTaskPos[i]=0
-            for j=1,10 do
-                data.tasks[j]=true
-            end
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            AllCompletedForPlayer(i)
         end
+    end
+end
+
+function AllCompletedForPlayer(i)
+    local data = HERO[i]
+    SimpleTaskPos[i] = 0
+    for j = 1, 10 do
+        data.tasks[j] = true
     end
 end
 ---
@@ -6307,201 +6333,209 @@ end
 --- Created by Bergi.
 --- DateTime: 06.02.2020 12:47
 ---
-function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage,maxDistance,delay)
-	local CollisionRange = 80
-	if not damage then
-		damage = 200
-	end
-	if not xs then
-		xs,ys=GetUnitXY(hero)
-	end
-	if not maxDistance then
-		maxDistance=1000
-	end
-	if not delay then delay=0 end
-	local zhero = GetUnitZ(hero) + 60
-	if HERO[GetPlayerId(GetOwningPlayer(hero))] then
-		if HERO[GetPlayerId(GetOwningPlayer(hero))].FrogThrowCDFH then --подмена снаряда на лягушонка
-			------------------------------ метальный лягушенок попадание
-			local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
-			if data.FrogThrowCDFH then
-				if not data.FrogThrowCurrentCD then data.FrogThrowCurrentCD=1 end
-				if data.FrogThrowCurrentCD<=0 then
-					local talon=GlobalTalons[data.pid+1]["ShadowHunter"][3]
-					local cd=talon.DS[talon.level]
-					StartFrameCD(cd,data.FrogThrowCDFH)
-					data.FrogThrowCurrentCD=cd
-					effectmodel="units\\critters\\Frog\\Frog"
-					TimerStart(CreateTimer(), cd, false, function()
-						data.FrogThrowCurrentCD=0
-						DestroyTimer(GetExpiredTimer())
-					end)
-					-- print("кольцо змей")
-				end
-			end
-			------------------------------
-		end
-	end
+function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, maxDistance, delay)
+    local CollisionRange = 80
+    if not damage then
+        damage = 200
+    end
+    if not xs then
+        xs, ys = GetUnitXY(hero)
+    end
+    if not maxDistance then
+        maxDistance = 1000
+    end
+    if not delay then
+        delay = 0
+    end
+    local zhero = GetUnitZ(hero) + 60
+    if HERO[GetPlayerId(GetOwningPlayer(hero))] then
+        if HERO[GetPlayerId(GetOwningPlayer(hero))].FrogThrowCDFH then
+            --подмена снаряда на лягушонка
+            ------------------------------ метальный лягушенок попадание
+            local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+            if data.FrogThrowCDFH then
+                if not data.FrogThrowCurrentCD then
+                    data.FrogThrowCurrentCD = 1
+                end
+                if data.FrogThrowCurrentCD <= 0 then
+                    local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][3]
+                    local cd = talon.DS[talon.level]
+                    StartFrameCD(cd, data.FrogThrowCDFH)
+                    data.FrogThrowCurrentCD = cd
+                    effectmodel = "units\\critters\\Frog\\Frog"
+                    TimerStart(CreateTimer(), cd, false, function()
+                        data.FrogThrowCurrentCD = 0
+                        DestroyTimer(GetExpiredTimer())
+                    end)
+                    -- print("кольцо змей")
+                end
+            end
+            ------------------------------
+        end
+    end
 
-	local bullet = AddSpecialEffect(effectmodel, xs, ys)
-	BlzSetSpecialEffectYaw(bullet, math.rad(angle))
-	local CollisionEnemy = false
-	local CollisisonDestr = false
-	local DamagingUnit = nil
-	if effectmodel == "Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl" then
-		BlzSetSpecialEffectScale(bullet, 0.7)
-	end
+    local bullet = AddSpecialEffect(effectmodel, xs, ys)
+    BlzSetSpecialEffectYaw(bullet, math.rad(angle))
+    local CollisionEnemy = false
+    local CollisisonDestr = false
+    local DamagingUnit = nil
+    if effectmodel == "Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl" then
+        BlzSetSpecialEffectScale(bullet, 0.7)
+    end
 
+    BlzSetSpecialEffectZ(bullet, zhero)
+    local angleCurrent = angle
+    local heroCurrent = hero
+    local dist = 0
 
-	BlzSetSpecialEffectZ(bullet, zhero)
-	local angleCurrent = angle
-	local heroCurrent = hero
-	local dist = 0
+    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+        dist = dist + speed
+        delay = delay - speed
+        local x, y, z = BlzGetLocalSpecialEffectX(bullet), BlzGetLocalSpecialEffectY(bullet), BlzGetLocalSpecialEffectZ(bullet)
+        local zGround = GetTerrainZ(MoveX(x, speed * 2, angleCurrent), MoveY(y, speed * 2, angleCurrent))
+        BlzSetSpecialEffectYaw(bullet, math.rad(angleCurrent))
+        local nx, ny = MoveXY(x, y, speed, angleCurrent)
+        BlzSetSpecialEffectPosition(bullet, nx, ny, z) -- было z-2
 
-	TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-		dist = dist + speed
-		delay=delay-speed
-		local x, y, z = BlzGetLocalSpecialEffectX(bullet), BlzGetLocalSpecialEffectY(bullet), BlzGetLocalSpecialEffectZ(bullet)
-		local zGround = GetTerrainZ(MoveX(x, speed * 2, angleCurrent), MoveY(y, speed * 2, angleCurrent))
-		BlzSetSpecialEffectYaw(bullet, math.rad(angleCurrent))
-		local nx,ny=MoveXY(x,y,speed, angleCurrent)
-		BlzSetSpecialEffectPosition(bullet, nx,ny, z ) -- было z-2
+        SetFogStateRadius(GetOwningPlayer(heroCurrent), FOG_OF_WAR_VISIBLE, x, y, 400, true)-- Небольгая подсветка
+        if effectmodel == "Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl" then
+            UnitDamageArea(hero, 5, x, y, 90, "blackHole")
+        end
 
-		SetFogStateRadius(GetOwningPlayer(heroCurrent), FOG_OF_WAR_VISIBLE, x, y, 400, true)-- Небольгая подсветка
-		if effectmodel=="Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl" then
-			UnitDamageArea(hero,5,x,y,90,"blackHole")
-		end
+        if effectmodel == "Hive\\Culling Slash\\Culling Slash\\Culling Slash" then
+            BlzSetSpecialEffectScale(bullet, 0.001)
+            local tempEff = AddSpecialEffect(effectmodel, nx, ny)
+            BlzSetSpecialEffectScale(tempEff, 0.4)
+            DestroyEffect(tempEff)
+            UnitDamageArea(hero, damage, x, y, 90)
+        end
 
-		if effectmodel=="Hive\\Culling Slash\\Culling Slash\\Culling Slash" then
-			BlzSetSpecialEffectScale(bullet,0.001)
-			local tempEff=AddSpecialEffect(effectmodel,nx, ny)
-			BlzSetSpecialEffectScale(tempEff, 0.4)
-			DestroyEffect(tempEff)
-			UnitDamageArea(hero,damage,x,y,90)
-		end
+        local ZBullet = BlzGetLocalSpecialEffectZ(bullet)
 
+        CollisionEnemy, DamagingUnit = UnitDamageArea(heroCurrent, 0, x, y, CollisionRange)
 
-		local ZBullet = BlzGetLocalSpecialEffectZ(bullet)
+        local reverse = false
 
-		CollisionEnemy, DamagingUnit = UnitDamageArea(heroCurrent, 0, x, y, CollisionRange)
+        if HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))] then
+            local data = HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
+            if data.UnitHero and GetUnitTypeId(DamagingUnit) == HeroID then
+                --print("атакован наш герой")
+                if data.Reflected or data.SpinReflect or data.AttackInForce then
+                    --print("отбит снаряд")
 
-		local reverse=false
+                    if effectmodel == "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl" then
+                        AddChaos(data, 1)
+                    end
 
-		if HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))] then
-			local data=HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
-			if data.UnitHero and GetUnitTypeId(DamagingUnit)==HeroID then
-				--print("атакован наш герой")
-				if data.Reflected or  data.SpinReflect or data.AttackInForce then
-					--print("отбит снаряд")
-					if not data.DestroyMissile then
-						FlyTextTagShieldXY(nx,ny,"Отбит",GetOwningPlayer(data.UnitHero))
-						heroCurrent=DamagingUnit
-						reverse=true
-						angleCurrent=AngleBetweenUnits(DamagingUnit,hero)
-					else
-						reverse=true
-						--print("снаряд уничтожен будет")
-						FlyTextTagShieldXY(nx,ny,"Разрушен",GetOwningPlayer(data.UnitHero))
-						DestroyEffect(bullet)
-						DestroyTimer(GetExpiredTimer())
-					end
-				end
-			end
-		end
+                    if not data.DestroyMissile then
+                        FlyTextTagShieldXY(nx, ny, L("Отбит","Parry"), GetOwningPlayer(data.UnitHero))
+                        heroCurrent = DamagingUnit
+                        reverse = true
+                        angleCurrent = AngleBetweenUnits(DamagingUnit, hero)
+                    else
+                        reverse = true
+                        --print("снаряд уничтожен будет")
+                        FlyTextTagShieldXY(nx, ny, L("Разрушен","Destroyed"), GetOwningPlayer(data.UnitHero))
 
+                        DestroyEffect(bullet)
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end
+            end
+        end
 
+        CollisisonDestr = PointContentDestructable(x, y, CollisionRange, false, 0, hero)
+        local PerepadZ = zGround - z
+        if not reverse and delay <= 0 and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
+            PointContentDestructable(x, y, CollisionRange, true, 0, heroCurrent)
+            local flag = nil
+            if GetUnitTypeId(heroCurrent) == FourCC("hsor") then
+                flag = "all"
+            end
 
-		CollisisonDestr = PointContentDestructable(x, y, CollisionRange, false,0,hero)
-		local PerepadZ = zGround - z
-		if not reverse and delay<=0 and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
-			PointContentDestructable(x, y, CollisionRange, true,0,heroCurrent)
-			local flag=nil
-			if GetUnitTypeId(heroCurrent)==FourCC("hsor") then
-				flag="all"
-			end
+            UnitDamageArea(heroCurrent, damage, x, y, CollisionRange, flag) -- УРОН ПРИ ПОПАДАНИИ
+            if DamagingUnit and IsUnitType(heroCurrent, UNIT_TYPE_HERO) then
+                -- тут был показ урона
+            end
+            DestroyEffect(bullet)
+            DestroyTimer(GetExpiredTimer())
+            if effectmodel == "units\\critters\\Frog\\Frog" then
+                HexUnit(DamagingUnit)
+                --print("хексуем")
+            end
+            if HERO[GetPlayerId(GetOwningPlayer(hero))] then
+                local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
 
-			UnitDamageArea(heroCurrent, damage, x, y, CollisionRange,flag) -- УРОН ПРИ ПОПАДАНИИ
-			if DamagingUnit  and IsUnitType(heroCurrent,UNIT_TYPE_HERO) then
-				-- тут был показ урона
-			end
-			DestroyEffect(bullet)
-			DestroyTimer(GetExpiredTimer())
-			if effectmodel=="units\\critters\\Frog\\Frog" then
-				HexUnit(DamagingUnit)
-				--print("хексуем")
-			end
-			if HERO[GetPlayerId(GetOwningPlayer(hero))] then
-				local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+                if data.Rebound then
+                    local find = FindAnotherUnit(DamagingUnit, data)
+                    if find then
+                        if data.ReboundCount <= data.ReboundCountMAX then
+                            ---print("отскок в"..GetUnitName(find))
+                            local af = AngleBetweenUnits(DamagingUnit, find)
+                            CreateAndForceBullet(hero, af, 20, effectmodel, GetUnitX(DamagingUnit), GetUnitY(DamagingUnit), data.DamageThrow, 1000, 150)
+                            data.ReboundCount = data.ReboundCount + 1
+                        else
+                            data.ReboundCount = 0
+                        end
+                    end
+                end
+            end
 
-				if data.Rebound then
-					local find=FindAnotherUnit(DamagingUnit,data)
-					if find then
-						if data.ReboundCount<=data.ReboundCountMAX then
-							---print("отскок в"..GetUnitName(find))
-							local af=AngleBetweenUnits(DamagingUnit,find)
-							CreateAndForceBullet(hero,af,20,effectmodel,GetUnitX(DamagingUnit),GetUnitY(DamagingUnit),data.DamageThrow,1000,150)
-							data.ReboundCount=data.ReboundCount+1
-						else
-							data.ReboundCount=0
-						end
-					end
-				end
-			end
-
-			if not DamagingUnit then
-				DestroyEffect(bullet)
-				DestroyTimer(GetExpiredTimer())
-			end
-		end
-	end)
+            if not DamagingUnit then
+                DestroyEffect(bullet)
+                DestroyTimer(GetExpiredTimer())
+            end
+        end
+    end)
 end
 
-
-function FindAnotherUnit(unit,data)
-	local e=nil
-	local find=nil
-	local k=0
-	local x,y=GetUnitXY(unit)
-		GroupEnumUnitsInRange(perebor,x,y,500,nil)
-		while true do
-			e = FirstOfGroup(perebor)
-			if e == nil then break end
-			if UnitAlive(e)  and (IsUnitEnemy(e,GetOwningPlayer(data.UnitHero)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and not find and e~=unit then
-				find=e
-			end
-			GroupRemoveUnit(perebor,e)
-		end
-	return find
+function FindAnotherUnit(unit, data)
+    local e = nil
+    local find = nil
+    local k = 0
+    local x, y = GetUnitXY(unit)
+    GroupEnumUnitsInRange(perebor, x, y, 500, nil)
+    while true do
+        e = FirstOfGroup(perebor)
+        if e == nil then
+            break
+        end
+        if UnitAlive(e) and (IsUnitEnemy(e, GetOwningPlayer(data.UnitHero)) or GetOwningPlayer(e) == Player(PLAYER_NEUTRAL_PASSIVE)) and not find and e ~= unit then
+            find = e
+        end
+        GroupRemoveUnit(perebor, e)
+    end
+    return find
 end
 
-
-function FindAnyAllyUnit(data,range)
-	local e=nil
-	local find=nil
-	local k=0
-	local unit=data.UnitHero
-	local x,y=GetUnitXY(unit)
-	GroupEnumUnitsInRange(perebor,x,y,range,nil)
-	while true do
-		e = FirstOfGroup(perebor)
-		if e == nil then break end
-		if UnitAlive(e)  and IsUnitAlly(e,Player(data.pid)) and not find and e~=unit then
-			find=e
-			--print("нашел")
-		end
-		GroupRemoveUnit(perebor,e)
-	end
-	return find
+function FindAnyAllyUnit(data, range)
+    local e = nil
+    local find = nil
+    local k = 0
+    local unit = data.UnitHero
+    local x, y = GetUnitXY(unit)
+    GroupEnumUnitsInRange(perebor, x, y, range, nil)
+    while true do
+        e = FirstOfGroup(perebor)
+        if e == nil then
+            break
+        end
+        if UnitAlive(e) and IsUnitAlly(e, Player(data.pid)) and not find and e ~= unit then
+            find = e
+            --print("нашел")
+        end
+        GroupRemoveUnit(perebor, e)
+    end
+    return find
 end
-
 
 function HexUnit(unit)
-	--UnitAddAbility(unit,FourCC("AInv"))
-	--UnitAddItemById(unit,FourCC("I002"))
-	UnitAddAbility(unit,FourCC("A002"))
-	if not IssueTargetOrder(unit,"hex",unit) then
-		--print("errorcasthex")
-	end
+    --UnitAddAbility(unit,FourCC("AInv"))
+    --UnitAddItemById(unit,FourCC("I002"))
+    UnitAddAbility(unit, FourCC("A002"))
+    if not IssueTargetOrder(unit, "hex", unit) then
+        --print("errorcasthex")
+    end
 end
 
 
@@ -6622,8 +6656,26 @@ function OnPostDamage()
         end
 
         if data.CriticalStrikeCDFH then
-        --[[
-            StartFrameCDWA(data.CriticalStrikeCurrentCD, data.CriticalStrikeCDFH, GlobalTalons[data.pid + 1]["HeroBlademaster"][2], function()
+            --[[
+                StartFrameCDWA(data.CriticalStrikeCurrentCD, data.CriticalStrikeCDFH, GlobalTalons[data.pid + 1]["HeroBlademaster"][2], function()
+                    local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
+                    local ks = 1.5
+                    if data.HasMultipleCritical then
+                        if talonM.level > 0 then
+                            ks = talonM.DS[talonM.level]
+                        end
+                    end
+                    BlzSetEventDamage(GetEventDamage() * ks)
+                end)
+    ]]
+
+
+            if data.CriticalStrikeCurrentCD <= 0 then
+                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][2]
+                local cd = talon.DS[talon.level]
+                data.CriticalStrikeCurrentCD = cd
+                StartFrameCD(cd, data.CriticalStrikeCDFH)
+
                 local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
                 local ks = 1.5
                 if data.HasMultipleCritical then
@@ -6632,28 +6684,9 @@ function OnPostDamage()
                     end
                 end
                 BlzSetEventDamage(GetEventDamage() * ks)
-            end)
-]]
-
-
-            if data.CriticalStrikeCurrentCD<=0 then
-                local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][2]
-                local cd=talon.DS[talon.level]
-                data.CriticalStrikeCurrentCD=cd
-                StartFrameCD(cd,data.CriticalStrikeCDFH )
-
-                local talonM=GlobalTalons[data.pid+1]["HeroBlademaster"][3]
-                local ks=1.5
-                if data.HasMultipleCritical then
-                    if talonM.level>0 then
-                        ks=talonM.DS[talonM.level]
-                    end
-                end
-                BlzSetEventDamage(GetEventDamage()*ks)
-
 
                 TimerStart(CreateTimer(), cd, false, function()
-                    data.CriticalStrikeCurrentCD=0
+                    data.CriticalStrikeCurrentCD = 0
                     DestroyTimer(GetExpiredTimer())
                 end)
             end
@@ -6799,6 +6832,7 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                     --print("урон по декору")
                     if GetDestructableLife(d) < 1 or GetDestructableLife(d) <= 0 then
                         --print("смерть декора")
+                        local dx, dy = GetDestructableX(d), GetDestructableY(d)
                         if hero then
                             if GetRandomInt(1, 2) == 1 then
                                 if GetDestructableTypeId(d) == FourCC("B004") then
@@ -6812,19 +6846,23 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                     UnitAddGold(hero, GetRandomInt(2, 5))
                                 end
                             end
+                        end
+                        if GetDestructableTypeId(d) == FourCC("B008") then
+                            --print("умерла ваза горшок в событии проверки")
 
-                            if GetDestructableTypeId(d) == FourCC("B008") then
-                                --print("умер горшок")
-                                local dx, dy = GetDestructableX(d), GetDestructableY(d)
-                                normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", dx, dy, 60)
-                                DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", dx, dy))
-                                TimerStart(CreateTimer(), 0.6, false, function()
-                                    RemoveDestructable(d)
-                                    DestroyTimer(GetExpiredTimer())
-                                end)
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", dx, dy, 60)
+                            DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", dx, dy))
+                            TimerStart(CreateTimer(), 0.6, false, function()
+                                RemoveDestructable(d)
+                                DestroyTimer(GetExpiredTimer())
+                            end)
+                        end
+                        if GetDestructableTypeId(d) == FourCC("BTsc") then
+                            local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", dx, dy)
+                            DestroyEffect(eff)
+                            if hero then
+                                UnitDamageArea(hero, 500, dx, dy, 150)
                             end
-
-
                         end
                     end
                 end
@@ -6955,7 +6993,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         PreloadigLags()
-        TimerStart(CreateTimer(), 1, false, function()
+        TimerStart(CreateTimer(), 1.5, false, function()
             InitTrig_SyncLoadDone()
             InitPreloadStart()
             DestroyTimer(GetExpiredTimer())
@@ -6985,35 +7023,27 @@ function InitPreloadStart()
     TimerStart(CreateTimer(), .2, true, function()
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
             local data = HERO[i]
-            local restoreGold = 0
-            --print("Обработка игрока " .. i)
-
-            --if #(udg_LoadCode[i]) > 10 then
-            --    udg_LoadCode[i]=50
-            --    print("FirstGame")
-            --end
             if not udg_LoadCode[i] then
                 udg_LoadCode[i] = 50
+                LoadedGameCount[i] = 0
+                LoadedChaos[i]=0
             end
-
-            --restoreGold = SyncString(Player(i), I2S(s)) -- ЭТА СТРОЧКА КРАШИТ ВАР
-
-            --print(i)
-            --TimerStart(CreateTimer(), 0.1, false, function()
-            --print("итоговое значение для "..i)
-            --print(udg_LoadCode[i])
-            --print(GetPlayerName(Player(i)) .. " перенес золота из прошлой игры " ..(udg_LoadCode[i]))
 
             if udg_LoadCode[i] then
                 if tonumber(LoadedGold[i]) then
                 else
                     LoadedGold[i] = 50
                     LoadedGameCount[i] = 0
+                    LoadedChaos[i]=0
                     --print("FirstGame")
                 end
                 print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ","Number of completed games") .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
+                if LoadedGameCount[i]>2 then
+                    AllCompletedForPlayer(i)
+                end
                 UnitAddGold(data.UnitHero, LoadedGold[i])
+                AddChaos(data,LoadedChaos[i])
             else
                 --i=i-1
             end
@@ -7028,22 +7058,11 @@ function InitPreloadStart()
 
 end
 
-function SyncString(p, val)
-    if (GetLocalPlayer() == p) then
-        StoreString(cache, "", "", val)
-    end
-    TriggerSyncStart()
-    if (GetLocalPlayer() == p) then
-        SyncStoredString(cache, "", "")
-    end
-    TriggerSleepAction(2) -- меньшнее   значение    вызывает    десинх
-    TriggerSyncReady()
-    return GetStoredString(cache, "", "")
-end
 
 udg_LoadCode = {}
 LoadedGold = {}
 LoadedGameCount = {}
+LoadedChaos={}
 function InitTrig_SyncLoadDone ()
     local gg_trg_SyncLoadDone = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -7059,15 +7078,20 @@ function InitTrig_SyncLoadDone ()
             udg_LoadCode[i] = value
             LoadedGold[i] = t[1]
             LoadedGameCount[i] = t[2]
+            LoadedChaos[i]=t[3]
             --print(t[2])
-            if #value > 10 then
+            if value == "error" then
                 --игрок первый раз играет
                 udg_LoadCode[i] = 0
                 LoadedGold[i] = 0
                 LoadedGameCount[i] = 0
+                LoadedChaos[i]=0
             end
             if not LoadedGameCount[i] then
                 LoadedGameCount[i] = 0
+            end
+            if not LoadedChaos[i] then
+                LoadedChaos[i] = 0
             end
             --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
         end
@@ -7090,6 +7114,8 @@ function SaveResult(SaveCode)
     PreloadGenEnd(SavePath)
     PreloadGenClear()
 end
+
+
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -9522,14 +9548,28 @@ function UnitDamageArea(u, damage, x, y, range, flag)
         if UnitAlive(e) and (UnitAlive(u) or deadDamage) and (IsUnitEnemy(e, GetOwningPlayer(u)) or GetOwningPlayer(e) == Player(PLAYER_NEUTRAL_PASSIVE) or flag == "all") then
             --
             if flag == "shotForce" then
-                UnitAddForceSimple(e, AngleBetweenUnits(u, e), 20, 300, nil, u)
+                --конусный урон при финальном ударе
+                -- x1, x2 - координаты проверяемой точки
+                -- x2, y2 - координаты вершины сектора
+                -- orientation - ориентация сектора в мировых координатах
+                -- width - уголовой размер сектора в градусах
+                -- radius - окружности которой принадлежит сектор
+                --print("толчек")
+                --local data = HERO[GetPlayerId(GetOwningPlayer(u))]
+                local xb, yb = MoveXY(GetUnitX(u), GetUnitY(u), 60, GetUnitFacing(u) - 180)
+                local speed = 20
+                local dist = 300
+
+                if IsPointInSector(GetUnitX(e), GetUnitY(e), xb, yb, GetUnitFacing(u), 90, range) then
+                    UnitAddForceSimple(e, AngleBetweenUnits(u, e), speed, dist, nil, u)
+                end
             end
             if flag == "ForceTotem" then
                 --print("толкаем тотемом")
                 local tempA = AngleBetweenXY(x, y, GetUnitXY(e)) / bj_DEGTORAD
                 UnitAddForceSimple(e, tempA, 20, 300, nil, u)
             end
-            if flag == "all"  then
+            if flag == "all" then
                 if GetPlayerController(GetOwningPlayer(u)) == MAP_CONTROL_USER then
                     local data = HERO[GetPlayerId(GetOwningPlayer(u))]
                     if not data.AddDamageTrap then
@@ -9786,7 +9826,7 @@ function Trig_DeadB2_Conditions()
     return true
 end
 
-function Trig_DeadB2_Func002Func005C()
+function Trig_DeadB2_Func002Func009C()
     if (not (IsDestructableDeadBJ(gg_dest_B009_5751) == true)) then
         return false
     end
@@ -9803,7 +9843,7 @@ function Trig_DeadB2_Func002Func005C()
 end
 
 function Trig_DeadB2_Func002C()
-    if (not Trig_DeadB2_Func002Func005C()) then
+    if (not Trig_DeadB2_Func002Func009C()) then
         return false
     end
     return true
@@ -9813,6 +9853,10 @@ function Trig_DeadB2_Actions()
     if (Trig_DeadB2_Func002C()) then
                 CreateGodTalon(14000,-16000,"GoldReward")
         udg_QuestComplete2 = true
+        KillDestructable(gg_dest_B009_5749)
+        KillDestructable(gg_dest_B009_5750)
+        KillDestructable(gg_dest_B009_5751)
+        KillDestructable(gg_dest_B00B_5766)
     else
         TriggerSleepAction(3.00)
         DestructableRestoreLife(GetDyingDestructable(), GetDestructableMaxLife(GetDyingDestructable()), true)
@@ -9836,7 +9880,7 @@ function Trig_DeadB1_Conditions()
     return true
 end
 
-function Trig_DeadB1_Func002Func006C()
+function Trig_DeadB1_Func002Func009C()
     if (not (IsDestructableDeadBJ(gg_dest_B009_5531) == true)) then
         return false
     end
@@ -9850,7 +9894,7 @@ function Trig_DeadB1_Func002Func006C()
 end
 
 function Trig_DeadB1_Func002C()
-    if (not Trig_DeadB1_Func002Func006C()) then
+    if (not Trig_DeadB1_Func002Func009C()) then
         return false
     end
     return true
@@ -9858,8 +9902,11 @@ end
 
 function Trig_DeadB1_Actions()
     if (Trig_DeadB1_Func002C()) then
-                CreateGodTalon(GetDestructableX(GetDyingDestructable()),GetDestructableY(GetDyingDestructable()),"CodoHeart")
+                CreateGodTalon(18366,-6850,"CodoHeart")
         udg_QuestComplete1 = true
+        KillDestructable(gg_dest_B009_5530)
+        KillDestructable(gg_dest_B009_5531)
+        KillDestructable(gg_dest_B009_5532)
     else
         TriggerSleepAction(2)
         DestructableRestoreLife(GetDyingDestructable(), GetDestructableMaxLife(GetDyingDestructable()), true)

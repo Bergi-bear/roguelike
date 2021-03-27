@@ -114,8 +114,26 @@ function OnPostDamage()
         end
 
         if data.CriticalStrikeCDFH then
-        --[[
-            StartFrameCDWA(data.CriticalStrikeCurrentCD, data.CriticalStrikeCDFH, GlobalTalons[data.pid + 1]["HeroBlademaster"][2], function()
+            --[[
+                StartFrameCDWA(data.CriticalStrikeCurrentCD, data.CriticalStrikeCDFH, GlobalTalons[data.pid + 1]["HeroBlademaster"][2], function()
+                    local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
+                    local ks = 1.5
+                    if data.HasMultipleCritical then
+                        if talonM.level > 0 then
+                            ks = talonM.DS[talonM.level]
+                        end
+                    end
+                    BlzSetEventDamage(GetEventDamage() * ks)
+                end)
+    ]]
+
+
+            if data.CriticalStrikeCurrentCD <= 0 then
+                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][2]
+                local cd = talon.DS[talon.level]
+                data.CriticalStrikeCurrentCD = cd
+                StartFrameCD(cd, data.CriticalStrikeCDFH)
+
                 local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
                 local ks = 1.5
                 if data.HasMultipleCritical then
@@ -124,28 +142,9 @@ function OnPostDamage()
                     end
                 end
                 BlzSetEventDamage(GetEventDamage() * ks)
-            end)
-]]
-
-
-            if data.CriticalStrikeCurrentCD<=0 then
-                local talon=GlobalTalons[data.pid+1]["HeroBlademaster"][2]
-                local cd=talon.DS[talon.level]
-                data.CriticalStrikeCurrentCD=cd
-                StartFrameCD(cd,data.CriticalStrikeCDFH )
-
-                local talonM=GlobalTalons[data.pid+1]["HeroBlademaster"][3]
-                local ks=1.5
-                if data.HasMultipleCritical then
-                    if talonM.level>0 then
-                        ks=talonM.DS[talonM.level]
-                    end
-                end
-                BlzSetEventDamage(GetEventDamage()*ks)
-
 
                 TimerStart(CreateTimer(), cd, false, function()
-                    data.CriticalStrikeCurrentCD=0
+                    data.CriticalStrikeCurrentCD = 0
                     DestroyTimer(GetExpiredTimer())
                 end)
             end
@@ -291,6 +290,7 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                     --print("урон по декору")
                     if GetDestructableLife(d) < 1 or GetDestructableLife(d) <= 0 then
                         --print("смерть декора")
+                        local dx, dy = GetDestructableX(d), GetDestructableY(d)
                         if hero then
                             if GetRandomInt(1, 2) == 1 then
                                 if GetDestructableTypeId(d) == FourCC("B004") then
@@ -304,19 +304,23 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                     UnitAddGold(hero, GetRandomInt(2, 5))
                                 end
                             end
+                        end
+                        if GetDestructableTypeId(d) == FourCC("B008") then
+                            --print("умерла ваза горшок в событии проверки")
 
-                            if GetDestructableTypeId(d) == FourCC("B008") then
-                                --print("умер горшок")
-                                local dx, dy = GetDestructableX(d), GetDestructableY(d)
-                                normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", dx, dy, 60)
-                                DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", dx, dy))
-                                TimerStart(CreateTimer(), 0.6, false, function()
-                                    RemoveDestructable(d)
-                                    DestroyTimer(GetExpiredTimer())
-                                end)
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", dx, dy, 60)
+                            DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", dx, dy))
+                            TimerStart(CreateTimer(), 0.6, false, function()
+                                RemoveDestructable(d)
+                                DestroyTimer(GetExpiredTimer())
+                            end)
+                        end
+                        if GetDestructableTypeId(d) == FourCC("BTsc") then
+                            local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", dx, dy)
+                            DestroyEffect(eff)
+                            if hero then
+                                UnitDamageArea(hero, 500, dx, dy, 150)
                             end
-
-
                         end
                     end
                 end
