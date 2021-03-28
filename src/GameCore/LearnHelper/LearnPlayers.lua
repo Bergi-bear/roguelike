@@ -6,7 +6,7 @@
 do
     local InitGlobalsOrigin = InitGlobals -- записываем InitGlobals в переменную
     function InitGlobals()
-        InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
+        InitGlobalsOrigin()
         TimerStart(CreateTimer(), 1, false, function()
             CreateTaskForAllPlayer()
             DestroyTimer(GetExpiredTimer())

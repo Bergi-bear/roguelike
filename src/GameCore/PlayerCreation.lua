@@ -9,6 +9,8 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
+            HERO = {}
+            perebor = CreateGroup()
             CreationPeonsForAllPlayer()
             DestroyTimer(GetExpiredTimer())
         end)

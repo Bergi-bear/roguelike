@@ -8,7 +8,7 @@
 do
     local InitGlobalsOrigin = InitGlobals -- записываем InitGlobals в переменную
     function InitGlobals()
-        InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
+        InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
             InitEnemyEntire()
             DestroyTimer(GetExpiredTimer())
@@ -70,6 +70,7 @@ end
 
 function GetRandomEnemyHero()
     local table = {}
+    local find=nil
     local k = 1
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
@@ -82,7 +83,9 @@ function GetRandomEnemyHero()
         end
     end
     local r = GetRandomInt(1, #table)
-    return table[r]
+    find=table[r]
+    table={}
+    return find
 end
 
 function StoneUnStone(unit)
@@ -377,7 +380,7 @@ function NecroAttackAndArrow(unit)
     end)
 end
 
-Bugs = CreateGroup()
+--Bugs = CreateGroup()
 function SinergyBug(unit)
     local hero = GetRandomEnemyHero()
     TimerStart(CreateTimer(), 1, true, function()

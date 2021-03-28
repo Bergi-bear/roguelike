@@ -18,14 +18,14 @@ do
             PlayUnitAnimationFromChat()
             PauseTimer(GetExpiredTimer())
             DestroyTimer(GetExpiredTimer())
-            --InitWASD(hero) --переместить в первый выбор героя
+
         end)
     end
 end
 TIMER_PERIOD = 1 / 32
 TIMER_PERIOD64 = 1 / 64
-HERO = {}
-perebor = CreateGroup()
+
+
 function InitHeroTable(hero)
     --perebor=CreateGroup()
     --print("InitHeroTable for "..GetUnitName(hero))
@@ -100,6 +100,7 @@ end
 
 function InitWASD(hero)
     -- print("initwasdSTART")
+
     InitHeroTable(hero)
     CreateWASDActions()
     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]

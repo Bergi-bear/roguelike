@@ -4,216 +4,229 @@
 --- DateTime: 21.02.2020 23:45
 ---
 
-SawDiskModel="Chakram_05"--"Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl"
-SawChainModel="abilities\\weapons\\wyvernspear\\wyvernspearmissile.mdl"
-CollisionEffect="Abilities/Weapons/AncestralGuardianMissile/AncestralGuardianMissile.mdl"
-function CreateRoundSawZ(hero,ChainCount,angle,z)
-	local xs,ys=GetUnitXY(hero)
-	local saw=AddSpecialEffect(SawDiskModel,xs,ys)
-	local chain={}
-	local step=60
-	local SpeedRandomFactor=GetRandomReal(-1,1)
-	local speed=3+SpeedRandomFactor
-	if z==nil then z=GetUnitZ(hero)+30 end
-	if angle==nil then angle=0 end
-	for i=1,ChainCount do
-		chain[i]=AddSpecialEffect(SawChainModel,xs,ys)
-		--print("создан кусок цепи "..i)
-	end
-	-- установки
-	BlzSetSpecialEffectScale(saw,0.9)
-	local DamageDealer=CreateUnit(GetOwningPlayer(hero),DummyID,xs,ys,0)
-	SetUnitInvulnerable(DamageDealer,true)
-	ShowUnit(DamageDealer,false)
-	local SS=true
-	local DeadUnitOnSaw=nil
+SawDiskModel = "Chakram_05"--"Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl"
+SawChainModel = "abilities\\weapons\\wyvernspear\\wyvernspearmissile.mdl"
+CollisionEffect = "Abilities/Weapons/AncestralGuardianMissile/AncestralGuardianMissile.mdl"
+function CreateRoundSawZ(hero, ChainCount, angle, z)
+    local xs, ys = GetUnitXY(hero)
+    local saw = AddSpecialEffect(SawDiskModel, xs, ys)
+    local chain = {}
+    local step = 60
+    local SpeedRandomFactor = GetRandomReal(-1, 1)
+    local speed = 3 + SpeedRandomFactor
+    if z == nil then
+        z = GetUnitZ(hero) + 30
+    end
+    if angle == nil then
+        angle = 0
+    end
+    for i = 1, ChainCount do
+        chain[i] = AddSpecialEffect(SawChainModel, xs, ys)
+        --print("создан кусок цепи "..i)
+    end
+    -- установки
+    BlzSetSpecialEffectScale(saw, 0.9)
+    local DamageDealer = CreateUnit(GetOwningPlayer(hero), DummyID, xs, ys, 0)
+    SetUnitInvulnerable(DamageDealer, true)
+    ShowUnit(DamageDealer, false)
+    local SS = true
+    local DeadUnitOnSaw = nil
+    local enemy = nil
+    local enterTrig = CreateTrigger()
+    TriggerRegisterUnitInRange(enterTrig, DamageDealer, 100, nil)
+    TriggerAddAction(enterTrig, function()
+        enemy = GetTriggerUnit()
+        --print("касание с пилой " .. GetUnitName(enemy))
+        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+            local nx, ny = GetUnitXY(DamageDealer)
+            local OnDamage, ReflectorUnit = UnitDamageArea(DamageDealer, 20, nx, ny, 150, z - 90, CollisionEffect)
 
-	TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-		local x,y=0,0
-		local OnDamage=false
-		local ReflectorUnit=nil
-		for i=1,ChainCount do
-			x,y=MoveXY(xs,ys,step*i,angle)
-			BlzSetSpecialEffectPosition(chain[i],x,y,z)
-			BlzSetSpecialEffectYaw(chain[i],math.rad(angle))
-		end
-		local nx,ny=MoveXY(xs,ys,step*ChainCount,angle)
-		BlzSetSpecialEffectPosition(saw,nx,ny,z)
-		SetUnitX(DamageDealer,nx)
-		SetUnitY(DamageDealer,ny)
-		angle=angle+speed
+            if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
+                if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+                    normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1", nx, ny)
+                end
+                DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl", GetUnitXY(ReflectorUnit)))
+                if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+                    if UnitAlive(ReflectorUnit) then
+                        --print("жив")
+                    else
+                        if not DeadUnitOnSaw then
+                            DeadUnitOnSaw = ReflectorUnit
+                        end
+                        --print("мертв")
+                    end
+                end
+            end
 
-		OnDamage,ReflectorUnit=UnitDamageArea(DamageDealer,20,nx,ny,150,z-90,CollisionEffect)
+            if DeadUnitOnSaw then
+                if not UnitAlive(DeadUnitOnSaw) then
+                    if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+                        SetCameraQuickPosition(nx, ny)
+                        SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(DeadUnitOnSaw), DamageDealer, 10, 10, true) -- не дергается
+                        local data = HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
+                        data.CameraOnSaw = true
+                    end
+                    --SetCameraPosition(nx,ny)
+                    SetUnitX(DeadUnitOnSaw, nx)
+                    SetUnitY(DeadUnitOnSaw, ny)
+                else
+                    DeadUnitOnSaw = nil
+                end
+            end
 
-		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit)  then
-			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-				normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1",nx,ny)
-			end
-			DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl",GetUnitXY(ReflectorUnit)))
-			--[[local tl = Location(GetUnitXY(hero))
-			PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
-			RemoveLocation(tl)
-			local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0) --звуковой дамми и его блок
-			UnitAddAbility(dummy,FourCC('Apsh'))
-			IssueImmediateOrder(dummy,"phaseshift")
-			UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)]]
+            if not IsUnitInRange(DamageDealer, enemy, 250) then
+                DestroyTimer(GetExpiredTimer())
+                --print("нет касания")
+            end
+        end)
+    end)
 
-			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-				if UnitAlive(ReflectorUnit) then
-					--print("жив")
-				else
-					if not DeadUnitOnSaw then
-						DeadUnitOnSaw=ReflectorUnit
-					end
-					--print("мертв")
-				end
-			end
+    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+        local x, y = 0, 0
+        local OnDamage = false
+        local ReflectorUnit = nil
+        for i = 1, ChainCount do
+            x, y = MoveXY(xs, ys, step * i, angle)
+            BlzSetSpecialEffectPosition(chain[i], x, y, z)
+            BlzSetSpecialEffectYaw(chain[i], math.rad(angle))
+        end
+        local nx, ny = MoveXY(xs, ys, step * ChainCount, angle)
+        BlzSetSpecialEffectPosition(saw, nx, ny, z)
+        SetUnitX(DamageDealer, nx)
+        SetUnitY(DamageDealer, ny)
+        angle = angle + speed
 
-		end
-		if DeadUnitOnSaw then
-			if not UnitAlive(DeadUnitOnSaw) then
-				if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-					SetCameraQuickPosition(nx,ny)
-					SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(DeadUnitOnSaw), DamageDealer, 10, 10, true) -- не дергается
-					local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
-					data.CameraOnSaw=true
-				end
-				--SetCameraPosition(nx,ny)
-				SetUnitX(DeadUnitOnSaw,nx)
-				SetUnitY(DeadUnitOnSaw,ny)
-			else
-				DeadUnitOnSaw=nil
-			end
-		end
-		if OnDamage and IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-			local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
-			if data.Reflection then
-				speed=speed*(-1)
-			end
-		end
-
-		if UnitAlive(hero)==false then
-			DestroyTimer(GetExpiredTimer()) -- временно вечный таймер
-			DestroyEffect(saw)
-			for i=1,ChainCount do
-				DestroyEffect(chain[i])
-			end
-		end
-	end)
+        if UnitAlive(hero) == false then
+            DestroyTimer(GetExpiredTimer()) -- временно вечный таймер
+            DestroyEffect(saw)
+            for i = 1, ChainCount do
+                DestroyEffect(chain[i])
+            end
+        end
+    end)
 end
 
+function CreateGroundSaw(hero, angle, z)
+    local xs, ys = GetUnitXY(hero)
+    local saw = AddSpecialEffect(SawDiskModel, xs, ys)
+    BlzSetSpecialEffectRoll(saw, math.rad(90))
+    BlzSetSpecialEffectYaw(saw, math.rad(angle))
+    if z == nil then
+        z = GetUnitZ(hero) + 60
+    end
+    BlzSetSpecialEffectScale(saw, 0.9)
+    BlzSetSpecialEffectZ(saw, z)
+    local step = 10
+    local i = 0
+    local turn = false
+    UnitAddAbility(hero, FourCC('Aloc'))
 
-function CreateGroundSaw(hero,angle,z)
-	local xs,ys=GetUnitXY(hero)
-	local saw=AddSpecialEffect(SawDiskModel,xs,ys)
-	BlzSetSpecialEffectRoll(saw,math.rad(90))
-	BlzSetSpecialEffectYaw(saw,math.rad(angle))
-	if z==nil then z=GetUnitZ(hero)+60 end
-	BlzSetSpecialEffectScale(saw,0.9)
-	BlzSetSpecialEffectZ(saw,z)
-	local step=10
-	local i=0
-	local turn=false
-	UnitAddAbility(hero,FourCC('Aloc'))
-	TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-		local x,y=0,0
+    local enemy = nil
+    local enterTrig = CreateTrigger()
+    TriggerRegisterUnitInRange(enterTrig, hero, 60, nil)
+    TriggerAddAction(enterTrig, function()
+        enemy = GetTriggerUnit()
+    --    print("касание")
+        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+            local x, y = GetUnitXY(hero)
+            local OnDamage, ReflectorUnit = UnitDamageArea(hero, 20, x, y, 60, z - 90, CollisionEffect)
+            local nx, ny = MoveXY(x, y, 60, angle)
+            UnitDamageArea(hero, 20, nx, ny, 60, z - 90, CollisionEffect)
+            nx, ny = MoveXY(x, y, -60, angle)
+            UnitDamageArea(hero, 20, nx, ny, 60, z - 90, CollisionEffect)
 
-		local OnDamage=false
-		local ReflectorUnit=nil
+            if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
+                if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+                    normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1", nx, ny)
+                end
+                DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl", GetUnitXY(ReflectorUnit)))
+            end
+            if not IsUnitInRange(hero, enemy, 120) then
+                DestroyTimer(GetExpiredTimer())
+            --    print("нет касания")
+            end
+        end)
+    end)
 
+    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+        local x, y = 0, 0
 
-		if OnDamage and IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-			local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
-			if data.Reflection then
-				--speed=speed*(-1)
-				--turn=true
-			end
-		end
+        local OnDamage = false
+        local ReflectorUnit = nil
 
+        if OnDamage and IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+            local data = HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
+            if data.Reflection then
+                --speed=speed*(-1)
+                --turn=true
+            end
+        end
 
-		if not turn then
-			i=i+1
-			BlzSetSpecialEffectTimeScale(saw,-1)
-		else
-			i=i-1
-			BlzSetSpecialEffectTimeScale(saw,1)
-		end
-		--print(i)
-		x,y=MoveXY(xs,ys,step*i,angle)
-		if InMapXY(x,y) then
-			SetUnitX(hero,x)
-			SetUnitY(hero,y)
-		else
-			print("ERROR - NOTINMAP"..x.." "..y)
-			PingMinimap(x,y,10)
-			DestroyTimer(GetExpiredTimer())
-			KillUnit(hero)
-		end
-		BlzSetSpecialEffectPosition(saw,x,y,z)
-		--урон от земляной пилы
-		OnDamage,ReflectorUnit=UnitDamageArea(hero,20,x,y,60,z-90,CollisionEffect)
-		local nx,ny=MoveXY(x,y,60,angle)
-		UnitDamageArea(hero,20,nx,ny,60,z-90,CollisionEffect)
-		nx,ny=MoveXY(x,y,-60,angle)
-		UnitDamageArea(hero,20,nx,ny,60,z-90,CollisionEffect)
-
-		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
-			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-				normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1",nx,ny)
-			end
-			DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl",GetUnitXY(ReflectorUnit)))
-			--local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0)
-			--UnitAddAbility(dummy,FourCC('Apsh'))
-			--IssueImmediateOrder(dummy,"phaseshift")-- поддельный звук пилы
-			--UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)
-			--ShowUnit(dummy,false)
-			--local tl = Location(GetUnitXY(hero))
-			--PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
-			--RemoveLocation(tl)
-		end
+        if not turn then
+            i = i + 1
+            BlzSetSpecialEffectTimeScale(saw, -1)
+        else
+            i = i - 1
+            BlzSetSpecialEffectTimeScale(saw, 1)
+        end
+        --print(i)
+        x, y = MoveXY(xs, ys, step * i, angle)
+        if InMapXY(x, y) then
+            SetUnitX(hero, x)
+            SetUnitY(hero, y)
+        else
+            print("ERROR - NOTINMAP" .. x .. " " .. y)
+            PingMinimap(x, y, 10)
+            DestroyTimer(GetExpiredTimer())
+            KillUnit(hero)
+        end
+        BlzSetSpecialEffectPosition(saw, x, y, z)
+        --урон от земляной пилы
 
 
-		if OnDamage and IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-			local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
-			if data.Reflection then
-				if i<=50 then
-					turn=true
-				else
-					turn=false
-				end
-			end
-		end
+        if OnDamage and IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+            --вычисления убраны
+            local data = HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
+            if data.Reflection then
+                if i <= 50 then
+                    turn = true
+                else
+                    turn = false
+                end
+            end
+        end
 
-		if i==100 then
-			turn=true
-		end
-		if i==0 then
-			turn=false
-		end
-		end)
+        if i == 100 then
+            turn = true
+        end
+        if i == 0 then
+            turn = false
+        end
+    end)
 end
-
 
 function StartAllSaw()
-	local e--временный юнит
-	local k=0
-	local id=FourCC('hmtm') -- колонная с пилой
-	local idg=FourCC('hrif') -- пила по земле
-	GroupEnumUnitsInRect(perebor,bj_mapInitialPlayableArea,nil)
-	while true do
-		e = FirstOfGroup(perebor)
-		if e == nil then break end
-		if UnitAlive(e) and GetUnitTypeId(e)==id then
-			--k=k+1
-			CreateRoundSawZ(e,6,GetRandomInt(0,360))
-			ShowUnit(e,false)
-		end
-		if UnitAlive(e) and GetUnitTypeId(e)==idg then
-			k=k+1
-			CreateGroundSaw(e,GetUnitFacing(e))
-			ShowUnit(e,false)
-			--KillUnit(e)
-		end
-		GroupRemoveUnit(perebor,e)
-	end
+    local e--временный юнит
+    local k = 0
+    local id = FourCC('hmtm') -- колонная с пилой
+    local idg = FourCC('hrif') -- пила по земле
+    GroupEnumUnitsInRect(perebor, bj_mapInitialPlayableArea, nil)
+    while true do
+        e = FirstOfGroup(perebor)
+        if e == nil then
+            break
+        end
+        if UnitAlive(e) and GetUnitTypeId(e) == id then
+            --k=k+1
+            CreateRoundSawZ(e, 6, GetRandomInt(0, 360))
+            ShowUnit(e, false)
+        end
+        if UnitAlive(e) and GetUnitTypeId(e) == idg then
+            k = k + 1
+            CreateGroundSaw(e, GetUnitFacing(e))
+            ShowUnit(e, false)
+            --KillUnit(e)
+        end
+        GroupRemoveUnit(perebor, e)
+    end
 end

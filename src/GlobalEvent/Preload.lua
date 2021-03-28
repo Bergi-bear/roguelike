@@ -23,6 +23,8 @@ function PreloadigLags()
     KillUnit(temp)
     temp = CreateUnit(Player(0), FourCC("u000"), OutPoint, OutPoint, 0)
     KillUnit(temp)
+    temp = CreateUnit(Player(0), FourCC("unec"), OutPoint, OutPoint, 0)
+    KillUnit(temp)
 end
 
 function InitPreloadStart()
@@ -41,7 +43,7 @@ function InitPreloadStart()
             if not udg_LoadCode[i] then
                 udg_LoadCode[i] = 50
                 LoadedGameCount[i] = 0
-                LoadedChaos[i]=0
+                LoadedChaos[i] = 0
             end
 
             if udg_LoadCode[i] then
@@ -49,16 +51,16 @@ function InitPreloadStart()
                 else
                     LoadedGold[i] = 50
                     LoadedGameCount[i] = 0
-                    LoadedChaos[i]=0
+                    LoadedChaos[i] = 0
                     --print("FirstGame")
                 end
-                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ","Number of completed games") .. LoadedGameCount[i])
+                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", "Number of completed games") .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
-                if LoadedGameCount[i]>2 then
+                if LoadedGameCount[i] > 2 then
                     AllCompletedForPlayer(i)
                 end
                 UnitAddGold(data.UnitHero, LoadedGold[i])
-                AddChaos(data,LoadedChaos[i])
+                AddChaos(data, LoadedChaos[i])
             else
                 --i=i-1
             end
@@ -73,11 +75,10 @@ function InitPreloadStart()
 
 end
 
-
 udg_LoadCode = {}
 LoadedGold = {}
 LoadedGameCount = {}
-LoadedChaos={}
+LoadedChaos = {}
 function InitTrig_SyncLoadDone ()
     local gg_trg_SyncLoadDone = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -93,14 +94,14 @@ function InitTrig_SyncLoadDone ()
             udg_LoadCode[i] = value
             LoadedGold[i] = t[1]
             LoadedGameCount[i] = t[2]
-            LoadedChaos[i]=t[3]
+            LoadedChaos[i] = t[3]
             --print(t[2])
             if value == "error" then
                 --игрок первый раз играет
                 udg_LoadCode[i] = 0
                 LoadedGold[i] = 0
                 LoadedGameCount[i] = 0
-                LoadedChaos[i]=0
+                LoadedChaos[i] = 0
             end
             if not LoadedGameCount[i] then
                 LoadedGameCount[i] = 0

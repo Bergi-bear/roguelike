@@ -40,6 +40,8 @@ function UnitAddGold(hero,amount)
                 DestroyTimer(GetExpiredTimer())
                 FlyTextTagGoldBounty(hero,"+"..I2S(data.ShowGoldAmount),GetOwningPlayer(hero))
                 normal_sound("SystemGeneric\\ReceiveGold",GetUnitXY(hero))
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\PileofGold.mdl",GetUnitXY(hero)))
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl",GetUnitXY(hero)))
                 AddGold(data,amount)
                 data.ShowGoldAmount=0
             end

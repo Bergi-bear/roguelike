@@ -113,18 +113,6 @@ function CreateAllDestructables()
     gg_dest_B00B_5766 = BlzCreateDestructableZWithSkin(FourCC("B00B"), 14790.4, -16125.1, 1234.8, 0.000, 1.000, 0, FourCC("B00B"))
 end
 
-function CreateUnitsForPlayer0()
-    local p = Player(0)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18743.8, -13516.9, 104.626, FourCC("hfoo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14205.1, -12158.3, 106.153, FourCC("hfoo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23248.6, -2702.1, 106.153, FourCC("hfoo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 9899.4, -19533.8, 106.153, FourCC("hfoo"))
-end
-
 function CreateUnitsForPlayer10()
     local p = Player(10)
     local u
@@ -255,9 +243,6 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16163.1, -21028.1, 177.987, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16192.9, -19807.5, 270.396, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16139.7, -19924.9, 178.449, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 6136.5, -7607.4, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 6256.4, -7608.6, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 6377.4, -7610.0, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 19294.8, -7739.0, 270.047, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 15392.8, -19798.4, 356.698, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 18748.3, -8074.6, 242.850, FourCC("hmtm"))
@@ -333,6 +318,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20762.6, -12449.6, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21627.4, -12448.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14911.2, -6273.5, 350.440, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18797.4, -13609.2, 104.630, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14166.7, -15343.8, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15048.6, -15216.7, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16773.5, -15406.5, 296.730, FourCC("hdhw"))
@@ -503,7 +489,9 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20951.0, -16568.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20722.5, -16819.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16526.3, -6118.2, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14205.1, -12158.3, 106.150, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23097.5, -7426.9, 106.150, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23248.6, -2702.1, 106.150, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16875.3, -15884.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17202.8, -15578.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17185.9, -15960.3, 247.300, FourCC("e001"))
@@ -572,6 +560,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15625.2, -19984.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14726.0, -21048.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14775.5, -19779.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 9899.4, -19533.8, 106.150, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15389.0, -20840.9, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14808.1, -20559.5, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15837.3, -19674.8, 247.300, FourCC("e001"))
@@ -600,7 +589,6 @@ function CreatePlayerBuildings()
 end
 
 function CreatePlayerUnits()
-    CreateUnitsForPlayer0()
     CreateUnitsForPlayer10()
     CreateUnitsForPlayer23()
 end
@@ -1371,6 +1359,8 @@ function UnitAddGold(hero,amount)
                 DestroyTimer(GetExpiredTimer())
                 FlyTextTagGoldBounty(hero,"+"..I2S(data.ShowGoldAmount),GetOwningPlayer(hero))
                 normal_sound("SystemGeneric\\ReceiveGold",GetUnitXY(hero))
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\PileofGold.mdl",GetUnitXY(hero)))
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl",GetUnitXY(hero)))
                 AddGold(data,amount)
                 data.ShowGoldAmount=0
             end
@@ -5147,6 +5137,8 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
+            HERO = {}
+            perebor = CreateGroup()
             CreationPeonsForAllPlayer()
             DestroyTimer(GetExpiredTimer())
         end)
@@ -5187,7 +5179,7 @@ end
 do
     local InitGlobalsOrigin = InitGlobals -- записываем InitGlobals в переменную
     function InitGlobals()
-        InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
+        InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
             InitEnemyEntire()
             DestroyTimer(GetExpiredTimer())
@@ -5249,6 +5241,7 @@ end
 
 function GetRandomEnemyHero()
     local table = {}
+    local find=nil
     local k = 1
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
@@ -5261,7 +5254,9 @@ function GetRandomEnemyHero()
         end
     end
     local r = GetRandomInt(1, #table)
-    return table[r]
+    find=table[r]
+    table={}
+    return find
 end
 
 function StoneUnStone(unit)
@@ -5556,7 +5551,7 @@ function NecroAttackAndArrow(unit)
     end)
 end
 
-Bugs = CreateGroup()
+--Bugs = CreateGroup()
 function SinergyBug(unit)
     local hero = GetRandomEnemyHero()
     TimerStart(CreateTimer(), 1, true, function()
@@ -5961,7 +5956,7 @@ end
 do
     local InitGlobalsOrigin = InitGlobals -- записываем InitGlobals в переменную
     function InitGlobals()
-        InitGlobalsOrigin() -- вызываем оригинальную InitGlobals из переменной
+        InitGlobalsOrigin()
         TimerStart(CreateTimer(), 1, false, function()
             CreateTaskForAllPlayer()
             DestroyTimer(GetExpiredTimer())
@@ -6080,218 +6075,231 @@ end
 --- DateTime: 21.02.2020 23:45
 ---
 
-SawDiskModel="Chakram_05"--"Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl"
-SawChainModel="abilities\\weapons\\wyvernspear\\wyvernspearmissile.mdl"
-CollisionEffect="Abilities/Weapons/AncestralGuardianMissile/AncestralGuardianMissile.mdl"
-function CreateRoundSawZ(hero,ChainCount,angle,z)
-	local xs,ys=GetUnitXY(hero)
-	local saw=AddSpecialEffect(SawDiskModel,xs,ys)
-	local chain={}
-	local step=60
-	local SpeedRandomFactor=GetRandomReal(-1,1)
-	local speed=3+SpeedRandomFactor
-	if z==nil then z=GetUnitZ(hero)+30 end
-	if angle==nil then angle=0 end
-	for i=1,ChainCount do
-		chain[i]=AddSpecialEffect(SawChainModel,xs,ys)
-		--print("создан кусок цепи "..i)
-	end
-	-- установки
-	BlzSetSpecialEffectScale(saw,0.9)
-	local DamageDealer=CreateUnit(GetOwningPlayer(hero),DummyID,xs,ys,0)
-	SetUnitInvulnerable(DamageDealer,true)
-	ShowUnit(DamageDealer,false)
-	local SS=true
-	local DeadUnitOnSaw=nil
+SawDiskModel = "Chakram_05"--"Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl"
+SawChainModel = "abilities\\weapons\\wyvernspear\\wyvernspearmissile.mdl"
+CollisionEffect = "Abilities/Weapons/AncestralGuardianMissile/AncestralGuardianMissile.mdl"
+function CreateRoundSawZ(hero, ChainCount, angle, z)
+    local xs, ys = GetUnitXY(hero)
+    local saw = AddSpecialEffect(SawDiskModel, xs, ys)
+    local chain = {}
+    local step = 60
+    local SpeedRandomFactor = GetRandomReal(-1, 1)
+    local speed = 3 + SpeedRandomFactor
+    if z == nil then
+        z = GetUnitZ(hero) + 30
+    end
+    if angle == nil then
+        angle = 0
+    end
+    for i = 1, ChainCount do
+        chain[i] = AddSpecialEffect(SawChainModel, xs, ys)
+        --print("создан кусок цепи "..i)
+    end
+    -- установки
+    BlzSetSpecialEffectScale(saw, 0.9)
+    local DamageDealer = CreateUnit(GetOwningPlayer(hero), DummyID, xs, ys, 0)
+    SetUnitInvulnerable(DamageDealer, true)
+    ShowUnit(DamageDealer, false)
+    local SS = true
+    local DeadUnitOnSaw = nil
+    local enemy = nil
+    local enterTrig = CreateTrigger()
+    TriggerRegisterUnitInRange(enterTrig, DamageDealer, 100, nil)
+    TriggerAddAction(enterTrig, function()
+        enemy = GetTriggerUnit()
+        --print("касание с пилой " .. GetUnitName(enemy))
+        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+            local nx, ny = GetUnitXY(DamageDealer)
+            local OnDamage, ReflectorUnit = UnitDamageArea(DamageDealer, 20, nx, ny, 150, z - 90, CollisionEffect)
 
-	TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-		local x,y=0,0
-		local OnDamage=false
-		local ReflectorUnit=nil
-		for i=1,ChainCount do
-			x,y=MoveXY(xs,ys,step*i,angle)
-			BlzSetSpecialEffectPosition(chain[i],x,y,z)
-			BlzSetSpecialEffectYaw(chain[i],math.rad(angle))
-		end
-		local nx,ny=MoveXY(xs,ys,step*ChainCount,angle)
-		BlzSetSpecialEffectPosition(saw,nx,ny,z)
-		SetUnitX(DamageDealer,nx)
-		SetUnitY(DamageDealer,ny)
-		angle=angle+speed
+            if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
+                if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+                    normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1", nx, ny)
+                end
+                DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl", GetUnitXY(ReflectorUnit)))
+                if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+                    if UnitAlive(ReflectorUnit) then
+                        --print("жив")
+                    else
+                        if not DeadUnitOnSaw then
+                            DeadUnitOnSaw = ReflectorUnit
+                        end
+                        --print("мертв")
+                    end
+                end
+            end
 
-		OnDamage,ReflectorUnit=UnitDamageArea(DamageDealer,20,nx,ny,150,z-90,CollisionEffect)
+            if DeadUnitOnSaw then
+                if not UnitAlive(DeadUnitOnSaw) then
+                    if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+                        SetCameraQuickPosition(nx, ny)
+                        SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(DeadUnitOnSaw), DamageDealer, 10, 10, true) -- не дергается
+                        local data = HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
+                        data.CameraOnSaw = true
+                    end
+                    --SetCameraPosition(nx,ny)
+                    SetUnitX(DeadUnitOnSaw, nx)
+                    SetUnitY(DeadUnitOnSaw, ny)
+                else
+                    DeadUnitOnSaw = nil
+                end
+            end
 
-		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit)  then
-			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-				normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1",nx,ny)
-			end
-			DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl",GetUnitXY(ReflectorUnit)))
-			--[[local tl = Location(GetUnitXY(hero))
-			PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
-			RemoveLocation(tl)
-			local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0) --звуковой дамми и его блок
-			UnitAddAbility(dummy,FourCC('Apsh'))
-			IssueImmediateOrder(dummy,"phaseshift")
-			UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)]]
+            if not IsUnitInRange(DamageDealer, enemy, 250) then
+                DestroyTimer(GetExpiredTimer())
+                --print("нет касания")
+            end
+        end)
+    end)
 
-			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-				if UnitAlive(ReflectorUnit) then
-					--print("жив")
-				else
-					if not DeadUnitOnSaw then
-						DeadUnitOnSaw=ReflectorUnit
-					end
-					--print("мертв")
-				end
-			end
+    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+        local x, y = 0, 0
+        local OnDamage = false
+        local ReflectorUnit = nil
+        for i = 1, ChainCount do
+            x, y = MoveXY(xs, ys, step * i, angle)
+            BlzSetSpecialEffectPosition(chain[i], x, y, z)
+            BlzSetSpecialEffectYaw(chain[i], math.rad(angle))
+        end
+        local nx, ny = MoveXY(xs, ys, step * ChainCount, angle)
+        BlzSetSpecialEffectPosition(saw, nx, ny, z)
+        SetUnitX(DamageDealer, nx)
+        SetUnitY(DamageDealer, ny)
+        angle = angle + speed
 
-		end
-		if DeadUnitOnSaw then
-			if not UnitAlive(DeadUnitOnSaw) then
-				if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-					SetCameraQuickPosition(nx,ny)
-					SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(DeadUnitOnSaw), DamageDealer, 10, 10, true) -- не дергается
-					local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
-					data.CameraOnSaw=true
-				end
-				--SetCameraPosition(nx,ny)
-				SetUnitX(DeadUnitOnSaw,nx)
-				SetUnitY(DeadUnitOnSaw,ny)
-			else
-				DeadUnitOnSaw=nil
-			end
-		end
-		if OnDamage and IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-			local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
-			if data.Reflection then
-				speed=speed*(-1)
-			end
-		end
-
-		if UnitAlive(hero)==false then
-			DestroyTimer(GetExpiredTimer()) -- временно вечный таймер
-			DestroyEffect(saw)
-			for i=1,ChainCount do
-				DestroyEffect(chain[i])
-			end
-		end
-	end)
+        if UnitAlive(hero) == false then
+            DestroyTimer(GetExpiredTimer()) -- временно вечный таймер
+            DestroyEffect(saw)
+            for i = 1, ChainCount do
+                DestroyEffect(chain[i])
+            end
+        end
+    end)
 end
 
+function CreateGroundSaw(hero, angle, z)
+    local xs, ys = GetUnitXY(hero)
+    local saw = AddSpecialEffect(SawDiskModel, xs, ys)
+    BlzSetSpecialEffectRoll(saw, math.rad(90))
+    BlzSetSpecialEffectYaw(saw, math.rad(angle))
+    if z == nil then
+        z = GetUnitZ(hero) + 60
+    end
+    BlzSetSpecialEffectScale(saw, 0.9)
+    BlzSetSpecialEffectZ(saw, z)
+    local step = 10
+    local i = 0
+    local turn = false
+    UnitAddAbility(hero, FourCC('Aloc'))
 
-function CreateGroundSaw(hero,angle,z)
-	local xs,ys=GetUnitXY(hero)
-	local saw=AddSpecialEffect(SawDiskModel,xs,ys)
-	BlzSetSpecialEffectRoll(saw,math.rad(90))
-	BlzSetSpecialEffectYaw(saw,math.rad(angle))
-	if z==nil then z=GetUnitZ(hero)+60 end
-	BlzSetSpecialEffectScale(saw,0.9)
-	BlzSetSpecialEffectZ(saw,z)
-	local step=10
-	local i=0
-	local turn=false
-	UnitAddAbility(hero,FourCC('Aloc'))
-	TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-		local x,y=0,0
+    local enemy = nil
+    local enterTrig = CreateTrigger()
+    TriggerRegisterUnitInRange(enterTrig, hero, 60, nil)
+    TriggerAddAction(enterTrig, function()
+        enemy = GetTriggerUnit()
+    --    print("касание")
+        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+            local x, y = GetUnitXY(hero)
+            local OnDamage, ReflectorUnit = UnitDamageArea(hero, 20, x, y, 60, z - 90, CollisionEffect)
+            local nx, ny = MoveXY(x, y, 60, angle)
+            UnitDamageArea(hero, 20, nx, ny, 60, z - 90, CollisionEffect)
+            nx, ny = MoveXY(x, y, -60, angle)
+            UnitDamageArea(hero, 20, nx, ny, 60, z - 90, CollisionEffect)
 
-		local OnDamage=false
-		local ReflectorUnit=nil
+            if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
+                if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+                    normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1", nx, ny)
+                end
+                DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl", GetUnitXY(ReflectorUnit)))
+            end
+            if not IsUnitInRange(hero, enemy, 120) then
+                DestroyTimer(GetExpiredTimer())
+            --    print("нет касания")
+            end
+        end)
+    end)
 
+    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+        local x, y = 0, 0
 
-		if OnDamage and IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-			local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
-			if data.Reflection then
-				--speed=speed*(-1)
-				--turn=true
-			end
-		end
+        local OnDamage = false
+        local ReflectorUnit = nil
 
+        if OnDamage and IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+            local data = HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
+            if data.Reflection then
+                --speed=speed*(-1)
+                --turn=true
+            end
+        end
 
-		if not turn then
-			i=i+1
-			BlzSetSpecialEffectTimeScale(saw,-1)
-		else
-			i=i-1
-			BlzSetSpecialEffectTimeScale(saw,1)
-		end
-		--print(i)
-		x,y=MoveXY(xs,ys,step*i,angle)
-		if InMapXY(x,y) then
-			SetUnitX(hero,x)
-			SetUnitY(hero,y)
-		else
-			print("ERROR - NOTINMAP"..x.." "..y)
-			PingMinimap(x,y,10)
-			DestroyTimer(GetExpiredTimer())
-			KillUnit(hero)
-		end
-		BlzSetSpecialEffectPosition(saw,x,y,z)
-		--урон от земляной пилы
-		OnDamage,ReflectorUnit=UnitDamageArea(hero,20,x,y,60,z-90,CollisionEffect)
-		local nx,ny=MoveXY(x,y,60,angle)
-		UnitDamageArea(hero,20,nx,ny,60,z-90,CollisionEffect)
-		nx,ny=MoveXY(x,y,-60,angle)
-		UnitDamageArea(hero,20,nx,ny,60,z-90,CollisionEffect)
-
-		if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
-			if IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-				normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1",nx,ny)
-			end
-			DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl",GetUnitXY(ReflectorUnit)))
-			--local dummy=CreateUnit(Player(0), DummyID, nx ,ny, 0)
-			--UnitAddAbility(dummy,FourCC('Apsh'))
-			--IssueImmediateOrder(dummy,"phaseshift")-- поддельный звук пилы
-			--UnitApplyTimedLife(dummy,FourCC('BTLF'),0.1)
-			--ShowUnit(dummy,false)
-			--local tl = Location(GetUnitXY(hero))
-			--PlaySoundAtPointBJ( gg_snd_Saw, 100, tl, 0 )
-			--RemoveLocation(tl)
-		end
+        if not turn then
+            i = i + 1
+            BlzSetSpecialEffectTimeScale(saw, -1)
+        else
+            i = i - 1
+            BlzSetSpecialEffectTimeScale(saw, 1)
+        end
+        --print(i)
+        x, y = MoveXY(xs, ys, step * i, angle)
+        if InMapXY(x, y) then
+            SetUnitX(hero, x)
+            SetUnitY(hero, y)
+        else
+            print("ERROR - NOTINMAP" .. x .. " " .. y)
+            PingMinimap(x, y, 10)
+            DestroyTimer(GetExpiredTimer())
+            KillUnit(hero)
+        end
+        BlzSetSpecialEffectPosition(saw, x, y, z)
+        --урон от земляной пилы
 
 
-		if OnDamage and IsUnitType(ReflectorUnit,UNIT_TYPE_HERO) then
-			local data=HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
-			if data.Reflection then
-				if i<=50 then
-					turn=true
-				else
-					turn=false
-				end
-			end
-		end
+        if OnDamage and IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
+            --вычисления убраны
+            local data = HERO[GetPlayerId(GetOwningPlayer(ReflectorUnit))]
+            if data.Reflection then
+                if i <= 50 then
+                    turn = true
+                else
+                    turn = false
+                end
+            end
+        end
 
-		if i==100 then
-			turn=true
-		end
-		if i==0 then
-			turn=false
-		end
-		end)
+        if i == 100 then
+            turn = true
+        end
+        if i == 0 then
+            turn = false
+        end
+    end)
 end
-
 
 function StartAllSaw()
-	local e--временный юнит
-	local k=0
-	local id=FourCC('hmtm') -- колонная с пилой
-	local idg=FourCC('hrif') -- пила по земле
-	GroupEnumUnitsInRect(perebor,bj_mapInitialPlayableArea,nil)
-	while true do
-		e = FirstOfGroup(perebor)
-		if e == nil then break end
-		if UnitAlive(e) and GetUnitTypeId(e)==id then
-			--k=k+1
-			CreateRoundSawZ(e,6,GetRandomInt(0,360))
-			ShowUnit(e,false)
-		end
-		if UnitAlive(e) and GetUnitTypeId(e)==idg then
-			k=k+1
-			CreateGroundSaw(e,GetUnitFacing(e))
-			ShowUnit(e,false)
-			--KillUnit(e)
-		end
-		GroupRemoveUnit(perebor,e)
-	end
+    local e--временный юнит
+    local k = 0
+    local id = FourCC('hmtm') -- колонная с пилой
+    local idg = FourCC('hrif') -- пила по земле
+    GroupEnumUnitsInRect(perebor, bj_mapInitialPlayableArea, nil)
+    while true do
+        e = FirstOfGroup(perebor)
+        if e == nil then
+            break
+        end
+        if UnitAlive(e) and GetUnitTypeId(e) == id then
+            --k=k+1
+            CreateRoundSawZ(e, 6, GetRandomInt(0, 360))
+            ShowUnit(e, false)
+        end
+        if UnitAlive(e) and GetUnitTypeId(e) == idg then
+            k = k + 1
+            CreateGroundSaw(e, GetUnitFacing(e))
+            ShowUnit(e, false)
+            --KillUnit(e)
+        end
+        GroupRemoveUnit(perebor, e)
+    end
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -6332,6 +6340,7 @@ function ReplaceID2SwordSpike(id)
         SetUnitInvulnerable(all[i], true)
         CreateSwordSpike(all[i])
     end
+    all = {}
 end
 
 function CreateSwordSpike (hero)
@@ -6343,62 +6352,79 @@ function CreateSwordSpike (hero)
     BlzPlaySpecialEffect(eff, ANIM_TYPE_DEATH)
     local active = false
     local sec = 0
-    TimerStart(CreateTimer(), 0.1, true, function()
-        local _, enemy = UnitDamageArea(hero, 0, x, y, 80)
-        if enemy then
-            if IsUnitType(enemy, UNIT_TYPE_HERO) and not active then
-                --print("Ловушка активирована")
-                active = true
-                SetImageColor(img, 255, 0, 0, 255)
-                local mark = AddSpecialEffect("SystemGeneric\\Alarm", x, y)
-                BlzSetSpecialEffectColor(mark, 255, 0, 0)
-                BlzSetSpecialEffectScale(mark, 0.7)
 
-                TimerStart(CreateTimer(), 0.3, false, function()
-                    BlzPlaySpecialEffect(eff, ANIM_TYPE_BIRTH)
-                    normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit", x, y)
-                    DestroyTimer(GetExpiredTimer())
-                end)
-                TimerStart(CreateTimer(), 0.8, false, function()
-                    SetImageColor(img,255,255,255,255)
-                     DestroyTimer(GetExpiredTimer())
-                end)
-                TimerStart(CreateTimer(), 0.6, false, function()
-                    --print("наносим урон")
-                    DestroyEffect(mark)
-                    BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
-                    BlzSetSpecialEffectTimeScale(eff, .5)
-                    local damage = 180
-                    if IsUnitType(enemy, UNIT_TYPE_HERO) then
-                        local data = GetUnitData(enemy)
-                        if not data.AddDamageTrap then
-                            data.AddDamageTrap = 1
-                        end
-                        damage = damage * data.AddDamageTrap
-                        --print(damage)
-                    end
-                    UnitDamageArea(enemy, damage, x, y, 80, "all") -- Урон от ловушки
-                    DestroyTimer(GetExpiredTimer())
-                end)
-            end
-        end
+    local enterTrig = CreateTrigger()
+    TriggerRegisterUnitInRange(enterTrig, hero, 80, nil)
+    TriggerAddAction(enterTrig, function()
+        local enemy = GetTriggerUnit()
+        if IsUnitType(enemy, UNIT_TYPE_HERO) and not active then
+            --print("Ловушка активирована")
+            active = true
+            SetImageColor(img, 255, 0, 0, 255)
+            local mark = AddSpecialEffect("SystemGeneric\\Alarm", x, y)
+            BlzSetSpecialEffectColor(mark, 255, 0, 0)
+            BlzSetSpecialEffectScale(mark, 0.7)
 
-        if active then
-            sec = sec + 0.1
-            if sec >= 2 then
-                sec = 0
+            TimerStart(CreateTimer(), 0.3, false, function()
+                BlzPlaySpecialEffect(eff, ANIM_TYPE_BIRTH)
+                normal_sound("Abilities\\Spells\\Undead\\Impale\\ImpaleHit", x, y)
+                DestroyTimer(GetExpiredTimer())
+            end)
+            TimerStart(CreateTimer(), 0.8, false, function()
+                SetImageColor(img, 255, 255, 255, 255)
+                DestroyTimer(GetExpiredTimer())
                 active = false
                 BlzPlaySpecialEffect(eff, ANIM_TYPE_DEATH)
                 BlzSetSpecialEffectTimeScale(eff, 1)
-            end
+            end)
+            TimerStart(CreateTimer(), 0.6, false, function()
+                --print("наносим урон")
+                DestroyEffect(mark)
+                BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
+                BlzSetSpecialEffectTimeScale(eff, .5)
+                local damage = 180
+                if IsUnitType(enemy, UNIT_TYPE_HERO) then
+                    local data = GetUnitData(enemy)
+                    if not data.AddDamageTrap then
+                        data.AddDamageTrap = 1
+                    end
+                    damage = damage * data.AddDamageTrap
+                    --print(damage)
+                end
+                if UnitDamageArea(enemy, damage, x, y, 80, "all") then
+                    local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(enemy))
+                    BlzSetSpecialEffectScale(effb, 0.1)
+                    DestroyEffect(effb)
+                end -- Урон от ловушки
+                DestroyTimer(GetExpiredTimer())
+            end)
         end
     end)
+    --[[
+        TimerStart(CreateTimer(), 0.1, true, function()
+            local _, enemy = UnitDamageArea(hero, 0, x, y, 80)
+            if enemy then
+
+            end
+
+            if active then
+                sec = sec + 0.1
+                if sec >= 2 then
+                    sec = 0
+                    active = false
+                    BlzPlaySpecialEffect(eff, ANIM_TYPE_DEATH)
+                    BlzSetSpecialEffectTimeScale(eff, 1)
+                end
+            end
+        end)
+        ]]
 end
 
 function CreateImageForTrap(x, y)
     -- "SystemGeneric\\Pavement.blp"
     local img = CreateImage("SystemGeneric\\Pavement.blp", 256, 256, 0, x, y, 0, 256 / 2, 256 / 2, 0, 4)
     --SetImageColor(img, 0, 255, 0, 128)
+    SetImageRender(img, true)
     SetImageRenderAlways(img, true)
     ShowImage(img, true)
     return img
@@ -6409,28 +6435,59 @@ function CreateSawTrap(hero)
     local eff = AddSpecialEffect("SystemGeneric\\TrapSaw", x, y)
     local showBlood = true
     local sec = 0
-    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-        local is, unit = UnitDamageArea(hero, 10, x, y, 90, "blackHole")
-        sec = sec - TIMER_PERIOD
-        if sec <= 0 then
-            showBlood = true
-        end
-        if is and GetUnitTypeId(unit) == HeroID then
-            --and IsUnitType(unit)==UNIT_TYPE_HERO
-            --print("эффект крови")
-            if showBlood then
-                local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(unit))
-                BlzSetSpecialEffectScale(effb, 0.1)
-                DestroyEffect(effb)
-                showBlood = false
-                sec = 1
+
+    local enterTrig = CreateTrigger()
+    TriggerRegisterUnitInRange(enterTrig, hero, 100, nil)
+    TriggerAddAction(enterTrig, function()
+        local enemy = GetTriggerUnit()
+        --print(GetUnitName(enemy).. "Вошел в зону ловушки")
+        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+            local is = UnitDamageArea(hero, 10, x, y, 90)
+
+            if sec <= 0 then
+                showBlood = true
             end
-        end
-        if not UnitAlive(hero) then
-            DestroyTimer(GetExpiredTimer())
-        end
+            if is and GetUnitTypeId(enemy) == HeroID then
+                --and IsUnitType(unit)==UNIT_TYPE_HERO
+                --print("эффект крови")
+                if showBlood then
+                    local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(enemy))
+                    BlzSetSpecialEffectScale(effb, 0.1)
+                    DestroyEffect(effb)
+                    showBlood = false
+                    sec = 1
+                end
+            end
+            if not IsUnitInRange(hero, enemy, 110) or not UnitAlive(enemy) then
+                DestroyTimer(GetExpiredTimer())
+                --print("вышел")
+            end
+        end)
     end)
 end
+--[[
+        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+            local is, unit = UnitDamageArea(hero, 10, x, y, 90, "blackHole")
+            sec = sec - TIMER_PERIOD
+            if sec <= 0 then
+                showBlood = true
+            end
+            if is and GetUnitTypeId(unit) == HeroID then
+                --and IsUnitType(unit)==UNIT_TYPE_HERO
+                --print("эффект крови")
+                if showBlood then
+                    local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(unit))
+                    BlzSetSpecialEffectScale(effb, 0.1)
+                    DestroyEffect(effb)
+                    showBlood = false
+                    sec = 1
+                end
+            end
+            if not UnitAlive(hero) then
+                DestroyTimer(GetExpiredTimer())
+            end
+        end)
+]]
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -7111,6 +7168,8 @@ function PreloadigLags()
     KillUnit(temp)
     temp = CreateUnit(Player(0), FourCC("u000"), OutPoint, OutPoint, 0)
     KillUnit(temp)
+    temp = CreateUnit(Player(0), FourCC("unec"), OutPoint, OutPoint, 0)
+    KillUnit(temp)
 end
 
 function InitPreloadStart()
@@ -7129,7 +7188,7 @@ function InitPreloadStart()
             if not udg_LoadCode[i] then
                 udg_LoadCode[i] = 50
                 LoadedGameCount[i] = 0
-                LoadedChaos[i]=0
+                LoadedChaos[i] = 0
             end
 
             if udg_LoadCode[i] then
@@ -7137,16 +7196,16 @@ function InitPreloadStart()
                 else
                     LoadedGold[i] = 50
                     LoadedGameCount[i] = 0
-                    LoadedChaos[i]=0
+                    LoadedChaos[i] = 0
                     --print("FirstGame")
                 end
-                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ","Number of completed games") .. LoadedGameCount[i])
+                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", "Number of completed games") .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
-                if LoadedGameCount[i]>2 then
+                if LoadedGameCount[i] > 2 then
                     AllCompletedForPlayer(i)
                 end
                 UnitAddGold(data.UnitHero, LoadedGold[i])
-                AddChaos(data,LoadedChaos[i])
+                AddChaos(data, LoadedChaos[i])
             else
                 --i=i-1
             end
@@ -7161,11 +7220,10 @@ function InitPreloadStart()
 
 end
 
-
 udg_LoadCode = {}
 LoadedGold = {}
 LoadedGameCount = {}
-LoadedChaos={}
+LoadedChaos = {}
 function InitTrig_SyncLoadDone ()
     local gg_trg_SyncLoadDone = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -7181,14 +7239,14 @@ function InitTrig_SyncLoadDone ()
             udg_LoadCode[i] = value
             LoadedGold[i] = t[1]
             LoadedGameCount[i] = t[2]
-            LoadedChaos[i]=t[3]
+            LoadedChaos[i] = t[3]
             --print(t[2])
             if value == "error" then
                 --игрок первый раз играет
                 udg_LoadCode[i] = 0
                 LoadedGold[i] = 0
                 LoadedGameCount[i] = 0
-                LoadedChaos[i]=0
+                LoadedChaos[i] = 0
             end
             if not LoadedGameCount[i] then
                 LoadedGameCount[i] = 0
@@ -7370,10 +7428,6 @@ do
             HideEverything()
             IsSystemON = true
             InitCamControl()
-            --InitMouseMoveTrigger()
-            --MouseHider(3, 0) -- 0 для красного игрока
-            --CreateUI()
-            --RestoreMiniPap()
             DestroyTimer(GetExpiredTimer())
         end)
     end
@@ -8250,18 +8304,18 @@ function FindUnitOfType(id,flag,x,y)
 			GroupRemoveUnit(perebor,e)
 		end
 	else
-		GroupEnumUnitsInRange(perebor,x,y,flag,nil)
-		while true do
-			e = FirstOfGroup(perebor)
+			GroupEnumUnitsInRange(perebor,x,y,flag,nil)
+			while true do
+				e = FirstOfGroup(perebor)
 
-			if e == nil then break end
-			if UnitAlive(e) and GetUnitTypeId(e)==id then
-				k=k+1
-				rg[k]=e
-				unit=e
+				if e == nil then break end
+				if UnitAlive(e) and GetUnitTypeId(e)==id then
+					k=k+1
+					rg[k]=e
+					unit=e
+				end
+				GroupRemoveUnit(perebor,e)
 			end
-			GroupRemoveUnit(perebor,e)
-		end
 	end
 
 
@@ -8296,14 +8350,14 @@ do
             PlayUnitAnimationFromChat()
             PauseTimer(GetExpiredTimer())
             DestroyTimer(GetExpiredTimer())
-            --InitWASD(hero) --переместить в первый выбор героя
+
         end)
     end
 end
 TIMER_PERIOD = 1 / 32
 TIMER_PERIOD64 = 1 / 64
-HERO = {}
-perebor = CreateGroup()
+
+
 function InitHeroTable(hero)
     --perebor=CreateGroup()
     --print("InitHeroTable for "..GetUnitName(hero))
@@ -8378,6 +8432,7 @@ end
 
 function InitWASD(hero)
     -- print("initwasdSTART")
+
     InitHeroTable(hero)
     CreateWASDActions()
     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]

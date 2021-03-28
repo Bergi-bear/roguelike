@@ -11,10 +11,6 @@ do
             HideEverything()
             IsSystemON = true
             InitCamControl()
-            --InitMouseMoveTrigger()
-            --MouseHider(3, 0) -- 0 для красного игрока
-            --CreateUI()
-            --RestoreMiniPap()
             DestroyTimer(GetExpiredTimer())
         end)
     end
