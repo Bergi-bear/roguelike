@@ -92,6 +92,14 @@ function OnPostDamage()
                 end)
             end
         end
+        if data.ParryPerAttack and false then
+            --print("Парировал")
+            local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
+            local AngleSource=AngleBetweenUnits(caster,target)
+            BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
+            DestroyEffect(eff)
+            BlzSetEventDamage(0)
+        end
     end
 
     if GetUnitTypeId(caster) == HeroID and caster ~= target then
@@ -110,7 +118,12 @@ function OnPostDamage()
             FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
         end
         if GetUnitAbilityLevel(target, FourCC("BNms")) > 0 and data.ShieldBreakerIsLearn then
-            BlzSetEventDamage(damage * 5)
+            --BlzSetEventDamage(damage * 5)
+            SetUnitState(target, UNIT_STATE_MANA, GetUnitState(target, UNIT_STATE_MANA - 50))
+            if GetUnitState(target, UNIT_STATE_MANA) <= 1 then
+                x, y = GetUnitXY(target)
+                FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster))
+            end
         end
 
         if data.CriticalStrikeCDFH then
@@ -313,10 +326,17 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                 RemoveDestructable(d)
                                 DestroyTimer(GetExpiredTimer())
                             end)
+                            if IsUnitType(hero, UNIT_TYPE_HERO) then
+                                local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+                                --print(data.VaseGainGold)
+                                if data.VaseGainGold then
+                                    HealUnit(hero, data.VaseGainGold)
+                                end
+                            end
                         end
                         if GetDestructableTypeId(d) == FourCC("BTsc") then
                             local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", dx, dy)
-                            DestroyEffect(eff)
+                            --DestroyEffect(eff)
                             --print("смерть балки от рук"..GetUnitName(hero))
                             if hero then
                                 UnitDamageArea(hero, 1000, dx, dy, 300)

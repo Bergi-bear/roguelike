@@ -249,7 +249,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 5, 7, 9 }
+                            DS = { 1, 2, 4 }
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHeal.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
@@ -267,7 +267,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
-                            DS = { "сквозь здания","сквозь здания и делает героя неуязвимым","сквозь здания и делает героя неуязвимым и разрушает щит врагов" }
+                            DS = { "сквозь здания", "сквозь здания и делает героя неуязвимым", "сквозь здания и делает героя неуязвимым и разрушает щит врагов" }
                         }),
                     },
                     HeroTaurenChieftain = {
@@ -343,7 +343,16 @@ do
                             rarity = "normal",
                             tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
                             DS = { 50, 110, 170 },
-                            ultF = true
+                        }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWirtsLeg.blp",
+                            name = L("Удар копытом", "Hoof strike"),
+                            description = L("Обычная атаки отталкивают врага на дистанцию DS", "Normal attacks push the enemy to a distance of DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
+                            DS = { 50, 150, 250 },
+                            dependence=8,
                         }),
 
                     },
@@ -407,11 +416,11 @@ do
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
                             name = L("Бронелом", "Shield breaker"),
-                            description = L("Все ваши атаки наносят DS кратный урон по врагам с щитом", "All your attacks deal DS multiple damage to enemies with a shield"),
+                            description = L("Все ваши атаки наносят дополнительно DS урона по щиту", "All your attacks deal an additional DS damage to the shield"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
-                            DS = { 5 }
+                            DS = { 50 }
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
@@ -531,6 +540,15 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 3, 6, 10 }
+                        }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNHeartOfAszune.blp",
+                            name = L("Искатель крови", "Искатель крови"),
+                            description = L("Вазы могу содержать некоторое количество крови, восстанавливающей DS здоровья", "Vases can contain a certain amount of blood that restores DS health"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 2, 4, 7 }
                         }),
                         --[[
                         Talon:new({--7

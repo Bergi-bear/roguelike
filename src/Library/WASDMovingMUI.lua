@@ -25,7 +25,6 @@ end
 TIMER_PERIOD = 1 / 32
 TIMER_PERIOD64 = 1 / 64
 
-
 function InitHeroTable(hero)
     --perebor=CreateGroup()
     --print("InitHeroTable for "..GetUnitName(hero))
@@ -237,6 +236,10 @@ function InitWASD(hero)
             --print("only w")
             angle = 90
             data.IsMoving = true
+            if not data.tasks[11] then
+                data.tasks[11] = true
+                --print("Первый раз сделал движение")
+            end
         end
         if data.ReleaseW and data.ReleaseD then
             --print("w+d")
@@ -615,11 +618,17 @@ function CreateWASDActions()
                     CreateAndForceBullet(data.UnitHero, data.DirectionMove, 5, "Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl", x, y, 5, 350, 350)
                 end
 
-                UnitAddForceSimple(data.UnitHero, data.DirectionMove, 25, dist, "ignore")
+                UnitAddForceSimple(data.UnitHero, data.DirectionMove, 25, dist, "ignore") --САМ рывок при нажатии пробела
                 data.SpaceForce = true
-                local effModel="Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul"
+                local effModel = "Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul"
                 if data.IframesOnDash then
-                    effModel="SystemGeneric\\InkMissile.mdx"
+                    effModel = "SystemGeneric\\InkMissile.mdx"
+                end
+                if data.IframesOnDashInvul then -- неуязвимый рывок 2 уровень теневого
+                    SetUnitInvulnerable(data.UnitHero,true)
+                    TimerStart(CreateTimer(), 0.2, false, function()
+                        SetUnitInvulnerable(data.UnitHero,false)
+                    end)
                 end
                 local eff = AddSpecialEffectTarget(effModel, data.UnitHero, "origin")
 
@@ -1061,9 +1070,12 @@ function attack(data)
                 --print(data.AttackCount)
                 if data.AttackCount < maxAttack and data.AttackCount > 0 and StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
                     --print(data.AttackCount)
+                    local flag = nil
+                    if data.DashPerAttack then
+                        flag = "push"
+                    end
 
-
-                    local is, enemy, k = UnitDamageArea(data.UnitHero, damage, nx, ny, 100)
+                    local is, enemy, k = UnitDamageArea(data.UnitHero, damage, nx, ny, 100, flag)
                     --print("урон есть?")
                     if enemy then
                         ConditionCastLight(data)
@@ -1098,6 +1110,10 @@ function attack(data)
                     end
 
                     if is then
+                        data.ParryPerAttack=true
+                        TimerStart(CreateTimer(), 0.2, false, function()
+                            data.ParryPerAttack=false
+                        end)
                         --print("Звук попадания обычной атакой"..data.AttackCount)
                         normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone2", GetUnitXY(data.UnitHero))
                     end
@@ -1215,8 +1231,8 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         if ally then
                             --есть кого полечить
                             --Abilities\Spells\Human\HolyBolt\HolyBoltSpecialArt.mdl
-                            local effHeal=AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl",GetUnitXY(hero))
-                            BlzSetSpecialEffectYaw(effHeal,math.rad(angle))
+                            local effHeal = AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl", GetUnitXY(hero))
+                            BlzSetSpecialEffectYaw(effHeal, math.rad(angle))
                             BlzSetSpecialEffectPitch(effHeal, math.rad(-90))
                             DestroyEffect(effHeal)
                             local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][1]
@@ -1403,6 +1419,11 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                 --print("толкаем тотемом")
                 local tempA = AngleBetweenXY(x, y, GetUnitXY(e)) / bj_DEGTORAD
                 UnitAddForceSimple(e, tempA, 20, 300, nil, u)
+            end
+            if flag == "push" then
+                local distance=GetUnitData(u).DashPerAttack
+                local tempA = GetUnitFacing(u)
+                UnitAddForceSimple(e, tempA, 15, distance, nil, u)
             end
             if flag == "all" then
                 if GetPlayerController(GetOwningPlayer(u)) == MAP_CONTROL_USER then

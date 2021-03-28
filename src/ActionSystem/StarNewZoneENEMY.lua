@@ -142,7 +142,7 @@ function Enter2NewZone(flag)
                             if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
                                 local gdata = HERO[i]
                                 if GetLocalPlayer() == Player(i) then
-                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","..R2I(gdata.chaosPoint)..","
+                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. ","
                                 end
                                 print(GetPlayerName(Player(i)) .. " унёс с собой " .. R2I(gdata.gold) .. " золота ")
 
@@ -396,7 +396,7 @@ function StartEnemyWave(waveNumber)
         for i = 1, R2I(waveNumber * 2.6) do
             listID[i] = EnemyList[GetRandomInt(1, #EnemyList)]
             local r = GetRandomInt(1, 10)
-            if waveNumber <=11 then
+            if waveNumber <= 11 then
                 if listID[i] == FourCC("ugar") then
                     listID[i] = FourCC("unec")
                 end
@@ -410,17 +410,21 @@ function StartEnemyWave(waveNumber)
             end
         end
         maxOnWave = waveNumber // 2
+        if maxOnWave >= 16 then
+            maxOnWave = 16
+        end
     end
-    if waveNumber == 21 then -- Новый биом
-                listID = {
-            FourCC("nsko"),FourCC("nsko")
+    if waveNumber == 21 then
+        -- Новый биом
+        listID = {
+            FourCC("nsko"), FourCC("nsko")
         }
         print("если вывидите это сообщение, то вы в принципе уже победили")
         maxOnWave = 2
     end
     if waveNumber == 401 then
         listID = {
-            FourCC("uobs"),FourCC("uobs")
+            FourCC("uobs"), FourCC("uobs")
         }
         maxOnWave = 2
     end

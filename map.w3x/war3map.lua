@@ -1507,7 +1507,8 @@ PreViewIcon = { -- Таблица случайных иконок которые
     "Trall",
     "CodoHeart",
     "GoldReward",
-    "ChaosGrom"
+    "ChaosGrom",
+    "Life"
 }
 
 function InitFinObjectInArea()
@@ -1971,8 +1972,15 @@ function CreateEActions()
                 end
                 if data.UseAction == "ShadowHunter" then
                     if data.gold >= dataPoint.TalonPrice then
-                        local message = L("Я отомщу за тебя", "I will avenge you")
-                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        local message = {
+                            L("Я отомщу за тебя", "I will avenge you"),
+                            L("Да кто такой ваш этот Зул'Джин?","Who is this Itch of yours, Zul'jin?"),
+                            L("Полечишь?","Would you healing me?"),
+                            L("Я тебя помню","I remember you"),
+                            L("Странный у тебя акцент","You have a strange accent"),
+                            L("Ты меня не тролль","You don't troll me"),
+                        }
+                        CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
                         TimerStart(CreateTimer(), 1, false, function()
@@ -2552,7 +2560,7 @@ function Enter2NewZone(flag)
                             if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
                                 local gdata = HERO[i]
                                 if GetLocalPlayer() == Player(i) then
-                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","..R2I(gdata.chaosPoint)..","
+                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. ","
                                 end
                                 print(GetPlayerName(Player(i)) .. " унёс с собой " .. R2I(gdata.gold) .. " золота ")
 
@@ -2806,7 +2814,7 @@ function StartEnemyWave(waveNumber)
         for i = 1, R2I(waveNumber * 2.6) do
             listID[i] = EnemyList[GetRandomInt(1, #EnemyList)]
             local r = GetRandomInt(1, 10)
-            if waveNumber <=11 then
+            if waveNumber <= 11 then
                 if listID[i] == FourCC("ugar") then
                     listID[i] = FourCC("unec")
                 end
@@ -2820,17 +2828,21 @@ function StartEnemyWave(waveNumber)
             end
         end
         maxOnWave = waveNumber // 2
+        if maxOnWave >= 16 then
+            maxOnWave = 16
+        end
     end
-    if waveNumber == 21 then -- Новый биом
-                listID = {
-            FourCC("nsko"),FourCC("nsko")
+    if waveNumber == 21 then
+        -- Новый биом
+        listID = {
+            FourCC("nsko"), FourCC("nsko")
         }
         print("если вывидите это сообщение, то вы в принципе уже победили")
         maxOnWave = 2
     end
     if waveNumber == 401 then
         listID = {
-            FourCC("uobs"),FourCC("uobs")
+            FourCC("uobs"), FourCC("uobs")
         }
         maxOnWave = 2
     end
@@ -3067,19 +3079,25 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
         for j = 1, #GlobalTalons[i][godName] do -- Исправить баг с дыркой в массиве
-            if not (GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"]) then
-                listOfNumbers[i][j] = j
+            listOfNumbers[i][j] = j
+
+            if GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"] then
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
             end
             if GlobalTalons[i][godName][j]:getUltF() ~= nil and GlobalTalons[i][godName][j]:getUltF() == false then
-                table.remove(listOfNumbers[i], j)
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
             end
             if GlobalTalons[i][godName][j]:getUltR() ~= nil and GlobalTalons[i][godName][j]:getUltR() == false then
-                table.remove(listOfNumbers[i], j)
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
             end
             -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
             -- если уровень равен 0, то исключаем зависимый талант из списка
             if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
-                table.remove(listOfNumbers[i], j)
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
             end
         end
     end
@@ -3093,7 +3111,7 @@ function CreateDialogTalon(godName)
         index[i] = {}
         local count = 0
         for j = 1, #GlobalTalons[i][godName] do
-            if not (listOfNumbers[i][j] == nil) then
+            if not (listOfNumbers[i][j] == -1) then
                 table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
                 table.insert(index[i], listOfNumbers[i][j])
                 count = count + 1
@@ -3575,8 +3593,9 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 7 then
             data.IframesOnDash = true
             ActLvl23Action(talon, function()
-                data.IframesOnDash = true
-            end, function() -- 3 уровень
+                data.IframesOnDashInvul = true
+            end, function()
+                -- 3 уровень
 
             end)
         end
@@ -3644,6 +3663,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.WallDamage = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.WallDamage = talon.DS[talon.level]
+            end)
+        end
+        if pos == 9 then
+            data.DashPerAttack = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.DashPerAttack = talon.DS[talon.level]
             end)
         end
     end
@@ -3749,6 +3774,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.MeleeLifeSteal = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.MeleeLifeSteal = talon.DS[talon.level]
+            end)
+        end
+        if pos == 7 then
+            data.VaseGainGold = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.VaseGainGold = talon.DS[talon.level]
             end)
         end
     end
@@ -4161,7 +4192,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
-                            DS = { "сквозь здания","сквозь здания и делает героя неуязвимым","сквозь здания и делает героя неуязвимым и разрушает щит врагов" }
+                            DS = { "сквозь здания", "сквозь здания и делает героя неуязвимым", "сквозь здания и делает героя неуязвимым и разрушает щит врагов" }
                         }),
                     },
                     HeroTaurenChieftain = {
@@ -4237,7 +4268,16 @@ do
                             rarity = "normal",
                             tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
                             DS = { 50, 110, 170 },
-                            ultF = true
+                        }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWirtsLeg.blp",
+                            name = L("Удар копытом", "Hoof strike"),
+                            description = L("Обычная атаки отталкивают врага на дистанцию DS", "Normal attacks push the enemy to a distance of DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
+                            DS = { 50, 150, 250 },
+                            dependence=8,
                         }),
 
                     },
@@ -4301,11 +4341,11 @@ do
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
                             name = L("Бронелом", "Shield breaker"),
-                            description = L("Все ваши атаки наносят DS кратный урон по врагам с щитом", "All your attacks deal DS multiple damage to enemies with a shield"),
+                            description = L("Все ваши атаки наносят дополнительно DS урона по щиту", "All your attacks deal an additional DS damage to the shield"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
-                            DS = { 5 }
+                            DS = { 50 }
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
@@ -4425,6 +4465,15 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 3, 6, 10 }
+                        }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNHeartOfAszune.blp",
+                            name = L("Искатель крови", "Искатель крови"),
+                            description = L("Вазы могу содержать некоторое количество крови, восстанавливающей DS здоровья", "Vases can contain a certain amount of blood that restores DS health"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 2, 4, 7 }
                         }),
                         --[[
                         Talon:new({--7
@@ -5982,6 +6031,7 @@ function CreateTaskForAllPlayer()
             frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
             frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB", "Use throw picks RMB, during rotation LMB"), Player(i))
             frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("Во время вращения LMB нажмите Q", "While the LMB is rotating, press Q"), Player(i))
+            frames[11], _, text[11], _, chk[11] = CreateSimpleTask(L("Нажмите WASD, чтобы двигаться", "Press WASD to move"), Player(i))
             data.chk = chk
             local completed = false
 
@@ -6065,7 +6115,7 @@ end
 function AllCompletedForPlayer(i)
     local data = HERO[i]
     SimpleTaskPos[i] = 0
-    for j = 1, 10 do
+    for j = 1, 11 do
         data.tasks[j] = true
     end
 end
@@ -6794,6 +6844,14 @@ function OnPostDamage()
                 end)
             end
         end
+        if data.ParryPerAttack and false then
+            --print("Парировал")
+            local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
+            local AngleSource=AngleBetweenUnits(caster,target)
+            BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
+            DestroyEffect(eff)
+            BlzSetEventDamage(0)
+        end
     end
 
     if GetUnitTypeId(caster) == HeroID and caster ~= target then
@@ -6812,7 +6870,12 @@ function OnPostDamage()
             FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
         end
         if GetUnitAbilityLevel(target, FourCC("BNms")) > 0 and data.ShieldBreakerIsLearn then
-            BlzSetEventDamage(damage * 5)
+            --BlzSetEventDamage(damage * 5)
+            SetUnitState(target, UNIT_STATE_MANA, GetUnitState(target, UNIT_STATE_MANA - 50))
+            if GetUnitState(target, UNIT_STATE_MANA) <= 1 then
+                x, y = GetUnitXY(target)
+                FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster))
+            end
         end
 
         if data.CriticalStrikeCDFH then
@@ -7015,10 +7078,17 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                 RemoveDestructable(d)
                                 DestroyTimer(GetExpiredTimer())
                             end)
+                            if IsUnitType(hero, UNIT_TYPE_HERO) then
+                                local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+                                --print(data.VaseGainGold)
+                                if data.VaseGainGold then
+                                    HealUnit(hero, data.VaseGainGold)
+                                end
+                            end
                         end
                         if GetDestructableTypeId(d) == FourCC("BTsc") then
                             local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", dx, dy)
-                            DestroyEffect(eff)
+                            --DestroyEffect(eff)
                             --print("смерть балки от рук"..GetUnitName(hero))
                             if hero then
                                 UnitDamageArea(hero, 1000, dx, dy, 300)
@@ -7399,7 +7469,7 @@ function HealUnit(hero, amount, flag, eff)
                     if data.ShowHealSec <= 0 then
                         data.ShowHeal = true
                         DestroyTimer(GetExpiredTimer())
-                        if TotalHeal > 1 then
+                        if TotalHeal > 0 then
                             FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(data.ShowHealAmount), p)
                         end
                         data.ShowHealAmount = 0
@@ -8357,7 +8427,6 @@ end
 TIMER_PERIOD = 1 / 32
 TIMER_PERIOD64 = 1 / 64
 
-
 function InitHeroTable(hero)
     --perebor=CreateGroup()
     --print("InitHeroTable for "..GetUnitName(hero))
@@ -8569,6 +8638,10 @@ function InitWASD(hero)
             --print("only w")
             angle = 90
             data.IsMoving = true
+            if not data.tasks[11] then
+                data.tasks[11] = true
+                --print("Первый раз сделал движение")
+            end
         end
         if data.ReleaseW and data.ReleaseD then
             --print("w+d")
@@ -8947,11 +9020,17 @@ function CreateWASDActions()
                     CreateAndForceBullet(data.UnitHero, data.DirectionMove, 5, "Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl", x, y, 5, 350, 350)
                 end
 
-                UnitAddForceSimple(data.UnitHero, data.DirectionMove, 25, dist, "ignore")
+                UnitAddForceSimple(data.UnitHero, data.DirectionMove, 25, dist, "ignore") --САМ рывок при нажатии пробела
                 data.SpaceForce = true
-                local effModel="Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul"
+                local effModel = "Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul"
                 if data.IframesOnDash then
-                    effModel="SystemGeneric\\InkMissile.mdx"
+                    effModel = "SystemGeneric\\InkMissile.mdx"
+                end
+                if data.IframesOnDashInvul then -- неуязвимый рывок 2 уровень теневого
+                    SetUnitInvulnerable(data.UnitHero,true)
+                    TimerStart(CreateTimer(), 0.2, false, function()
+                        SetUnitInvulnerable(data.UnitHero,false)
+                    end)
                 end
                 local eff = AddSpecialEffectTarget(effModel, data.UnitHero, "origin")
 
@@ -9393,9 +9472,12 @@ function attack(data)
                 --print(data.AttackCount)
                 if data.AttackCount < maxAttack and data.AttackCount > 0 and StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
                     --print(data.AttackCount)
+                    local flag = nil
+                    if data.DashPerAttack then
+                        flag = "push"
+                    end
 
-
-                    local is, enemy, k = UnitDamageArea(data.UnitHero, damage, nx, ny, 100)
+                    local is, enemy, k = UnitDamageArea(data.UnitHero, damage, nx, ny, 100, flag)
                     --print("урон есть?")
                     if enemy then
                         ConditionCastLight(data)
@@ -9430,6 +9512,10 @@ function attack(data)
                     end
 
                     if is then
+                        data.ParryPerAttack=true
+                        TimerStart(CreateTimer(), 0.2, false, function()
+                            data.ParryPerAttack=false
+                        end)
                         --print("Звук попадания обычной атакой"..data.AttackCount)
                         normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone2", GetUnitXY(data.UnitHero))
                     end
@@ -9547,8 +9633,8 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         if ally then
                             --есть кого полечить
                             --Abilities\Spells\Human\HolyBolt\HolyBoltSpecialArt.mdl
-                            local effHeal=AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl",GetUnitXY(hero))
-                            BlzSetSpecialEffectYaw(effHeal,math.rad(angle))
+                            local effHeal = AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl", GetUnitXY(hero))
+                            BlzSetSpecialEffectYaw(effHeal, math.rad(angle))
                             BlzSetSpecialEffectPitch(effHeal, math.rad(-90))
                             DestroyEffect(effHeal)
                             local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][1]
@@ -9735,6 +9821,11 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                 --print("толкаем тотемом")
                 local tempA = AngleBetweenXY(x, y, GetUnitXY(e)) / bj_DEGTORAD
                 UnitAddForceSimple(e, tempA, 20, 300, nil, u)
+            end
+            if flag == "push" then
+                local distance=GetUnitData(u).DashPerAttack
+                local tempA = GetUnitFacing(u)
+                UnitAddForceSimple(e, tempA, 15, distance, nil, u)
             end
             if flag == "all" then
                 if GetPlayerController(GetOwningPlayer(u)) == MAP_CONTROL_USER then

@@ -32,6 +32,7 @@ function CreateTaskForAllPlayer()
             frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
             frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB", "Use throw picks RMB, during rotation LMB"), Player(i))
             frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("Во время вращения LMB нажмите Q", "While the LMB is rotating, press Q"), Player(i))
+            frames[11], _, text[11], _, chk[11] = CreateSimpleTask(L("Нажмите WASD, чтобы двигаться", "Press WASD to move"), Player(i))
             data.chk = chk
             local completed = false
 
@@ -115,7 +116,7 @@ end
 function AllCompletedForPlayer(i)
     local data = HERO[i]
     SimpleTaskPos[i] = 0
-    for j = 1, 10 do
+    for j = 1, 11 do
         data.tasks[j] = true
     end
 end

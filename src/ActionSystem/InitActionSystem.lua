@@ -35,7 +35,8 @@ PreViewIcon = { -- Таблица случайных иконок которые
     "Trall",
     "CodoHeart",
     "GoldReward",
-    "ChaosGrom"
+    "ChaosGrom",
+    "Life"
 }
 
 function InitFinObjectInArea()
@@ -499,8 +500,15 @@ function CreateEActions()
                 end
                 if data.UseAction == "ShadowHunter" then
                     if data.gold >= dataPoint.TalonPrice then
-                        local message = L("Я отомщу за тебя", "I will avenge you")
-                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        local message = {
+                            L("Я отомщу за тебя", "I will avenge you"),
+                            L("Да кто такой ваш этот Зул'Джин?","Who is this Itch of yours, Zul'jin?"),
+                            L("Полечишь?","Would you healing me?"),
+                            L("Я тебя помню","I remember you"),
+                            L("Странный у тебя акцент","You have a strange accent"),
+                            L("Ты меня не тролль","You don't troll me"),
+                        }
+                        CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
                         TimerStart(CreateTimer(), 1, false, function()

@@ -234,8 +234,9 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 7 then
             data.IframesOnDash = true
             ActLvl23Action(talon, function()
-                data.IframesOnDash = true
-            end, function() -- 3 уровень
+                data.IframesOnDashInvul = true
+            end, function()
+                -- 3 уровень
 
             end)
         end
@@ -303,6 +304,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.WallDamage = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.WallDamage = talon.DS[talon.level]
+            end)
+        end
+        if pos == 9 then
+            data.DashPerAttack = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.DashPerAttack = talon.DS[talon.level]
             end)
         end
     end
@@ -408,6 +415,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.MeleeLifeSteal = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.MeleeLifeSteal = talon.DS[talon.level]
+            end)
+        end
+        if pos == 7 then
+            data.VaseGainGold = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.VaseGainGold = talon.DS[talon.level]
             end)
         end
     end
