@@ -29,19 +29,25 @@ function CreateDialogTalon(godName)
     for i = 1, bj_MAX_PLAYERS do
         listOfNumbers[i] = {}
         for j = 1, #GlobalTalons[i][godName] do -- Исправить баг с дыркой в массиве
-            if not (GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"]) then
-                listOfNumbers[i][j] = j
+            listOfNumbers[i][j] = j
+
+            if GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"] then
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
             end
             if GlobalTalons[i][godName][j]:getUltF() ~= nil and GlobalTalons[i][godName][j]:getUltF() == false then
-                table.remove(listOfNumbers[i], j)
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
             end
             if GlobalTalons[i][godName][j]:getUltR() ~= nil and GlobalTalons[i][godName][j]:getUltR() == false then
-                table.remove(listOfNumbers[i], j)
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
             end
             -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
             -- если уровень равен 0, то исключаем зависимый талант из списка
             if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
-                table.remove(listOfNumbers[i], j)
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
             end
         end
     end
@@ -55,7 +61,7 @@ function CreateDialogTalon(godName)
         index[i] = {}
         local count = 0
         for j = 1, #GlobalTalons[i][godName] do
-            if not (listOfNumbers[i][j] == nil) then
+            if not (listOfNumbers[i][j] == -1) then
                 table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
                 table.insert(index[i], listOfNumbers[i][j])
                 count = count + 1
