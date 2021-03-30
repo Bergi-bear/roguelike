@@ -197,7 +197,8 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             UpdateTalonDescriptionForFrame(talon, tt)
             data.SpinChargesMAX = data.SpinChargesMAX + talon.DS[talon.level]
             ActLvl23Action(talon, function()
-                data.StarTime2Spin = data.StarTime2Spin + talon.DS[talon.level]
+                --data.StarTime2Spin = data.StarTime2Spin + talon.DS[talon.level]
+                data.SpinChargesMAX = data.SpinChargesMAX + talon.DS[talon.level]
             end)
         end
 
@@ -424,6 +425,63 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             end)
         end
     end
+    if godName == "Alchemist" and talon.level == 1 then
+        local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+        UpdateTalonDescriptionForFrame(talon, tt)
+        if pos == 1 then --+
+            data.AdditionalGoldPerKill = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.AdditionalGoldPerKill = talon.DS[talon.level]
+            end)
+        end
+        if pos == 2 then --+
+            data.ColdAfterWork = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.ColdAfterWork = talon.DS[talon.level]
+            end)
+        end
+        if pos == 3 then --+
+            data.HandOfMidasCDFH = CdFH
+            data.HandOfMidasCurrentCD=0
+            data.HandOfMidasCD=30
+            data.HandOfMidasReward = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.HandOfMidasReward = talon.DS[talon.level]
+            end)
+        end
+        if pos == 4 then--+
+            data.LeakyBag = talon.DS[talon.level]/100
+            ActLvl23Action(talon, function()
+                data.LeakyBag = talon.DS[talon.level]/100
+            end)
+        end
+        if pos == 5 then --+
+            data.Investor = 1 + (talon.DS[talon.level] / 100)
+            ActLvl23Action(talon, function()
+                data.Investor = 1 + (talon.DS[talon.level] / 100)
+            end)
+        end
+        if pos == 6 then --+
+            data.FlipTheCoinCDFH = CdFH
+            data.FlipTheCoinCurrentCD = 0
+            data.FlipTheCoinCD = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.FlipTheCoinCD = talon.DS[talon.level]
+            end)
+        end
+        if pos == 7 then
+            data.GoldKingCDFH = CdFH
+            data.GoldKingCurrentCD = 0
+            data.GoldKingCD = 5
+            data.GoldKingCharges=0
+            data.GoldKingBonus=talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.GoldKingBonus=talon.DS[talon.level]
+            end)
+        end
+
+    end
+
 end
 
 function UpdateTalonDescriptionForFrame(talon, toolTipFH)

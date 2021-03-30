@@ -23,7 +23,7 @@ function InitDeathEvent()
         if GetPlayerController(GetOwningPlayer(killer))==MAP_CONTROL_USER then
             local data=HERO[GetPlayerId(GetOwningPlayer(killer))]
             killer=data.UnitHero
-            RewardGoldForKill(killer)
+            RewardGoldForKill(data)
             if data.RechargeSpinOnKill then
                 data.SpinCharges = data.SpinCharges + data.RechargeSpinOnKill
                 BlzFrameSetText(data.SpinChargesFH, data.SpinCharges)

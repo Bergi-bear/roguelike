@@ -3,21 +3,29 @@
 --- Created by Bergi.
 --- DateTime: 08.03.2021 19:36
 ---
-function AddGold(data,amount)
+function AddGold(data, amount)
     if not data.gold then
-        data.gold=0
+        data.gold = 0
     end
-    data.gold=data.gold+amount
-    BlzFrameSetText(data.GoldTextFH,R2I(data.gold))
+
+    data.gold = data.gold + amount
+    if data.gold <= 0 then
+        data.gold = 0
+    end
+    BlzFrameSetText(data.GoldTextFH, R2I(data.gold))
 end
-function AddChaos(data,amount)
+function AddChaos(data, amount)
     if not data.chaosPoint then
-        data.chaosPoint=0
+        data.chaosPoint = 0
     end
-    data.chaosPoint=data.chaosPoint+amount
-    BlzFrameSetText(data.ChaosTextFH,R2I(data.chaosPoint))
+    data.chaosPoint = data.chaosPoint + amount
+    BlzFrameSetText(data.ChaosTextFH, R2I(data.chaosPoint))
 end
 
-function RewardGoldForKill(hero)
-    UnitAddGold(hero,1)
+function RewardGoldForKill(data)
+    local bonus = 0
+    if data.AdditionalGoldPerKill then
+        bonus = data.AdditionalGoldPerKill
+    end
+    UnitAddGold(data.UnitHero, 1 + bonus)
 end

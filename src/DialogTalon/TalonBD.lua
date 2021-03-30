@@ -352,7 +352,7 @@ do
                             rarity = "normal",
                             tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
                             DS = { 50, 150, 250 },
-                            dependence=8,
+                            dependence = 8,
                         }),
 
                     },
@@ -560,6 +560,72 @@ do
                             tooltip = L("Эта способность не может вас убить, всегда оставляет 1 единицу", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 100, 80, 60 },
                             ultR = true,
+                        }),]]
+                    },
+                    Alchemist = {
+                        Talon:new({--1
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGlyph.blp",
+                            name = L("Доход", "Income"),
+                            description = L("Увеличивает добычу золота при убийстве врагов на DS", "Increases gold revenue when killing enemies on DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 1, 2, 4 }
+                        }),
+                        Talon:new({--2
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSunKey.blp",
+                            name = L("Подработка в выходные", "Weekend part-time job"),
+                            description = L("После завершения уровня вы получаете DS золота", "After completing a level you get DS of gold"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 15, 30, 50 }
+                        }),
+                        Talon:new({--3
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNTransmute.blp",
+                            name = L("Золотое касание", "Золотое касание"),
+                            description = L("Следующая обычная атака моментально убьёт врага не босса и превратит его в DS золота. Перезарядка: 30", "The next normal attack will instantly kill the non-boss enemy and turn it into DS Gold. Cooldown: 30"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 5, 8, 15 }
+                        }),
+                        Talon:new({--4
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDustOfAppearance.blp",
+                            name = L("Дырявый мешок", "Leaky bag"),
+                            description = L("При получении урона вы потеряете столько же золота, но этот урон будет уменьшен на DS%%", "When taking damage, you will lose the same amount of gold, but this damage will be reduced by DS%%"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 10, 20, 30 }
+                        }),
+                        Talon:new({--5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfRestoration.blp",
+                            name = L("Инвестор", "Инвестор"),
+                            description = L("Увеличивает любой получаемый доход на DS%%", "Increases any earned income by DS%%"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 10, 15, 20 }
+                        }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMedalionOfCourage.blp",
+                            name = L("Орёл или решка", "Flip the Coin"),
+                            description = L("Имеет шанс 50%% не получить урона, тратит 10 золота. Перезарядка: DS", "Has a 50%% chance of not taking damage, spends 10 gold. Recharge: DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 20, 15, 10 }
+                        }),
+                        --[[
+                        Talon:new({--7 --ReplaceableTextures\CommandButtons\BTNPillage.blp
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChestOfGold.blp",
+                            name = L("Золотой царь", "Income"),
+                            description = L("Увеличивает ваш исходящий урон на DS%% за каждые 100 золота в кармане. Получение урона лишает бонуса 5 секунд", "Vases can contain a certain amount of blood that restores DS health"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "You will die as soon as you lose all health"),
+                            DS = { 1, 2, 3 }
                         }),]]
                     }
                 }

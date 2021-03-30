@@ -5,45 +5,51 @@
 ---
 function GiveForAll(reward)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            local data=HERO[i]
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
             if data then
-                local hero=data.UnitHero
-                if reward=="CodoHeart" then
-                    AddMaxLife(hero,25)
+                local hero = data.UnitHero
+                if reward == "CodoHeart" then
+                    AddMaxLife(hero, 25)
                 end
-                if reward=="GoldReward" then
-                    UnitAddGold(hero,100)
+                if reward == "GoldReward" then
+                    UnitAddGold(hero, 100)
                 end
             end
         end
     end
 end
 
-function AddMaxLife(hero,amount)
-    local maxHP=BlzGetUnitMaxHP(hero)
-    BlzSetUnitMaxHP(hero,maxHP+amount)
-    HealUnit(hero,amount)
+function AddMaxLife(hero, amount)
+    local maxHP = BlzGetUnitMaxHP(hero)
+    BlzSetUnitMaxHP(hero, maxHP + amount)
+    HealUnit(hero, amount)
 end
 
-function UnitAddGold(hero,amount)
-    local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
-    data.ShowGoldSec=0.3
-    if not data.ShowGoldAmount then data.ShowGoldAmount=0 end
-    data.ShowGoldAmount=data.ShowGoldAmount+amount
+function UnitAddGold(hero, amount)
+    local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+    data.ShowGoldSec = 0.3
+    if not data.ShowGoldAmount then
+        data.ShowGoldAmount = 0
+    end
+    data.ShowGoldAmount = data.ShowGoldAmount + amount
     if data.ShowGold then
-        data.ShowGold=false
+        data.ShowGold = false
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-            data.ShowGoldSec=data.ShowGoldSec-TIMER_PERIOD
-            if data.ShowGoldSec<=0 then
-                data.ShowGold=true
+            data.ShowGoldSec = data.ShowGoldSec - TIMER_PERIOD
+            if data.ShowGoldSec <= 0 then
+                data.ShowGold = true
+                if data.Investor then
+                    --print(data.Investor)
+                    data.ShowGoldAmount = R2I(data.ShowGoldAmount * data.Investor)
+                end
                 DestroyTimer(GetExpiredTimer())
-                FlyTextTagGoldBounty(hero,"+"..I2S(data.ShowGoldAmount),GetOwningPlayer(hero))
-                normal_sound("SystemGeneric\\ReceiveGold",GetUnitXY(hero))
-                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\PileofGold.mdl",GetUnitXY(hero)))
-                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl",GetUnitXY(hero)))
-                AddGold(data,amount)
-                data.ShowGoldAmount=0
+                FlyTextTagGoldBounty(hero, "+" .. I2S(data.ShowGoldAmount), GetOwningPlayer(hero))
+                normal_sound("SystemGeneric\\ReceiveGold", GetUnitXY(hero))
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\PileofGold.mdl", GetUnitXY(hero)))
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl", GetUnitXY(hero)))
+                AddGold(data, data.ShowGoldAmount)
+                data.ShowGoldAmount = 0
             end
         end)
     end

@@ -36,7 +36,8 @@ PreViewIcon = { -- Таблица случайных иконок которые
     "CodoHeart",
     "GoldReward",
     "ChaosGrom",
-    "Life"
+    "Life",
+    "Alchemist"
 }
 
 function InitFinObjectInArea()
@@ -319,7 +320,9 @@ function CreateEActions()
                 else
                     Enter2NewZone()
                 end
-
+                if data.ColdAfterWork then
+                    UnitAddGold(data.UnitHero,data.ColdAfterWork)
+                end
                 local r = GetRandomInt(1, #rm)
                 local message = rm[r]
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
@@ -502,11 +505,11 @@ function CreateEActions()
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
                             L("Я отомщу за тебя", "I will avenge you"),
-                            L("Да кто такой ваш этот Зул'Джин?","Who is this Itch of yours, Zul'jin?"),
-                            L("Полечишь?","Would you healing me?"),
-                            L("Я тебя помню","I remember you"),
-                            L("Странный у тебя акцент","You have a strange accent"),
-                            L("Ты меня не тролль","You don't troll me"),
+                            L("Да кто такой ваш этот Зул'Джин?", "Who is this Itch of yours, Zul'jin?"),
+                            L("Полечишь?", "Would you healing me?"),
+                            L("Я тебя помню", "I remember you"),
+                            L("Странный у тебя акцент", "You have a strange accent"),
+                            L("Ты меня не тролль", "You don't troll me"),
                         }
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
@@ -540,6 +543,31 @@ function CreateEActions()
                         TimerStart(CreateTimer(), 1, false, function()
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("ChaosGrom")
+                            --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
+                            --активация всех переходов
+                        end)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        data.ShowActionWindows = false
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
+                    end
+                end
+
+                if data.UseAction == "Alchemist" then
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = L("Я вижу ты тут главный", "Cursed")
+                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        data.Completed = true
+                        AllActionsEnabled(true)
+                        TimerStart(CreateTimer(), 1, false, function()
+                            DestroyGodTalon(dataPoint.TripleTalon)
+                            CreateDialogTalon("Alchemist")
                             --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
                             --активация всех переходов
                         end)

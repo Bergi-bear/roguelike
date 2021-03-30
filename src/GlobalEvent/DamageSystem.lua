@@ -46,6 +46,31 @@ function OnPostDamage()
                 DestroyTimer(GetExpiredTimer())
             end)
         end
+        if data.LeakyBag then
+            AddGold(data, -damage*data.LeakyBag)
+            BlzSetEventDamage(damage * (1 - data.LeakyBag))
+        end
+
+        if data.FlipTheCoinCDFH then
+            if data.FlipTheCoinCurrentCD <= 0 and data.gold>10 then
+                AddGold(data,-10)
+                local cd = data.FlipTheCoinCD
+                data.FlipTheCoinCurrentCD = cd
+                StartFrameCD(cd, data.FlipTheCoinCDFH)
+
+                if GetRandomInt(1,2)==1 then
+                    BlzSetEventDamage(0)
+                    FlyTextTagGoldBounty(target,"Удача",GetOwningPlayer(target))
+                else
+
+                end
+                TimerStart(CreateTimer(), cd, false, function()
+                    data.FlipTheCoinCurrentCD = 0
+                    DestroyTimer(GetExpiredTimer())
+                end)
+            end
+        end
+
         if damage >= GetUnitState(target, UNIT_STATE_LIFE) then
             -- смертельный урон от тралла
             --print("получен смертельный урон")
@@ -95,7 +120,7 @@ function OnPostDamage()
         if data.ParryPerAttack and false then
             --print("Парировал")
             local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
-            local AngleSource=AngleBetweenUnits(caster,target)
+            local AngleSource = AngleBetweenUnits(caster, target)
             BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
             DestroyEffect(eff)
             BlzSetEventDamage(0)
