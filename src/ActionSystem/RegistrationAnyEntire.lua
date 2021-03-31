@@ -41,7 +41,7 @@ function RegistrationAnyEntire()
                         end)
                     end
                 end
-                if GetUnitTypeId(entering)==FourCC('nglm') then --МИНА mine mina
+                if GetUnitTypeId(entering)==FourCC('nglm') and UnitAlive(hero)  then--МИНА mine mina vbyf
                     local x,y=GetUnitXY(entering)
                     local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
                     BlzSetSpecialEffectColor(mark,255,0,0)

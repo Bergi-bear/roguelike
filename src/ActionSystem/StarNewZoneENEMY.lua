@@ -312,16 +312,24 @@ function StartEnemyWave(waveNumber)
     end
 
     if waveNumber == 4 then
-        listID = {  -- Очень много жуков
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-            FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-        }
-        maxOnWave = 8
+        local r = GetRandomInt(1, 2)
+        if r == 1 then
+            listID = {  -- Очень много жуков
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+                FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
+            }
+            maxOnWave = 8
+        elseif r == 2 then
+            listID = { --Тестоый босс
+                FourCC("u001"),
+            }
+            maxOnWave = 1
+        end
     end
     if waveNumber == 44 then
         listID = {  -- Очень много жуков
@@ -387,15 +395,16 @@ function StartEnemyWave(waveNumber)
             }
             maxOnWave = 3
         end
-
     end
     if waveNumber >= 6 and waveNumber <= 20 then
         --рандомизатор
         listID = {}
         local zig = false
+        local skel = false
         for i = 1, R2I(waveNumber * 2.6) do
             listID[i] = EnemyList[GetRandomInt(1, #EnemyList)]
             local r = GetRandomInt(1, 10)
+            local r2 = GetRandomInt(1, 4)
             if waveNumber <= 11 then
                 if listID[i] == FourCC("ugar") then
                     listID[i] = FourCC("unec")
@@ -408,12 +417,46 @@ function StartEnemyWave(waveNumber)
                     listID[i] = FourCC("uzig")
                 end
             end
+            if waveNumber == 10 or waveNumber == 15 then
+                if not skel and r2 == 1 then
+                    skel = true
+                    listID[i] = FourCC("u001")
+                end
+            end
+
         end
         maxOnWave = waveNumber // 2
         if maxOnWave >= 16 then
             maxOnWave = 16
         end
     end
+
+
+    --
+
+    if waveNumber == 14 then
+        local r = GetRandomInt(1, 2)
+        if r == 1 then
+            listID = {
+                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
+                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
+                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
+                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
+                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
+                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
+            }
+            maxOnWave = 7
+        elseif r == 2 then
+            listID = {
+                FourCC("uzig"), FourCC("uzig"),FourCC("uban"),FourCC("uban"),FourCC("uban"),
+                FourCC("uban"),FourCC("uban"),FourCC("uban"),FourCC("uban"),FourCC("uban"),
+                FourCC("uban"),FourCC("uban"),FourCC("uban"),FourCC("uban"),FourCC("uban"),
+            }
+            maxOnWave = 6
+
+        end
+    end
+
     if waveNumber == 21 then
         -- Новый биом
         listID = {
@@ -552,10 +595,10 @@ function CreateCreepDelay(id, x, y, delay, flag)
             BlzSetUnitMaxHP(new, R2I(a * G_CountPlayers))
             HealUnit(new)
         end
-        if CurrentGameZone >= 10 then
-            local r = GetRandomInt(1, 22 - CurrentGameZone)
+        if CurrentGameZone >= 9 then
+            local r = GetRandomInt(1, 22 - CurrentGameZone)--
             if r == 1 then
-                UnitAddShield(new, R2I(a * 1.5))
+                UnitAddShield(new, R2I(a * 2))
             end
         end
 

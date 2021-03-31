@@ -56,21 +56,46 @@ function InitEnemyEntire()
             --Гаргулья окоменевшая -- ugar - обычная untoneform
             StoneUnStone(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("u001") then
+            --скелетон
+            StartBossSkeleton(unit)
+        end
+        if GetUnitTypeId(unit) == FourCC("uban") then
+            --скелетон
+            BansheeAiBlinkAndArrow(unit)
+        end
     end)
 end
 
+ShieldSystem = {}
 function UnitAddShield(unit, amount)
-    UnitAddAbility(unit, FourCC("ACmf")) --Бафф BNms
+    --UnitAddAbility(unit, FourCC("ACmf")) --Бафф BNms
+    if not ShieldSystem[GetHandleId(unit)] then
+        --rint("Щит добавлен первый раз")
+        ShieldSystem[GetHandleId(unit)] = {
+            IsActive = true,
+        }
+    end
     BlzSetUnitMaxMana(unit, amount)
     SetUnitState(unit, UNIT_STATE_MANA, amount)
-    if not IssueImmediateOrder(unit, "manashieldon") then
-        -- print("Не могу активировать щит")
+end
+
+function IsUnitHasShield(unit)
+    local HasShield = false
+    if not ShieldSystem[GetHandleId(unit)] then
+        --	print("Щит добавлен первый раз")
+        ShieldSystem[GetHandleId(unit)] = {
+            IsActive = false,
+        }
     end
+    HasShield = ShieldSystem[GetHandleId(unit)].IsActive
+    --print(HasShield)
+    return HasShield
 end
 
 function GetRandomEnemyHero()
     local table = {}
-    local find=nil
+    local find = nil
     local k = 1
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
@@ -83,8 +108,8 @@ function GetRandomEnemyHero()
         end
     end
     local r = GetRandomInt(1, #table)
-    find=table[r]
-    table={}
+    find = table[r]
+    table = {}
     return find
 end
 
@@ -368,6 +393,10 @@ function NecroAttackAndArrow(unit)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
                         CreateAndForceBullet(unit, angle, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
+                        if GetUnitManaPercent(unit) > 30 then
+                            CreateAndForceBullet(unit, angle + 10, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
+                            CreateAndForceBullet(unit, angle - 10, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
+                        end
                         BlzPauseUnitEx(unit, false)
                     end)
                 else
@@ -379,6 +408,50 @@ function NecroAttackAndArrow(unit)
         end
     end)
 end
+
+function BansheeAiBlinkAndArrow(unit)
+    local xs, ys = GetUnitXY(unit)
+    UnitAddAbility(unit, FourCC("Abun"))
+    TimerStart(CreateTimer(), 2, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero = GetRandomEnemyHero()
+            --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+            if not IsUnitInRangeXY(unit, xs, ys, 300) then
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(unit)))
+                SetUnitPositionSmooth(unit, xs, ys)
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(unit)))
+            end
+            if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                if not IsUnitInRange(hero, unit, 300) then
+                    local angle = AngleBetweenUnits(unit, hero)
+                    BlzPauseUnitEx(unit, true)
+                    SetUnitAnimation(unit, "attack")
+                    --SetUnitTimeScale(unit,0.7)
+                    SetUnitFacing(unit, angle)
+                    TimerStart(CreateTimer(), 0.3, false, function()
+                        CreateAndForceBullet(unit, angle, 15, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
+                        BlzPauseUnitEx(unit, false)
+                    end)
+                else
+                    local rx = GetUnitX(unit) + GetRandomInt(-1, 1) * 300
+                    local ry = GetUnitY(unit) + GetRandomInt(-1, 1) * 300
+                    --IssuePointOrder(unit, "move", rx, ry)
+                    DestroyEffect(AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(unit)))
+                    SetUnitPositionSmooth(unit, rx, ry)
+                    DestroyEffect(AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(unit)))
+                    for i = 1, 12 do
+                        local angle = 30 * i
+                        CreateAndForceBullet(unit, angle, 20, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 1000)
+                    end
+                end
+            end
+
+        end
+    end)
+end
+
 
 --Bugs = CreateGroup()
 function SinergyBug(unit)

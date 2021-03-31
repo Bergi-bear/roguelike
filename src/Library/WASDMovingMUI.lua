@@ -159,6 +159,9 @@ function InitWASD(hero)
             --print("Эффект смерти")
 
             local x, y = GetUnitXY(hero)
+            if not data.CameraStabUnit then
+
+            end
             if not data.CameraStabUnit and not data.CameraOnSaw then
                 data.CameraStabUnit = CreateUnit(Player(data.pid), FourCC("hdhw"), x, y, 0)
                 ShowUnit(data.CameraStabUnit, false)
@@ -166,7 +169,7 @@ function InitWASD(hero)
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
-            if data.CameraStabUnit then
+            if data.CameraStabUnit and data.life < 0 then
                 SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
             end
             if GetLocalPlayer() == GetOwningPlayer(hero) then
@@ -936,7 +939,6 @@ function BlockMouse(data)
     end)
 end
 
-
 ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 onForces = {}
 function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
@@ -946,7 +948,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         onForces[GetHandleId(hero)] = true
         --print("первый раз")
     end
-    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") then
+    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero)~=FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") then
         onForces[GetHandleId(hero)] = false
         local m = 0
         --print("1")
@@ -1008,6 +1010,9 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     damageOnWall = true
                 end
             end
+            if flag == "RunSkeleton" then
+                UnitDamageArea(hero, 1, GetUnitX(hero), GetUnitY(hero), 120)
+            end
             if flag == "ignore" then
                 local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
                 --print("попытка нанести урон в рывке")
@@ -1063,6 +1068,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
 
                     end
                 end
+
             end
 
             if flag == "dust" then
@@ -1076,6 +1082,13 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 --data.OnWater=false
                 if effDash then
                     DestroyEffect(effDash)
+                end
+                if flag == "RunSkeleton" then
+                    BlzPauseUnitEx(hero, false)
+                    SetUnitTimeScale(hero,1)
+                    if UnitAlive(hero) then
+                        ResetUnitAnimation(hero)
+                    end
                 end
                 if flag == "ignore" then
                     --print("перезарядка атаки в рывке")
@@ -1267,6 +1280,10 @@ function UnitDamageArea(u, damage, x, y, range, flag)
             hero = e
             k = k + 1
             all[k] = e
+            if flag == "all" and not UnitAlive(e) then
+                local ex, ey = GetUnitXY(e)
+                FlyTextTagShieldXY(ex, ey, L("Смерть от ловушки", "Death by trap"), GetOwningPlayer(e), "SeeAll")
+            end
         end
         GroupRemoveUnit(perebor, e)
     end
@@ -1443,7 +1460,7 @@ function PlayUnitAnimationFromChat()
             CreateGodTalon(x, y, "Life")
             return
         end
-        if GetEventPlayerChatString() == "фд" or GetEventPlayerChatString() == "al"   then
+        if GetEventPlayerChatString() == "фд" or GetEventPlayerChatString() == "al" then
             local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateGodTalon(x, y, "Alchemist")
             return

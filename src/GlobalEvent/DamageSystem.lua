@@ -20,11 +20,67 @@ function OnPostDamage()
 
     --print(GetUnitName(target))
 
+
+    if GetUnitTypeId(caster) == HeroID and caster ~= target then
+        local data = HERO[GetPlayerId(GetOwningPlayer(caster))]
+        local x, y = GetUnitXY(caster)
+        local xe, ye = GetUnitXY(target)
+        -- функция принадлежности точки сектора
+        -- x1, x2 - координаты проверяемой точки
+        -- x2, y2 - координаты вершины сектора
+        -- orientation - ориентация сектора в мировых координатах
+        -- width - угловой размер сектора в градусах
+        -- radius - окружности которой принадлежит сектор
+
+        if IsPointInSector(x, y, xe, ye, GetUnitFacing(target) - 180, 90, 200) then
+            BlzSetEventDamage(damage * data.BackDamage)
+            FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
+        end
+
+        if data.CriticalStrikeCDFH then
+            --[[
+                StartFrameCDWA(data.CriticalStrikeCurrentCD, data.CriticalStrikeCDFH, GlobalTalons[data.pid + 1]["HeroBlademaster"][2], function()
+                    local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
+                    local ks = 1.5
+                    if data.HasMultipleCritical then
+                        if talonM.level > 0 then
+                            ks = talonM.DS[talonM.level]
+                        end
+                    end
+                    BlzSetEventDamage(GetEventDamage() * ks)
+                end)
+    ]]
+
+
+            if data.CriticalStrikeCurrentCD <= 0 then
+                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][2]
+                local cd = talon.DS[talon.level]
+                data.CriticalStrikeCurrentCD = cd
+                StartFrameCD(cd, data.CriticalStrikeCDFH)
+
+                local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
+                local ks = 1.5
+                if data.HasMultipleCritical then
+                    if talonM.level > 0 then
+                        ks = talonM.DS[talonM.level]
+                    end
+                end
+                BlzSetEventDamage(GetEventDamage() * ks)
+
+                TimerStart(CreateTimer(), cd, false, function()
+                    data.CriticalStrikeCurrentCD = 0
+                    DestroyTimer(GetExpiredTimer())
+                end)
+            end
+
+        end
+    end
+
     if GetUnitTypeId(target) ~= HeroID then
         --print("кто-то другой получил урон")
         local data = HERO[GetPlayerId(GetOwningPlayer(caster))]
         if data then
-            if GetUnitAbilityLevel(target, FourCC("BNms")) == 0 then
+            if not IsUnitHasShield(target) then
                 local addTime = 0
                 if not data.StaggerTimeFromTalon then
                     data.StaggerTimeFromTalon = 0
@@ -33,6 +89,17 @@ function OnPostDamage()
                     addTime = data.StaggerTimeFromTalon
                 end
                 StunUnit(target, 0.4 + addTime, "stagger")
+            else
+                if data.ShieldBreakerIsLearn then
+                    damage=damage+50
+                end
+                SetUnitState(target, UNIT_STATE_MANA, GetUnitState(target, UNIT_STATE_MANA) - damage)
+                BlzSetEventDamage(0)
+                if IsUnitHasShield(target) and GetUnitState(target, UNIT_STATE_MANA) < 1 then
+                    local x, y = GetUnitXY(target)
+                    FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster),"blue")
+                    ShieldSystem[GetHandleId(target)].IsActive = false
+                end
             end
         end
     else
@@ -47,20 +114,20 @@ function OnPostDamage()
             end)
         end
         if data.LeakyBag then
-            AddGold(data, -damage*data.LeakyBag)
+            AddGold(data, -damage * data.LeakyBag)
             BlzSetEventDamage(damage * (1 - data.LeakyBag))
         end
 
         if data.FlipTheCoinCDFH then
-            if data.FlipTheCoinCurrentCD <= 0 and data.gold>10 then
-                AddGold(data,-10)
+            if data.FlipTheCoinCurrentCD <= 0 and data.gold > 10 then
+                AddGold(data, -10)
                 local cd = data.FlipTheCoinCD
                 data.FlipTheCoinCurrentCD = cd
                 StartFrameCD(cd, data.FlipTheCoinCDFH)
 
-                if GetRandomInt(1,2)==1 then
+                if GetRandomInt(1, 2) == 1 then
                     BlzSetEventDamage(0)
-                    FlyTextTagGoldBounty(target,"Удача",GetOwningPlayer(target))
+                    FlyTextTagGoldBounty(target, "Удача", GetOwningPlayer(target))
                 else
 
                 end
@@ -127,80 +194,22 @@ function OnPostDamage()
         end
     end
 
-    if GetUnitTypeId(caster) == HeroID and caster ~= target then
-        local data = HERO[GetPlayerId(GetOwningPlayer(caster))]
-        local x, y = GetUnitXY(caster)
-        local xe, ye = GetUnitXY(target)
-        -- функция принадлежности точки сектора
-        -- x1, x2 - координаты проверяемой точки
-        -- x2, y2 - координаты вершины сектора
-        -- orientation - ориентация сектора в мировых координатах
-        -- width - угловой размер сектора в градусах
-        -- radius - окружности которой принадлежит сектор
-
-        if IsPointInSector(x, y, xe, ye, GetUnitFacing(target) - 180, 90, 200) then
-            BlzSetEventDamage(damage * data.BackDamage)
-            FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
-        end
-        if GetUnitAbilityLevel(target, FourCC("BNms")) > 0 and data.ShieldBreakerIsLearn then
-            --BlzSetEventDamage(damage * 5)
-            SetUnitState(target, UNIT_STATE_MANA, GetUnitState(target, UNIT_STATE_MANA - 50))
-            if GetUnitState(target, UNIT_STATE_MANA) <= 1 then
-                x, y = GetUnitXY(target)
-                FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster))
-            end
-        end
-
-        if data.CriticalStrikeCDFH then
-            --[[
-                StartFrameCDWA(data.CriticalStrikeCurrentCD, data.CriticalStrikeCDFH, GlobalTalons[data.pid + 1]["HeroBlademaster"][2], function()
-                    local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
-                    local ks = 1.5
-                    if data.HasMultipleCritical then
-                        if talonM.level > 0 then
-                            ks = talonM.DS[talonM.level]
-                        end
-                    end
-                    BlzSetEventDamage(GetEventDamage() * ks)
-                end)
-    ]]
-
-
-            if data.CriticalStrikeCurrentCD <= 0 then
-                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][2]
-                local cd = talon.DS[talon.level]
-                data.CriticalStrikeCurrentCD = cd
-                StartFrameCD(cd, data.CriticalStrikeCDFH)
-
-                local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
-                local ks = 1.5
-                if data.HasMultipleCritical then
-                    if talonM.level > 0 then
-                        ks = talonM.DS[talonM.level]
-                    end
-                end
-                BlzSetEventDamage(GetEventDamage() * ks)
-
-                TimerStart(CreateTimer(), cd, false, function()
-                    data.CriticalStrikeCurrentCD = 0
-                    DestroyTimer(GetExpiredTimer())
-                end)
-            end
-
-        end
-    end
-
     if GetUnitTypeId(target) ~= HeroID and GetUnitTypeId(caster) == HeroID then
         --Функция должна быть в самом низу
         AddDamage2Show(target, GetEventDamage())
         local showData = ShowDamageTable[GetHandleId(target)]
         local matchShow = showData.damage
-        if not showData.tag then
-            showData.tag = FlyTextTagCriticalStrike(target, R2I(matchShow), GetOwningPlayer(caster), true)
-        else
-            SetTextTagText(showData.tag, R2I(matchShow), 0.024 + (showData.k))
-            SetTextTagVelocity(showData.tag, 0, 0.01)
-            SetTextTagLifespan(showData.tag, 99)
+        if matchShow>=1 then
+            if not showData.tag then
+                showData.tag = FlyTextTagCriticalStrike(target, R2I(matchShow), GetOwningPlayer(caster), true)
+            else
+
+                SetTextTagText(showData.tag, R2I(matchShow), 0.024 + (showData.k))
+                SetTextTagVelocity(showData.tag, 0, 0.01)
+                SetTextTagLifespan(showData.tag, 99)
+
+
+            end
         end
     end
 
