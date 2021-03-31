@@ -41,18 +41,18 @@ PreViewIcon = { -- Таблица случайных иконок которые
 }
 
 function InitFinObjectInArea()
-    CreateEnterPoint(5300, -9000, L("   Подняться на борт", "               Climb aboard"), "StartSheep", true)--зона корабля
-    CreateEnterPoint(2100, -13250, L("      Выйти наружу", "      Go outside"), "ExitSheep", true)
-    CreateEnterPoint(5400, -8300, L("   Исследовать лодку", "               Explore the boat"), "Board", true)
-    CreateEnterPoint(10000, -19250, L("   Исследовать лодку", "               Explore the boat"), "Board", true)
-    CreateEnterPoint(6120, -8724, L("   Исследовать лодку", "               Explore the boat"), "Board", true)
-    CreateEnterPoint(5500, -6900, L("  Войти", "Enter"), "BackDor", true) --Вечно закрытые ворота
-    CreateEnterPoint(7700, -8000, L("     Преисполниться", "          Fill up"), "StartBonus", true) --Синий огонь
-    CreateEnterPoint(7800, -6600, L("    Посмотреть вдаль", "                Look into the distance"), "SoFar", true) --на краю берега справа
-    CreateEnterPoint(7000, -9200, L("        Рыбачить", "        Fishing"), "Fish", true) -- внизу на берегу
-    CreateEnterPoint(7200, -7600, L("       Отдохнуть", "                  Take a break"), "NoWorking", true) -- возле деревьев
-    CreateEnterPoint(18329, -3724, L("       Прочитать", "                  Reading"), "Read1", false) --первый обелиск
-    CreateEnterPoint(13400, -9448, L("         Открыть", "                  Open"), "Open1", false)
+    CreateEnterPoint(5300, -9000, L("Подняться на борт", "Climb aboard"), "StartSheep", true)--зона корабля
+    CreateEnterPoint(2100, -13250, L("Выйти наружу", "Go outside"), "ExitSheep", true)
+    CreateEnterPoint(5400, -8300, L("Исследовать лодку", "Explore the boat"), "Board", true)
+    CreateEnterPoint(10000, -19250, L("Исследовать лодку", "Explore the boat"), "Board", true)
+    CreateEnterPoint(6120, -8724, L("Исследовать лодку", "Explore the boat"), "Board", true)
+    CreateEnterPoint(5500, -6900, L("Войти", "Enter"), "BackDor", true) --Вечно закрытые ворота
+    CreateEnterPoint(7700, -8000, L("Преисполниться", "Fill up"), "StartBonus", true) --Синий огонь
+    CreateEnterPoint(7800, -6600, L("Посмотреть вдаль", "Look into the distance"), "SoFar", true) --на краю берега справа
+    CreateEnterPoint(7000, -9200, L("Рыбачить", "Fishing"), "Fish", true) -- внизу на берегу
+    CreateEnterPoint(7200, -7600, L("Отдохнуть", "Take a break"), "NoWorking", true) -- возле деревьев
+    CreateEnterPoint(18329, -3724, L("Прочитать", "Reading"), "Read1", false) --первый обелиск
+    CreateEnterPoint(13400, -9448, L("Открыть", "Open"), "Open1", false)
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -89,12 +89,12 @@ function ReplaceALLUnitId2PointExit(id)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
         if i == d then
-            CreateEnterPoint(x, y, L("        Продолжить", "                Continue"), 'Goto', false, "PeonDidal", u)
+            CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal", u)
             -- print("создана 1 награда с пеоном дидалом")
         elseif i == m then
-            CreateEnterPoint(x, y, L("        Продолжить", "                Continue"), 'Goto', false, "Merchant", u)
+            CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "Merchant", u)
         else
-            CreateEnterPoint(x, y, L("        Продолжить", "                Continue"), 'Goto', false, nil, u)
+            CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, nil, u)
         end
     end
 end
@@ -221,7 +221,7 @@ function CreateActionBox(message)
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local size = #message * 0.0045
+    local size = #message * 0.006
     if size <= 0.1 then
         size = 0.1
     end
@@ -232,12 +232,12 @@ function CreateActionBox(message)
     BlzFrameSetAlpha(backdrop, 200)
     BlzFrameSetText(text, message)
     BlzFrameSetScale(text, 1.2)
-    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, backdrop, FRAMEPOINT_RIGHT, -0.01, 0.0)
+    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
     BlzFrameSetVisible(tooltip, false)
     local hotkey = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', tooltip, '', 0)
     BlzFrameSetTexture(hotkey, "SystemGeneric\\HadesE", 0, true)
     BlzFrameSetSize(hotkey, NextPoint, NextPoint)
-    BlzFrameSetPoint(hotkey, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.01, 0.0)
+    BlzFrameSetPoint(hotkey, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, -NextPoint, 0.0)
     return tooltip, backdrop, text, hotkey
 end
 

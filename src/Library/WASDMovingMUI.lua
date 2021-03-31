@@ -671,14 +671,18 @@ function CreateWASDActions()
 
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB then
-                data.CDSpellQ = data.SpellQCDTime
-                TimerStart(CreateTimer(), 1, true, function()
-                    data.CDSpellQ = data.CDSpellQ - 1
-                    if data.CDSpellQ <= 0 then
-                        data.CDSpellQ = 0
-                        DestroyTimer(GetExpiredTimer())
-                    end
-                end)
+                local balance = 1
+                if data.isSpined then
+                    balance = 6
+                end
+                data.CDSpellQ = data.SpellQCDTime *balance
+                        TimerStart(CreateTimer(), 1, true, function()
+                            data.CDSpellQ = data.CDSpellQ - 1
+                            if data.CDSpellQ <= 0 then
+                                data.CDSpellQ = 0
+                                DestroyTimer(GetExpiredTimer())
+                            end
+                        end)
                 data.animStand = 1.8 --до полной анимации 2 секунды
                 --print("Q spell")
                 data.ReleaseQ = true
@@ -688,7 +692,7 @@ function CreateWASDActions()
                     --FIXED может ломать управление
                     --if not data.ReleaseQ then
                     --print("Q в курсор")
-                    StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
+                    StartFrameCD(data.SpellQCDTime* balance, data.cdFrameHandleQ)
                     --SpellSlashQ(data)
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero))
@@ -707,7 +711,8 @@ function CreateWASDActions()
                 else
                     TimerStart(CreateTimer(), 0.35, false, function()
                         --задержка перед ударом
-                        StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
+
+                        StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
                         SpellSlashQ(data)
                         if data.DoubleClap then
                             TimerStart(CreateTimer(), 0.35, false, function()
@@ -948,7 +953,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         onForces[GetHandleId(hero)] = true
         --print("первый раз")
     end
-    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero)~=FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") then
+    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero) ~= FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") then
         onForces[GetHandleId(hero)] = false
         local m = 0
         --print("1")
@@ -1085,7 +1090,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 end
                 if flag == "RunSkeleton" then
                     BlzPauseUnitEx(hero, false)
-                    SetUnitTimeScale(hero,1)
+                    SetUnitTimeScale(hero, 1)
                     if UnitAlive(hero) then
                         ResetUnitAnimation(hero)
                     end

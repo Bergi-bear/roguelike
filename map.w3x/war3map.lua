@@ -127,7 +127,6 @@ function CreateUnitsForPlayer10()
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21067.8, -12801.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20849.6, -13713.4, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20642.2, -13470.1, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21054.6, -13493.0, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20853.9, -13238.0, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21890.9, -13754.3, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21683.4, -13511.0, 158.490, FourCC("nglm"))
@@ -144,25 +143,25 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 15170.6, -12262.7, 273.052, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 14926.3, -10508.2, 205.385, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 13571.7, -9796.1, 245.969, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17388.8, -13693.9, 10.613, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17389.2, -13590.6, 10.613, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17130.1, -12925.3, 256.956, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17380.4, -13532.4, 208.955, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17378.0, -13358.4, 186.597, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17373.4, -13169.4, 8.438, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17385.7, -13263.2, 208.955, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15083.4, -19168.1, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15312.0, -20094.5, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17371.2, -12644.8, 313.746, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17855.1, -12572.1, 36.443, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 17857.0, -12661.6, 270.879, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 17892.6, -13658.4, 93.814, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 18845.7, -12668.3, 178.025, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17601.1, -12823.3, 284.961, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 17371.1, -12950.2, 152.275, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18406.4, -13782.6, 12.085, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18402.4, -13674.7, 19.315, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18409.3, -13563.0, 226.106, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18421.6, -13266.2, 197.419, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18247.8, -13103.1, 13.085, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18429.8, -13091.4, 76.830, FourCC("hpea"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18438.7, -12924.3, 154.912, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 20566.2, -13864.5, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18408.1, -13658.5, 12.085, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 11490.8, -16374.3, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 11489.9, -16250.6, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18417.5, -13084.8, 197.419, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 11491.2, -16126.7, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 11491.2, -16003.3, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18418.6, -12880.0, 154.912, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 18157.3, -13522.6, 53.890, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15620.7, -6529.8, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14462.1, -12665.1, 0.000, FourCC("hkni"))
@@ -205,16 +204,19 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14583.3, -6376.4, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21853.9, -12542.2, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20867.2, -12546.4, 158.490, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 11035.1, -15839.8, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23378.2, -12611.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23580.5, -12626.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 23380.4, -12780.0, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22477.4, -7509.7, 270.109, FourCC("hsor"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22669.3, -7518.4, 269.708, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 10915.6, -15837.7, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 10799.3, -15839.8, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22690.9, -8622.6, 90.578, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22742.8, -7511.8, 271.667, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 13649.5, -16152.2, 355.219, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 11775.6, -20471.3, 256.956, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14391.1, -16471.8, 175.943, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14585.9, -15306.1, 264.587, FourCC("hsor"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22565.0, -7515.2, 268.067, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22636.6, -7508.3, 271.207, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15730.0, -6534.2, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15619.2, -6651.9, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 15737.3, -6650.8, 0.000, FourCC("hkni"))
@@ -229,8 +231,8 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 11777.7, -20990.6, 256.956, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 10927.0, -20484.1, 175.249, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 10925.1, -20978.1, 180.773, FourCC("hsor"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 11509.3, -16430.6, 125.541, FourCC("hsor"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 11017.0, -16431.3, 90.803, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 11600.4, -16521.8, 91.216, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 10130.1, -16016.9, 359.028, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17455.3, -16170.5, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17568.0, -16168.3, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 17453.6, -16050.9, 0.000, FourCC("hkni"))
@@ -243,7 +245,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16163.1, -21028.1, 177.987, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16192.9, -19807.5, 270.396, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16447.6, -19959.1, 178.449, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14984.7, -18841.8, -89.729, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14984.7, -18841.8, 270.271, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 19294.8, -7739.0, 270.047, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 15392.8, -19798.4, 356.698, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 18748.3, -8074.6, 242.850, FourCC("hmtm"))
@@ -258,6 +260,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 17730.4, -13251.5, 239.880, FourCC("hmtm"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 15419.1, -18908.6, 270.721, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 15900.0, -20061.7, 180.391, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22584.7, -8619.0, 91.444, FourCC("hsor"))
 end
 
 function CreateNeutralHostile()
@@ -266,16 +269,12 @@ function CreateNeutralHostile()
     local unitID
     local t
     local life
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18682.7, -10433.2, 158.494, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14487.0, -5834.5, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18375.2, -11023.9, 158.494, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18603.5, -11143.1, 158.494, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18867.3, -11129.3, 158.494, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 19033.6, -10985.7, 158.494, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 19055.0, -10680.6, 158.494, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18292.5, -10640.0, 158.494, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18420.7, -10409.8, 158.494, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18925.5, -10457.1, 158.494, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 17997.2, -10638.5, 158.494, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 19319.2, -10704.4, 158.494, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 19083.5, -11156.8, 158.494, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 19099.3, -10391.8, 158.494, FourCC("nglm"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 18255.3, -10333.3, 158.494, FourCC("nglm"))
 end
 
 function CreateNeutralPassive()
@@ -419,12 +418,10 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21894.4, -7701.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22210.1, -7824.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22018.2, -8440.9, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22305.4, -8182.5, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22454.5, -8389.1, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22621.8, -7974.3, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22741.9, -7673.0, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22842.3, -8180.7, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22888.7, -8426.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22210.0, -8194.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23038.8, -7997.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22922.4, -8361.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21935.5, -8188.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23373.2, -8321.9, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23613.3, -8129.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23616.3, -7810.6, 247.300, FourCC("e001"))
@@ -537,7 +534,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10274.8, -15695.6, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 10769.2, -15629.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11132.0, -15969.3, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11511.0, -16108.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11757.9, -16126.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11709.4, -16488.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11883.8, -16724.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 11881.3, -15637.0, 247.300, FourCC("e001"))
@@ -622,7 +619,7 @@ function CreateRegions()
     gg_rct_E3A = Rect(13344.0, -11104.0, 13696.0, -10464.0)
     gg_rct_E1A = Rect(13216.0, -13696.0, 13568.0, -13216.0)
     gg_rct_E2A = Rect(16640.0, -13568.0, 17216.0, -13056.0)
-    gg_rct_E4A = Rect(18144.0, -11776.0, 18432.0, -11232.0)
+    gg_rct_E4A = Rect(17984.0, -11712.0, 18464.0, -11168.0)
     gg_rct_S4A = Rect(18080.0, -11264.0, 19360.0, -10176.0)
     gg_rct_B4A = Rect(18656.0, -10912.0, 18784.0, -10432.0)
     gg_rct_E5A = Rect(17408.0, -8576.0, 17952.0, -8160.0)
@@ -1759,18 +1756,18 @@ PreViewIcon = { -- Таблица случайных иконок которые
 }
 
 function InitFinObjectInArea()
-    CreateEnterPoint(5300, -9000, L("   Подняться на борт", "               Climb aboard"), "StartSheep", true)--зона корабля
-    CreateEnterPoint(2100, -13250, L("      Выйти наружу", "      Go outside"), "ExitSheep", true)
-    CreateEnterPoint(5400, -8300, L("   Исследовать лодку", "               Explore the boat"), "Board", true)
-    CreateEnterPoint(10000, -19250, L("   Исследовать лодку", "               Explore the boat"), "Board", true)
-    CreateEnterPoint(6120, -8724, L("   Исследовать лодку", "               Explore the boat"), "Board", true)
-    CreateEnterPoint(5500, -6900, L("  Войти", "Enter"), "BackDor", true) --Вечно закрытые ворота
-    CreateEnterPoint(7700, -8000, L("     Преисполниться", "          Fill up"), "StartBonus", true) --Синий огонь
-    CreateEnterPoint(7800, -6600, L("    Посмотреть вдаль", "                Look into the distance"), "SoFar", true) --на краю берега справа
-    CreateEnterPoint(7000, -9200, L("        Рыбачить", "        Fishing"), "Fish", true) -- внизу на берегу
-    CreateEnterPoint(7200, -7600, L("       Отдохнуть", "                  Take a break"), "NoWorking", true) -- возле деревьев
-    CreateEnterPoint(18329, -3724, L("       Прочитать", "                  Reading"), "Read1", false) --первый обелиск
-    CreateEnterPoint(13400, -9448, L("         Открыть", "                  Open"), "Open1", false)
+    CreateEnterPoint(5300, -9000, L("Подняться на борт", "Climb aboard"), "StartSheep", true)--зона корабля
+    CreateEnterPoint(2100, -13250, L("Выйти наружу", "Go outside"), "ExitSheep", true)
+    CreateEnterPoint(5400, -8300, L("Исследовать лодку", "Explore the boat"), "Board", true)
+    CreateEnterPoint(10000, -19250, L("Исследовать лодку", "Explore the boat"), "Board", true)
+    CreateEnterPoint(6120, -8724, L("Исследовать лодку", "Explore the boat"), "Board", true)
+    CreateEnterPoint(5500, -6900, L("Войти", "Enter"), "BackDor", true) --Вечно закрытые ворота
+    CreateEnterPoint(7700, -8000, L("Преисполниться", "Fill up"), "StartBonus", true) --Синий огонь
+    CreateEnterPoint(7800, -6600, L("Посмотреть вдаль", "Look into the distance"), "SoFar", true) --на краю берега справа
+    CreateEnterPoint(7000, -9200, L("Рыбачить", "Fishing"), "Fish", true) -- внизу на берегу
+    CreateEnterPoint(7200, -7600, L("Отдохнуть", "Take a break"), "NoWorking", true) -- возле деревьев
+    CreateEnterPoint(18329, -3724, L("Прочитать", "Reading"), "Read1", false) --первый обелиск
+    CreateEnterPoint(13400, -9448, L("Открыть", "Open"), "Open1", false)
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -1807,12 +1804,12 @@ function ReplaceALLUnitId2PointExit(id)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
         if i == d then
-            CreateEnterPoint(x, y, L("        Продолжить", "                Continue"), 'Goto', false, "PeonDidal", u)
+            CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal", u)
             -- print("создана 1 награда с пеоном дидалом")
         elseif i == m then
-            CreateEnterPoint(x, y, L("        Продолжить", "                Continue"), 'Goto', false, "Merchant", u)
+            CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "Merchant", u)
         else
-            CreateEnterPoint(x, y, L("        Продолжить", "                Continue"), 'Goto', false, nil, u)
+            CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, nil, u)
         end
     end
 end
@@ -1939,7 +1936,7 @@ function CreateActionBox(message)
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local size = #message * 0.0045
+    local size = #message * 0.006
     if size <= 0.1 then
         size = 0.1
     end
@@ -1950,12 +1947,12 @@ function CreateActionBox(message)
     BlzFrameSetAlpha(backdrop, 200)
     BlzFrameSetText(text, message)
     BlzFrameSetScale(text, 1.2)
-    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, backdrop, FRAMEPOINT_RIGHT, -0.01, 0.0)
+    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
     BlzFrameSetVisible(tooltip, false)
     local hotkey = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', tooltip, '', 0)
     BlzFrameSetTexture(hotkey, "SystemGeneric\\HadesE", 0, true)
     BlzFrameSetSize(hotkey, NextPoint, NextPoint)
-    BlzFrameSetPoint(hotkey, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.01, 0.0)
+    BlzFrameSetPoint(hotkey, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, -NextPoint, 0.0)
     return tooltip, backdrop, text, hotkey
 end
 
@@ -2535,6 +2532,7 @@ function CreateMerchantAndGoods(x,y)
         "ShadowHunter",
         "Trall",
         "ChaosGrom",
+        "Alchemist"
 
     }
     local step=250
@@ -2544,7 +2542,7 @@ function CreateMerchantAndGoods(x,y)
         CreateGodTalon(x,y+(step),"Life",GetRandomInt(400,500))
     end
 
-    CreateGodTalon(x,y-(step),"PeonDidal",GetRandomInt(175,225))
+    CreateGodTalon(x,y-(step),table[GetRandomInt(1,#table)],GetRandomInt(125,150))
     CreateGodTalon(x+step,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
     CreateGodTalon(x-step,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
 end
@@ -2640,7 +2638,7 @@ function InitHealPoint()
         SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
-        CreateEnterPoint(x,y,L("        Выпить","                Drink"), 'Heal', true)
+        CreateEnterPoint(x,y,L("Выпить","Drink"), 'Heal', true)
     end
 end
 
@@ -2655,7 +2653,7 @@ function InitMagazine()
         SetUnitInvulnerable(u,true)
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
-        CreateEnterPoint(x,y,L("        Купить","                Buy"), 'Buying', true)
+        CreateEnterPoint(x,y,L("Купить","Buy"), 'Buying', true)
     end
 end
 
@@ -2673,7 +2671,7 @@ function InitFireBallPoint()
         ShowUnit(u,false)
         AddSpecialEffect("Doodads\\Ashenvale\\Props\\Brazier\\Brazier",x,y)
         CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
-        local tempUnit=CreateEnterPoint(x,y,L("          Повернуть","                   Rotate"),"RotationFire",true)
+        local tempUnit=CreateEnterPoint(x,y,L("Повернуть","Rotate"),"RotationFire",true)
         local dataPoint=EnterPointTable[GetHandleId(tempUnit)]
         dataPoint.AngleFireRotation=GetUnitFacing(u)
         dataPoint.UnitFireRotation=u
@@ -3668,7 +3666,7 @@ function ChkAllPlayerTalonClosedWindow()
                 result = true
                 --print("все выбрали свои таланты")
             else
-                print("Ожидание игрока "..GetPlayerName(Player(i)))
+                --print("Ожидание игрока "..GetPlayerName(Player(i)))
                 result = false
             end
         end
@@ -4367,7 +4365,7 @@ do
                         }),
                         [7] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
-                            name = L("Предвидение боли", "Предвидение боли"),
+                            name = L("Предвидение боли", "Anticipating Pain"),
                             description = L("Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек", "Make a dash immediately after taking damage to instantly restore your lost health. Cooldown DS sec"),
                             level = 0,
                             rarity = "rare",
@@ -4621,7 +4619,7 @@ do
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
                             name = L("Кодойская ловушка", "Codo trap"),
-                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%", "Trap deals X DS damage to enemies"),
+                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%", "The trap deals X DS damage to enemies, and reduces the damage from traps on the hero at times YOU"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
@@ -4885,7 +4883,7 @@ do
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTransmute.blp",
-                            name = L("Золотое касание", "Золотое касание"),
+                            name = L("Золотое касание", "Golden Touch"),
                             description = L("Следующая обычная атака моментально убьёт врага не босса и превратит его в DS золота. Перезарядка: 30", "The next normal attack will instantly kill the non-boss enemy and turn it into DS Gold. Cooldown: 30"),
                             level = 0,
                             rarity = "normal",
@@ -4903,7 +4901,7 @@ do
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfRestoration.blp",
-                            name = L("Инвестор", "Инвестор"),
+                            name = L("Инвестор", "Investor"),
                             description = L("Увеличивает любой получаемый доход на DS%", "Increases any earned income by DS%"),
                             level = 0,
                             rarity = "normal",
@@ -5575,10 +5573,10 @@ function CreateGodTalon(x, y, name, price)
     end)
     --local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
     --print("Создали дар")
-    local textE=L("       Принять дар","               Get a gift")
+    local textE=L("Принять дар","Get a gift")
 
     if price>0 then
-        textE=L("        Купить за ","               Buy for ")..price
+        textE=L("Купить за ","Buy for ")..price
     end
 
     local tempUnit=CreateEnterPoint(x,y,textE, name, true)
@@ -7698,8 +7696,8 @@ function OnPostDamage()
 
             if data.InvulPreDeathCurrentCD <= 0 and data.InvulPreDeathCDFH then
                 --print("получен смертельный урон")
-                FlyTextTagHealXY(GetUnitX(target), GetUnitY(target), "Предвидение смерти", GetOwningPlayer(target))
-                CreateInfoBoxForAllPlayerTimed(data, "Я не дам тебе умереть", 3)
+                FlyTextTagHealXY(GetUnitX(target), GetUnitY(target), L("Предвидение смерти","Foresight of Death"), GetOwningPlayer(target))
+                CreateInfoBoxForAllPlayerTimed(data, L("Я не дам тебе умереть","I won't let you die"), 3)
                 BlzSetEventDamage(0)
                 SetUnitInvulnerable(target, true)
                 TimerStart(CreateTimer(), 2, false, function()
@@ -8105,7 +8103,7 @@ function InitPreloadStart()
                     LoadedChaos[i] = 0
                     --print("FirstGame")
                 end
-                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", "Number of completed games") .. LoadedGameCount[i])
+                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", "Number of completed games ") .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
                 if LoadedGameCount[i] > 2 then
                     AllCompletedForPlayer(i)
@@ -9916,14 +9914,18 @@ function CreateWASDActions()
 
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB then
-                data.CDSpellQ = data.SpellQCDTime
-                TimerStart(CreateTimer(), 1, true, function()
-                    data.CDSpellQ = data.CDSpellQ - 1
-                    if data.CDSpellQ <= 0 then
-                        data.CDSpellQ = 0
-                        DestroyTimer(GetExpiredTimer())
-                    end
-                end)
+                local balance = 1
+                if data.isSpined then
+                    balance = 6
+                end
+                data.CDSpellQ = data.SpellQCDTime *balance
+                        TimerStart(CreateTimer(), 1, true, function()
+                            data.CDSpellQ = data.CDSpellQ - 1
+                            if data.CDSpellQ <= 0 then
+                                data.CDSpellQ = 0
+                                DestroyTimer(GetExpiredTimer())
+                            end
+                        end)
                 data.animStand = 1.8 --до полной анимации 2 секунды
                 --print("Q spell")
                 data.ReleaseQ = true
@@ -9933,7 +9935,7 @@ function CreateWASDActions()
                     --FIXED может ломать управление
                     --if not data.ReleaseQ then
                     --print("Q в курсор")
-                    StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
+                    StartFrameCD(data.SpellQCDTime* balance, data.cdFrameHandleQ)
                     --SpellSlashQ(data)
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero))
@@ -9952,7 +9954,8 @@ function CreateWASDActions()
                 else
                     TimerStart(CreateTimer(), 0.35, false, function()
                         --задержка перед ударом
-                        StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
+
+                        StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
                         SpellSlashQ(data)
                         if data.DoubleClap then
                             TimerStart(CreateTimer(), 0.35, false, function()
@@ -10193,7 +10196,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         onForces[GetHandleId(hero)] = true
         --print("первый раз")
     end
-    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero)~=FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") then
+    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero) ~= FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") then
         onForces[GetHandleId(hero)] = false
         local m = 0
         --print("1")
@@ -10330,7 +10333,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 end
                 if flag == "RunSkeleton" then
                     BlzPauseUnitEx(hero, false)
-                    SetUnitTimeScale(hero,1)
+                    SetUnitTimeScale(hero, 1)
                     if UnitAlive(hero) then
                         ResetUnitAnimation(hero)
                     end

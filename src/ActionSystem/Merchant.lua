@@ -10,6 +10,7 @@ function CreateMerchantAndGoods(x,y)
         "ShadowHunter",
         "Trall",
         "ChaosGrom",
+        "Alchemist"
 
     }
     local step=250
@@ -19,7 +20,7 @@ function CreateMerchantAndGoods(x,y)
         CreateGodTalon(x,y+(step),"Life",GetRandomInt(400,500))
     end
 
-    CreateGodTalon(x,y-(step),"PeonDidal",GetRandomInt(175,225))
+    CreateGodTalon(x,y-(step),table[GetRandomInt(1,#table)],GetRandomInt(125,150))
     CreateGodTalon(x+step,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
     CreateGodTalon(x-step,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
 end

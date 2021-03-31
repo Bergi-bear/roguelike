@@ -13,7 +13,7 @@ function InitHealPoint()
         SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
-        CreateEnterPoint(x,y,L("        Выпить","                Drink"), 'Heal', true)
+        CreateEnterPoint(x,y,L("Выпить","Drink"), 'Heal', true)
     end
 end
 
@@ -28,7 +28,7 @@ function InitMagazine()
         SetUnitInvulnerable(u,true)
         local x,y=GetUnitXY(u)
         SetUnitInvulnerable(u,true)
-        CreateEnterPoint(x,y,L("        Купить","                Buy"), 'Buying', true)
+        CreateEnterPoint(x,y,L("Купить","Buy"), 'Buying', true)
     end
 end
 
@@ -46,7 +46,7 @@ function InitFireBallPoint()
         ShowUnit(u,false)
         AddSpecialEffect("Doodads\\Ashenvale\\Props\\Brazier\\Brazier",x,y)
         CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
-        local tempUnit=CreateEnterPoint(x,y,L("          Повернуть","                   Rotate"),"RotationFire",true)
+        local tempUnit=CreateEnterPoint(x,y,L("Повернуть","Rotate"),"RotationFire",true)
         local dataPoint=EnterPointTable[GetHandleId(tempUnit)]
         dataPoint.AngleFireRotation=GetUnitFacing(u)
         dataPoint.UnitFireRotation=u

@@ -65,7 +65,7 @@ do
                         }),
                         [7] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
-                            name = L("Предвидение боли", "Предвидение боли"),
+                            name = L("Предвидение боли", "Anticipating Pain"),
                             description = L("Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек", "Make a dash immediately after taking damage to instantly restore your lost health. Cooldown DS sec"),
                             level = 0,
                             rarity = "rare",
@@ -319,7 +319,7 @@ do
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
                             name = L("Кодойская ловушка", "Codo trap"),
-                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%%", "Trap deals X DS damage to enemies"),
+                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%%", "The trap deals X DS damage to enemies, and reduces the damage from traps on the hero at times YOU"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
@@ -583,7 +583,7 @@ do
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTransmute.blp",
-                            name = L("Золотое касание", "Золотое касание"),
+                            name = L("Золотое касание", "Golden Touch"),
                             description = L("Следующая обычная атака моментально убьёт врага не босса и превратит его в DS золота. Перезарядка: 30", "The next normal attack will instantly kill the non-boss enemy and turn it into DS Gold. Cooldown: 30"),
                             level = 0,
                             rarity = "normal",
@@ -601,7 +601,7 @@ do
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfRestoration.blp",
-                            name = L("Инвестор", "Инвестор"),
+                            name = L("Инвестор", "Investor"),
                             description = L("Увеличивает любой получаемый доход на DS%%", "Increases any earned income by DS%%"),
                             level = 0,
                             rarity = "normal",

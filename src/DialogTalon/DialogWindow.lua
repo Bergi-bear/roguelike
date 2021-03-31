@@ -170,7 +170,7 @@ function ChkAllPlayerTalonClosedWindow()
                 result = true
                 --print("все выбрали свои таланты")
             else
-                print("Ожидание игрока "..GetPlayerName(Player(i)))
+                --print("Ожидание игрока "..GetPlayerName(Player(i)))
                 result = false
             end
         end
