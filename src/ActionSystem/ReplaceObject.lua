@@ -60,6 +60,6 @@ function StartBulletInPeriod(unit,dataPoint)
     TimerStart(CreateTimer(), 1, true, function()
         local x,y=GetUnitXY(unit)
         --x,y=MoveXY(x,y,100)
-        CreateAndForceBullet(unit,dataPoint.AngleFireRotation,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,100)
+        CreateAndForceBullet(unit,dataPoint.AngleFireRotation,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,180)
     end)
 end

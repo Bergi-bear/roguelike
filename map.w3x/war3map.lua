@@ -2685,7 +2685,7 @@ function StartBulletInPeriod(unit,dataPoint)
     TimerStart(CreateTimer(), 1, true, function()
         local x,y=GetUnitXY(unit)
         --x,y=MoveXY(x,y,100)
-        CreateAndForceBullet(unit,dataPoint.AngleFireRotation,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,100)
+        CreateAndForceBullet(unit,dataPoint.AngleFireRotation,30,"Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl",x,y,65,1500,180)
     end)
 end
 ---
@@ -2905,6 +2905,7 @@ function MoveAllHeroAndBound(recEnter, rectBound)
             SetUnitPosition(data.UnitHero, x, y)
         end
     end
+    ReviveAllHero()
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
 end
 
@@ -3491,6 +3492,7 @@ function CreateDialogTalon(godName)
             -- Показываем окно всем
             BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
             SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
+
         end
     end
 end
@@ -4807,7 +4809,7 @@ do
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNIncinerate.blp",
-                            name = L("Буйная кровь", "Буйная кровь"),
+                            name = L("Буйная кровь", "Violent blood"),
                             description = L("Восстанавливает заряды вращения при убийстве врагов +DS. Игнорирует лимит", "Restores spin charges when killing enemies +DS. Ignores the limit"),
                             level = 0,
                             rarity = "normal",
@@ -8303,7 +8305,7 @@ function HealUnit(hero, amount, flag, eff)
                     if data.ShowHealSec <= 0 then
                         data.ShowHeal = true
                         DestroyTimer(GetExpiredTimer())
-                        if TotalHeal > 0 then
+                        if TotalHeal > 1 then
                             FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(data.ShowHealAmount), p)
                         end
                         data.ShowHealAmount = 0
@@ -9258,7 +9260,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
             InitMouseMoveTrigger()
-            PlayUnitAnimationFromChat()
+            --PlayUnitAnimationFromChat()
             PauseTimer(GetExpiredTimer())
             DestroyTimer(GetExpiredTimer())
 
@@ -9362,6 +9364,7 @@ function InitWASD(hero)
                 SelectUnitForPlayerSingle(hero, GetOwningPlayer(hero))
             end
             ForceUIKeyBJ(GetOwningPlayer(hero), "M")
+            --ForceUIKeyBJ(GetOwningPlayer(hero), "Q")
             --IssueImmediateOrder(hero, "stop")
         end
     end)
@@ -10181,11 +10184,26 @@ function BlockMouse(data)
 
         if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" or OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "move" then
             --Строковый список приказов, которые игрок не может выполнить
+            if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart"  then
+                if not data.Desync then
+                    print(GetPlayerName(Player(data.pid)).. " WARING DESYNC")
+                    print(GetPlayerName(Player(data.pid)).. " WARING DESYNC")
+                    print(GetPlayerName(Player(data.pid)).. " WARING DESYNC")
+                    data.Desync=true
+                end
+            else
+                --print("click LMB")
+               -- data.LMBFIRST=true
+            end
+            --gkm=gkm+1
+            --print(gkm)
             BlzPauseUnitEx(data.UnitHero, true)
+            IssueImmediateOrder(data.UnitHero,"stop")
             BlzPauseUnitEx(data.UnitHero, false)
         end
     end)
 end
+--gkm=0
 
 ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 onForces = {}
@@ -10664,7 +10682,7 @@ function PlayUnitAnimationFromChat()
         end
         -----------Игры со светом
         if GetEventPlayerChatString() == "chk" or GetEventPlayerChatString() == "срл" then
-            print(udg_LoadCode[0])
+            print("Проверка данных "..udg_LoadCode[GetPlayerId(GetTriggerPlayer())])
             return
         end
         if GetEventPlayerChatString() == "dnc0" then

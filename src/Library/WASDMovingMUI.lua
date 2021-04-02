@@ -15,7 +15,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
             InitMouseMoveTrigger()
-            PlayUnitAnimationFromChat()
+            --PlayUnitAnimationFromChat()
             PauseTimer(GetExpiredTimer())
             DestroyTimer(GetExpiredTimer())
 
@@ -119,6 +119,7 @@ function InitWASD(hero)
                 SelectUnitForPlayerSingle(hero, GetOwningPlayer(hero))
             end
             ForceUIKeyBJ(GetOwningPlayer(hero), "M")
+            --ForceUIKeyBJ(GetOwningPlayer(hero), "Q")
             --IssueImmediateOrder(hero, "stop")
         end
     end)
@@ -938,11 +939,26 @@ function BlockMouse(data)
 
         if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" or OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "move" then
             --Строковый список приказов, которые игрок не может выполнить
+            if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart"  then
+                if not data.Desync then
+                    print(GetPlayerName(Player(data.pid)).. " WARING DESYNC")
+                    print(GetPlayerName(Player(data.pid)).. " WARING DESYNC")
+                    print(GetPlayerName(Player(data.pid)).. " WARING DESYNC")
+                    data.Desync=true
+                end
+            else
+                --print("click LMB")
+               -- data.LMBFIRST=true
+            end
+            --gkm=gkm+1
+            --print(gkm)
             BlzPauseUnitEx(data.UnitHero, true)
+            IssueImmediateOrder(data.UnitHero,"stop")
             BlzPauseUnitEx(data.UnitHero, false)
         end
     end)
 end
+--gkm=0
 
 ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 onForces = {}
@@ -1421,7 +1437,7 @@ function PlayUnitAnimationFromChat()
         end
         -----------Игры со светом
         if GetEventPlayerChatString() == "chk" or GetEventPlayerChatString() == "срл" then
-            print(udg_LoadCode[0])
+            print("Проверка данных "..udg_LoadCode[GetPlayerId(GetTriggerPlayer())])
             return
         end
         if GetEventPlayerChatString() == "dnc0" then

@@ -126,6 +126,7 @@ function CreateDialogTalon(godName)
             -- Показываем окно всем
             BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
             SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
+
         end
     end
 end

@@ -507,7 +507,7 @@ do
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNIncinerate.blp",
-                            name = L("Буйная кровь", "Буйная кровь"),
+                            name = L("Буйная кровь", "Violent blood"),
                             description = L("Восстанавливает заряды вращения при убийстве врагов +DS. Игнорирует лимит", "Restores spin charges when killing enemies +DS. Ignores the limit"),
                             level = 0,
                             rarity = "normal",

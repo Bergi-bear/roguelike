@@ -215,6 +215,7 @@ function MoveAllHeroAndBound(recEnter, rectBound)
             SetUnitPosition(data.UnitHero, x, y)
         end
     end
+    ReviveAllHero()
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
 end
 
