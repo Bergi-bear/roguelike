@@ -15,7 +15,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
             InitMouseMoveTrigger()
-            --PlayUnitAnimationFromChat()
+            PlayUnitAnimationFromChat()
             PauseTimer(GetExpiredTimer())
             DestroyTimer(GetExpiredTimer())
 
@@ -94,11 +94,12 @@ function InitHeroTable(hero)
         DistMouse = 0,
         AngleMouse = 0,
         TalonWindowIsOpen = true,
+        Summon = {}, -- таблица суммонов
     }
 end
 
 function InitWASD(hero)
-    -- print("initwasdSTART")
+    --print("initwasdSTART")
 
     InitHeroTable(hero)
     CreateWASDActions()
@@ -127,6 +128,24 @@ function InitWASD(hero)
     data.preY = GetPlayerMouseY[data.pid]
     --mouseEff = AddSpecialEffect(SawDiskModel, GetUnitXY(hero))
     --local heroSelf=data.UnitHero
+    if not GetUnitX(hero) then
+        print(1)
+    end
+    if not GetUnitY(hero) then
+        print(2)
+    end
+    if not GetPlayerMouseX[data.pid] then
+        GetPlayerMouseX[data.pid] = 0
+    end
+    if not GetPlayerMouseY[data.pid] then
+        GetPlayerMouseY[data.pid] = 0
+    end
+
+    local angleCast = AngleBetweenXY(GetUnitX(hero), GetUnitY(hero), GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
+    local curAngle = angleCast
+    local distance = DistanceBetweenXY(GetUnitX(hero), GetUnitY(hero), GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid])
+    local cutDistance = distance
+
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         -- основной таймер для обработки всего
         --data.UnitHero=mainHero -- костыль для смены героя
@@ -142,8 +161,17 @@ function InitWASD(hero)
         end
         data.preX = GetPlayerMouseX[data.pid]
         data.preY = GetPlayerMouseY[data.pid]
+        -- Вот сюда надо интерполировать движение
 
-        data.fakeX, data.fakeY = GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]
+
+        angleCast = AngleBetweenXY(hx, hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
+        curAngle = lerpTheta(curAngle, angleCast, TIMER_PERIOD64 * 8)
+        distance = DistanceBetweenXY(hx, hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid])
+        cutDistance = math.lerp(cutDistance, distance, TIMER_PERIOD64 * 8)
+
+        ----------------------------------------
+        -- data.fakeX, data.fakeY = GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]
+        --data.fakeX, data.fakeY = MoveXY(hx, hy, cutDistance, curAngle)
         if not data.MouseMove then
             --print("юнит идёт со статичным курсором")
             -- GetPlayerMouseX[data.pid] = GetPlayerMouseX[data.pid] + dx
@@ -676,14 +704,14 @@ function CreateWASDActions()
                 if data.isSpined then
                     balance = 6
                 end
-                data.CDSpellQ = data.SpellQCDTime *balance
-                        TimerStart(CreateTimer(), 1, true, function()
-                            data.CDSpellQ = data.CDSpellQ - 1
-                            if data.CDSpellQ <= 0 then
-                                data.CDSpellQ = 0
-                                DestroyTimer(GetExpiredTimer())
-                            end
-                        end)
+                data.CDSpellQ = data.SpellQCDTime * balance
+                TimerStart(CreateTimer(), 1, true, function()
+                    data.CDSpellQ = data.CDSpellQ - 1
+                    if data.CDSpellQ <= 0 then
+                        data.CDSpellQ = 0
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end)
                 data.animStand = 1.8 --до полной анимации 2 секунды
                 --print("Q spell")
                 data.ReleaseQ = true
@@ -693,7 +721,7 @@ function CreateWASDActions()
                     --FIXED может ломать управление
                     --if not data.ReleaseQ then
                     --print("Q в курсор")
-                    StartFrameCD(data.SpellQCDTime* balance, data.cdFrameHandleQ)
+                    StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
                     --SpellSlashQ(data)
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero))
@@ -939,21 +967,21 @@ function BlockMouse(data)
 
         if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" or OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "move" then
             --Строковый список приказов, которые игрок не может выполнить
-            if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart"  then
+            if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" then
                 if not data.Desync then
-                    print(GetPlayerName(Player(data.pid)).. " WARING DESYNC")
-                    print(GetPlayerName(Player(data.pid)).. " WARING DESYNC")
-                    print(GetPlayerName(Player(data.pid)).. " WARING DESYNC")
-                    data.Desync=true
+                    print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
+                    print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
+                    print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
+                    data.Desync = true
                 end
             else
                 --print("click LMB")
-               -- data.LMBFIRST=true
+                -- data.LMBFIRST=true
             end
             --gkm=gkm+1
             --print(gkm)
             BlzPauseUnitEx(data.UnitHero, true)
-            IssueImmediateOrder(data.UnitHero,"stop")
+            IssueImmediateOrder(data.UnitHero, "stop")
             BlzPauseUnitEx(data.UnitHero, false)
         end
     end)
@@ -1030,6 +1058,9 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     --print("удар о декор или стенку")
                     damageOnWall = true
                 end
+            end
+            if flag == "lizard" then
+                UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120,"ForceTotem")
             end
             if flag == "RunSkeleton" then
                 UnitDamageArea(hero, 1, GetUnitX(hero), GetUnitY(hero), 120)
@@ -1164,7 +1195,6 @@ end
 GetPlayerMouseX = {}
 GetPlayerMouseY = {}
 function InitMouseMoveTrigger()
-
     local MouseMoveTrigger = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         local player = Player(i)
@@ -1177,7 +1207,6 @@ function InitMouseMoveTrigger()
         if BlzGetTriggerPlayerMouseX() ~= 0 then
             GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
             GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
-
         end
     end)
 end
@@ -1437,7 +1466,7 @@ function PlayUnitAnimationFromChat()
         end
         -----------Игры со светом
         if GetEventPlayerChatString() == "chk" or GetEventPlayerChatString() == "срл" then
-            print("Проверка данных "..udg_LoadCode[GetPlayerId(GetTriggerPlayer())])
+            print("Проверка данных " .. udg_LoadCode[GetPlayerId(GetTriggerPlayer())])
             return
         end
         if GetEventPlayerChatString() == "dnc0" then

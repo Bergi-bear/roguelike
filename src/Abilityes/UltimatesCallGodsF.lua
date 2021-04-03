@@ -9,6 +9,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
             CreateActionsF()
+            CreateActions1234()
         end)
     end
 end
@@ -25,24 +26,24 @@ function CreateActionsF()
         if not data.ReleaseF and UnitAlive(data.UnitHero) then
             data.ReleaseF = true
             --print("Кастуем ультимейты")
-            if GlobalTalons[data.pid+1]["Trall"][5].level>0 then
+            if GlobalTalons[data.pid + 1]["Trall"][5].level > 0 then
                 --print("Есть ульта трала, пытаюсь скастовать")
-                if data.CallTrallCharges>9 then
-                    data.CallTrallReady=false
+                if data.CallTrallCharges > 9 then
+                    data.CallTrallReady = false
                     TrallCall(data)
                 else
-                   -- print("нужно 10 зарядов")
+                    -- print("нужно 10 зарядов")
                 end
             end
-           -- Ульта быка
+            -- Ульта быка
             if data.TotemChargesMax then
                 --print("Есть ульта пытаюсь скастовать")
-                if data.TotemCharges>=2 then
+                if data.TotemCharges >= 2 then
                     --print("вот тут и создаём тотем")
                     CreateTotemInLine(data)
                 else
-                    local x,y=GetUnitXY(data.UnitHero)
-                    FlyTextTagShieldXY(x,y,L("Нет зарядов","No charges"),GetOwningPlayer(data.UnitHero))
+                    local x, y = GetUnitXY(data.UnitHero)
+                    FlyTextTagShieldXY(x, y, L("Нет зарядов", "No charges"), GetOwningPlayer(data.UnitHero))
                 end
             end
 
@@ -63,18 +64,191 @@ function CallWooDoo(data)
 
 end
 
-
 function TrallCall(data)
     TimerStart(CreateTimer(), 0.2, true, function()
-        data.CallTrallCharges=data.CallTrallCharges-1
-        BlzFrameSetText(data.CallTrallFH,data.CallTrallCharges)
-        UnitDamageArea(data.UnitHero,100,GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),200)
-        DestroyEffect(AddSpecialEffect("Earthshock",GetUnitXY(data.UnitHero)))
-        normal_sound("Abilities\\Spells\\Orc\\Shockwave\\Shockwave",GetUnitXY(data.UnitHero))
-        if data.CallTrallCharges<1 then
-            data.CallTrallReady=true
+        data.CallTrallCharges = data.CallTrallCharges - 1
+        BlzFrameSetText(data.CallTrallFH, data.CallTrallCharges)
+        UnitDamageArea(data.UnitHero, 100, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 200)
+        DestroyEffect(AddSpecialEffect("Earthshock", GetUnitXY(data.UnitHero)))
+        normal_sound("Abilities\\Spells\\Orc\\Shockwave\\Shockwave", GetUnitXY(data.UnitHero))
+        if data.CallTrallCharges < 1 then
+            data.CallTrallReady = true
             DestroyTimer(GetExpiredTimer())
             --print("Заряды закончились")
+        end
+    end)
+end
+
+function CreateActions1234()
+    -----------------------------------------------------------------1
+    local TrigPress1 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigPress1, Player(i), OSKEY_1, 0, true)
+    end
+    TriggerAddAction(TrigPress1, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        if not data.Release1 and UnitAlive(data.UnitHero) then
+            data.Release1 = true
+            if data.Summon[1] == "bear" then
+                if data.SummonBearCDFH then
+                    if data.SummonBearCurrentCD <= 0 then
+                        data.CircleSplat = CreateAndMoveCircleSplat(data, 150, data.CircleSplat)
+                    end
+                end
+            end
+            if data.Summon[1] == "boar" then
+                SummonBoar(data)
+            end
+            if data.Summon[1] == "wolf" then
+                SummonWinterWolf(data)
+            end
+            if data.Summon[1] == "lizard" then
+                SummonLizard(data)
+            end
+        end
+    end)
+    local TrigDepress1 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigDepress1, Player(i), OSKEY_1, 0, false)
+    end
+    TriggerAddAction(TrigDepress1, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        data.Release1 = false
+        --DestroySplatTable(data.CircleSplat)
+
+        if data.Summon[1] == "bear" then
+            data.CircleSplat = false
+            SummonBear(data)
+        end
+
+    end)
+    -----------------------------------------------------------------2
+    local TrigPress2 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigPress2, Player(i), OSKEY_2, 0, true)
+    end
+    TriggerAddAction(TrigPress2, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        if not data.Release2 and UnitAlive(data.UnitHero) then
+            data.Release2 = true
+            if data.Summon[2] == "bear" then
+                if data.SummonBearCDFH then
+                    if data.SummonBearCurrentCD <= 0 then
+                        data.CircleSplat = CreateAndMoveCircleSplat(data, 150, data.CircleSplat)
+                    end
+                end
+            end
+            if data.Summon[2] == "boar" then
+                SummonBoar(data)
+            end
+            if data.Summon[2] == "wolf" then
+                SummonWinterWolf(data)
+            end
+            if data.Summon[2] == "lizard" then
+                SummonLizard(data)
+            end
+        end
+    end)
+    local TrigDepress2 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigDepress2, Player(i), OSKEY_2, 0, false)
+    end
+    TriggerAddAction(TrigDepress2, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        data.Release2 = false
+        --DestroySplatTable(data.CircleSplat)
+
+        if data.Summon[2] == "bear" then
+            data.CircleSplat = false
+            SummonBear(data)
+        end
+    end)
+    -----------------------------------------------------------------3
+    local TrigPress3 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigPress3, Player(i), OSKEY_3, 0, true)
+    end
+    TriggerAddAction(TrigPress3, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        if not data.Release3 and UnitAlive(data.UnitHero) then
+            data.Release3 = true
+            if data.Summon[3] == "bear" then
+                if data.SummonBearCDFH then
+                    if data.SummonBearCurrentCD <= 0 then
+                        data.CircleSplat = CreateAndMoveCircleSplat(data, 150, data.CircleSplat)
+                    end
+                end
+            end
+            if data.Summon[3] == "boar" then
+                SummonBoar(data)
+            end
+            if data.Summon[3] == "wolf" then
+                SummonWinterWolf(data)
+            end
+            if data.Summon[3] == "lizard" then
+                SummonLizard(data)
+            end
+        end
+    end)
+    local TrigDepress3 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigDepress3, Player(i), OSKEY_3, 0, false)
+    end
+    TriggerAddAction(TrigDepress3, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        data.Release3 = false
+        --DestroySplatTable(data.CircleSplat)
+        if data.Summon[3] == "bear" then
+            data.CircleSplat = false
+            SummonBear(data)
+        end
+    end)
+    -----------------------------------------------------------------4
+    local TrigPress4 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigPress4, Player(i), OSKEY_4, 0, true)
+    end
+    TriggerAddAction(TrigPress4, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        if not data.Release4 and UnitAlive(data.UnitHero) then
+            data.Release4 = true
+            if data.Summon[4] == "bear" then
+                if data.SummonBearCDFH then
+                    if data.SummonBearCurrentCD <= 0 then
+                        data.CircleSplat = CreateAndMoveCircleSplat(data, 150, data.CircleSplat)
+                    end
+                end
+            end
+            if data.Summon[4] == "boar" then
+                SummonBoar(data)
+            end
+            if data.Summon[4] == "wolf" then
+                SummonWinterWolf(data)
+            end
+            if data.Summon[4] == "lizard" then
+                SummonLizard(data)
+            end
+        end
+    end)
+    local TrigDepress4 = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigDepress4, Player(i), OSKEY_4, 0, false)
+    end
+    TriggerAddAction(TrigDepress4, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        data.Release4 = false
+        --DestroySplatTable(data.CircleSplat)
+        if data.Summon[4] == "bear" then
+            data.CircleSplat = false
+            SummonBear(data)
         end
     end)
 end

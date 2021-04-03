@@ -360,20 +360,20 @@ do
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
                             name = "Ящер",
-                            description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 60. Урон: 100",
+                            description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Призывает существо",
-                            DS = { 1 }
+                            DS = { "lizard" }
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
                             name = "Медведь",
-                            description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при падении и агрит на себя врагов. Перезарядка: 60. Длительность: 10",
+                            description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30",
                             level = 0,
                             rarity = "normal",
                             tooltip = "Призывает существо",
-                            DS = { 1 }
+                            DS = { "bear" }
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
@@ -382,7 +382,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = "Призывает существо",
-                            DS = { 1 }
+                            DS = { "boar" }
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
@@ -391,7 +391,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = "Призывает существо",
-                            DS = { 1 }
+                            DS = { "wolf" }
                         }),
                     },
                     PeonDidal = {
@@ -543,7 +543,7 @@ do
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHeartOfAszune.blp",
-                            name = L("Искатель крови", "Искатель крови"),
+                            name = L("Искатель крови", "Blood Seeker"),
                             description = L("Вазы могу содержать некоторое количество крови, восстанавливающей DS здоровья", "Vases can contain a certain amount of blood that restores DS health"),
                             level = 0,
                             rarity = "normal",
@@ -588,7 +588,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
-                            DS = { 5, 8, 15 }
+                            DS = { 10, 20, 30 }
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDustOfAppearance.blp",

@@ -78,6 +78,8 @@ function ReplaceALLUnitId2PointExit(id)
     --print(k)
     local d = GetRandomInt(1, k)-- рандомизатор молота дидала
     local m = GetRandomInt(1, k)-- рандомизатор магазина
+    local r = GetRandomInt(1, k)-- рандомизатор  рексара1
+    local r2 = GetRandomInt(1, k)-- рандомизатор  рексара1
     if m == d then
         m = GetRandomInt(1, k)
         --print("Супер ошибка, вы выиграли в лотерею, расскажите автору об этом случае")
@@ -93,6 +95,10 @@ function ReplaceALLUnitId2PointExit(id)
             -- print("создана 1 награда с пеоном дидалом")
         elseif i == m then
             CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "Merchant", u)
+        elseif i == r then
+            CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "HeroBeastMaster", u)
+        elseif i == r2 then
+            CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "HeroBeastMaster", u)
         else
             CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, nil, u)
         end
@@ -321,7 +327,7 @@ function CreateEActions()
                     Enter2NewZone()
                 end
                 if data.ColdAfterWork then
-                    UnitAddGold(data.UnitHero,data.ColdAfterWork)
+                    UnitAddGold(data.UnitHero, data.ColdAfterWork)
                 end
                 local r = GetRandomInt(1, #rm)
                 local message = rm[r]
@@ -585,16 +591,24 @@ function CreateEActions()
                 end
 
                 if data.UseAction == "HeroBeastMaster" then
-                    local message = "Хочу повелевать твоими зверями"
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                    data.Completed = true
-                    DestroyGodTalon(dataPoint.TripleTalon)
-                    CreateDialogTalon("HeroBeastMaster")
-                    AllActionsEnabled(true)
-                    data.DoAction = false
-                    data.UseAction = ""
-                    data.ShowActionWindows = false
-                    KillUnit(data.EPointUnit)
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = "Хочу повелевать твоими зверями"
+                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        data.Completed = true
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("HeroBeastMaster")
+                        AllActionsEnabled(true)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        data.ShowActionWindows = false
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
+                    end
                     --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
                 end
                 if data.UseAction == "PeonDidal" then

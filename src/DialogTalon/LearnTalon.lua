@@ -318,18 +318,43 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if not data.BeastCountTalon then
             data.BeastCountTalon = 0
         end
+        local tt, CdFH = nil, nil
         data.BeastCountTalon = data.BeastCountTalon + 1
         if pos == 1 then
-            CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), "SystemGeneric\\DDSSymbols\\" .. data.BeastCountTalon, "SummonLizard")
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), "SystemGeneric\\DDSSymbols\\" .. data.BeastCountTalon, "SummonLizard")
+            data.Summon[data.BeastCountTalon] = talon.DS[talon.level]
         end
         if pos == 2 then
-            CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), "SystemGeneric\\DDSSymbols\\" .. data.BeastCountTalon, "SummonBear")
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), "SystemGeneric\\DDSSymbols\\" .. data.BeastCountTalon, "SummonBear")
+            data.Summon[data.BeastCountTalon] = talon.DS[talon.level]
         end
         if pos == 3 then
-            CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), "SystemGeneric\\DDSSymbols\\" .. data.BeastCountTalon, "SummonBoar")
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), "SystemGeneric\\DDSSymbols\\" .. data.BeastCountTalon, "SummonBoar")
+            data.Summon[data.BeastCountTalon] = talon.DS[talon.level]
         end
         if pos == 4 then
-            CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), "SystemGeneric\\DDSSymbols\\" .. data.BeastCountTalon, "SummonIceWolf")
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), "SystemGeneric\\DDSSymbols\\" .. data.BeastCountTalon, "SummonIceWolf")
+            data.Summon[data.BeastCountTalon] = talon.DS[talon.level]
+        end
+        if talon.DS[talon.level] == "bear" then
+            data.SummonBearCDFH = CdFH
+            data.SummonBearCurrentCD = 0
+            data.SummonBearCD = 60
+        end
+        if talon.DS[talon.level] == "boar" then
+            data.SummonBoarCDFH = CdFH
+            data.SummonBoarCurrentCD = 0
+            data.SummonBoarCD = 20
+        end
+        if talon.DS[talon.level] == "wolf" then
+            data.SummonWinterWolfCDFH = CdFH
+            data.SummonWinterWolfCurrentCD = 0
+            data.SummonWinterWolfCD = 60
+        end
+        if talon.DS[talon.level] == "lizard" then
+            data.SummonLizardCDFH = CdFH
+            data.SummonLizardCurrentCD = 0
+            data.SummonLizardCD = 20
         end
     end
     if godName == "PeonDidal" and talon.level == 1 then
@@ -428,40 +453,46 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
     if godName == "Alchemist" and talon.level == 1 then
         local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
         UpdateTalonDescriptionForFrame(talon, tt)
-        if pos == 1 then --+
+        if pos == 1 then
+            --+
             data.AdditionalGoldPerKill = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.AdditionalGoldPerKill = talon.DS[talon.level]
             end)
         end
-        if pos == 2 then --+
+        if pos == 2 then
+            --+
             data.ColdAfterWork = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.ColdAfterWork = talon.DS[talon.level]
             end)
         end
-        if pos == 3 then --+
+        if pos == 3 then
+            --+
             data.HandOfMidasCDFH = CdFH
-            data.HandOfMidasCurrentCD=0
-            data.HandOfMidasCD=30
+            data.HandOfMidasCurrentCD = 0
+            data.HandOfMidasCD = 30
             data.HandOfMidasReward = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.HandOfMidasReward = talon.DS[talon.level]
             end)
         end
-        if pos == 4 then--+
-            data.LeakyBag = talon.DS[talon.level]/100
+        if pos == 4 then
+            --+
+            data.LeakyBag = talon.DS[talon.level] / 100
             ActLvl23Action(talon, function()
-                data.LeakyBag = talon.DS[talon.level]/100
+                data.LeakyBag = talon.DS[talon.level] / 100
             end)
         end
-        if pos == 5 then --+
+        if pos == 5 then
+            --+
             data.Investor = 1 + (talon.DS[talon.level] / 100)
             ActLvl23Action(talon, function()
                 data.Investor = 1 + (talon.DS[talon.level] / 100)
             end)
         end
-        if pos == 6 then --+
+        if pos == 6 then
+            --+
             data.FlipTheCoinCDFH = CdFH
             data.FlipTheCoinCurrentCD = 0
             data.FlipTheCoinCD = talon.DS[talon.level]
@@ -473,10 +504,10 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.GoldKingCDFH = CdFH
             data.GoldKingCurrentCD = 0
             data.GoldKingCD = 5
-            data.GoldKingCharges=0
-            data.GoldKingBonus=talon.DS[talon.level]
+            data.GoldKingCharges = 0
+            data.GoldKingBonus = talon.DS[talon.level]
             ActLvl23Action(talon, function()
-                data.GoldKingBonus=talon.DS[talon.level]
+                data.GoldKingBonus = talon.DS[talon.level]
             end)
         end
 

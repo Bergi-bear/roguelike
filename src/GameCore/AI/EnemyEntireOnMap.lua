@@ -378,7 +378,7 @@ function NecroAttackAndArrow(unit)
     --подготовка
     UnitAddAbility(unit, FourCC("Abun"))
     IssueImmediateOrder(unit, "raisedeadon")
-    TimerStart(CreateTimer(), 2, true, function()
+    TimerStart(CreateTimer(), GetRandomReal(1.5,2.5), true, function()
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
@@ -412,7 +412,7 @@ end
 function BansheeAiBlinkAndArrow(unit)
     local xs, ys = GetUnitXY(unit)
     UnitAddAbility(unit, FourCC("Abun"))
-    TimerStart(CreateTimer(), 2, true, function()
+    TimerStart(CreateTimer(), GetRandomReal(0.5,1), true, function()
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
