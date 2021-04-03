@@ -1566,14 +1566,14 @@ function CreateLizard2Point(data)
     local lizard = CreateUnit(Player(data.pid), FourCC("nltl"), xs,ys, angle)-- Units\Creeps\LightningLizard\LightningLizard
     UnitAddAbility(lizard,FourCC("Aloc"))
     SetUnitPositionSmooth(lizard,xs,ys)
-    UnitApplyTimedLife(lizard, FourCC('BTLF'), 10)
+    UnitApplyTimedLife(lizard, FourCC('BTLF'), 2)
     BlzPauseUnitEx(lizard,true)
 
     SetUnitAnimationByIndex(lizard,4)
 
 
 
-    UnitAddForceSimple(lizard,angle,10,1000,"lizard")
+    UnitAddForceSimple(lizard,angle,10,2000,"lizard")
 end
 
 function CreateWinter(data)
@@ -5288,7 +5288,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
-                            DS = { 5, 8, 15 }
+                            DS = { 10, 20, 30 }
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDustOfAppearance.blp",
