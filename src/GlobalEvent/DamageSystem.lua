@@ -53,12 +53,12 @@ function OnPostDamage()
 
 
             if data.CriticalStrikeCurrentCD <= 0 then
-                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][2]
+                local talon = GlobalTalons[data.pid]["HeroBlademaster"][2]
                 local cd = talon.DS[talon.level]
                 data.CriticalStrikeCurrentCD = cd
                 StartFrameCD(cd, data.CriticalStrikeCDFH)
 
-                local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
+                local talonM = GlobalTalons[data.pid]["HeroBlademaster"][3]
                 local ks = 1.5
                 if data.HasMultipleCritical then
                     if talonM.level > 0 then
@@ -152,7 +152,7 @@ function OnPostDamage()
                     SetUnitInvulnerable(target, false)
                     DestroyTimer(GetExpiredTimer())
                 end)
-                local talon = GlobalTalons[data.pid + 1]["Trall"][8]
+                local talon = GlobalTalons[data.pid]["Trall"][8]
                 local cd = talon.DS[talon.level]
                 data.InvulPreDeathCurrentCD = cd
                 StartFrameCD(cd, data.InvulPreDeathCDFH)
@@ -167,7 +167,7 @@ function OnPostDamage()
             --print("талант изучен")
             if data.WindWalkCurrentCD <= 0 and GetUnitLifePercent(target) <= 30 then
                 --print("условия выполнены")
-                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][1]
+                local talon = GlobalTalons[data.pid]["HeroBlademaster"][1]
                 local cd = talon.DS[talon.level]
                 data.WindWalkCurrentCD = cd
                 StartFrameCD(cd, data.WindWalkCDFH)

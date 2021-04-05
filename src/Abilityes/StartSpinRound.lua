@@ -47,7 +47,7 @@ function StartAndReleaseSpin(data, duration)
                 end
                 local damage = data.SpinBaseDamage
                 if data.SpinHasAddDamage then
-                    local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][5]
+                    local talon = GlobalTalons[data.pid]["HeroBlademaster"][5]
                     local k = talon.DS[talon.level]
                     damage = damage * k
                 end

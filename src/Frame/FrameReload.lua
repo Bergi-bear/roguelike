@@ -104,7 +104,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
         data.ReboundCDFH = buttonIconFrame
     end
     if flag == "callTrall" then
-        local talon = GlobalTalons[data.pid + 1]["Trall"][5]
+        local talon = GlobalTalons[data.pid]["Trall"][5]
         data.CallTrallCharges = talon.DS[1]
         --data.CallTrallChargesMAX=talon.ds[1]
         data.CallTrallFH = MakeFrameCharged(face, data.CallTrallCharges)
@@ -121,7 +121,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     if flag == "callTauren" then
         data.TotemChargesFH = MakeFrameCharged(face, data.TotemChargesMax)
         data.TotemCharges = data.TotemChargesMax
-        local talon = GlobalTalons[data.pid + 1]["HeroTaurenChieftain"][7]
+        local talon = GlobalTalons[data.pid]["HeroTaurenChieftain"][7]
         TimerStart(CreateTimer(), 2, true, function()
             -- Регенерация ульты
             if data.TotemCharges < talon.DS[talon.level] then
@@ -142,7 +142,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
         -- data.wolfSummonCDFH=buttonIconFrame
         data.SpiritWolf = nil
         local sec = 0
-        local talon = GlobalTalons[data.pid + 1]["Trall"][3]
+        local talon = GlobalTalons[data.pid]["Trall"][3]
         TimerStart(CreateTimer(), 1, true, function()
             local cdSec = talon.DS[talon.level]
             local effmodel = "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster"
@@ -253,7 +253,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
         TimerStart(CreateTimer(), 2, true, function()
             local damage = data.SpinBaseDamage
             if data.SpinHasAddDamage then
-                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][5]
+                local talon = GlobalTalons[data.pid]["HeroBlademaster"][5]
                 local m = talon.DS[talon.level]
                 damage = damage * m
             end

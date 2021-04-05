@@ -1522,6 +1522,9 @@ function SummonBoar(data)
             StartFrameCD(cd, data.SummonBoarCDFH)
             --print("призываем кабана")
             local boar = CreateUnit(Player(data.pid), FourCC("nqb3"), GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetUnitFacing(data.UnitHero))
+            local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boar))
+            BlzSetSpecialEffectScale(eff, 2)
+            DestroyEffect(eff)
             BlzSetUnitBaseDamage(boar, 30 + GetHeroLevel(data.UnitHero) * 2, 0)
             UnitApplyTimedLife(boar, FourCC('BTLF'), 50)
 
@@ -1560,25 +1563,29 @@ function SummonBear(data)
 end
 
 function CreateLizard2Point(data)
-    local xs,ys=GetUnitXY(data.UnitHero)
+    local xs, ys = GetUnitXY(data.UnitHero)
     local x, y = data.fakeX, data.fakeY
-    local angle=AngleBetweenXY(xs,ys, x, y) / bj_DEGTORAD
-    local lizard = CreateUnit(Player(data.pid), FourCC("nltl"), xs,ys, angle)-- Units\Creeps\LightningLizard\LightningLizard
-    UnitAddAbility(lizard,FourCC("Aloc"))
-    SetUnitPositionSmooth(lizard,xs,ys)
+    local angle = AngleBetweenXY(xs, ys, x, y) / bj_DEGTORAD
+    local lizard = CreateUnit(Player(data.pid), FourCC("nltl"), xs, ys, angle)-- Units\Creeps\LightningLizard\LightningLizard
+        local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(lizard))
+    BlzSetSpecialEffectScale(eff, 2)
+    DestroyEffect(eff)
+    UnitAddAbility(lizard, FourCC("Aloc"))
+    SetUnitPositionSmooth(lizard, xs, ys)
     UnitApplyTimedLife(lizard, FourCC('BTLF'), 2)
-    BlzPauseUnitEx(lizard,true)
+    BlzPauseUnitEx(lizard, true)
 
-    SetUnitAnimationByIndex(lizard,4)
+    SetUnitAnimationByIndex(lizard, 4)
 
-
-
-    UnitAddForceSimple(lizard,angle,10,2000,"lizard")
+    UnitAddForceSimple(lizard, angle, 10, 2000, "lizard")
 end
 
 function CreateWinter(data)
     local x, y = GetUnitXY(data.UnitHero)
     local wolf = CreateUnit(Player(data.pid), FourCC("nwwd"), x, y, GetUnitFacing(data.UnitHero))
+    local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(wolf))
+    BlzSetSpecialEffectScale(eff, 2)
+    DestroyEffect(eff)
     BlzSetUnitBaseDamage(wolf, 50 + GetHeroLevel(data.UnitHero) * 10, 0)
     UnitApplyTimedLife(wolf, FourCC('BTLF'), 20)
     local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
@@ -1932,6 +1939,7 @@ end
 function AddMaxLife(hero, amount)
     local maxHP = BlzGetUnitMaxHP(hero)
     BlzSetUnitMaxHP(hero, maxHP + amount)
+    FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
     HealUnit(hero, amount)
 end
 
@@ -3224,7 +3232,7 @@ function Enter2NewZone(flag)
     end)
 end
 
-function GetRandomIntTable(min, max, count)
+function GetRandomIntTable(min, max, count,talon)
     local keys = {}
     local out = {}
     if min == max then
@@ -3674,65 +3682,7 @@ function CreateCreepDelay(id, x, y, delay, flag)
 end
 
 
--- Для плавного появления окна
-function SmoothWindowAppearance(frame, index, state)
-    local count
-    if state == "close" then
-        count = 255
-    elseif state == "open" then
-        count = 0
-        BlzFrameSetAlpha(frame, 0)
-    end
-    local timer = CreateTimer()
-    TimerStart(timer, 0.002, true, function() --было 0.003
-        BlzFrameSetAlpha(frame, count)
-        if count == 253 and state == "open" then
-            DestroyTimer(timer)
-            DialogTalon.IsOpen[index] = true
-        elseif count == 0 and state == "close" then
-            DestroyTimer(timer)
-            BlzFrameSetVisible(frame, false)
-        end
-        if state == "open" then
-            count = count + 1
-        elseif state == "close" then
-            count = count - 1
-        end
-    end)
-end
-
--- Перемешивание списка
-function swap(array, index1, index2)
-    array[index1], array[index2] = array[index2], array[index1]
-end
-
-function shake(array)
-    local counter = #array
-
-    while counter > 1 do
-        local index = math.random(counter)
-        swap(array, index, counter)
-        counter = counter - 1
-    end
-end
-
-function checkUlt(i, j, GOD_NAME_ARRAY, ult)
-    if talons[i][j][ult] ~= nil and talons[i][j][ult] then
-        for l = 1, #GOD_NAME_ARRAY do
-            if not (GlobalTalons[i][GodName] == GlobalTalons[i][GOD_NAME_ARRAY[l]]) then
-                for k = 1, #GlobalTalons[i][GOD_NAME_ARRAY[l]] do
-                    if GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] ~= nil and GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] then
-                        GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] = false
-                    end
-                end
-            end
-        end
-    end
-end
-
-
 function CreateDialogTalon(godName)
-    GodName = godName
     if not godName then
         print("При создании дара не передан параметр награды")
         return
@@ -3756,112 +3706,78 @@ function CreateDialogTalon(godName)
         --ReplaceableTextures\CommandButtons\BTNChaosGrom.blp
     end
 
-    talons = {}
-    listOfNumbers = {}
-    index = {}
-    for i = 1, bj_MAX_PLAYERS do
-        listOfNumbers[i] = {}
-        for j = 1, #GlobalTalons[i][godName] do -- Исправить баг с дыркой в массиве
-            listOfNumbers[i][j] = j
-
-            if GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"] then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-            if GlobalTalons[i][godName][j]:getUltF() ~= nil and GlobalTalons[i][godName][j]:getUltF() == false then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-            if GlobalTalons[i][godName][j]:getUltR() ~= nil and GlobalTalons[i][godName][j]:getUltR() == false then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-            -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
-            -- если уровень равен 0, то исключаем зависимый талант из списка
-            if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
+            BlzFrameSetVisible(data.DialogTalon.MainFrame, true)
+            BlzFrameSetText(data.DialogTalon.Title, title)
+            AddSkillToDialog(data, godName)
         end
     end
+end
 
-    for i = 1, bj_MAX_PLAYERS do
-        shake(listOfNumbers[i])
+function AddSkillToDialog(data, godName)
+
+    local ClearedTable = ClearDialogTalon(GlobalTalons[data.pid][godName])
+    local maxForLearn = 4
+    if #ClearedTable < maxForLearn then
+        maxForLearn = #ClearedTable
+        --print("число максимальных элементов снижено до " .. #ClearedTable)
     end
-
-    for i = 1, bj_MAX_PLAYERS do
-        talons[i] = {}
-        index[i] = {}
-        local count = 0
-        for j = 1, #GlobalTalons[i][godName] do
-            if not (listOfNumbers[i][j] == -1) then
-                table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
-                table.insert(index[i], listOfNumbers[i][j])
-                count = count + 1
-            end
-            if count == 4 then
-                break
-            end
-        end
+    local tempSnake = GetRandomIntTable(1, #ClearedTable, #ClearedTable)
+    local max = #ClearedTable
+    --print("max=",max)
+    if #ClearedTable==0 then
+        print("вы уже получили все дары данного типа")
+        BlzFrameSetVisible(data.DialogTalon.MainFrame, false)
+        return
     end
+    for j = 1, 4 do
+        if j <= maxForLearn then -- порядок ящер, миша, кабан, волк
+            BlzFrameSetVisible(data.DialogTalon.Container[j].Backdrop, GetLocalPlayer() == Player(data.pid))
+            local talon = ClearedTable[tempSnake[j]]
+            data.CurrentClickedGodName[j] = godName
 
-    local height = {}
-    for i = 1, bj_MAX_PLAYERS do
-        if #talons[i] == 1 then
-            height[i] = 0.17
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], false)
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
-        elseif #talons[i] == 2 then
-            height[i] = 0.27
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
-        elseif #talons[i] == 3 then
-            height[i] = 0.37
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
-        elseif #talons[i] == 4 then
-            height[i] = 0.47
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], GetLocalPlayer() == Player(i - 1))
+            --print(talon.name,"in",j)
+
+            data.CurrentClickedPos[j] = talon.pos-- номер таланта сюда надо записать
+            BlzFrameSetTexture(data.DialogTalon.Container[j].TalonTexture, talon.icon, 0, true)
+            BlzFrameSetText(data.DialogTalon.Container[j].Name, talon.name)
+            BlzFrameSetText(data.DialogTalon.Container[j].Description, talon:updateDescription())
+            BlzFrameSetText(data.DialogTalon.Container[j].TooltipDescription, talon.tooltip)
+
+            if talon.level > 0 then
+                BlzFrameSetText(data.DialogTalon.Container[j].Level, "Текущий уровень " .. talon.level)
+            else
+                BlzFrameSetText(data.DialogTalon.Container[j].Level, "")
+            end
         else
-            height[i] = 0.47
+            BlzFrameSetVisible(data.DialogTalon.Container[j].Backdrop, false)
+            --print("Очищаем блок", j)
+            --[[
+            BlzFrameSetTexture(data.DialogTalon.Container[j].TalonTexture, "", 0, true)
+            BlzFrameSetText(data.DialogTalon.Container[j].Name, "")
+            BlzFrameSetText(data.DialogTalon.Container[j].Description, "")
+            BlzFrameSetText(data.DialogTalon.Container[j].TooltipDescription, "")
+            BlzFrameSetText(data.DialogTalon.Container[j].Level, "")]]
+        end
+
+    end
+end
+
+function ClearDialogTalon(OriginalTable)
+    local clearedTable = {}
+    for i = 1, #OriginalTable do
+        --table.remove(temTableReward, FinPosInTable(temTableReward, reward))
+        local talon = OriginalTable[i]
+        if talon.level > #(talon.DS) - 1 then
+           -- print("Элемент очищен", talon.name)
+            --table.remove(clearedTable, i)
+        else
+            table.insert(clearedTable, talon)
         end
     end
-
-    for i = 1, bj_MAX_PLAYERS do
-        if IsPlayerSlotState(Player(i-1), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            DialogTalon.IsOpen[i] = false
-            BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
-            BlzFrameSetText(DialogTalon.Title[i], title)
-
-            for j = 1, #talons[i] do
-
-                BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j]:getIcon(), 0, true)
-                BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j]:getName())
-                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
-                BlzFrameSetText(DialogTalon.TalonButtons.TooltipDescription[i][j], talons[i][j]:getTooltip())
-
-                BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "")
-                if talons[i][j]:getLevel() > 0 then
-                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
-                end
-            end
-            local data=HERO[i-1]
-            data.TalonWindowIsOpen = false
-            -- Показываем окно всем
-            BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
-            SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
-
-        end
-    end
+    return clearedTable
 end
 do
     local InitGlobalsOrigin = InitGlobals
@@ -3872,9 +3788,8 @@ do
                 print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
             end
 
-            local GAME_UI = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
-
-            local GOD_NAME_ARRAY = {
+            CreateEmptyBoxForTalon()
+            GOD_NAME_ARRAY = {
                 "Trall",
                 "HeroBlademaster",
                 "HeroTaurenChieftain",
@@ -3883,146 +3798,131 @@ do
                 "HeroBeastMaster",
                 "ChaosGrom",
                 "Alchemist",
-
             }
-
-            DialogTalon = {}
-
-            DialogTalon.MainFrame = {}
-            DialogTalon.MainBackdrop = {}
-            DialogTalon.Title = {}
-            DialogTalon.IsOpen = {}
-            DialogTalon.TalonButtons = {}
-            DialogTalon.TalonButtons.Button = {}
-            DialogTalon.TalonButtons.Backdrop = {}
-            DialogTalon.TalonButtons.Icon = {}
-            DialogTalon.TalonButtons.Description = {}
-            DialogTalon.TalonButtons.Name = {}
-            DialogTalon.TalonButtons.Level = {}
-            DialogTalon.TalonButtons.Border = {}
-            DialogTalon.TalonButtons.Tooltip = {}
-            DialogTalon.TalonButtons.TooltipDescription = {}
-            DialogTalon.TalonButtons.ClickTriggers = {}
-            DialogTalon.TalonButtons.ClickEvents = {}
-            DialogTalon.TalonButtons.ClickActions = {}
-            DialogTalon.TalonButtons.MouseEnterTriggers = {}
-            DialogTalon.TalonButtons.MouseEnterEvents = {}
-            DialogTalon.TalonButtons.MouseEnterActions = {}
-            DialogTalon.TalonButtons.MouseLeaveTriggers = {}
-            DialogTalon.TalonButtons.MouseLeaveEvents = {}
-            DialogTalon.TalonButtons.MouseLeaveActions = {}
-            for i = 1, bj_MAX_PLAYERS do
-                DialogTalon.MainFrame[i] = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
-                BlzFrameSetAbsPoint(DialogTalon.MainFrame[i], FRAMEPOINT_CENTER, 0.4, 0.32)
-                BlzFrameSetVisible(DialogTalon.MainFrame[i], false)
-
-                DialogTalon.MainBackdrop[i] = BlzCreateFrame("EscMenuBackdrop", DialogTalon.MainFrame[i], 0, 0)
-                BlzFrameSetAllPoints(DialogTalon.MainBackdrop[i], DialogTalon.MainFrame[i])
-
-                DialogTalon.Title[i] = BlzCreateFrameByType("TEXT", "DialogTalonTitle", DialogTalon.MainFrame[i], "EscMenuTitleTextTemplate", 0)
-                BlzFrameSetPoint(DialogTalon.Title[i], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0, -0.03)
-                BlzFrameSetTextColor(DialogTalon.Title[i], BlzConvertColor(1, 255, 255, 255))
-
-                DialogTalon.IsOpen[i] = false
-                DialogTalon.TalonButtons.Button[i] = {}
-                DialogTalon.TalonButtons.Backdrop[i] = {}
-                DialogTalon.TalonButtons.Icon[i] = {}
-                DialogTalon.TalonButtons.Description[i] = {}
-                DialogTalon.TalonButtons.Name[i] = {}
-                DialogTalon.TalonButtons.Level[i] = {}
-                DialogTalon.TalonButtons.Border[i] = {}
-                DialogTalon.TalonButtons.Tooltip[i] = {}
-                DialogTalon.TalonButtons.TooltipDescription[i] = {}
-                DialogTalon.TalonButtons.ClickTriggers[i] = {}
-                DialogTalon.TalonButtons.ClickEvents[i] = {}
-                DialogTalon.TalonButtons.ClickActions[i] = {}
-                DialogTalon.TalonButtons.MouseEnterTriggers[i] = {}
-                DialogTalon.TalonButtons.MouseEnterEvents[i] = {}
-                DialogTalon.TalonButtons.MouseEnterActions[i] = {}
-                DialogTalon.TalonButtons.MouseLeaveTriggers[i] = {}
-                DialogTalon.TalonButtons.MouseLeaveEvents[i] = {}
-                DialogTalon.TalonButtons.MouseLeaveActions[i] = {}
-                for j = 1, 4 do
-                    -- Создаем Бэкдроп для кнопок
-                    DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame[i], "EscMenuControlBackdropTemplate", 0)
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
-
-                    DialogTalon.TalonButtons.Tooltip[i][j] = BlzCreateFrameByType("BACKDROP", "TalonTooltip", DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuControlBackdropTemplate", 0)
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Tooltip[i][j], 0.1525, 0.1)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Tooltip[i][j], FRAMEPOINT_RIGHT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_RIGHT, 0.1525, -0.01)
-                    BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], false)
-
-                    DialogTalon.TalonButtons.TooltipDescription[i][j] = BlzCreateFrameByType("TEXT", "TooltipDescr", DialogTalon.TalonButtons.Tooltip[i][j], "", 0)
-                    BlzFrameSetTextColor(DialogTalon.TalonButtons.TooltipDescription[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetSize(DialogTalon.TalonButtons.TooltipDescription[i][j], 0.14, 0.07)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.TooltipDescription[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Tooltip[i][j], FRAMEPOINT_LEFT, 0.01, 0.004)
-
-                    DialogTalon.TalonButtons.Border[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBorder", DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Border[i][j], 0.449, 0.079)
-                    BlzFrameSetTexture(DialogTalon.TalonButtons.Border[i][j], "SystemGeneric\\gb", 0, true)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Border[i][j], FRAMEPOINT_CENTER, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_CENTER, 0, 0)
-                    BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
-
-                    -- Создаем Иконки кнопок
-                    DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i][j], 0.064, 0.064)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.01, 0)
-
-                    -- Создаем названия талантов
-                    DialogTalon.TalonButtons.Name[i][j] = BlzCreateFrameByType("TEXT", "TalonName" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuTitleTextTemplate", 0)
-                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0.02)
-
-                    -- Создаем описания талантов
-                    DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
-
-                    DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
-
-                    DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
-
-                    DialogTalon.TalonButtons.ClickTriggers[i][j] = CreateTrigger()
-                    DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.ClickTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
-                    DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.ClickTriggers[i][j], function()
-                        if DialogTalon.IsOpen[i] == true then
-                            DialogTalon.IsOpen[i] = false
-                            talons[i][j]:updateLevel()
-                            checkUlt(i, j, GOD_NAME_ARRAY, "ultF")
-                            checkUlt(i, j, GOD_NAME_ARRAY, "ultR")
-                            -- Закрываем окно талантов
-                            BlzFrameSetEnable(BlzGetTriggerFrame(), false)
-                            BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-                            SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close")
-                            --LearnCurrentTalonForPlayer(i,GodName,listOfNumbers[i][j])
-                            LearnCurrentTalonForPlayer(i, GodName, index[i][j])
-                            local data = HERO[i - 1]
-                            data.TalonWindowIsOpen = true
-                            ChkAllPlayerTalonClosedWindow()
-                        end
-                    end)
-
-                    DialogTalon.TalonButtons.MouseEnterTriggers[i][j] = CreateTrigger()
-                    DialogTalon.TalonButtons.MouseEnterEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_ENTER)
-                    DialogTalon.TalonButtons.MouseEnterActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], function()
-                        BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], GetLocalPlayer() == Player(i - 1))
-                        BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], GetLocalPlayer() == Player(i - 1))
-                    end)
-                    DialogTalon.TalonButtons.MouseLeaveTriggers[i][j] = CreateTrigger()
-                    DialogTalon.TalonButtons.MouseLeaveEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_LEAVE)
-                    DialogTalon.TalonButtons.MouseLeaveActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], function()
-                        BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
-                        BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], false)
-                    end)
-                end
-            end
         end)
     end
+end
+
+function CreateEmptyBoxForTalon()
+    --print("создаём пустые боксы")
+    local GAME_UI = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
+
+    local sizeBigBoxX, sizeBigBoxY = 0.5, 0.46
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            --print("Боксы для игрока " .. i)
+            local data = HERO[i]
+            data.DialogTalon = {}
+            local MainFrame, MainBackdrop, Title
+            MainFrame = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
+            BlzFrameSetAbsPoint(MainFrame, FRAMEPOINT_CENTER, 0.4, 0.32)
+            BlzFrameSetVisible(MainFrame, false)
+            BlzFrameSetSize(MainFrame, sizeBigBoxX, sizeBigBoxY)
+            MainBackdrop = BlzCreateFrame("EscMenuBackdrop", MainFrame, 0, 0)
+            BlzFrameSetAllPoints(MainBackdrop, MainFrame)
+            BlzFrameSetSize(MainBackdrop, sizeBigBoxX, sizeBigBoxY)
+            Title = BlzCreateFrameByType("TEXT", "ButtonChargesText", MainFrame, "", 0)
+            BlzFrameSetPoint(Title, FRAMEPOINT_TOP, MainFrame, FRAMEPOINT_TOP, 0, -0.03)
+            BlzFrameSetTextColor(Title, BlzConvertColor(1, 255, 255, 255))
+            BlzFrameSetText(Title, "Пустой заголовок")
+            data.DialogTalon.MainFrame = MainFrame
+            data.DialogTalon.MainBackdrop = MainBackdrop
+            data.DialogTalon.Title = Title
+            data.DialogTalon.Container = {}
+            data.CurrentClickedGodName={}
+            data.CurrentClickedPos={}
+            for j = 1, 4 do
+                data.DialogTalon.Container[j] = {}
+                CreateBoxTalon(MainFrame, j, data)
+            end
+        end
+    end
+end
+
+function CreateBoxTalon(MainFrame, j, data)
+    local Backdrop = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, MainFrame, "EscMenuControlBackdropTemplate", 0)
+    BlzFrameSetSize(Backdrop, 0.45, 0.08)
+    BlzFrameSetPoint(Backdrop, FRAMEPOINT_TOP, MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
+
+    local Tooltip = BlzCreateFrameByType("BACKDROP", "TalonTooltip", Backdrop, "EscMenuControlBackdropTemplate", 0)
+    BlzFrameSetSize(Tooltip, 0.1525, 0.1)
+    BlzFrameSetPoint(Tooltip, FRAMEPOINT_RIGHT, Backdrop, FRAMEPOINT_RIGHT, 0.1525, -0.01)
+    BlzFrameSetVisible(Tooltip, false)
+
+    local TooltipDescription = BlzCreateFrameByType("TEXT", "TooltipDescr", Tooltip, "", 0)
+    BlzFrameSetTextColor(TooltipDescription, BlzConvertColor(1, 255, 255, 255))
+    BlzFrameSetSize(TooltipDescription, 0.14, 0.07)
+    BlzFrameSetPoint(TooltipDescription, FRAMEPOINT_LEFT, Tooltip, FRAMEPOINT_LEFT, 0.01, 0.004)
+    BlzFrameSetText(TooltipDescription, "Описание таланта " .. j)
+
+    local Border = BlzCreateFrameByType("BACKDROP", "TalonBorder", Backdrop, "", 0)
+    BlzFrameSetSize(Border, 0.449, 0.079)
+    BlzFrameSetTexture(Border, "SystemGeneric\\gb", 0, true)
+    BlzFrameSetPoint(Border, FRAMEPOINT_CENTER, Backdrop, FRAMEPOINT_CENTER, 0, 0)
+    BlzFrameSetVisible(Border, false)
+
+    -- Создаем Иконки кнопок
+    local TalonTexture = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, Backdrop, "", 0)
+    BlzFrameSetSize(TalonTexture, 0.064, 0.064)
+    BlzFrameSetPoint(TalonTexture, FRAMEPOINT_LEFT, Backdrop, FRAMEPOINT_LEFT, 0.01, 0)
+    BlzFrameSetTexture(TalonTexture, "ReplaceableTextures\\CommandButtons\\BTNCryptFiendBurrow", 0, true)
+
+    -- Создаем названия талантов
+    local Name = BlzCreateFrameByType("TEXT", "TalonName" .. j, Backdrop, "EscMenuTitleTextTemplate", 0)
+    BlzFrameSetTextColor(Name, BlzConvertColor(1, 255, 255, 255))
+    BlzFrameSetPoint(Name, FRAMEPOINT_LEFT, Backdrop, FRAMEPOINT_LEFT, 0.084, 0.02)
+    BlzFrameSetText(Name, "Название таланта")
+
+    -- Создаем описания талантов
+    local Description = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, Backdrop, "", 0)
+    BlzFrameSetTextColor(Description, BlzConvertColor(1, 255, 255, 255))
+    BlzFrameSetSize(Description, 0.35, 0.06)
+    BlzFrameSetPoint(Description, FRAMEPOINT_LEFT, Backdrop, FRAMEPOINT_LEFT, 0.084, -0.022)
+    BlzFrameSetText(Description, "Описание таланта")
+
+    local Level = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, Backdrop, "", 0)
+    BlzFrameSetTextColor(Level, BlzConvertColor(1, 255, 255, 255))
+    BlzFrameSetPoint(Level, FRAMEPOINT_LEFT, Backdrop, FRAMEPOINT_LEFT, 0.084, -0.025)
+    BlzFrameSetText(Level, "Текущий уровень таланта")
+
+    local Button = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, Backdrop, "", 0)
+    BlzFrameSetAllPoints(Button, Backdrop)
+    -------СОБЫТИЯ ДЛЯ ФРЕЙМОВ_____
+    local mouseET = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(mouseET, Button, FRAMEEVENT_MOUSE_ENTER)
+    TriggerAddAction(mouseET, function()
+        --print("показать")
+        BlzFrameSetVisible(Border, GetLocalPlayer() == Player(data.pid))
+        BlzFrameSetVisible(Tooltip, GetLocalPlayer() == Player(data.pid))
+    end)
+    local mouseLT = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(mouseLT, Button, FRAMEEVENT_MOUSE_LEAVE)
+    TriggerAddAction(mouseLT, function()
+        --print("убрать")
+        BlzFrameSetVisible(Border, false)
+        BlzFrameSetVisible(Tooltip, false)
+    end)
+    local mouseCT = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_CONTROL_CLICK)
+    TriggerAddAction(mouseCT, function()
+        --print("убрать")
+        --print("клик по фрему закрываем окно талантов")
+        BlzFrameSetVisible(data.DialogTalon.MainFrame, false)
+        --print("Клик по фрейму" .. j)
+        LearnCurrentTalonForPlayer(data.pid, data.CurrentClickedGodName[j], data.CurrentClickedPos[j])
+    end)
+
+
+    -- заполнение списков
+    data.DialogTalon.Container[j].Backdrop = Backdrop
+    data.DialogTalon.Container[j].Tooltip = Tooltip
+    data.DialogTalon.Container[j].TooltipDescription = TooltipDescription
+    data.DialogTalon.Container[j].Border = Border
+    data.DialogTalon.Container[j].TalonTexture = TalonTexture
+    data.DialogTalon.Container[j].Name = Name
+    data.DialogTalon.Container[j].Description = Description
+    data.DialogTalon.Container[j].Level = Level
+    data.DialogTalon.Container[j].Button = Button
 end
 
 AllPlayerTalonClosedWindow = true
@@ -4040,7 +3940,7 @@ function ChkAllPlayerTalonClosedWindow()
             end
         end
     end
-    AllPlayerTalonClosedWindow=result
+    AllPlayerTalonClosedWindow = result
     return AllPlayerTalonClosedWindow
 end
 ---
@@ -4050,11 +3950,13 @@ end
 ---
 
 function LearnCurrentTalonForPlayer(pid, godName, pos)
-    local data = HERO[pid - 1]
+    local data = HERO[pid]
     local talon = GlobalTalons[pid][godName][pos]
+    talon.level=talon.level+1
+    print(pid, godName, pos)
     local x, y, size = 0.02, 0.015, 0.03
     if GetActiveCountPlayer() > 1 then
-        print(GetPlayerName(Player(pid - 1)) .. " выбрал " .. talon.name .. " уровень " .. talon.level)
+        print(GetPlayerName(Player(pid)) .. " выбрал " .. talon.name .. " уровень " .. talon.level)
     end
     if godName == "Trall" and talon.level == 1 then
         if pos == 1 then
@@ -4616,6 +4518,1078 @@ function ActLvl23Action(talon, f, f2)
         end
     end)
 end
+do
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), 3, false, function()
+            GlobalTalons = {}
+            for i = 0, bj_MAX_PLAYERS do
+                GlobalTalons[i] = {
+                    Trall = {--Тралл Провидец
+                        [1] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                            name = L("Удар молнией", "Lightning strike"),
+                            description = L("Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500", "Every 4 normal strikes release a bolt of lightning that deals 50 DS damage to random enemies within a radius of 500"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Быстро нажимайте LMB чтобы совершить серию ударов"),
+                            DS = { 3, 4, 5 },
+                            pos=1
+
+                        }),
+                        [2] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
+                            name = L("Громовая кирка", "Thunder Pickaxe"),
+                            description = L("Кирка отскакивает на DS случайных врагов", "Pickaxe bounces on DS random enemies"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
+                            DS = { 2, 3, 4 },
+                            pos=2
+
+                        }),
+                        [3] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
+                            name = L("Волк компаньон", "The Wolf Companion"),
+                            description = L("Призывает автономного волка, сражающегося на вашей стороне. Перезарядка возрождения DS сек.", "Summons an autonomous wolf fighting on your side. Respawn cooldown DS sec."),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед.", "The wolf tries to attack a random target, and patrols the area around the hero. The wolf will be instantly teleported to if it moves away to a distance of more than 1000"),
+                            DS = { 60, 40, 20 },
+                            pos=3
+                        }),
+                        [4] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
+                            name = L("Воронка прозрения", "The Funnel of Insight"),
+                            description = L("Вращающаяся атака втягивает врагов в центр воронки, область захвата +DS", "Rotating attack draws enemies into the center of the funnel, capture area +DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
+                            DS = { 100, 150, 200 },
+                            pos=4
+                        }),
+                        [5] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
+                            name = L("Зов Провидца", "Call Far Seer"),
+                            description = L("Вызывает землетрясение вокруг героя и наносит 100 урона врагам вокруг. Максимальное число зарядов: DS", "Causes an earthquake around the hero and deals 100 damage to enemies around him. Maximum number of charges: DS"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
+                            DS = { 10, 20, 30 },
+                            pos=5,
+                            ultF = true
+                        }),
+                        [6] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
+                            name = L("Запасы складов пеонов", "Warehouse inventory"),
+                            description = L("Добавляет заряды к броску кирки +DS", "Adds charges to the pickaxe roll +DS"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
+                            DS = { 1, 2, 3 },
+                            pos=6
+                        }),
+                        [7] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
+                            name = L("Предвидение боли", "Anticipating Pain"),
+                            description = L("Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек", "Make a dash immediately after taking damage to instantly restore your lost health. Cooldown DS sec"),
+                            level = 0,
+                            rarity = "rare",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
+                            DS = { 10, 8, 5 },
+                            pos=7
+
+                        }),
+                        [8] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNCorpseExplode.blp",
+                            name = L("Предвидение смерти", "Foreseeing death"),
+                            description = L("Делает героя неуязвимым при получении смертельного урона на 2 сек. Перезарядка DS сек", "Makes the hero invulnerable when taking fatal damage for 2 seconds. Cooldown DS sec"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 60, 40, 30 },
+                            pos=8
+                        }),
+                        [9] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
+                            name = L("Ясновидение", "Foresight"),
+                            description = L("Позволяет DS", "Allows DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше", "В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше"),
+                            DS = {
+                                L("Видеть невидимое", "See the invisible"),
+                                L("Видеть невидимое и показывает скрытые проходы", "See the invisible and shows hidden passages"),
+                                L("Видеть невидимое, показывает скрытые проходы и решения головоломок", "See the invisible, shows hidden passages and puzzle solutions")
+                            },
+                            pos=9
+                        }),
+                        --[[[10] = Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
+                            name = "Талант 10",
+                            description = "Неопределён",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Загулшка, этот талант не должен быть виден",
+                            DS={},
+                            dependence = 3
+                        }),]]
+                    },
+                    HeroBlademaster = {
+                        Talon:new({--1
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWindWalkOn.blp",
+                            name = L("Ветряной шаг смерти", "Wind Death Step"),
+                            description = L("Падение здоровья меньше 30% вызывает невидимость. Перезарядка DS сек", " Health drop less than 30% causes invisibility. Cooldown DS sec"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 10, 5, 3 },
+                            pos=1
+                        }),
+                        Talon:new({--2
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
+                            name = L("Боевая ярость", "Battle Rage"),
+                            description = L("Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек", "Any outgoing damage can be critical X 1.5 Cooldown: DS sec"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Изучение этого таланта открывает доступ к таланту на множитель критического урона", " Learning this talent gives you access to the talent for a critical damage multiplier"),
+                            DS = { 6, 4, 3 },
+                            pos=2
+
+                        }),
+                        Talon:new({--3
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNCriticalStrike.blp",
+                            name = L("Уязвимые места", "Vulnerabilities"),
+                            description = L("Увеличивает силу критического удара на DS", "Increases critical strike strength by DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
+                            DS = { 2, 3, 4 },
+                            dependence = 2,
+                            pos=3
+                        }),
+                        Talon:new({--4
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
+                            name = L("Иллюзорный рывок", "Illusionary dash"),
+                            description = L("Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек", "Returns immediately after the dash, deals damage=DS at the reverse point, reload 10 seconds"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Будьте внимательны, эта способность ломает привычные механики", " Be careful, this ability breaks the usual mechanics"),
+                            DS = { 100, 150, 200 },
+                            pos=4
+                        }),
+                        Talon:new({ --5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
+                            name = L("Большой размах", "Large Swing"),
+                            description = L("Увеличивает урон на DS раза от вращающийся атаки ", "Increases damage by DS times from rotating attack"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),
+                            DS = { 1.5, 2, 2.5 },
+                            pos=5
+                        }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
+                            name = L("Дополнительный рывок", "Extra Dash"),
+                            description = L("Добавляет заряды к способности рывок + DS", "Adds charges to the Dash + DS ability"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
+                            DS = { 1, 2, 3 },
+                            pos=6
+                        }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp",
+                            name = L("Мастер меча но не магии", "Master of the sword but not magic"),
+                            description = L("Уменьшает скорость старта раскрутки на DS сек.", " Reduces the start speed of promotion by DS sec."),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", " Hold LMB to make a spinning attack"),
+                            DS = { 0.2, 0.4, 0.6 },
+                            pos=7
+                            --ultR = true
+                        }),
+                        Talon:new({--8
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSelfDestruct.blp",
+                            name = L("Камикадзе", "Kamikaze"),
+                            description = L("Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз, герой не умрёт и останется с 1 пунктом здоровья", "Any damage that the hero deals while dead increases by DS times, the hero will not die and will remain with 1 health point"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 10, 20, 35 },
+                            pos=8
+                            --ultR = true
+                        }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBattleStations.blp",
+                            name = L("Джагернаут", "Juggernaut"),
+                            description = L("Добавляет DS заряды для способности вращающийся удар", "Adds DS charges for the Spinning Kick ability"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),
+                            DS = { 20, 40, 60 },
+                            dependence = 5,
+                            pos=9
+                            --ultF = true
+                        }),
+                    },
+                    ShadowHunter = {
+                        Talon:new({ --1
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
+                            name = L("Я помогу тебе", "I'll help you"),
+                            description = L("Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек", "Jumping through an ally heals it by 100 points. Cooldown DS sec"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
+                            DS = { 20, 15, 10 },
+                            pos=1
+                        }),
+                        Talon:new({ --2
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSerpentWard.blp",
+                            name = L("Ты в ловушке", "You're trapped"),
+                            description = L("Создаёт кольцо змей, в точке начала рывка. Перезарядка DS", "Creates a ring of snakes, at the start point of the snatch. Cooldown DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
+                            DS = { 12, 9, 5 },
+                            pos=2
+                        }),
+                        Talon:new({ --3
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNHex.blp",
+                            name = L("Метательный лягушонок", "Throwing Frog"),
+                            description = L("Заменяет бросок кирки на бросок лягушки, превращает врага в лягушку на 3 секунды. Перезарядка: DS", "Replaces the pickaxe throw with the frog throw, turns the enemy into a frog for 3 seconds. Cooldown: DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press RMB in the specified direction to throw the pickaxe there"),
+                            DS = { 12, 10, 8 },
+                            pos=3
+                        }),
+                        --[[
+                        Talon:new({--4
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
+                            name = "Зов вуду",
+                            description = "При активации увеличивает получение урона по вам на DS%, но делает союзников неуязвимыми",
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
+                            DS={100},
+                            ultF = true
+                        }),
+                        ]]
+                        Talon:new({--4
+                            icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
+                            name = L("Спираль смерти", "Death Spiral"),
+                            description = L("Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS", "Releases a deadly blade in the direction of the dash. Cooldown: DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
+                            DS = { 5, 4, 3 },
+                            pos=4
+                        }),
+                        Talon:new({--5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNRegenerate.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
+                            name = L("Регенерация тролля", "Troll Regeneration"),
+                            description = L("Исцеляет героя каждые 5 секунду во время боя на DS%", "Heals hero every 5 seconds during DS% combat"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 1, 2, 4 },
+                            pos=5
+                        }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNHeal.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
+                            name = L("Великий лекарь", "Great Healer"),
+                            description = L("Повышает эффективность получения лечения X DS", "Increases the performance of receiving healing X DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 1.5, 2, 2.5 },
+                            pos=6
+                        }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNLocustSwarm.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
+                            name = L("Теневой рывок", "Great Healer"),
+                            description = L("Позволяет проходить DS", "Increases the performance of receiving healing X DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
+                            DS = { "сквозь здания", "сквозь здания и делает героя неуязвимым", "сквозь здания и делает героя неуязвимым и разрушает щит врагов" }, --TODO перевод
+                            pos=7
+                        }),
+                    },
+                    HeroTaurenChieftain = {
+                        Talon:new({--1
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp",
+                            name = L("Новая жизнь", "New Life"),
+                            description = L("Исцеляет героя на DS% от максимального здоровья при получении уровня", "Heals hero at DS% when gaining level"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 30, 50, 100 },
+                            pos=1
+                        }),
+                        Talon:new({--2
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWalkerAdeptTraining.blp",
+                            name = L("Мощь быка", "Bull Power"),
+                            description = L("Увеличивает длительность стазиса врагов на DS от любых источников урона", "Increases enemy stasis duration by DS from any damage sources"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников", "Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
+                            DS = { 0.1, 0.15, 0.2 },
+                            pos=2
+                        }),
+                        Talon:new({--3
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNShockWave.blp",
+                            name = L("Волна силы", "Force Wave"),
+                            description = L("Наносит урон рывком. Урон: DS", "Deals damage with a dash. Damage: DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
+                            DS = { 50, 80, 100 },
+                            pos=3
+                        }),
+                        Talon:new({--4
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNCommand.blp",
+                            name = L("Выносливость", "Endurance"),
+                            description = L("Увеличивает скорость движения на DS %", "Increases movement speed by DS %"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Используйте кнопки WASD, чтобы перемещаться", "Use the WASD buttons to navigate"),
+                            DS = { 20, 40, 60 },
+                            pos=4
+                        }),
+                        Talon:new({--5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
+                            name = L("Могучий удар", "Mighty Blow"),
+                            description = L("Увеличивает длительность стазиса от способности Мощный удар на DS и радиус поражения на 100", "Increases the stasis duration from the Powerful Strike ability by DS and the damage radius by 100"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", "Press Q to strike a powerful blow over a large area"),
+                            DS = { 0.5, 0.8, 1.4 },
+                            pos=5
+                        }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
+                            name = L("Кодойская ловушка", "Codo trap"),
+                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%", "The trap deals X DS damage to enemies, and reduces the damage from traps on the hero at times YOU"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
+                            DS = { 2, 3, 5 },
+                            pos=6
+                        }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\commandbuttons\\BTNSmash.blp",
+                            name = L("Тотем кодоев", "Codo totem"),
+                            description = L("Создаёт непроходимый тотем и наносит 100 урона всем врагам на пути от героя и до курсора. Минимально 2 заряда, максимум 10", "Trap deals XDS damage to enemies"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
+                            DS = { 10, 20, 30 },
+                            ultF = true,
+                            pos=7
+                        }),
+                        Talon:new({--8
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNAnimalWarTraining.blp",
+                            name = L("Топот копыт", "Hoofbeats"),
+                            description = L("Увеличивает урон от удара о стену на DS", "Increases the damage from hitting the wall by DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
+                            DS = { 50, 110, 170 },
+                            pos=8
+                        }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWirtsLeg.blp",
+                            name = L("Удар копытом", "Hoof strike"),
+                            description = L("Обычная атаки отталкивают врага на дистанцию DS", "Normal attacks push the enemy to a distance of DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
+                            DS = { 50, 150, 250 },
+                            dependence = 8,
+                            pos=9
+                        }),
+
+                    },
+                    HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
+                            name = "Ящер",
+                            description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS = { "lizard" },
+                            pos=1
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
+                            name = "Медведь",
+                            description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS = { "bear" },
+                            pos=2
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
+                            name = "Кабан",
+                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS = { "boar" },
+                            pos=3
+                        }),
+                        Talon:new({
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
+                            name = "Волк",
+                            description = "Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк убивает замороженных врагов с 1 удара",
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = "Призывает существо",
+                            DS = { "wolf" },
+                            pos=4
+                        }),
+                    },
+                    PeonDidal = {
+                        Talon:new({--1
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
+                            name = L("Короткое комбо", "Short combo"),
+                            description = L("Сокращает комбо до DS ударов, и задержку финального удара на 0.3", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
+                            DS = { 3 },
+                            pos=1
+                        }),
+                        Talon:new({--2
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
+                            name = L("Кирка героя", "Hero Pickaxe"),
+                            description = L("Увеличивает урон обычных атак на DS%", " Increases normal attack damage by DS%"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
+                            DS = { 50 },
+                            pos=2
+                        }),
+                        Talon:new({--3
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
+                            name = L("Бронелом", "Shield breaker"),
+                            description = L("Все ваши атаки наносят дополнительно DS урона по щиту", "All your attacks deal an additional DS damage to the shield"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
+                            DS = { 50 },
+                            pos=3
+                        }),
+                        Talon:new({--4
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
+                            name = L("Разбег минотавра", " Minotaur run-up"),
+                            description = L("Атака в рывке, наносят на DS% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше", "Attack in a dash, deal DS% more damage, increases the hit area and pushes 3 times further away"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке", " Quickly press LMB after SPACE to make a snatch attack"),
+                            DS = { 100 },
+                            pos=4
+                        }),
+                        Talon:new({--5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
+                            name = L("Удар проклятой души", "Cursed soul strike"),
+                            description = L("Попадания обычной атакой восстанавливают DS% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS% от макс здоровья (не может быть смертельным)", " Hits with a normal attack restore DS% of max health health units, in case of a miss, you will lose DS% of max health (cannot be fatal)"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке", " Quickly press LMB after SPACE to make a snatch attack"),
+                            DS = { 2 },
+                            pos=5
+                        }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = L("Двойной Клеп", " Double Clip"),
+                            description = L("Мощный удар бьёт DS", "Powerful punch beats DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to strike a powerful blow over a large area"),
+                            DS = { L("дважды", "twice") },
+                            pos=6
+                        }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
+                            name = L("Пронзающий пространство удар", "A space-piercing blow"),
+                            description = L("Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500", " A normal hit deals additional DS damage on the line in front of it. Distance: 500"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
+                            DS = { 50 },
+                            pos=7
+                        }),
+                        Talon:new({--8
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
+                            name = L("Удар сатира", " Punch satyr"),
+                            description = L("Увеличивает любой урон в спину в DS раза", "Increases any back damage by DS times"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
+                            DS = { 2 },
+                            pos=8
+                        }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = L("Пространственный клеп", " Spatial Clip"),
+                            description = L("Мощный удар делает рывок в область курсора ", " A powerful kick makes the cursor area dash "),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
+                            DS = { 3 },
+                            pos=9
+                        }),
+                        Talon:new({--10
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
+                            name = L("Мертвый бассейн", " Dead pool"),
+                            description = L("Вращение и атака могут отражать снаряды, обратно во врагов", "Spin and attack can deflect projectiles back at enemies"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Снаряд полетит в позицию врага, в которой он находился в момент отражения", "The projectile will fly to the position of the enemy in which it was at the time of reflection"),
+                            DS = { 1 },
+                            pos=10
+                        }),
+                    },
+                    ChaosGrom = {
+                        Talon:new({--1
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGhoulFrenzy.blp",
+                            name = L("Яростный удар", "Furious strike"),
+                            description = L("Нанесение урона обычной атакой активирует вращение на 1 секунду. Перезарядка: DS сек", "Dealing damage with a normal attack activates the spin for 1 second. Cooldown: DS sec"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Quickly press LMB to make a series of hits"),
+                            DS = { 5, 4, 3 },
+                            pos=1
+                        }),
+                        Talon:new({--2
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNFountainOfLifeBlood.blp",
+                            name = L("Заражение", "Infection"),
+                            description = L("Делает фонтан непригодным для питья, но фонтан наносит DS урона в секунду врагам в радиусе 500, а вы получаете эффект сердца кодоя +25", "Makes the fountain undrinkable, but the fountain deals DS damage per second to enemies within a radius of 500, add 25 max hp"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Используйте Е возле источника воды, чтобы заразить его", "Use E near a water source to infect it"),
+                            DS = { 100, 150, 250 },
+                            pos=2
+                        }),
+                        Talon:new({--3
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNIncinerate.blp",
+                            name = L("Буйная кровь", "Violent blood"),
+                            description = L("Восстанавливает заряды вращения при убийстве врагов +DS. Игнорирует лимит", "Restores spin charges when killing enemies +DS. Ignores the limit"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
+                            DS = { 1, 2, 3 },
+                            pos=3
+                        }),
+                        Talon:new({--4
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
+                            name = L("Топор лесоруба", "Woodcutter's Axe"),
+                            description = L("Летает вокруг героя и наносит DS урона касанием", "Flies around the hero and deals DS damage with a touch"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Неизвестно на какой магии это всё работает", "It is not known on what magic it all works"),
+                            DS = { 80, 120, 160 },
+                            pos=4
+                        }),
+                        Talon:new({--5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNImpale.blp",
+                            name = L("Сквозь землю", "Through ground"),
+                            description = L("Способность Q отбрасывает врагов в стороны и наносит дополнительный урон DS", "The Q ability knocks enemies aside and deals additional DS damage."),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
+                            DS = { 50, 100, 150 },
+                            pos=5
+                        }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNRedDragonDevour.blp",
+                            name = L("Кровожадность", "Bloodthirstiness"),
+                            description = L("Убийство врагов в ближнем бою восстанавливает здоровье +DS", "Killing enemies in melee restores health +DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
+                            DS = { 3, 6, 10 },
+                            pos=6
+                        }),
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNHeartOfAszune.blp",
+                            name = L("Искатель крови", "Blood Seeker"),
+                            description = L("Вазы могу содержать некоторое количество крови, восстанавливающей DS здоровья", "Vases can contain a certain amount of blood that restores DS health"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
+                            DS = { 2, 4, 7 },
+                            pos=7
+                        }),
+                        --[[
+                        Talon:new({--7
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSoulBurn.blp",
+                            name = L("Касание смерти", "Short combo"),
+                            description = L("Следующая ваша атака моментально убьет врага (не босса), но вы потеряете DS здоровья,", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Эта способность не может вас убить, всегда оставляет 1 единицу", " Press Q to deliver a powerful strike over a large area"),
+                            DS = { 100, 80, 60 },
+                            ultR = true,
+                        }),]]
+                    },
+                    Alchemist = {
+                        Talon:new({--1
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGlyph.blp",
+                            name = L("Доход", "Income"),
+                            description = L("Увеличивает добычу золота при убийстве врагов на DS", "Increases gold revenue when killing enemies on DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 1, 2, 4 },
+                            pos=1
+                        }),
+                        Talon:new({--2
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSunKey.blp",
+                            name = L("Подработка в выходные", "Weekend part-time job"),
+                            description = L("После завершения уровня вы получаете DS золота", "After completing a level you get DS of gold"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 15, 30, 50 },
+                            pos=2
+                        }),
+                        Talon:new({--3
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNTransmute.blp",
+                            name = L("Золотое касание", "Golden Touch"),
+                            description = L("Следующая обычная атака моментально убьёт врага не босса и превратит его в DS золота. Перезарядка: 30", "The next normal attack will instantly kill the non-boss enemy and turn it into DS Gold. Cooldown: 30"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 10, 20, 30 },
+                            pos=3
+                        }),
+                        Talon:new({--4
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDustOfAppearance.blp",
+                            name = L("Дырявый мешок", "Leaky bag"),
+                            description = L("При получении урона вы потеряете столько же золота, но этот урон будет уменьшен на DS%", "When taking damage, you will lose the same amount of gold, but this damage will be reduced by DS%"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 10, 20, 30 },
+                            pos=4
+                        }),
+                        Talon:new({--5
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfRestoration.blp",
+                            name = L("Инвестор", "Investor"),
+                            description = L("Увеличивает любой получаемый доход на DS%", "Increases any earned income by DS%"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 10, 15, 20 },
+                            pos=5
+                        }),
+                        Talon:new({--6
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMedalionOfCourage.blp",
+                            name = L("Орёл или решка", "Flip the Coin"),
+                            description = L("Имеет шанс 50% не получить урона, тратит 10 золота. Перезарядка: DS", "Has a 50% chance of not taking damage, spends 10 gold. Recharge: DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 20, 15, 10 },
+                            pos=6
+                        }),
+                        --[[
+                        Talon:new({--7 --ReplaceableTextures\CommandButtons\BTNPillage.blp
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNChestOfGold.blp",
+                            name = L("Золотой царь", "Income"),
+                            description = L("Увеличивает ваш исходящий урон на DS% за каждые 100 золота в кармане. Получение урона лишает бонуса 5 секунд", "Vases can contain a certain amount of blood that restores DS health"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "You will die as soon as you lose all health"),
+                            DS = { 1, 2, 3 }
+                        }),]]
+                    }
+                }
+            end
+        end)
+    end
+end
+-- Для плавного появления окна
+function SmoothWindowAppearance(frame, index, state)
+    local count
+    if state == "close" then
+        count = 255
+    elseif state == "open" then
+        count = 0
+        BlzFrameSetAlpha(frame, 0)
+    end
+    local timer = CreateTimer()
+    TimerStart(timer, 0.002, true, function() --было 0.003
+        BlzFrameSetAlpha(frame, count)
+        if count == 253 and state == "open" then
+            DestroyTimer(timer)
+            DialogTalon.IsOpen[index] = true
+        elseif count == 0 and state == "close" then
+            DestroyTimer(timer)
+            BlzFrameSetVisible(frame, false)
+        end
+        if state == "open" then
+            count = count + 1
+        elseif state == "close" then
+            count = count - 1
+        end
+    end)
+end
+
+-- Перемешивание списка
+function swap(array, index1, index2)
+    array[index1], array[index2] = array[index2], array[index1]
+end
+
+function shake(array)
+    local counter = #array
+
+    while counter > 1 do
+        local index = math.random(counter)
+        swap(array, index, counter)
+        counter = counter - 1
+    end
+    return array
+end
+
+function checkUlt(i, j, GOD_NAME_ARRAY, ult)
+    if talons[i][j][ult] ~= nil and talons[i][j][ult] then
+        for l = 1, #GOD_NAME_ARRAY do
+            if not (GlobalTalons[i][GodName] == GlobalTalons[i][GOD_NAME_ARRAY[l]]) then
+                for k = 1, #GlobalTalons[i][GOD_NAME_ARRAY[l]] do
+                    if GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] ~= nil and GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] then
+                        GlobalTalons[i][GOD_NAME_ARRAY[l]][k][ult] = false
+                    end
+                end
+            end
+        end
+    end
+end
+
+
+function CreateDialogTalonOld(godName)
+    GodName = godName
+    if not godName then
+        print("При создании дара не передан параметр награды")
+        return
+    end
+
+    local title = ""
+    if godName == "Trall" then
+        title = "Дары Говорящего с духами"
+    elseif godName == "HeroBlademaster" then
+        title = "Дары Мастера клинка"
+    elseif godName == "HeroTaurenChieftain" then
+        title = "Дары Вождя минотавров"
+    elseif godName == "ShadowHunter" then
+        title = "Дары Ловца теней"
+    elseif godName == "PeonDidal" then
+        title = "Кирка Дидала"
+    elseif godName == "HeroBeastMaster" then
+        title = "Дары повелителя зверей"
+    elseif godName == "ChaosGrom" then
+        title = "Дары Адского крика"
+        --ReplaceableTextures\CommandButtons\BTNChaosGrom.blp
+    end
+
+    talons = {}
+    listOfNumbers = {}
+    index = {}
+    for i = 1, bj_MAX_PLAYERS do
+        listOfNumbers[i] = {}
+        for j = 1, #GlobalTalons[i][godName] do -- Исправить баг с дыркой в массиве
+            listOfNumbers[i][j] = j
+
+            if GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"] then
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
+            end
+            if GlobalTalons[i][godName][j]:getUltF() ~= nil and GlobalTalons[i][godName][j]:getUltF() == false then
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
+            end
+            if GlobalTalons[i][godName][j]:getUltR() ~= nil and GlobalTalons[i][godName][j]:getUltR() == false then
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
+            end
+            -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
+            -- если уровень равен 0, то исключаем зависимый талант из списка
+            if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
+                --table.remove(listOfNumbers[i], j)
+                listOfNumbers[i][j] = -1
+            end
+        end
+    end
+
+    for i = 1, bj_MAX_PLAYERS do
+        shake(listOfNumbers[i])
+    end
+
+    for i = 1, bj_MAX_PLAYERS do
+        talons[i] = {}
+        index[i] = {}
+        local count = 0
+        for j = 1, #GlobalTalons[i][godName] do
+            if not (listOfNumbers[i][j] == -1) then
+                table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
+                table.insert(index[i], listOfNumbers[i][j])
+                count = count + 1
+            end
+            if count == 4 then
+                break
+            end
+        end
+    end
+
+    local height = {}
+    for i = 1, bj_MAX_PLAYERS do
+        if #talons[i] == 1 then
+            height[i] = 0.17
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], false)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
+        elseif #talons[i] == 2 then
+            height[i] = 0.27
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
+        elseif #talons[i] == 3 then
+            height[i] = 0.37
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
+        elseif #talons[i] == 4 then
+            height[i] = 0.47
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
+            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], GetLocalPlayer() == Player(i - 1))
+        else
+            height[i] = 0.47
+        end
+    end
+
+    for i = 1, bj_MAX_PLAYERS do
+        if IsPlayerSlotState(Player(i-1), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+            DialogTalon.IsOpen[i] = false
+            BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
+            BlzFrameSetText(DialogTalon.Title[i], title)
+
+            for j = 1, #talons[i] do
+
+                BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j]:getIcon(), 0, true)
+                BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j]:getName())
+                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
+                BlzFrameSetText(DialogTalon.TalonButtons.TooltipDescription[i][j], talons[i][j]:getTooltip())
+
+                BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "")
+                if talons[i][j]:getLevel() > 0 then
+                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
+                end
+            end
+            local data=HERO[i-1]
+            data.TalonWindowIsOpen = false
+            DialogTalon.IsOpen[i] = true
+            -- Показываем окно всем
+            BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
+            --SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
+
+        end
+    end
+end
+do
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(),99999999 , false, function()
+            if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
+                print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
+            end
+
+            local GAME_UI = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
+
+            GOD_NAME_ARRAY = {
+                "Trall",
+                "HeroBlademaster",
+                "HeroTaurenChieftain",
+                "ShadowHunter",
+                "PeonDidal",
+                "HeroBeastMaster",
+                "ChaosGrom",
+                "Alchemist",
+            }
+
+            DialogTalon = {}
+
+            DialogTalon.MainFrame = {}
+            DialogTalon.MainBackdrop = {}
+            DialogTalon.Title = {}
+            DialogTalon.IsOpen = {}
+            DialogTalon.TalonButtons = {}
+            DialogTalon.TalonButtons.Button = {}
+            DialogTalon.TalonButtons.Backdrop = {}
+            DialogTalon.TalonButtons.Icon = {}
+            DialogTalon.TalonButtons.Description = {}
+            DialogTalon.TalonButtons.Name = {}
+            DialogTalon.TalonButtons.Level = {}
+            DialogTalon.TalonButtons.Border = {}
+            DialogTalon.TalonButtons.Tooltip = {}
+            DialogTalon.TalonButtons.TooltipDescription = {}
+            DialogTalon.TalonButtons.ClickTriggers = {}
+            DialogTalon.TalonButtons.ClickEvents = {}
+            DialogTalon.TalonButtons.ClickActions = {}
+            DialogTalon.TalonButtons.MouseEnterTriggers = {}
+            DialogTalon.TalonButtons.MouseEnterEvents = {}
+            DialogTalon.TalonButtons.MouseEnterActions = {}
+            DialogTalon.TalonButtons.MouseLeaveTriggers = {}
+            DialogTalon.TalonButtons.MouseLeaveEvents = {}
+            DialogTalon.TalonButtons.MouseLeaveActions = {}
+            for i = 1, bj_MAX_PLAYERS do
+                DialogTalon.MainFrame[i] = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
+                BlzFrameSetAbsPoint(DialogTalon.MainFrame[i], FRAMEPOINT_CENTER, 0.4, 0.32)
+                BlzFrameSetVisible(DialogTalon.MainFrame[i], false)
+
+                DialogTalon.MainBackdrop[i] = BlzCreateFrame("EscMenuBackdrop", DialogTalon.MainFrame[i], 0, 0)
+                BlzFrameSetAllPoints(DialogTalon.MainBackdrop[i], DialogTalon.MainFrame[i])
+
+                DialogTalon.Title[i] = BlzCreateFrameByType("TEXT", "DialogTalonTitle", DialogTalon.MainFrame[i], "EscMenuTitleTextTemplate", 0)
+                BlzFrameSetPoint(DialogTalon.Title[i], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0, -0.03)
+                BlzFrameSetTextColor(DialogTalon.Title[i], BlzConvertColor(1, 255, 255, 255))
+
+                DialogTalon.IsOpen[i] = false
+                DialogTalon.TalonButtons.Button[i] = {}
+                DialogTalon.TalonButtons.Backdrop[i] = {}
+                DialogTalon.TalonButtons.Icon[i] = {}
+                DialogTalon.TalonButtons.Description[i] = {}
+                DialogTalon.TalonButtons.Name[i] = {}
+                DialogTalon.TalonButtons.Level[i] = {}
+                DialogTalon.TalonButtons.Border[i] = {}
+                DialogTalon.TalonButtons.Tooltip[i] = {}
+                DialogTalon.TalonButtons.TooltipDescription[i] = {}
+                DialogTalon.TalonButtons.ClickTriggers[i] = {}
+                DialogTalon.TalonButtons.ClickEvents[i] = {}
+                DialogTalon.TalonButtons.ClickActions[i] = {}
+                DialogTalon.TalonButtons.MouseEnterTriggers[i] = {}
+                DialogTalon.TalonButtons.MouseEnterEvents[i] = {}
+                DialogTalon.TalonButtons.MouseEnterActions[i] = {}
+                DialogTalon.TalonButtons.MouseLeaveTriggers[i] = {}
+                DialogTalon.TalonButtons.MouseLeaveEvents[i] = {}
+                DialogTalon.TalonButtons.MouseLeaveActions[i] = {}
+                for j = 1, 4 do
+                    -- Создаем Бэкдроп для кнопок
+                    DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame[i], "EscMenuControlBackdropTemplate", 0)
+                    BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
+
+                    DialogTalon.TalonButtons.Tooltip[i][j] = BlzCreateFrameByType("BACKDROP", "TalonTooltip", DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuControlBackdropTemplate", 0)
+                    BlzFrameSetSize(DialogTalon.TalonButtons.Tooltip[i][j], 0.1525, 0.1)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Tooltip[i][j], FRAMEPOINT_RIGHT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_RIGHT, 0.1525, -0.01)
+                    BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], false)
+
+                    DialogTalon.TalonButtons.TooltipDescription[i][j] = BlzCreateFrameByType("TEXT", "TooltipDescr", DialogTalon.TalonButtons.Tooltip[i][j], "", 0)
+                    BlzFrameSetTextColor(DialogTalon.TalonButtons.TooltipDescription[i][j], BlzConvertColor(1, 255, 255, 255))
+                    BlzFrameSetSize(DialogTalon.TalonButtons.TooltipDescription[i][j], 0.14, 0.07)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.TooltipDescription[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Tooltip[i][j], FRAMEPOINT_LEFT, 0.01, 0.004)
+
+                    DialogTalon.TalonButtons.Border[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBorder", DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                    BlzFrameSetSize(DialogTalon.TalonButtons.Border[i][j], 0.449, 0.079)
+                    BlzFrameSetTexture(DialogTalon.TalonButtons.Border[i][j], "SystemGeneric\\gb", 0, true)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Border[i][j], FRAMEPOINT_CENTER, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_CENTER, 0, 0)
+                    BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
+
+                    -- Создаем Иконки кнопок
+                    DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                    BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i][j], 0.064, 0.064)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.01, 0)
+
+                    -- Создаем названия талантов
+                    DialogTalon.TalonButtons.Name[i][j] = BlzCreateFrameByType("TEXT", "TalonName" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuTitleTextTemplate", 0)
+                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i][j], BlzConvertColor(1, 255, 255, 255))
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0.02)
+
+                    -- Создаем описания талантов
+                    DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
+                    BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
+
+                    DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
+                    BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
+
+                    DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
+                    BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
+
+                    DialogTalon.TalonButtons.ClickTriggers[i][j] = CreateTrigger()
+                    DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.ClickTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
+                    DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.ClickTriggers[i][j], function()
+                        if DialogTalon.IsOpen[i] == true then
+                            DialogTalon.IsOpen[i] = false
+                            BlzFrameSetVisible(DialogTalon.MainFrame[i], false)
+                            talons[i][j]:updateLevel()
+                            checkUlt(i, j, GOD_NAME_ARRAY, "ultF")
+                            checkUlt(i, j, GOD_NAME_ARRAY, "ultR")
+                            -- Закрываем окно талантов
+
+                            BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+                            BlzFrameSetEnable(BlzGetTriggerFrame(), true)
+                            --SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close")
+                            TimerStart(CreateTimer(), 2, false, function()
+                                LearnCurrentTalonForPlayer(i, GodName, index[i][j])
+                            end)
+                            local data = HERO[i - 1]
+                            data.TalonWindowIsOpen = true
+                            ChkAllPlayerTalonClosedWindow()
+                        end
+                    end)
+
+                    DialogTalon.TalonButtons.MouseEnterTriggers[i][j] = CreateTrigger()
+                    DialogTalon.TalonButtons.MouseEnterEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_ENTER)
+                    DialogTalon.TalonButtons.MouseEnterActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], function()
+                        BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], GetLocalPlayer() == Player(i - 1))
+                        BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], GetLocalPlayer() == Player(i - 1))
+                    end)
+                    DialogTalon.TalonButtons.MouseLeaveTriggers[i][j] = CreateTrigger()
+                    DialogTalon.TalonButtons.MouseLeaveEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_LEAVE)
+                    DialogTalon.TalonButtons.MouseLeaveActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], function()
+                        BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
+                        BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], false)
+                    end)
+                end
+            end
+        end)
+    end
+end
+
+AllPlayerTalonClosedWindow = true
+function ChkAllPlayerTalonClosedWindow()
+    local result = false
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
+            if data.TalonWindowIsOpen then
+                result = true
+                --print("все выбрали свои таланты")
+            else
+                --print("Ожидание игрока "..GetPlayerName(Player(i)))
+                result = false
+            end
+        end
+    end
+    AllPlayerTalonClosedWindow = result
+    return AllPlayerTalonClosedWindow
+end
 Talon = {
     icon = nil,
     name = nil,
@@ -4697,641 +5671,6 @@ end
 
 function Talon:getUltR()
     return self.ultR
-end
-do
-    local InitGlobalsOrigin = InitGlobals
-    function InitGlobals()
-        InitGlobalsOrigin()
-        TimerStart(CreateTimer(), 3, false, function()
-            GlobalTalons = {}
-            for i = 1, bj_MAX_PLAYERS do
-                GlobalTalons[i] = {
-                    Trall = {--Тралл Провидец
-                        [1] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-                            name = L("Удар молнией", "Lightning strike"),
-                            description = L("Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500", "Every 4 normal strikes release a bolt of lightning that deals 50 DS damage to random enemies within a radius of 500"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Быстро нажимайте LMB чтобы совершить серию ударов"),
-                            DS = { 3, 4, 5 }
-
-                        }),
-                        [2] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
-                            name = L("Громовая кирка", "Thunder Pickaxe"),
-                            description = L("Кирка отскакивает на DS случайных врагов", "Pickaxe bounces on DS random enemies"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
-                            DS = { 2, 3, 4 }
-                        }),
-                        [3] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
-                            name = L("Волк компаньон", "The Wolf Companion"),
-                            description = L("Призывает автономного волка, сражающегося на вашей стороне. Перезарядка возрождения DS сек.", "Summons an autonomous wolf fighting on your side. Respawn cooldown DS sec."),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед.", "The wolf tries to attack a random target, and patrols the area around the hero. The wolf will be instantly teleported to if it moves away to a distance of more than 1000"),
-                            DS = { 60, 40, 20 }
-                        }),
-                        [4] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
-                            name = L("Воронка прозрения", "The Funnel of Insight"),
-                            description = L("Вращающаяся атака втягивает врагов в центр воронки, область захвата +DS", "Rotating attack draws enemies into the center of the funnel, capture area +DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
-                            DS = { 100, 150, 200 }
-                        }),
-                        [5] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
-                            name = L("Зов Провидца", "Call Far Seer"),
-                            description = L("Вызывает землетрясение вокруг героя и наносит 100 урона врагам вокруг. Максимальное число зарядов: DS", "Causes an earthquake around the hero and deals 100 damage to enemies around him. Maximum number of charges: DS"),
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
-                            DS = { 10, 20, 30 },
-                            ultF = true
-                        }),
-                        [6] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
-                            name = L("Запасы складов пеонов", "Warehouse inventory"),
-                            description = L("Добавляет заряды к броску кирки +DS", "Adds charges to the pickaxe roll +DS"),
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
-                            DS = { 1, 2, 3 }
-                        }),
-                        [7] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
-                            name = L("Предвидение боли", "Anticipating Pain"),
-                            description = L("Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек", "Make a dash immediately after taking damage to instantly restore your lost health. Cooldown DS sec"),
-                            level = 0,
-                            rarity = "rare",
-                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
-                            DS = { 10, 8, 5 }
-                        }),
-                        [8] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNCorpseExplode.blp",
-                            name = L("Предвидение смерти", "Foreseeing death"),
-                            description = L("Делает героя неуязвимым при получении смертельного урона на 2 сек. Перезарядка DS сек", "Makes the hero invulnerable when taking fatal damage for 2 seconds. Cooldown DS sec"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 60, 40, 30 }
-                        }),
-                        [9] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
-                            name = L("Ясновидение", "Foresight"),
-                            description = L("Позволяет DS", "Allows DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше", "В игре много скрытых ловушек и иных путей, берите этот навык всегда, чтобы узнать больше"),
-                            DS = {
-                                L("Видеть невидимое", "See the invisible"),
-                                L("Видеть невидимое и показывает скрытые проходы", "See the invisible and shows hidden passages"),
-                                L("Видеть невидимое, показывает скрытые проходы и решения головоломок", "See the invisible, shows hidden passages and puzzle solutions")
-                            }
-                        }),
-                        --[[[10] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-                            name = "Талант 10",
-                            description = "Неопределён",
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = "Загулшка, этот талант не должен быть виден",
-                            DS={},
-                            dependence = 3
-                        }),]]
-                    },
-                    HeroBlademaster = {
-                        Talon:new({--1
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWindWalkOn.blp",
-                            name = L("Ветряной шаг смерти", "Wind Death Step"),
-                            description = L("Падение здоровья меньше 30% вызывает невидимость. Перезарядка DS сек", " Health drop less than 30% causes invisibility. Cooldown DS sec"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 10, 5, 3 }
-                        }),
-                        Talon:new({--2
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
-                            name = L("Боевая ярость", "Battle Rage"),
-                            description = L("Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек", "Any outgoing damage can be critical X 1.5 Cooldown: DS sec"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Изучение этого таланта открывает доступ к таланту на множитель критического урона", " Learning this talent gives you access to the talent for a critical damage multiplier"),
-                            DS = { 6, 4, 3 }
-                        }),
-                        Talon:new({--3
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNCriticalStrike.blp",
-                            name = L("Уязвимые места", "Vulnerabilities"),
-                            description = L("Увеличивает силу критического удара на DS", "Increases critical strike strength by DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
-                            DS = { 2, 3, 4 },
-                            dependence = 2
-                        }),
-                        Talon:new({--4
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
-                            name = L("Иллюзорный рывок", "Illusionary dash"),
-                            description = L("Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек", "Returns immediately after the dash, deals damage=DS at the reverse point, reload 10 seconds"),
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = L("Будьте внимательны, эта способность ломает привычные механики", " Be careful, this ability breaks the usual mechanics"),
-                            DS = { 100, 150, 200 }
-                        }),
-                        Talon:new({ --5
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
-                            name = L("Большой размах", "Large Swing"),
-                            description = L("Увеличивает урон на DS раза от вращающийся атаки ", "Increases damage by DS times from rotating attack"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),
-                            DS = { 1.5, 2, 2.5 }
-                        }),
-                        Talon:new({--6
-                            icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
-                            name = L("Дополнительный рывок", "Extra Dash"),
-                            description = L("Добавляет заряды к способности рывок + DS", "Adds charges to the Dash + DS ability"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
-                            DS = { 1, 2, 3 }
-                        }),
-                        Talon:new({--7
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp",
-                            name = L("Мастер меча но не магии", "Master of the sword but not magic"),
-                            description = L("Уменьшает скорость старта раскрутки на DS сек.", " Reduces the start speed of promotion by DS sec."),
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", " Hold LMB to make a spinning attack"),
-                            DS = { 0.2, 0.4, 0.6 },
-                            --ultR = true
-                        }),
-                        Talon:new({--8
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSelfDestruct.blp",
-                            name = L("Камикадзе", "Kamikaze"),
-                            description = L("Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз, герой не умрёт и останется с 1 пунктом здоровья", "Any damage that the hero deals while dead increases by DS times, the hero will not die and will remain with 1 health point"),
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 10, 20, 35 },
-                            --ultR = true
-                        }),
-                        Talon:new({--9
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNBattleStations.blp",
-                            name = L("Джагернаут", "Juggernaut"),
-                            description = L("Добавляет DS заряды для способности вращающийся удар", "Adds DS charges for the Spinning Kick ability"),
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),
-                            DS = { 20, 40, 60 },
-                            dependence = 5
-                            --ultF = true
-                        }),
-                    },
-                    ShadowHunter = {
-                        Talon:new({ --1
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
-                            name = L("Я помогу тебе", "I'll help you"),
-                            description = L("Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек", "Jumping through an ally heals it by 100 points. Cooldown DS sec"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
-                            DS = { 20, 15, 10 }
-                        }),
-                        Talon:new({ --2
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSerpentWard.blp",
-                            name = L("Ты в ловушке", "You're trapped"),
-                            description = L("Создаёт кольцо змей, в точке начала рывка. Перезарядка DS", "Creates a ring of snakes, at the start point of the snatch. Cooldown DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
-                            DS = { 12, 9, 5 }
-                        }),
-                        Talon:new({ --3
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNHex.blp",
-                            name = L("Метательный лягушонок", "Throwing Frog"),
-                            description = L("Заменяет бросок кирки на бросок лягушки, превращает врага в лягушку на 3 секунды. Перезарядка: DS", "Replaces the pickaxe throw with the frog throw, turns the enemy into a frog for 3 seconds. Cooldown: DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press RMB in the specified direction to throw the pickaxe there"),
-                            DS = { 12, 10, 8 }
-                        }),
-                        --[[
-                        Talon:new({--4
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
-                            name = "Зов вуду",
-                            description = "При активации увеличивает получение урона по вам на DS%, но делает союзников неуязвимыми",
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
-                            DS={100},
-                            ultF = true
-                        }),
-                        ]]
-                        Talon:new({--4
-                            icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
-                            name = L("Спираль смерти", "Death Spiral"),
-                            description = L("Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS", "Releases a deadly blade in the direction of the dash. Cooldown: DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
-                            DS = { 5, 4, 3 }
-                        }),
-                        Talon:new({--5
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNRegenerate.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
-                            name = L("Регенерация тролля", "Troll Regeneration"),
-                            description = L("Исцеляет героя каждые 5 секунду во время боя на DS%", "Heals hero every 5 seconds during DS% combat"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 1, 2, 4 }
-                        }),
-                        Talon:new({--6
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNHeal.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
-                            name = L("Великий лекарь", "Great Healer"),
-                            description = L("Повышает эффективность получения лечения X DS", "Increases the performance of receiving healing X DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 1.5, 2, 2.5 }
-                        }),
-                        Talon:new({--7
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNLocustSwarm.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
-                            name = L("Теневой рывок", "Great Healer"),
-                            description = L("Позволяет проходить DS", "Increases the performance of receiving healing X DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
-                            DS = { "сквозь здания", "сквозь здания и делает героя неуязвимым", "сквозь здания и делает героя неуязвимым и разрушает щит врагов" }
-                        }),
-                    },
-                    HeroTaurenChieftain = {
-                        Talon:new({--1
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp",
-                            name = L("Новая жизнь", "New Life"),
-                            description = L("Исцеляет героя на DS% при получении уровня", "Heals hero at DS% when gaining level"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 30, 50, 100 }
-                        }),
-                        Talon:new({--2
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWalkerAdeptTraining.blp",
-                            name = L("Мощь быка", "Bull Power"),
-                            description = L("Увеличивает длительность стазиса врагов на DS от любых источников урона", "Increases enemy stasis duration by DS from any damage sources"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников", "Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
-                            DS = { 0.1, 0.15, 0.2 }
-                        }),
-                        Talon:new({--3
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNShockWave.blp",
-                            name = L("Волна силы", "Force Wave"),
-                            description = L("Наносит урон рывком. Урон: DS", "Deals damage with a dash. Damage: DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
-                            DS = { 50, 80, 100 }
-                        }),
-                        Talon:new({--4
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNCommand.blp",
-                            name = L("Выносливость", "Endurance"),
-                            description = L("Увеличивает скорость движения на DS %", "Increases movement speed by DS %"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Используйте кнопки WASD, чтобы перемещаться", "Use the WASD buttons to navigate"),
-                            DS = { 20, 40, 60 }
-                        }),
-                        Talon:new({--5
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
-                            name = L("Могучий удар", "Mighty Blow"),
-                            description = L("Увеличивает длительность стазиса от способности Мощный удар на DS и радиус поражения на 100", "Increases the stasis duration from the Powerful Strike ability by DS and the damage radius by 100"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", "Press Q to strike a powerful blow over a large area"),
-                            DS = { 0.5, 0.8, 1.4 }
-                        }),
-                        Talon:new({--6
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
-                            name = L("Кодойская ловушка", "Codo trap"),
-                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%", "The trap deals X DS damage to enemies, and reduces the damage from traps on the hero at times YOU"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
-                            DS = { 2, 3, 5 }
-                        }),
-                        Talon:new({--7
-                            icon = "ReplaceableTextures\\commandbuttons\\BTNSmash.blp",
-                            name = L("Тотем кодоев", "Codo totem"),
-                            description = L("Создаёт непроходимый тотем и наносит 100 урона всем врагам на пути от героя и до курсора. Минимально 2 заряда, максимум 10", "Trap deals XDS damage to enemies"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
-                            DS = { 10, 20, 30 },
-                            ultF = true
-                        }),
-                        Talon:new({--8
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNAnimalWarTraining.blp",
-                            name = L("Топот копыт", "Hoofbeats"),
-                            description = L("Увеличивает урон от удара о стену на DS", "Increases the damage from hitting the wall by DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
-                            DS = { 50, 110, 170 },
-                        }),
-                        Talon:new({--9
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNWirtsLeg.blp",
-                            name = L("Удар копытом", "Hoof strike"),
-                            description = L("Обычная атаки отталкивают врага на дистанцию DS", "Normal attacks push the enemy to a distance of DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
-                            DS = { 50, 150, 250 },
-                            dependence = 8,
-                        }),
-
-                    },
-                    HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
-                        Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
-                            name = "Ящер",
-                            description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100",
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = "Призывает существо",
-                            DS = { "lizard" }
-                        }),
-                        Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
-                            name = "Медведь",
-                            description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30",
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = "Призывает существо",
-                            DS = { "bear" }
-                        }),
-                        Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
-                            name = "Кабан",
-                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50",
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = "Призывает существо",
-                            DS = { "boar" }
-                        }),
-                        Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
-                            name = "Волк",
-                            description = "Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк убивает замороженных врагов с 1 удара",
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = "Призывает существо",
-                            DS = { "wolf" }
-                        }),
-                    },
-                    PeonDidal = {
-                        Talon:new({--1
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
-                            name = L("Короткое комбо", "Short combo"),
-                            description = L("Сокращает комбо до DS ударов, и задержку финального удара на 0.3", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
-                            DS = { 3 }
-                        }),
-                        Talon:new({--2
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
-                            name = L("Кирка героя", "Hero Pickaxe"),
-                            description = L("Увеличивает урон обычных атак на DS%", " Increases normal attack damage by DS%"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
-                            DS = { 50 }
-                        }),
-                        Talon:new({--3
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
-                            name = L("Бронелом", "Shield breaker"),
-                            description = L("Все ваши атаки наносят дополнительно DS урона по щиту", "All your attacks deal an additional DS damage to the shield"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
-                            DS = { 50 }
-                        }),
-                        Talon:new({--4
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
-                            name = L("Разбег минотавра", " Minotaur run-up"),
-                            description = L("Атака в рывке, наносят на DS% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше", "Attack in a dash, deal DS% more damage, increases the hit area and pushes 3 times further away"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке", " Quickly press LMB after SPACE to make a snatch attack"),
-                            DS = { 100 }
-                        }),
-                        Talon:new({--5
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
-                            name = L("Удар проклятой души", "Cursed soul strike"),
-                            description = L("Попадания обычной атакой восстанавливают DS% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS% от макс здоровья (не может быть смертельным)", " Hits with a normal attack restore DS% of max health health units, in case of a miss, you will lose DS% of max health (cannot be fatal)"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке", " Quickly press LMB after SPACE to make a snatch attack"),
-                            DS = { 2 }
-                        }),
-                        Talon:new({--6
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
-                            name = L("Двойной Клеп", " Double Clip"),
-                            description = L("Мощный удар бьёт DS", "Powerful punch beats DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to strike a powerful blow over a large area"),
-                            DS = { L("дважды", "twice") }
-                        }),
-                        Talon:new({--7
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
-                            name = L("Пронзающий пространство удар", "A space-piercing blow"),
-                            description = L("Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500", " A normal hit deals additional DS damage on the line in front of it. Distance: 500"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
-                            DS = { 50 }
-                        }),
-                        Talon:new({--8
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
-                            name = L("Удар сатира", " Punch satyr"),
-                            description = L("Увеличивает любой урон в спину в DS раза", "Increases any back damage by DS times"),
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
-                            DS = { 2 }
-                        }),
-                        Talon:new({--9
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
-                            name = L("Пространственный клеп", " Spatial Clip"),
-                            description = L("Мощный удар делает рывок область курсора ", " A powerful kick makes the cursor area dash "),
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
-                            DS = { 3 }
-                        }),
-                        Talon:new({--10
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
-                            name = L("Мертвый бассейн", " Dead pool"),
-                            description = L("Рывок, вращение и атака могут отражать снаряды, обратно во врагов", "Dash, spin, and attack can deflect projectiles back at enemies"),
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = L("Снаряд полетит в позицию врага, в которой он находился в момент отражения", "The projectile will fly to the position of the enemy in which it was at the time of reflection"),
-                            DS = { 1 }
-                        }),
-                    },
-                    ChaosGrom = {
-                        Talon:new({--1
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNGhoulFrenzy.blp",
-                            name = L("Яростный удар", "Furious strike"),
-                            description = L("Нанесение урона обычной атакой активирует вращение на 1 секунду. Перезарядка: DS сек", "Dealing damage with a normal attack activates the spin for 1 second. Cooldown: DS sec"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Quickly press LMB to make a series of hits"),
-                            DS = { 5, 4, 3 }
-                        }),
-                        Talon:new({--2
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNFountainOfLifeBlood.blp",
-                            name = L("Заражение", "Infection"),
-                            description = L("Делает фонтан непригодным для питья, но фонтан наносит DS урона в секунду врагам в радиусе 500, а вы получаете эффект сердца кодоя +25", "Makes the fountain undrinkable, but the fountain deals DS damage per second to enemies within a radius of 500, add 25 max hp"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Используйте Е возле источника воды, чтобы заразить его", "Use E near a water source to infect it"),
-                            DS = { 100, 150, 250 }
-                        }),
-                        Talon:new({--3
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNIncinerate.blp",
-                            name = L("Буйная кровь", "Violent blood"),
-                            description = L("Восстанавливает заряды вращения при убийстве врагов +DS. Игнорирует лимит", "Restores spin charges when killing enemies +DS. Ignores the limit"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
-                            DS = { 1, 2, 3 }
-                        }),
-                        Talon:new({--4
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
-                            name = L("Топор лесоруба", "Woodcutter's Axe"),
-                            description = L("Летает вокруг героя и наносит DS урона касанием", "Flies around the hero and deals DS damage with a touch"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Неизвестно на какой магии это всё работает", "It is not known on what magic it all works"),
-                            DS = { 80, 120, 160 }
-                        }),
-                        Talon:new({--5
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNImpale.blp",
-                            name = L("Сквозь землю", "Through ground"),
-                            description = L("Способность Q отбрасывает врагов в стороны и наносит дополнительный урон DS", "The Q ability knocks enemies aside and deals additional DS damage."),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
-                            DS = { 50, 100, 150 }
-                        }),
-                        Talon:new({--6
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNRedDragonDevour.blp",
-                            name = L("Кровожадность", "Bloodthirstiness"),
-                            description = L("Убийство врагов в ближнем бою восстанавливает здоровье +DS", "Killing enemies in melee restores health +DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
-                            DS = { 3, 6, 10 }
-                        }),
-                        Talon:new({--7
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNHeartOfAszune.blp",
-                            name = L("Искатель крови", "Blood Seeker"),
-                            description = L("Вазы могу содержать некоторое количество крови, восстанавливающей DS здоровья", "Vases can contain a certain amount of blood that restores DS health"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 2, 4, 7 }
-                        }),
-                        --[[
-                        Talon:new({--7
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSoulBurn.blp",
-                            name = L("Касание смерти", "Short combo"),
-                            description = L("Следующая ваша атака моментально убьет врага (не босса), но вы потеряете DS здоровья,", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("Эта способность не может вас убить, всегда оставляет 1 единицу", " Press Q to deliver a powerful strike over a large area"),
-                            DS = { 100, 80, 60 },
-                            ultR = true,
-                        }),]]
-                    },
-                    Alchemist = {
-                        Talon:new({--1
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNGlyph.blp",
-                            name = L("Доход", "Income"),
-                            description = L("Увеличивает добычу золота при убийстве врагов на DS", "Increases gold revenue when killing enemies on DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
-                            DS = { 1, 2, 4 }
-                        }),
-                        Talon:new({--2
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSunKey.blp",
-                            name = L("Подработка в выходные", "Weekend part-time job"),
-                            description = L("После завершения уровня вы получаете DS золота", "After completing a level you get DS of gold"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
-                            DS = { 15, 30, 50 }
-                        }),
-                        Talon:new({--3
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNTransmute.blp",
-                            name = L("Золотое касание", "Golden Touch"),
-                            description = L("Следующая обычная атака моментально убьёт врага не босса и превратит его в DS золота. Перезарядка: 30", "The next normal attack will instantly kill the non-boss enemy and turn it into DS Gold. Cooldown: 30"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
-                            DS = { 10, 20, 30 }
-                        }),
-                        Talon:new({--4
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNDustOfAppearance.blp",
-                            name = L("Дырявый мешок", "Leaky bag"),
-                            description = L("При получении урона вы потеряете столько же золота, но этот урон будет уменьшен на DS%", "When taking damage, you will lose the same amount of gold, but this damage will be reduced by DS%"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
-                            DS = { 10, 20, 30 }
-                        }),
-                        Talon:new({--5
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfRestoration.blp",
-                            name = L("Инвестор", "Investor"),
-                            description = L("Увеличивает любой получаемый доход на DS%", "Increases any earned income by DS%"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
-                            DS = { 10, 15, 20 }
-                        }),
-                        Talon:new({--6
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNMedalionOfCourage.blp",
-                            name = L("Орёл или решка", "Flip the Coin"),
-                            description = L("Имеет шанс 50% не получить урона, тратит 10 золота. Перезарядка: DS", "Has a 50% chance of not taking damage, spends 10 gold. Recharge: DS"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
-                            DS = { 20, 15, 10 }
-                        }),
-                        --[[
-                        Talon:new({--7 --ReplaceableTextures\CommandButtons\BTNPillage.blp
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChestOfGold.blp",
-                            name = L("Золотой царь", "Income"),
-                            description = L("Увеличивает ваш исходящий урон на DS% за каждые 100 золота в кармане. Получение урона лишает бонуса 5 секунд", "Vases can contain a certain amount of blood that restores DS health"),
-                            level = 0,
-                            rarity = "normal",
-                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "You will die as soon as you lose all health"),
-                            DS = { 1, 2, 3 }
-                        }),]]
-                    }
-                }
-            end
-        end)
-    end
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -7738,6 +8077,145 @@ end
             end
         end)
 ]]
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 04.04.2021 13:49
+---
+function PlayUnitAnimationFromChat()
+    local this = CreateTrigger()
+    TriggerRegisterPlayerChatEvent(this, Player(0), "", true)
+    TriggerRegisterPlayerChatEvent(this, Player(1), "", true)
+    TriggerAddAction(this, function()
+        local s = S2I(GetEventPlayerChatString())
+        local data = HERO[GetPlayerId(GetTriggerPlayer())]
+        if GetEventPlayerChatString() == "w" then
+            --CreateForUnitWayToPoint(mainHero,CQX,CQY)
+            return
+        end
+        if GetEventPlayerChatString() == "n" then
+            UnitAddItemById(data.UnitHero, FourCC("I00B"))
+            return
+        end
+        if GetEventPlayerChatString() == "l" then
+            --PlaySoundNearUnit(data.UnitHero,gg_snd_LightningBolt)
+            return
+        end
+        if GetEventPlayerChatString() == "peon" then
+            SetUnitPositionSmooth(data.UnitHero, -5500, -3000)
+            return
+        end
+        if GetEventPlayerChatString() == "bound" then
+            print("освобождаем камеру")
+            FREE_CAMERA = true
+            SetCameraBoundsToRectForPlayerBJ(Player(0), bj_mapInitialPlayableArea)
+            return
+        end
+        if GetEventPlayerChatString() == "trall" or GetEventPlayerChatString() == "t" or GetEventPlayerChatString() == "е" then
+            -- print("Создаём дар тралла")
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "Trall")
+            return
+        end
+        if GetEventPlayerChatString() == "d" or GetEventPlayerChatString() == "в" then
+
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "PeonDidal")
+            return
+        end
+        if GetEventPlayerChatString() == "b" or GetEventPlayerChatString() == "и" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "HeroBlademaster")
+            return
+        end
+
+        if GetEventPlayerChatString() == "r" or GetEventPlayerChatString() == "к" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "HeroBeastMaster")
+            return
+        end
+        if GetEventPlayerChatString() == "s" or GetEventPlayerChatString() == "ы" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "ShadowHunter")
+            return
+        end
+        if GetEventPlayerChatString() == "m" or GetEventPlayerChatString() == "ь" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateEnterPoint(x, y, "        Продолжить", 'Goto', true, "Merchant", nil)
+            return
+        end
+        if GetEventPlayerChatString() == "g" or GetEventPlayerChatString() == "п" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateMerchantAndGoods(x, y)
+            return
+        end
+
+        if GetEventPlayerChatString() == "a" or GetEventPlayerChatString() == "ф" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "HeroTaurenChieftain")
+            return
+        end
+
+        if GetEventPlayerChatString() == "c" or GetEventPlayerChatString() == "с" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "ChaosGrom")
+            return
+        end
+        -----------Игры со светом
+        if GetEventPlayerChatString() == "chk" or GetEventPlayerChatString() == "срл" then
+            print("Проверка данных " .. udg_LoadCode[GetPlayerId(GetTriggerPlayer())])
+            return
+        end
+        if GetEventPlayerChatString() == "dnc0" then
+            print("смена днс на нормлаьную")
+            SetDayNightModels("dncdalaranterrain", "dncdalaranterrain")
+            print("post")
+            return
+        end
+        if GetEventPlayerChatString() == "dnc1" then
+            SetDayNightModels("dncundergroundterrainHD1", "dncundergroundterrainHD1")
+            print("dnc1")
+            return
+        end
+        if GetEventPlayerChatString() == "dnc2" then
+            SetDayNightModels("dncundergroundterrainHD2", "dncundergroundterrainHD2")
+            print("dnc2")
+            return
+        end
+        if GetEventPlayerChatString() == "dnc3" then
+            SetDayNightModels("dncundergroundterrainHDmdl3", "dncundergroundterrainHDmdl3")
+            print("dnc3")
+            return
+        end
+        if GetEventPlayerChatString() == "dnc4" then
+            SetDayNightModels("dncundergroundterrainHDmdl4", "dncundergroundterrainHDmdl4")
+            print("dnc4")
+            return
+        end
+        if GetEventPlayerChatString() == "dnc5" then
+            SetDayNightModels("dncundergroundterrainHDmdl5", "dncundergroundterrainHDmdl5")
+            print("dnc5")
+            return
+        end
+        if GetEventPlayerChatString() == "dnc6" then
+            SetDayNightModels("dncundergroundterrainHDmdl6", "dncundergroundterrainHDmdl6")
+            print("dnc6")
+            return
+        end
+        if GetEventPlayerChatString() == "life" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "Life")
+            return
+        end
+        if GetEventPlayerChatString() == "фд" or GetEventPlayerChatString() == "al" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "Alchemist")
+            return
+        end
+        SetUnitAnimationByIndex(data.UnitHero, s)
+        --print(GetUnitName(mainHero).." "..s)
+    end)
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -11028,140 +11506,7 @@ function PointContentDestructableOld (x, y, range, iskill, damage, flag)
     return content, d
 end
 
-function PlayUnitAnimationFromChat()
-    local this = CreateTrigger()
-    TriggerRegisterPlayerChatEvent(this, Player(0), "", true)
-    TriggerRegisterPlayerChatEvent(this, Player(1), "", true)
-    TriggerAddAction(this, function()
-        local s = S2I(GetEventPlayerChatString())
-        local data = HERO[GetPlayerId(GetTriggerPlayer())]
-        if GetEventPlayerChatString() == "w" then
-            --CreateForUnitWayToPoint(mainHero,CQX,CQY)
-            return
-        end
-        if GetEventPlayerChatString() == "n" then
-            UnitAddItemById(data.UnitHero, FourCC("I00B"))
-            return
-        end
-        if GetEventPlayerChatString() == "l" then
-            --PlaySoundNearUnit(data.UnitHero,gg_snd_LightningBolt)
-            return
-        end
-        if GetEventPlayerChatString() == "peon" then
-            SetUnitPositionSmooth(data.UnitHero, -5500, -3000)
-            return
-        end
-        if GetEventPlayerChatString() == "bound" then
-            print("освобождаем камеру")
-            FREE_CAMERA = true
-            SetCameraBoundsToRectForPlayerBJ(Player(0), bj_mapInitialPlayableArea)
-            return
-        end
-        if GetEventPlayerChatString() == "trall" or GetEventPlayerChatString() == "t" or GetEventPlayerChatString() == "е" then
-            -- print("Создаём дар тралла")
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "Trall")
-            return
-        end
-        if GetEventPlayerChatString() == "d" or GetEventPlayerChatString() == "в" then
 
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "PeonDidal")
-            return
-        end
-        if GetEventPlayerChatString() == "b" or GetEventPlayerChatString() == "и" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "HeroBlademaster")
-            return
-        end
-
-        if GetEventPlayerChatString() == "r" or GetEventPlayerChatString() == "к" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "HeroBeastMaster")
-            return
-        end
-        if GetEventPlayerChatString() == "s" or GetEventPlayerChatString() == "ы" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "ShadowHunter")
-            return
-        end
-        if GetEventPlayerChatString() == "m" or GetEventPlayerChatString() == "ь" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateEnterPoint(x, y, "        Продолжить", 'Goto', true, "Merchant", nil)
-            return
-        end
-        if GetEventPlayerChatString() == "g" or GetEventPlayerChatString() == "п" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateMerchantAndGoods(x, y)
-            return
-        end
-
-        if GetEventPlayerChatString() == "a" or GetEventPlayerChatString() == "ф" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "HeroTaurenChieftain")
-            return
-        end
-
-        if GetEventPlayerChatString() == "c" or GetEventPlayerChatString() == "с" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "ChaosGrom")
-            return
-        end
-        -----------Игры со светом
-        if GetEventPlayerChatString() == "chk" or GetEventPlayerChatString() == "срл" then
-            print("Проверка данных " .. udg_LoadCode[GetPlayerId(GetTriggerPlayer())])
-            return
-        end
-        if GetEventPlayerChatString() == "dnc0" then
-            print("смена днс на нормлаьную")
-            SetDayNightModels("dncdalaranterrain", "dncdalaranterrain")
-            print("post")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc1" then
-            SetDayNightModels("dncundergroundterrainHD1", "dncundergroundterrainHD1")
-            print("dnc1")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc2" then
-            SetDayNightModels("dncundergroundterrainHD2", "dncundergroundterrainHD2")
-            print("dnc2")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc3" then
-            SetDayNightModels("dncundergroundterrainHDmdl3", "dncundergroundterrainHDmdl3")
-            print("dnc3")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc4" then
-            SetDayNightModels("dncundergroundterrainHDmdl4", "dncundergroundterrainHDmdl4")
-            print("dnc4")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc5" then
-            SetDayNightModels("dncundergroundterrainHDmdl5", "dncundergroundterrainHDmdl5")
-            print("dnc5")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc6" then
-            SetDayNightModels("dncundergroundterrainHDmdl6", "dncundergroundterrainHDmdl6")
-            print("dnc6")
-            return
-        end
-        if GetEventPlayerChatString() == "life" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "Life")
-            return
-        end
-        if GetEventPlayerChatString() == "фд" or GetEventPlayerChatString() == "al" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "Alchemist")
-            return
-        end
-        SetUnitAnimationByIndex(data.UnitHero, s)
-        --print(GetUnitName(mainHero).." "..s)
-    end)
-end
 
 function GetUnitData(hero)
     local data = nil

@@ -28,7 +28,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                     data.FrogThrowCurrentCD = 1
                 end
                 if data.FrogThrowCurrentCD <= 0 then
-                    local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][3]
+                    local talon = GlobalTalons[data.pid]["ShadowHunter"][3]
                     local cd = talon.DS[talon.level]
                     StartFrameCD(cd, data.FrogThrowCDFH)
                     data.FrogThrowCurrentCD = cd

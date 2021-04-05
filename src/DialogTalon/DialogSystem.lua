@@ -1,5 +1,4 @@
 function CreateDialogTalon(godName)
-    GodName = godName
     if not godName then
         print("При создании дара не передан параметр награды")
         return
@@ -23,110 +22,76 @@ function CreateDialogTalon(godName)
         --ReplaceableTextures\CommandButtons\BTNChaosGrom.blp
     end
 
-    talons = {}
-    listOfNumbers = {}
-    index = {}
-    for i = 1, bj_MAX_PLAYERS do
-        listOfNumbers[i] = {}
-        for j = 1, #GlobalTalons[i][godName] do -- Исправить баг с дыркой в массиве
-            listOfNumbers[i][j] = j
-
-            if GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"] then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-            if GlobalTalons[i][godName][j]:getUltF() ~= nil and GlobalTalons[i][godName][j]:getUltF() == false then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-            if GlobalTalons[i][godName][j]:getUltR() ~= nil and GlobalTalons[i][godName][j]:getUltR() == false then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-            -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
-            -- если уровень равен 0, то исключаем зависимый талант из списка
-            if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            local data = HERO[i]
+            BlzFrameSetVisible(data.DialogTalon.MainFrame, true)
+            BlzFrameSetText(data.DialogTalon.Title, title)
+            AddSkillToDialog(data, godName)
         end
     end
+end
 
-    for i = 1, bj_MAX_PLAYERS do
-        shake(listOfNumbers[i])
+function AddSkillToDialog(data, godName)
+
+    local ClearedTable = ClearDialogTalon(GlobalTalons[data.pid][godName])
+    local maxForLearn = 4
+    if #ClearedTable < maxForLearn then
+        maxForLearn = #ClearedTable
+        --print("число максимальных элементов снижено до " .. #ClearedTable)
     end
-
-    for i = 1, bj_MAX_PLAYERS do
-        talons[i] = {}
-        index[i] = {}
-        local count = 0
-        for j = 1, #GlobalTalons[i][godName] do
-            if not (listOfNumbers[i][j] == -1) then
-                table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
-                table.insert(index[i], listOfNumbers[i][j])
-                count = count + 1
-            end
-            if count == 4 then
-                break
-            end
-        end
+    local tempSnake = GetRandomIntTable(1, #ClearedTable, #ClearedTable)
+    local max = #ClearedTable
+    --print("max=",max)
+    if #ClearedTable==0 then
+        print("вы уже получили все дары данного типа")
+        BlzFrameSetVisible(data.DialogTalon.MainFrame, false)
+        return
     end
+    for j = 1, 4 do
+        if j <= maxForLearn then -- порядок ящер, миша, кабан, волк
+            BlzFrameSetVisible(data.DialogTalon.Container[j].Backdrop, GetLocalPlayer() == Player(data.pid))
+            local talon = ClearedTable[tempSnake[j]]
+            data.CurrentClickedGodName[j] = godName
 
-    local height = {}
-    for i = 1, bj_MAX_PLAYERS do
-        if #talons[i] == 1 then
-            height[i] = 0.17
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], false)
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
-        elseif #talons[i] == 2 then
-            height[i] = 0.27
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
-        elseif #talons[i] == 3 then
-            height[i] = 0.37
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
-        elseif #talons[i] == 4 then
-            height[i] = 0.47
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], GetLocalPlayer() == Player(i - 1))
+            --print(talon.name,"in",j)
+
+            data.CurrentClickedPos[j] = talon.pos-- номер таланта сюда надо записать
+            BlzFrameSetTexture(data.DialogTalon.Container[j].TalonTexture, talon.icon, 0, true)
+            BlzFrameSetText(data.DialogTalon.Container[j].Name, talon.name)
+            BlzFrameSetText(data.DialogTalon.Container[j].Description, talon:updateDescription())
+            BlzFrameSetText(data.DialogTalon.Container[j].TooltipDescription, talon.tooltip)
+
+            if talon.level > 0 then
+                BlzFrameSetText(data.DialogTalon.Container[j].Level, "Текущий уровень " .. talon.level)
+            else
+                BlzFrameSetText(data.DialogTalon.Container[j].Level, "")
+            end
         else
-            height[i] = 0.47
+            BlzFrameSetVisible(data.DialogTalon.Container[j].Backdrop, false)
+            --print("Очищаем блок", j)
+            --[[
+            BlzFrameSetTexture(data.DialogTalon.Container[j].TalonTexture, "", 0, true)
+            BlzFrameSetText(data.DialogTalon.Container[j].Name, "")
+            BlzFrameSetText(data.DialogTalon.Container[j].Description, "")
+            BlzFrameSetText(data.DialogTalon.Container[j].TooltipDescription, "")
+            BlzFrameSetText(data.DialogTalon.Container[j].Level, "")]]
+        end
+
+    end
+end
+
+function ClearDialogTalon(OriginalTable)
+    local clearedTable = {}
+    for i = 1, #OriginalTable do
+        --table.remove(temTableReward, FinPosInTable(temTableReward, reward))
+        local talon = OriginalTable[i]
+        if talon.level > #(talon.DS) - 1 then
+           -- print("Элемент очищен", talon.name)
+            --table.remove(clearedTable, i)
+        else
+            table.insert(clearedTable, talon)
         end
     end
-
-    for i = 1, bj_MAX_PLAYERS do
-        if IsPlayerSlotState(Player(i-1), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
-            DialogTalon.IsOpen[i] = false
-            BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
-            BlzFrameSetText(DialogTalon.Title[i], title)
-
-            for j = 1, #talons[i] do
-
-                BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j]:getIcon(), 0, true)
-                BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j]:getName())
-                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
-                BlzFrameSetText(DialogTalon.TalonButtons.TooltipDescription[i][j], talons[i][j]:getTooltip())
-
-                BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "")
-                if talons[i][j]:getLevel() > 0 then
-                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
-                end
-            end
-            local data=HERO[i-1]
-            data.TalonWindowIsOpen = false
-            -- Показываем окно всем
-            BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
-            SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
-
-        end
-    end
+    return clearedTable
 end

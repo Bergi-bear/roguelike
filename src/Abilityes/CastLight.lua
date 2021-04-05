@@ -12,7 +12,7 @@ function ConditionCastLight(data)
             data.chargeAttackLightCharges=0
             BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
             --print("удар молнией")
-            local talon=GlobalTalons[data.pid+1]["Trall"][1]
+            local talon=GlobalTalons[data.pid]["Trall"][1]
             local max=talon.DS[talon.level]
             CastLighting(data,max)
         end

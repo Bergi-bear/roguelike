@@ -38,6 +38,7 @@ function shake(array)
         swap(array, index, counter)
         counter = counter - 1
     end
+    return array
 end
 
 function checkUlt(i, j, GOD_NAME_ARRAY, ult)

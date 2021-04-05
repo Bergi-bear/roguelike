@@ -41,6 +41,9 @@ function SummonBoar(data)
             StartFrameCD(cd, data.SummonBoarCDFH)
             --print("призываем кабана")
             local boar = CreateUnit(Player(data.pid), FourCC("nqb3"), GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetUnitFacing(data.UnitHero))
+            local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boar))
+            BlzSetSpecialEffectScale(eff, 2)
+            DestroyEffect(eff)
             BlzSetUnitBaseDamage(boar, 30 + GetHeroLevel(data.UnitHero) * 2, 0)
             UnitApplyTimedLife(boar, FourCC('BTLF'), 50)
 
@@ -79,25 +82,29 @@ function SummonBear(data)
 end
 
 function CreateLizard2Point(data)
-    local xs,ys=GetUnitXY(data.UnitHero)
+    local xs, ys = GetUnitXY(data.UnitHero)
     local x, y = data.fakeX, data.fakeY
-    local angle=AngleBetweenXY(xs,ys, x, y) / bj_DEGTORAD
-    local lizard = CreateUnit(Player(data.pid), FourCC("nltl"), xs,ys, angle)-- Units\Creeps\LightningLizard\LightningLizard
-    UnitAddAbility(lizard,FourCC("Aloc"))
-    SetUnitPositionSmooth(lizard,xs,ys)
+    local angle = AngleBetweenXY(xs, ys, x, y) / bj_DEGTORAD
+    local lizard = CreateUnit(Player(data.pid), FourCC("nltl"), xs, ys, angle)-- Units\Creeps\LightningLizard\LightningLizard
+        local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(lizard))
+    BlzSetSpecialEffectScale(eff, 2)
+    DestroyEffect(eff)
+    UnitAddAbility(lizard, FourCC("Aloc"))
+    SetUnitPositionSmooth(lizard, xs, ys)
     UnitApplyTimedLife(lizard, FourCC('BTLF'), 2)
-    BlzPauseUnitEx(lizard,true)
+    BlzPauseUnitEx(lizard, true)
 
-    SetUnitAnimationByIndex(lizard,4)
+    SetUnitAnimationByIndex(lizard, 4)
 
-
-
-    UnitAddForceSimple(lizard,angle,10,2000,"lizard")
+    UnitAddForceSimple(lizard, angle, 10, 2000, "lizard")
 end
 
 function CreateWinter(data)
     local x, y = GetUnitXY(data.UnitHero)
     local wolf = CreateUnit(Player(data.pid), FourCC("nwwd"), x, y, GetUnitFacing(data.UnitHero))
+    local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(wolf))
+    BlzSetSpecialEffectScale(eff, 2)
+    DestroyEffect(eff)
     BlzSetUnitBaseDamage(wolf, 50 + GetHeroLevel(data.UnitHero) * 10, 0)
     UnitApplyTimedLife(wolf, FourCC('BTLF'), 20)
     local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)

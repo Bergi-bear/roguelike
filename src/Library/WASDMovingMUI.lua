@@ -601,7 +601,7 @@ function CreateWASDActions()
                 BlzSetUnitFacingEx(data.UnitHero, data.DirectionMove)
                 if data.Time2HealDash > 0 then
                     HealUnit(data.UnitHero, data.Time2HealDash)
-                    local talon = GlobalTalons[data.pid + 1]["Trall"][7]
+                    local talon = GlobalTalons[data.pid]["Trall"][7]
                     StartFrameCD(talon.DS[talon.level], data.HealDashCDFH)
                     data.HealDashCurrentCD = talon.DS[talon.level]
                     TimerStart(CreateTimer(), data.HealDashCurrentCD, false, function()
@@ -614,7 +614,7 @@ function CreateWASDActions()
                         data.CircleSnakeCurrentCD = 1
                     end
                     if data.CircleSnakeCurrentCD <= 0 then
-                        local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][2]
+                        local talon = GlobalTalons[data.pid]["ShadowHunter"][2]
                         local cd = talon.DS[talon.level]
                         StartFrameCD(cd, data.CircleSnakeCDFH)
                         data.CircleSnakeCurrentCD = cd
@@ -1088,7 +1088,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                             BlzSetSpecialEffectYaw(effHeal, math.rad(angle))
                             BlzSetSpecialEffectPitch(effHeal, math.rad(-90))
                             DestroyEffect(effHeal)
-                            local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][1]
+                            local talon = GlobalTalons[data.pid]["ShadowHunter"][1]
                             local cd = talon.DS[talon.level]
                             StartFrameCD(cd, data.HealDashAllyCDFH)
                             data.HealDashAllyCurrentCD = cd
@@ -1152,7 +1152,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                             data.IllusionDashCurrentCD = 1
                         end
                         if data.IllusionDashCurrentCD <= 0 then
-                            local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][4]
+                            local talon = GlobalTalons[data.pid]["HeroBlademaster"][4]
                             local cd = 10
                             data.IllusionDashCurrentCD = cd
                             StartFrameCD(cd, data.IllusionDashCDFH)
@@ -1385,140 +1385,7 @@ function PointContentDestructableOld (x, y, range, iskill, damage, flag)
     return content, d
 end
 
-function PlayUnitAnimationFromChat()
-    local this = CreateTrigger()
-    TriggerRegisterPlayerChatEvent(this, Player(0), "", true)
-    TriggerRegisterPlayerChatEvent(this, Player(1), "", true)
-    TriggerAddAction(this, function()
-        local s = S2I(GetEventPlayerChatString())
-        local data = HERO[GetPlayerId(GetTriggerPlayer())]
-        if GetEventPlayerChatString() == "w" then
-            --CreateForUnitWayToPoint(mainHero,CQX,CQY)
-            return
-        end
-        if GetEventPlayerChatString() == "n" then
-            UnitAddItemById(data.UnitHero, FourCC("I00B"))
-            return
-        end
-        if GetEventPlayerChatString() == "l" then
-            --PlaySoundNearUnit(data.UnitHero,gg_snd_LightningBolt)
-            return
-        end
-        if GetEventPlayerChatString() == "peon" then
-            SetUnitPositionSmooth(data.UnitHero, -5500, -3000)
-            return
-        end
-        if GetEventPlayerChatString() == "bound" then
-            print("освобождаем камеру")
-            FREE_CAMERA = true
-            SetCameraBoundsToRectForPlayerBJ(Player(0), bj_mapInitialPlayableArea)
-            return
-        end
-        if GetEventPlayerChatString() == "trall" or GetEventPlayerChatString() == "t" or GetEventPlayerChatString() == "е" then
-            -- print("Создаём дар тралла")
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "Trall")
-            return
-        end
-        if GetEventPlayerChatString() == "d" or GetEventPlayerChatString() == "в" then
 
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "PeonDidal")
-            return
-        end
-        if GetEventPlayerChatString() == "b" or GetEventPlayerChatString() == "и" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "HeroBlademaster")
-            return
-        end
-
-        if GetEventPlayerChatString() == "r" or GetEventPlayerChatString() == "к" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "HeroBeastMaster")
-            return
-        end
-        if GetEventPlayerChatString() == "s" or GetEventPlayerChatString() == "ы" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "ShadowHunter")
-            return
-        end
-        if GetEventPlayerChatString() == "m" or GetEventPlayerChatString() == "ь" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateEnterPoint(x, y, "        Продолжить", 'Goto', true, "Merchant", nil)
-            return
-        end
-        if GetEventPlayerChatString() == "g" or GetEventPlayerChatString() == "п" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateMerchantAndGoods(x, y)
-            return
-        end
-
-        if GetEventPlayerChatString() == "a" or GetEventPlayerChatString() == "ф" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "HeroTaurenChieftain")
-            return
-        end
-
-        if GetEventPlayerChatString() == "c" or GetEventPlayerChatString() == "с" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "ChaosGrom")
-            return
-        end
-        -----------Игры со светом
-        if GetEventPlayerChatString() == "chk" or GetEventPlayerChatString() == "срл" then
-            print("Проверка данных " .. udg_LoadCode[GetPlayerId(GetTriggerPlayer())])
-            return
-        end
-        if GetEventPlayerChatString() == "dnc0" then
-            print("смена днс на нормлаьную")
-            SetDayNightModels("dncdalaranterrain", "dncdalaranterrain")
-            print("post")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc1" then
-            SetDayNightModels("dncundergroundterrainHD1", "dncundergroundterrainHD1")
-            print("dnc1")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc2" then
-            SetDayNightModels("dncundergroundterrainHD2", "dncundergroundterrainHD2")
-            print("dnc2")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc3" then
-            SetDayNightModels("dncundergroundterrainHDmdl3", "dncundergroundterrainHDmdl3")
-            print("dnc3")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc4" then
-            SetDayNightModels("dncundergroundterrainHDmdl4", "dncundergroundterrainHDmdl4")
-            print("dnc4")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc5" then
-            SetDayNightModels("dncundergroundterrainHDmdl5", "dncundergroundterrainHDmdl5")
-            print("dnc5")
-            return
-        end
-        if GetEventPlayerChatString() == "dnc6" then
-            SetDayNightModels("dncundergroundterrainHDmdl6", "dncundergroundterrainHDmdl6")
-            print("dnc6")
-            return
-        end
-        if GetEventPlayerChatString() == "life" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "Life")
-            return
-        end
-        if GetEventPlayerChatString() == "фд" or GetEventPlayerChatString() == "al" then
-            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
-            CreateGodTalon(x, y, "Alchemist")
-            return
-        end
-        SetUnitAnimationByIndex(data.UnitHero, s)
-        --print(GetUnitName(mainHero).." "..s)
-    end)
-end
 
 function GetUnitData(hero)
     local data = nil

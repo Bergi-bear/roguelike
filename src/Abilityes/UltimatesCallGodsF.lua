@@ -26,7 +26,7 @@ function CreateActionsF()
         if not data.ReleaseF and UnitAlive(data.UnitHero) then
             data.ReleaseF = true
             --print("Кастуем ультимейты")
-            if GlobalTalons[data.pid + 1]["Trall"][5].level > 0 then
+            if GlobalTalons[data.pid]["Trall"][5].level > 0 then
                 --print("Есть ульта трала, пытаюсь скастовать")
                 if data.CallTrallCharges > 9 then
                     data.CallTrallReady = false
