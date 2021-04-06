@@ -310,52 +310,57 @@ function CreateEActions()
             -----------------------------------------------------
             -----------------------------------------------------
             if data.UseAction == "Goto" and ChkAllPlayerTalonClosedWindow() then
-                --local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
-                local rm = {
-                    L("Что нас ждёт внутри?", "What awaits us inside?"),
-                    L("Надеюсь, что будет полегче", "I hope it will be easier"),
-                    L("Откройся, Сезам", "Open up, Sesame"),
-                    L("А что же там?", "And what is there?"),
-                    L("Надеюсь, там не заставят работать", "I hope they won't make you work there"),
-                    L("Это лучшая работа в мире", "This is the best job in the world")
-                }
-                --GLOBAL_REWARD = data.CurrentReward
-                if dataPoint.CurrentReward == "Merchant" then
-                    -- print("Переход к торговцу")
-                    Enter2NewZone("Merchant")
+                if not InFight then
+                    --local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
+                    local rm = {
+                        L("Что нас ждёт внутри?", "What awaits us inside?"),
+                        L("Надеюсь, что будет полегче", "I hope it will be easier"),
+                        L("Откройся, Сезам", "Open up, Sesame"),
+                        L("А что же там?", "And what is there?"),
+                        L("Надеюсь, там не заставят работать", "I hope they won't make you work there"),
+                        L("Это лучшая работа в мире", "This is the best job in the world")
+                    }
+                    --GLOBAL_REWARD = data.CurrentReward
+                    if dataPoint.CurrentReward == "Merchant" then
+                        -- print("Переход к торговцу")
+                        Enter2NewZone("Merchant")
+                    else
+                        Enter2NewZone()
+                    end
+                    if data.ColdAfterWork then
+                        UnitAddGold(data.UnitHero, data.ColdAfterWork)
+                    end
+                    local r = GetRandomInt(1, #rm)
+                    local message = rm[r]
+                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    if not FirstGoto then
+                        FirstGoto = true
+                        TimerStart(CreateTimer(), 2, false, function()
+                            --SetDayNightModels("DNCLordaeron","DNCLordaeron")
+                            -- SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
+                            SetTimeOfDay(2)
+                            SetTimeOfDayScalePercentBJ(0)
+                            SetDayNightModels("", "")
+                            PauseTimer(GetExpiredTimer())
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                    else
+                        DestroyDecorInArea(data, 400)
+                    end
+                    --print("звук открытия ворот")
+                    normal_sound("Sound\\Interface\\BattlenetBirth1", GetUnitXY(data.UnitHero))
+                    data.Completed = true
+                    data.DoAction = false
+                    data.UseAction = ""
+                    KillUnit(data.EPointUnit)
+                    --local dataPoint=EnterPointTable[GetHandleId(data.EPointUnit)]
+                    --print("переходим в зону с этой наградой "..dataPoint.CurrentReward)
+                    GLOBAL_REWARD = dataPoint.CurrentReward
+                    AllActionsEnabled(false)-- блокируем все новые переходы
                 else
-                    Enter2NewZone()
+                    print("Сначала победите всех врагов")
+                    AllActionsEnabled(false)
                 end
-                if data.ColdAfterWork then
-                    UnitAddGold(data.UnitHero, data.ColdAfterWork)
-                end
-                local r = GetRandomInt(1, #rm)
-                local message = rm[r]
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                if not FirstGoto then
-                    FirstGoto = true
-                    TimerStart(CreateTimer(), 2, false, function()
-                        --SetDayNightModels("DNCLordaeron","DNCLordaeron")
-                        -- SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
-                        SetTimeOfDay(2)
-                        SetTimeOfDayScalePercentBJ(0)
-                        SetDayNightModels("", "")
-                        PauseTimer(GetExpiredTimer())
-                        DestroyTimer(GetExpiredTimer())
-                    end)
-                else
-                    DestroyDecorInArea(data, 400)
-                end
-                --print("звук открытия ворот")
-                normal_sound("Sound\\Interface\\BattlenetBirth1", GetUnitXY(data.UnitHero))
-                data.Completed = true
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
-                --local dataPoint=EnterPointTable[GetHandleId(data.EPointUnit)]
-                --print("переходим в зону с этой наградой "..dataPoint.CurrentReward)
-                GLOBAL_REWARD = dataPoint.CurrentReward
-                AllActionsEnabled(false)-- блокируем все новые переходы
             end
 
             if data.UseAction == "StartBonus" then

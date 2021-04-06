@@ -502,6 +502,7 @@ function GetActiveCountPlayer()
 end
 
 function StartWave(dataGZ, listID, max)
+    InFight=true
     -- print("start wave "..max)
     local rect = dataGZ.rectSpawn
     local CountPlayers = GetActiveCountPlayer()
@@ -562,6 +563,7 @@ function StartWave(dataGZ, listID, max)
         -- end
         if LiveOnWave <= 0 and k >= max then
             --print("все убиты даём награду")
+            InFight=false
             local x, y = GetRectCenterX(rect), GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
             CreateGodTalon(x, y, GLOBAL_REWARD)
             ReviveAllHero()
@@ -569,6 +571,7 @@ function StartWave(dataGZ, listID, max)
         end
     end)
 end
+InFight=false
 
 function CreateCreepDelay(id, x, y, delay, flag)
     local eff = AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl", x, y)

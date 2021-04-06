@@ -1940,7 +1940,7 @@ function AddMaxLife(hero, amount)
     local maxHP = BlzGetUnitMaxHP(hero)
     BlzSetUnitMaxHP(hero, maxHP + amount)
     FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
-    HealUnit(hero, amount)
+    --HealUnit(hero, amount)
 end
 
 function UnitAddGold(hero, amount)
@@ -2386,52 +2386,57 @@ function CreateEActions()
             -----------------------------------------------------
             -----------------------------------------------------
             if data.UseAction == "Goto" and ChkAllPlayerTalonClosedWindow() then
-                --local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
-                local rm = {
-                    L("Что нас ждёт внутри?", "What awaits us inside?"),
-                    L("Надеюсь, что будет полегче", "I hope it will be easier"),
-                    L("Откройся, Сезам", "Open up, Sesame"),
-                    L("А что же там?", "And what is there?"),
-                    L("Надеюсь, там не заставят работать", "I hope they won't make you work there"),
-                    L("Это лучшая работа в мире", "This is the best job in the world")
-                }
-                --GLOBAL_REWARD = data.CurrentReward
-                if dataPoint.CurrentReward == "Merchant" then
-                    -- print("Переход к торговцу")
-                    Enter2NewZone("Merchant")
+                if not InFight then
+                    --local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
+                    local rm = {
+                        L("Что нас ждёт внутри?", "What awaits us inside?"),
+                        L("Надеюсь, что будет полегче", "I hope it will be easier"),
+                        L("Откройся, Сезам", "Open up, Sesame"),
+                        L("А что же там?", "And what is there?"),
+                        L("Надеюсь, там не заставят работать", "I hope they won't make you work there"),
+                        L("Это лучшая работа в мире", "This is the best job in the world")
+                    }
+                    --GLOBAL_REWARD = data.CurrentReward
+                    if dataPoint.CurrentReward == "Merchant" then
+                        -- print("Переход к торговцу")
+                        Enter2NewZone("Merchant")
+                    else
+                        Enter2NewZone()
+                    end
+                    if data.ColdAfterWork then
+                        UnitAddGold(data.UnitHero, data.ColdAfterWork)
+                    end
+                    local r = GetRandomInt(1, #rm)
+                    local message = rm[r]
+                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    if not FirstGoto then
+                        FirstGoto = true
+                        TimerStart(CreateTimer(), 2, false, function()
+                            --SetDayNightModels("DNCLordaeron","DNCLordaeron")
+                            -- SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
+                            SetTimeOfDay(2)
+                            SetTimeOfDayScalePercentBJ(0)
+                            SetDayNightModels("", "")
+                            PauseTimer(GetExpiredTimer())
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                    else
+                        DestroyDecorInArea(data, 400)
+                    end
+                    --print("звук открытия ворот")
+                    normal_sound("Sound\\Interface\\BattlenetBirth1", GetUnitXY(data.UnitHero))
+                    data.Completed = true
+                    data.DoAction = false
+                    data.UseAction = ""
+                    KillUnit(data.EPointUnit)
+                    --local dataPoint=EnterPointTable[GetHandleId(data.EPointUnit)]
+                    --print("переходим в зону с этой наградой "..dataPoint.CurrentReward)
+                    GLOBAL_REWARD = dataPoint.CurrentReward
+                    AllActionsEnabled(false)-- блокируем все новые переходы
                 else
-                    Enter2NewZone()
+                    print("Сначала победите всех врагов")
+                    AllActionsEnabled(false)
                 end
-                if data.ColdAfterWork then
-                    UnitAddGold(data.UnitHero, data.ColdAfterWork)
-                end
-                local r = GetRandomInt(1, #rm)
-                local message = rm[r]
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
-                if not FirstGoto then
-                    FirstGoto = true
-                    TimerStart(CreateTimer(), 2, false, function()
-                        --SetDayNightModels("DNCLordaeron","DNCLordaeron")
-                        -- SetDayNightModels("dncdalaranterrain","dncdalaranterrain")
-                        SetTimeOfDay(2)
-                        SetTimeOfDayScalePercentBJ(0)
-                        SetDayNightModels("", "")
-                        PauseTimer(GetExpiredTimer())
-                        DestroyTimer(GetExpiredTimer())
-                    end)
-                else
-                    DestroyDecorInArea(data, 400)
-                end
-                --print("звук открытия ворот")
-                normal_sound("Sound\\Interface\\BattlenetBirth1", GetUnitXY(data.UnitHero))
-                data.Completed = true
-                data.DoAction = false
-                data.UseAction = ""
-                KillUnit(data.EPointUnit)
-                --local dataPoint=EnterPointTable[GetHandleId(data.EPointUnit)]
-                --print("переходим в зону с этой наградой "..dataPoint.CurrentReward)
-                GLOBAL_REWARD = dataPoint.CurrentReward
-                AllActionsEnabled(false)-- блокируем все новые переходы
             end
 
             if data.UseAction == "StartBonus" then
@@ -3567,6 +3572,7 @@ function GetActiveCountPlayer()
 end
 
 function StartWave(dataGZ, listID, max)
+    InFight=true
     -- print("start wave "..max)
     local rect = dataGZ.rectSpawn
     local CountPlayers = GetActiveCountPlayer()
@@ -3627,6 +3633,7 @@ function StartWave(dataGZ, listID, max)
         -- end
         if LiveOnWave <= 0 and k >= max then
             --print("все убиты даём награду")
+            InFight=false
             local x, y = GetRectCenterX(rect), GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
             CreateGodTalon(x, y, GLOBAL_REWARD)
             ReviveAllHero()
@@ -3634,6 +3641,7 @@ function StartWave(dataGZ, listID, max)
         end
     end)
 end
+InFight=false
 
 function CreateCreepDelay(id, x, y, delay, flag)
     local eff = AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl", x, y)
@@ -3946,9 +3954,9 @@ function ChkAllPlayerTalonClosedWindow()
             local data = HERO[i]
             if data.TalonWindowIsOpen then
                 result = true
-                print("все выбрали свои таланты")
+                --print("все выбрали свои таланты")
             else
-                print("Ожидание игрока "..GetPlayerName(Player(i)))
+                --print("Ожидание игрока "..GetPlayerName(Player(i)))
                 result = false
             end
         end
@@ -4846,7 +4854,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 30, 50, 100 },
+                            DS = { 15, 30, 45 },
                             pos=1
                         }),
                         Talon:new({--2
