@@ -58,7 +58,7 @@ function CreateEmptyBoxForTalon()
     end
 end
 
-function CreateBoxTalon(MainFrame, j, data)
+function CreateBoxTalon(MainFrame, j, data) -- вызывается один раз для каждого игрока, и является шаблоном
     local Backdrop = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, MainFrame, "EscMenuControlBackdropTemplate", 0)
     BlzFrameSetSize(Backdrop, 0.45, 0.08)
     BlzFrameSetPoint(Backdrop, FRAMEPOINT_TOP, MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
@@ -122,12 +122,14 @@ function CreateBoxTalon(MainFrame, j, data)
         BlzFrameSetVisible(Tooltip, false)
     end)
     local mouseCT = CreateTrigger()
-    BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_CONTROL_CLICK)
+    BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_MOUSE_UP)
     TriggerAddAction(mouseCT, function()
         --print("убрать")
         --print("клик по фрему закрываем окно талантов")
         BlzFrameSetVisible(data.DialogTalon.MainFrame, false)
         --print("Клик по фрейму" .. j)
+        data.TalonWindowIsOpen=true
+        ChkAllPlayerTalonClosedWindow()
         LearnCurrentTalonForPlayer(data.pid, data.CurrentClickedGodName[j], data.CurrentClickedPos[j])
     end)
 

@@ -24,7 +24,7 @@ function AddMaxLife(hero, amount)
     local maxHP = BlzGetUnitMaxHP(hero)
     BlzSetUnitMaxHP(hero, maxHP + amount)
     FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
-    HealUnit(hero, amount)
+    --HealUnit(hero, amount)
 end
 
 function UnitAddGold(hero, amount)

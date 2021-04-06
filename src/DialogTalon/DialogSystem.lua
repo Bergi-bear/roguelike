@@ -25,7 +25,8 @@ function CreateDialogTalon(godName)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
             local data = HERO[i]
-            BlzFrameSetVisible(data.DialogTalon.MainFrame, true)
+            data.TalonWindowIsOpen=false
+            BlzFrameSetVisible(data.DialogTalon.MainFrame, GetLocalPlayer()==Player(i))
             BlzFrameSetText(data.DialogTalon.Title, title)
             AddSkillToDialog(data, godName)
         end
@@ -34,7 +35,7 @@ end
 
 function AddSkillToDialog(data, godName)
 
-    local ClearedTable = ClearDialogTalon(GlobalTalons[data.pid][godName])
+    local ClearedTable = ClearDialogTalon(GlobalTalons[data.pid][godName],data)
     local maxForLearn = 4
     if #ClearedTable < maxForLearn then
         maxForLearn = #ClearedTable
@@ -63,7 +64,7 @@ function AddSkillToDialog(data, godName)
             BlzFrameSetText(data.DialogTalon.Container[j].TooltipDescription, talon.tooltip)
 
             if talon.level > 0 then
-                BlzFrameSetText(data.DialogTalon.Container[j].Level, "Текущий уровень " .. talon.level)
+                BlzFrameSetText(data.DialogTalon.Container[j].Level, L("Текущий уровень ","Current level ") .. talon.level)
             else
                 BlzFrameSetText(data.DialogTalon.Container[j].Level, "")
             end
@@ -81,13 +82,23 @@ function AddSkillToDialog(data, godName)
     end
 end
 
-function ClearDialogTalon(OriginalTable)
+function ClearDialogTalon(OriginalTable,data)
     local clearedTable = {}
     for i = 1, #OriginalTable do
         --table.remove(temTableReward, FinPosInTable(temTableReward, reward))
         local talon = OriginalTable[i]
-        if talon.level > #(talon.DS) - 1 then
-           -- print("Элемент очищен", talon.name)
+        local unlock=true
+        if talon.dependence then
+            --print("есть талант зависимый от "..OriginalTable[talon.dependence].name)
+            unlock=false
+            if OriginalTable[talon.dependence].level>0 then
+                --print("условие разлоблокировки выполнены")
+                unlock=true
+            end
+        end
+
+        if (talon.level > #(talon.DS) - 1 ) or not unlock  or (data.HasUltF and talon.ultF) or (data.HasUltR and talon.ultR)  then
+           --print("Элемент очищен", talon.name)
             --table.remove(clearedTable, i)
         else
             table.insert(clearedTable, talon)

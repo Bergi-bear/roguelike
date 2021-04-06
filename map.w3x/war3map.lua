@@ -1158,7 +1158,7 @@ function ConditionCastLight(data)
             data.chargeAttackLightCharges=0
             BlzFrameSetText(data.chargeAttackLightFH,data.chargeAttackLightCharges)
             --print("удар молнией")
-            local talon=GlobalTalons[data.pid+1]["Trall"][1]
+            local talon=GlobalTalons[data.pid]["Trall"][1]
             local max=talon.DS[talon.level]
             CastLighting(data,max)
         end
@@ -1450,7 +1450,7 @@ function StartAndReleaseSpin(data, duration)
                 end
                 local damage = data.SpinBaseDamage
                 if data.SpinHasAddDamage then
-                    local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][5]
+                    local talon = GlobalTalons[data.pid]["HeroBlademaster"][5]
                     local k = talon.DS[talon.level]
                     damage = damage * k
                 end
@@ -1688,7 +1688,7 @@ function CreateActionsF()
         if not data.ReleaseF and UnitAlive(data.UnitHero) then
             data.ReleaseF = true
             --print("Кастуем ультимейты")
-            if GlobalTalons[data.pid + 1]["Trall"][5].level > 0 then
+            if GlobalTalons[data.pid]["Trall"][5].level > 0 then
                 --print("Есть ульта трала, пытаюсь скастовать")
                 if data.CallTrallCharges > 9 then
                     data.CallTrallReady = false
@@ -3709,7 +3709,8 @@ function CreateDialogTalon(godName)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
             local data = HERO[i]
-            BlzFrameSetVisible(data.DialogTalon.MainFrame, true)
+            data.TalonWindowIsOpen=false
+            BlzFrameSetVisible(data.DialogTalon.MainFrame, GetLocalPlayer()==Player(i))
             BlzFrameSetText(data.DialogTalon.Title, title)
             AddSkillToDialog(data, godName)
         end
@@ -3718,7 +3719,7 @@ end
 
 function AddSkillToDialog(data, godName)
 
-    local ClearedTable = ClearDialogTalon(GlobalTalons[data.pid][godName])
+    local ClearedTable = ClearDialogTalon(GlobalTalons[data.pid][godName],data)
     local maxForLearn = 4
     if #ClearedTable < maxForLearn then
         maxForLearn = #ClearedTable
@@ -3747,7 +3748,7 @@ function AddSkillToDialog(data, godName)
             BlzFrameSetText(data.DialogTalon.Container[j].TooltipDescription, talon.tooltip)
 
             if talon.level > 0 then
-                BlzFrameSetText(data.DialogTalon.Container[j].Level, "Текущий уровень " .. talon.level)
+                BlzFrameSetText(data.DialogTalon.Container[j].Level, L("Текущий уровень ","Current level ") .. talon.level)
             else
                 BlzFrameSetText(data.DialogTalon.Container[j].Level, "")
             end
@@ -3765,13 +3766,23 @@ function AddSkillToDialog(data, godName)
     end
 end
 
-function ClearDialogTalon(OriginalTable)
+function ClearDialogTalon(OriginalTable,data)
     local clearedTable = {}
     for i = 1, #OriginalTable do
         --table.remove(temTableReward, FinPosInTable(temTableReward, reward))
         local talon = OriginalTable[i]
-        if talon.level > #(talon.DS) - 1 then
-           -- print("Элемент очищен", talon.name)
+        local unlock=true
+        if talon.dependence then
+            --print("есть талант зависимый от "..OriginalTable[talon.dependence].name)
+            unlock=false
+            if OriginalTable[talon.dependence].level>0 then
+                --print("условие разлоблокировки выполнены")
+                unlock=true
+            end
+        end
+
+        if (talon.level > #(talon.DS) - 1 ) or not unlock  or (data.HasUltF and talon.ultF) or (data.HasUltR and talon.ultR)  then
+           --print("Элемент очищен", talon.name)
             --table.remove(clearedTable, i)
         else
             table.insert(clearedTable, talon)
@@ -3839,7 +3850,7 @@ function CreateEmptyBoxForTalon()
     end
 end
 
-function CreateBoxTalon(MainFrame, j, data)
+function CreateBoxTalon(MainFrame, j, data) -- вызывается один раз для каждого игрока, и является шаблоном
     local Backdrop = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, MainFrame, "EscMenuControlBackdropTemplate", 0)
     BlzFrameSetSize(Backdrop, 0.45, 0.08)
     BlzFrameSetPoint(Backdrop, FRAMEPOINT_TOP, MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
@@ -3903,12 +3914,14 @@ function CreateBoxTalon(MainFrame, j, data)
         BlzFrameSetVisible(Tooltip, false)
     end)
     local mouseCT = CreateTrigger()
-    BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_CONTROL_CLICK)
+    BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_MOUSE_UP)
     TriggerAddAction(mouseCT, function()
         --print("убрать")
         --print("клик по фрему закрываем окно талантов")
         BlzFrameSetVisible(data.DialogTalon.MainFrame, false)
         --print("Клик по фрейму" .. j)
+        data.TalonWindowIsOpen=true
+        ChkAllPlayerTalonClosedWindow()
         LearnCurrentTalonForPlayer(data.pid, data.CurrentClickedGodName[j], data.CurrentClickedPos[j])
     end)
 
@@ -3933,9 +3946,9 @@ function ChkAllPlayerTalonClosedWindow()
             local data = HERO[i]
             if data.TalonWindowIsOpen then
                 result = true
-                --print("все выбрали свои таланты")
+                print("все выбрали свои таланты")
             else
-                --print("Ожидание игрока "..GetPlayerName(Player(i)))
+                print("Ожидание игрока "..GetPlayerName(Player(i)))
                 result = false
             end
         end
@@ -3953,7 +3966,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
     local data = HERO[pid]
     local talon = GlobalTalons[pid][godName][pos]
     talon.level=talon.level+1
-    print(pid, godName, pos)
+    if talon.ultF then
+        data.HasUltF=true
+    end
+        if talon.ultR then
+        data.HasUltR=true
+    end
+    --print(pid, godName, pos)
+
     local x, y, size = 0.02, 0.015, 0.03
     if GetActiveCountPlayer() > 1 then
         print(GetPlayerName(Player(pid)) .. " выбрал " .. talon.name .. " уровень " .. talon.level)
@@ -5572,24 +5592,6 @@ do
     end
 end
 
-AllPlayerTalonClosedWindow = true
-function ChkAllPlayerTalonClosedWindow()
-    local result = false
-    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
-            local data = HERO[i]
-            if data.TalonWindowIsOpen then
-                result = true
-                --print("все выбрали свои таланты")
-            else
-                --print("Ожидание игрока "..GetPlayerName(Player(i)))
-                result = false
-            end
-        end
-    end
-    AllPlayerTalonClosedWindow = result
-    return AllPlayerTalonClosedWindow
-end
 Talon = {
     icon = nil,
     name = nil,
@@ -5778,7 +5780,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
         data.ReboundCDFH = buttonIconFrame
     end
     if flag == "callTrall" then
-        local talon = GlobalTalons[data.pid + 1]["Trall"][5]
+        local talon = GlobalTalons[data.pid]["Trall"][5]
         data.CallTrallCharges = talon.DS[1]
         --data.CallTrallChargesMAX=talon.ds[1]
         data.CallTrallFH = MakeFrameCharged(face, data.CallTrallCharges)
@@ -5795,7 +5797,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     if flag == "callTauren" then
         data.TotemChargesFH = MakeFrameCharged(face, data.TotemChargesMax)
         data.TotemCharges = data.TotemChargesMax
-        local talon = GlobalTalons[data.pid + 1]["HeroTaurenChieftain"][7]
+        local talon = GlobalTalons[data.pid]["HeroTaurenChieftain"][7]
         TimerStart(CreateTimer(), 2, true, function()
             -- Регенерация ульты
             if data.TotemCharges < talon.DS[talon.level] then
@@ -5816,7 +5818,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
         -- data.wolfSummonCDFH=buttonIconFrame
         data.SpiritWolf = nil
         local sec = 0
-        local talon = GlobalTalons[data.pid + 1]["Trall"][3]
+        local talon = GlobalTalons[data.pid]["Trall"][3]
         TimerStart(CreateTimer(), 1, true, function()
             local cdSec = talon.DS[talon.level]
             local effmodel = "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster"
@@ -5927,7 +5929,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
         TimerStart(CreateTimer(), 2, true, function()
             local damage = data.SpinBaseDamage
             if data.SpinHasAddDamage then
-                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][5]
+                local talon = GlobalTalons[data.pid]["HeroBlademaster"][5]
                 local m = talon.DS[talon.level]
                 damage = damage * m
             end
@@ -8246,7 +8248,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                     data.FrogThrowCurrentCD = 1
                 end
                 if data.FrogThrowCurrentCD <= 0 then
-                    local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][3]
+                    local talon = GlobalTalons[data.pid]["ShadowHunter"][3]
                     local cd = talon.DS[talon.level]
                     StartFrameCD(cd, data.FrogThrowCDFH)
                     data.FrogThrowCurrentCD = cd
@@ -8483,12 +8485,12 @@ function OnPostDamage()
 
 
             if data.CriticalStrikeCurrentCD <= 0 then
-                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][2]
+                local talon = GlobalTalons[data.pid]["HeroBlademaster"][2]
                 local cd = talon.DS[talon.level]
                 data.CriticalStrikeCurrentCD = cd
                 StartFrameCD(cd, data.CriticalStrikeCDFH)
 
-                local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
+                local talonM = GlobalTalons[data.pid]["HeroBlademaster"][3]
                 local ks = 1.5
                 if data.HasMultipleCritical then
                     if talonM.level > 0 then
@@ -8582,7 +8584,7 @@ function OnPostDamage()
                     SetUnitInvulnerable(target, false)
                     DestroyTimer(GetExpiredTimer())
                 end)
-                local talon = GlobalTalons[data.pid + 1]["Trall"][8]
+                local talon = GlobalTalons[data.pid]["Trall"][8]
                 local cd = talon.DS[talon.level]
                 data.InvulPreDeathCurrentCD = cd
                 StartFrameCD(cd, data.InvulPreDeathCDFH)
@@ -8597,7 +8599,7 @@ function OnPostDamage()
             --print("талант изучен")
             if data.WindWalkCurrentCD <= 0 and GetUnitLifePercent(target) <= 30 then
                 --print("условия выполнены")
-                local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][1]
+                local talon = GlobalTalons[data.pid]["HeroBlademaster"][1]
                 local cd = talon.DS[talon.level]
                 data.WindWalkCurrentCD = cd
                 StartFrameCD(cd, data.WindWalkCDFH)
@@ -10722,7 +10724,7 @@ function CreateWASDActions()
                 BlzSetUnitFacingEx(data.UnitHero, data.DirectionMove)
                 if data.Time2HealDash > 0 then
                     HealUnit(data.UnitHero, data.Time2HealDash)
-                    local talon = GlobalTalons[data.pid + 1]["Trall"][7]
+                    local talon = GlobalTalons[data.pid]["Trall"][7]
                     StartFrameCD(talon.DS[talon.level], data.HealDashCDFH)
                     data.HealDashCurrentCD = talon.DS[talon.level]
                     TimerStart(CreateTimer(), data.HealDashCurrentCD, false, function()
@@ -10735,7 +10737,7 @@ function CreateWASDActions()
                         data.CircleSnakeCurrentCD = 1
                     end
                     if data.CircleSnakeCurrentCD <= 0 then
-                        local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][2]
+                        local talon = GlobalTalons[data.pid]["ShadowHunter"][2]
                         local cd = talon.DS[talon.level]
                         StartFrameCD(cd, data.CircleSnakeCDFH)
                         data.CircleSnakeCurrentCD = cd
@@ -11209,7 +11211,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                             BlzSetSpecialEffectYaw(effHeal, math.rad(angle))
                             BlzSetSpecialEffectPitch(effHeal, math.rad(-90))
                             DestroyEffect(effHeal)
-                            local talon = GlobalTalons[data.pid + 1]["ShadowHunter"][1]
+                            local talon = GlobalTalons[data.pid]["ShadowHunter"][1]
                             local cd = talon.DS[talon.level]
                             StartFrameCD(cd, data.HealDashAllyCDFH)
                             data.HealDashAllyCurrentCD = cd
@@ -11273,7 +11275,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                             data.IllusionDashCurrentCD = 1
                         end
                         if data.IllusionDashCurrentCD <= 0 then
-                            local talon = GlobalTalons[data.pid + 1]["HeroBlademaster"][4]
+                            local talon = GlobalTalons[data.pid]["HeroBlademaster"][4]
                             local cd = 10
                             data.IllusionDashCurrentCD = cd
                             StartFrameCD(cd, data.IllusionDashCDFH)

@@ -8,7 +8,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
     local data = HERO[pid]
     local talon = GlobalTalons[pid][godName][pos]
     talon.level=talon.level+1
-    print(pid, godName, pos)
+    if talon.ultF then
+        data.HasUltF=true
+    end
+        if talon.ultR then
+        data.HasUltR=true
+    end
+    --print(pid, godName, pos)
+
     local x, y, size = 0.02, 0.015, 0.03
     if GetActiveCountPlayer() > 1 then
         print(GetPlayerName(Player(pid)) .. " выбрал " .. talon.name .. " уровень " .. talon.level)

@@ -306,7 +306,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
-                            DS = { 30, 50, 100 },
+                            DS = { 15, 30, 45 },
                             pos=1
                         }),
                         Talon:new({--2
