@@ -396,41 +396,41 @@ do
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
-                            name = "Ящер",
-                            description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100",
+                            name = L("Ящер-таран","Ящер-таран"),
+                            description = L("Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100","A huge lizard demolishes enemies in its path, the direction is chosen from the hero, to the cursor point. Cooldown: 20. Damage: 100"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Призывает существо",
+                            tooltip = L("Может наносит урон несколько раз, урон при ударах о стену усиливается от других способностей героя","Can deal damage several times, damage when hitting the wall is increased from other abilities of the hero"),
                             DS = { "lizard" },
                             pos=1
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
-                            name = "Медведь",
-                            description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30",
+                            name = L("Медведь-бомба","Bear-bomb"),
+                            description = L("Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30","Crushes the bear to the cursor position, the bear deals 1000 damage when summoned. Cooldown: 60. Duration: 30"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Призывает существо",
+                            tooltip = L("Нажмите и удерживайте горячую клавишу активации, чтобы перемещать область взрыва","Press and hold the activation hotkey to move the blast area"),
                             DS = { "bear" },
                             pos=2
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
-                            name = "Кабан",
-                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50",
+                            name = L("Кабан","Wild boar"),
+                            description = L("Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50","Summons a small boar, the boar deals 30 damage. Cooldown: 20. Duration: 50"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Призывает существо",
+                            tooltip = L("Призванное существо полностью автономно","Призванное существо полностью автономно"),
                             DS = { "boar" },
                             pos=3
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
-                            name = "Волк",
-                            description = "Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк убивает замороженных врагов с 1 удара",
+                            name = L("Полярный волк","Polar Wolf"),
+                            description = L("Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк наносит двойной урон замороженным существам","Summons a polar wolf and an ice storm that freezes everything within a radius of 1000. The wolf deals double damage to the frozen creature"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Призывает существо",
+                            tooltip = L("Призванное существо полностью автономно","The summoned creature is completely autonomous"),
                             DS = { "wolf" },
                             pos=4
                         }),

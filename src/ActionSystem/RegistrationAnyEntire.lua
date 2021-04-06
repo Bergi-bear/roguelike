@@ -25,16 +25,21 @@ function RegistrationAnyEntire()
                 local entering=GetTriggerUnit()
                 if GetUnitTypeId(entering)==FourCC('hdhw') then
                     local dataPoint=EnterPointTable[GetHandleId(entering)]
-                    --print("подошел к "..dataPoint.UseAction)
+
                     if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering
-                        BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
+                        --BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
+                        --print("подошел к "..dataPoint.UseAction)
+                        local eEff=AddSpecialEffect("SystemGeneric\\ActionsE",GetUnitXY(entering))
                         data.ShowActionWindows=true
                         TimerStart(CreateTimer(), 0.1, true, function()
                             if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) or not dataPoint.isActive then
-                                BlzFrameSetVisible(dataPoint.tooltip,false)
+                                --BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
+                                BlzSetSpecialEffectPosition(eEff,OutPoint,OutPoint,0)
+                                DestroyEffect(eEff)
+                                --print("ломаем эффект")
                                 data.UseAction=""
                                 data.ShowActionWindows=false
                             end

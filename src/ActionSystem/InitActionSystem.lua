@@ -150,11 +150,11 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
     local activeNumber = ActionListIndex - 1
     --local range = 200
     --local rect = Rect(x - range, y - range, x + range, y + range)
-    local tooltip, backdrop, text = CreateActionBox(message)
+    --local tooltip, backdrop, text = CreateActionBox(message)
 
     ActionList[activeNumber].isActive = isActive
     ActionList[activeNumber].self = dataPoint
-    dataPoint.tooltip = tooltip
+    --dataPoint.tooltip = tooltip
     dataPoint.UseAction = actionFlag
     dataPoint.isActive = isActive
     dataPoint.CurrentReward = reward
@@ -256,9 +256,13 @@ function CreateEActions()
     TriggerAddAction(gg_trg_EventUpE, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
-        if not data.ReleaseE and UnitAlive(data.UnitHero) then
+
+        if not data.ReleaseE and UnitAlive(data.UnitHero) and not data.ECD then
             data.ReleaseE = true
+            data.ECD = true
+            local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
+            --TimerStart(CreateTimer(), 1, false, function() --Всё событие Е имеет задержку 1 секунда
+            data.ECD = false
             --print("e is pressed")
             --ТУТ ПЕРЕЧИСЛЯЕМ ДЕЙСТВИЯ ЧЕРЕЗ ИФ
             if data.UseAction == "StartSheep" then
@@ -771,6 +775,8 @@ function CreateEActions()
                 --KillUnit(data.EPointUnit)
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
+
+            -- end) --конец задержки
 
 
         end

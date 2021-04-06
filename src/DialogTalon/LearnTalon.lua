@@ -17,7 +17,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
     --print(pid, godName, pos)
 
     local x, y, size = 0.02, 0.015, 0.03
-    if GetActiveCountPlayer() > 1 then
+    if GetActiveCountPlayer() > 0 then
         print(GetPlayerName(Player(pid)) .. " выбрал " .. talon.name .. " уровень " .. talon.level)
     end
     if godName == "Trall" and talon.level == 1 then

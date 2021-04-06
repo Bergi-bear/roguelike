@@ -21,12 +21,13 @@ function CreateDialogTalon(godName)
         title = "Дары Адского крика"
         --ReplaceableTextures\CommandButtons\BTNChaosGrom.blp
     end
-
+    CreateEmptyBoxForTalon()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
             local data = HERO[i]
             data.TalonWindowIsOpen=false
             BlzFrameSetVisible(data.DialogTalon.MainFrame, GetLocalPlayer()==Player(i))
+            --print("превращаем пустышки в таланты для игрока ",i)
             BlzFrameSetText(data.DialogTalon.Title, title)
             AddSkillToDialog(data, godName)
         end

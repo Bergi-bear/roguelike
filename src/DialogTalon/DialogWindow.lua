@@ -7,7 +7,7 @@ do
                 print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
             end
 
-            CreateEmptyBoxForTalon()
+            --CreateEmptyBoxForTalon()
             GOD_NAME_ARRAY = {
                 "Trall",
                 "HeroBlademaster",
@@ -48,8 +48,8 @@ function CreateEmptyBoxForTalon()
             data.DialogTalon.MainBackdrop = MainBackdrop
             data.DialogTalon.Title = Title
             data.DialogTalon.Container = {}
-            data.CurrentClickedGodName={}
-            data.CurrentClickedPos={}
+            data.CurrentClickedGodName = {}
+            data.CurrentClickedPos = {}
             for j = 1, 4 do
                 data.DialogTalon.Container[j] = {}
                 CreateBoxTalon(MainFrame, j, data)
@@ -58,7 +58,8 @@ function CreateEmptyBoxForTalon()
     end
 end
 
-function CreateBoxTalon(MainFrame, j, data) -- вызывается один раз для каждого игрока, и является шаблоном
+function CreateBoxTalon(MainFrame, j, data)
+    -- вызывается один раз для каждого игрока, и является шаблоном
     local Backdrop = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, MainFrame, "EscMenuControlBackdropTemplate", 0)
     BlzFrameSetSize(Backdrop, 0.45, 0.08)
     BlzFrameSetPoint(Backdrop, FRAMEPOINT_TOP, MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
@@ -124,13 +125,53 @@ function CreateBoxTalon(MainFrame, j, data) -- вызывается один р�
     local mouseCT = CreateTrigger()
     BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_MOUSE_UP)
     TriggerAddAction(mouseCT, function()
-        --print("убрать")
         --print("клик по фрему закрываем окно талантов")
-        BlzFrameSetVisible(data.DialogTalon.MainFrame, false)
+        --BlzFrameSetVisible(data.DialogTalon.MainFrame, false) --Строка закрытия, единственная что тут происходит прям в момент клика
+        --[[BlzFrameSetSize(data.DialogTalon.MainFrame,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Backdrop,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Tooltip,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].TooltipDescription,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Border,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Name,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Description,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Level,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Button,0.00001,0.00001)
+        ]]
+        for i = 1, 4 do
+            BlzDestroyFrame(data.DialogTalon.Container[i].Tooltip) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].TooltipDescription) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Border) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].TalonTexture) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Name) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Description) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Level) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Button) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Backdrop)
+        end
+        BlzDestroyFrame(data.DialogTalon.Title)
+        BlzDestroyFrame(data.DialogTalon.MainBackdrop)
+        BlzDestroyFrame(data.DialogTalon.MainFrame)
+        DestroyTrigger(mouseCT)
+        DestroyTrigger(mouseLT)
+        DestroyTrigger(mouseET)
+
+        -- DestroyTrigger(mouseCT)
+        -- DestroyTrigger(mouseLT)
+        --DestroyTrigger(mouseET)
+        -- BlzDestroyFrame(data.DialogTalon.MainFrame)
+        --BlzFrameSetParent(data.DialogTalon.MainFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+        --BlzFrameSetAbsPoint(data.DialogTalon.MainFrame,FRAMEPOINT_CENTER,2,2)
+        DisableTrigger(mouseCT)
         --print("Клик по фрейму" .. j)
-        data.TalonWindowIsOpen=true
-        ChkAllPlayerTalonClosedWindow()
-        LearnCurrentTalonForPlayer(data.pid, data.CurrentClickedGodName[j], data.CurrentClickedPos[j])
+
+        TimerStart(CreateTimer(), 1, false, function()
+            data.TalonWindowIsOpen = true -- не обязательная строка
+            ChkAllPlayerTalonClosedWindow() -- не обязательная строка
+            LearnCurrentTalonForPlayer(data.pid, data.CurrentClickedGodName[j], data.CurrentClickedPos[j]) -- делал задержку в 2 секунды, десинхает в момент клика
+        end)
+        TimerStart(CreateTimer(), 1.5, false, function()
+            EnableTrigger(mouseCT)
+        end)
     end)
 
 

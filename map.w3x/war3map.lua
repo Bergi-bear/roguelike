@@ -202,6 +202,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14581.1, -6496.6, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14704.6, -6374.5, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14583.3, -6376.4, 0.000, FourCC("hkni"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16448.1, -19955.5, 178.449, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21853.9, -12542.2, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20877.3, -12543.4, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 11035.1, -15839.8, 0.000, FourCC("hkni"))
@@ -244,7 +245,6 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 23300.5, -8549.8, 273.052, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16163.1, -21028.1, 177.987, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16192.9, -19807.5, 270.396, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16447.6, -19959.1, 178.449, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14984.7, -18841.8, 270.271, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 19294.8, -7739.0, 270.047, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 15392.8, -19798.4, 356.698, FourCC("hrif"))
@@ -2226,11 +2226,11 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
     local activeNumber = ActionListIndex - 1
     --local range = 200
     --local rect = Rect(x - range, y - range, x + range, y + range)
-    local tooltip, backdrop, text = CreateActionBox(message)
+    --local tooltip, backdrop, text = CreateActionBox(message)
 
     ActionList[activeNumber].isActive = isActive
     ActionList[activeNumber].self = dataPoint
-    dataPoint.tooltip = tooltip
+    --dataPoint.tooltip = tooltip
     dataPoint.UseAction = actionFlag
     dataPoint.isActive = isActive
     dataPoint.CurrentReward = reward
@@ -2332,9 +2332,13 @@ function CreateEActions()
     TriggerAddAction(gg_trg_EventUpE, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
-        if not data.ReleaseE and UnitAlive(data.UnitHero) then
+
+        if not data.ReleaseE and UnitAlive(data.UnitHero) and not data.ECD then
             data.ReleaseE = true
+            data.ECD = true
+            local dataPoint = EnterPointTable[GetHandleId(data.EPointUnit)]
+            --TimerStart(CreateTimer(), 1, false, function() --Всё событие Е имеет задержку 1 секунда
+            data.ECD = false
             --print("e is pressed")
             --ТУТ ПЕРЕЧИСЛЯЕМ ДЕЙСТВИЯ ЧЕРЕЗ ИФ
             if data.UseAction == "StartSheep" then
@@ -2848,6 +2852,8 @@ function CreateEActions()
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
 
+            -- end) --конец задержки
+
 
         end
     end)
@@ -2953,16 +2959,21 @@ function RegistrationAnyEntire()
                 local entering=GetTriggerUnit()
                 if GetUnitTypeId(entering)==FourCC('hdhw') then
                     local dataPoint=EnterPointTable[GetHandleId(entering)]
-                    --print("подошел к "..dataPoint.UseAction)
+
                     if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering
-                        BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
+                        --BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
+                        --print("подошел к "..dataPoint.UseAction)
+                        local eEff=AddSpecialEffect("SystemGeneric\\ActionsE",GetUnitXY(entering))
                         data.ShowActionWindows=true
                         TimerStart(CreateTimer(), 0.1, true, function()
                             if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) or not dataPoint.isActive then
-                                BlzFrameSetVisible(dataPoint.tooltip,false)
+                                --BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
+                                BlzSetSpecialEffectPosition(eEff,OutPoint,OutPoint,0)
+                                DestroyEffect(eEff)
+                                --print("ломаем эффект")
                                 data.UseAction=""
                                 data.ShowActionWindows=false
                             end
@@ -3713,12 +3724,13 @@ function CreateDialogTalon(godName)
         title = "Дары Адского крика"
         --ReplaceableTextures\CommandButtons\BTNChaosGrom.blp
     end
-
+    CreateEmptyBoxForTalon()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
             local data = HERO[i]
             data.TalonWindowIsOpen=false
             BlzFrameSetVisible(data.DialogTalon.MainFrame, GetLocalPlayer()==Player(i))
+            --print("превращаем пустышки в таланты для игрока ",i)
             BlzFrameSetText(data.DialogTalon.Title, title)
             AddSkillToDialog(data, godName)
         end
@@ -3807,7 +3819,7 @@ do
                 print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
             end
 
-            CreateEmptyBoxForTalon()
+            --CreateEmptyBoxForTalon()
             GOD_NAME_ARRAY = {
                 "Trall",
                 "HeroBlademaster",
@@ -3848,8 +3860,8 @@ function CreateEmptyBoxForTalon()
             data.DialogTalon.MainBackdrop = MainBackdrop
             data.DialogTalon.Title = Title
             data.DialogTalon.Container = {}
-            data.CurrentClickedGodName={}
-            data.CurrentClickedPos={}
+            data.CurrentClickedGodName = {}
+            data.CurrentClickedPos = {}
             for j = 1, 4 do
                 data.DialogTalon.Container[j] = {}
                 CreateBoxTalon(MainFrame, j, data)
@@ -3858,7 +3870,8 @@ function CreateEmptyBoxForTalon()
     end
 end
 
-function CreateBoxTalon(MainFrame, j, data) -- вызывается один раз для каждого игрока, и является шаблоном
+function CreateBoxTalon(MainFrame, j, data)
+    -- вызывается один раз для каждого игрока, и является шаблоном
     local Backdrop = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, MainFrame, "EscMenuControlBackdropTemplate", 0)
     BlzFrameSetSize(Backdrop, 0.45, 0.08)
     BlzFrameSetPoint(Backdrop, FRAMEPOINT_TOP, MainFrame, FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
@@ -3924,13 +3937,53 @@ function CreateBoxTalon(MainFrame, j, data) -- вызывается один р�
     local mouseCT = CreateTrigger()
     BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_MOUSE_UP)
     TriggerAddAction(mouseCT, function()
-        --print("убрать")
         --print("клик по фрему закрываем окно талантов")
-        BlzFrameSetVisible(data.DialogTalon.MainFrame, false)
+        --BlzFrameSetVisible(data.DialogTalon.MainFrame, false) --Строка закрытия, единственная что тут происходит прям в момент клика
+        --[[BlzFrameSetSize(data.DialogTalon.MainFrame,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Backdrop,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Tooltip,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].TooltipDescription,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Border,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Name,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Description,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Level,0.00001,0.00001)
+        BlzFrameSetSize(data.DialogTalon.Container[j].Button,0.00001,0.00001)
+        ]]
+        for i = 1, 4 do
+            BlzDestroyFrame(data.DialogTalon.Container[i].Tooltip) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].TooltipDescription) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Border) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].TalonTexture) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Name) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Description) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Level) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Button) --ok
+            BlzDestroyFrame(data.DialogTalon.Container[i].Backdrop)
+        end
+        BlzDestroyFrame(data.DialogTalon.Title)
+        BlzDestroyFrame(data.DialogTalon.MainBackdrop)
+        BlzDestroyFrame(data.DialogTalon.MainFrame)
+        DestroyTrigger(mouseCT)
+        DestroyTrigger(mouseLT)
+        DestroyTrigger(mouseET)
+
+        -- DestroyTrigger(mouseCT)
+        -- DestroyTrigger(mouseLT)
+        --DestroyTrigger(mouseET)
+        -- BlzDestroyFrame(data.DialogTalon.MainFrame)
+        --BlzFrameSetParent(data.DialogTalon.MainFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+        --BlzFrameSetAbsPoint(data.DialogTalon.MainFrame,FRAMEPOINT_CENTER,2,2)
+        DisableTrigger(mouseCT)
         --print("Клик по фрейму" .. j)
-        data.TalonWindowIsOpen=true
-        ChkAllPlayerTalonClosedWindow()
-        LearnCurrentTalonForPlayer(data.pid, data.CurrentClickedGodName[j], data.CurrentClickedPos[j])
+
+        TimerStart(CreateTimer(), 1, false, function()
+            data.TalonWindowIsOpen = true -- не обязательная строка
+            ChkAllPlayerTalonClosedWindow() -- не обязательная строка
+            LearnCurrentTalonForPlayer(data.pid, data.CurrentClickedGodName[j], data.CurrentClickedPos[j]) -- делал задержку в 2 секунды, десинхает в момент клика
+        end)
+        TimerStart(CreateTimer(), 1.5, false, function()
+            EnableTrigger(mouseCT)
+        end)
     end)
 
 
@@ -3983,7 +4036,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
     --print(pid, godName, pos)
 
     local x, y, size = 0.02, 0.015, 0.03
-    if GetActiveCountPlayer() > 1 then
+    if GetActiveCountPlayer() > 0 then
         print(GetPlayerName(Player(pid)) .. " выбрал " .. talon.name .. " уровень " .. talon.level)
     end
     if godName == "Trall" and talon.level == 1 then
@@ -4944,41 +4997,41 @@ do
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
-                            name = "Ящер",
-                            description = "Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100",
+                            name = L("Ящер-таран","Ящер-таран"),
+                            description = L("Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100","A huge lizard demolishes enemies in its path, the direction is chosen from the hero, to the cursor point. Cooldown: 20. Damage: 100"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Призывает существо",
+                            tooltip = L("Может наносит урон несколько раз, урон при ударах о стену усиливается от других способностей героя","Can deal damage several times, damage when hitting the wall is increased from other abilities of the hero"),
                             DS = { "lizard" },
                             pos=1
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
-                            name = "Медведь",
-                            description = "Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30",
+                            name = L("Медведь-бомба","Bear-bomb"),
+                            description = L("Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30","Crushes the bear to the cursor position, the bear deals 1000 damage when summoned. Cooldown: 60. Duration: 30"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Призывает существо",
+                            tooltip = L("Нажмите и удерживайте горячую клавишу активации, чтобы перемещать область взрыва","Press and hold the activation hotkey to move the blast area"),
                             DS = { "bear" },
                             pos=2
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
-                            name = "Кабан",
-                            description = "Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50",
+                            name = L("Кабан","Wild boar"),
+                            description = L("Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50","Summons a small boar, the boar deals 30 damage. Cooldown: 20. Duration: 50"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Призывает существо",
+                            tooltip = L("Призванное существо полностью автономно","Призванное существо полностью автономно"),
                             DS = { "boar" },
                             pos=3
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
-                            name = "Волк",
-                            description = "Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк убивает замороженных врагов с 1 удара",
+                            name = L("Полярный волк","Polar Wolf"),
+                            description = L("Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк наносит двойной урон замороженным существам","Summons a polar wolf and an ice storm that freezes everything within a radius of 1000. The wolf deals double damage to the frozen creature"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Призывает существо",
+                            tooltip = L("Призванное существо полностью автономно","The summoned creature is completely autonomous"),
                             DS = { "wolf" },
                             pos=4
                         }),
