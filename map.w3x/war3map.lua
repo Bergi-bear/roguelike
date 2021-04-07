@@ -2096,6 +2096,7 @@ do
             DestroyTimer(GetExpiredTimer())
         end)
     end
+    InfoSlots = 0
 end
 
 ActionList = {}
@@ -2299,7 +2300,7 @@ function AllActionsEnabled(enable)
     end
 end
 
-function CreateActionBox(message)
+function CreateActionBox(message) --функция отключена
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
@@ -2736,7 +2737,7 @@ function CreateEActions()
                     data.UseAction = ""
                     data.ShowActionWindows = false
                     KillUnit(data.EPointUnit)
-                    GiveForAll("CodoHeart")
+                    GiveForAll("CodoHeart") -- Дайём всем награду
                     if dataPoint.TalonPrice > 0 then
                         normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
                         AddGold(data, -dataPoint.TalonPrice)
@@ -2868,9 +2869,10 @@ function CreateEActions()
     end)
 end
 
-InfoSlots = 0
-function CreateInfoBoxForAllPlayerTimed(data, message, timed)
 
+function CreateInfoBoxForAllPlayerTimed(data, message, timed)
+    print(message)
+    --[[
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
@@ -2888,11 +2890,12 @@ function CreateInfoBoxForAllPlayerTimed(data, message, timed)
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
     --BlzFrameSetVisible(tooltip,true)
     TimerStart(CreateTimer(), timed, false, function()
-        BlzFrameSetVisible(tooltip, true)
+        --BlzFrameSetVisible(tooltip, true)
         BlzDestroyFrame(tooltip)
         InfoSlots = InfoSlots - 1
     end)
     InfoSlots = InfoSlots + 1
+    ]]
 end
 
 function DestroyDecorInArea(data, range)
