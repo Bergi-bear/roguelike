@@ -11,6 +11,7 @@ do
         TimerStart(CreateTimer(), .1, false, function()
             HERO = {}
             perebor = CreateGroup()
+            PlayerIsPlaying={}
             CreationPeonsForAllPlayer()
             DestroyTimer(GetExpiredTimer())
         end)
@@ -18,8 +19,10 @@ do
 end
 
 function CreationPeonsForAllPlayer()
+    local this = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  and GetPlayerController(Player(i))==MAP_CONTROL_USER then -- 1 раз, не трогать!!!!!!
+            PlayerIsPlaying[i]=true
             local x,y=GetPlayerStartLocationX(Player(i)),GetPlayerStartLocationY(Player(i))
             local hero=CreateUnit(Player(i),HeroID,x,y,0)
             UnitAddAbility(hero,FourCC("abun"))
@@ -40,6 +43,15 @@ function CreationPeonsForAllPlayer()
             --print("создан пеон")
             SelectUnitForPlayerSingle(hero,Player(i))
             InitWASD(hero)
+            TriggerRegisterPlayerEventLeave(this, Player(i))
+        else
+            PlayerIsPlaying[i]=false
         end
     end
+    TriggerAddAction(this, function()
+        local p=GetTriggerPlayer()
+        PlayerIsPlaying[GetPlayerId(p)]=false
+        print(GetPlayerName(p)..L(" Покинул игру"," Left the game"))
+    end)
 end
+

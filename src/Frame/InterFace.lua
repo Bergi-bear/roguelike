@@ -115,7 +115,7 @@ function RemoveLife(data)
             TimerStart(CreateTimer(), 3, false, function()
                 local SaveCode = "error"
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                    if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER and data.life < 0 then
+                    if PlayerIsPlaying[i] and data.life < 0 then
                         local gdata = HERO[i]
                         if GetLocalPlayer() == Player(i) then
                             SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","..R2I(gdata.chaosPoint)..","
@@ -138,7 +138,7 @@ end
 
 function ReviveAllHero()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             local hero = data.UnitHero
             local x, y = GetUnitXY(hero)

@@ -23,7 +23,7 @@ function CreateDialogTalon(godName)
     end
     CreateEmptyBoxForTalon()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             data.TalonWindowIsOpen=false
             BlzFrameSetVisible(data.DialogTalon.MainFrame, GetLocalPlayer()==Player(i))

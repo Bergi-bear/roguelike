@@ -98,7 +98,7 @@ function GetRandomEnemyHero()
     local find = nil
     local k = 1
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             if UnitAlive(data.UnitHero) then
                 --print("найден живой")

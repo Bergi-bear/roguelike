@@ -36,7 +36,7 @@ function CreateBaseFrames(x, y)
         L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг", "Hold down the LMB to start spinning and deal damage to all enemies around"),
     }
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local step = 0.03
             local data = HERO[i]
             -- AllAbilityFrames[i]={

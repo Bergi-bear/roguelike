@@ -38,7 +38,7 @@ function InitPreloadStart()
     --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
     local i = 0
     TimerStart(CreateTimer(), .2, true, function()
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             if not udg_LoadCode[i] then
                 udg_LoadCode[i] = 50

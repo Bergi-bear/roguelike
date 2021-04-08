@@ -1921,7 +1921,7 @@ end
 ---
 function GiveForAll(reward)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             if data then
                 local hero = data.UnitHero
@@ -2953,7 +2953,7 @@ end
 
 function RegistrationAnyEntire()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data=HERO[i]
             local hero=data.UnitHero
             local enterTrig=CreateTrigger()
@@ -3223,7 +3223,7 @@ function Enter2NewZone(flag)
                     TimerStart(CreateTimer(), 3, false, function()
                         local SaveCode = 0
                         for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                            if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+                            if PlayerIsPlaying[i] then
                                 local gdata = HERO[i]
                                 if GetLocalPlayer() == Player(i) then
                                     SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. ","
@@ -3293,7 +3293,7 @@ function MoveAllHeroAndBound(recEnter, rectBound)
         end
     end)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             SetCameraBoundsToRectForPlayerBJ(Player(i), rectBound)
             SetUnitPosition(data.UnitHero, x, y)
@@ -3572,7 +3572,7 @@ CurrentOnWave = 0
 function GetActiveCountPlayer()
     local k = 0
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             local hero = data.UnitHero
             --local x,y=GetUnitXY(hero)
@@ -3729,7 +3729,7 @@ function CreateDialogTalon(godName)
     end
     CreateEmptyBoxForTalon()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             data.TalonWindowIsOpen=false
             BlzFrameSetVisible(data.DialogTalon.MainFrame, GetLocalPlayer()==Player(i))
@@ -3843,7 +3843,7 @@ function CreateEmptyBoxForTalon()
 
     local sizeBigBoxX, sizeBigBoxY = 0.5, 0.46
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             --print("Боксы для игрока " .. i)
             local data = HERO[i]
             data.DialogTalon = {}
@@ -4006,7 +4006,7 @@ AllPlayerTalonClosedWindow = true
 function ChkAllPlayerTalonClosedWindow()
     local result = false
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             if data.TalonWindowIsOpen then
                 result = true
@@ -5465,7 +5465,7 @@ function CreateDialogTalonOld(godName)
     end
 
     for i = 1, bj_MAX_PLAYERS do
-        if IsPlayerSlotState(Player(i-1), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             DialogTalon.IsOpen[i] = false
             BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
             BlzFrameSetText(DialogTalon.Title[i], title)
@@ -5776,7 +5776,7 @@ function CreateBaseFrames(x, y)
         L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг", "Hold down the LMB to start spinning and deal damage to all enemies around"),
     }
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local step = 0.03
             local data = HERO[i]
             -- AllAbilityFrames[i]={
@@ -6239,7 +6239,7 @@ function RemoveLife(data)
             TimerStart(CreateTimer(), 3, false, function()
                 local SaveCode = "error"
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                    if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER and data.life < 0 then
+                    if PlayerIsPlaying[i] and data.life < 0 then
                         local gdata = HERO[i]
                         if GetLocalPlayer() == Player(i) then
                             SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","..R2I(gdata.chaosPoint)..","
@@ -6262,7 +6262,7 @@ end
 
 function ReviveAllHero()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             local hero = data.UnitHero
             local x, y = GetUnitXY(hero)
@@ -6442,6 +6442,7 @@ do
         TimerStart(CreateTimer(), .1, false, function()
             HERO = {}
             perebor = CreateGroup()
+            PlayerIsPlaying={}
             CreationPeonsForAllPlayer()
             DestroyTimer(GetExpiredTimer())
         end)
@@ -6449,8 +6450,10 @@ do
 end
 
 function CreationPeonsForAllPlayer()
+    local this = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  and GetPlayerController(Player(i))==MAP_CONTROL_USER then -- 1 раз, не трогать!!!!!!
+            PlayerIsPlaying[i]=true
             local x,y=GetPlayerStartLocationX(Player(i)),GetPlayerStartLocationY(Player(i))
             local hero=CreateUnit(Player(i),HeroID,x,y,0)
             UnitAddAbility(hero,FourCC("abun"))
@@ -6471,9 +6474,19 @@ function CreationPeonsForAllPlayer()
             --print("создан пеон")
             SelectUnitForPlayerSingle(hero,Player(i))
             InitWASD(hero)
+            TriggerRegisterPlayerEventLeave(this, Player(i))
+        else
+            PlayerIsPlaying[i]=false
         end
     end
+    TriggerAddAction(this, function()
+        local p=GetTriggerPlayer()
+        PlayerIsPlaying[GetPlayerId(p)]=false
+        print(GetPlayerName(p)..L(" Покинул игру"," Left the game"))
+    end)
 end
+
+
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -6574,7 +6587,7 @@ function GetRandomEnemyHero()
     local find = nil
     local k = 1
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             if UnitAlive(data.UnitHero) then
                 --print("найден живой")
@@ -7620,7 +7633,7 @@ end
 SimpleTaskPos = {}
 function CreateTaskForAllPlayer()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             SimpleTaskPos[i] = 0
             local data = HERO[i]
             local frames = {}
@@ -7711,7 +7724,7 @@ end
 
 function DestroyAllLearHelpers()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             AllCompletedForPlayer(i)
         end
     end
@@ -9031,7 +9044,7 @@ function InitPreloadStart()
     --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
     local i = 0
     TimerStart(CreateTimer(), .2, true, function()
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             if not udg_LoadCode[i] then
                 udg_LoadCode[i] = 50

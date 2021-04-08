@@ -139,7 +139,7 @@ function Enter2NewZone(flag)
                     TimerStart(CreateTimer(), 3, false, function()
                         local SaveCode = 0
                         for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                            if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+                            if PlayerIsPlaying[i] then
                                 local gdata = HERO[i]
                                 if GetLocalPlayer() == Player(i) then
                                     SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. ","
@@ -209,7 +209,7 @@ function MoveAllHeroAndBound(recEnter, rectBound)
         end
     end)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             SetCameraBoundsToRectForPlayerBJ(Player(i), rectBound)
             SetUnitPosition(data.UnitHero, x, y)
@@ -488,7 +488,7 @@ CurrentOnWave = 0
 function GetActiveCountPlayer()
     local k = 0
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             local data = HERO[i]
             local hero = data.UnitHero
             --local x,y=GetUnitXY(hero)

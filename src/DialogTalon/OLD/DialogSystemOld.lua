@@ -104,7 +104,7 @@ function CreateDialogTalonOld(godName)
     end
 
     for i = 1, bj_MAX_PLAYERS do
-        if IsPlayerSlotState(Player(i-1), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i))==MAP_CONTROL_USER then
+        if PlayerIsPlaying[i] then
             DialogTalon.IsOpen[i] = false
             BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
             BlzFrameSetText(DialogTalon.Title[i], title)
