@@ -1070,7 +1070,7 @@ function attack(data)
                                 local cd = data.HandOfMidasCD
                                 data.HandOfMidasCurrentCD = cd
                                 StartFrameCD(cd, data.HandOfMidasCDFH)
-                                if BlzGetUnitMaxHP(enemy)<=5000 then --TODO сделать другое условие не убийства
+                                if BlzGetUnitMaxHP(enemy)<=5000 and IsUnitEnemy(enemy,GetOwningPlayer(data.UnitHero)) then --TODO сделать другое условие не убийства
                                     KillUnit(enemy)
                                     UnitAddGold(data.UnitHero,data.HandOfMidasReward)
                                 end
@@ -1567,7 +1567,7 @@ function CreateLizard2Point(data)
     local x, y = data.fakeX, data.fakeY
     local angle = AngleBetweenXY(xs, ys, x, y) / bj_DEGTORAD
     local lizard = CreateUnit(Player(data.pid), FourCC("nltl"), xs, ys, angle)-- Units\Creeps\LightningLizard\LightningLizard
-        local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(lizard))
+    local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(lizard))
     BlzSetSpecialEffectScale(eff, 2)
     DestroyEffect(eff)
     UnitAddAbility(lizard, FourCC("Aloc"))
@@ -1581,14 +1581,44 @@ function CreateLizard2Point(data)
 end
 
 function CreateWinter(data)
+    --Abilities\Spells\Human\Blizzard\BlizzardTarget.mdl
+    --Abilities\Weapons\ZigguratFrostMissile\ZigguratFrostMissile.mdl
+    --Abilities\Spells\Undead\FreezingBreath\FreezingBreathMissile.mdl
+    --Abilities\Spells\Undead\FrostNova\FrostNovaTarget.mdl
+
+
+
     local x, y = GetUnitXY(data.UnitHero)
+
+    local e = nil
+
+    GroupEnumUnitsInRange(perebor, x, y, 500, nil)
+    while true do
+        e = FirstOfGroup(perebor)
+
+        if e == nil then
+            break
+        end
+        if UnitAlive(e) then
+            DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Undead\\FreezingBreath\\FreezingBreathMissile.mdl",GetUnitXY(e)))
+            if IsUnitEnemy(e, GetOwningPlayer(data.UnitHero))  then
+                StunUnit(e,10,"frise")
+                local iceLock=AddSpecialEffectTarget("Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl",e,"origin")
+                TimerStart(CreateTimer(), 10, false, function()
+                    DestroyEffect(iceLock)
+                end)
+            end
+        end
+        GroupRemoveUnit(perebor, e)
+    end
+
     local wolf = CreateUnit(Player(data.pid), FourCC("nwwd"), x, y, GetUnitFacing(data.UnitHero))
     local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(wolf))
     BlzSetSpecialEffectScale(eff, 2)
     DestroyEffect(eff)
     BlzSetUnitBaseDamage(wolf, 50 + GetHeroLevel(data.UnitHero) * 10, 0)
     UnitApplyTimedLife(wolf, FourCC('BTLF'), 20)
-    local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
+    eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
     DestroyEffect(eff)
     TimerStart(CreateTimer(), 2, true, function()
         if not UnitAlive(wolf) then
@@ -6026,7 +6056,10 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     end)
 
     ---Глобализация
-    data.countFrame = k + 1
+    data.countFrame = k + 1 -- Увеличение числа талантов
+    if data.countFrame>= 25 then
+        print("Достигнул лимит способностей, обратитесь к автору карты")
+    end
     return text, buttonIconFrame
 end
 
@@ -8597,6 +8630,15 @@ function OnPostDamage()
                 if data.StaggerTimeFromTalon then
                     addTime = data.StaggerTimeFromTalon
                 end
+
+                local _,status=IsUnitStunned(target)
+                if status=="stagger" then
+                    print("юнит уже оглушен")
+                end
+                if status=="frise" then
+                    print("юнит получает урон будучи замороженным")
+                end
+
                 StunUnit(target, 0.4 + addTime, "stagger")
             else
                 if data.ShieldBreakerIsLearn then
@@ -9954,7 +9996,8 @@ function StunUnit(hero,dur,flag)
 		StunSystem[GetHandleId(hero)]={
 			Time=0,
 			Eff=nil,
-			Timer=nil
+			Timer=nil,
+			Status=nil
 		}
 	end
 	local data=StunSystem[GetHandleId(hero)]
@@ -9966,8 +10009,13 @@ function StunUnit(hero,dur,flag)
 		data.Eff=AddSpecialEffectTarget(stuneff,hero,"overhead")
 		BlzPauseUnitEx(hero,true)
 		SetUnitTimeScale(hero,0)
-		if flag=="stagger" then
+		if flag=="stagger" and  data.Status~="frise" then
 			SetUnitVertexColor(hero,255,0,0,255)
+			data.Status="stagger"
+		end
+		if flag=="frise" then
+			SetUnitVertexColor(hero,0,0,255,255)
+			data.Status="frise"
 		end
 	end
 
@@ -9985,7 +10033,7 @@ function StunUnit(hero,dur,flag)
 		--print(data.Time)
 		if curdur>=dur or not UnitAlive(hero) then
 			--print("Вышел из стана")
-			if flag=="stagger" then
+			if flag=="stagger" or flag=="frise" then
 				SetUnitVertexColor(hero,255,255,255,255)
 			end
 			SetUnitTimeScale(hero,1)
@@ -9995,6 +10043,7 @@ function StunUnit(hero,dur,flag)
 			data.Time=0
 			DestroyEffect(data.Eff)
 			data.Timer=nil
+			data.Status=nil
 		end
 	end)
 end
@@ -10021,7 +10070,8 @@ function IsUnitStunned(hero)
 		StunSystem[GetHandleId(hero)]={
 			Time=0,
 			Eff=nil,
-			Timer=nil
+			Timer=nil,
+			Status=nil
 		}
 	end
 	local data=StunSystem[GetHandleId(hero)]
@@ -10029,7 +10079,7 @@ function IsUnitStunned(hero)
 	if data.Time>0 then
 		isStunned=true
 	end
-	return isStunned
+	return isStunned,data.Status
 end
 ---@param text string
 ---@param textSize real

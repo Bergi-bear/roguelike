@@ -1,4 +1,4 @@
-require 'build' {
+require 'build'({
     --run = 'editor',
     run  = 'game',
-}
+})

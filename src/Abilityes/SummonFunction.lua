@@ -86,7 +86,7 @@ function CreateLizard2Point(data)
     local x, y = data.fakeX, data.fakeY
     local angle = AngleBetweenXY(xs, ys, x, y) / bj_DEGTORAD
     local lizard = CreateUnit(Player(data.pid), FourCC("nltl"), xs, ys, angle)-- Units\Creeps\LightningLizard\LightningLizard
-        local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(lizard))
+    local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(lizard))
     BlzSetSpecialEffectScale(eff, 2)
     DestroyEffect(eff)
     UnitAddAbility(lizard, FourCC("Aloc"))
@@ -100,14 +100,44 @@ function CreateLizard2Point(data)
 end
 
 function CreateWinter(data)
+    --Abilities\Spells\Human\Blizzard\BlizzardTarget.mdl
+    --Abilities\Weapons\ZigguratFrostMissile\ZigguratFrostMissile.mdl
+    --Abilities\Spells\Undead\FreezingBreath\FreezingBreathMissile.mdl
+    --Abilities\Spells\Undead\FrostNova\FrostNovaTarget.mdl
+
+
+
     local x, y = GetUnitXY(data.UnitHero)
+
+    local e = nil
+
+    GroupEnumUnitsInRange(perebor, x, y, 500, nil)
+    while true do
+        e = FirstOfGroup(perebor)
+
+        if e == nil then
+            break
+        end
+        if UnitAlive(e) then
+            DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Undead\\FreezingBreath\\FreezingBreathMissile.mdl",GetUnitXY(e)))
+            if IsUnitEnemy(e, GetOwningPlayer(data.UnitHero))  then
+                StunUnit(e,10,"frise")
+                local iceLock=AddSpecialEffectTarget("Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl",e,"origin")
+                TimerStart(CreateTimer(), 10, false, function()
+                    DestroyEffect(iceLock)
+                end)
+            end
+        end
+        GroupRemoveUnit(perebor, e)
+    end
+
     local wolf = CreateUnit(Player(data.pid), FourCC("nwwd"), x, y, GetUnitFacing(data.UnitHero))
     local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(wolf))
     BlzSetSpecialEffectScale(eff, 2)
     DestroyEffect(eff)
     BlzSetUnitBaseDamage(wolf, 50 + GetHeroLevel(data.UnitHero) * 10, 0)
     UnitApplyTimedLife(wolf, FourCC('BTLF'), 20)
-    local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
+    eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
     DestroyEffect(eff)
     TimerStart(CreateTimer(), 2, true, function()
         if not UnitAlive(wolf) then

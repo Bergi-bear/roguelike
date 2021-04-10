@@ -286,7 +286,10 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     end)
 
     ---Глобализация
-    data.countFrame = k + 1
+    data.countFrame = k + 1 -- Увеличение числа талантов
+    if data.countFrame>= 25 then
+        print("Достигнул лимит способностей, обратитесь к автору карты")
+    end
     return text, buttonIconFrame
 end
 

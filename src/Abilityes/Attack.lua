@@ -153,7 +153,7 @@ function attack(data)
                                 local cd = data.HandOfMidasCD
                                 data.HandOfMidasCurrentCD = cd
                                 StartFrameCD(cd, data.HandOfMidasCDFH)
-                                if BlzGetUnitMaxHP(enemy)<=5000 then --TODO сделать другое условие не убийства
+                                if BlzGetUnitMaxHP(enemy)<=5000 and IsUnitEnemy(enemy,GetOwningPlayer(data.UnitHero)) then --TODO сделать другое условие не убийства
                                     KillUnit(enemy)
                                     UnitAddGold(data.UnitHero,data.HandOfMidasReward)
                                 end

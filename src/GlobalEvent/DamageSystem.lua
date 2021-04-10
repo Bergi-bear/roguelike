@@ -88,6 +88,18 @@ function OnPostDamage()
                 if data.StaggerTimeFromTalon then
                     addTime = data.StaggerTimeFromTalon
                 end
+
+                local _,status=IsUnitStunned(target)
+                if status=="stagger" then
+                    --print("юнит уже оглушен")
+                end
+                if status=="frise" then
+                   -- print("юнит получает урон будучи замороженным")
+                    if GetUnitTypeId(caster)==FourCC("nwwd") then
+                        BlzSetEventDamage(GetEventDamage()*2)
+                    end
+                end
+
                 StunUnit(target, 0.4 + addTime, "stagger")
             else
                 if data.ShieldBreakerIsLearn then

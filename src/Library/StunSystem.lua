@@ -11,7 +11,8 @@ function StunUnit(hero,dur,flag)
 		StunSystem[GetHandleId(hero)]={
 			Time=0,
 			Eff=nil,
-			Timer=nil
+			Timer=nil,
+			Status=nil
 		}
 	end
 	local data=StunSystem[GetHandleId(hero)]
@@ -23,8 +24,13 @@ function StunUnit(hero,dur,flag)
 		data.Eff=AddSpecialEffectTarget(stuneff,hero,"overhead")
 		BlzPauseUnitEx(hero,true)
 		SetUnitTimeScale(hero,0)
-		if flag=="stagger" then
+		if flag=="stagger" and  data.Status~="frise" then
 			SetUnitVertexColor(hero,255,0,0,255)
+			data.Status="stagger"
+		end
+		if flag=="frise" then
+			SetUnitVertexColor(hero,0,0,255,255)
+			data.Status="frise"
 		end
 	end
 
@@ -42,7 +48,7 @@ function StunUnit(hero,dur,flag)
 		--print(data.Time)
 		if curdur>=dur or not UnitAlive(hero) then
 			--print("Вышел из стана")
-			if flag=="stagger" then
+			if flag=="stagger" or flag=="frise" then
 				SetUnitVertexColor(hero,255,255,255,255)
 			end
 			SetUnitTimeScale(hero,1)
@@ -52,6 +58,7 @@ function StunUnit(hero,dur,flag)
 			data.Time=0
 			DestroyEffect(data.Eff)
 			data.Timer=nil
+			data.Status=nil
 		end
 	end)
 end
@@ -78,7 +85,8 @@ function IsUnitStunned(hero)
 		StunSystem[GetHandleId(hero)]={
 			Time=0,
 			Eff=nil,
-			Timer=nil
+			Timer=nil,
+			Status=nil
 		}
 	end
 	local data=StunSystem[GetHandleId(hero)]
@@ -86,5 +94,5 @@ function IsUnitStunned(hero)
 	if data.Time>0 then
 		isStunned=true
 	end
-	return isStunned
+	return isStunned,data.Status
 end
