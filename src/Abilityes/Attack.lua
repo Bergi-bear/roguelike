@@ -238,7 +238,7 @@ function attackShield(data)
             local cdAttack = 0.2
             local indexAnim = 25
             data.isAttacking = true
-
+            data.AttackShieldCD=cdAttack
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
             local damage = 100
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот

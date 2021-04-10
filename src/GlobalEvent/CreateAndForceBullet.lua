@@ -90,6 +90,33 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             local data = HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
             if data.UnitHero and GetUnitTypeId(DamagingUnit) == HeroID then
                 --print("атакован наш герой")
+                if (data.PressSpin or data.ShieldDashReflect) and data.CurrentWeaponType == "shield" then
+                    --print("Попадание в активированный щит")
+
+                    local xe, ye = GetUnitXY(DamagingUnit)
+                    -- функция принадлежности точки сектора
+                    -- x1, x2 - координаты проверяемой точки
+                    -- x2, y2 - координаты вершины сектора
+                    -- orientation - ориентация сектора в мировых координатах
+                    -- width - угловой размер сектора в градусах
+                    -- radius - окружности которой принадлежит сектор
+
+                    if IsPointInSector(x, y, xe, ye, GetUnitFacing(DamagingUnit), 90, 200) then
+
+
+                        FlyTextTagShieldXY(xe, ye, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
+                        reverse = true
+                        DestroyEffect(bullet)
+                        DestroyTimer(GetExpiredTimer())
+                        local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(DamagingUnit))
+                        local AngleSource = AngleBetweenUnits(heroCurrent, DamagingUnit)
+                        BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
+                        DestroyEffect(eff)
+
+                    end
+
+                end
+
                 if data.Reflected or data.SpinReflect or data.AttackInForce then
                     --print("отбит снаряд")
 
@@ -98,14 +125,14 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                     end
 
                     if not data.DestroyMissile then
-                        FlyTextTagShieldXY(nx, ny, L("Отбит","Parry"), GetOwningPlayer(data.UnitHero))
+                        FlyTextTagShieldXY(nx, ny, L("Отбит", "Parry"), GetOwningPlayer(data.UnitHero))
                         heroCurrent = DamagingUnit
                         reverse = true
                         angleCurrent = AngleBetweenUnits(DamagingUnit, hero)
                     else
                         reverse = true
                         --print("снаряд уничтожен будет")
-                        FlyTextTagShieldXY(nx, ny, L("Разрушен","Destroyed"), GetOwningPlayer(data.UnitHero))
+                        FlyTextTagShieldXY(nx, ny, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
 
                         DestroyEffect(bullet)
                         DestroyTimer(GetExpiredTimer())
@@ -190,7 +217,7 @@ function FindAnyAllyUnit(data, range)
         if e == nil then
             break
         end
-        if UnitAlive(e) and IsUnitAlly(e, Player(data.pid)) and not find and e ~= unit and GetUnitLifePercent(e)<=99 and IsUnitType(e,UNIT_TYPE_HERO) then
+        if UnitAlive(e) and IsUnitAlly(e, Player(data.pid)) and not find and e ~= unit and GetUnitLifePercent(e) <= 99 and IsUnitType(e, UNIT_TYPE_HERO) then
             find = e
             --print("нашел")
         end

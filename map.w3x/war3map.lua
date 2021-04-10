@@ -1199,7 +1199,7 @@ function attackShield(data)
             local cdAttack = 0.2
             local indexAnim = 25
             data.isAttacking = true
-
+            data.AttackShieldCD=cdAttack
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
             local damage = 100
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
@@ -1773,7 +1773,7 @@ end
 --- DateTime: 10.04.2021 15:02
 ---
 function SwitchWeaponTo(data, newWeapon)
-    print("переключаем оружие на", newWeapon)
+    --print("переключаем оружие на", newWeapon)
     data.CurrentWeaponType = newWeapon
     ClearPrevWeapon(data)
     if newWeapon == "pickaxe" then
@@ -8616,6 +8616,33 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             local data = HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
             if data.UnitHero and GetUnitTypeId(DamagingUnit) == HeroID then
                 --print("атакован наш герой")
+                if (data.PressSpin or data.ShieldDashReflect) and data.CurrentWeaponType == "shield" then
+                    --print("Попадание в активированный щит")
+
+                    local xe, ye = GetUnitXY(DamagingUnit)
+                    -- функция принадлежности точки сектора
+                    -- x1, x2 - координаты проверяемой точки
+                    -- x2, y2 - координаты вершины сектора
+                    -- orientation - ориентация сектора в мировых координатах
+                    -- width - угловой размер сектора в градусах
+                    -- radius - окружности которой принадлежит сектор
+
+                    if IsPointInSector(x, y, xe, ye, GetUnitFacing(DamagingUnit), 90, 200) then
+
+
+                        FlyTextTagShieldXY(xe, ye, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
+                        reverse = true
+                        DestroyEffect(bullet)
+                        DestroyTimer(GetExpiredTimer())
+                        local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(DamagingUnit))
+                        local AngleSource = AngleBetweenUnits(heroCurrent, DamagingUnit)
+                        BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
+                        DestroyEffect(eff)
+
+                    end
+
+                end
+
                 if data.Reflected or data.SpinReflect or data.AttackInForce then
                     --print("отбит снаряд")
 
@@ -8624,14 +8651,14 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                     end
 
                     if not data.DestroyMissile then
-                        FlyTextTagShieldXY(nx, ny, L("Отбит","Parry"), GetOwningPlayer(data.UnitHero))
+                        FlyTextTagShieldXY(nx, ny, L("Отбит", "Parry"), GetOwningPlayer(data.UnitHero))
                         heroCurrent = DamagingUnit
                         reverse = true
                         angleCurrent = AngleBetweenUnits(DamagingUnit, hero)
                     else
                         reverse = true
                         --print("снаряд уничтожен будет")
-                        FlyTextTagShieldXY(nx, ny, L("Разрушен","Destroyed"), GetOwningPlayer(data.UnitHero))
+                        FlyTextTagShieldXY(nx, ny, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
 
                         DestroyEffect(bullet)
                         DestroyTimer(GetExpiredTimer())
@@ -8716,7 +8743,7 @@ function FindAnyAllyUnit(data, range)
         if e == nil then
             break
         end
-        if UnitAlive(e) and IsUnitAlly(e, Player(data.pid)) and not find and e ~= unit and GetUnitLifePercent(e)<=99 and IsUnitType(e,UNIT_TYPE_HERO) then
+        if UnitAlive(e) and IsUnitAlly(e, Player(data.pid)) and not find and e ~= unit and GetUnitLifePercent(e) <= 99 and IsUnitType(e, UNIT_TYPE_HERO) then
             find = e
             --print("нашел")
         end
@@ -8827,27 +8854,27 @@ function OnPostDamage()
                     addTime = data.StaggerTimeFromTalon
                 end
 
-                local _,status=IsUnitStunned(target)
-                if status=="stagger" then
+                local _, status = IsUnitStunned(target)
+                if status == "stagger" then
                     --print("юнит уже оглушен")
                 end
-                if status=="frise" then
-                   -- print("юнит получает урон будучи замороженным")
-                    if GetUnitTypeId(caster)==FourCC("nwwd") then
-                        BlzSetEventDamage(GetEventDamage()*2)
+                if status == "frise" then
+                    -- print("юнит получает урон будучи замороженным")
+                    if GetUnitTypeId(caster) == FourCC("nwwd") then
+                        BlzSetEventDamage(GetEventDamage() * 2)
                     end
                 end
 
                 StunUnit(target, 0.4 + addTime, "stagger")
             else
                 if data.ShieldBreakerIsLearn then
-                    damage=damage+50
+                    damage = damage + 50
                 end
                 SetUnitState(target, UNIT_STATE_MANA, GetUnitState(target, UNIT_STATE_MANA) - damage)
                 BlzSetEventDamage(0)
                 if IsUnitHasShield(target) and GetUnitState(target, UNIT_STATE_MANA) < 1 then
                     local x, y = GetUnitXY(target)
-                    FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster),"blue")
+                    FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster), "blue")
                     ShieldSystem[GetHandleId(target)].IsActive = false
                 end
             end
@@ -8855,6 +8882,25 @@ function OnPostDamage()
     else
         --print("наш герой получил урон")
         local data = HERO[GetPlayerId(GetOwningPlayer(target))]
+
+        local x, y = GetUnitXY(caster)
+        local xe, ye = GetUnitXY(target)
+        -- функция принадлежности точки сектора
+        -- x1, x2 - координаты проверяемой точки
+        -- x2, y2 - координаты вершины сектора
+        -- orientation - ориентация сектора в мировых координатах
+        -- width - угловой размер сектора в градусах
+        -- radius - окружности которой принадлежит сектор
+
+        if IsPointInSector(x, y, xe, ye, GetUnitFacing(target), 90, 200) then
+            BlzSetEventDamage(0)
+            local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
+            local AngleSource = AngleBetweenUnits(caster, target)
+            BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
+            DestroyEffect(eff)
+            FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+        end
+
         if data.HealDash and data.HealDashCurrentCD <= 0 then
             --лечение рывком
             data.Time2HealDash = damage
@@ -8894,8 +8940,8 @@ function OnPostDamage()
 
             if data.InvulPreDeathCurrentCD <= 0 and data.InvulPreDeathCDFH then
                 --print("получен смертельный урон")
-                FlyTextTagHealXY(GetUnitX(target), GetUnitY(target), L("Предвидение смерти","Foresight of Death"), GetOwningPlayer(target))
-                CreateInfoBoxForAllPlayerTimed(data, L("Я не дам тебе умереть","I won't let you die"), 3)
+                FlyTextTagHealXY(GetUnitX(target), GetUnitY(target), L("Предвидение смерти", "Foresight of Death"), GetOwningPlayer(target))
+                CreateInfoBoxForAllPlayerTimed(data, L("Я не дам тебе умереть", "I won't let you die"), 3)
                 BlzSetEventDamage(0)
                 SetUnitInvulnerable(target, true)
                 TimerStart(CreateTimer(), 2, false, function()
@@ -8949,7 +8995,7 @@ function OnPostDamage()
         AddDamage2Show(target, GetEventDamage())
         local showData = ShowDamageTable[GetHandleId(target)]
         local matchShow = showData.damage
-        if matchShow>=1 then
+        if matchShow >= 1 then
             if not showData.tag then
                 showData.tag = FlyTextTagCriticalStrike(target, R2I(matchShow), GetOwningPlayer(caster), true)
             else
@@ -10701,10 +10747,14 @@ function InitWASD(hero)
         if data.CurrentWeaponType == "shield" then
             --удержание щита
             if data.PressSpin then
+
                 if not data.PressShieldSec then
                     data.PressShieldSec = 0
                 end
-                data.PressShieldSec = data.PressShieldSec + TIMER_PERIOD64
+                if data.PressShieldSec <= 2 then
+                    data.PressShieldSec = data.PressShieldSec + TIMER_PERIOD64
+                    --print(data.PressShieldSec)
+                end
                 if data.PressShieldSec >= 2 and not data.ShieldReadyToCharge then
                     data.ShieldReadyToCharge = true
                     FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), L("Максимум", "Maximum"), GetOwningPlayer(data.UnitHero))
@@ -10716,8 +10766,8 @@ function InitWASD(hero)
                     BlzSetSpecialEffectTimeScale(data.BarToCharge, 0.5)
                     BlzSetSpecialEffectScale(data.BarToCharge, 1)
                     BlzSetSpecialEffectAlpha(data.BarToCharge, 0)
-                    BlzSetSpecialEffectColorByPlayer(data.BarToCharge,Player(1))
-                    data.ArrowToShieldDashVisible=true
+                    BlzSetSpecialEffectColorByPlayer(data.BarToCharge, Player(1))
+                    data.ArrowToShieldDashVisible = true
                     --CreateArrowToShieldDash(data)
                 else
                     if data.PressShieldSec > 0.5 then
@@ -10851,7 +10901,10 @@ function InitWASD(hero)
                     if data.isAttacking or (data.ReleaseQ and data.CDSpellQ > 0) or data.ReleaseRMB then
                         speed = 0.5
                     end
-                    SetUnitTimeScale(hero, (speed * 20) / 100)
+                    if data.WEAPON_TYPE_WHOKNOWS == "pickaxe" then
+                        SetUnitTimeScale(hero, (speed * 20) / 100) --СКОРОСТЬ ПЕРЕБИРАНИЯ НОГАМИ
+                    end
+
                     if data.ReleaseQ then
                         --нормализация скорости
                         SetUnitTimeScale(hero, 1)
@@ -10906,9 +10959,17 @@ function InitWASD(hero)
                     --if animWalk==0 then
                     data.DirectionMove = GetUnitFacing(hero)
                     data.animStand = data.animStand + TIMER_PERIOD64
-                    if data.CurrentWeaponType == "shield" and data.PressSpin then
-                        SetUnitAnimationByIndex(hero, 23)
+
+                    ---- Блок щита----
+                    if not data.AttackShieldCD then
+                        data.AttackShieldCD = 0
                     end
+                    data.AttackShieldCD = data.AttackShieldCD - TIMER_PERIOD64
+                    if data.CurrentWeaponType == "shield" and data.PressSpin and data.AttackShieldCD <= 0 then
+                        SetUnitAnimationByIndex(hero, 23)
+                        --print("стойка")
+                    end
+                    -------------------------
                     if data.animStand >= 2 and not data.ReleaseQ and not data.ReleaseRMB then
                         --длительность анимации WALK
                         --print(animWalk)
@@ -10934,8 +10995,8 @@ function InitWASD(hero)
         else
             -- иначе юнит оглушен
             -- SetUnitAnimationByIndex(hero,5)
-            UnitRemoveAbility(hero, FourCC("A003"))
-            UnitRemoveAbility(hero, FourCC("A004"))
+            --UnitRemoveAbility(hero, FourCC("A003"))
+            --UnitRemoveAbility(hero, FourCC("A004")) --ЧТО то очень старое
         end
     end)
 end
@@ -11327,6 +11388,7 @@ function CreateWASDActions()
                             attackPickAxe(data)
                         end
                         if data.CurrentWeaponType == "shield" then
+                            UnitAddAbility(data.UnitHero, FourCC("A004")) -- замедление, к сожалению ломает скорость атаки
                             --attackShield(data)
                         end
                     else
@@ -11380,21 +11442,25 @@ function CreateWASDActions()
             --data.ReleaseLMB = false
             data.PressSpin = false
             if data.CurrentWeaponType == "shield" then
-                -- момент отпускания щита
+                --print("момент отпускания щита")
+                UnitRemoveAbility(data.UnitHero, FourCC("A004"))
+                UnitRemoveAbility(data.UnitHero, FourCC("B000"))
                 attackShield(data)
-                data.PressShieldSec = 0
+                --data.PressShieldSec = 0
                 DestroyEffect(data.BarToCharge)
                 BlzSetSpecialEffectPosition(data.BarToCharge, OutPoint, OutPoint, 0)
                 data.BarToCharge = nil
-                data.ArrowToShieldDashVisible=false
-                if data.ShieldReadyToCharge then
+                data.ArrowToShieldDashVisible = false
+                if data.PressShieldSec>0.5 then
                     --print("Рывок щитом")
+                    data.ShieldDashReflect = true
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     if UnitAlive(data.UnitHero) then
-                        UnitAddForceSimple(data.UnitHero, angle, 35, 400, "lizard")
+                        UnitAddForceSimple(data.UnitHero, angle, 35, data.PressShieldSec*200, "shieldDash")
                     end
                     data.ShieldReadyToCharge = false
                 end
+                data.PressShieldSec = 0
             end
         end
     end)
@@ -11618,6 +11684,9 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             if flag == "lizard" then
                 UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
             end
+            if flag == "shieldDash" then
+                UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
+            end
             if flag == "RunSkeleton" then
                 UnitDamageArea(hero, 1, GetUnitX(hero), GetUnitY(hero), 120)
             end
@@ -11688,6 +11757,10 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 --or (data.OnWater and data.OnTorrent==false)
                 --data.IsDisabled=false
                 --data.OnWater=false
+                if flag == "shieldDash" then
+                    local data = GetUnitData(hero)
+                    data.ShieldDashReflect=false
+                end
                 if effDash then
                     DestroyEffect(effDash)
                 end

@@ -89,27 +89,27 @@ function OnPostDamage()
                     addTime = data.StaggerTimeFromTalon
                 end
 
-                local _,status=IsUnitStunned(target)
-                if status=="stagger" then
+                local _, status = IsUnitStunned(target)
+                if status == "stagger" then
                     --print("юнит уже оглушен")
                 end
-                if status=="frise" then
-                   -- print("юнит получает урон будучи замороженным")
-                    if GetUnitTypeId(caster)==FourCC("nwwd") then
-                        BlzSetEventDamage(GetEventDamage()*2)
+                if status == "frise" then
+                    -- print("юнит получает урон будучи замороженным")
+                    if GetUnitTypeId(caster) == FourCC("nwwd") then
+                        BlzSetEventDamage(GetEventDamage() * 2)
                     end
                 end
 
                 StunUnit(target, 0.4 + addTime, "stagger")
             else
                 if data.ShieldBreakerIsLearn then
-                    damage=damage+50
+                    damage = damage + 50
                 end
                 SetUnitState(target, UNIT_STATE_MANA, GetUnitState(target, UNIT_STATE_MANA) - damage)
                 BlzSetEventDamage(0)
                 if IsUnitHasShield(target) and GetUnitState(target, UNIT_STATE_MANA) < 1 then
                     local x, y = GetUnitXY(target)
-                    FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster),"blue")
+                    FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster), "blue")
                     ShieldSystem[GetHandleId(target)].IsActive = false
                 end
             end
@@ -117,6 +117,25 @@ function OnPostDamage()
     else
         --print("наш герой получил урон")
         local data = HERO[GetPlayerId(GetOwningPlayer(target))]
+
+        local x, y = GetUnitXY(caster)
+        local xe, ye = GetUnitXY(target)
+        -- функция принадлежности точки сектора
+        -- x1, x2 - координаты проверяемой точки
+        -- x2, y2 - координаты вершины сектора
+        -- orientation - ориентация сектора в мировых координатах
+        -- width - угловой размер сектора в градусах
+        -- radius - окружности которой принадлежит сектор
+
+        if IsPointInSector(x, y, xe, ye, GetUnitFacing(target), 90, 200) then
+            BlzSetEventDamage(0)
+            local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
+            local AngleSource = AngleBetweenUnits(caster, target)
+            BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
+            DestroyEffect(eff)
+            FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+        end
+
         if data.HealDash and data.HealDashCurrentCD <= 0 then
             --лечение рывком
             data.Time2HealDash = damage
@@ -156,8 +175,8 @@ function OnPostDamage()
 
             if data.InvulPreDeathCurrentCD <= 0 and data.InvulPreDeathCDFH then
                 --print("получен смертельный урон")
-                FlyTextTagHealXY(GetUnitX(target), GetUnitY(target), L("Предвидение смерти","Foresight of Death"), GetOwningPlayer(target))
-                CreateInfoBoxForAllPlayerTimed(data, L("Я не дам тебе умереть","I won't let you die"), 3)
+                FlyTextTagHealXY(GetUnitX(target), GetUnitY(target), L("Предвидение смерти", "Foresight of Death"), GetOwningPlayer(target))
+                CreateInfoBoxForAllPlayerTimed(data, L("Я не дам тебе умереть", "I won't let you die"), 3)
                 BlzSetEventDamage(0)
                 SetUnitInvulnerable(target, true)
                 TimerStart(CreateTimer(), 2, false, function()
@@ -211,7 +230,7 @@ function OnPostDamage()
         AddDamage2Show(target, GetEventDamage())
         local showData = ShowDamageTable[GetHandleId(target)]
         local matchShow = showData.damage
-        if matchShow>=1 then
+        if matchShow >= 1 then
             if not showData.tag then
                 showData.tag = FlyTextTagCriticalStrike(target, R2I(matchShow), GetOwningPlayer(caster), true)
             else

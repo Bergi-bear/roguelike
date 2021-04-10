@@ -4,7 +4,7 @@
 --- DateTime: 10.04.2021 15:02
 ---
 function SwitchWeaponTo(data, newWeapon)
-    print("переключаем оружие на", newWeapon)
+    --print("переключаем оружие на", newWeapon)
     data.CurrentWeaponType = newWeapon
     ClearPrevWeapon(data)
     if newWeapon == "pickaxe" then
