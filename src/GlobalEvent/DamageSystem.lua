@@ -361,6 +361,7 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                 --print("даём золото за сундук")
                                 if GetDestructableTypeId(d) == FourCC("B008") or GetDestructableTypeId(d) == FourCC("B004") then
                                     UnitAddGold(hero, GetRandomInt(2, 5))
+                                    DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", dx, dy))
                                 end
                             end
                         end

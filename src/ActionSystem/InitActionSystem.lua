@@ -161,6 +161,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
     dataPoint.CurrentReward = reward
     dataPoint.preView = preView
     dataPoint.Unit = tempUnit
+    dataPoint.OriginalModel = "SystemGeneric\\GodModels\\" .. reward
 
     if actionFlag == "Goto" then
         local _, k, tempTable = FindUnitOfType(FourCC("hdhw"), 1500, x, y)
@@ -215,16 +216,33 @@ function AllActionsEnabled(enable)
             local dataPoint = ActionList[i].self
             dataPoint.isActive = enable
             ActionList[i].isActive = enable
+            --local table=dataPoint.TripleTalon
+            local x, y = BlzGetLocalSpecialEffectX(dataPoint.preView), BlzGetLocalSpecialEffectY(dataPoint.preView)
             if not enable then
+                TimerStart(CreateTimer(), 3, false, function()
+                    DestroyEffect(dataPoint.preView)
+                    BlzSetSpecialEffectPosition(dataPoint.preView, OutPoint, OutPoint, 0)
+                    dataPoint.preView = AddSpecialEffect("SystemGeneric\\GodModels\\Cancel", x, y)
+                    BlzSetSpecialEffectYaw(dataPoint.preView, math.rad(90))
+                    BlzSetSpecialEffectScale(dataPoint.preView, 2)
+                    BlzSetSpecialEffectColor(dataPoint.preView, 255, 255, 255)
+                end)
                 -- print("выходы заблокированы "..i)
             else
                 --print("выходы разблокированы "..i)
+                DestroyEffect(dataPoint.preView)
+                BlzSetSpecialEffectPosition(dataPoint.preView, OutPoint, OutPoint, 0)
+                dataPoint.preView = AddSpecialEffect(dataPoint.OriginalModel, x, y)
+                BlzSetSpecialEffectYaw(dataPoint.preView, math.rad(90))
+                BlzSetSpecialEffectScale(dataPoint.preView, 2)
+                BlzSetSpecialEffectColor(dataPoint.preView, 255, 255, 255)
             end
         end
     end
 end
 
-function CreateActionBox(message) --функция отключена
+function CreateActionBox(message)
+    --функция отключена
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
@@ -301,6 +319,7 @@ function CreateEActions()
                     local message = L("Звонкая монета", "Ringing Coin")
                     CreateInfoBoxForAllPlayerTimed(data, message, 3)
                     UnitAddGold(data.UnitHero, GetRandomInt(1, 50))
+                    DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(data.EPointUnit)))
                     dataPoint.RewardBordGold = true
                 end
 
@@ -776,6 +795,22 @@ function CreateEActions()
                 --KillUnit(data.EPointUnit)
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end
+            if data.UseAction == "Merchant" then
+                local message = L("Не спеши, выбирай с умом", "Take your time, choose wisely")
+                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                data.Completed = true
+                --DestroyGodTalon(dataPoint.TripleTalon)
+                --CreateDialogTalon("Merchant")
+                --AllActionsEnabled(true)
+                data.DoAction = false
+                data.UseAction = ""
+                dataPoint.isActive = false
+                TimerStart(CreateTimer(), 1.6, false, function()
+                    CreateMerchantAndGoods(GetUnitXY(dataPoint.Unit))
+                end)
+                KillUnit(data.EPointUnit)
+                --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
+            end
 
             -- end) --конец задержки
 
@@ -792,7 +827,6 @@ function CreateEActions()
         data.ReleaseE = false
     end)
 end
-
 
 function CreateInfoBoxForAllPlayerTimed(data, message, timed)
     print(message)

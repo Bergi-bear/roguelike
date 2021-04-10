@@ -32,6 +32,7 @@ function DrawInterFace()
             CreateChaosInterFace(HERO[i])
         end
     end
+
     CreateBaseFrames(0.02, 0.015) -- 5 стандартных скилов
 end
 

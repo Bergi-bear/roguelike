@@ -95,6 +95,7 @@ function InitHeroTable(hero)
         AngleMouse = 0,
         TalonWindowIsOpen = true,
         Summon = {}, -- таблица суммонов
+        CurrentWeaponType = ""
     }
 end
 
@@ -108,10 +109,13 @@ function InitWASD(hero)
     EnableDragSelect(false, false)
     BlzEnableSelections(false, false)
     SelectUnitForPlayerSingle(data.UnitHero, GetOwningPlayer(hero))
-
     local angle = 0
     local speed = 5
     local animWalk = 0
+
+    SwitchWeaponTo(data, "shield") --Первое назначение оружие
+    --SwitchWeaponTo(data, "pickaxe")
+
 
     TimerStart(CreateTimer(), 0.005, true, function()
         -- устранение бага залипания
@@ -224,23 +228,66 @@ function InitWASD(hero)
                 --print("камера освобождена")
             end
         end
+        if data.CurrentWeaponType == "pickaxe" then
+            if data.PressSpin then
+                data.ChargingAttack = data.ChargingAttack + TIMER_PERIOD64
+                --print(data.ChargingAttack)
+                if data.ChargingAttack >= data.StarTime2Spin and not data.isSpined then
 
-        if data.PressSpin then
-            data.ChargingAttack = data.ChargingAttack + TIMER_PERIOD64
-            --print(data.ChargingAttack)
-            if data.ChargingAttack >= data.StarTime2Spin and not data.isSpined then
-
-                data.isSpined = true
-                --print("start spin")
-                StartAndReleaseSpin(data)
-                if not data.tasks[2] then
-                    data.tasks[2] = true
-                    --print("Первый раз прокрутился")
+                    data.isSpined = true
+                    --print("start spin")
+                    StartAndReleaseSpin(data)
+                    if not data.tasks[2] then
+                        data.tasks[2] = true
+                        --print("Первый раз прокрутился")
+                    end
                 end
+            else
+                data.ChargingAttack = 0
+                data.isSpined = false
             end
-        else
-            data.ChargingAttack = 0
-            data.isSpined = false
+        end
+
+        if data.CurrentWeaponType == "shield" then
+            --удержание щита
+            if data.PressSpin then
+                if not data.PressShieldSec then
+                    data.PressShieldSec = 0
+                end
+                data.PressShieldSec = data.PressShieldSec + TIMER_PERIOD64
+                if data.PressShieldSec >= 2 and not data.ShieldReadyToCharge then
+                    data.ShieldReadyToCharge = true
+                    FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), L("Максимум", "Maximum"), GetOwningPlayer(data.UnitHero))
+                end
+                if not data.BarToCharge then
+                    data.BarToCharge = AddSpecialEffect("SystemGeneric\\Progressbar", GetUnitXY(hero))
+                    BlzSetSpecialEffectColor(data.BarToCharge, 255, 255, 255)
+                    BlzPlaySpecialEffect(data.BarToCharge, ANIM_TYPE_BIRTH)
+                    BlzSetSpecialEffectTimeScale(data.BarToCharge, 0.5)
+                    BlzSetSpecialEffectScale(data.BarToCharge, 1)
+                    BlzSetSpecialEffectAlpha(data.BarToCharge, 0)
+                    BlzSetSpecialEffectColorByPlayer(data.BarToCharge,Player(1))
+                    data.ArrowToShieldDashVisible=true
+                    --CreateArrowToShieldDash(data)
+                else
+                    if data.PressShieldSec > 0.5 then
+                        BlzSetSpecialEffectAlpha(data.BarToCharge, R2I(data.PressShieldSec * 127))
+                    end
+                    local x, y = GetUnitXY(data.UnitHero)
+                    local z = BlzGetUnitZ(data.UnitHero) + 140
+                    BlzSetSpecialEffectPosition(data.BarToCharge, x - 15, y, z)
+                end
+
+
+
+
+                -- print("Удержание щита")
+                -- data.isSpined = true
+                -- animStand
+            else
+                -- бар удаляем в событии отпускания
+
+            end
         end
 
         if data.ResetSeriesTime > 0 then
@@ -259,6 +306,9 @@ function InitWASD(hero)
         if GetUnitTypeId(hero) == HeroID then
             -- пеон
             IndexAnimationWalk = 1
+            if data.CurrentWeaponType == "shield" and data.PressSpin then
+                IndexAnimationWalk = 24
+            end
             local r = { 2, 3, 8 }
             IndexAnimationAttack = r[GetRandomInt(2, 2)] -- 2 для долгой атаки 8 для сплеша 3  атака рубки дерева
         end
@@ -334,7 +384,14 @@ function InitWASD(hero)
         if StunSystem[GetHandleId(data.UnitHero)].Time == 0 and onForces[GetHandleId(hero)] then
             --and
             if UnitAlive(hero) and not data.isShield and not data.isAttacking and not data.ReleaseRMB then
-                -- тут было условие атаки
+                if data.CurrentWeaponType == "shield" then
+                    if data.PressSpin then
+                        -- разворот при удержании щита
+                        local shieldAngle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                        SetUnitFacing(hero, shieldAngle)
+                    end
+                end
+
                 if data.IsMoving then
                     -- двигается
                     data.DirectionMove = angle
@@ -354,7 +411,12 @@ function InitWASD(hero)
                     local dx, dy = nx - x, ny - y
 
                     if not data.isAttacking then
-                        SetUnitFacing(hero, angle)-- место для поворота в движении
+                        if data.CurrentWeaponType == "pickaxe" or not data.PressSpin then
+                            -- место для поворота в движении
+                            SetUnitFacing(hero, angle)
+                        else
+
+                        end
                     end
 
                     SetUnitPositionSmooth(hero, nx, ny)-- блок движения
@@ -369,7 +431,16 @@ function InitWASD(hero)
 
                         if not MiniChargeOnArea(data) then
                             stator = true
-                            ResetUnitAnimation(hero)
+                            if data.CurrentWeaponType == "pickaxe" then
+                                ResetUnitAnimation(hero) -- сборс в положении стоя
+                            end
+                            if data.CurrentWeaponType == "shield" then
+                                if data.PressSpin then
+                                    SetUnitAnimationByIndex(hero, 23)
+                                else
+                                    ResetUnitAnimation(hero)
+                                end
+                            end
                         end -- Расталкиваем всех юнитов
                         --data.animStand=3
                     end
@@ -385,10 +456,22 @@ function InitWASD(hero)
                     --if animWalk==0 then
                     data.DirectionMove = GetUnitFacing(hero)
                     data.animStand = data.animStand + TIMER_PERIOD64
+                    if data.CurrentWeaponType == "shield" and data.PressSpin then
+                        SetUnitAnimationByIndex(hero, 23)
+                    end
                     if data.animStand >= 2 and not data.ReleaseQ and not data.ReleaseRMB then
                         --длительность анимации WALK
                         --print(animWalk)
-                        ResetUnitAnimation(hero) -- сборс в положении стоя
+                        if data.CurrentWeaponType == "pickaxe" then
+                            ResetUnitAnimation(hero) -- сборс в положении стоя
+                        end
+                        if data.CurrentWeaponType == "shield" then
+                            if data.PressSpin then
+                                SetUnitAnimationByIndex(hero, 23)
+                            else
+                                ResetUnitAnimation(hero)
+                            end
+                        end
                         --print("дефолтный сборс")
                         data.animStand = 0
                     end
@@ -790,7 +873,12 @@ function CreateWASDActions()
 
                 if not data.SpaceForce then
                     if not data.ReleaseCTRL then
-                        attack(data)
+                        if data.CurrentWeaponType == "pickaxe" then
+                            attackPickAxe(data)
+                        end
+                        if data.CurrentWeaponType == "shield" then
+                            --attackShield(data)
+                        end
                     else
                         CreateForUnitWayToPoint(data.UnitHero, BlzGetTriggerPlayerMouseX(), BlzGetTriggerPlayerMouseY())
                     end
@@ -841,8 +929,26 @@ function CreateWASDActions()
             local data = HERO[pid]
             --data.ReleaseLMB = false
             data.PressSpin = false
+            if data.CurrentWeaponType == "shield" then
+                -- момент отпускания щита
+                attackShield(data)
+                data.PressShieldSec = 0
+                DestroyEffect(data.BarToCharge)
+                BlzSetSpecialEffectPosition(data.BarToCharge, OutPoint, OutPoint, 0)
+                data.BarToCharge = nil
+                data.ArrowToShieldDashVisible=false
+                if data.ShieldReadyToCharge then
+                    --print("Рывок щитом")
+                    local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    if UnitAlive(data.UnitHero) then
+                        UnitAddForceSimple(data.UnitHero, angle, 35, 400, "lizard")
+                    end
+                    data.ShieldReadyToCharge = false
+                end
+            end
         end
     end)
+    -----------------------------------------------------------------RMB
     -----------------------------------------------------------------RMB
     local TrigPressRMB = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -1060,7 +1166,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 end
             end
             if flag == "lizard" then
-                UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120,"ForceTotem")
+                UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
             end
             if flag == "RunSkeleton" then
                 UnitDamageArea(hero, 1, GetUnitX(hero), GetUnitY(hero), 120)
@@ -1384,8 +1490,6 @@ function PointContentDestructableOld (x, y, range, iskill, damage, flag)
     end)
     return content, d
 end
-
-
 
 function GetUnitData(hero)
     local data = nil

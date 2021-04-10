@@ -32,8 +32,6 @@ function CreationPeonsForAllPlayer()
             if GetLocalPlayer()==Player(i) then
                 effModel="war3mapImported\\Light"
             end
-            --AddSpecialEffectTarget("stoneshild",hero,"hand, right")
-            AddSpecialEffectTarget("Axes",hero,"hand, left")
             AddSpecialEffectTarget(effModel,hero,"origin")
             --==print("толкаем")
             UnitAddForceSimple(hero, 0, 10, 10)

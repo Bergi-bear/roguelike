@@ -133,6 +133,10 @@ function PlayUnitAnimationFromChat()
             CreateGodTalon(x, y, "Alchemist")
             return
         end
+        if GetEventPlayerChatString() == "sh" or GetEventPlayerChatString() == "sh" then
+            SwitchWeaponTo(data,"shield")
+            return
+        end
         SetUnitAnimationByIndex(data.UnitHero, s)
         --print(GetUnitName(mainHero).." "..s)
     end)

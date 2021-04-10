@@ -7,12 +7,12 @@
 function LearnCurrentTalonForPlayer(pid, godName, pos)
     local data = HERO[pid]
     local talon = GlobalTalons[pid][godName][pos]
-    talon.level=talon.level+1
+    talon.level = talon.level + 1
     if talon.ultF then
-        data.HasUltF=true
+        data.HasUltF = true
     end
-        if talon.ultR then
-        data.HasUltR=true
+    if talon.ultR then
+        data.HasUltR = true
     end
     --print(pid, godName, pos)
 
@@ -123,7 +123,19 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.InvulPreDeathCurrentCD = 0
         end
         if pos == 9 then
-            CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            -- ясновидение
+            local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+            UnitAddAbility(data.UnitHero,FourCC("Adt1"))
+            ActLvl23Action(talon, function()
+                -- уровень 2
+                data.SeeAnyWay=true
+                CreatePillarInSecretWay()
+            end, function()
+                -- 3 уровень --Abilities\\Spells\\Other\\Aneu\\AneuCaster.mdl
+                CreateArrowInAllActions()
+                data.SeeAllWay=true
+            end)
         end
     end
     if godName == "HeroBlademaster" and talon.level == 1 then
