@@ -126,14 +126,16 @@ function OnPostDamage()
         -- orientation - ориентация сектора в мировых координатах
         -- width - угловой размер сектора в градусах
         -- radius - окружности которой принадлежит сектор
-
-        if IsPointInSector(x, y, xe, ye, GetUnitFacing(target), 90, 200) then
-            BlzSetEventDamage(0)
-            local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
-            local AngleSource = AngleBetweenUnits(caster, target)
-            BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
-            DestroyEffect(eff)
-            FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+        if data.CurrentWeaponType == "shield" and data.PressSpin then
+            if IsPointInSector(x, y, xe, ye, GetUnitFacing(target), 90, 200) then
+                BlzSetEventDamage(0)
+                local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
+                local AngleSource = AngleBetweenUnits(caster, target)
+                BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
+                DestroyEffect(eff)
+                UnitAddForceSimple(data.UnitHero, AngleSource, 10, 50)
+                FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+            end
         end
 
         if data.HealDash and data.HealDashCurrentCD <= 0 then

@@ -126,15 +126,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             -- ясновидение
             local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
             UpdateTalonDescriptionForFrame(talon, tt)
-            UnitAddAbility(data.UnitHero,FourCC("Adt1"))
+            UnitAddAbility(data.UnitHero, FourCC("Adt1"))
             ActLvl23Action(talon, function()
                 -- уровень 2
-                data.SeeAnyWay=true
+                data.SeeAnyWay = true
                 CreatePillarInSecretWay()
             end, function()
                 -- 3 уровень --Abilities\\Spells\\Other\\Aneu\\AneuCaster.mdl
                 CreateArrowInAllActions()
-                data.SeeAllWay=true
+                data.SeeAllWay = true
             end)
         end
     end
@@ -417,6 +417,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 10 then
             --print("изучено отбитие снарядов")
             data.DestroyMissile = false
+        end
+        if pos == 11 then
+            data.TwiceAttackPerShield = true
+        end
+        if pos == 12 then
+            data.DestroyMissile = false
+        end
+        if pos == 12 then
+            data.MegaReflector = true
         end
     end
     if godName == "ChaosGrom" and talon.level == 1 then

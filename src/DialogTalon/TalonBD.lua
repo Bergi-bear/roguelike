@@ -15,7 +15,7 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Быстро нажимайте LMB чтобы совершить серию ударов"),
                             DS = { 3, 4, 5 },
-                            pos=1
+                            pos = 1
 
                         }),
                         [2] = Talon:new({
@@ -26,7 +26,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
                             DS = { 2, 3, 4 },
-                            pos=2
+                            pos = 2
 
                         }),
                         [3] = Talon:new({
@@ -37,7 +37,7 @@ do
                             rarity = "normal",
                             tooltip = L("Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед.", "The wolf tries to attack a random target, and patrols the area around the hero. The wolf will be instantly teleported to if it moves away to a distance of more than 1000"),
                             DS = { 60, 40, 20 },
-                            pos=3
+                            pos = 3
                         }),
                         [4] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
@@ -47,7 +47,8 @@ do
                             rarity = "normal",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
                             DS = { 100, 150, 200 },
-                            pos=4
+                            pos = 4,
+                            weaponType = "pickaxe"
                         }),
                         [5] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
@@ -57,7 +58,7 @@ do
                             rarity = "epic",
                             tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
                             DS = { 10, 20, 30 },
-                            pos=5,
+                            pos = 5,
                             ultF = true
                         }),
                         [6] = Talon:new({
@@ -68,7 +69,7 @@ do
                             rarity = "epic",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
                             DS = { 1, 2, 3 },
-                            pos=6
+                            pos = 6
                         }),
                         [7] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
@@ -78,7 +79,7 @@ do
                             rarity = "rare",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 10, 8, 5 },
-                            pos=7
+                            pos = 7
 
                         }),
                         [8] = Talon:new({
@@ -89,7 +90,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 60, 40, 30 },
-                            pos=8
+                            pos = 8
                         }),
                         [9] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
@@ -103,7 +104,7 @@ do
                                 L("Видеть невидимое и показывает скрытые проходы", "See the invisible and shows hidden passages"),
                                 L("Видеть невидимое, показывает скрытые проходы и решения головоломок", "See the invisible, shows hidden passages and puzzle solutions")
                             },
-                            pos=9
+                            pos = 9
                         }),
                         --[[[10] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
@@ -125,7 +126,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 10, 5, 3 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
@@ -135,7 +136,7 @@ do
                             rarity = "normal",
                             tooltip = L("Изучение этого таланта открывает доступ к таланту на множитель критического урона", " Learning this talent gives you access to the talent for a critical damage multiplier"),
                             DS = { 6, 4, 3 },
-                            pos=2
+                            pos = 2
 
                         }),
                         Talon:new({--3
@@ -147,7 +148,7 @@ do
                             tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
                             DS = { 2, 3, 4 },
                             dependence = 2,
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
@@ -157,7 +158,7 @@ do
                             rarity = "epic",
                             tooltip = L("Будьте внимательны, эта способность ломает привычные механики", " Be careful, this ability breaks the usual mechanics"),
                             DS = { 100, 150, 200 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
@@ -167,7 +168,8 @@ do
                             rarity = "normal",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),
                             DS = { 1.5, 2, 2.5 },
-                            pos=5
+                            pos = 5,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
@@ -177,7 +179,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 1, 2, 3 },
-                            pos=6
+                            pos = 6
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp",
@@ -187,7 +189,8 @@ do
                             rarity = "epic",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", " Hold LMB to make a spinning attack"),
                             DS = { 0.2, 0.4, 0.6 },
-                            pos=7
+                            pos = 7,
+                            weaponType = "pickaxe"
                             --ultR = true
                         }),
                         Talon:new({--8
@@ -198,7 +201,7 @@ do
                             rarity = "epic",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 10, 20, 35 },
-                            pos=8
+                            pos = 8
                             --ultR = true
                         }),
                         Talon:new({--9
@@ -210,7 +213,7 @@ do
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),
                             DS = { 20, 40, 60 },
                             dependence = 5,
-                            pos=9
+                            pos = 9
                             --ultF = true
                         }),
                     },
@@ -223,7 +226,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 20, 15, 10 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({ --2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSerpentWard.blp",
@@ -233,7 +236,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 12, 9, 5 },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({ --3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHex.blp",
@@ -243,7 +246,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press RMB in the specified direction to throw the pickaxe there"),
                             DS = { 12, 10, 8 },
-                            pos=3
+                            pos = 3
                         }),
                         --[[
                         Talon:new({--4
@@ -260,12 +263,12 @@ do
                         Talon:new({--4
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
                             name = L("Спираль смерти", "Death Spiral"),
-                            description = L("Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS", "Releases a deadly blade in the direction of the dash. Cooldown: DS"),
+                            description = L("Выпускает в направлении рывка смертельное лезвие", "Releases a deadly blade in the direction of the dash"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
-                            DS = { 5, 4, 3 },
-                            pos=4
+                            DS = { 1 },
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRegenerate.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
@@ -275,7 +278,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 1, 2, 4 },
-                            pos=5
+                            pos = 5
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHeal.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
@@ -285,7 +288,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 1.5, 2, 2.5 },
-                            pos=6
+                            pos = 6
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNLocustSwarm.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
@@ -295,7 +298,7 @@ do
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
                             DS = { "сквозь здания", "сквозь здания и делает героя неуязвимым", "сквозь здания и делает героя неуязвимым и разрушает щит врагов" }, --TODO перевод
-                            pos=7
+                            pos = 7
                         }),
                     },
                     HeroTaurenChieftain = {
@@ -307,7 +310,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 15, 30, 45 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWalkerAdeptTraining.blp",
@@ -317,7 +320,7 @@ do
                             rarity = "normal",
                             tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников", "Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
                             DS = { 0.1, 0.15, 0.2 },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNShockWave.blp",
@@ -327,7 +330,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 50, 80, 100 },
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCommand.blp",
@@ -337,7 +340,7 @@ do
                             rarity = "normal",
                             tooltip = L("Используйте кнопки WASD, чтобы перемещаться", "Use the WASD buttons to navigate"),
                             DS = { 20, 40, 60 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
@@ -347,7 +350,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", "Press Q to strike a powerful blow over a large area"),
                             DS = { 0.5, 0.8, 1.4 },
-                            pos=5
+                            pos = 5
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
@@ -357,7 +360,7 @@ do
                             rarity = "normal",
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
                             DS = { 2, 3, 5 },
-                            pos=6
+                            pos = 6
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\commandbuttons\\BTNSmash.blp",
@@ -368,7 +371,7 @@ do
                             tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
                             DS = { 10, 20, 30 },
                             ultF = true,
-                            pos=7
+                            pos = 7
                         }),
                         Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAnimalWarTraining.blp",
@@ -378,7 +381,7 @@ do
                             rarity = "normal",
                             tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
                             DS = { 50, 110, 170 },
-                            pos=8
+                            pos = 8
                         }),
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWirtsLeg.blp",
@@ -389,50 +392,50 @@ do
                             tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
                             DS = { 50, 150, 250 },
                             dependence = 8,
-                            pos=9
+                            pos = 9
                         }),
 
                     },
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
-                            name = L("Ящер-таран","Ящер-таран"),
-                            description = L("Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100","A huge lizard demolishes enemies in its path, the direction is chosen from the hero, to the cursor point. Cooldown: 20. Damage: 100"),
+                            name = L("Ящер-таран", "Ящер-таран"),
+                            description = L("Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100", "A huge lizard demolishes enemies in its path, the direction is chosen from the hero, to the cursor point. Cooldown: 20. Damage: 100"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Может наносит урон несколько раз, урон при ударах о стену усиливается от других способностей героя","Can deal damage several times, damage when hitting the wall is increased from other abilities of the hero"),
+                            tooltip = L("Может наносит урон несколько раз, урон при ударах о стену усиливается от других способностей героя", "Can deal damage several times, damage when hitting the wall is increased from other abilities of the hero"),
                             DS = { "lizard" },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
-                            name = L("Медведь-бомба","Bear-bomb"),
-                            description = L("Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30","Crushes the bear to the cursor position, the bear deals 1000 damage when summoned. Cooldown: 60. Duration: 30"),
+                            name = L("Медведь-бомба", "Bear-bomb"),
+                            description = L("Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30", "Crushes the bear to the cursor position, the bear deals 1000 damage when summoned. Cooldown: 60. Duration: 30"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Нажмите и удерживайте горячую клавишу активации, чтобы перемещать область взрыва","Press and hold the activation hotkey to move the blast area"),
+                            tooltip = L("Нажмите и удерживайте горячую клавишу активации, чтобы перемещать область взрыва", "Press and hold the activation hotkey to move the blast area"),
                             DS = { "bear" },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
-                            name = L("Кабан","Wild boar"),
-                            description = L("Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50","Summons a small boar, the boar deals 30 damage. Cooldown: 20. Duration: 50"),
+                            name = L("Кабан", "Wild boar"),
+                            description = L("Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50", "Summons a small boar, the boar deals 30 damage. Cooldown: 20. Duration: 50"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Призванное существо полностью автономно","Призванное существо полностью автономно"),
+                            tooltip = L("Призванное существо полностью автономно", "Призванное существо полностью автономно"),
                             DS = { "boar" },
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
-                            name = L("Полярный волк","Polar Wolf"),
-                            description = L("Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк наносит двойной урон замороженным существам","Summons a polar wolf and an ice storm that freezes everything within a radius of 1000. The wolf deals double damage to the frozen creature"),
+                            name = L("Полярный волк", "Polar Wolf"),
+                            description = L("Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк наносит двойной урон замороженным существам", "Summons a polar wolf and an ice storm that freezes everything within a radius of 1000. The wolf deals double damage to the frozen creature"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Призванное существо полностью автономно","The summoned creature is completely autonomous"),
+                            tooltip = L("Призванное существо полностью автономно", "The summoned creature is completely autonomous"),
                             DS = { "wolf" },
-                            pos=4
+                            pos = 4
                         }),
                     },
                     PeonDidal = {
@@ -444,7 +447,8 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
                             DS = { 3 },
-                            pos=1
+                            pos = 1,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
@@ -454,7 +458,8 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
                             DS = { 50 },
-                            pos=2
+                            pos = 2,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
@@ -464,17 +469,17 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
                             DS = { 50 },
-                            pos=3
+                            pos = 3,
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
                             name = L("Разбег минотавра", " Minotaur run-up"),
-                            description = L("Атака в рывке, наносят на DS%% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше", "Attack in a dash, deal DS%% more damage, increases the hit area and pushes 3 times further away"),
+                            description = L("Атака в рывке, наносит на DS%% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше", "Attack in a dash, deal DS%% more damage, increases the hit area and pushes 3 times further away"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке", " Quickly press LMB after SPACE to make a snatch attack"),
                             DS = { 100 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
@@ -484,7 +489,8 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке", " Quickly press LMB after SPACE to make a snatch attack"),
                             DS = { 2 },
-                            pos=5
+                            pos = 5,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
@@ -494,7 +500,8 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to strike a powerful blow over a large area"),
                             DS = { L("дважды", "twice") },
-                            pos=6
+                            pos = 6,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
@@ -504,7 +511,8 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
                             DS = { 50 },
-                            pos=7
+                            pos = 7,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
@@ -514,7 +522,7 @@ do
                             rarity = "epic",
                             tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
                             DS = { 2 },
-                            pos=8
+                            pos = 8
                         }),
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
@@ -524,7 +532,7 @@ do
                             rarity = "epic",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 3 },
-                            pos=9
+                            pos = 9
                         }),
                         Talon:new({--10
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
@@ -534,7 +542,42 @@ do
                             rarity = "epic",
                             tooltip = L("Снаряд полетит в позицию врага, в которой он находился в момент отражения", "The projectile will fly to the position of the enemy in which it was at the time of reflection"),
                             DS = { 1 },
-                            pos=10
+                            pos = 10,
+                            weaponType = "pickaxe"
+                        }),
+                        Talon:new({--11
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPillage.blp",
+                            name = L("Измельчитель", " Dead pool"),
+                            description = L("Щит наносит урон дважды", "The shield deals damage twice"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("2 удара подряд", "2 strikes in a row"),
+                            DS = { 1 },
+                            pos = 11,
+                            weaponType = "shield"
+                        }),
+                        Talon:new({--12
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDivineIntervention.blp",
+                            name = L("Зеркальный щит", "Mirror Shield"),
+                            description = L("Позволяет отражать снаряды", "Allows you to reflect projectiles"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Отраженный снаряд полетит в направлении курсора игрока", "The reflected projectile will fly in the direction of the player's cursor"),
+                            DS = { 1 },
+                            pos = 12,
+                            weaponType = "shield"
+                        }),
+                        Talon:new({--13
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDivineIntervention.blp",
+                            name = L("Отражатель", "Reflector"),
+                            description = L("Увеличивает скорость в 2, а урон в 4 раза, для отраженных снарядов", "Increases speed by 2, and damage by 4 times, for reflected projectiles"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Отраженный снаряд полетит в направлении курсора игрока", "The reflected projectile will fly in the direction of the player's cursor"),
+                            DS = { 1 },
+                            pos = 13,
+                            dependence=12,
+                            weaponType = "shield"
                         }),
                     },
                     ChaosGrom = {
@@ -546,7 +589,7 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Quickly press LMB to make a series of hits"),
                             DS = { 5, 4, 3 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFountainOfLifeBlood.blp",
@@ -556,7 +599,7 @@ do
                             rarity = "normal",
                             tooltip = L("Используйте Е возле источника воды, чтобы заразить его", "Use E near a water source to infect it"),
                             DS = { 100, 150, 250 },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNIncinerate.blp",
@@ -566,7 +609,7 @@ do
                             rarity = "normal",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
                             DS = { 1, 2, 3 },
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
@@ -576,7 +619,7 @@ do
                             rarity = "normal",
                             tooltip = L("Неизвестно на какой магии это всё работает", "It is not known on what magic it all works"),
                             DS = { 80, 120, 160 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNImpale.blp",
@@ -586,7 +629,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 50, 100, 150 },
-                            pos=5
+                            pos = 5
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRedDragonDevour.blp",
@@ -596,7 +639,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 3, 6, 10 },
-                            pos=6
+                            pos = 6
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHeartOfAszune.blp",
@@ -606,7 +649,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 2, 4, 7 },
-                            pos=7
+                            pos = 7
                         }),
                         --[[
                         Talon:new({--7
@@ -629,7 +672,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 1, 2, 4 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSunKey.blp",
@@ -639,7 +682,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 15, 30, 50 },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTransmute.blp",
@@ -649,7 +692,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 10, 20, 30 },
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDustOfAppearance.blp",
@@ -659,7 +702,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 10, 20, 30 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfRestoration.blp",
@@ -669,7 +712,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 10, 15, 20 },
-                            pos=5
+                            pos = 5
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMedalionOfCourage.blp",
@@ -679,7 +722,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 20, 15, 10 },
-                            pos=6
+                            pos = 6
                         }),
                         --[[
                         Talon:new({--7 --ReplaceableTextures\CommandButtons\BTNPillage.blp

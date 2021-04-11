@@ -238,11 +238,11 @@ function attackShield(data)
             local cdAttack = 0.2
             local indexAnim = 25
             data.isAttacking = true
-            data.AttackShieldCD=cdAttack
+            data.AttackShieldCD = cdAttack
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-            local damage = 100
+
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
-            SetUnitTimeScale(data.UnitHero,1.5)
+            SetUnitTimeScale(data.UnitHero, 1.5)
 
             normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
             --[[
@@ -259,34 +259,16 @@ function attackShield(data)
                 SetUnitAnimationByIndex(data.UnitHero, indexAnim)
             end
 
-            TimerStart(CreateTimer(), cdAttack, false, function()
-                -- кд атаки тут для всех ударов
-                --print(cdAttack)
+            ShieldHit(data, cdAttack)
+            if data.TwiceAttackPerShield then
+                TimerStart(CreateTimer(), 0.15, false, function()
+                    ShieldHit(data, cdAttack)
+                end)
+            end
+
+            TimerStart(CreateTimer(), cdAttack * 2, false, function()
                 data.isAttacking = false
-                local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
-                --print(data.AttackCount)
-                if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
-
-                    local is, enemy, k = UnitDamageArea(data.UnitHero, damage, nx, ny, 100)
-                    --print("урон есть?")
-
-                    if is then
-                        data.ParryPerAttack = true
-                        TimerStart(CreateTimer(), 0.2, false, function()
-                            data.ParryPerAttack = false
-                        end)
-                        --print("Звук попадания обычной атакой"..data.AttackCount)
-                        normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone2", GetUnitXY(data.UnitHero))
-                    end
-
-                end
-            end)
-
-
-
-            TimerStart(CreateTimer(), cdAttack *2, false, function()
-                data.isAttacking = false
-                SetUnitTimeScale(data.UnitHero,1)
+                SetUnitTimeScale(data.UnitHero, 1)
                 if UnitAlive(data.UnitHero) then
                     if data.IsMoving then
                         --быстрый возврат после атаки в последнее состояние
@@ -300,4 +282,70 @@ function attackShield(data)
 
         end
     end
+end
+
+function ShieldHit(data, cdAttack)
+    TimerStart(CreateTimer(), cdAttack, false, function()
+        data.isAttacking = false
+        local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
+        if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
+            local is, enemy, k = UnitDamageArea(data.UnitHero, data.DamageInShieldPerAttack, nx, ny, 100)
+
+            if is then
+                data.ParryPerAttack = true
+                TimerStart(CreateTimer(), 0.2, false, function()
+                    data.ParryPerAttack = false
+                end)
+                --print("Звук попадания обычной атакой"..data.AttackCount)
+                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone2", GetUnitXY(data.UnitHero))
+            end
+
+            if enemy then
+                ------------УдарМидаса--------------
+                if data.HandOfMidasCDFH then
+                    if data.HandOfMidasCurrentCD <= 0 then
+                        local cd = data.HandOfMidasCD
+                        data.HandOfMidasCurrentCD = cd
+                        StartFrameCD(cd, data.HandOfMidasCDFH)
+                        if BlzGetUnitMaxHP(enemy) <= 5000 and IsUnitEnemy(enemy, GetOwningPlayer(data.UnitHero)) then
+                            --TODO сделать другое условие не убийства
+                            DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\GoldBottleMissile.mdl", GetUnitXY(enemy)))
+                            KillUnit(enemy)
+                            UnitAddGold(data.UnitHero, data.HandOfMidasReward)
+                            DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
+                        end
+                        TimerStart(CreateTimer(), cd, false, function()
+                            data.HandOfMidasCurrentCD = 0
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                    end
+                end
+                ------------------------------------
+
+                ConditionCastLight(data)
+                if data.CursedStrike then
+                    local amount = (BlzGetUnitMaxHP(data.UnitHero) / 100) * 2
+                    HealUnit(data.UnitHero, amount)
+                end
+
+                if data.ChaosSpinOnAttackCDFH then
+
+                    if data.ChaosSpinOnAttackCurrentCD <= 0 then
+                        --print("условия выполнены")
+                        --print("Вращение при ударе")
+                        data.ChaosSpinOnAttackCurrentCD = data.ChaosSpinOnAttackCD
+                        StartAndReleaseSpin(data, 1)
+                        StartFrameCD(data.ChaosSpinOnAttackCD, data.ChaosSpinOnAttackCDFH)
+                        TimerStart(CreateTimer(), data.ChaosSpinOnAttackCD, false, function()
+                            data.ChaosSpinOnAttackCurrentCD = 0
+                        end)
+                    end
+
+
+                end
+
+            end
+
+        end
+    end)
 end

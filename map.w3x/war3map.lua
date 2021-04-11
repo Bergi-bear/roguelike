@@ -120,10 +120,8 @@ function CreateUnitsForPlayer10()
     local t
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21642.1, -12794.5, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 22046.4, -12811.1, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21844.6, -13001.9, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20839.4, -13035.3, 158.490, FourCC("nglm"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20655.4, -12778.6, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21067.8, -12801.5, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20849.6, -13713.4, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20642.2, -13470.1, 158.490, FourCC("nglm"))
@@ -202,7 +200,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14581.1, -6496.6, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14704.6, -6374.5, 0.000, FourCC("hkni"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 14583.3, -6376.4, 0.000, FourCC("hkni"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16448.1, -19955.5, 178.449, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16230.4, -19785.2, 264.377, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 21853.9, -12542.2, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("nglm"), 20877.3, -12543.4, 158.490, FourCC("nglm"))
     u = BlzCreateUnitWithSkin(p, FourCC("hkni"), 11035.1, -15839.8, 0.000, FourCC("hkni"))
@@ -246,7 +244,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 16163.1, -21028.1, 177.987, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 14984.7, -18841.8, 270.271, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 19294.8, -7739.0, 270.047, FourCC("hsor"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 15414.6, -19825.6, 356.698, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 15362.0, -19789.1, 356.698, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 18748.3, -8074.6, 242.850, FourCC("hmtm"))
     u = BlzCreateUnitWithSkin(p, FourCC("hmtm"), 22962.1, -3664.7, 242.850, FourCC("hmtm"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 11000.4, -19994.9, 91.255, FourCC("hrif"))
@@ -351,6 +349,8 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13086.4, -10417.6, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13040.1, -9918.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 13067.2, -8859.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21042.3, -13339.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21421.6, -13502.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14494.4, -6985.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14634.1, -6694.5, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15122.0, -6671.5, 247.300, FourCC("e001"))
@@ -564,7 +564,9 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14629.9, -19985.8, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15625.2, -19984.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14726.0, -21048.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23144.6, -16411.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14775.5, -19779.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23184.2, -16169.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 9899.4, -19533.8, 106.150, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15389.0, -20840.9, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14808.1, -20559.5, 247.300, FourCC("e001"))
@@ -590,6 +592,83 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20867.7, -19324.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21134.2, -19734.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21066.3, -20177.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23445.3, -16317.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22796.4, -16024.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22775.0, -15665.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23007.1, -15469.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23464.0, -15504.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23552.3, -15830.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23825.4, -15543.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24075.4, -15823.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23774.4, -16002.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23774.3, -16418.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23519.6, -12740.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23472.2, -13577.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23751.0, -13602.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23644.5, -13418.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23872.3, -13080.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24000.2, -12683.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24422.0, -12536.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24321.6, -12784.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24483.0, -13014.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24331.7, -13473.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24101.5, -13328.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20377.4, -13958.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20950.3, -13753.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21696.6, -13104.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21040.4, -12555.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21638.4, -12620.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22046.9, -13692.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21445.2, -13103.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21959.1, -13078.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21228.5, -12672.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17113.0, -13589.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17163.0, -13147.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17487.3, -13095.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17221.3, -12740.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17923.3, -13320.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18255.3, -13212.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18631.3, -12915.1, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18818.9, -13095.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18607.7, -13549.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18326.5, -12747.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18694.1, -12732.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17688.3, -13407.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18192.1, -13657.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17209.3, -13393.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18413.6, -11152.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18832.5, -11212.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19072.7, -10919.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19011.6, -10468.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18771.6, -10263.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18243.0, -10563.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19321.6, -11226.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18106.2, -11297.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18157.5, -10767.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18509.3, -10143.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19269.1, -10478.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18991.4, -10104.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18026.7, -10103.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19173.3, -10716.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18673.0, -10627.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17970.5, -7752.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18124.8, -8592.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18412.7, -7933.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18673.4, -8537.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19136.7, -8133.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19780.3, -8582.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18627.8, -7616.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18294.2, -7278.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17989.6, -6694.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18521.9, -6683.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19098.2, -6870.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19275.0, -6441.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19893.2, -6449.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19846.0, -7118.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19762.6, -7669.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19066.1, -7324.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19591.8, -8649.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19053.0, -8411.4, 247.300, FourCC("e001"))
 end
 
 function CreatePlayerBuildings()
@@ -614,7 +693,7 @@ function CreateRegions()
     gg_rct_B2A = Rect(17856.0, -13312.0, 18048.0, -12992.0)
     gg_rct_B3A = Rect(13440.0, -10112.0, 15616.0, -8800.0)
     gg_rct_S3A = Rect(12864.0, -10624.0, 16256.0, -8640.0)
-    gg_rct_S2A = Rect(17088.0, -13760.0, 18848.0, -12608.0)
+    gg_rct_S2A = Rect(16960.0, -13760.0, 18912.0, -12608.0)
     gg_rct_E3A = Rect(13344.0, -11104.0, 13696.0, -10464.0)
     gg_rct_E1A = Rect(13216.0, -13696.0, 13568.0, -13216.0)
     gg_rct_E2A = Rect(16640.0, -13568.0, 17216.0, -13056.0)
@@ -622,7 +701,7 @@ function CreateRegions()
     gg_rct_S4A = Rect(18080.0, -11264.0, 19360.0, -10176.0)
     gg_rct_B4A = Rect(18656.0, -10912.0, 18784.0, -10432.0)
     gg_rct_E5A = Rect(17408.0, -8576.0, 17952.0, -8160.0)
-    gg_rct_S5A = Rect(17952.0, -8608.0, 19968.0, -6560.0)
+    gg_rct_S5A = Rect(17792.0, -8800.0, 20128.0, -6336.0)
     gg_rct_B5A = Rect(18528.0, -8256.0, 19392.0, -6848.0)
     gg_rct_E6A = Rect(15168.0, -7648.0, 15456.0, -7392.0)
     gg_rct_S6A = Rect(14176.0, -7648.0, 16576.0, -5664.0)
@@ -639,13 +718,13 @@ function CreateRegions()
     gg_rct_S11A = Rect(21344.0, -11232.0, 22752.0, -9280.0)
     gg_rct_B11A = Rect(21984.0, -10816.0, 22112.0, -10336.0)
     gg_rct_E11A = Rect(21504.0, -11648.0, 21792.0, -11040.0)
-    gg_rct_S12A = Rect(20736.0, -13728.0, 22016.0, -12640.0)
+    gg_rct_S12A = Rect(20288.0, -14112.0, 22176.0, -12416.0)
     gg_rct_B12A = Rect(21312.0, -13376.0, 21440.0, -12896.0)
     gg_rct_E12A = Rect(20832.0, -14240.0, 21120.0, -13696.0)
     gg_rct_E10A = Rect(21504.0, -8352.0, 22048.0, -8064.0)
     gg_rct_E9A = Rect(21440.0, -4512.0, 21632.0, -4224.0)
     gg_rct_E8A = Rect(18688.0, -5056.0, 18976.0, -4640.0)
-    gg_rct_S13A = Rect(23392.0, -13696.0, 24512.0, -12608.0)
+    gg_rct_S13A = Rect(23264.0, -13824.0, 24608.0, -12352.0)
     gg_rct_B13A = Rect(23904.0, -13408.0, 23968.0, -12928.0)
     gg_rct_E13A = Rect(23296.0, -14176.0, 23552.0, -13632.0)
     gg_rct_S14A = Rect(22688.0, -16512.0, 24224.0, -15424.0)
@@ -1199,11 +1278,11 @@ function attackShield(data)
             local cdAttack = 0.2
             local indexAnim = 25
             data.isAttacking = true
-            data.AttackShieldCD=cdAttack
+            data.AttackShieldCD = cdAttack
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-            local damage = 100
+
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
-            SetUnitTimeScale(data.UnitHero,1.5)
+            SetUnitTimeScale(data.UnitHero, 1.5)
 
             normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
             --[[
@@ -1220,34 +1299,16 @@ function attackShield(data)
                 SetUnitAnimationByIndex(data.UnitHero, indexAnim)
             end
 
-            TimerStart(CreateTimer(), cdAttack, false, function()
-                -- кд атаки тут для всех ударов
-                --print(cdAttack)
+            ShieldHit(data, cdAttack)
+            if data.TwiceAttackPerShield then
+                TimerStart(CreateTimer(), 0.15, false, function()
+                    ShieldHit(data, cdAttack)
+                end)
+            end
+
+            TimerStart(CreateTimer(), cdAttack * 2, false, function()
                 data.isAttacking = false
-                local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
-                --print(data.AttackCount)
-                if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
-
-                    local is, enemy, k = UnitDamageArea(data.UnitHero, damage, nx, ny, 100)
-                    --print("урон есть?")
-
-                    if is then
-                        data.ParryPerAttack = true
-                        TimerStart(CreateTimer(), 0.2, false, function()
-                            data.ParryPerAttack = false
-                        end)
-                        --print("Звук попадания обычной атакой"..data.AttackCount)
-                        normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone2", GetUnitXY(data.UnitHero))
-                    end
-
-                end
-            end)
-
-
-
-            TimerStart(CreateTimer(), cdAttack *2, false, function()
-                data.isAttacking = false
-                SetUnitTimeScale(data.UnitHero,1)
+                SetUnitTimeScale(data.UnitHero, 1)
                 if UnitAlive(data.UnitHero) then
                     if data.IsMoving then
                         --быстрый возврат после атаки в последнее состояние
@@ -1261,6 +1322,72 @@ function attackShield(data)
 
         end
     end
+end
+
+function ShieldHit(data, cdAttack)
+    TimerStart(CreateTimer(), cdAttack, false, function()
+        data.isAttacking = false
+        local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
+        if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
+            local is, enemy, k = UnitDamageArea(data.UnitHero, data.DamageInShieldPerAttack, nx, ny, 100)
+
+            if is then
+                data.ParryPerAttack = true
+                TimerStart(CreateTimer(), 0.2, false, function()
+                    data.ParryPerAttack = false
+                end)
+                --print("Звук попадания обычной атакой"..data.AttackCount)
+                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone2", GetUnitXY(data.UnitHero))
+            end
+
+            if enemy then
+                ------------УдарМидаса--------------
+                if data.HandOfMidasCDFH then
+                    if data.HandOfMidasCurrentCD <= 0 then
+                        local cd = data.HandOfMidasCD
+                        data.HandOfMidasCurrentCD = cd
+                        StartFrameCD(cd, data.HandOfMidasCDFH)
+                        if BlzGetUnitMaxHP(enemy) <= 5000 and IsUnitEnemy(enemy, GetOwningPlayer(data.UnitHero)) then
+                            --TODO сделать другое условие не убийства
+                            DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\GoldBottleMissile.mdl", GetUnitXY(enemy)))
+                            KillUnit(enemy)
+                            UnitAddGold(data.UnitHero, data.HandOfMidasReward)
+                            DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
+                        end
+                        TimerStart(CreateTimer(), cd, false, function()
+                            data.HandOfMidasCurrentCD = 0
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                    end
+                end
+                ------------------------------------
+
+                ConditionCastLight(data)
+                if data.CursedStrike then
+                    local amount = (BlzGetUnitMaxHP(data.UnitHero) / 100) * 2
+                    HealUnit(data.UnitHero, amount)
+                end
+
+                if data.ChaosSpinOnAttackCDFH then
+
+                    if data.ChaosSpinOnAttackCurrentCD <= 0 then
+                        --print("условия выполнены")
+                        --print("Вращение при ударе")
+                        data.ChaosSpinOnAttackCurrentCD = data.ChaosSpinOnAttackCD
+                        StartAndReleaseSpin(data, 1)
+                        StartFrameCD(data.ChaosSpinOnAttackCD, data.ChaosSpinOnAttackCDFH)
+                        TimerStart(CreateTimer(), data.ChaosSpinOnAttackCD, false, function()
+                            data.ChaosSpinOnAttackCurrentCD = 0
+                        end)
+                    end
+
+
+                end
+
+            end
+
+        end
+    end)
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2424,6 +2551,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                         local newReward = temTableReward[GetRandomInt(1, #temTableReward)]
                         DestroyEffect(dataPoint.preView)
                         dataPoint.CurrentReward = newReward
+
                         if not newReward then
                             newReward = temTableReward[GetRandomInt(1, #temTableReward)]
                             --print("Ошибка при удалени дубликата дара, пробуем ещё раз"..newReward)
@@ -2437,6 +2565,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                         BlzSetSpecialEffectYaw(preView, math.rad(90))
                         BlzSetSpecialEffectScale(preView, 2)
                         dataPoint.preView = preView
+                        dataPoint.OriginalModel = "SystemGeneric\\GodModels\\" .. newReward
 
                         --print("Найден дубликат дара "..reward.."заменяем его на "..newReward)
                         --AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
@@ -3999,7 +4128,6 @@ end
 function ClearDialogTalon(OriginalTable,data)
     local clearedTable = {}
     for i = 1, #OriginalTable do
-        --table.remove(temTableReward, FinPosInTable(temTableReward, reward))
         local talon = OriginalTable[i]
         local unlock=true
         if talon.dependence then
@@ -4010,10 +4138,15 @@ function ClearDialogTalon(OriginalTable,data)
                 unlock=true
             end
         end
+        local another=true
+        if data.CurrentWeaponType~=talon.weaponType and  talon.weaponType then
+            --print("Талант из другого типа оружия", talon.name)
+            another=false
+        end
 
-        if (talon.level > #(talon.DS) - 1 ) or not unlock  or (data.HasUltF and talon.ultF) or (data.HasUltR and talon.ultR)  then
+
+        if (talon.level > #(talon.DS) - 1 ) or not unlock  or (data.HasUltF and talon.ultF) or (data.HasUltR and talon.ultR) or not another  then
            --print("Элемент очищен", talon.name)
-            --table.remove(clearedTable, i)
         else
             table.insert(clearedTable, talon)
         end
@@ -4355,15 +4488,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             -- ясновидение
             local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
             UpdateTalonDescriptionForFrame(talon, tt)
-            UnitAddAbility(data.UnitHero,FourCC("Adt1"))
+            UnitAddAbility(data.UnitHero, FourCC("Adt1"))
             ActLvl23Action(talon, function()
                 -- уровень 2
-                data.SeeAnyWay=true
+                data.SeeAnyWay = true
                 CreatePillarInSecretWay()
             end, function()
                 -- 3 уровень --Abilities\\Spells\\Other\\Aneu\\AneuCaster.mdl
                 CreateArrowInAllActions()
-                data.SeeAllWay=true
+                data.SeeAllWay = true
             end)
         end
     end
@@ -4647,6 +4780,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             --print("изучено отбитие снарядов")
             data.DestroyMissile = false
         end
+        if pos == 11 then
+            data.TwiceAttackPerShield = true
+        end
+        if pos == 12 then
+            data.DestroyMissile = false
+        end
+        if pos == 12 then
+            data.MegaReflector = true
+        end
     end
     if godName == "ChaosGrom" and talon.level == 1 then
         local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
@@ -4838,7 +4980,7 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Быстро нажимайте LMB чтобы совершить серию ударов"),
                             DS = { 3, 4, 5 },
-                            pos=1
+                            pos = 1
 
                         }),
                         [2] = Talon:new({
@@ -4849,7 +4991,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
                             DS = { 2, 3, 4 },
-                            pos=2
+                            pos = 2
 
                         }),
                         [3] = Talon:new({
@@ -4860,7 +5002,7 @@ do
                             rarity = "normal",
                             tooltip = L("Волк пытается атаковать случайную цель, и патрулирует зону вокруг героя. Волк будет моментально телепортирован к если отдалится на дистанцию выше 1000 ед.", "The wolf tries to attack a random target, and patrols the area around the hero. The wolf will be instantly teleported to if it moves away to a distance of more than 1000"),
                             DS = { 60, 40, 20 },
-                            pos=3
+                            pos = 3
                         }),
                         [4] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
@@ -4870,7 +5012,8 @@ do
                             rarity = "normal",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
                             DS = { 100, 150, 200 },
-                            pos=4
+                            pos = 4,
+                            weaponType = "pickaxe"
                         }),
                         [5] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
@@ -4880,7 +5023,7 @@ do
                             rarity = "epic",
                             tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
                             DS = { 10, 20, 30 },
-                            pos=5,
+                            pos = 5,
                             ultF = true
                         }),
                         [6] = Talon:new({
@@ -4891,7 +5034,7 @@ do
                             rarity = "epic",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
                             DS = { 1, 2, 3 },
-                            pos=6
+                            pos = 6
                         }),
                         [7] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
@@ -4901,7 +5044,7 @@ do
                             rarity = "rare",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 10, 8, 5 },
-                            pos=7
+                            pos = 7
 
                         }),
                         [8] = Talon:new({
@@ -4912,7 +5055,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 60, 40, 30 },
-                            pos=8
+                            pos = 8
                         }),
                         [9] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
@@ -4926,7 +5069,7 @@ do
                                 L("Видеть невидимое и показывает скрытые проходы", "See the invisible and shows hidden passages"),
                                 L("Видеть невидимое, показывает скрытые проходы и решения головоломок", "See the invisible, shows hidden passages and puzzle solutions")
                             },
-                            pos=9
+                            pos = 9
                         }),
                         --[[[10] = Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
@@ -4948,7 +5091,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 10, 5, 3 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
@@ -4958,7 +5101,7 @@ do
                             rarity = "normal",
                             tooltip = L("Изучение этого таланта открывает доступ к таланту на множитель критического урона", " Learning this talent gives you access to the talent for a critical damage multiplier"),
                             DS = { 6, 4, 3 },
-                            pos=2
+                            pos = 2
 
                         }),
                         Talon:new({--3
@@ -4970,7 +5113,7 @@ do
                             tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
                             DS = { 2, 3, 4 },
                             dependence = 2,
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
@@ -4980,7 +5123,7 @@ do
                             rarity = "epic",
                             tooltip = L("Будьте внимательны, эта способность ломает привычные механики", " Be careful, this ability breaks the usual mechanics"),
                             DS = { 100, 150, 200 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
@@ -4990,7 +5133,8 @@ do
                             rarity = "normal",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),
                             DS = { 1.5, 2, 2.5 },
-                            pos=5
+                            pos = 5,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
@@ -5000,7 +5144,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 1, 2, 3 },
-                            pos=6
+                            pos = 6
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp",
@@ -5010,7 +5154,8 @@ do
                             rarity = "epic",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", " Hold LMB to make a spinning attack"),
                             DS = { 0.2, 0.4, 0.6 },
-                            pos=7
+                            pos = 7,
+                            weaponType = "pickaxe"
                             --ultR = true
                         }),
                         Talon:new({--8
@@ -5021,7 +5166,7 @@ do
                             rarity = "epic",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 10, 20, 35 },
-                            pos=8
+                            pos = 8
                             --ultR = true
                         }),
                         Talon:new({--9
@@ -5033,7 +5178,7 @@ do
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),
                             DS = { 20, 40, 60 },
                             dependence = 5,
-                            pos=9
+                            pos = 9
                             --ultF = true
                         }),
                     },
@@ -5046,7 +5191,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 20, 15, 10 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({ --2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSerpentWard.blp",
@@ -5056,7 +5201,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 12, 9, 5 },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({ --3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHex.blp",
@@ -5066,7 +5211,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press RMB in the specified direction to throw the pickaxe there"),
                             DS = { 12, 10, 8 },
-                            pos=3
+                            pos = 3
                         }),
                         --[[
                         Talon:new({--4
@@ -5083,12 +5228,12 @@ do
                         Talon:new({--4
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
                             name = L("Спираль смерти", "Death Spiral"),
-                            description = L("Выпускает в направлении рывка смертельное лезвие. Перезарядка: DS", "Releases a deadly blade in the direction of the dash. Cooldown: DS"),
+                            description = L("Выпускает в направлении рывка смертельное лезвие", "Releases a deadly blade in the direction of the dash"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
-                            DS = { 5, 4, 3 },
-                            pos=4
+                            DS = { 1 },
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRegenerate.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
@@ -5098,7 +5243,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 1, 2, 4 },
-                            pos=5
+                            pos = 5
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHeal.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
@@ -5108,7 +5253,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 1.5, 2, 2.5 },
-                            pos=6
+                            pos = 6
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNLocustSwarm.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
@@ -5118,7 +5263,7 @@ do
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
                             DS = { "сквозь здания", "сквозь здания и делает героя неуязвимым", "сквозь здания и делает героя неуязвимым и разрушает щит врагов" }, --TODO перевод
-                            pos=7
+                            pos = 7
                         }),
                     },
                     HeroTaurenChieftain = {
@@ -5130,7 +5275,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 15, 30, 45 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWalkerAdeptTraining.blp",
@@ -5140,7 +5285,7 @@ do
                             rarity = "normal",
                             tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников", "Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
                             DS = { 0.1, 0.15, 0.2 },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNShockWave.blp",
@@ -5150,7 +5295,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
                             DS = { 50, 80, 100 },
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCommand.blp",
@@ -5160,7 +5305,7 @@ do
                             rarity = "normal",
                             tooltip = L("Используйте кнопки WASD, чтобы перемещаться", "Use the WASD buttons to navigate"),
                             DS = { 20, 40, 60 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
@@ -5170,7 +5315,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", "Press Q to strike a powerful blow over a large area"),
                             DS = { 0.5, 0.8, 1.4 },
-                            pos=5
+                            pos = 5
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
@@ -5180,7 +5325,7 @@ do
                             rarity = "normal",
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
                             DS = { 2, 3, 5 },
-                            pos=6
+                            pos = 6
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\commandbuttons\\BTNSmash.blp",
@@ -5191,7 +5336,7 @@ do
                             tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
                             DS = { 10, 20, 30 },
                             ultF = true,
-                            pos=7
+                            pos = 7
                         }),
                         Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAnimalWarTraining.blp",
@@ -5201,7 +5346,7 @@ do
                             rarity = "normal",
                             tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
                             DS = { 50, 110, 170 },
-                            pos=8
+                            pos = 8
                         }),
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWirtsLeg.blp",
@@ -5212,50 +5357,50 @@ do
                             tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
                             DS = { 50, 150, 250 },
                             dependence = 8,
-                            pos=9
+                            pos = 9
                         }),
 
                     },
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
-                            name = L("Ящер-таран","Ящер-таран"),
-                            description = L("Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100","A huge lizard demolishes enemies in its path, the direction is chosen from the hero, to the cursor point. Cooldown: 20. Damage: 100"),
+                            name = L("Ящер-таран", "Ящер-таран"),
+                            description = L("Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100", "A huge lizard demolishes enemies in its path, the direction is chosen from the hero, to the cursor point. Cooldown: 20. Damage: 100"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Может наносит урон несколько раз, урон при ударах о стену усиливается от других способностей героя","Can deal damage several times, damage when hitting the wall is increased from other abilities of the hero"),
+                            tooltip = L("Может наносит урон несколько раз, урон при ударах о стену усиливается от других способностей героя", "Can deal damage several times, damage when hitting the wall is increased from other abilities of the hero"),
                             DS = { "lizard" },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
-                            name = L("Медведь-бомба","Bear-bomb"),
-                            description = L("Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30","Crushes the bear to the cursor position, the bear deals 1000 damage when summoned. Cooldown: 60. Duration: 30"),
+                            name = L("Медведь-бомба", "Bear-bomb"),
+                            description = L("Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30", "Crushes the bear to the cursor position, the bear deals 1000 damage when summoned. Cooldown: 60. Duration: 30"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Нажмите и удерживайте горячую клавишу активации, чтобы перемещать область взрыва","Press and hold the activation hotkey to move the blast area"),
+                            tooltip = L("Нажмите и удерживайте горячую клавишу активации, чтобы перемещать область взрыва", "Press and hold the activation hotkey to move the blast area"),
                             DS = { "bear" },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
-                            name = L("Кабан","Wild boar"),
-                            description = L("Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50","Summons a small boar, the boar deals 30 damage. Cooldown: 20. Duration: 50"),
+                            name = L("Кабан", "Wild boar"),
+                            description = L("Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50", "Summons a small boar, the boar deals 30 damage. Cooldown: 20. Duration: 50"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Призванное существо полностью автономно","Призванное существо полностью автономно"),
+                            tooltip = L("Призванное существо полностью автономно", "Призванное существо полностью автономно"),
                             DS = { "boar" },
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
-                            name = L("Полярный волк","Polar Wolf"),
-                            description = L("Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк наносит двойной урон замороженным существам","Summons a polar wolf and an ice storm that freezes everything within a radius of 1000. The wolf deals double damage to the frozen creature"),
+                            name = L("Полярный волк", "Polar Wolf"),
+                            description = L("Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк наносит двойной урон замороженным существам", "Summons a polar wolf and an ice storm that freezes everything within a radius of 1000. The wolf deals double damage to the frozen creature"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Призванное существо полностью автономно","The summoned creature is completely autonomous"),
+                            tooltip = L("Призванное существо полностью автономно", "The summoned creature is completely autonomous"),
                             DS = { "wolf" },
-                            pos=4
+                            pos = 4
                         }),
                     },
                     PeonDidal = {
@@ -5267,7 +5412,8 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
                             DS = { 3 },
-                            pos=1
+                            pos = 1,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
@@ -5277,7 +5423,8 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
                             DS = { 50 },
-                            pos=2
+                            pos = 2,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
@@ -5287,17 +5434,17 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
                             DS = { 50 },
-                            pos=3
+                            pos = 3,
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
                             name = L("Разбег минотавра", " Minotaur run-up"),
-                            description = L("Атака в рывке, наносят на DS% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше", "Attack in a dash, deal DS% more damage, increases the hit area and pushes 3 times further away"),
+                            description = L("Атака в рывке, наносит на DS% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше", "Attack in a dash, deal DS% more damage, increases the hit area and pushes 3 times further away"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке", " Quickly press LMB after SPACE to make a snatch attack"),
                             DS = { 100 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
@@ -5307,7 +5454,8 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке", " Quickly press LMB after SPACE to make a snatch attack"),
                             DS = { 2 },
-                            pos=5
+                            pos = 5,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
@@ -5317,7 +5465,8 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to strike a powerful blow over a large area"),
                             DS = { L("дважды", "twice") },
-                            pos=6
+                            pos = 6,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
@@ -5327,7 +5476,8 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
                             DS = { 50 },
-                            pos=7
+                            pos = 7,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--8
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
@@ -5337,7 +5487,7 @@ do
                             rarity = "epic",
                             tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
                             DS = { 2 },
-                            pos=8
+                            pos = 8
                         }),
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
@@ -5347,7 +5497,7 @@ do
                             rarity = "epic",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 3 },
-                            pos=9
+                            pos = 9
                         }),
                         Talon:new({--10
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
@@ -5357,7 +5507,42 @@ do
                             rarity = "epic",
                             tooltip = L("Снаряд полетит в позицию врага, в которой он находился в момент отражения", "The projectile will fly to the position of the enemy in which it was at the time of reflection"),
                             DS = { 1 },
-                            pos=10
+                            pos = 10,
+                            weaponType = "pickaxe"
+                        }),
+                        Talon:new({--11
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPillage.blp",
+                            name = L("Измельчитель", " Dead pool"),
+                            description = L("Щит наносит урон дважды", "The shield deals damage twice"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("2 удара подряд", "2 strikes in a row"),
+                            DS = { 1 },
+                            pos = 11,
+                            weaponType = "shield"
+                        }),
+                        Talon:new({--12
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDivineIntervention.blp",
+                            name = L("Зеркальный щит", "Mirror Shield"),
+                            description = L("Позволяет отражать снаряды", "Allows you to reflect projectiles"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Отраженный снаряд полетит в направлении курсора игрока", "The reflected projectile will fly in the direction of the player's cursor"),
+                            DS = { 1 },
+                            pos = 12,
+                            weaponType = "shield"
+                        }),
+                        Talon:new({--13
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDivineIntervention.blp",
+                            name = L("Отражатель", "Reflector"),
+                            description = L("Увеличивает скорость в 2, а урон в 4 раза, для отраженных снарядов", "Increases speed by 2, and damage by 4 times, for reflected projectiles"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Отраженный снаряд полетит в направлении курсора игрока", "The reflected projectile will fly in the direction of the player's cursor"),
+                            DS = { 1 },
+                            pos = 13,
+                            dependence=12,
+                            weaponType = "shield"
                         }),
                     },
                     ChaosGrom = {
@@ -5369,7 +5554,7 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Quickly press LMB to make a series of hits"),
                             DS = { 5, 4, 3 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFountainOfLifeBlood.blp",
@@ -5379,7 +5564,7 @@ do
                             rarity = "normal",
                             tooltip = L("Используйте Е возле источника воды, чтобы заразить его", "Use E near a water source to infect it"),
                             DS = { 100, 150, 250 },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNIncinerate.blp",
@@ -5389,7 +5574,7 @@ do
                             rarity = "normal",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
                             DS = { 1, 2, 3 },
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
@@ -5399,7 +5584,7 @@ do
                             rarity = "normal",
                             tooltip = L("Неизвестно на какой магии это всё работает", "It is not known on what magic it all works"),
                             DS = { 80, 120, 160 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNImpale.blp",
@@ -5409,7 +5594,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 50, 100, 150 },
-                            pos=5
+                            pos = 5
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRedDragonDevour.blp",
@@ -5419,7 +5604,7 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 3, 6, 10 },
-                            pos=6
+                            pos = 6
                         }),
                         Talon:new({--7
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHeartOfAszune.blp",
@@ -5429,7 +5614,7 @@ do
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 2, 4, 7 },
-                            pos=7
+                            pos = 7
                         }),
                         --[[
                         Talon:new({--7
@@ -5452,7 +5637,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 1, 2, 4 },
-                            pos=1
+                            pos = 1
                         }),
                         Talon:new({--2
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSunKey.blp",
@@ -5462,7 +5647,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 15, 30, 50 },
-                            pos=2
+                            pos = 2
                         }),
                         Talon:new({--3
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTransmute.blp",
@@ -5472,7 +5657,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 10, 20, 30 },
-                            pos=3
+                            pos = 3
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDustOfAppearance.blp",
@@ -5482,7 +5667,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 10, 20, 30 },
-                            pos=4
+                            pos = 4
                         }),
                         Talon:new({--5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfRestoration.blp",
@@ -5492,7 +5677,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 10, 15, 20 },
-                            pos=5
+                            pos = 5
                         }),
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMedalionOfCourage.blp",
@@ -5502,7 +5687,7 @@ do
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 20, 15, 10 },
-                            pos=6
+                            pos = 6
                         }),
                         --[[
                         Talon:new({--7 --ReplaceableTextures\CommandButtons\BTNPillage.blp
@@ -5993,6 +6178,8 @@ function CreateBaseFrames(x, y)
         L("Делает небольшой рывок в направлении текущего движения", "Makes a small leap in the direction of the current movement"),
         L("Наносит увеличенный урон по большой площади", "Deals increased damage over a large area"),
         L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг", "Hold down the LMB to start spinning and deal damage to all enemies around"),
+        L("Удерживайте LMB, чтобы прикрыться щитом и зарядить разбег", "Hold the LMB to cover up with the shield and charge the run-up"),
+        L("Делает удар щитом прямо перед собой", "Makes a shield strike right in front of him"),
     }
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
@@ -6001,15 +6188,17 @@ function CreateBaseFrames(x, y)
             -- AllAbilityFrames[i]={
             --     ReadyToReload={},
             --    ClickTrig={}}
-            if data.CurrentWeaponType=="pickaxe" then
+            if data.CurrentWeaponType == "pickaxe" then
                 CreateUniversalFrame(x, y, step, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[4], L("Мощный удар", "Powerful blow"), data, AbilityIconPath[4], nil, "SystemGeneric\\DDSSymbols\\q", "splash")
                 CreateUniversalFrame(x, y, step, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
             end
-
+            if data.CurrentWeaponType == "shield" then
+                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[7], L("Удар щитом", "Shield strike"), data, "ReplaceableTextures\\CommandButtons\\BTNThoriumArmor.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormalShield")
+                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
+            end
             CreateUniversalFrame(x, y, step, AbilityDescriptionRus[2], L("Бросок кирки", "Throwing a pickaxe"), data, AbilityIconPath[2], nil, "SystemGeneric\\DDSSymbols\\rmb", "throw")
             CreateUniversalFrame(x, y, step, AbilityDescriptionRus[3], L("Рывок", "Dash"), data, AbilityIconPath[3], nil, "SystemGeneric\\DDSSymbols\\space", "dash")
-
+            CreateUniversalFrame(x, y, step, AbilityDescriptionRus[4], L("Мощный удар", "Powerful blow"), data, AbilityIconPath[4], nil, "SystemGeneric\\DDSSymbols\\q", "splash")
             --CreateUniversalFrame(x,y,step,"Призывает волков",data,"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
             --CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
             --CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
@@ -6180,6 +6369,20 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     ---------------------------------------------------
     ----------------ДИНАМИЧЕСКИЕ ОПИСАНИЯ--------------
     ---------------------------------------------------
+    if flag == "attackNormalShield" then
+        data.DamageInShieldPerAttack = 100
+        local nativeTextString = BlzFrameGetText(text)
+        TimerStart(CreateTimer(), 2, true, function()
+            BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(data.DamageInShieldPerAttack)) .. L(" ед. урона", " damage"))
+        end)
+    end
+    if flag == "shieldDash" then
+        data.DamageInShieldPerDash = 50
+        local nativeTextString = BlzFrameGetText(text)
+        TimerStart(CreateTimer(), 2, true, function()
+            BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(data.DamageInShieldPerDash)) .. L(" ед. урона касанием и отталкивает врагов", " touch damage and repels enemies"))
+        end)
+    end
     if flag == "attackNormal" then
         --data.attackNormalTooltipTextFH=text
         local nativeTextString = BlzFrameGetText(text)
@@ -6250,7 +6453,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
 
     ---Глобализация
     data.countFrame = k + 1 -- Увеличение числа талантов
-    if data.countFrame>= 25 then
+    if data.countFrame >= 25 then
         print("Достигнул лимит способностей, обратитесь к автору карты")
     end
     return text, buttonIconFrame
@@ -8616,9 +8819,11 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             local data = HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
             if data.UnitHero and GetUnitTypeId(DamagingUnit) == HeroID then
                 --print("атакован наш герой")
-                if (data.PressSpin or data.ShieldDashReflect) and data.CurrentWeaponType == "shield" then
+                if (data.PressSpin or data.ShieldDashReflect) and data.CurrentWeaponType == "shield" and data.PressSpin then
                     --print("Попадание в активированный щит")
-
+                    if effectmodel == "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl" then
+                        AddChaos(data, 1)
+                    end
                     local xe, ye = GetUnitXY(DamagingUnit)
                     -- функция принадлежности точки сектора
                     -- x1, x2 - координаты проверяемой точки
@@ -8629,11 +8834,22 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
 
                     if IsPointInSector(x, y, xe, ye, GetUnitFacing(DamagingUnit), 90, 200) then
 
+                        if not data.DestroyMissile then
+                            FlyTextTagShieldXY(xe, ye, L("Отбит", "Parry"), GetOwningPlayer(data.UnitHero))
+                            heroCurrent = DamagingUnit
+                            reverse = true
+                            angleCurrent = GetUnitFacing(DamagingUnit)--180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitXY(hero)) / bj_DEGTORAD
+                            if data.MegaReflector then
+                                damage=damage*4
+                                speed=speed*2
+                            end
+                        else
+                            FlyTextTagShieldXY(xe, ye, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
+                            reverse = true
+                            DestroyEffect(bullet)
+                            DestroyTimer(GetExpiredTimer())
+                        end
 
-                        FlyTextTagShieldXY(xe, ye, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
-                        reverse = true
-                        DestroyEffect(bullet)
-                        DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(DamagingUnit))
                         local AngleSource = AngleBetweenUnits(heroCurrent, DamagingUnit)
                         BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
@@ -8659,7 +8875,6 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                         reverse = true
                         --print("снаряд уничтожен будет")
                         FlyTextTagShieldXY(nx, ny, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
-
                         DestroyEffect(bullet)
                         DestroyTimer(GetExpiredTimer())
                     end
@@ -8891,14 +9106,16 @@ function OnPostDamage()
         -- orientation - ориентация сектора в мировых координатах
         -- width - угловой размер сектора в градусах
         -- radius - окружности которой принадлежит сектор
-
-        if IsPointInSector(x, y, xe, ye, GetUnitFacing(target), 90, 200) then
-            BlzSetEventDamage(0)
-            local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
-            local AngleSource = AngleBetweenUnits(caster, target)
-            BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
-            DestroyEffect(eff)
-            FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+        if data.CurrentWeaponType == "shield" and data.PressSpin then
+            if IsPointInSector(x, y, xe, ye, GetUnitFacing(target), 90, 200) then
+                BlzSetEventDamage(0)
+                local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
+                local AngleSource = AngleBetweenUnits(caster, target)
+                BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
+                DestroyEffect(eff)
+                UnitAddForceSimple(data.UnitHero, AngleSource, 10, 50)
+                FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+            end
         end
 
         if data.HealDash and data.HealDashCurrentCD <= 0 then
@@ -11174,7 +11391,11 @@ function CreateWASDActions()
                     dist = 400
                     delay = 0.3
                     data.GreatDamageDashQ = true
+
                     SetUnitAnimationByIndex(data.UnitHero, 3)
+                    if data.CurrentWeaponType == "shield" then
+                        SetUnitAnimationByIndex(data.UnitHero, 26)
+                    end
                     if not data.tasks[8] then
                         data.tasks[8] = true
                         --print("Первый раз сделал краш")
@@ -11310,11 +11531,16 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero, 3)
+                if data.CurrentWeaponType == "shield" then
+                    SetUnitAnimationByIndex(data.UnitHero, 26)
+                    --print("анимация прыжка?")
+                end
 
                 if data.QJump2Pointer then
                     --FIXED может ломать управление
                     --if not data.ReleaseQ then
                     --print("Q в курсор")
+
                     StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
                     --SpellSlashQ(data)
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
@@ -11323,6 +11549,9 @@ function CreateWASDActions()
                         dist = 500
                     end
                     BlzSetUnitFacingEx(data.UnitHero, angle)
+                    if data.CurrentWeaponType == "shield" then
+                        SetUnitTimeScale(data.UnitHero, 2)
+                    end
                     UnitAddForceSimple(data.UnitHero, angle, 20, dist, "qjump")
                     TimerStart(CreateTimer(), 5, false, function()
                         if data.ReleaseQ then
@@ -11332,7 +11561,11 @@ function CreateWASDActions()
                     end)
                     --end
                 else
-                    TimerStart(CreateTimer(), 0.35, false, function()
+                    local castDelay = 0.35
+                    if data.CurrentWeaponType == "shield" then
+                        castDelay = 0.7
+                    end
+                    TimerStart(CreateTimer(), castDelay, false, function()
                         --задержка перед ударом
 
                         StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
@@ -11451,12 +11684,20 @@ function CreateWASDActions()
                 BlzSetSpecialEffectPosition(data.BarToCharge, OutPoint, OutPoint, 0)
                 data.BarToCharge = nil
                 data.ArrowToShieldDashVisible = false
-                if data.PressShieldSec>0.5 then
+                if data.PressShieldSec > 0.5 then
                     --print("Рывок щитом")
                     data.ShieldDashReflect = true
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     if UnitAlive(data.UnitHero) then
-                        UnitAddForceSimple(data.UnitHero, angle, 35, data.PressShieldSec*200, "shieldDash")
+                        UnitAddForceSimple(data.UnitHero, angle, 35, data.PressShieldSec * 200, "shieldDash")
+
+
+
+
+
+
+
+                        --Разбег быка
                     end
                     data.ShieldReadyToCharge = false
                 end
@@ -11627,9 +11868,9 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         local damageOnWall = false
         local effDash = nil
         local ignoreDest = false
-        if flag == "ignore" then
+        if flag == "ignore" or flag == "shieldDash" then
             local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
-            if data.DashDamageON then
+            if data.DashDamageON or flag == "shieldDash" then
                 local effDashModel = "Hive\\Valiant Charge\\Valiant Charge Fel\\Valiant Charge Fel"
                 effDash = AddSpecialEffectTarget(effDashModel, hero, "origin")
                 ignoreDest = data.IgnoreDest -- проходимость свкозь бордюры
@@ -11685,7 +11926,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
             end
             if flag == "shieldDash" then
-                UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
+                UnitDamageArea(hero, GetUnitData(hero).DamageInShieldPerDash, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
             end
             if flag == "RunSkeleton" then
                 UnitDamageArea(hero, 1, GetUnitX(hero), GetUnitY(hero), 120)
@@ -11759,7 +12000,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 --data.OnWater=false
                 if flag == "shieldDash" then
                     local data = GetUnitData(hero)
-                    data.ShieldDashReflect=false
+                    data.ShieldDashReflect = false
                 end
                 if effDash then
                     DestroyEffect(effDash)
@@ -11804,6 +12045,9 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 end
                 if flag == "qjump" then
                     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+                    if data.CurrentWeaponType == "shield" then
+                        SetUnitTimeScale(data.UnitHero, 1)
+                    end
                     SpellSlashQ(data)
                     if data.DoubleClap then
                         TimerStart(CreateTimer(), 0.35, false, function()

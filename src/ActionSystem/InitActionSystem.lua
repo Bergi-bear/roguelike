@@ -175,6 +175,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                         local newReward = temTableReward[GetRandomInt(1, #temTableReward)]
                         DestroyEffect(dataPoint.preView)
                         dataPoint.CurrentReward = newReward
+
                         if not newReward then
                             newReward = temTableReward[GetRandomInt(1, #temTableReward)]
                             --print("Ошибка при удалени дубликата дара, пробуем ещё раз"..newReward)
@@ -188,6 +189,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                         BlzSetSpecialEffectYaw(preView, math.rad(90))
                         BlzSetSpecialEffectScale(preView, 2)
                         dataPoint.preView = preView
+                        dataPoint.OriginalModel = "SystemGeneric\\GodModels\\" .. newReward
 
                         --print("Найден дубликат дара "..reward.."заменяем его на "..newReward)
                         --AddSpecialEffect("SystemGeneric\\LightPillar", x, y)

@@ -90,9 +90,11 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             local data = HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
             if data.UnitHero and GetUnitTypeId(DamagingUnit) == HeroID then
                 --print("атакован наш герой")
-                if (data.PressSpin or data.ShieldDashReflect) and data.CurrentWeaponType == "shield" then
+                if (data.PressSpin or data.ShieldDashReflect) and data.CurrentWeaponType == "shield" and data.PressSpin then
                     --print("Попадание в активированный щит")
-
+                    if effectmodel == "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl" then
+                        AddChaos(data, 1)
+                    end
                     local xe, ye = GetUnitXY(DamagingUnit)
                     -- функция принадлежности точки сектора
                     -- x1, x2 - координаты проверяемой точки
@@ -103,11 +105,23 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
 
                     if IsPointInSector(x, y, xe, ye, GetUnitFacing(DamagingUnit), 90, 200) then
 
+                        if not data.DestroyMissile then
+                            FlyTextTagShieldXY(xe, ye, L("Отбит", "Parry"), GetOwningPlayer(data.UnitHero))
+                            heroCurrent = DamagingUnit
+                            reverse = true
+                            angleCurrent = GetUnitFacing(DamagingUnit)--180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitXY(hero)) / bj_DEGTORAD
+                            if data.MegaReflector then
+                                damage=damage*4
+                                speed=speed*2
+                                maxDistance=maxDistance*2
+                            end
+                        else
+                            FlyTextTagShieldXY(xe, ye, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
+                            reverse = true
+                            DestroyEffect(bullet)
+                            DestroyTimer(GetExpiredTimer())
+                        end
 
-                        FlyTextTagShieldXY(xe, ye, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
-                        reverse = true
-                        DestroyEffect(bullet)
-                        DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(DamagingUnit))
                         local AngleSource = AngleBetweenUnits(heroCurrent, DamagingUnit)
                         BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
@@ -133,7 +147,6 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                         reverse = true
                         --print("снаряд уничтожен будет")
                         FlyTextTagShieldXY(nx, ny, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
-
                         DestroyEffect(bullet)
                         DestroyTimer(GetExpiredTimer())
                     end

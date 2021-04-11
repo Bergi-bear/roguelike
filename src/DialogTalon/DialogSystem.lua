@@ -86,7 +86,6 @@ end
 function ClearDialogTalon(OriginalTable,data)
     local clearedTable = {}
     for i = 1, #OriginalTable do
-        --table.remove(temTableReward, FinPosInTable(temTableReward, reward))
         local talon = OriginalTable[i]
         local unlock=true
         if talon.dependence then
@@ -97,10 +96,15 @@ function ClearDialogTalon(OriginalTable,data)
                 unlock=true
             end
         end
+        local another=true
+        if data.CurrentWeaponType~=talon.weaponType and  talon.weaponType then
+            --print("Талант из другого типа оружия", talon.name)
+            another=false
+        end
 
-        if (talon.level > #(talon.DS) - 1 ) or not unlock  or (data.HasUltF and talon.ultF) or (data.HasUltR and talon.ultR)  then
+
+        if (talon.level > #(talon.DS) - 1 ) or not unlock  or (data.HasUltF and talon.ultF) or (data.HasUltR and talon.ultR) or not another  then
            --print("Элемент очищен", talon.name)
-            --table.remove(clearedTable, i)
         else
             table.insert(clearedTable, talon)
         end

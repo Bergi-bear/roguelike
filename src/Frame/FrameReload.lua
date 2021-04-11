@@ -34,6 +34,8 @@ function CreateBaseFrames(x, y)
         L("Делает небольшой рывок в направлении текущего движения", "Makes a small leap in the direction of the current movement"),
         L("Наносит увеличенный урон по большой площади", "Deals increased damage over a large area"),
         L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг", "Hold down the LMB to start spinning and deal damage to all enemies around"),
+        L("Удерживайте LMB, чтобы прикрыться щитом и зарядить разбег", "Hold the LMB to cover up with the shield and charge the run-up"),
+        L("Делает удар щитом прямо перед собой", "Makes a shield strike right in front of him"),
     }
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
@@ -42,15 +44,17 @@ function CreateBaseFrames(x, y)
             -- AllAbilityFrames[i]={
             --     ReadyToReload={},
             --    ClickTrig={}}
-            if data.CurrentWeaponType=="pickaxe" then
+            if data.CurrentWeaponType == "pickaxe" then
                 CreateUniversalFrame(x, y, step, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[4], L("Мощный удар", "Powerful blow"), data, AbilityIconPath[4], nil, "SystemGeneric\\DDSSymbols\\q", "splash")
                 CreateUniversalFrame(x, y, step, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
             end
-
+            if data.CurrentWeaponType == "shield" then
+                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[7], L("Удар щитом", "Shield strike"), data, "ReplaceableTextures\\CommandButtons\\BTNThoriumArmor.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormalShield")
+                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
+            end
             CreateUniversalFrame(x, y, step, AbilityDescriptionRus[2], L("Бросок кирки", "Throwing a pickaxe"), data, AbilityIconPath[2], nil, "SystemGeneric\\DDSSymbols\\rmb", "throw")
             CreateUniversalFrame(x, y, step, AbilityDescriptionRus[3], L("Рывок", "Dash"), data, AbilityIconPath[3], nil, "SystemGeneric\\DDSSymbols\\space", "dash")
-
+            CreateUniversalFrame(x, y, step, AbilityDescriptionRus[4], L("Мощный удар", "Powerful blow"), data, AbilityIconPath[4], nil, "SystemGeneric\\DDSSymbols\\q", "splash")
             --CreateUniversalFrame(x,y,step,"Призывает волков",data,"ReplaceableTextures\\CommandButtons\\BTNBerserkForTrolls","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserkForTrolls",1)
             --CreateUniversalFrame(x+step,y,step,"Призывает Bergi",Player(i),"ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNAncestralSpirit.blp",2)
             --CreateUniversalFrame(x+step+step,y,step,"Фаталит Карту",Player(i),"ReplaceableTextures\\PassiveButtons\\PASBTNBerserk","ReplaceableTextures\\CommandButtonsDisabled\\DISBTNBerserk",3)
@@ -221,6 +225,20 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     ---------------------------------------------------
     ----------------ДИНАМИЧЕСКИЕ ОПИСАНИЯ--------------
     ---------------------------------------------------
+    if flag == "attackNormalShield" then
+        data.DamageInShieldPerAttack = 100
+        local nativeTextString = BlzFrameGetText(text)
+        TimerStart(CreateTimer(), 2, true, function()
+            BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(data.DamageInShieldPerAttack)) .. L(" ед. урона", " damage"))
+        end)
+    end
+    if flag == "shieldDash" then
+        data.DamageInShieldPerDash = 50
+        local nativeTextString = BlzFrameGetText(text)
+        TimerStart(CreateTimer(), 2, true, function()
+            BlzFrameSetText(text, nativeTextString .. L("\nНаносит: ", "\nDealing: ") .. ColorText2(R2I(data.DamageInShieldPerDash)) .. L(" ед. урона касанием и отталкивает врагов", " touch damage and repels enemies"))
+        end)
+    end
     if flag == "attackNormal" then
         --data.attackNormalTooltipTextFH=text
         local nativeTextString = BlzFrameGetText(text)
@@ -291,7 +309,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
 
     ---Глобализация
     data.countFrame = k + 1 -- Увеличение числа талантов
-    if data.countFrame>= 25 then
+    if data.countFrame >= 25 then
         print("Достигнул лимит способностей, обратитесь к автору карты")
     end
     return text, buttonIconFrame

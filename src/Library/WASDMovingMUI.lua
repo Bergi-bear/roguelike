@@ -678,7 +678,11 @@ function CreateWASDActions()
                     dist = 400
                     delay = 0.3
                     data.GreatDamageDashQ = true
+
                     SetUnitAnimationByIndex(data.UnitHero, 3)
+                    if data.CurrentWeaponType == "shield" then
+                        SetUnitAnimationByIndex(data.UnitHero, 26)
+                    end
                     if not data.tasks[8] then
                         data.tasks[8] = true
                         --print("Первый раз сделал краш")
@@ -814,11 +818,16 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero, 3)
+                if data.CurrentWeaponType == "shield" then
+                    SetUnitAnimationByIndex(data.UnitHero, 26)
+                    --print("анимация прыжка?")
+                end
 
                 if data.QJump2Pointer then
                     --FIXED может ломать управление
                     --if not data.ReleaseQ then
                     --print("Q в курсор")
+
                     StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
                     --SpellSlashQ(data)
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
@@ -827,6 +836,9 @@ function CreateWASDActions()
                         dist = 500
                     end
                     BlzSetUnitFacingEx(data.UnitHero, angle)
+                    if data.CurrentWeaponType == "shield" then
+                        SetUnitTimeScale(data.UnitHero, 2)
+                    end
                     UnitAddForceSimple(data.UnitHero, angle, 20, dist, "qjump")
                     TimerStart(CreateTimer(), 5, false, function()
                         if data.ReleaseQ then
@@ -836,7 +848,11 @@ function CreateWASDActions()
                     end)
                     --end
                 else
-                    TimerStart(CreateTimer(), 0.35, false, function()
+                    local castDelay = 0.35
+                    if data.CurrentWeaponType == "shield" then
+                        castDelay = 0.7
+                    end
+                    TimerStart(CreateTimer(), castDelay, false, function()
                         --задержка перед ударом
 
                         StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
@@ -955,12 +971,20 @@ function CreateWASDActions()
                 BlzSetSpecialEffectPosition(data.BarToCharge, OutPoint, OutPoint, 0)
                 data.BarToCharge = nil
                 data.ArrowToShieldDashVisible = false
-                if data.PressShieldSec>0.5 then
+                if data.PressShieldSec > 0.5 then
                     --print("Рывок щитом")
                     data.ShieldDashReflect = true
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     if UnitAlive(data.UnitHero) then
-                        UnitAddForceSimple(data.UnitHero, angle, 35, data.PressShieldSec*200, "shieldDash")
+                        UnitAddForceSimple(data.UnitHero, angle, 35, data.PressShieldSec * 200, "shieldDash")
+
+
+
+
+
+
+
+                        --Разбег быка
                     end
                     data.ShieldReadyToCharge = false
                 end
@@ -1131,9 +1155,9 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         local damageOnWall = false
         local effDash = nil
         local ignoreDest = false
-        if flag == "ignore" then
+        if flag == "ignore" or flag == "shieldDash" then
             local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
-            if data.DashDamageON then
+            if data.DashDamageON or flag == "shieldDash" then
                 local effDashModel = "Hive\\Valiant Charge\\Valiant Charge Fel\\Valiant Charge Fel"
                 effDash = AddSpecialEffectTarget(effDashModel, hero, "origin")
                 ignoreDest = data.IgnoreDest -- проходимость свкозь бордюры
@@ -1189,7 +1213,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
             end
             if flag == "shieldDash" then
-                UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
+                UnitDamageArea(hero, GetUnitData(hero).DamageInShieldPerDash, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
             end
             if flag == "RunSkeleton" then
                 UnitDamageArea(hero, 1, GetUnitX(hero), GetUnitY(hero), 120)
@@ -1263,7 +1287,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 --data.OnWater=false
                 if flag == "shieldDash" then
                     local data = GetUnitData(hero)
-                    data.ShieldDashReflect=false
+                    data.ShieldDashReflect = false
                 end
                 if effDash then
                     DestroyEffect(effDash)
@@ -1308,6 +1332,9 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 end
                 if flag == "qjump" then
                     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+                    if data.CurrentWeaponType == "shield" then
+                        SetUnitTimeScale(data.UnitHero, 1)
+                    end
                     SpellSlashQ(data)
                     if data.DoubleClap then
                         TimerStart(CreateTimer(), 0.35, false, function()
