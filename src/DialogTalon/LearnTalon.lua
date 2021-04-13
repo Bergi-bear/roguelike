@@ -137,6 +137,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 data.SeeAllWay = true
             end)
         end
+        if pos == 10 then
+            local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+            data.RevengeLightingDamage = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.RevengeLightingDamage = talon.DS[talon.level]
+            end)
+        end
     end
     if godName == "HeroBlademaster" and talon.level == 1 then
         if pos == 1 then
@@ -260,6 +268,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             end, function()
                 -- 3 уровень
 
+            end)
+        end
+        if pos == 8 then
+            data.ShieldHealCDFH = CdFH
+            data.ShieldHealCurrentCD = 0
+            data.ShieldHealCD = 10
+            data.ShieldHealRate = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.ShieldHealRate = talon.DS[talon.level]
             end)
         end
     end
@@ -424,7 +441,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 12 then
             data.DestroyMissile = false
         end
-        if pos == 12 then
+        if pos == 13 then
             data.MegaReflector = true
         end
     end
@@ -481,8 +498,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         end
     end
     if godName == "Alchemist" and talon.level == 1 then
-        local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
-        UpdateTalonDescriptionForFrame(talon, tt)
+        local tt, CdFH = nil, nil
+        if pos ~= 7 then
+            --золотой меч отдельно
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+        end
         if pos == 1 then
             --+
             data.AdditionalGoldPerKill = talon.DS[talon.level]
@@ -531,11 +552,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             end)
         end
         if pos == 7 then
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil,"goldKing")
+            UpdateTalonDescriptionForFrame(talon, tt)
+
             data.GoldKingCDFH = CdFH
             data.GoldKingCurrentCD = 0
             data.GoldKingCD = 5
             data.GoldKingCharges = 0
             data.GoldKingBonus = talon.DS[talon.level]
+
             ActLvl23Action(talon, function()
                 data.GoldKingBonus = talon.DS[talon.level]
             end)

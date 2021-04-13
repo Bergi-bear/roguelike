@@ -171,7 +171,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                 if dataPoint2 then
                     if dataPoint2.CurrentReward == reward and tempTable[i] ~= tempUnit then
                         local temTableReward = PreViewIcon
-                        table.remove(temTableReward, FinPosInTable(temTableReward, reward))
+                        table.remove(temTableReward, FinPosInTable(temTableReward, reward)) --FIXME иногда бывает ощибка на эту строку 2630
                         local newReward = temTableReward[GetRandomInt(1, #temTableReward)]
                         DestroyEffect(dataPoint.preView)
                         dataPoint.CurrentReward = newReward
@@ -742,43 +742,80 @@ function CreateEActions()
             end
 
             if data.UseAction == "Heal" then
-                local message = {
-                    L("Целебно", "Curative"),
-                    L("Я полон сил", "I'm full of energy"),
-                    L("Холодная", "Cold"),
-                    L("Как заново родился", "How was I born again"),
-                    L("Готов к битве", "Ready for battle"),
-                    L("Кажется я уже переполнен", "I think I'm already full"),
-                    L("На вкус как кола", "It tastes like cola"),
-                    L("Сладкий Бубалех", "Sweet Bubaleh"),
-
-                }
-                CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
-                if UnitHasAnyEnemyInRange(data.UnitHero, 500) then
-                    HealUnit(data.UnitHero, 50)
-                    normal_sound("Abilities\\Spells\\NightElf\\Tranquility\\TranquilityHealLoop1", GetUnitXY(data.UnitHero))
-                else
-                    HealUnit(data.UnitHero, 9999)
-                    normal_sound("Abilities\\Spells\\NightElf\\Tranquility\\TranquilityTarget1", GetUnitXY(data.UnitHero))
+                if not dataPoint.CD2Ready then
+                    dataPoint.CD2Ready=0
                 end
-                data.Completed = true
-                data.DoAction = false
-                data.UseAction = ""
-                data.ShowActionWindows = false
-                if data.DeathFountain then
-                    --print("заражаем фонтан")
-                    local x, y = GetUnitXY(data.EPointUnit)
-                    for i = 1, 12 do
-                        local eff = AddSpecialEffect("Doodads\\Terrain\\CliffDoodad\\Waterfall\\Waterfall", x, y)
-                        BlzSetSpecialEffectYaw(eff, math.rad(-180 + 30 * i))
-                        BlzSetSpecialEffectColor(eff, 255, 0, 0)
-                        BlzSetSpecialEffectScale(eff, 0.5)
+                if dataPoint.CD2Ready<=0 then
+                    ------Кдшим фонтан
+                    --print("запускаем кд фонтана")
+                    dataPoint.CD2Ready=20
+                    if not InFight then
+                        dataPoint.CD2Ready=2
                     end
-                    KillUnit(data.EPointUnit)
-                    AddMaxLife(data.UnitHero, 25)
-                    TimerStart(CreateTimer(), 2, true, function()
-                        UnitDamageArea(data.UnitHero, data.DamageOfFountain, x, y, 500, "Blood")
+                    local bar = AddSpecialEffect("SystemGeneric\\Progressbar", GetUnitXY(hero))
+                    BlzSetSpecialEffectColor(bar, 255, 255, 255)
+                    BlzPlaySpecialEffect(bar, ANIM_TYPE_BIRTH)
+                    BlzSetSpecialEffectTimeScale(bar, 1/dataPoint.CD2Ready)
+                    BlzSetSpecialEffectScale(bar, 2)
+                    --BlzSetSpecialEffectAlpha(bar, 0)
+                    BlzSetSpecialEffectColorByPlayer(bar, Player(9))
+                    local x, y = GetUnitXY(dataPoint.Unit)
+                    local z = BlzGetUnitZ(dataPoint.Unit) + 220
+                    BlzSetSpecialEffectPosition(bar, x , y-60, z)
+
+                    TimerStart(CreateTimer(), 1, true, function()
+
+                        dataPoint.CD2Ready=dataPoint.CD2Ready-1
+                        if dataPoint.CD2Ready<=0 then
+                            --print("фонтан готов")
+                            BlzSetSpecialEffectPosition(bar, OutPoint , OutPoint, z)
+                            DestroyEffect(bar)
+                            DestroyTimer(GetExpiredTimer())
+                        end
                     end)
+
+
+                    -------------
+                    local message = {
+                        L("Целебно", "Curative"),
+                        L("Я полон сил", "I'm full of energy"),
+                        L("Холодная", "Cold"),
+                        L("Как заново родился", "How was I born again"),
+                        L("Готов к битве", "Ready for battle"),
+                        L("Кажется я уже переполнен", "I think I'm already full"),
+                        L("На вкус как кола", "It tastes like cola"),
+                        L("Сладкий Бубалех", "Sweet Bubaleh"),
+
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
+                    if UnitHasAnyEnemyInRange(data.UnitHero, 500) then
+                        HealUnit(data.UnitHero, 50)
+                        normal_sound("Abilities\\Spells\\NightElf\\Tranquility\\TranquilityHealLoop1", GetUnitXY(data.UnitHero))
+                    else
+                        HealUnit(data.UnitHero, 9999)
+                        normal_sound("Abilities\\Spells\\NightElf\\Tranquility\\TranquilityTarget1", GetUnitXY(data.UnitHero))
+                    end
+                    data.Completed = true
+                    data.DoAction = false
+                    data.UseAction = ""
+                    data.ShowActionWindows = false
+                    if data.DeathFountain then
+                        --print("заражаем фонтан")
+                        local x, y = GetUnitXY(data.EPointUnit)
+                        for i = 1, 12 do
+                            local eff = AddSpecialEffect("Doodads\\Terrain\\CliffDoodad\\Waterfall\\Waterfall", x, y)
+                            BlzSetSpecialEffectYaw(eff, math.rad(-180 + 30 * i))
+                            BlzSetSpecialEffectColor(eff, 255, 0, 0)
+                            BlzSetSpecialEffectScale(eff, 0.5)
+                        end
+                        KillUnit(data.EPointUnit)
+                        AddMaxLife(data.UnitHero, 25)
+                        TimerStart(CreateTimer(), 2, true, function()
+                            UnitDamageArea(data.UnitHero, data.DamageOfFountain, x, y, 500, "Blood")
+                        end)
+                    end
+                else
+                   -- print("Фонтан ещё не готов")
                 end
             end
             if data.UseAction == "Buying" then

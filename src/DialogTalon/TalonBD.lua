@@ -106,16 +106,18 @@ do
                             },
                             pos = 9
                         }),
-                        --[[[10] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-                            name = "Талант 10",
-                            description = "Неопределён",
+                        [10] = Talon:new {
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNLightningShield.blp",
+                            name = L("Молния возмездия", "Lightning of Retribution"),
+                            description = L("При получении урона поражает врага молнией на DS урона", "When taking damage, it hits the enemy with lightning for DS damage"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Загулшка, этот талант не должен быть виден",
-                            DS={},
-                            dependence = 3
-                        }),]]
+                            tooltip = L("Чтобы способность сработала, не должен быть заблокированным в щит", "YIn order for the ability to work, it must not be blocked in the shield"),
+                            DS = { 100, 200, 300 },
+                            pos = 10,
+                            dependence = 1,
+                            weaponType = "shield"
+                        },
                     },
                     HeroBlademaster = {
                         Talon:new({--1
@@ -248,18 +250,6 @@ do
                             DS = { 12, 10, 8 },
                             pos = 3
                         }),
-                        --[[
-                        Talon:new({--4
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
-                            name = "Зов вуду",
-                            description = "При активации увеличивает получение урона по вам на DS%%, но делает союзников неуязвимыми",
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
-                            DS={100},
-                            ultF = true
-                        }),
-                        ]]
                         Talon:new({--4
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
                             name = L("Спираль смерти", "Death Spiral"),
@@ -297,8 +287,19 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
-                            DS = { "сквозь здания", "сквозь здания и делает героя неуязвимым", "сквозь здания и делает героя неуязвимым и разрушает щит врагов" }, --TODO перевод
+                            DS = { L("сквозь здания",""), L("сквозь здания и делает героя неуязвимым",""), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов","") }, --TODO перевод
                             pos = 7
+                        }),
+                        Talon:new({--8
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPotionGreen.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
+                            name = L("Щит знахаря", "Healer's Shield"),
+                            description = L("Исцеляет героя на DS здоровья при блокировки урона от врагов. Перезарядка 10", "Heals the hero on DS health when blocking damage from enemies. Cooldown 10"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Не работает для ловушек", "Doesn't work for traps"),
+                            DS = { 10,20,30 },
+                            pos = 8,
+                            weaponType="shield"
                         }),
                     },
                     HeroTaurenChieftain = {
@@ -365,7 +366,7 @@ do
                         Talon:new({--7
                             icon = "ReplaceableTextures\\commandbuttons\\BTNSmash.blp",
                             name = L("Тотем кодоев", "Codo totem"),
-                            description = L("Создаёт непроходимый тотем и наносит 100 урона всем врагам на пути от героя и до курсора. Минимально 2 заряда, максимум 10", "Trap deals XDS damage to enemies"),
+                            description = L("Создаёт непроходимый тотем и наносит 100 урона всем врагам на пути от героя и до курсора. Минимально 2 заряда, максимум 10", "Creates an impassable totem and deals 100 damage to all enemies on the way from the hero to the cursor. Minimum 2 charges, maximum 10"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
@@ -399,7 +400,7 @@ do
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
-                            name = L("Ящер-таран", "Ящер-таран"),
+                            name = L("Ящер-таран", "Lizard Ram"),
                             description = L("Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100", "A huge lizard demolishes enemies in its path, the direction is chosen from the hero, to the cursor point. Cooldown: 20. Damage: 100"),
                             level = 0,
                             rarity = "normal",
@@ -570,13 +571,13 @@ do
                         Talon:new({--13
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDivineIntervention.blp",
                             name = L("Отражатель", "Reflector"),
-                            description = L("Увеличивает скорость в 2, а урон в 4 раза, для отраженных снарядов", "Increases speed by 2, and damage by 4 times, for reflected projectiles"),
+                            description = L("Увеличивает скорость в 2, а урон в DS раза, для отраженных снарядов", "Increases speed by 2, and damage by DS times, for reflected projectiles"),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Отраженный снаряд полетит в направлении курсора игрока", "The reflected projectile will fly in the direction of the player's cursor"),
-                            DS = { 1 },
+                            DS = { 4 },
                             pos = 13,
-                            dependence=12,
+                            dependence = 12,
                             weaponType = "shield"
                         }),
                     },
@@ -724,16 +725,18 @@ do
                             DS = { 20, 15, 10 },
                             pos = 6
                         }),
-                        --[[
+
                         Talon:new({--7 --ReplaceableTextures\CommandButtons\BTNPillage.blp
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChestOfGold.blp",
-                            name = L("Золотой царь", "Income"),
-                            description = L("Увеличивает ваш исходящий урон на DS%% за каждые 100 золота в кармане. Получение урона лишает бонуса 5 секунд", "Vases can contain a certain amount of blood that restores DS health"),
+                            name = L("Золотой царь", "Gold King"),
+                            description = L("Увеличивает ваш исходящий урон от обычных атак на DS ед. за каждые 100 золота в кармане", "Increases your outgoing damage from normal attacks by DS for every 100 gold in your pocket"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "You will die as soon as you lose all health"),
-                            DS = { 1, 2, 3 }
-                        }),]]
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 1, 2, 3 },
+                            pos = 7,
+                            weaponType="pickaxe"
+                        }),
                     }
                 }
             end

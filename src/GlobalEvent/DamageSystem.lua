@@ -135,6 +135,19 @@ function OnPostDamage()
                 DestroyEffect(eff)
                 UnitAddForceSimple(data.UnitHero, AngleSource, 10, 50)
                 FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+                if not IsUnitTrap(caster) and data.ShieldHealCDFH then
+                    if data.ShieldHealCurrentCD <= 0 then
+                        AddGold(data, -10)
+                        local cd = data.ShieldHealCD
+                        data.ShieldHealCurrentCD = cd
+                        StartFrameCD(cd, data.ShieldHealCDFH)
+                        HealUnit(target,data.ShieldHealRate)
+                        TimerStart(CreateTimer(), cd, false, function()
+                            data.ShieldHealCurrentCD = 0
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                    end
+                end
             end
         end
 
@@ -225,6 +238,15 @@ function OnPostDamage()
             DestroyEffect(eff)
             BlzSetEventDamage(0)
         end
+        if GetEventDamage() > 5 and data.RevengeLightingDamage and not IsUnitTrap(caster) then
+            local eff = AddSpecialEffect("Doodads\\Cinematic\\Lightningbolt\\Lightningbolt", GetUnitXY(caster))
+            -- print("где эффект")
+            TimerStart(CreateTimer(), 0.5, false, function()
+                DestroyEffect(eff)
+            end)
+            UnitDamageTarget(target, caster, data.RevengeLightingDamage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+        end
+
     end
 
     if GetUnitTypeId(target) ~= HeroID and GetUnitTypeId(caster) == HeroID then
@@ -247,6 +269,10 @@ function OnPostDamage()
     end
 
 
+end
+
+function IsUnitTrap(unit)
+    return GetUnitAbilityLevel(unit, FourCC("A005")) > 0
 end
 
 ShowDamageTable = {}

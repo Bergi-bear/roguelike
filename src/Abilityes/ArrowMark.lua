@@ -4,7 +4,7 @@
 --- DateTime: 10.04.2021 22:06
 ---
 
-function CreateArrowToShieldDash(data)
+function CreateArrowToShieldDash(data, MA)
     local img = {}
     --local range = 150
     local xs, ys = data.fakeX, data.fakeY
@@ -15,14 +15,14 @@ function CreateArrowToShieldDash(data)
     local k = range / 4
     local step = 4
     for i = 1, k do
-        x, y = MoveXY(x, y, 4, angle)
+        x, y = OutPoint, OutPoint-- MoveXY(x, y, 4, angle)
         img[i] = CreateImage("SystemGeneric\\point.blp", size, size, 0, x, y, 0, size / 2, size / 2, 0, 4)
         SetImageRenderAlways(img[i], true)
         ShowImage(img[i], true)
     end
 
-
     local curAngle = angle
+    local d = 0
 
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
@@ -33,11 +33,38 @@ function CreateArrowToShieldDash(data)
             DestroyTimer(GetExpiredTimer())
             DestroySplatTable(img)
         end
-        x, y = GetUnitXY(data.UnitHero)
 
-        for i = 1, k do
-            x, y = MoveXY(x, y, 4, curAngle)
-            SetImagePosition(img[i], x, y, 0)
+        x, y = GetUnitXY(data.UnitHero) -- центр юнита
+        d = d + 0.8
+        if MA ~= 0 then
+            x, y = MoveXY(x, y, 40, curAngle + MA)
+            local V=-1
+            if MA<=0 then
+                V=1
+            end
+            --print(d)
+            for i = 1, k do
+                if i <= d then
+                    x, y = MoveXY(x, y, 4, curAngle+V*i/9)
+                    SetImagePosition(img[i], x, y, 0)
+                else
+                    SetImagePosition(img[i], OutPoint, OutPoint, 0)
+                end
+            end
+        else --временно убрал
+            x, y = MoveXY(x, y, 100, curAngle + 90)
+            --print(d)
+            for i = 1, k do
+                --x, y = MoveXY(x, y, 4, curAngle)
+                if i <= 40 then
+                    x, y = MoveXY(x, y, 4, curAngle-90)
+                    --local nx,ny=MoveXY(x,y,4,curAngle-90)
+                    SetImagePosition(img[i], x, y, 0)
+                else
+                    SetImagePosition(img[i], OutPoint, OutPoint, 0)
+                end
+            end
+
         end
     end)
 

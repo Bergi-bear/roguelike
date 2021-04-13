@@ -564,7 +564,7 @@ function StartWave(dataGZ, listID, max)
         if LiveOnWave <= 0 and k >= max then
             --print("все убиты даём награду")
             InFight=false
-            local x, y = GetRectCenterX(rect), GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
+            local x, y = GetRectCenterX(rect), GetRectCenterY(rect)
             CreateGodTalon(x, y, GLOBAL_REWARD)
             ReviveAllHero()
             DestroyTimer(GetExpiredTimer())

@@ -10,8 +10,17 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
             HERO = {}
+            AbilityDescriptionRus = {
+                L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади", "Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),
+                L("Запускает кирку в указанном направлении и наносит урон первому врагу на пути", "Launches the pickaxe in the specified direction and deals damage to the first enemy on the way"),
+                L("Делает небольшой рывок в направлении текущего движения", "Makes a small leap in the direction of the current movement"),
+                L("Наносит увеличенный урон по большой площади", "Deals increased damage over a large area"),
+                L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг", "Hold down the LMB to start spinning and deal damage to all enemies around"),
+                L("Удерживайте LMB, чтобы прикрыться щитом и зарядить разбег", "Hold the LMB to cover up with the shield and charge the run-up"),
+                L("Делает удар щитом прямо перед собой", "Makes a shield strike right in front of him"),
+            }
             perebor = CreateGroup()
-            PlayerIsPlaying={}
+            PlayerIsPlaying = {}
             CreationPeonsForAllPlayer()
             DestroyTimer(GetExpiredTimer())
         end)
@@ -21,35 +30,36 @@ end
 function CreationPeonsForAllPlayer()
     local this = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  and GetPlayerController(Player(i))==MAP_CONTROL_USER then -- 1 раз, не трогать!!!!!!
-            PlayerIsPlaying[i]=true
-            local x,y=GetPlayerStartLocationX(Player(i)),GetPlayerStartLocationY(Player(i))
-            local hero=CreateUnit(Player(i),HeroID,x,y,0)
-            UnitAddAbility(hero,FourCC("abun"))
-            UnitAddAbility(hero,FourCC("Abun"))
-            UnitAddAbility(hero,FourCC("AInv"))
-            local effModel=""
-            if GetLocalPlayer()==Player(i) then
-                effModel="war3mapImported\\Light"
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            -- 1 раз, не трогать!!!!!!
+            PlayerIsPlaying[i] = true
+            local x, y = GetPlayerStartLocationX(Player(i)), GetPlayerStartLocationY(Player(i))
+            local hero = CreateUnit(Player(i), HeroID, x, y, 0)
+            UnitAddAbility(hero, FourCC("abun"))
+            UnitAddAbility(hero, FourCC("Abun"))
+            UnitAddAbility(hero, FourCC("AInv"))
+            local effModel = ""
+            if GetLocalPlayer() == Player(i) then
+                effModel = "war3mapImported\\Light"
             end
-            AddSpecialEffectTarget(effModel,hero,"origin")
+            AddSpecialEffectTarget(effModel, hero, "origin")
             --==print("толкаем")
             UnitAddForceSimple(hero, 0, 10, 10)
             --print("1")
-            BlzSetUnitMaxHP(hero,200)
-            HealUnit(hero,-100)
+            BlzSetUnitMaxHP(hero, 200)
+            HealUnit(hero, -100)
             --print("создан пеон")
-            SelectUnitForPlayerSingle(hero,Player(i))
+            SelectUnitForPlayerSingle(hero, Player(i))
             InitWASD(hero)
             TriggerRegisterPlayerEventLeave(this, Player(i))
         else
-            PlayerIsPlaying[i]=false
+            PlayerIsPlaying[i] = false
         end
     end
     TriggerAddAction(this, function()
-        local p=GetTriggerPlayer()
-        PlayerIsPlaying[GetPlayerId(p)]=false
-        print(GetPlayerName(p)..L(" Покинул игру"," Left the game"))
+        local p = GetTriggerPlayer()
+        PlayerIsPlaying[GetPlayerId(p)] = false
+        print(GetPlayerName(p) .. L(" Покинул игру", " Left the game"))
     end)
 end
 

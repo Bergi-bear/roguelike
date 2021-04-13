@@ -618,7 +618,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21696.6, -13104.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21040.4, -12555.2, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21638.4, -12620.8, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22046.9, -13692.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21995.2, -13665.2, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21445.2, -13103.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21959.1, -13078.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21228.5, -12672.4, 247.300, FourCC("e001"))
@@ -698,14 +698,14 @@ function CreateRegions()
     gg_rct_E1A = Rect(13216.0, -13696.0, 13568.0, -13216.0)
     gg_rct_E2A = Rect(16640.0, -13568.0, 17216.0, -13056.0)
     gg_rct_E4A = Rect(17984.0, -11712.0, 18464.0, -11168.0)
-    gg_rct_S4A = Rect(18080.0, -11264.0, 19360.0, -10176.0)
+    gg_rct_S4A = Rect(17984.0, -11424.0, 19424.0, -10016.0)
     gg_rct_B4A = Rect(18656.0, -10912.0, 18784.0, -10432.0)
     gg_rct_E5A = Rect(17408.0, -8576.0, 17952.0, -8160.0)
     gg_rct_S5A = Rect(17792.0, -8800.0, 20128.0, -6336.0)
     gg_rct_B5A = Rect(18528.0, -8256.0, 19392.0, -6848.0)
     gg_rct_E6A = Rect(15168.0, -7648.0, 15456.0, -7392.0)
     gg_rct_S6A = Rect(14176.0, -7648.0, 16576.0, -5664.0)
-    gg_rct_B6A = Rect(15232.0, -7008.0, 15648.0, -6304.0)
+    gg_rct_B6A = Rect(15232.0, -7008.0, 15648.0, -6240.0)
     gg_rct_E7A = Rect(14944.0, -4544.0, 15232.0, -4384.0)
     gg_rct_S7A = Rect(14848.0, -4576.0, 16288.0, -3584.0)
     gg_rct_B7A = Rect(15456.0, -4128.0, 15520.0, -3776.0)
@@ -713,8 +713,8 @@ function CreateRegions()
     gg_rct_B8A = Rect(18880.0, -4352.0, 18944.0, -3936.0)
     gg_rct_S9A = Rect(21376.0, -4736.0, 23584.0, -2688.0)
     gg_rct_B9A = Rect(22144.0, -4448.0, 22624.0, -3072.0)
-    gg_rct_S10A = Rect(21696.0, -9088.0, 24224.0, -6432.0)
-    gg_rct_B10A = Rect(22528.0, -8128.0, 23008.0, -6816.0)
+    gg_rct_S10A = Rect(21696.0, -9088.0, 24224.0, -6336.0)
+    gg_rct_B10A = Rect(22528.0, -8128.0, 23008.0, -6752.0)
     gg_rct_S11A = Rect(21344.0, -11232.0, 22752.0, -9280.0)
     gg_rct_B11A = Rect(21984.0, -10816.0, 22112.0, -10336.0)
     gg_rct_E11A = Rect(21504.0, -11648.0, 21792.0, -11040.0)
@@ -737,7 +737,7 @@ function CreateRegions()
     gg_rct_B16A = Rect(17344.0, -16320.0, 17472.0, -15840.0)
     gg_rct_E16A = Rect(16896.0, -17152.0, 17184.0, -16608.0)
     gg_rct_S17A = Rect(13536.0, -16896.0, 15168.0, -14112.0)
-    gg_rct_B17A = Rect(14368.0, -16416.0, 14496.0, -15808.0)
+    gg_rct_B17A = Rect(14368.0, -16416.0, 14496.0, -15744.0)
     gg_rct_E17A = Rect(13952.0, -17280.0, 14240.0, -16640.0)
     gg_rct_B18A = Rect(10752.0, -16512.0, 11936.0, -15840.0)
     gg_rct_S18A = Rect(10080.0, -16992.0, 13152.0, -15360.0)
@@ -999,7 +999,7 @@ end
 --- DateTime: 10.04.2021 22:06
 ---
 
-function CreateArrowToShieldDash(data)
+function CreateArrowToShieldDash(data, MA)
     local img = {}
     --local range = 150
     local xs, ys = data.fakeX, data.fakeY
@@ -1010,14 +1010,14 @@ function CreateArrowToShieldDash(data)
     local k = range / 4
     local step = 4
     for i = 1, k do
-        x, y = MoveXY(x, y, 4, angle)
+        x, y = OutPoint, OutPoint-- MoveXY(x, y, 4, angle)
         img[i] = CreateImage("SystemGeneric\\point.blp", size, size, 0, x, y, 0, size / 2, size / 2, 0, 4)
         SetImageRenderAlways(img[i], true)
         ShowImage(img[i], true)
     end
 
-
     local curAngle = angle
+    local d = 0
 
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
@@ -1028,11 +1028,38 @@ function CreateArrowToShieldDash(data)
             DestroyTimer(GetExpiredTimer())
             DestroySplatTable(img)
         end
-        x, y = GetUnitXY(data.UnitHero)
 
-        for i = 1, k do
-            x, y = MoveXY(x, y, 4, curAngle)
-            SetImagePosition(img[i], x, y, 0)
+        x, y = GetUnitXY(data.UnitHero) -- центр юнита
+        d = d + 0.8
+        if MA ~= 0 then
+            x, y = MoveXY(x, y, 40, curAngle + MA)
+            local V=-1
+            if MA<=0 then
+                V=1
+            end
+            --print(d)
+            for i = 1, k do
+                if i <= d then
+                    x, y = MoveXY(x, y, 4, curAngle+V*i/9)
+                    SetImagePosition(img[i], x, y, 0)
+                else
+                    SetImagePosition(img[i], OutPoint, OutPoint, 0)
+                end
+            end
+        else --временно убрал
+            x, y = MoveXY(x, y, 100, curAngle + 90)
+            --print(d)
+            for i = 1, k do
+                --x, y = MoveXY(x, y, 4, curAngle)
+                if i <= 40 then
+                    x, y = MoveXY(x, y, 4, curAngle-90)
+                    --local nx,ny=MoveXY(x,y,4,curAngle-90)
+                    SetImagePosition(img[i], x, y, 0)
+                else
+                    SetImagePosition(img[i], OutPoint, OutPoint, 0)
+                end
+            end
+
         end
     end)
 
@@ -1057,7 +1084,11 @@ function attackPickAxe(data)
             data.AttackCount = data.AttackCount + 1
             --print(data.AttackCount)
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[pid], GetPlayerMouseY[pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-            local damage = data.DamageInSeries[data.AttackCount]
+            local bonus=0
+            if data.GoldKingCharges then
+                bonus=data.GoldKingCharges
+            end
+            local damage = data.DamageInSeries[data.AttackCount]+bonus
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
             local maxAttack = data.MaxAttack
 
@@ -1901,21 +1932,74 @@ end
 ---
 function SwitchWeaponTo(data, newWeapon)
     --print("переключаем оружие на", newWeapon)
-    data.CurrentWeaponType = newWeapon
-    ClearPrevWeapon(data)
-    if newWeapon == "pickaxe" then
-        --data.StarTime2Spin=0.9
-        data.EffInLeftHand = AddSpecialEffectTarget("Axes", data.UnitHero, "hand, left")
-    end
-    if newWeapon == "shield" then
-        --data.StarTime2Spin=0.02
-        data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
+    if data.countFrame <= 5 then
+        data.CurrentWeaponType = newWeapon
+        ClearPrevWeapon(data)
+        local x, y, size = 0.02, 0.015, 0.03
+        if newWeapon == "pickaxe" then
+            --data.StarTime2Spin=0.9
+            CreateUniversalFrame(x, y, size, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
+            CreateUniversalFrame(x, y, size, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
+            data.EffInLeftHand = AddSpecialEffectTarget("Axes", data.UnitHero, "hand, left")
+
+        end
+        if newWeapon == "shield" then
+            --data.StarTime2Spin=0.02
+            CreateUniversalFrame(x, y, size, AbilityDescriptionRus[7], L("Удар щитом", "Shield strike"), data, "ReplaceableTextures\\CommandButtons\\BTNThoriumArmor.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormalShield")
+            CreateUniversalFrame(x, y, size, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
+            data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
+        end
+    else
+        print("переключение оружия следует делать без изученных талантов, начните игру заново")
     end
 end
 
 function ClearPrevWeapon(data)
     DestroyEffect(data.EffInLeftHand)
     DestroyEffect(data.EffInRightHand)
+    if data.countFrame >= 5 then
+        --print("уничтожаем различия")
+        DestroyWeaponBaseFrame(data, 3)
+        DestroyWeaponBaseFrame(data, 4)
+    end
+end
+
+function DestroyWeaponBaseFrame(data, k)
+    --data.FrameToDestroy[k] = { face, buttonIconFrame, cdtext, cdICO, hotkey }
+    --print("Уничтожаем")
+    BlzDestroyFrame(data.FrameToDestroy[k][5]) -- удаляем коткей
+    BlzDestroyFrame(data.FrameToDestroy[k][2]) -- удаляем иконку
+    BlzDestroyFrame(data.FrameToDestroy[k][1]) -- удаляем глюбаттон
+    data.countFrame = 3
+    --[[
+
+    TimerStart(CreateTimer(), 3, false, function()
+        BlzDestroyFrame(data.FrameToDestroy[k][3])
+        print(3)
+    end)
+    TimerStart(CreateTimer(), 4, false, function()
+        BlzDestroyFrame(data.FrameToDestroy[k][2])
+        print(2)
+    end)
+    TimerStart(CreateTimer(), 5, false, function()
+        BlzDestroyFrame(data.FrameToDestroy[k][8])
+        print(8)
+    end)
+    TimerStart(CreateTimer(), 6, false, function()
+        BlzDestroyFrame(data.FrameToDestroy[k][7])
+        print(7)
+    end)
+    TimerStart(CreateTimer(), 7, false, function()
+        BlzDestroyFrame(data.FrameToDestroy[k][6])
+        print(6)
+    end)
+    TimerStart(CreateTimer(), 8, false, function()
+        BlzDestroyFrame(data.FrameToDestroy[k][4])
+        print(1)
+    end)
+
+    ]]
+    --
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2227,7 +2311,7 @@ function GiveForAll(reward)
                     AddMaxLife(hero, 25)
                 end
                 if reward == "GoldReward" then
-                    UnitAddGold(hero, 100)
+                    UnitAddGold(hero, 200)
                 end
             end
         end
@@ -2547,7 +2631,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                 if dataPoint2 then
                     if dataPoint2.CurrentReward == reward and tempTable[i] ~= tempUnit then
                         local temTableReward = PreViewIcon
-                        table.remove(temTableReward, FinPosInTable(temTableReward, reward))
+                        table.remove(temTableReward, FinPosInTable(temTableReward, reward)) --FIXME иногда бывает ощибка на эту строку 2630
                         local newReward = temTableReward[GetRandomInt(1, #temTableReward)]
                         DestroyEffect(dataPoint.preView)
                         dataPoint.CurrentReward = newReward
@@ -3118,43 +3202,80 @@ function CreateEActions()
             end
 
             if data.UseAction == "Heal" then
-                local message = {
-                    L("Целебно", "Curative"),
-                    L("Я полон сил", "I'm full of energy"),
-                    L("Холодная", "Cold"),
-                    L("Как заново родился", "How was I born again"),
-                    L("Готов к битве", "Ready for battle"),
-                    L("Кажется я уже переполнен", "I think I'm already full"),
-                    L("На вкус как кола", "It tastes like cola"),
-                    L("Сладкий Бубалех", "Sweet Bubaleh"),
-
-                }
-                CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
-                if UnitHasAnyEnemyInRange(data.UnitHero, 500) then
-                    HealUnit(data.UnitHero, 50)
-                    normal_sound("Abilities\\Spells\\NightElf\\Tranquility\\TranquilityHealLoop1", GetUnitXY(data.UnitHero))
-                else
-                    HealUnit(data.UnitHero, 9999)
-                    normal_sound("Abilities\\Spells\\NightElf\\Tranquility\\TranquilityTarget1", GetUnitXY(data.UnitHero))
+                if not dataPoint.CD2Ready then
+                    dataPoint.CD2Ready=0
                 end
-                data.Completed = true
-                data.DoAction = false
-                data.UseAction = ""
-                data.ShowActionWindows = false
-                if data.DeathFountain then
-                    --print("заражаем фонтан")
-                    local x, y = GetUnitXY(data.EPointUnit)
-                    for i = 1, 12 do
-                        local eff = AddSpecialEffect("Doodads\\Terrain\\CliffDoodad\\Waterfall\\Waterfall", x, y)
-                        BlzSetSpecialEffectYaw(eff, math.rad(-180 + 30 * i))
-                        BlzSetSpecialEffectColor(eff, 255, 0, 0)
-                        BlzSetSpecialEffectScale(eff, 0.5)
+                if dataPoint.CD2Ready<=0 then
+                    ------Кдшим фонтан
+                    --print("запускаем кд фонтана")
+                    dataPoint.CD2Ready=20
+                    if not InFight then
+                        dataPoint.CD2Ready=2
                     end
-                    KillUnit(data.EPointUnit)
-                    AddMaxLife(data.UnitHero, 25)
-                    TimerStart(CreateTimer(), 2, true, function()
-                        UnitDamageArea(data.UnitHero, data.DamageOfFountain, x, y, 500, "Blood")
+                    local bar = AddSpecialEffect("SystemGeneric\\Progressbar", GetUnitXY(hero))
+                    BlzSetSpecialEffectColor(bar, 255, 255, 255)
+                    BlzPlaySpecialEffect(bar, ANIM_TYPE_BIRTH)
+                    BlzSetSpecialEffectTimeScale(bar, 1/dataPoint.CD2Ready)
+                    BlzSetSpecialEffectScale(bar, 2)
+                    --BlzSetSpecialEffectAlpha(bar, 0)
+                    BlzSetSpecialEffectColorByPlayer(bar, Player(9))
+                    local x, y = GetUnitXY(dataPoint.Unit)
+                    local z = BlzGetUnitZ(dataPoint.Unit) + 220
+                    BlzSetSpecialEffectPosition(bar, x , y-60, z)
+
+                    TimerStart(CreateTimer(), 1, true, function()
+
+                        dataPoint.CD2Ready=dataPoint.CD2Ready-1
+                        if dataPoint.CD2Ready<=0 then
+                            --print("фонтан готов")
+                            BlzSetSpecialEffectPosition(bar, OutPoint , OutPoint, z)
+                            DestroyEffect(bar)
+                            DestroyTimer(GetExpiredTimer())
+                        end
                     end)
+
+
+                    -------------
+                    local message = {
+                        L("Целебно", "Curative"),
+                        L("Я полон сил", "I'm full of energy"),
+                        L("Холодная", "Cold"),
+                        L("Как заново родился", "How was I born again"),
+                        L("Готов к битве", "Ready for battle"),
+                        L("Кажется я уже переполнен", "I think I'm already full"),
+                        L("На вкус как кола", "It tastes like cola"),
+                        L("Сладкий Бубалех", "Sweet Bubaleh"),
+
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
+                    if UnitHasAnyEnemyInRange(data.UnitHero, 500) then
+                        HealUnit(data.UnitHero, 50)
+                        normal_sound("Abilities\\Spells\\NightElf\\Tranquility\\TranquilityHealLoop1", GetUnitXY(data.UnitHero))
+                    else
+                        HealUnit(data.UnitHero, 9999)
+                        normal_sound("Abilities\\Spells\\NightElf\\Tranquility\\TranquilityTarget1", GetUnitXY(data.UnitHero))
+                    end
+                    data.Completed = true
+                    data.DoAction = false
+                    data.UseAction = ""
+                    data.ShowActionWindows = false
+                    if data.DeathFountain then
+                        --print("заражаем фонтан")
+                        local x, y = GetUnitXY(data.EPointUnit)
+                        for i = 1, 12 do
+                            local eff = AddSpecialEffect("Doodads\\Terrain\\CliffDoodad\\Waterfall\\Waterfall", x, y)
+                            BlzSetSpecialEffectYaw(eff, math.rad(-180 + 30 * i))
+                            BlzSetSpecialEffectColor(eff, 255, 0, 0)
+                            BlzSetSpecialEffectScale(eff, 0.5)
+                        end
+                        KillUnit(data.EPointUnit)
+                        AddMaxLife(data.UnitHero, 25)
+                        TimerStart(CreateTimer(), 2, true, function()
+                            UnitDamageArea(data.UnitHero, data.DamageOfFountain, x, y, 500, "Blood")
+                        end)
+                    end
+                else
+                   -- print("Фонтан ещё не готов")
                 end
             end
             if data.UseAction == "Buying" then
@@ -3290,47 +3411,48 @@ end
 function RegistrationAnyEntire()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
-            local data=HERO[i]
-            local hero=data.UnitHero
-            local enterTrig=CreateTrigger()
-            TriggerRegisterUnitInRange(enterTrig,hero,200,nil)
-            TriggerAddAction(enterTrig,function()
-                local entering=GetTriggerUnit()
-                if GetUnitTypeId(entering)==FourCC('hdhw') then
-                    local dataPoint=EnterPointTable[GetHandleId(entering)]
+            local data = HERO[i]
+            local hero = data.UnitHero
+            local enterTrig = CreateTrigger()
+            TriggerRegisterUnitInRange(enterTrig, hero, 200, nil)
+            TriggerAddAction(enterTrig, function()
+                local entering = GetTriggerUnit()
+                if GetUnitTypeId(entering) == FourCC('hdhw') then
+                    local dataPoint = EnterPointTable[GetHandleId(entering)]
 
                     if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering
                         --BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
                         --print("подошел к "..dataPoint.UseAction)
-                        local eEff=AddSpecialEffect("SystemGeneric\\ActionsE",GetUnitXY(entering))
-                        data.ShowActionWindows=true
+                        local eEff = AddSpecialEffect("SystemGeneric\\ActionsE", GetUnitXY(entering))
+                        data.ShowActionWindows = true
                         TimerStart(CreateTimer(), 0.1, true, function()
-                            if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) or not dataPoint.isActive then
+                            if not IsUnitInRange(entering, hero, 210) or not UnitAlive(entering) or not dataPoint.isActive then
                                 --BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
-                                BlzSetSpecialEffectPosition(eEff,OutPoint,OutPoint,0)
+                                BlzSetSpecialEffectPosition(eEff, OutPoint, OutPoint, 0)
                                 DestroyEffect(eEff)
                                 --print("ломаем эффект")
-                                data.UseAction=""
-                                data.ShowActionWindows=false
+                                data.UseAction = ""
+                                data.ShowActionWindows = false
                             end
                         end)
                     end
                 end
-                if GetUnitTypeId(entering)==FourCC('nglm') and UnitAlive(hero)  then--МИНА mine mina vbyf
-                    local x,y=GetUnitXY(entering)
-                    local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
-                    BlzSetSpecialEffectColor(mark,255,0,0)
-                    BlzSetSpecialEffectScale(mark,1.2)
-                    SetUnitInvulnerable(entering,true)
-                    local act=false
+                if GetUnitTypeId(entering) == FourCC('nglm') and UnitAlive(hero) then
+                    --МИНА mine mina vbyf
+                    local x, y = GetUnitXY(entering)
+                    local mark = AddSpecialEffect("SystemGeneric\\Alarm", x, y)
+                    BlzSetSpecialEffectColor(mark, 255, 0, 0)
+                    BlzSetSpecialEffectScale(mark, 1.2)
+                    SetUnitInvulnerable(entering, true)
+                    local act = false
                     if not act then
-                        act=true
+                        act = true
                         TimerStart(CreateTimer(), 1.8, false, function()
                             if UnitAlive(entering) then
-                                local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+                                local eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
                                 TimerStart(CreateTimer(), 1.8, false, function()
                                     DestroyEffect(eff)
 
@@ -3340,11 +3462,11 @@ function RegistrationAnyEntire()
 
                         TimerStart(CreateTimer(), 2, false, function()
                             --print("наносим урон миной")
-                            UnitDamageArea(hero,150,x,y,200,"all")
+                            UnitDamageArea(hero, 150, x, y, 200, "all")
                             KillUnit(entering)
                             DestroyEffect(mark)
-                            BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
-                            CreateUnit(GetOwningPlayer(entering),FourCC('nglm'),x,y,0)
+                            BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
+                            CreateUnit(GetOwningPlayer(entering), FourCC('nglm'), x, y, 0)
                         end)
 
                     end
@@ -3984,7 +4106,7 @@ function StartWave(dataGZ, listID, max)
         if LiveOnWave <= 0 and k >= max then
             --print("все убиты даём награду")
             InFight=false
-            local x, y = GetRectCenterX(rect), GetRectCenterY(rect)--GetUnitXY(HERO[0].UnitHero)
+            local x, y = GetRectCenterX(rect), GetRectCenterY(rect)
             CreateGodTalon(x, y, GLOBAL_REWARD)
             ReviveAllHero()
             DestroyTimer(GetExpiredTimer())
@@ -4499,6 +4621,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 data.SeeAllWay = true
             end)
         end
+        if pos == 10 then
+            local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+            data.RevengeLightingDamage = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.RevengeLightingDamage = talon.DS[talon.level]
+            end)
+        end
     end
     if godName == "HeroBlademaster" and talon.level == 1 then
         if pos == 1 then
@@ -4622,6 +4752,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             end, function()
                 -- 3 уровень
 
+            end)
+        end
+        if pos == 8 then
+            data.ShieldHealCDFH = CdFH
+            data.ShieldHealCurrentCD = 0
+            data.ShieldHealCD = 10
+            data.ShieldHealRate = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.ShieldHealRate = talon.DS[talon.level]
             end)
         end
     end
@@ -4786,7 +4925,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 12 then
             data.DestroyMissile = false
         end
-        if pos == 12 then
+        if pos == 13 then
             data.MegaReflector = true
         end
     end
@@ -4843,8 +4982,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         end
     end
     if godName == "Alchemist" and talon.level == 1 then
-        local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
-        UpdateTalonDescriptionForFrame(talon, tt)
+        local tt, CdFH = nil, nil
+        if pos ~= 7 then
+            --золотой меч отдельно
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+        end
         if pos == 1 then
             --+
             data.AdditionalGoldPerKill = talon.DS[talon.level]
@@ -4893,11 +5036,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             end)
         end
         if pos == 7 then
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil,"goldKing")
+            UpdateTalonDescriptionForFrame(talon, tt)
+
             data.GoldKingCDFH = CdFH
             data.GoldKingCurrentCD = 0
             data.GoldKingCD = 5
             data.GoldKingCharges = 0
             data.GoldKingBonus = talon.DS[talon.level]
+
             ActLvl23Action(talon, function()
                 data.GoldKingBonus = talon.DS[talon.level]
             end)
@@ -5071,16 +5218,18 @@ do
                             },
                             pos = 9
                         }),
-                        --[[[10] = Talon:new({
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
-                            name = "Талант 10",
-                            description = "Неопределён",
+                        [10] = Talon:new {
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNLightningShield.blp",
+                            name = L("Молния возмездия", "Lightning of Retribution"),
+                            description = L("При получении урона поражает врага молнией на DS урона", "When taking damage, it hits the enemy with lightning for DS damage"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = "Загулшка, этот талант не должен быть виден",
-                            DS={},
-                            dependence = 3
-                        }),]]
+                            tooltip = L("Чтобы способность сработала, не должен быть заблокированным в щит", "YIn order for the ability to work, it must not be blocked in the shield"),
+                            DS = { 100, 200, 300 },
+                            pos = 10,
+                            dependence = 1,
+                            weaponType = "shield"
+                        },
                     },
                     HeroBlademaster = {
                         Talon:new({--1
@@ -5213,18 +5362,6 @@ do
                             DS = { 12, 10, 8 },
                             pos = 3
                         }),
-                        --[[
-                        Talon:new({--4
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
-                            name = "Зов вуду",
-                            description = "При активации увеличивает получение урона по вам на DS%, но делает союзников неуязвимыми",
-                            level = 0,
-                            rarity = "epic",
-                            tooltip = "Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.",
-                            DS={100},
-                            ultF = true
-                        }),
-                        ]]
                         Talon:new({--4
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
                             name = L("Спираль смерти", "Death Spiral"),
@@ -5262,8 +5399,19 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
-                            DS = { "сквозь здания", "сквозь здания и делает героя неуязвимым", "сквозь здания и делает героя неуязвимым и разрушает щит врагов" }, --TODO перевод
+                            DS = { L("сквозь здания",""), L("сквозь здания и делает героя неуязвимым",""), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов","") }, --TODO перевод
                             pos = 7
+                        }),
+                        Talon:new({--8
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPotionGreen.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
+                            name = L("Щит знахаря", "Healer's Shield"),
+                            description = L("Исцеляет героя на DS здоровья при блокировки урона от врагов. Перезарядка 10", "Heals the hero on DS health when blocking damage from enemies. Cooldown 10"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Не работает для ловушек", "Doesn't work for traps"),
+                            DS = { 10,20,30 },
+                            pos = 8,
+                            weaponType="shield"
                         }),
                     },
                     HeroTaurenChieftain = {
@@ -5330,7 +5478,7 @@ do
                         Talon:new({--7
                             icon = "ReplaceableTextures\\commandbuttons\\BTNSmash.blp",
                             name = L("Тотем кодоев", "Codo totem"),
-                            description = L("Создаёт непроходимый тотем и наносит 100 урона всем врагам на пути от героя и до курсора. Минимально 2 заряда, максимум 10", "Trap deals XDS damage to enemies"),
+                            description = L("Создаёт непроходимый тотем и наносит 100 урона всем врагам на пути от героя и до курсора. Минимально 2 заряда, максимум 10", "Creates an impassable totem and deals 100 damage to all enemies on the way from the hero to the cursor. Minimum 2 charges, maximum 10"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Для активации Зова нажмите клавишу F, получение зова этого героя, делает невозможным получение зова от других.", "To activate the Call, press the F key, receiving the call of this hero makes it impossible to receive the call from others."),
@@ -5364,7 +5512,7 @@ do
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
-                            name = L("Ящер-таран", "Ящер-таран"),
+                            name = L("Ящер-таран", "Lizard Ram"),
                             description = L("Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100", "A huge lizard demolishes enemies in its path, the direction is chosen from the hero, to the cursor point. Cooldown: 20. Damage: 100"),
                             level = 0,
                             rarity = "normal",
@@ -5535,13 +5683,13 @@ do
                         Talon:new({--13
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDivineIntervention.blp",
                             name = L("Отражатель", "Reflector"),
-                            description = L("Увеличивает скорость в 2, а урон в 4 раза, для отраженных снарядов", "Increases speed by 2, and damage by 4 times, for reflected projectiles"),
+                            description = L("Увеличивает скорость в 2, а урон в DS раза, для отраженных снарядов", "Increases speed by 2, and damage by DS times, for reflected projectiles"),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Отраженный снаряд полетит в направлении курсора игрока", "The reflected projectile will fly in the direction of the player's cursor"),
-                            DS = { 1 },
+                            DS = { 4 },
                             pos = 13,
-                            dependence=12,
+                            dependence = 12,
                             weaponType = "shield"
                         }),
                     },
@@ -5689,16 +5837,18 @@ do
                             DS = { 20, 15, 10 },
                             pos = 6
                         }),
-                        --[[
+
                         Talon:new({--7 --ReplaceableTextures\CommandButtons\BTNPillage.blp
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChestOfGold.blp",
-                            name = L("Золотой царь", "Income"),
-                            description = L("Увеличивает ваш исходящий урон на DS% за каждые 100 золота в кармане. Получение урона лишает бонуса 5 секунд", "Vases can contain a certain amount of blood that restores DS health"),
+                            name = L("Золотой царь", "Gold King"),
+                            description = L("Увеличивает ваш исходящий урон от обычных атак на DS ед. за каждые 100 золота в кармане", "Increases your outgoing damage from normal attacks by DS for every 100 gold in your pocket"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "You will die as soon as you lose all health"),
-                            DS = { 1, 2, 3 }
-                        }),]]
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 1, 2, 3 },
+                            pos = 7,
+                            weaponType="pickaxe"
+                        }),
                     }
                 }
             end
@@ -5762,303 +5912,6 @@ function checkUlt(i, j, GOD_NAME_ARRAY, ult)
     end
 end
 
-
-function CreateDialogTalonOld(godName)
-    GodName = godName
-    if not godName then
-        print("При создании дара не передан параметр награды")
-        return
-    end
-
-    local title = ""
-    if godName == "Trall" then
-        title = "Дары Говорящего с духами"
-    elseif godName == "HeroBlademaster" then
-        title = "Дары Мастера клинка"
-    elseif godName == "HeroTaurenChieftain" then
-        title = "Дары Вождя минотавров"
-    elseif godName == "ShadowHunter" then
-        title = "Дары Ловца теней"
-    elseif godName == "PeonDidal" then
-        title = "Кирка Дидала"
-    elseif godName == "HeroBeastMaster" then
-        title = "Дары повелителя зверей"
-    elseif godName == "ChaosGrom" then
-        title = "Дары Адского крика"
-        --ReplaceableTextures\CommandButtons\BTNChaosGrom.blp
-    end
-
-    talons = {}
-    listOfNumbers = {}
-    index = {}
-    for i = 1, bj_MAX_PLAYERS do
-        listOfNumbers[i] = {}
-        for j = 1, #GlobalTalons[i][godName] do -- Исправить баг с дыркой в массиве
-            listOfNumbers[i][j] = j
-
-            if GlobalTalons[i][godName][j]:getLevel() >= #GlobalTalons[i][godName][j]["DS"] then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-            if GlobalTalons[i][godName][j]:getUltF() ~= nil and GlobalTalons[i][godName][j]:getUltF() == false then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-            if GlobalTalons[i][godName][j]:getUltR() ~= nil and GlobalTalons[i][godName][j]:getUltR() == false then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-            -- Если существует зависимость одного таланта от другого, то проверяем уровень главного таланта,
-            -- если уровень равен 0, то исключаем зависимый талант из списка
-            if GlobalTalons[i][godName][j]:getDependence() ~= nil and GlobalTalons[i][godName][GlobalTalons[i][godName][j]:getDependence()]:getLevel() == 0 then
-                --table.remove(listOfNumbers[i], j)
-                listOfNumbers[i][j] = -1
-            end
-        end
-    end
-
-    for i = 1, bj_MAX_PLAYERS do
-        shake(listOfNumbers[i])
-    end
-
-    for i = 1, bj_MAX_PLAYERS do
-        talons[i] = {}
-        index[i] = {}
-        local count = 0
-        for j = 1, #GlobalTalons[i][godName] do
-            if not (listOfNumbers[i][j] == -1) then
-                table.insert(talons[i], GlobalTalons[i][godName][listOfNumbers[i][j]])
-                table.insert(index[i], listOfNumbers[i][j])
-                count = count + 1
-            end
-            if count == 4 then
-                break
-            end
-        end
-    end
-
-    local height = {}
-    for i = 1, bj_MAX_PLAYERS do
-        if #talons[i] == 1 then
-            height[i] = 0.17
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], false)
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
-        elseif #talons[i] == 2 then
-            height[i] = 0.27
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], false)
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
-        elseif #talons[i] == 3 then
-            height[i] = 0.37
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], false)
-        elseif #talons[i] == 4 then
-            height[i] = 0.47
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][1], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][2], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][3], GetLocalPlayer() == Player(i - 1))
-            BlzFrameSetVisible(DialogTalon.TalonButtons.Backdrop[i][4], GetLocalPlayer() == Player(i - 1))
-        else
-            height[i] = 0.47
-        end
-    end
-
-    for i = 1, bj_MAX_PLAYERS do
-        if PlayerIsPlaying[i] then
-            DialogTalon.IsOpen[i] = false
-            BlzFrameSetSize(DialogTalon.MainFrame[i], 0.55, height[i])
-            BlzFrameSetText(DialogTalon.Title[i], title)
-
-            for j = 1, #talons[i] do
-
-                BlzFrameSetTexture(DialogTalon.TalonButtons.Icon[i][j], talons[i][j]:getIcon(), 0, true)
-                BlzFrameSetText(DialogTalon.TalonButtons.Name[i][j], talons[i][j]:getName())
-                BlzFrameSetText(DialogTalon.TalonButtons.Description[i][j], talons[i][j]:updateDescription())
-                BlzFrameSetText(DialogTalon.TalonButtons.TooltipDescription[i][j], talons[i][j]:getTooltip())
-
-                BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], "")
-                if talons[i][j]:getLevel() > 0 then
-                    BlzFrameSetText(DialogTalon.TalonButtons.Level[i][j], L("Текущий уровень: ","Current level: ") .. talons[i][j]:getLevel())
-                end
-            end
-            local data=HERO[i-1]
-            data.TalonWindowIsOpen = false
-            DialogTalon.IsOpen[i] = true
-            -- Показываем окно всем
-            BlzFrameSetVisible(DialogTalon.MainFrame[i], GetLocalPlayer() == Player(i - 1))
-            --SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "open")
-
-        end
-    end
-end
-do
-    local InitGlobalsOrigin = InitGlobals
-    function InitGlobals()
-        InitGlobalsOrigin()
-        TimerStart(CreateTimer(),99999999 , false, function()
-            if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
-                print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
-            end
-
-            local GAME_UI = BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0)
-
-            GOD_NAME_ARRAY = {
-                "Trall",
-                "HeroBlademaster",
-                "HeroTaurenChieftain",
-                "ShadowHunter",
-                "PeonDidal",
-                "HeroBeastMaster",
-                "ChaosGrom",
-                "Alchemist",
-            }
-
-            DialogTalon = {}
-
-            DialogTalon.MainFrame = {}
-            DialogTalon.MainBackdrop = {}
-            DialogTalon.Title = {}
-            DialogTalon.IsOpen = {}
-            DialogTalon.TalonButtons = {}
-            DialogTalon.TalonButtons.Button = {}
-            DialogTalon.TalonButtons.Backdrop = {}
-            DialogTalon.TalonButtons.Icon = {}
-            DialogTalon.TalonButtons.Description = {}
-            DialogTalon.TalonButtons.Name = {}
-            DialogTalon.TalonButtons.Level = {}
-            DialogTalon.TalonButtons.Border = {}
-            DialogTalon.TalonButtons.Tooltip = {}
-            DialogTalon.TalonButtons.TooltipDescription = {}
-            DialogTalon.TalonButtons.ClickTriggers = {}
-            DialogTalon.TalonButtons.ClickEvents = {}
-            DialogTalon.TalonButtons.ClickActions = {}
-            DialogTalon.TalonButtons.MouseEnterTriggers = {}
-            DialogTalon.TalonButtons.MouseEnterEvents = {}
-            DialogTalon.TalonButtons.MouseEnterActions = {}
-            DialogTalon.TalonButtons.MouseLeaveTriggers = {}
-            DialogTalon.TalonButtons.MouseLeaveEvents = {}
-            DialogTalon.TalonButtons.MouseLeaveActions = {}
-            for i = 1, bj_MAX_PLAYERS do
-                DialogTalon.MainFrame[i] = BlzCreateFrameByType("FRAME", "DialogTalon", GAME_UI, "", 0)
-                BlzFrameSetAbsPoint(DialogTalon.MainFrame[i], FRAMEPOINT_CENTER, 0.4, 0.32)
-                BlzFrameSetVisible(DialogTalon.MainFrame[i], false)
-
-                DialogTalon.MainBackdrop[i] = BlzCreateFrame("EscMenuBackdrop", DialogTalon.MainFrame[i], 0, 0)
-                BlzFrameSetAllPoints(DialogTalon.MainBackdrop[i], DialogTalon.MainFrame[i])
-
-                DialogTalon.Title[i] = BlzCreateFrameByType("TEXT", "DialogTalonTitle", DialogTalon.MainFrame[i], "EscMenuTitleTextTemplate", 0)
-                BlzFrameSetPoint(DialogTalon.Title[i], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0, -0.03)
-                BlzFrameSetTextColor(DialogTalon.Title[i], BlzConvertColor(1, 255, 255, 255))
-
-                DialogTalon.IsOpen[i] = false
-                DialogTalon.TalonButtons.Button[i] = {}
-                DialogTalon.TalonButtons.Backdrop[i] = {}
-                DialogTalon.TalonButtons.Icon[i] = {}
-                DialogTalon.TalonButtons.Description[i] = {}
-                DialogTalon.TalonButtons.Name[i] = {}
-                DialogTalon.TalonButtons.Level[i] = {}
-                DialogTalon.TalonButtons.Border[i] = {}
-                DialogTalon.TalonButtons.Tooltip[i] = {}
-                DialogTalon.TalonButtons.TooltipDescription[i] = {}
-                DialogTalon.TalonButtons.ClickTriggers[i] = {}
-                DialogTalon.TalonButtons.ClickEvents[i] = {}
-                DialogTalon.TalonButtons.ClickActions[i] = {}
-                DialogTalon.TalonButtons.MouseEnterTriggers[i] = {}
-                DialogTalon.TalonButtons.MouseEnterEvents[i] = {}
-                DialogTalon.TalonButtons.MouseEnterActions[i] = {}
-                DialogTalon.TalonButtons.MouseLeaveTriggers[i] = {}
-                DialogTalon.TalonButtons.MouseLeaveEvents[i] = {}
-                DialogTalon.TalonButtons.MouseLeaveActions[i] = {}
-                for j = 1, 4 do
-                    -- Создаем Бэкдроп для кнопок
-                    DialogTalon.TalonButtons.Backdrop[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBackdrop" .. j, DialogTalon.MainFrame[i], "EscMenuControlBackdropTemplate", 0)
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Backdrop[i][j], 0.45, 0.08)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_TOP, DialogTalon.MainFrame[i], FRAMEPOINT_TOP, 0.0, -0.06 - ((j - 1) * 0.09))
-
-                    DialogTalon.TalonButtons.Tooltip[i][j] = BlzCreateFrameByType("BACKDROP", "TalonTooltip", DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuControlBackdropTemplate", 0)
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Tooltip[i][j], 0.1525, 0.1)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Tooltip[i][j], FRAMEPOINT_RIGHT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_RIGHT, 0.1525, -0.01)
-                    BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], false)
-
-                    DialogTalon.TalonButtons.TooltipDescription[i][j] = BlzCreateFrameByType("TEXT", "TooltipDescr", DialogTalon.TalonButtons.Tooltip[i][j], "", 0)
-                    BlzFrameSetTextColor(DialogTalon.TalonButtons.TooltipDescription[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetSize(DialogTalon.TalonButtons.TooltipDescription[i][j], 0.14, 0.07)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.TooltipDescription[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Tooltip[i][j], FRAMEPOINT_LEFT, 0.01, 0.004)
-
-                    DialogTalon.TalonButtons.Border[i][j] = BlzCreateFrameByType("BACKDROP", "TalonBorder", DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Border[i][j], 0.449, 0.079)
-                    BlzFrameSetTexture(DialogTalon.TalonButtons.Border[i][j], "SystemGeneric\\gb", 0, true)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Border[i][j], FRAMEPOINT_CENTER, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_CENTER, 0, 0)
-                    BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
-
-                    -- Создаем Иконки кнопок
-                    DialogTalon.TalonButtons.Icon[i][j] = BlzCreateFrameByType("BACKDROP", "TalonIcon" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Icon[i][j], 0.064, 0.064)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Icon[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.01, 0)
-
-                    -- Создаем названия талантов
-                    DialogTalon.TalonButtons.Name[i][j] = BlzCreateFrameByType("TEXT", "TalonName" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "EscMenuTitleTextTemplate", 0)
-                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Name[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Name[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, 0.02)
-
-                    -- Создаем описания талантов
-                    DialogTalon.TalonButtons.Description[i][j] = BlzCreateFrameByType("TEXT", "TalonDescription" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Description[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetSize(DialogTalon.TalonButtons.Description[i][j], 0.35, 0.06)
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Description[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.022)
-
-                    DialogTalon.TalonButtons.Level[i][j] = BlzCreateFrameByType("TEXT", "TalonLevel" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetTextColor(DialogTalon.TalonButtons.Level[i][j], BlzConvertColor(1, 255, 255, 255))
-                    BlzFrameSetPoint(DialogTalon.TalonButtons.Level[i][j], FRAMEPOINT_LEFT, DialogTalon.TalonButtons.Backdrop[i][j], FRAMEPOINT_LEFT, 0.084, -0.025)
-
-                    DialogTalon.TalonButtons.Button[i][j] = BlzCreateFrameByType("BUTTON", "TalonButton" .. j, DialogTalon.TalonButtons.Backdrop[i][j], "", 0)
-                    BlzFrameSetAllPoints(DialogTalon.TalonButtons.Button[i][j], DialogTalon.TalonButtons.Backdrop[i][j])
-
-                    DialogTalon.TalonButtons.ClickTriggers[i][j] = CreateTrigger()
-                    DialogTalon.TalonButtons.ClickEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.ClickTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_CONTROL_CLICK)
-                    DialogTalon.TalonButtons.ClickActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.ClickTriggers[i][j], function()
-                        if DialogTalon.IsOpen[i] == true then
-                            DialogTalon.IsOpen[i] = false
-                            BlzFrameSetVisible(DialogTalon.MainFrame[i], false)
-                            talons[i][j]:updateLevel()
-                            checkUlt(i, j, GOD_NAME_ARRAY, "ultF")
-                            checkUlt(i, j, GOD_NAME_ARRAY, "ultR")
-                            -- Закрываем окно талантов
-
-                            BlzFrameSetEnable(BlzGetTriggerFrame(), false)
-                            BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-                            --SmoothWindowAppearance(DialogTalon.MainFrame[i], i, "close")
-                            TimerStart(CreateTimer(), 2, false, function()
-                                LearnCurrentTalonForPlayer(i, GodName, index[i][j])
-                            end)
-                            local data = HERO[i - 1]
-                            data.TalonWindowIsOpen = true
-                            ChkAllPlayerTalonClosedWindow()
-                        end
-                    end)
-
-                    DialogTalon.TalonButtons.MouseEnterTriggers[i][j] = CreateTrigger()
-                    DialogTalon.TalonButtons.MouseEnterEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_ENTER)
-                    DialogTalon.TalonButtons.MouseEnterActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseEnterTriggers[i][j], function()
-                        BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], GetLocalPlayer() == Player(i - 1))
-                        BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], GetLocalPlayer() == Player(i - 1))
-                    end)
-                    DialogTalon.TalonButtons.MouseLeaveTriggers[i][j] = CreateTrigger()
-                    DialogTalon.TalonButtons.MouseLeaveEvents[i][j] = BlzTriggerRegisterFrameEvent(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], DialogTalon.TalonButtons.Button[i][j], FRAMEEVENT_MOUSE_LEAVE)
-                    DialogTalon.TalonButtons.MouseLeaveActions[i][j] = TriggerAddAction(DialogTalon.TalonButtons.MouseLeaveTriggers[i][j], function()
-                        BlzFrameSetVisible(DialogTalon.TalonButtons.Border[i][j], false)
-                        BlzFrameSetVisible(DialogTalon.TalonButtons.Tooltip[i][j], false)
-                    end)
-                end
-            end
-        end)
-    end
-end
 
 Talon = {
     icon = nil,
@@ -6172,15 +6025,7 @@ function GetPassiveIco(s)
 end
 
 function CreateBaseFrames(x, y)
-    AbilityDescriptionRus = {
-        L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади", "Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),
-        L("Запускает кирку в указанном направлении и наносит урон первому врагу на пути", "Launches the pickaxe in the specified direction and deals damage to the first enemy on the way"),
-        L("Делает небольшой рывок в направлении текущего движения", "Makes a small leap in the direction of the current movement"),
-        L("Наносит увеличенный урон по большой площади", "Deals increased damage over a large area"),
-        L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг", "Hold down the LMB to start spinning and deal damage to all enemies around"),
-        L("Удерживайте LMB, чтобы прикрыться щитом и зарядить разбег", "Hold the LMB to cover up with the shield and charge the run-up"),
-        L("Делает удар щитом прямо перед собой", "Makes a shield strike right in front of him"),
-    }
+
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
             local step = 0.03
@@ -6189,12 +6034,15 @@ function CreateBaseFrames(x, y)
             --     ReadyToReload={},
             --    ClickTrig={}}
             if data.CurrentWeaponType == "pickaxe" then
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
+                -- CreateUniversalFrame(x, y, step, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
+                --CreateUniversalFrame(x, y, step, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
             end
             if data.CurrentWeaponType == "shield" then
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[7], L("Удар щитом", "Shield strike"), data, "ReplaceableTextures\\CommandButtons\\BTNThoriumArmor.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormalShield")
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
+                --CreateUniversalFrame(x, y, step, AbilityDescriptionRus[7], L("Удар щитом", "Shield strike"), data, "ReplaceableTextures\\CommandButtons\\BTNThoriumArmor.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormalShield")
+                --CreateUniversalFrame(x, y, step, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
+            end
+            if data.CurrentWeaponType == "" then
+                -- print("Ещё не выбрано оружие ")
             end
             CreateUniversalFrame(x, y, step, AbilityDescriptionRus[2], L("Бросок кирки", "Throwing a pickaxe"), data, AbilityIconPath[2], nil, "SystemGeneric\\DDSSymbols\\rmb", "throw")
             CreateUniversalFrame(x, y, step, AbilityDescriptionRus[3], L("Рывок", "Dash"), data, AbilityIconPath[3], nil, "SystemGeneric\\DDSSymbols\\space", "dash")
@@ -6223,6 +6071,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
         passiveTexture = GetPassiveIco(activeTexture)
     end
     local visionPlayer = Player(data.pid)
+
     local face = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateSimpleFrame("MyBar", face, 0) -- фрейм перезарядки
     local cdtext = BlzGetFrameByName("MyBarText", 0)
@@ -6232,6 +6081,23 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
 
     if flag == "spin" then
         data.SpinChargesFH = MakeFrameCharged(face, data.SpinCharges)
+    end
+    if flag == "goldKing" then
+        data.GoldKingFH = MakeFrameCharged(face, 0)
+        --print("запускаем обновление зарядов")
+        TimerStart(CreateTimer(), 1, true, function()
+            -- РЕгенерация ульты
+
+
+
+            data.GoldKingCharges = data.gold // (100/data.GoldKingBonus)
+            --print(data.GoldKingBonus*100)
+            if data.GoldKingCharges> data.GoldKingBonus*100 then
+                data.GoldKingCharges=data.GoldKingBonus*100
+            end
+            BlzFrameSetText(data.GoldKingFH, R2I(data.GoldKingCharges))
+        end)
+
     end
     if flag == "throw" then
         data.ThrowChargesFH = MakeFrameCharged(face, data.ThrowCharges)
@@ -6366,6 +6232,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     BlzFrameSetVisible(buttonIconFrame, GetLocalPlayer() == visionPlayer)
     --- tooltip
     local tooltip, backdrop, text = CreateToolTipBoxSize(x + k * size, y + size * 2, size * 5, size * 3, toolTipTex, toolTipHeader)
+    data.FrameToDestroy[k] = { face, buttonIconFrame, cdtext, cdICO, hotkey, tooltip, backdrop, text }
     ---------------------------------------------------
     ----------------ДИНАМИЧЕСКИЕ ОПИСАНИЯ--------------
     ---------------------------------------------------
@@ -6871,8 +6738,17 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
             HERO = {}
+            AbilityDescriptionRus = {
+                L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади", "Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),
+                L("Запускает кирку в указанном направлении и наносит урон первому врагу на пути", "Launches the pickaxe in the specified direction and deals damage to the first enemy on the way"),
+                L("Делает небольшой рывок в направлении текущего движения", "Makes a small leap in the direction of the current movement"),
+                L("Наносит увеличенный урон по большой площади", "Deals increased damage over a large area"),
+                L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг", "Hold down the LMB to start spinning and deal damage to all enemies around"),
+                L("Удерживайте LMB, чтобы прикрыться щитом и зарядить разбег", "Hold the LMB to cover up with the shield and charge the run-up"),
+                L("Делает удар щитом прямо перед собой", "Makes a shield strike right in front of him"),
+            }
             perebor = CreateGroup()
-            PlayerIsPlaying={}
+            PlayerIsPlaying = {}
             CreationPeonsForAllPlayer()
             DestroyTimer(GetExpiredTimer())
         end)
@@ -6882,35 +6758,36 @@ end
 function CreationPeonsForAllPlayer()
     local this = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if IsPlayerSlotState(Player(i),PLAYER_SLOT_STATE_PLAYING)  and GetPlayerController(Player(i))==MAP_CONTROL_USER then -- 1 раз, не трогать!!!!!!
-            PlayerIsPlaying[i]=true
-            local x,y=GetPlayerStartLocationX(Player(i)),GetPlayerStartLocationY(Player(i))
-            local hero=CreateUnit(Player(i),HeroID,x,y,0)
-            UnitAddAbility(hero,FourCC("abun"))
-            UnitAddAbility(hero,FourCC("Abun"))
-            UnitAddAbility(hero,FourCC("AInv"))
-            local effModel=""
-            if GetLocalPlayer()==Player(i) then
-                effModel="war3mapImported\\Light"
+        if IsPlayerSlotState(Player(i), PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(i)) == MAP_CONTROL_USER then
+            -- 1 раз, не трогать!!!!!!
+            PlayerIsPlaying[i] = true
+            local x, y = GetPlayerStartLocationX(Player(i)), GetPlayerStartLocationY(Player(i))
+            local hero = CreateUnit(Player(i), HeroID, x, y, 0)
+            UnitAddAbility(hero, FourCC("abun"))
+            UnitAddAbility(hero, FourCC("Abun"))
+            UnitAddAbility(hero, FourCC("AInv"))
+            local effModel = ""
+            if GetLocalPlayer() == Player(i) then
+                effModel = "war3mapImported\\Light"
             end
-            AddSpecialEffectTarget(effModel,hero,"origin")
+            AddSpecialEffectTarget(effModel, hero, "origin")
             --==print("толкаем")
             UnitAddForceSimple(hero, 0, 10, 10)
             --print("1")
-            BlzSetUnitMaxHP(hero,200)
-            HealUnit(hero,-100)
+            BlzSetUnitMaxHP(hero, 200)
+            HealUnit(hero, -100)
             --print("создан пеон")
-            SelectUnitForPlayerSingle(hero,Player(i))
+            SelectUnitForPlayerSingle(hero, Player(i))
             InitWASD(hero)
             TriggerRegisterPlayerEventLeave(this, Player(i))
         else
-            PlayerIsPlaying[i]=false
+            PlayerIsPlaying[i] = false
         end
     end
     TriggerAddAction(this, function()
-        local p=GetTriggerPlayer()
-        PlayerIsPlaying[GetPlayerId(p)]=false
-        print(GetPlayerName(p)..L(" Покинул игру"," Left the game"))
+        local p = GetTriggerPlayer()
+        PlayerIsPlaying[GetPlayerId(p)] = false
+        print(GetPlayerName(p) .. L(" Покинул игру", " Left the game"))
     end)
 end
 
@@ -8720,7 +8597,11 @@ function PlayUnitAnimationFromChat()
             return
         end
         if GetEventPlayerChatString() == "sh" or GetEventPlayerChatString() == "sh" then
-            SwitchWeaponTo(data,"shield")
+            SwitchWeaponTo(data, "shield")
+            return
+        end
+        if GetEventPlayerChatString() == "ax" or GetEventPlayerChatString() == "фч" then
+            SwitchWeaponTo(data, "pickaxe")
             return
         end
         SetUnitAnimationByIndex(data.UnitHero, s)
@@ -8842,6 +8723,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                             if data.MegaReflector then
                                 damage=damage*4
                                 speed=speed*2
+                                maxDistance=maxDistance*2
                             end
                         else
                             FlyTextTagShieldXY(xe, ye, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
@@ -9115,6 +8997,19 @@ function OnPostDamage()
                 DestroyEffect(eff)
                 UnitAddForceSimple(data.UnitHero, AngleSource, 10, 50)
                 FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+                if not IsUnitTrap(caster) and data.ShieldHealCDFH then
+                    if data.ShieldHealCurrentCD <= 0 then
+                        AddGold(data, -10)
+                        local cd = data.ShieldHealCD
+                        data.ShieldHealCurrentCD = cd
+                        StartFrameCD(cd, data.ShieldHealCDFH)
+                        HealUnit(target,data.ShieldHealRate)
+                        TimerStart(CreateTimer(), cd, false, function()
+                            data.ShieldHealCurrentCD = 0
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                    end
+                end
             end
         end
 
@@ -9205,6 +9100,15 @@ function OnPostDamage()
             DestroyEffect(eff)
             BlzSetEventDamage(0)
         end
+        if GetEventDamage() > 5 and data.RevengeLightingDamage and not IsUnitTrap(caster) then
+            local eff = AddSpecialEffect("Doodads\\Cinematic\\Lightningbolt\\Lightningbolt", GetUnitXY(caster))
+            -- print("где эффект")
+            TimerStart(CreateTimer(), 0.5, false, function()
+                DestroyEffect(eff)
+            end)
+            UnitDamageTarget(target, caster, data.RevengeLightingDamage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+        end
+
     end
 
     if GetUnitTypeId(target) ~= HeroID and GetUnitTypeId(caster) == HeroID then
@@ -9227,6 +9131,10 @@ function OnPostDamage()
     end
 
 
+end
+
+function IsUnitTrap(unit)
+    return GetUnitAbilityLevel(unit, FourCC("A005")) > 0
 end
 
 ShowDamageTable = {}
@@ -9565,7 +9473,7 @@ function InitPreloadStart()
                     LoadedChaos[i] = 0
                     --print("FirstGame")
                 end
-                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", "Number of completed games ") .. LoadedGameCount[i])
+                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", " Number of completed games ") .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
                 if LoadedGameCount[i] > 2 then
                     AllCompletedForPlayer(i)
@@ -9643,79 +9551,6 @@ function SaveResult(SaveCode)
 end
 
 
----
---- Generated by EmmyLua(https://github.com/EmmyLua)
---- Created by Bergi.
---- DateTime: 03.06.2020 17:02
----
-
-
-
-function CallingBarCreate(u,cd,text,support)
-	if not text then text="Подготовка" end
-	local amount=5/cd
-	local full=0
-	local bar = BlzCreateSimpleFrame("MyFakeBar", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0)
-	BlzFrameSetAbsPoint(bar, FRAMEPOINT_CENTER, 0.4, 0.15)
-	BlzFrameSetValue(bar, 0)
-	BlzFrameSetTextSizeLimit(bar,1)
-	if support then
-		CallingBarCancelCond(u,bar)
-	end
-
-	if GetLocalPlayer()==GetOwningPlayer(u)  then -- хп бары, они точно в норме
-		BlzFrameSetVisible(bar,true)
-	end
-	BlzFrameSetTexture(bar, "Replaceabletextures\\Teamcolor\\Teamcolor0"..(GetConvertedPlayerId(GetOwningPlayer(u))-1)..".blp", 0, true)
-	BlzFrameSetTexture(BlzGetFrameByName("MyFakeBarBorder",0),"SystemGeneric\\MyBarBorder.blp", 0, true)
-	BlzFrameSetText(BlzGetFrameByName("MyFakeBarTitle",0), text)--‡ Сердце ™ щит
-
-	local lefttext = BlzGetFrameByName("MyFakeBarLeftText",0)
-	local righttext = BlzGetFrameByName("MyFakeBarRightText",0)
-	BlzFrameSetText(lefttext, "")
-	BlzFrameSetText(righttext, "")
-
-	TimerStart(CreateTimer(), 0.05, true, function()
-		full=full+amount
-		BlzFrameSetValue(bar, full)
-		--print(full)
-		if full>=100 then
-			--print("destroy")
-			CallingBarDestroy(u,bar)
-		end
-
-	end)
-	return bar
-end
-
-function CallingBarDestroy(hero,bar)
-	if UnitRemoveAbility(hero,FourCC('Abun')) then
-	--	print("атака возвращена")
-	end
-	DestroyTimer(GetExpiredTimer())
-	BlzDestroyFrame(bar)
-end
-
-function CallingBarCancelCond(hero,bar) --
-	UnitAddAbility(hero,FourCC('Abun'))
-	TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-		CallingBarIsStatus(hero,bar)
-	end)
-end
-
-function CallingBarIsStatus(hero,bar)
-	local status=true
-	if IsUnitPaused(hero) or GetUnitCurrentOrder(hero)~=String2OrderIdBJ("")	then -- указываем списо условий который могус сбить каст
-		if GetUnitCurrentOrder(hero)~=String2OrderIdBJ("doom") then
-			--print(OrderId2String(GetUnitCurrentOrder(hero)))
-			--print("Каст сбит")
-			UnitRemoveAbility(hero,FourCC('Abun'))
-			CallingBarDestroy(hero,bar)
-			status=false
-		end
-	end
-	return status
-end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -10808,7 +10643,8 @@ function InitHeroTable(hero)
         AngleMouse = 0,
         TalonWindowIsOpen = true,
         Summon = {}, -- таблица суммонов
-        CurrentWeaponType = ""
+        CurrentWeaponType = "", -- изначально герой без оружия
+        FrameToDestroy = {}
     }
 end
 
@@ -10826,9 +10662,11 @@ function InitWASD(hero)
     local speed = 5
     local animWalk = 0
 
-    SwitchWeaponTo(data, "shield") --Первое назначение оружие
-    --SwitchWeaponTo(data, "pickaxe")
 
+    --SwitchWeaponTo(data, "shield") --Первое назначение оружие
+    TimerStart(CreateTimer(), 2, false, function()
+        SwitchWeaponTo(data, "pickaxe")
+    end)
 
     TimerStart(CreateTimer(), 0.005, true, function()
         -- устранение бага залипания
@@ -10974,7 +10812,20 @@ function InitWASD(hero)
                 end
                 if data.PressShieldSec >= 2 and not data.ShieldReadyToCharge then
                     data.ShieldReadyToCharge = true
-                    FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), L("Максимум", "Maximum"), GetOwningPlayer(data.UnitHero))
+                    --FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), L("Максимум", "Maximum"), GetOwningPlayer(data.UnitHero))
+                    local red = true
+                    TimerStart(CreateTimer(), 0.05, true, function()
+                        if red then
+                            BlzSetSpecialEffectColorByPlayer(data.BarToCharge, Player(1))
+                            red = false
+                        else
+                            red = true
+                            BlzSetSpecialEffectColorByPlayer(data.BarToCharge, Player(0))
+                        end
+                        if not data.BarToCharge then
+                            DestroyTimer(GetExpiredTimer())
+                        end
+                    end)
                 end
                 if not data.BarToCharge then
                     data.BarToCharge = AddSpecialEffect("SystemGeneric\\Progressbar", GetUnitXY(hero))
@@ -10985,7 +10836,9 @@ function InitWASD(hero)
                     BlzSetSpecialEffectAlpha(data.BarToCharge, 0)
                     BlzSetSpecialEffectColorByPlayer(data.BarToCharge, Player(1))
                     data.ArrowToShieldDashVisible = true
-                    --CreateArrowToShieldDash(data)
+                    --CreateArrowToShieldDash(data,90)
+                    --CreateArrowToShieldDash(data,-90)
+                    --CreateArrowToShieldDash(data,0)
                 else
                     if data.PressShieldSec > 0.5 then
                         BlzSetSpecialEffectAlpha(data.BarToCharge, R2I(data.PressShieldSec * 127))
@@ -11607,8 +11460,10 @@ function CreateWASDActions()
 
             GetPlayerMouseX[pid] = BlzGetTriggerPlayerMouseX()
             GetPlayerMouseY[pid] = BlzGetTriggerPlayerMouseY()
-
             local data = HERO[pid]
+            if BlzGetTriggerPlayerMouseX() >= 511 and BlzGetTriggerPlayerMouseX() <= 513 then
+                GetPlayerMouseX[pid], GetPlayerMouseY[pid] = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 500, GetUnitFacing(data.UnitHero))
+            end
             if UnitAlive(data.UnitHero) then
                 data.PressSpin = true
                 if data.ReleaseRMB then
@@ -11690,13 +11545,6 @@ function CreateWASDActions()
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     if UnitAlive(data.UnitHero) then
                         UnitAddForceSimple(data.UnitHero, angle, 35, data.PressShieldSec * 200, "shieldDash")
-
-
-
-
-
-
-
                         --Разбег быка
                     end
                     data.ShieldReadyToCharge = false
@@ -11720,6 +11568,9 @@ function CreateWASDActions()
             GetPlayerMouseY[pid] = BlzGetTriggerPlayerMouseY()
 
             local data = HERO[pid]
+            if BlzGetTriggerPlayerMouseX() >= 511 and BlzGetTriggerPlayerMouseX() <= 513 then
+                GetPlayerMouseX[pid], GetPlayerMouseY[pid] = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 500, GetUnitFacing(data.UnitHero))
+            end
             --data.Shield=true
 
             if UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and data.ThrowCharges > 0 then
@@ -11926,7 +11777,10 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
             end
             if flag == "shieldDash" then
-                UnitDamageArea(hero, GetUnitData(hero).DamageInShieldPerDash, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
+                GetUnitData(hero).ShieldDashReflect = true
+                if UnitDamageArea(hero, GetUnitData(hero).DamageInShieldPerDash, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem") then
+                    normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone" .. GetRandomInt(1, 3), GetUnitXY(hero))
+                end
             end
             if flag == "RunSkeleton" then
                 UnitDamageArea(hero, 1, GetUnitX(hero), GetUnitY(hero), 120)
@@ -11977,7 +11831,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         if not IsUnitInGroup(du, tempDamageGroup) then
                             GroupAddUnit(tempDamageGroup, du)
                             if UnitDamageArea(hero, data.BaseDashDamage, newX, newY, range, "longForce") then
-                                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone" .. GetRandomInt(1, 3), GetUnitXY(HERO[0].UnitHero))
+                                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone" .. GetRandomInt(1, 3), GetUnitXY(hero))
                                 --  print("нанесение урона во время рывка рывка")
                             end
                         else
@@ -12077,10 +11931,20 @@ function InitMouseMoveTrigger()
     end
     TriggerAddAction(MouseMoveTrigger, function()
         local id = GetPlayerId(GetTriggerPlayer())
+        --print(BlzGetTriggerPlayerMouseX())
         if BlzGetTriggerPlayerMouseX() ~= 0 then
-            GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
-            GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
+            if BlzGetTriggerPlayerMouseX() >= 511 and BlzGetTriggerPlayerMouseX() <= 513 then
+                --print("mouse error")
+            else
+                GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
+                GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
+            end
+
+        else
+            -- GetPlayerMouseX[id] = GetPlayerMouseX[id]
+            -- print("мышь в нуле")
         end
+
     end)
 end
 

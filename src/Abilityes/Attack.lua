@@ -17,7 +17,11 @@ function attackPickAxe(data)
             data.AttackCount = data.AttackCount + 1
             --print(data.AttackCount)
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[pid], GetPlayerMouseY[pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-            local damage = data.DamageInSeries[data.AttackCount]
+            local bonus=0
+            if data.GoldKingCharges then
+                bonus=data.GoldKingCharges
+            end
+            local damage = data.DamageInSeries[data.AttackCount]+bonus
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
             local maxAttack = data.MaxAttack
 

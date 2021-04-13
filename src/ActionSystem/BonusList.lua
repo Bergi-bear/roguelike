@@ -13,7 +13,7 @@ function GiveForAll(reward)
                     AddMaxLife(hero, 25)
                 end
                 if reward == "GoldReward" then
-                    UnitAddGold(hero, 100)
+                    UnitAddGold(hero, 200)
                 end
             end
         end

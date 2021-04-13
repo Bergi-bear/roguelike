@@ -134,7 +134,11 @@ function PlayUnitAnimationFromChat()
             return
         end
         if GetEventPlayerChatString() == "sh" or GetEventPlayerChatString() == "sh" then
-            SwitchWeaponTo(data,"shield")
+            SwitchWeaponTo(data, "shield")
+            return
+        end
+        if GetEventPlayerChatString() == "ax" or GetEventPlayerChatString() == "фч" then
+            SwitchWeaponTo(data, "pickaxe")
             return
         end
         SetUnitAnimationByIndex(data.UnitHero, s)

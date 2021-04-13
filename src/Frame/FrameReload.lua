@@ -28,15 +28,7 @@ function GetPassiveIco(s)
 end
 
 function CreateBaseFrames(x, y)
-    AbilityDescriptionRus = {
-        L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади", "Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),
-        L("Запускает кирку в указанном направлении и наносит урон первому врагу на пути", "Launches the pickaxe in the specified direction and deals damage to the first enemy on the way"),
-        L("Делает небольшой рывок в направлении текущего движения", "Makes a small leap in the direction of the current movement"),
-        L("Наносит увеличенный урон по большой площади", "Deals increased damage over a large area"),
-        L("Удерживайте LMB, чтобы начать вращаться и наносить урон всем врагам вокруг", "Hold down the LMB to start spinning and deal damage to all enemies around"),
-        L("Удерживайте LMB, чтобы прикрыться щитом и зарядить разбег", "Hold the LMB to cover up with the shield and charge the run-up"),
-        L("Делает удар щитом прямо перед собой", "Makes a shield strike right in front of him"),
-    }
+
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
             local step = 0.03
@@ -45,12 +37,15 @@ function CreateBaseFrames(x, y)
             --     ReadyToReload={},
             --    ClickTrig={}}
             if data.CurrentWeaponType == "pickaxe" then
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
+                -- CreateUniversalFrame(x, y, step, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
+                --CreateUniversalFrame(x, y, step, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
             end
             if data.CurrentWeaponType == "shield" then
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[7], L("Удар щитом", "Shield strike"), data, "ReplaceableTextures\\CommandButtons\\BTNThoriumArmor.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormalShield")
-                CreateUniversalFrame(x, y, step, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
+                --CreateUniversalFrame(x, y, step, AbilityDescriptionRus[7], L("Удар щитом", "Shield strike"), data, "ReplaceableTextures\\CommandButtons\\BTNThoriumArmor.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormalShield")
+                --CreateUniversalFrame(x, y, step, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
+            end
+            if data.CurrentWeaponType == "" then
+                -- print("Ещё не выбрано оружие ")
             end
             CreateUniversalFrame(x, y, step, AbilityDescriptionRus[2], L("Бросок кирки", "Throwing a pickaxe"), data, AbilityIconPath[2], nil, "SystemGeneric\\DDSSymbols\\rmb", "throw")
             CreateUniversalFrame(x, y, step, AbilityDescriptionRus[3], L("Рывок", "Dash"), data, AbilityIconPath[3], nil, "SystemGeneric\\DDSSymbols\\space", "dash")
@@ -79,6 +74,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
         passiveTexture = GetPassiveIco(activeTexture)
     end
     local visionPlayer = Player(data.pid)
+
     local face = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateSimpleFrame("MyBar", face, 0) -- фрейм перезарядки
     local cdtext = BlzGetFrameByName("MyBarText", 0)
@@ -88,6 +84,23 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
 
     if flag == "spin" then
         data.SpinChargesFH = MakeFrameCharged(face, data.SpinCharges)
+    end
+    if flag == "goldKing" then
+        data.GoldKingFH = MakeFrameCharged(face, 0)
+        --print("запускаем обновление зарядов")
+        TimerStart(CreateTimer(), 1, true, function()
+            -- РЕгенерация ульты
+
+
+
+            data.GoldKingCharges = data.gold // (100/data.GoldKingBonus)
+            --print(data.GoldKingBonus*100)
+            if data.GoldKingCharges> data.GoldKingBonus*100 then
+                data.GoldKingCharges=data.GoldKingBonus*100
+            end
+            BlzFrameSetText(data.GoldKingFH, R2I(data.GoldKingCharges))
+        end)
+
     end
     if flag == "throw" then
         data.ThrowChargesFH = MakeFrameCharged(face, data.ThrowCharges)
@@ -222,6 +235,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     BlzFrameSetVisible(buttonIconFrame, GetLocalPlayer() == visionPlayer)
     --- tooltip
     local tooltip, backdrop, text = CreateToolTipBoxSize(x + k * size, y + size * 2, size * 5, size * 3, toolTipTex, toolTipHeader)
+    data.FrameToDestroy[k] = { face, buttonIconFrame, cdtext, cdICO, hotkey, tooltip, backdrop, text }
     ---------------------------------------------------
     ----------------ДИНАМИЧЕСКИЕ ОПИСАНИЯ--------------
     ---------------------------------------------------

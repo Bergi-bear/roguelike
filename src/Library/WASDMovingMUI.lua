@@ -95,7 +95,8 @@ function InitHeroTable(hero)
         AngleMouse = 0,
         TalonWindowIsOpen = true,
         Summon = {}, -- таблица суммонов
-        CurrentWeaponType = ""
+        CurrentWeaponType = "", -- изначально герой без оружия
+        FrameToDestroy = {}
     }
 end
 
@@ -113,9 +114,11 @@ function InitWASD(hero)
     local speed = 5
     local animWalk = 0
 
-    SwitchWeaponTo(data, "shield") --Первое назначение оружие
-    --SwitchWeaponTo(data, "pickaxe")
 
+    --SwitchWeaponTo(data, "shield") --Первое назначение оружие
+    TimerStart(CreateTimer(), 2, false, function()
+        SwitchWeaponTo(data, "pickaxe")
+    end)
 
     TimerStart(CreateTimer(), 0.005, true, function()
         -- устранение бага залипания
@@ -261,7 +264,20 @@ function InitWASD(hero)
                 end
                 if data.PressShieldSec >= 2 and not data.ShieldReadyToCharge then
                     data.ShieldReadyToCharge = true
-                    FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), L("Максимум", "Maximum"), GetOwningPlayer(data.UnitHero))
+                    --FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), L("Максимум", "Maximum"), GetOwningPlayer(data.UnitHero))
+                    local red = true
+                    TimerStart(CreateTimer(), 0.05, true, function()
+                        if red then
+                            BlzSetSpecialEffectColorByPlayer(data.BarToCharge, Player(1))
+                            red = false
+                        else
+                            red = true
+                            BlzSetSpecialEffectColorByPlayer(data.BarToCharge, Player(0))
+                        end
+                        if not data.BarToCharge then
+                            DestroyTimer(GetExpiredTimer())
+                        end
+                    end)
                 end
                 if not data.BarToCharge then
                     data.BarToCharge = AddSpecialEffect("SystemGeneric\\Progressbar", GetUnitXY(hero))
@@ -272,7 +288,9 @@ function InitWASD(hero)
                     BlzSetSpecialEffectAlpha(data.BarToCharge, 0)
                     BlzSetSpecialEffectColorByPlayer(data.BarToCharge, Player(1))
                     data.ArrowToShieldDashVisible = true
-                    --CreateArrowToShieldDash(data)
+                    --CreateArrowToShieldDash(data,90)
+                    --CreateArrowToShieldDash(data,-90)
+                    --CreateArrowToShieldDash(data,0)
                 else
                     if data.PressShieldSec > 0.5 then
                         BlzSetSpecialEffectAlpha(data.BarToCharge, R2I(data.PressShieldSec * 127))
@@ -894,8 +912,10 @@ function CreateWASDActions()
 
             GetPlayerMouseX[pid] = BlzGetTriggerPlayerMouseX()
             GetPlayerMouseY[pid] = BlzGetTriggerPlayerMouseY()
-
             local data = HERO[pid]
+            if BlzGetTriggerPlayerMouseX() >= 511 and BlzGetTriggerPlayerMouseX() <= 513 then
+                GetPlayerMouseX[pid], GetPlayerMouseY[pid] = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 500, GetUnitFacing(data.UnitHero))
+            end
             if UnitAlive(data.UnitHero) then
                 data.PressSpin = true
                 if data.ReleaseRMB then
@@ -977,13 +997,6 @@ function CreateWASDActions()
                     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
                     if UnitAlive(data.UnitHero) then
                         UnitAddForceSimple(data.UnitHero, angle, 35, data.PressShieldSec * 200, "shieldDash")
-
-
-
-
-
-
-
                         --Разбег быка
                     end
                     data.ShieldReadyToCharge = false
@@ -1007,6 +1020,9 @@ function CreateWASDActions()
             GetPlayerMouseY[pid] = BlzGetTriggerPlayerMouseY()
 
             local data = HERO[pid]
+            if BlzGetTriggerPlayerMouseX() >= 511 and BlzGetTriggerPlayerMouseX() <= 513 then
+                GetPlayerMouseX[pid], GetPlayerMouseY[pid] = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 500, GetUnitFacing(data.UnitHero))
+            end
             --data.Shield=true
 
             if UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and data.ThrowCharges > 0 then
@@ -1213,7 +1229,10 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 UnitDamageArea(hero, 50, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
             end
             if flag == "shieldDash" then
-                UnitDamageArea(hero, GetUnitData(hero).DamageInShieldPerDash, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem")
+                GetUnitData(hero).ShieldDashReflect = true
+                if UnitDamageArea(hero, GetUnitData(hero).DamageInShieldPerDash, GetUnitX(hero), GetUnitY(hero), 120, "ForceTotem") then
+                    normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone" .. GetRandomInt(1, 3), GetUnitXY(hero))
+                end
             end
             if flag == "RunSkeleton" then
                 UnitDamageArea(hero, 1, GetUnitX(hero), GetUnitY(hero), 120)
@@ -1264,7 +1283,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         if not IsUnitInGroup(du, tempDamageGroup) then
                             GroupAddUnit(tempDamageGroup, du)
                             if UnitDamageArea(hero, data.BaseDashDamage, newX, newY, range, "longForce") then
-                                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone" .. GetRandomInt(1, 3), GetUnitXY(HERO[0].UnitHero))
+                                normal_sound("Sound\\Units\\Combat\\MetalMediumBashStone" .. GetRandomInt(1, 3), GetUnitXY(hero))
                                 --  print("нанесение урона во время рывка рывка")
                             end
                         else
@@ -1364,10 +1383,20 @@ function InitMouseMoveTrigger()
     end
     TriggerAddAction(MouseMoveTrigger, function()
         local id = GetPlayerId(GetTriggerPlayer())
+        --print(BlzGetTriggerPlayerMouseX())
         if BlzGetTriggerPlayerMouseX() ~= 0 then
-            GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
-            GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
+            if BlzGetTriggerPlayerMouseX() >= 511 and BlzGetTriggerPlayerMouseX() <= 513 then
+                --print("mouse error")
+            else
+                GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
+                GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
+            end
+
+        else
+            -- GetPlayerMouseX[id] = GetPlayerMouseX[id]
+            -- print("мышь в нуле")
         end
+
     end)
 end
 

@@ -54,7 +54,7 @@ function InitPreloadStart()
                     LoadedChaos[i] = 0
                     --print("FirstGame")
                 end
-                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", "Number of completed games ") .. LoadedGameCount[i])
+                print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", " Number of completed games ") .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1
                 if LoadedGameCount[i] > 2 then
                     AllCompletedForPlayer(i)

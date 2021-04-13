@@ -17,47 +17,48 @@ end
 function RegistrationAnyEntire()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
-            local data=HERO[i]
-            local hero=data.UnitHero
-            local enterTrig=CreateTrigger()
-            TriggerRegisterUnitInRange(enterTrig,hero,200,nil)
-            TriggerAddAction(enterTrig,function()
-                local entering=GetTriggerUnit()
-                if GetUnitTypeId(entering)==FourCC('hdhw') then
-                    local dataPoint=EnterPointTable[GetHandleId(entering)]
+            local data = HERO[i]
+            local hero = data.UnitHero
+            local enterTrig = CreateTrigger()
+            TriggerRegisterUnitInRange(enterTrig, hero, 200, nil)
+            TriggerAddAction(enterTrig, function()
+                local entering = GetTriggerUnit()
+                if GetUnitTypeId(entering) == FourCC('hdhw') then
+                    local dataPoint = EnterPointTable[GetHandleId(entering)]
 
                     if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering
                         --BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
                         --print("подошел к "..dataPoint.UseAction)
-                        local eEff=AddSpecialEffect("SystemGeneric\\ActionsE",GetUnitXY(entering))
-                        data.ShowActionWindows=true
+                        local eEff = AddSpecialEffect("SystemGeneric\\ActionsE", GetUnitXY(entering))
+                        data.ShowActionWindows = true
                         TimerStart(CreateTimer(), 0.1, true, function()
-                            if not IsUnitInRange(entering,hero,210) or not UnitAlive(entering) or not dataPoint.isActive then
+                            if not IsUnitInRange(entering, hero, 210) or not UnitAlive(entering) or not dataPoint.isActive then
                                 --BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
-                                BlzSetSpecialEffectPosition(eEff,OutPoint,OutPoint,0)
+                                BlzSetSpecialEffectPosition(eEff, OutPoint, OutPoint, 0)
                                 DestroyEffect(eEff)
                                 --print("ломаем эффект")
-                                data.UseAction=""
-                                data.ShowActionWindows=false
+                                data.UseAction = ""
+                                data.ShowActionWindows = false
                             end
                         end)
                     end
                 end
-                if GetUnitTypeId(entering)==FourCC('nglm') and UnitAlive(hero)  then--МИНА mine mina vbyf
-                    local x,y=GetUnitXY(entering)
-                    local mark=AddSpecialEffect("SystemGeneric\\Alarm",x,y)
-                    BlzSetSpecialEffectColor(mark,255,0,0)
-                    BlzSetSpecialEffectScale(mark,1.2)
-                    SetUnitInvulnerable(entering,true)
-                    local act=false
+                if GetUnitTypeId(entering) == FourCC('nglm') and UnitAlive(hero) then
+                    --МИНА mine mina vbyf
+                    local x, y = GetUnitXY(entering)
+                    local mark = AddSpecialEffect("SystemGeneric\\Alarm", x, y)
+                    BlzSetSpecialEffectColor(mark, 255, 0, 0)
+                    BlzSetSpecialEffectScale(mark, 1.2)
+                    SetUnitInvulnerable(entering, true)
+                    local act = false
                     if not act then
-                        act=true
+                        act = true
                         TimerStart(CreateTimer(), 1.8, false, function()
                             if UnitAlive(entering) then
-                                local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+                                local eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
                                 TimerStart(CreateTimer(), 1.8, false, function()
                                     DestroyEffect(eff)
 
@@ -67,11 +68,11 @@ function RegistrationAnyEntire()
 
                         TimerStart(CreateTimer(), 2, false, function()
                             --print("наносим урон миной")
-                            UnitDamageArea(hero,150,x,y,200,"all")
+                            UnitDamageArea(hero, 150, x, y, 200, "all")
                             KillUnit(entering)
                             DestroyEffect(mark)
-                            BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
-                            CreateUnit(GetOwningPlayer(entering),FourCC('nglm'),x,y,0)
+                            BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
+                            CreateUnit(GetOwningPlayer(entering), FourCC('nglm'), x, y, 0)
                         end)
 
                     end
