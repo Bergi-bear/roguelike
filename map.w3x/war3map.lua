@@ -95,6 +95,12 @@ gg_dest_B009_5749 = nil
 gg_dest_B009_5750 = nil
 gg_dest_B009_5751 = nil
 gg_dest_B00B_5766 = nil
+gg_rct_S22A = nil
+gg_rct_B22A = nil
+gg_rct_E22A = nil
+gg_rct_S23A = nil
+gg_rct_B23A = nil
+gg_rct_E23A = nil
 function InitGlobals()
     udg_QuestComplete1 = false
     udg_QuestComplete2 = false
@@ -669,6 +675,35 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19066.1, -7324.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19591.8, -8649.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19053.0, -8411.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23594.2, -18231.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24732.3, -23712.2, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24577.2, -18218.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22620.6, -22653.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23313.1, -20587.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23547.6, -20384.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23322.8, -19856.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23581.7, -19600.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23313.7, -19354.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23557.8, -18960.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23311.7, -18594.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23853.0, -18672.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23953.0, -18275.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24158.6, -17980.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24377.7, -18488.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24290.4, -18894.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24912.9, -17994.7, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23449.2, -22923.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23862.6, -22916.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23466.8, -23180.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23837.8, -23202.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22958.6, -23565.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23592.5, -23540.6, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22987.6, -22589.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23846.1, -22494.8, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24506.0, -22508.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24358.9, -23557.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24857.8, -23376.0, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24860.7, -22661.3, 247.300, FourCC("e001"))
 end
 
 function CreatePlayerBuildings()
@@ -742,7 +777,7 @@ function CreateRegions()
     gg_rct_B18A = Rect(10752.0, -16512.0, 11936.0, -15840.0)
     gg_rct_S18A = Rect(10080.0, -16992.0, 13152.0, -15360.0)
     gg_rct_E18A = Rect(10272.0, -17376.0, 10624.0, -16736.0)
-    gg_rct_E19A = Rect(9536.0, -20896.0, 10080.0, -20480.0)
+    gg_rct_E19A = Rect(9536.0, -20992.0, 10080.0, -20352.0)
     gg_rct_S19A = Rect(9856.0, -21056.0, 12224.0, -18944.0)
     gg_rct_B19A = Rect(10688.0, -20640.0, 11552.0, -19232.0)
     gg_rct_E20A = Rect(13920.0, -20608.0, 14464.0, -20192.0)
@@ -752,6 +787,12 @@ function CreateRegions()
     gg_rct_B21A = Rect(20480.0, -20000.0, 20544.0, -19072.0)
     gg_rct_E21A = Rect(21248.0, -20288.0, 21504.0, -19904.0)
     gg_rct_OpenDarkness1 = Rect(14880.0, -19296.0, 15072.0, -19008.0)
+    gg_rct_S22A = Rect(23168.0, -20896.0, 24992.0, -17760.0)
+    gg_rct_B22A = Rect(24000.0, -20320.0, 24064.0, -18464.0)
+    gg_rct_E22A = Rect(23168.0, -20352.0, 23424.0, -19968.0)
+    gg_rct_S23A = Rect(22560.0, -23744.0, 25056.0, -22240.0)
+    gg_rct_B23A = Rect(23488.0, -23264.0, 23936.0, -22880.0)
+    gg_rct_E23A = Rect(22496.0, -23712.0, 22752.0, -23328.0)
 end
 
 function CreateCameras()
