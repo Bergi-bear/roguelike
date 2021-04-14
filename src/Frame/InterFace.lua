@@ -111,7 +111,25 @@ function RemoveLife(data)
     --print("потеря жизни")
     if data.life < 0 then
         if GetActiveCountPlayer() >= 1 then
-            print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате", "You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
+            --print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате", "You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
+            local respTime = 20
+            if true then
+                --Автоматическое воскрешение через 10 сек
+                TimerStart(CreateTimer(), 1, true, function()
+                    respTime = respTime - 1
+                    FlyTextTagCriticalStrike(data.UnitHero, R2I(respTime), GetOwningPlayer(data.UnitHero))
+                    if UnitAlive(data.UnitHero) then
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                    if respTime <= 1 then
+                        DestroyTimer(GetExpiredTimer())
+                        if data.life < 0 then
+                            data.life = 0
+                            ReviveHero(data.UnitHero, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), true)
+                        end
+                    end
+                end)
+            end
         else
             TimerStart(CreateTimer(), 3, false, function()
                 local SaveCode = "error"
@@ -119,7 +137,8 @@ function RemoveLife(data)
                     if PlayerIsPlaying[i] and data.life < 0 then
                         local gdata = HERO[i]
                         if GetLocalPlayer() == Player(i) then
-                            SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","..R2I(gdata.chaosPoint)..","
+                            --- в конце всегда запятая
+                            SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. "," .. R2I(GetDataWeaponID(gdata)) .. ","
                         end
 
                         print(GetPlayerName(Player(i)) .. L(" унёс с собой " .. R2I(gdata.gold) .. " золота ", "took with me " .. R2I(gdata.gold) .. " gold "))

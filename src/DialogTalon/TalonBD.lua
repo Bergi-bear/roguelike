@@ -287,7 +287,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
-                            DS = { L("сквозь здания",""), L("сквозь здания и делает героя неуязвимым",""), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов","") }, --TODO перевод
+                            DS = { L("сквозь здания", ""), L("сквозь здания и делает героя неуязвимым", ""), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов", "") }, --TODO перевод
                             pos = 7
                         }),
                         Talon:new({--8
@@ -297,9 +297,9 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Не работает для ловушек", "Doesn't work for traps"),
-                            DS = { 10,20,30 },
+                            DS = { 10, 20, 30 },
                             pos = 8,
-                            weaponType="shield"
+                            weaponType = "shield"
                         }),
                     },
                     HeroTaurenChieftain = {
@@ -580,6 +580,17 @@ do
                             dependence = 12,
                             weaponType = "shield"
                         }),
+                        Talon:new({--14
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDispelMagic.blp",
+                            name = L("Прыжок в небо", "Jump into the sky"),
+                            description = L("Делает героя неуязвимым в момент прыжка (DS сек.)", "Makes the hero invulnerable at the time of the jump (DS sec.)"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", "Press Q to strike a powerful blow over a large area"),
+                            DS = { 1 },
+                            pos = 14,
+                            weaponType = "shield"
+                        }),
                     },
                     ChaosGrom = {
                         Talon:new({--1
@@ -735,7 +746,7 @@ do
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 1, 2, 3 },
                             pos = 7,
-                            weaponType="pickaxe"
+                            weaponType = "pickaxe"
                         }),
                     }
                 }

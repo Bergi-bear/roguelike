@@ -64,6 +64,12 @@ gg_rct_S21A = nil
 gg_rct_B21A = nil
 gg_rct_E21A = nil
 gg_rct_OpenDarkness1 = nil
+gg_rct_S22A = nil
+gg_rct_B22A = nil
+gg_rct_E22A = nil
+gg_rct_S23A = nil
+gg_rct_B23A = nil
+gg_rct_E23A = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -95,12 +101,6 @@ gg_dest_B009_5749 = nil
 gg_dest_B009_5750 = nil
 gg_dest_B009_5751 = nil
 gg_dest_B00B_5766 = nil
-gg_rct_S22A = nil
-gg_rct_B22A = nil
-gg_rct_E22A = nil
-gg_rct_S23A = nil
-gg_rct_B23A = nil
-gg_rct_E23A = nil
 function InitGlobals()
     udg_QuestComplete1 = false
     udg_QuestComplete2 = false
@@ -3725,7 +3725,7 @@ function Enter2NewZone(flag)
                             if PlayerIsPlaying[i] then
                                 local gdata = HERO[i]
                                 if GetLocalPlayer() == Player(i) then
-                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. ","
+                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. "," .. R2I(GetDataWeaponID(gdata)) .. ","
                                 end
                                 print(GetPlayerName(Player(i)) .. " унёс с собой " .. R2I(gdata.gold) .. " золота ")
 
@@ -4969,6 +4969,9 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 13 then
             data.MegaReflector = true
         end
+        if pos == 14 then
+            data.InvulInCrashQ = true
+        end
     end
     if godName == "ChaosGrom" and talon.level == 1 then
         local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
@@ -5077,7 +5080,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             end)
         end
         if pos == 7 then
-            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil,"goldKing")
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil, "goldKing")
             UpdateTalonDescriptionForFrame(talon, tt)
 
             data.GoldKingCDFH = CdFH
@@ -5440,7 +5443,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
-                            DS = { L("сквозь здания",""), L("сквозь здания и делает героя неуязвимым",""), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов","") }, --TODO перевод
+                            DS = { L("сквозь здания", ""), L("сквозь здания и делает героя неуязвимым", ""), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов", "") }, --TODO перевод
                             pos = 7
                         }),
                         Talon:new({--8
@@ -5450,9 +5453,9 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Не работает для ловушек", "Doesn't work for traps"),
-                            DS = { 10,20,30 },
+                            DS = { 10, 20, 30 },
                             pos = 8,
-                            weaponType="shield"
+                            weaponType = "shield"
                         }),
                     },
                     HeroTaurenChieftain = {
@@ -5733,6 +5736,17 @@ do
                             dependence = 12,
                             weaponType = "shield"
                         }),
+                        Talon:new({--14
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNDispelMagic.blp",
+                            name = L("Прыжок в небо", "Jump into the sky"),
+                            description = L("Делает героя неуязвимым в момент прыжка (DS сек.)", "Makes the hero invulnerable at the time of the jump (DS sec.)"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", "Press Q to strike a powerful blow over a large area"),
+                            DS = { 1 },
+                            pos = 14,
+                            weaponType = "shield"
+                        }),
                     },
                     ChaosGrom = {
                         Talon:new({--1
@@ -5888,7 +5902,7 @@ do
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
                             DS = { 1, 2, 3 },
                             pos = 7,
-                            weaponType="pickaxe"
+                            weaponType = "pickaxe"
                         }),
                     }
                 }
@@ -6572,7 +6586,25 @@ function RemoveLife(data)
     --print("потеря жизни")
     if data.life < 0 then
         if GetActiveCountPlayer() >= 1 then
-            print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате", "You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
+            --print(L("Вы сможете, воскреснуть, как только ваши союзники победят всех врагов в комнате", "You will be able to resurrect as soon as your allies defeat all the enemies in the room"))
+            local respTime = 20
+            if true then
+                --Автоматическое воскрешение через 10 сек
+                TimerStart(CreateTimer(), 1, true, function()
+                    respTime = respTime - 1
+                    FlyTextTagCriticalStrike(data.UnitHero, R2I(respTime), GetOwningPlayer(data.UnitHero))
+                    if UnitAlive(data.UnitHero) then
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                    if respTime <= 1 then
+                        DestroyTimer(GetExpiredTimer())
+                        if data.life < 0 then
+                            data.life = 0
+                            ReviveHero(data.UnitHero, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), true)
+                        end
+                    end
+                end)
+            end
         else
             TimerStart(CreateTimer(), 3, false, function()
                 local SaveCode = "error"
@@ -6580,7 +6612,8 @@ function RemoveLife(data)
                     if PlayerIsPlaying[i] and data.life < 0 then
                         local gdata = HERO[i]
                         if GetLocalPlayer() == Player(i) then
-                            SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. ","..R2I(gdata.chaosPoint)..","
+                            --- в конце всегда запятая
+                            SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. "," .. R2I(GetDataWeaponID(gdata)) .. ","
                         end
 
                         print(GetPlayerName(Player(i)) .. L(" унёс с собой " .. R2I(gdata.gold) .. " золота ", "took with me " .. R2I(gdata.gold) .. " gold "))
@@ -9468,7 +9501,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         PreloadigLags()
-        TimerStart(CreateTimer(), 3.5, false, function()
+        TimerStart(CreateTimer(), 1.2, false, function()
             InitTrig_SyncLoadDone()
             InitPreloadStart()
             DestroyTimer(GetExpiredTimer())
@@ -9521,6 +9554,18 @@ function InitPreloadStart()
                 end
                 UnitAddGold(data.UnitHero, LoadedGold[i])
                 AddChaos(data, LoadedChaos[i])
+               -- print("назначение оружия "..LoadedWeapon[i]) -- назначение оружия 2
+                local TW=R2I(LoadedWeapon[i])
+                if TW==2 then
+                    SwitchWeaponTo(data, "shield")
+                    --print("shield")
+                elseif TW==1 then
+                    SwitchWeaponTo(data, "pickaxe")
+                    --print("pickaxe") -- принт назначается вот это оружие для типа 1
+                else
+                    print("ошибка назначения оружия "..TW)
+                    SwitchWeaponTo(data, "pickaxe")
+                end
             else
                 --i=i-1
             end
@@ -9539,6 +9584,7 @@ udg_LoadCode = {}
 LoadedGold = {}
 LoadedGameCount = {}
 LoadedChaos = {}
+LoadedWeapon = {}
 function InitTrig_SyncLoadDone ()
     local gg_trg_SyncLoadDone = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -9555,6 +9601,7 @@ function InitTrig_SyncLoadDone ()
             LoadedGold[i] = t[1]
             LoadedGameCount[i] = t[2]
             LoadedChaos[i] = t[3]
+            LoadedWeapon[i] = t[4]
             --print(t[2])
             if value == "error" then
                 --игрок первый раз играет
@@ -9562,12 +9609,16 @@ function InitTrig_SyncLoadDone ()
                 LoadedGold[i] = 0
                 LoadedGameCount[i] = 0
                 LoadedChaos[i] = 0
+                LoadedWeapon[i] =1
             end
             if not LoadedGameCount[i] then
                 LoadedGameCount[i] = 0
             end
             if not LoadedChaos[i] then
                 LoadedChaos[i] = 0
+            end
+            if not LoadedWeapon[i] then
+                LoadedWeapon[i] =1
             end
             --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
         end
@@ -9591,7 +9642,16 @@ function SaveResult(SaveCode)
     PreloadGenClear()
 end
 
-
+function GetDataWeaponID(data)
+    local k = 1
+    if data.CurrentWeaponType == "pickaxe" then
+        k = 1
+    end
+    if data.CurrentWeaponType == "shield" then
+        k = 2
+    end
+    return k
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -10706,7 +10766,7 @@ function InitWASD(hero)
 
     --SwitchWeaponTo(data, "shield") --Первое назначение оружие
     TimerStart(CreateTimer(), 2, false, function()
-        SwitchWeaponTo(data, "pickaxe")
+        --SwitchWeaponTo(data, "pickaxe") -- перенесено в прелоад
     end)
 
     TimerStart(CreateTimer(), 0.005, true, function()
@@ -11289,6 +11349,12 @@ function CreateWASDActions()
                     SetUnitAnimationByIndex(data.UnitHero, 3)
                     if data.CurrentWeaponType == "shield" then
                         SetUnitAnimationByIndex(data.UnitHero, 26)
+                        if data.InvulInCrashQ then
+                            SetUnitInvulnerable(data.UnitHero, true)
+                            TimerStart(CreateTimer(), 1, false, function()
+                                SetUnitInvulnerable(data.UnitHero, false)
+                            end)
+                        end
                     end
                     if not data.tasks[8] then
                         data.tasks[8] = true
@@ -11408,7 +11474,7 @@ function CreateWASDActions()
         if not data.ReleaseQ and UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
 
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
-            if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB then
+            if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB and not (data.CurrentWeaponType=="shield" and  data.PressSpin) then
                 local balance = 1
                 if data.isSpined then
                     balance = 6
@@ -11427,6 +11493,12 @@ function CreateWASDActions()
                 SetUnitAnimationByIndex(data.UnitHero, 3)
                 if data.CurrentWeaponType == "shield" then
                     SetUnitAnimationByIndex(data.UnitHero, 26)
+                    if data.InvulInCrashQ then
+                        SetUnitInvulnerable(data.UnitHero, true)
+                        TimerStart(CreateTimer(), 1, false, function()
+                            SetUnitInvulnerable(data.UnitHero, false)
+                        end)
+                    end
                     --print("анимация прыжка?")
                 end
 

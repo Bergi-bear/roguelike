@@ -8,7 +8,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         PreloadigLags()
-        TimerStart(CreateTimer(), 3.5, false, function()
+        TimerStart(CreateTimer(), 1.2, false, function()
             InitTrig_SyncLoadDone()
             InitPreloadStart()
             DestroyTimer(GetExpiredTimer())
@@ -61,6 +61,18 @@ function InitPreloadStart()
                 end
                 UnitAddGold(data.UnitHero, LoadedGold[i])
                 AddChaos(data, LoadedChaos[i])
+               -- print("назначение оружия "..LoadedWeapon[i]) -- назначение оружия 2
+                local TW=R2I(LoadedWeapon[i])
+                if TW==2 then
+                    SwitchWeaponTo(data, "shield")
+                    --print("shield")
+                elseif TW==1 then
+                    SwitchWeaponTo(data, "pickaxe")
+                    --print("pickaxe") -- принт назначается вот это оружие для типа 1
+                else
+                    print("ошибка назначения оружия "..TW)
+                    SwitchWeaponTo(data, "pickaxe")
+                end
             else
                 --i=i-1
             end
@@ -79,6 +91,7 @@ udg_LoadCode = {}
 LoadedGold = {}
 LoadedGameCount = {}
 LoadedChaos = {}
+LoadedWeapon = {}
 function InitTrig_SyncLoadDone ()
     local gg_trg_SyncLoadDone = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -95,6 +108,7 @@ function InitTrig_SyncLoadDone ()
             LoadedGold[i] = t[1]
             LoadedGameCount[i] = t[2]
             LoadedChaos[i] = t[3]
+            LoadedWeapon[i] = t[4]
             --print(t[2])
             if value == "error" then
                 --игрок первый раз играет
@@ -102,12 +116,16 @@ function InitTrig_SyncLoadDone ()
                 LoadedGold[i] = 0
                 LoadedGameCount[i] = 0
                 LoadedChaos[i] = 0
+                LoadedWeapon[i] =1
             end
             if not LoadedGameCount[i] then
                 LoadedGameCount[i] = 0
             end
             if not LoadedChaos[i] then
                 LoadedChaos[i] = 0
+            end
+            if not LoadedWeapon[i] then
+                LoadedWeapon[i] =1
             end
             --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
         end
@@ -131,3 +149,13 @@ function SaveResult(SaveCode)
     PreloadGenClear()
 end
 
+function GetDataWeaponID(data)
+    local k = 1
+    if data.CurrentWeaponType == "pickaxe" then
+        k = 1
+    end
+    if data.CurrentWeaponType == "shield" then
+        k = 2
+    end
+    return k
+end

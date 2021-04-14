@@ -444,6 +444,9 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 13 then
             data.MegaReflector = true
         end
+        if pos == 14 then
+            data.InvulInCrashQ = true
+        end
     end
     if godName == "ChaosGrom" and talon.level == 1 then
         local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
@@ -552,7 +555,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             end)
         end
         if pos == 7 then
-            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil,"goldKing")
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil, "goldKing")
             UpdateTalonDescriptionForFrame(talon, tt)
 
             data.GoldKingCDFH = CdFH

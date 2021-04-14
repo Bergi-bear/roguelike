@@ -117,7 +117,7 @@ function InitWASD(hero)
 
     --SwitchWeaponTo(data, "shield") --Первое назначение оружие
     TimerStart(CreateTimer(), 2, false, function()
-        SwitchWeaponTo(data, "pickaxe")
+        --SwitchWeaponTo(data, "pickaxe") -- перенесено в прелоад
     end)
 
     TimerStart(CreateTimer(), 0.005, true, function()
@@ -700,6 +700,12 @@ function CreateWASDActions()
                     SetUnitAnimationByIndex(data.UnitHero, 3)
                     if data.CurrentWeaponType == "shield" then
                         SetUnitAnimationByIndex(data.UnitHero, 26)
+                        if data.InvulInCrashQ then
+                            SetUnitInvulnerable(data.UnitHero, true)
+                            TimerStart(CreateTimer(), 1, false, function()
+                                SetUnitInvulnerable(data.UnitHero, false)
+                            end)
+                        end
                     end
                     if not data.tasks[8] then
                         data.tasks[8] = true
@@ -819,7 +825,7 @@ function CreateWASDActions()
         if not data.ReleaseQ and UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
 
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
-            if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB then
+            if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB and not (data.CurrentWeaponType=="shield" and  data.PressSpin) then
                 local balance = 1
                 if data.isSpined then
                     balance = 6
@@ -838,6 +844,12 @@ function CreateWASDActions()
                 SetUnitAnimationByIndex(data.UnitHero, 3)
                 if data.CurrentWeaponType == "shield" then
                     SetUnitAnimationByIndex(data.UnitHero, 26)
+                    if data.InvulInCrashQ then
+                        SetUnitInvulnerable(data.UnitHero, true)
+                        TimerStart(CreateTimer(), 1, false, function()
+                            SetUnitInvulnerable(data.UnitHero, false)
+                        end)
+                    end
                     --print("анимация прыжка?")
                 end
 
