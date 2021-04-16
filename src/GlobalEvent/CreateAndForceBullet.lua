@@ -57,7 +57,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
     local angleCurrent = angle
     local heroCurrent = hero
     local dist = 0
-
+    local rotationShieldAngle = 0
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         dist = dist + speed
         delay = delay - speed
@@ -70,6 +70,22 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
         SetFogStateRadius(GetOwningPlayer(heroCurrent), FOG_OF_WAR_VISIBLE, x, y, 400, true)-- Небольгая подсветка
         if effectmodel == "Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl" then
             UnitDamageArea(hero, 5, x, y, 90, "blackHole")
+        end
+        if effectmodel == "stoneshild" then
+            rotationShieldAngle = rotationShieldAngle + 30
+            BlzSetSpecialEffectYaw(bullet, math.rad(rotationShieldAngle))
+            local data = GetUnitData(hero)
+            if data.ShieldThrow then
+                if IsUnitInRangeXY(hero, x, y, 200) and data.ReversShield then
+                    data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
+                    -- data.ShieldThrow = false
+                    DestroyEffect(bullet)
+                    DestroyTimer(GetExpiredTimer())
+                    data.ReversShield = false
+                    data.ShieldThrow = false
+                    --print("щит вернулся к пеону")
+                end
+            end
         end
 
         if effectmodel == "Hive\\Culling Slash\\Culling Slash\\Culling Slash" then
@@ -90,7 +106,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             local data = HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
             if data.UnitHero and GetUnitTypeId(DamagingUnit) == HeroID then
                 --print("атакован наш герой")
-                if (data.PressSpin or data.ShieldDashReflect) and data.CurrentWeaponType == "shield" and data.PressSpin then
+                if data.PressSpin and data.CurrentWeaponType == "shield" and data.PressSpin or data.ShieldDashReflect then
                     --print("Попадание в активированный щит")
                     if effectmodel == "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl" then
                         AddChaos(data, 1)
@@ -111,9 +127,9 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                             reverse = true
                             angleCurrent = GetUnitFacing(DamagingUnit)--180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitXY(hero)) / bj_DEGTORAD
                             if data.MegaReflector then
-                                damage=damage*4
-                                speed=speed*2
-                                maxDistance=maxDistance*2
+                                damage = damage * 4
+                                speed = speed * 2
+                                maxDistance = maxDistance * 2
                             end
                         else
                             FlyTextTagShieldXY(xe, ye, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
@@ -169,6 +185,19 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
             DestroyEffect(bullet)
             DestroyTimer(GetExpiredTimer())
+            if effectmodel == "stoneshild" then
+                if GetUnitData(hero).ShieldThrow then
+                    --print("щит возвращается обратно")
+                    GetUnitData(hero).ReversShield = true
+                    angle = AngleBetweenXY(x, y, GetUnitX(hero), GetUnitY(hero)) / bj_DEGTORAD
+
+                    local  new=CreateAndForceBullet(hero, angle, 60, "stoneshild", x, y, 200, 1200,1200)
+                    BlzSetSpecialEffectRoll(new, math.rad(90))
+                else
+
+                end
+            end
+
             if effectmodel == "units\\critters\\Frog\\Frog" then
                 HexUnit(DamagingUnit)
                 --print("хексуем")
@@ -182,7 +211,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                         if data.ReboundCount <= data.ReboundCountMAX then
                             ---print("отскок в"..GetUnitName(find))
                             local af = AngleBetweenUnits(DamagingUnit, find)
-                            CreateAndForceBullet(hero, af, 20, effectmodel, GetUnitX(DamagingUnit), GetUnitY(DamagingUnit), data.DamageThrow, 1000, 150)
+                            CreateAndForceBullet(hero, af, 40, effectmodel, GetUnitX(DamagingUnit), GetUnitY(DamagingUnit), data.DamageThrow, 1000, 150)
                             data.ReboundCount = data.ReboundCount + 1
                         else
                             data.ReboundCount = 0
@@ -197,6 +226,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
         end
     end)
+    return bullet
 end
 
 function FindAnotherUnit(unit, data)

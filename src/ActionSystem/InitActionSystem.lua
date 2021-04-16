@@ -318,8 +318,27 @@ function CreateEActions()
                     data.DoAction = false
                     data.UseAction = ""
                 else
-                    local message = L("Звонкая монета", "Ringing Coin")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                      local rm = {
+                        L("Звонкая монета", "Ringing Coin"),
+                        L("Чеканная монета", "Minted coin"),
+                        L("Деньги - смысл жизни", "Money is the meaning of life"),
+                        L("Мои карманы переполнены", "My pockets are full"),
+                        L("А почему так мало?", "Why so little?"),
+                        L("Где я всё это хранить буду?", "Where will I keep all this?"),
+                        L("Нужно больше золота", "Need more gold"),
+                        L("Я как бы больше по древесине", "I'm kind of more into wood"),
+                        L("Этот мелкий гоблин забирает забирает всё награбленное", "This little goblin takes takes all the loot"),
+                        L("У кого деньги тот и прав", "Who the money is right"),
+                        L("Куплю себе новый корабль", "Buy a new ship"),
+                        L("А какой нынче курс валют?", "And what exchange rate?"),
+                        L("Я люблю деньги", "I love money"),
+                        L("Ведьмаку заплатите...", "Pay the Witcher.."),
+                        L("Куплю поесть...", "Buy food.."),
+                        L("Куплю себе азбуку и научусь читать", "Buy myself an ABC and learn to read"),
+                        L("Деньги, деньги, деньги, деньги", "Money, money, money, money"),
+                    }
+
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
                     UnitAddGold(data.UnitHero, GetRandomInt(1, 50))
                     DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(data.EPointUnit)))
                     dataPoint.RewardBordGold = true

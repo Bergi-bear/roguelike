@@ -127,7 +127,7 @@ function CreateImageForTrap(x, y)
     return img
 end
 
-function CreateSawTrap(hero)
+function CreateSawTrap(hero) --унитазные ёршики
     local x, y = GetUnitXY(hero)
     local eff = AddSpecialEffect("SystemGeneric\\TrapSaw", x, y)
     local showBlood = true
@@ -140,7 +140,7 @@ function CreateSawTrap(hero)
         --print(GetUnitName(enemy).. "Вошел в зону ловушки")
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
             local is = UnitDamageArea(hero, 10, x, y, 90)
-
+            sec=sec-TIMER_PERIOD
             if sec <= 0 then
                 showBlood = true
             end

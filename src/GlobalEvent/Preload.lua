@@ -62,6 +62,9 @@ function InitPreloadStart()
                 UnitAddGold(data.UnitHero, LoadedGold[i])
                 AddChaos(data, LoadedChaos[i])
                -- print("назначение оружия "..LoadedWeapon[i]) -- назначение оружия 2
+                if not LoadedWeapon[i] then
+                    LoadedWeapon[i]=1
+                end
                 local TW=R2I(LoadedWeapon[i])
                 if TW==2 then
                     SwitchWeaponTo(data, "shield")

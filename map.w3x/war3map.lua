@@ -70,6 +70,9 @@ gg_rct_E22A = nil
 gg_rct_S23A = nil
 gg_rct_B23A = nil
 gg_rct_E23A = nil
+gg_rct_S23A_____________________u = nil
+gg_rct_B23A_____________________u = nil
+gg_rct_E23A_____________________u = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -264,6 +267,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 15419.1, -18908.6, 270.721, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 15900.0, -20061.7, 180.391, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22584.7, -8619.0, 91.444, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 6370.1, -7966.6, 266.798, FourCC("hsor"))
 end
 
 function CreateNeutralHostile()
@@ -704,6 +708,8 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24358.9, -23557.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24857.8, -23376.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24860.7, -22661.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21438.3, -22302.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21386.4, -23205.1, 296.730, FourCC("hdhw"))
 end
 
 function CreatePlayerBuildings()
@@ -793,6 +799,9 @@ function CreateRegions()
     gg_rct_S23A = Rect(22560.0, -23744.0, 25056.0, -22240.0)
     gg_rct_B23A = Rect(23488.0, -23264.0, 23936.0, -22880.0)
     gg_rct_E23A = Rect(22496.0, -23712.0, 22752.0, -23328.0)
+    gg_rct_S23A_____________________u = Rect(18656.0, -23520.0, 21568.0, -21856.0)
+    gg_rct_B23A_____________________u = Rect(19808.0, -22880.0, 20416.0, -22592.0)
+    gg_rct_E23A_____________________u = Rect(18784.0, -22144.0, 19040.0, -21760.0)
 end
 
 function CreateCameras()
@@ -2819,8 +2828,27 @@ function CreateEActions()
                     data.DoAction = false
                     data.UseAction = ""
                 else
-                    local message = L("Звонкая монета", "Ringing Coin")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                      local rm = {
+                        L("Звонкая монета", "Ringing Coin"),
+                        L("Чеканная монета", "Minted coin"),
+                        L("Деньги - смысл жизни", "Money is the meaning of life"),
+                        L("Мои карманы переполнены", "My pockets are full"),
+                        L("А почему так мало?", "Why so little?"),
+                        L("Где я всё это хранить буду?", "Where will I keep all this?"),
+                        L("Нужно больше золота", "Need more gold"),
+                        L("Я как бы больше по древесине", "I'm kind of more into wood"),
+                        L("Этот мелкий гоблин забирает забирает всё награбленное", "This little goblin takes takes all the loot"),
+                        L("У кого деньги тот и прав", "Who the money is right"),
+                        L("Куплю себе новый корабль", "Buy a new ship"),
+                        L("А какой нынче курс валют?", "And what exchange rate?"),
+                        L("Я люблю деньги", "I love money"),
+                        L("Ведьмаку заплатите...", "Pay the Witcher.."),
+                        L("Куплю поесть...", "Buy food.."),
+                        L("Куплю себе азбуку и научусь читать", "Buy myself an ABC and learn to read"),
+                        L("Деньги, деньги, деньги, деньги", "Money, money, money, money"),
+                    }
+
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
                     UnitAddGold(data.UnitHero, GetRandomInt(1, 50))
                     DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(data.EPointUnit)))
                     dataPoint.RewardBordGold = true
@@ -8477,7 +8505,7 @@ function CreateImageForTrap(x, y)
     return img
 end
 
-function CreateSawTrap(hero)
+function CreateSawTrap(hero) --унитазные ёршики
     local x, y = GetUnitXY(hero)
     local eff = AddSpecialEffect("SystemGeneric\\TrapSaw", x, y)
     local showBlood = true
@@ -8490,7 +8518,7 @@ function CreateSawTrap(hero)
         --print(GetUnitName(enemy).. "Вошел в зону ловушки")
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
             local is = UnitDamageArea(hero, 10, x, y, 90)
-
+            sec=sec-TIMER_PERIOD
             if sec <= 0 then
                 showBlood = true
             end
@@ -8741,7 +8769,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
     local angleCurrent = angle
     local heroCurrent = hero
     local dist = 0
-
+    local rotationShieldAngle = 0
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         dist = dist + speed
         delay = delay - speed
@@ -8754,6 +8782,22 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
         SetFogStateRadius(GetOwningPlayer(heroCurrent), FOG_OF_WAR_VISIBLE, x, y, 400, true)-- Небольгая подсветка
         if effectmodel == "Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl" then
             UnitDamageArea(hero, 5, x, y, 90, "blackHole")
+        end
+        if effectmodel == "stoneshild" then
+            rotationShieldAngle = rotationShieldAngle + 30
+            BlzSetSpecialEffectYaw(bullet, math.rad(rotationShieldAngle))
+            local data = GetUnitData(hero)
+            if data.ShieldThrow then
+                if IsUnitInRangeXY(hero, x, y, 200) and data.ReversShield then
+                    data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
+                    -- data.ShieldThrow = false
+                    DestroyEffect(bullet)
+                    DestroyTimer(GetExpiredTimer())
+                    data.ReversShield = false
+                    data.ShieldThrow = false
+                    --print("щит вернулся к пеону")
+                end
+            end
         end
 
         if effectmodel == "Hive\\Culling Slash\\Culling Slash\\Culling Slash" then
@@ -8774,7 +8818,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             local data = HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
             if data.UnitHero and GetUnitTypeId(DamagingUnit) == HeroID then
                 --print("атакован наш герой")
-                if (data.PressSpin or data.ShieldDashReflect) and data.CurrentWeaponType == "shield" and data.PressSpin then
+                if data.PressSpin and data.CurrentWeaponType == "shield" and data.PressSpin or data.ShieldDashReflect then
                     --print("Попадание в активированный щит")
                     if effectmodel == "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl" then
                         AddChaos(data, 1)
@@ -8795,9 +8839,9 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                             reverse = true
                             angleCurrent = GetUnitFacing(DamagingUnit)--180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitXY(hero)) / bj_DEGTORAD
                             if data.MegaReflector then
-                                damage=damage*4
-                                speed=speed*2
-                                maxDistance=maxDistance*2
+                                damage = damage * 4
+                                speed = speed * 2
+                                maxDistance = maxDistance * 2
                             end
                         else
                             FlyTextTagShieldXY(xe, ye, L("Разрушен", "Destroyed"), GetOwningPlayer(data.UnitHero))
@@ -8853,6 +8897,19 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
             DestroyEffect(bullet)
             DestroyTimer(GetExpiredTimer())
+            if effectmodel == "stoneshild" then
+                if GetUnitData(hero).ShieldThrow then
+                    --print("щит возвращается обратно")
+                    GetUnitData(hero).ReversShield = true
+                    angle = AngleBetweenXY(x, y, GetUnitX(hero), GetUnitY(hero)) / bj_DEGTORAD
+
+                    local  new=CreateAndForceBullet(hero, angle, 60, "stoneshild", x, y, 200, 1200,1200)
+                    BlzSetSpecialEffectRoll(new, math.rad(90))
+                else
+
+                end
+            end
+
             if effectmodel == "units\\critters\\Frog\\Frog" then
                 HexUnit(DamagingUnit)
                 --print("хексуем")
@@ -8866,7 +8923,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                         if data.ReboundCount <= data.ReboundCountMAX then
                             ---print("отскок в"..GetUnitName(find))
                             local af = AngleBetweenUnits(DamagingUnit, find)
-                            CreateAndForceBullet(hero, af, 20, effectmodel, GetUnitX(DamagingUnit), GetUnitY(DamagingUnit), data.DamageThrow, 1000, 150)
+                            CreateAndForceBullet(hero, af, 40, effectmodel, GetUnitX(DamagingUnit), GetUnitY(DamagingUnit), data.DamageThrow, 1000, 150)
                             data.ReboundCount = data.ReboundCount + 1
                         else
                             data.ReboundCount = 0
@@ -8881,6 +8938,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
         end
     end)
+    return bullet
 end
 
 function FindAnotherUnit(unit, data)
@@ -9555,6 +9613,9 @@ function InitPreloadStart()
                 UnitAddGold(data.UnitHero, LoadedGold[i])
                 AddChaos(data, LoadedChaos[i])
                -- print("назначение оружия "..LoadedWeapon[i]) -- назначение оружия 2
+                if not LoadedWeapon[i] then
+                    LoadedWeapon[i]=1
+                end
                 local TW=R2I(LoadedWeapon[i])
                 if TW==2 then
                     SwitchWeaponTo(data, "shield")
@@ -10851,6 +10912,8 @@ function InitWASD(hero)
                 data.CameraStabUnit = CreateUnit(Player(data.pid), FourCC("hdhw"), x, y, 0)
                 ShowUnit(data.CameraStabUnit, false)
                 RemoveLife(data)
+                --print("death")
+                SetUnitAnimation(data.UnitHero, "death")
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
@@ -10861,8 +10924,10 @@ function InitWASD(hero)
                 -- SetCameraQuickPosition(x,y)
             end
             TimerStart(CreateTimer(), 3, false, function()
+                --3
                 if data.life >= 0 then
                     data.CameraOnSaw = false
+                    x, y = GetUnitXY(hero)
                     ReviveHero(hero, x, y, true)
                     SetUnitInvulnerable(hero, true)
                     TimerStart(CreateTimer(), 2, false, function()
@@ -11136,7 +11201,7 @@ function InitWASD(hero)
                         data.AttackShieldCD = 0
                     end
                     data.AttackShieldCD = data.AttackShieldCD - TIMER_PERIOD64
-                    if data.CurrentWeaponType == "shield" and data.PressSpin and data.AttackShieldCD <= 0 then
+                    if data.CurrentWeaponType == "shield" and data.PressSpin and data.AttackShieldCD <= 0 and not data.ShieldThrow then
                         SetUnitAnimationByIndex(hero, 23)
                         --print("стойка")
                     end
@@ -11346,9 +11411,9 @@ function CreateWASDActions()
                     delay = 0.3
                     data.GreatDamageDashQ = true
 
-                    SetUnitAnimationByIndex(data.UnitHero, 3)
+                    SetUnitAnimationByIndex(data.UnitHero, 3) -- киркой в землю
                     if data.CurrentWeaponType == "shield" then
-                        SetUnitAnimationByIndex(data.UnitHero, 26)
+                        SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок
                         if data.InvulInCrashQ then
                             SetUnitInvulnerable(data.UnitHero, true)
                             TimerStart(CreateTimer(), 1, false, function()
@@ -11474,7 +11539,7 @@ function CreateWASDActions()
         if not data.ReleaseQ and UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
 
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
-            if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB and not (data.CurrentWeaponType=="shield" and  data.PressSpin) then
+            if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB and not (data.CurrentWeaponType == "shield" and data.PressSpin) then
                 local balance = 1
                 if data.isSpined then
                     balance = 6
@@ -11490,9 +11555,9 @@ function CreateWASDActions()
                 data.animStand = 1.8 --до полной анимации 2 секунды
                 --print("Q spell")
                 data.ReleaseQ = true
-                SetUnitAnimationByIndex(data.UnitHero, 3)
+                SetUnitAnimationByIndex(data.UnitHero, 3) -- удар кирки в землю
                 if data.CurrentWeaponType == "shield" then
-                    SetUnitAnimationByIndex(data.UnitHero, 26)
+                    SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     if data.InvulInCrashQ then
                         SetUnitInvulnerable(data.UnitHero, true)
                         TimerStart(CreateTimer(), 1, false, function()
@@ -11599,6 +11664,9 @@ function CreateWASDActions()
                     --if data.DashCharges>0
                     if not data.AttackInForce then
                         SetUnitAnimationByIndex(data.UnitHero, 9) --стойка вытянут топор
+                        if data.CurrentWeaponType=="shield" then
+                            SetUnitAnimationByIndex(data.UnitHero,24) --идти с щитом во время удара в рывке
+                        end
                         data.AttackInForce = true
                         if not data.tasks[6] then
                             data.tasks[6] = true
@@ -11685,8 +11753,27 @@ function CreateWASDActions()
                 GetPlayerMouseX[pid], GetPlayerMouseY[pid] = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 500, GetUnitFacing(data.UnitHero))
             end
             --data.Shield=true
+            if data.CurrentWeaponType == "shield" and data.PressSpin and UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and not data.ShieldThrow then
+                data.ShieldThrow = true
+                data.animStand = 1.8
+                SetUnitAnimationByIndex(data.UnitHero, 25) -- удар щитом
+                local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetPlayerMouseX[pid], GetPlayerMouseY[pid]) / bj_DEGTORAD
+                SetUnitFacing(data.UnitHero, angle)
+               --print("бросок щита")
+                TimerStart(CreateTimer(), 0.3, false, function()
+                    local bullet = CreateAndForceBullet(data.UnitHero, angle, 40, "stoneshild", GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 200, 600)
+                    DestroyEffect(data.EffInRightHand)
+                    BlzSetSpecialEffectRoll(bullet, math.rad(90))
 
-            if UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and data.ThrowCharges > 0 then
+                    TimerStart(CreateTimer(), 0.4, false, function()
+                        -- перезарядка щита
+                        --data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
+                        --data.ShieldThrow = false
+                    end)
+                end)
+            end
+
+            if UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and data.ThrowCharges > 0 and not (data.CurrentWeaponType == "shield" and data.PressSpin) then
                 --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
                 if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
                     -- not data.isAttacking  and -- убрал атаку у щита
@@ -11694,7 +11781,7 @@ function CreateWASDActions()
                     --print("попытка выстрела")
                     data.ReleaseRMB = true
                     data.animStand = 1.8
-                    SetUnitAnimationByIndex(data.UnitHero, 2)
+                    SetUnitAnimationByIndex(data.UnitHero, 2)-- анимация броска из левой руки
                     local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetPlayerMouseX[pid], GetPlayerMouseY[pid]) / bj_DEGTORAD
                     SetUnitFacing(data.UnitHero, angle)
                     TimerStart(CreateTimer(), 0.38, false, function()
@@ -11795,7 +11882,7 @@ function BlockMouse(data)
         if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" or OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "move" then
             --Строковый список приказов, которые игрок не может выполнить
             if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" then
-                if not data.Desync then
+                if not data.Desync and not FirstGoto then
                     print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
                     print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
                     print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")

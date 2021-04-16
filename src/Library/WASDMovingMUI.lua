@@ -202,6 +202,8 @@ function InitWASD(hero)
                 data.CameraStabUnit = CreateUnit(Player(data.pid), FourCC("hdhw"), x, y, 0)
                 ShowUnit(data.CameraStabUnit, false)
                 RemoveLife(data)
+                --print("death")
+                SetUnitAnimation(data.UnitHero, "death")
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
@@ -212,8 +214,10 @@ function InitWASD(hero)
                 -- SetCameraQuickPosition(x,y)
             end
             TimerStart(CreateTimer(), 3, false, function()
+                --3
                 if data.life >= 0 then
                     data.CameraOnSaw = false
+                    x, y = GetUnitXY(hero)
                     ReviveHero(hero, x, y, true)
                     SetUnitInvulnerable(hero, true)
                     TimerStart(CreateTimer(), 2, false, function()
@@ -487,7 +491,7 @@ function InitWASD(hero)
                         data.AttackShieldCD = 0
                     end
                     data.AttackShieldCD = data.AttackShieldCD - TIMER_PERIOD64
-                    if data.CurrentWeaponType == "shield" and data.PressSpin and data.AttackShieldCD <= 0 then
+                    if data.CurrentWeaponType == "shield" and data.PressSpin and data.AttackShieldCD <= 0 and not data.ShieldThrow then
                         SetUnitAnimationByIndex(hero, 23)
                         --print("стойка")
                     end
@@ -697,9 +701,9 @@ function CreateWASDActions()
                     delay = 0.3
                     data.GreatDamageDashQ = true
 
-                    SetUnitAnimationByIndex(data.UnitHero, 3)
+                    SetUnitAnimationByIndex(data.UnitHero, 3) -- киркой в землю
                     if data.CurrentWeaponType == "shield" then
-                        SetUnitAnimationByIndex(data.UnitHero, 26)
+                        SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок
                         if data.InvulInCrashQ then
                             SetUnitInvulnerable(data.UnitHero, true)
                             TimerStart(CreateTimer(), 1, false, function()
@@ -825,7 +829,7 @@ function CreateWASDActions()
         if not data.ReleaseQ and UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
 
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
-            if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB and not (data.CurrentWeaponType=="shield" and  data.PressSpin) then
+            if not data.ReleaseQ and not data.ReleaseLMB and data.CDSpellQ == 0 and not data.ReleaseRMB and not (data.CurrentWeaponType == "shield" and data.PressSpin) then
                 local balance = 1
                 if data.isSpined then
                     balance = 6
@@ -841,9 +845,9 @@ function CreateWASDActions()
                 data.animStand = 1.8 --до полной анимации 2 секунды
                 --print("Q spell")
                 data.ReleaseQ = true
-                SetUnitAnimationByIndex(data.UnitHero, 3)
+                SetUnitAnimationByIndex(data.UnitHero, 3) -- удар кирки в землю
                 if data.CurrentWeaponType == "shield" then
-                    SetUnitAnimationByIndex(data.UnitHero, 26)
+                    SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     if data.InvulInCrashQ then
                         SetUnitInvulnerable(data.UnitHero, true)
                         TimerStart(CreateTimer(), 1, false, function()
@@ -950,6 +954,9 @@ function CreateWASDActions()
                     --if data.DashCharges>0
                     if not data.AttackInForce then
                         SetUnitAnimationByIndex(data.UnitHero, 9) --стойка вытянут топор
+                        if data.CurrentWeaponType=="shield" then
+                            SetUnitAnimationByIndex(data.UnitHero,24) --идти с щитом во время удара в рывке
+                        end
                         data.AttackInForce = true
                         if not data.tasks[6] then
                             data.tasks[6] = true
@@ -1036,8 +1043,27 @@ function CreateWASDActions()
                 GetPlayerMouseX[pid], GetPlayerMouseY[pid] = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 500, GetUnitFacing(data.UnitHero))
             end
             --data.Shield=true
+            if data.CurrentWeaponType == "shield" and data.PressSpin and UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and not data.ShieldThrow then
+                data.ShieldThrow = true
+                data.animStand = 1.8
+                SetUnitAnimationByIndex(data.UnitHero, 25) -- удар щитом
+                local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetPlayerMouseX[pid], GetPlayerMouseY[pid]) / bj_DEGTORAD
+                SetUnitFacing(data.UnitHero, angle)
+               --print("бросок щита")
+                TimerStart(CreateTimer(), 0.3, false, function()
+                    local bullet = CreateAndForceBullet(data.UnitHero, angle, 40, "stoneshild", GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 200, 600)
+                    DestroyEffect(data.EffInRightHand)
+                    BlzSetSpecialEffectRoll(bullet, math.rad(90))
 
-            if UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and data.ThrowCharges > 0 then
+                    TimerStart(CreateTimer(), 0.4, false, function()
+                        -- перезарядка щита
+                        --data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
+                        --data.ShieldThrow = false
+                    end)
+                end)
+            end
+
+            if UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and data.ThrowCharges > 0 and not (data.CurrentWeaponType == "shield" and data.PressSpin) then
                 --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
                 if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
                     -- not data.isAttacking  and -- убрал атаку у щита
@@ -1045,7 +1071,7 @@ function CreateWASDActions()
                     --print("попытка выстрела")
                     data.ReleaseRMB = true
                     data.animStand = 1.8
-                    SetUnitAnimationByIndex(data.UnitHero, 2)
+                    SetUnitAnimationByIndex(data.UnitHero, 2)-- анимация броска из левой руки
                     local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetPlayerMouseX[pid], GetPlayerMouseY[pid]) / bj_DEGTORAD
                     SetUnitFacing(data.UnitHero, angle)
                     TimerStart(CreateTimer(), 0.38, false, function()
@@ -1146,7 +1172,7 @@ function BlockMouse(data)
         if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" or OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "move" then
             --Строковый список приказов, которые игрок не может выполнить
             if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" then
-                if not data.Desync then
+                if not data.Desync and not FirstGoto then
                     print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
                     print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
                     print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
