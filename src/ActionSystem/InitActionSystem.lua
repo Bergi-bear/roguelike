@@ -318,7 +318,7 @@ function CreateEActions()
                     data.DoAction = false
                     data.UseAction = ""
                 else
-                      local rm = {
+                    local rm = {
                         L("Звонкая монета", "Ringing Coin"),
                         L("Чеканная монета", "Minted coin"),
                         L("Деньги - смысл жизни", "Money is the meaning of life"),
@@ -363,9 +363,82 @@ function CreateEActions()
                         L("Откройся, Сезам", "Open up, Sesame"),
                         L("А что же там?", "And what is there?"),
                         L("Надеюсь, там не заставят работать", "I hope they won't make you work there"),
-                        L("Это лучшая работа в мире", "This is the best job in the world")
+                        L("Это лучшая работа в мире", "This is the best job in the world"),
+                        L("Эти проклятые скелеты", "Those damned skeletons"),
+                        L("И знать не хочу что там", "I don't want to know what's in there"),
+                        L("Вот здесь я и умру", "This is where I'll die"),
+                        L("В глазах темнеет", "It's getting dark in my eyes"),
+                        L("Не время умирать здесь", "No time to die here"),
+                        L("Опять работать", "Work again"),
+                        L("Что там за дверью, сладости?", "What's behind the door, sweets?"),
+                        L("Идём дальше", "Moving on"),
+                        L("Уходим", "We're leaving"),
+                        L("Надо сюда", "")
+                        --L("","")
+
                     }
+                    --print(dataPoint.CurrentReward)
                     --GLOBAL_REWARD = data.CurrentReward
+                    ----------Случайные фразы конкретных зон
+                    --[[
+                    "HeroBlademaster",
+                    "HeroTaurenChieftain",
+                    "ShadowHunter",
+                    "Trall",
+                    "CodoHeart",
+                    "GoldReward",
+                    "ChaosGrom",
+                    "Life",
+                    "Alchemist"]]
+                    if GetRandomInt(1, 2) == 1 then
+                        if dataPoint.CurrentReward == "CodoHeart" then
+                            rm = {
+                                L("И чьё это сердце?", ""),
+                                L("О дополнительное здоровье!", ""),
+                                L("Это придаст мне сил", ""),
+                                L("Сердце кодоя", ""),
+                                L("Моя любовь?", ""),
+                            }
+                        end
+                        if dataPoint.CurrentReward == "Life" then
+                            rm = {
+                                L("Крест возрождения", ""),
+                                L("Это позволит мне возродиться", ""),
+                                L("Всегда полезно", ""),
+                                L("Да я и так бессмертный", ""),
+                                L("Лишний раз можно будет умереть", ""),
+                            }
+                        end
+                        if dataPoint.CurrentReward == "HeroBlademaster" then
+                            rm = {
+                                L("Мастер клинка", ""),
+                                L("Самуро?", ""),
+                                L("Самурай-мечник", ""),
+                                L("Да я и так бессмертный", ""),
+                                L("Джаггернаут", ""),
+                            }
+                        end
+                        if dataPoint.CurrentReward == "HeroTaurenChieftain" then
+                            rm = {
+                                L("Бык?", ""),
+                                L("Пойду к быку", ""),
+                                L("Могучий бык", ""),
+                                L("Корова в поле", ""),
+                                L("Бык тупогуб", ""),
+                            }
+                        end
+                        if dataPoint.CurrentReward == "ShadowHunter" then
+                            rm = {
+                                L("Теневой шаман", ""),
+                                L("Говорящий с духами", ""),
+                                L("Хиллер", ""),
+                                L("Иду мстить", ""),
+                                L("Моё уважение за этот путь", ""),
+                            }
+                        end
+
+                    end
+                    ------------
                     if dataPoint.CurrentReward == "Merchant" then
                         -- print("Переход к торговцу")
                         Enter2NewZone("Merchant")
@@ -592,8 +665,15 @@ function CreateEActions()
                 end
                 if data.UseAction == "ChaosGrom" then
                     if data.gold >= dataPoint.TalonPrice then
-                        local message = L("Проклятый", "Cursed")
-                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        local message = {
+                            L("Проклятый", "Cursed"),
+                            L("Рррааыа", ""),
+                            L("Главное не покраснеть", ""),
+                            L("У этого парня всё толковое", ""),
+                            L("Как гром среди ясного неба", ""),
+                            L("Сожру любого", ""),
+                        }
+                        CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
                         TimerStart(CreateTimer(), 1, false, function()
@@ -617,8 +697,15 @@ function CreateEActions()
 
                 if data.UseAction == "Alchemist" then
                     if data.gold >= dataPoint.TalonPrice then
-                        local message = L("Я вижу ты тут главный", "Cursed")
-                        CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                        local message = {
+                            L("Я вижу ты тут главное", ""),
+                            L("Изучаю алхимию", ""),
+                            L("Готов превращать всё в золото", ""),
+                            L("Как бы самом не превратится в золото", ""),
+                            L("И ещё больше золота", ""),
+                            L("Теперь точно разбогатею", ""),
+                        }
+                        CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
                         TimerStart(CreateTimer(), 1, false, function()
@@ -689,12 +776,18 @@ function CreateEActions()
             ----------------------------------------------------/
             if data.UseAction == "CodoHeart" then
                 if data.gold >= dataPoint.TalonPrice then
-                    local message = L("Сила кодоя", "Kodoi Power")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    local message = {
+                        L("Сила кодоя", "Cursed"),
+                        L("Я стал мощнее", ""),
+                        L("Я стал крепче", ""),
+                        L("Чувствую мощь", ""),
+                        L("Меня переполняет смысол", ""),
+                        L("Насыщаюсь здоровьем", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                     data.Completed = true
                     TimerStart(CreateTimer(), 1, false, function()
                         DestroyGodTalon(dataPoint.TripleTalon)
-
                         AllActionsEnabled(true)--активация всех переходов
                     end)
                     data.DoAction = false
@@ -711,8 +804,26 @@ function CreateEActions()
                 end
             end
             if data.UseAction == "GoldReward" then
-                local message = L("Звонкая монета", "Ringing Coin")
-                CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                local rm = {
+                    L("Звонкая монета", "Ringing Coin"),
+                    L("Чеканная монета", "Minted coin"),
+                    L("Деньги - смысл жизни", "Money is the meaning of life"),
+                    L("Мои карманы переполнены", "My pockets are full"),
+                    L("А почему так мало?", "Why so little?"),
+                    L("Где я всё это хранить буду?", "Where will I keep all this?"),
+                    L("Нужно больше золота", "Need more gold"),
+                    L("Я как бы больше по древесине", "I'm kind of more into wood"),
+                    L("Этот мелкий гоблин забирает забирает всё награбленное", "This little goblin takes takes all the loot"),
+                    L("У кого деньги тот и прав", "Who the money is right"),
+                    L("Куплю себе новый корабль", "Buy a new ship"),
+                    L("А какой нынче курс валют?", "And what exchange rate?"),
+                    L("Я люблю деньги", "I love money"),
+                    L("Ведьмаку заплатите...", "Pay the Witcher.."),
+                    L("Куплю поесть...", "Buy food.."),
+                    L("Куплю себе азбуку и научусь читать", "Buy myself an ABC and learn to read"),
+                    L("Деньги, деньги, деньги, деньги", "Money, money, money, money"),
+                }
+                CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
                 data.Completed = true
                 DestroyGodTalon(dataPoint.TripleTalon)
                 AllActionsEnabled(true)
@@ -762,37 +873,36 @@ function CreateEActions()
 
             if data.UseAction == "Heal" then
                 if not dataPoint.CD2Ready then
-                    dataPoint.CD2Ready=0
+                    dataPoint.CD2Ready = 0
                 end
-                if dataPoint.CD2Ready<=0 then
+                if dataPoint.CD2Ready <= 0 then
                     ------Кдшим фонтан
                     --print("запускаем кд фонтана")
-                    dataPoint.CD2Ready=20
+                    dataPoint.CD2Ready = 20
                     if not InFight then
-                        dataPoint.CD2Ready=2
+                        dataPoint.CD2Ready = 2
                     end
                     local bar = AddSpecialEffect("SystemGeneric\\Progressbar", GetUnitXY(hero))
                     BlzSetSpecialEffectColor(bar, 255, 255, 255)
                     BlzPlaySpecialEffect(bar, ANIM_TYPE_BIRTH)
-                    BlzSetSpecialEffectTimeScale(bar, 1/dataPoint.CD2Ready)
+                    BlzSetSpecialEffectTimeScale(bar, 1 / dataPoint.CD2Ready)
                     BlzSetSpecialEffectScale(bar, 2)
                     --BlzSetSpecialEffectAlpha(bar, 0)
                     BlzSetSpecialEffectColorByPlayer(bar, Player(9))
                     local x, y = GetUnitXY(dataPoint.Unit)
                     local z = BlzGetUnitZ(dataPoint.Unit) + 220
-                    BlzSetSpecialEffectPosition(bar, x , y-60, z)
+                    BlzSetSpecialEffectPosition(bar, x, y - 60, z)
 
                     TimerStart(CreateTimer(), 1, true, function()
 
-                        dataPoint.CD2Ready=dataPoint.CD2Ready-1
-                        if dataPoint.CD2Ready<=0 then
+                        dataPoint.CD2Ready = dataPoint.CD2Ready - 1
+                        if dataPoint.CD2Ready <= 0 then
                             --print("фонтан готов")
-                            BlzSetSpecialEffectPosition(bar, OutPoint , OutPoint, z)
+                            BlzSetSpecialEffectPosition(bar, OutPoint, OutPoint, z)
                             DestroyEffect(bar)
                             DestroyTimer(GetExpiredTimer())
                         end
                     end)
-
 
                     -------------
                     local message = {
@@ -834,7 +944,7 @@ function CreateEActions()
                         end)
                     end
                 else
-                   -- print("Фонтан ещё не готов")
+                    -- print("Фонтан ещё не готов")
                 end
             end
             if data.UseAction == "Buying" then

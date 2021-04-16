@@ -17,7 +17,7 @@ do
                 FourCC("n000"), -- мимик
                 FourCC("ugar"), -- гаргулья
             }
-            CurrentGameZone = 0
+
             GameZone = {
                 recEnter = nil,
                 rectBound = nil,
@@ -54,13 +54,17 @@ function InitAllZones()
     SetZone(18, gg_rct_E18A, gg_rct_B18A, gg_rct_S18A)
     SetZone(19, gg_rct_E19A, gg_rct_B19A, gg_rct_S19A)
     SetZone(20, gg_rct_E20A, gg_rct_B20A, gg_rct_S20A)
+    --Переход в зону наг
     SetZone(21, gg_rct_E21A, gg_rct_B21A, gg_rct_S21A)
+    SetZone(22, gg_rct_E22A, gg_rct_B22A, gg_rct_S22A)
+    SetZone(23, gg_rct_E23A, gg_rct_B23A, gg_rct_S23A)
+    SetZone(24, gg_rct_E24A, gg_rct_B24A, gg_rct_S24A)
 
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
     Destiny = GetRandomIntTable(1, 20, 20) -- судьба и распределение порядка игровых зон #GameZone
-    Destiny[21] = 21
-    DestinyEnemies = GetRandomIntTable(1, 20, 20)
+    --Destiny[21] = 21
+    --DestinyEnemies = GetRandomIntTable(1, 20, 20) -- отключено
     for i = 1, #Destiny do
         --print(Destiny[i])
     end
@@ -104,7 +108,7 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-
+CurrentGameZone = 0 -- Стартовая зона -1
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
     if CurrentGameZone == 1 then
@@ -120,11 +124,11 @@ function Enter2NewZone(flag)
             if Destiny[CurrentGameZone] then
                 MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter, GameZone[Destiny[CurrentGameZone]].rectBound)
                 --StartEnemyWave(Destiny[CurrentGameZone])
-                --print("запускаем волну № ",DestinyEnemies[CurrentGameZone])
+                print("запускаем волну № ", Destiny[CurrentGameZone])
                 if not flag then
                     --StartEnemyWave(DestinyEnemies[CurrentGameZone]) --случайные волны
-                    StartEnemyWave(CurrentGameZone) --волны по порядку
-                    --StartEnemyWave(401) --Временная волна для тестов
+                    StartEnemyWave(CurrentGameZone) --волны по порядку CurrentGameZone
+                    --StartEnemyWave(401) -- Босс обсидиановых статуй
                 end
                 if flag == "Merchant" then
                     --print("Создаём торговца и предметы для торговли") --TODO
@@ -155,19 +159,20 @@ function Enter2NewZone(flag)
                     end)
 
                 end)
-                -- print(CurrentGameZone.." эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
+                print(CurrentGameZone .. " эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
 
             end
         else
             MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter, GameZone[Destiny[CurrentGameZone]].rectBound)
             StartEnemyWave(401)
+
             --print("в этой зоне должен быть босс")
         end
         CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     end)
 end
 
-function GetRandomIntTable(min, max, count,talon)
+function GetRandomIntTable(min, max, count, talon)
     local keys = {}
     local out = {}
     if min == max then
@@ -439,19 +444,19 @@ function StartEnemyWave(waveNumber)
         local r = GetRandomInt(1, 2)
         if r == 1 then
             listID = {
-                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
-                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
-                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
-                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
-                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
-                FourCC("uban"),FourCC("unec"),FourCC("uban"),FourCC("unec"),
+                FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
+                FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
+                FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
+                FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
+                FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
+                FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
             }
             maxOnWave = 7
         elseif r == 2 then
             listID = {
-                FourCC("uzig"), FourCC("uzig"),FourCC("uban"),FourCC("uban"),FourCC("uban"),
-                FourCC("uban"),FourCC("uban"),FourCC("uban"),FourCC("uban"),FourCC("uban"),
-                FourCC("uban"),FourCC("uban"),FourCC("uban"),FourCC("uban"),FourCC("uban"),
+                FourCC("uzig"), FourCC("uzig"), FourCC("uban"), FourCC("uban"), FourCC("uban"),
+                FourCC("uban"), FourCC("uban"), FourCC("uban"), FourCC("uban"), FourCC("uban"),
+                FourCC("uban"), FourCC("uban"), FourCC("uban"), FourCC("uban"), FourCC("uban"),
             }
             maxOnWave = 6
 
@@ -460,11 +465,24 @@ function StartEnemyWave(waveNumber)
 
     if waveNumber == 21 then
         -- Новый биом
-        listID = {
-            FourCC("nsko"), FourCC("nsko")
-        }
-        print("если вывидите это сообщение, то вы в принципе уже победили")
-        maxOnWave = 2
+        local r = GetRandomInt(1, 2)
+        if r == 1 then
+            listID = { --мурлок
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            }
+            maxOnWave = 6
+        elseif r == 2 then
+            listID = { -- нага
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            }
+            maxOnWave = 6
+        end
+        --print("если вывидите это сообщение, то вы в принципе уже победили")
+
     end
     if waveNumber == 401 then
         listID = {
@@ -502,7 +520,7 @@ function GetActiveCountPlayer()
 end
 
 function StartWave(dataGZ, listID, max)
-    InFight=true
+    InFight = true
     -- print("start wave "..max)
     local rect = dataGZ.rectSpawn
     local CountPlayers = GetActiveCountPlayer()
@@ -563,15 +581,27 @@ function StartWave(dataGZ, listID, max)
         -- end
         if LiveOnWave <= 0 and k >= max then
             --print("все убиты даём награду")
-            InFight=false
+            InFight = false
             local x, y = GetRectCenterX(rect), GetRectCenterY(rect)
             CreateGodTalon(x, y, GLOBAL_REWARD)
             ReviveAllHero()
             DestroyTimer(GetExpiredTimer())
+
+            if CurrentGameZone==20 then
+                --print("переход в новый биом")
+                Destiny = GetRandomIntTable(21, 24, 20)
+                Destiny[21]=21
+                Destiny[22]=22
+                Destiny[23]=23
+                Destiny[24]=24
+                for i = 1, #Destiny do
+                   -- print(Destiny[i])
+                end
+            end
         end
     end)
 end
-InFight=false
+InFight = false
 
 function CreateCreepDelay(id, x, y, delay, flag)
     local eff = AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl", x, y)
@@ -579,14 +609,16 @@ function CreateCreepDelay(id, x, y, delay, flag)
         LiveOnWave = LiveOnWave + 1
     else
         local dataGZ = GameZone[Destiny[CurrentGameZone]]
-        if dataGZ.x[1] then
-            --существует хотя бы первый элемент
-            --print("есть ручные точки спавна "..#(dataGZ.x))
-            local m = GetRandomInt(1, #(dataGZ.x))
-            if dataGZ.x[m] then
-                x, y = dataGZ.x[m], dataGZ.y[m]
-            else
-                print("Ошибка, не могу получить координаты " .. m)
+        if dataGZ then
+            if dataGZ.x[1] then
+                --существует хотя бы первый элемент
+                --print("есть ручные точки спавна "..#(dataGZ.x))
+                local m = GetRandomInt(1, #(dataGZ.x))
+                if dataGZ.x[m] then
+                    x, y = dataGZ.x[m], dataGZ.y[m]
+                else
+                    print("Ошибка, не могу получить координаты " .. m)
+                end
             end
         end
     end

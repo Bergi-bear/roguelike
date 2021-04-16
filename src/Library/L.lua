@@ -4,5 +4,8 @@
 --- DateTime: 28.02.2021 4:01
 ---
 function L(ru, en)
+    if en=="" then
+        en=ru
+    end
     return BlzGetLocale()=="ruRU" and ru or en
 end

@@ -58,7 +58,7 @@ function StartObsidianBoss(boss)
                     if GetTerrainZ(xr,yr)<=GetTerrainZ(x,y) then
                         CreateCreepDelay(FourCC("nsko"),xr,yr,1,"summon")
                     end
-                    if phase~=1 then
+                    if phase~=1  or not UnitAlive(boss) then
                         DestroyTimer(GetExpiredTimer())
                     end
                 end)

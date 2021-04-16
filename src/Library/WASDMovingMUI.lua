@@ -954,8 +954,8 @@ function CreateWASDActions()
                     --if data.DashCharges>0
                     if not data.AttackInForce then
                         SetUnitAnimationByIndex(data.UnitHero, 9) --стойка вытянут топор
-                        if data.CurrentWeaponType=="shield" then
-                            SetUnitAnimationByIndex(data.UnitHero,24) --идти с щитом во время удара в рывке
+                        if data.CurrentWeaponType == "shield" then
+                            SetUnitAnimationByIndex(data.UnitHero, 24) --идти с щитом во время удара в рывке
                         end
                         data.AttackInForce = true
                         if not data.tasks[6] then
@@ -1010,6 +1010,9 @@ function CreateWASDActions()
                 BlzSetSpecialEffectPosition(data.BarToCharge, OutPoint, OutPoint, 0)
                 data.BarToCharge = nil
                 data.ArrowToShieldDashVisible = false
+                if not data.PressShieldSec then
+                    data.PressShieldSec = 0
+                end
                 if data.PressShieldSec > 0.5 then
                     --print("Рывок щитом")
                     data.ShieldDashReflect = true
@@ -1024,7 +1027,6 @@ function CreateWASDActions()
             end
         end
     end)
-    -----------------------------------------------------------------RMB
     -----------------------------------------------------------------RMB
     local TrigPressRMB = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -1049,12 +1051,13 @@ function CreateWASDActions()
                 SetUnitAnimationByIndex(data.UnitHero, 25) -- удар щитом
                 local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetPlayerMouseX[pid], GetPlayerMouseY[pid]) / bj_DEGTORAD
                 SetUnitFacing(data.UnitHero, angle)
-               --print("бросок щита")
-                TimerStart(CreateTimer(), 0.3, false, function()
+                SetUnitTimeScale(data.UnitHero, 1.8)
+                --print("бросок щита")
+                TimerStart(CreateTimer(), 0.15, false, function()
+                    SetUnitTimeScale(data.UnitHero, 1)
                     local bullet = CreateAndForceBullet(data.UnitHero, angle, 40, "stoneshild", GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 200, 600)
                     DestroyEffect(data.EffInRightHand)
-                    BlzSetSpecialEffectRoll(bullet, math.rad(90))
-
+                    --BlzSetSpecialEffectRoll(bullet, math.rad(90))
                     TimerStart(CreateTimer(), 0.4, false, function()
                         -- перезарядка щита
                         --data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")

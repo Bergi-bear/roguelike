@@ -72,11 +72,16 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             UnitDamageArea(hero, 5, x, y, 90, "blackHole")
         end
         if effectmodel == "stoneshild" then
-            rotationShieldAngle = rotationShieldAngle + 30
+            rotationShieldAngle = rotationShieldAngle + 25
+            BlzSetSpecialEffectRoll(bullet, math.rad(90))
             BlzSetSpecialEffectYaw(bullet, math.rad(rotationShieldAngle))
             local data = GetUnitData(hero)
+            if data.ReversShield then
+                angleCurrent = AngleBetweenXY(x, y, GetUnitX(hero), GetUnitY(hero)) / bj_DEGTORAD
+            end
             if data.ShieldThrow then
-                if IsUnitInRangeXY(hero, x, y, 200) and data.ReversShield then
+
+                if IsUnitInRangeXY(hero, x, y, 80) and data.ReversShield then
                     data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
                     -- data.ShieldThrow = false
                     DestroyEffect(bullet)
@@ -169,7 +174,6 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                 end
             end
         end
-
         CollisisonDestr = PointContentDestructable(x, y, CollisionRange, false, 0, hero)
         local PerepadZ = zGround - z
         if not reverse and delay <= 0 and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
@@ -178,7 +182,6 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             if GetUnitTypeId(heroCurrent) == FourCC("hsor") then
                 flag = "all"
             end
-
             UnitDamageArea(heroCurrent, damage, x, y, CollisionRange, flag) -- УРОН ПРИ ПОПАДАНИИ
             if DamagingUnit and IsUnitType(heroCurrent, UNIT_TYPE_HERO) then
                 -- тут был показ урона
@@ -190,8 +193,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                     --print("щит возвращается обратно")
                     GetUnitData(hero).ReversShield = true
                     angle = AngleBetweenXY(x, y, GetUnitX(hero), GetUnitY(hero)) / bj_DEGTORAD
-
-                    local  new=CreateAndForceBullet(hero, angle, 60, "stoneshild", x, y, 200, 1200,1200)
+                    local new = CreateAndForceBullet(hero, angle, 60, "stoneshild", x, y, 200, 1200, 1200)
                     BlzSetSpecialEffectRoll(new, math.rad(90))
                 else
 
@@ -205,7 +207,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             if HERO[GetPlayerId(GetOwningPlayer(hero))] then
                 local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
 
-                if data.Rebound then
+                if data.Rebound and not effectmodel=="stoneshild" then
                     local find = FindAnotherUnit(DamagingUnit, data)
                     if find then
                         if data.ReboundCount <= data.ReboundCountMAX then
