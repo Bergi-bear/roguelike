@@ -249,7 +249,7 @@ do
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press RMB in the specified direction to throw the pickaxe there"),
                             DS = { 12, 10, 8 },
                             pos = 3,
-                            weaponType="pickaxe"
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
@@ -301,6 +301,17 @@ do
                             DS = { 10, 20, 30 },
                             pos = 8,
                             weaponType = "shield"
+                        }),
+                        Talon:new({--9
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp", --TODO перевод
+                            name = L("Заговор неуязвимости", "Healer's Shield"),
+                            description = L("При получении урона делает героя неуязвимым на 0.5 сек. Перезарядка: DS", "Heals the hero on DS health when blocking damage from enemies. Cooldown 10"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Идеальное спасение от ловушек и пил", "Doesn't work for traps"),
+                            DS = { 15, 12, 9 },
+                            pos = 9,
+                            --weaponType = "shield"
                         }),
                     },
                     HeroTaurenChieftain = {
@@ -395,6 +406,16 @@ do
                             DS = { 50, 150, 250 },
                             dependence = 8,
                             pos = 9
+                        }),
+                        Talon:new({--10
+                            icon = "BTNCodoHeart", --TODO перевод
+                            name = L("Бычье сердце", "Hoof strike"),
+                            description = L("Сердца кодоя дают больше максимального здоровья на DS%%", "Normal attacks push the enemy to a distance of DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Изучите талант, чтобы получить сердце прямо сейчас", "The enemies you push hit the obstacles and take 100 damage"),
+                            DS = { 50, 75, 100 },
+                            pos = 10
                         }),
 
                     },
@@ -592,6 +613,17 @@ do
                             pos = 14,
                             weaponType = "shield"
                         }),
+                        Talon:new({--15
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSpikedBarricades.blp",
+                            name = L("Шип", "Jump into the sky"),
+                            description = L("Возвращает DS%% прямого урона врагу при поглощении урона в щит", "Makes the hero invulnerable at the time of the jump (DS sec.)"),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Нажмите и удерживайте LMB, чтобы активировать щит", "Press Q to strike a powerful blow over a large area"),
+                            DS = { 200 },
+                            pos = 15,
+                            weaponType = "shield"
+                        }),
                     },
                     ChaosGrom = {
                         Talon:new({--1
@@ -622,7 +654,8 @@ do
                             rarity = "normal",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
                             DS = { 1, 2, 3 },
-                            pos = 3
+                            pos = 3,
+                            weaponType="pickaxe",
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
@@ -748,6 +781,16 @@ do
                             DS = { 1, 2, 3 },
                             pos = 7,
                             weaponType = "pickaxe"
+                        }),
+                        Talon:new({--8
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPeriapt.blp", --TODO перевод
+                            name = L("Золотая кровь", "Flip the Coin"),
+                            description = L("Получение более 10 золота, исцеляет героя на DS%% от полученного количества", "Has a 50%% chance of not taking damage, spends 10 gold. Recharge: DS"),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
+                            DS = { 50, 100, 150 },
+                            pos = 8
                         }),
                     }
                 }

@@ -124,7 +124,7 @@ function Enter2NewZone(flag)
             if Destiny[CurrentGameZone] then
                 MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter, GameZone[Destiny[CurrentGameZone]].rectBound)
                 --StartEnemyWave(Destiny[CurrentGameZone])
-                print("запускаем волну № ", Destiny[CurrentGameZone])
+                --print("запускаем волну № ", Destiny[CurrentGameZone])
                 if not flag then
                     --StartEnemyWave(DestinyEnemies[CurrentGameZone]) --случайные волны
                     StartEnemyWave(CurrentGameZone) --волны по порядку CurrentGameZone
@@ -159,7 +159,7 @@ function Enter2NewZone(flag)
                     end)
 
                 end)
-                print(CurrentGameZone .. " эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
+                -- print(CurrentGameZone .. " эта зона не существует, перемещение туда невозможно, обратитесь к автору карты")
 
             end
         else
@@ -368,9 +368,17 @@ function StartEnemyWave(waveNumber)
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
             FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
-
         }
         maxOnWave = 20
+    end
+    if waveNumber == 45 then
+        listID = {  -- огоньки
+            FourCC("n003"), FourCC("n003"), FourCC("n003"), FourCC("n003"), FourCC("n003"),
+            FourCC("n003"), FourCC("n003"), FourCC("n003"), FourCC("n003"), FourCC("n003"),
+            FourCC("n003"), FourCC("n003"), FourCC("n003"), FourCC("n003"), FourCC("n003"),
+            FourCC("n003"), FourCC("n003"), FourCC("n003"), FourCC("n003"), FourCC("n003"),
+        }
+        maxOnWave = 5
     end
 
     if waveNumber == 5 then
@@ -587,15 +595,15 @@ function StartWave(dataGZ, listID, max)
             ReviveAllHero()
             DestroyTimer(GetExpiredTimer())
 
-            if CurrentGameZone==20 then
+            if CurrentGameZone == 20 then
                 --print("переход в новый биом")
                 Destiny = GetRandomIntTable(21, 24, 20)
-                Destiny[21]=21
-                Destiny[22]=22
-                Destiny[23]=23
-                Destiny[24]=24
+                Destiny[21] = 21
+                Destiny[22] = 22
+                Destiny[23] = 23
+                Destiny[24] = 24
                 for i = 1, #Destiny do
-                   -- print(Destiny[i])
+                    -- print(Destiny[i])
                 end
             end
         end

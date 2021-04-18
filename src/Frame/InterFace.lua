@@ -43,6 +43,7 @@ function DrawSelectionPortrait()
     BlzFrameSetSize(Portrait, 0.06, 0.08)
     BlzFrameSetParent(Portrait, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetAbsPoint(Portrait, FRAMEPOINT_LEFT, 0.0, 0.04)
+
 end
 
 function CreateLifeInterface(data)

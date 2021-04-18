@@ -279,6 +279,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 data.ShieldHealRate = talon.DS[talon.level]
             end)
         end
+        if pos == 9 then
+            data.EvilSoulCDFH = CdFH
+            data.EvilSoulCurrentCD = 0
+            data.EvilSoulCD = talon.DS[talon.level]
+
+            ActLvl23Action(talon, function()
+                     data.EvilSoulCD = talon.DS[talon.level]
+            end)
+        end
     end
     if godName == "HeroTaurenChieftain" and talon.level == 1 then
         local tt, CdFH = nil, nil
@@ -349,6 +358,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.DashPerAttack = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.DashPerAttack = talon.DS[talon.level]
+            end)
+        end
+        if pos == 10 then
+            data.MaxLifeBonus = 1 + talon.DS[talon.level] / 100
+            AddMaxLife(data.UnitHero, 25)
+            ActLvl23Action(talon, function()
+                data.MaxLifeBonus = 1 + talon.DS[talon.level] / 100
+                AddMaxLife(data.UnitHero, 25)
             end)
         end
     end
@@ -446,6 +463,9 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         end
         if pos == 14 then
             data.InvulInCrashQ = true
+        end
+        if pos == 15 then
+            data.ReturnShieldDamage = talon.DS[talon.level] / 100
         end
     end
     if godName == "ChaosGrom" and talon.level == 1 then
@@ -566,6 +586,13 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
 
             ActLvl23Action(talon, function()
                 data.GoldKingBonus = talon.DS[talon.level]
+            end)
+        end
+        if pos == 8 then
+            --+
+            data.GoldBlood = talon.DS[talon.level] / 100
+            ActLvl23Action(talon, function()
+                data.GoldBlood = talon.DS[talon.level] / 100
             end)
         end
 

@@ -88,12 +88,16 @@ function FlyTextTagShieldXY(x, y, text, player, flag)
     --™
     local xr = GetRandomReal(-0.05, 0, 05)
     local r, g, b = 128, 128, 128
-    local see=false
+    local see = false
     if flag == "blue" then
-         r, g, b=0,128,255
-        see=true
+        r, g, b = 0, 128, 255
+        see = true
     end
-    return FlyTextTag("" .. text, 0.018, x, y, 150, r,g,b, 255, xr, 0.03, 1, 3, player,see)
+    if flag == "SeeAll" then
+        see = true
+    end
+
+    return FlyTextTag("" .. text, 0.018, x, y, 150, r, g, b, 255, xr, 0.03, 1, 3, player, see)
 end
 
 function CreateStaticGoldTag(text, x, y)

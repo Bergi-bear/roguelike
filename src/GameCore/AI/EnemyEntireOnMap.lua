@@ -64,6 +64,55 @@ function InitEnemyEntire()
             --скелетон
             BansheeAiBlinkAndArrow(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("n003") then
+            --огонёк
+            MiniFire(unit)--NecroAttackAndArrow
+        end
+    end)
+end
+
+function MiniFire(unit)
+    --подготовка
+    UnitAddAbility(unit, FourCC("Abun"))
+    TimerStart(CreateTimer(), GetRandomReal(0.5, 1.5), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero = GetRandomEnemyHero()
+            --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
+            if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                if not IsUnitInRange(hero, unit, 100) then
+                    local angle = AngleBetweenUnits(unit, hero)
+                    BlzPauseUnitEx(unit, true)
+                    SetUnitAnimation(unit, "attack")
+                    --SetUnitTimeScale(unit,0.7)
+                    SetUnitFacing(unit, angle)
+                    TimerStart(CreateTimer(), 0.3, false, function()
+                        CreateAndForceBullet(unit, angle, 10, "Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl", nil, nil, 100, 3000)
+                        BlzPauseUnitEx(unit, false)
+                    end)
+                else
+                    local x, y = GetUnitXY(unit)
+                    local mark = AddSpecialEffect("SystemGeneric\\Alarm", x, y)
+                    BlzSetSpecialEffectColor(mark, 255, 0, 0)
+                    BlzSetSpecialEffectScale(mark, 1.2)
+                    --print("время взрываться")
+                    local eff=nil
+                    TimerStart(CreateTimer(), 1.8, false, function()
+                        eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
+                    end)
+                    TimerStart(CreateTimer(), 2, false, function()
+                        --print("наносим урон миной")
+                        DestroyEffect(eff)
+                        UnitDamageArea(hero, 150, x, y, 200, "all")
+                        KillUnit(unit)
+                        DestroyEffect(mark)
+                        BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
+
+                    end)
+                end
+            end
+        end
     end)
 end
 
@@ -378,7 +427,7 @@ function NecroAttackAndArrow(unit)
     --подготовка
     UnitAddAbility(unit, FourCC("Abun"))
     IssueImmediateOrder(unit, "raisedeadon")
-    TimerStart(CreateTimer(), GetRandomReal(1.5,2.5), true, function()
+    TimerStart(CreateTimer(), GetRandomReal(1.5, 2.5), true, function()
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
@@ -412,7 +461,7 @@ end
 function BansheeAiBlinkAndArrow(unit)
     local xs, ys = GetUnitXY(unit)
     UnitAddAbility(unit, FourCC("Abun"))
-    TimerStart(CreateTimer(), GetRandomReal(0.5,1), true, function()
+    TimerStart(CreateTimer(), GetRandomReal(0.5, 1), true, function()
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else

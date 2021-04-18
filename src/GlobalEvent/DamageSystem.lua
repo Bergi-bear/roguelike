@@ -126,8 +126,32 @@ function OnPostDamage()
         -- orientation - ориентация сектора в мировых координатах
         -- width - угловой размер сектора в градусах
         -- radius - окружности которой принадлежит сектор
+
+        if data.EvilSoulCDFH then
+            if data.EvilSoulCurrentCD <= 0 then
+
+                local cd = data.EvilSoulCD
+                data.EvilSoulCurrentCD = cd
+                StartFrameCD(cd, data.EvilSoulCDFH)
+                SetUnitInvulnerable(data.UnitHero, true)
+                local effInv = AddSpecialEffectTarget( "Abilities\\Spells\\Orc\\Voodoo\\VoodooAura.mdl", data.UnitHero,"origin")
+                TimerStart(CreateTimer(), 0.5, false, function()
+                    SetUnitInvulnerable(data.UnitHero, false)
+                    DestroyEffect(effInv)
+                end)
+                TimerStart(CreateTimer(), cd, false, function()
+                    data.EvilSoulCurrentCD = 0
+                    DestroyTimer(GetExpiredTimer())
+                end)
+            end
+        end
+
         if data.CurrentWeaponType == "shield" and data.PressSpin then
             if IsPointInSector(x, y, xe, ye, GetUnitFacing(target), 90, 200) then
+                if not data.ReturnShieldDamage then
+                    data.ReturnShieldDamage = 0
+                end
+                UnitDamageTarget(target, caster, GetEventDamage() * data.ReturnShieldDamage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS) --torn, отраженный урон
                 BlzSetEventDamage(0)
                 local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
                 local AngleSource = AngleBetweenUnits(caster, target)
@@ -137,17 +161,19 @@ function OnPostDamage()
                 FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
                 if not IsUnitTrap(caster) and data.ShieldHealCDFH then
                     if data.ShieldHealCurrentCD <= 0 then
-                        AddGold(data, -10)
+                        --AddGold(data, -10)
                         local cd = data.ShieldHealCD
                         data.ShieldHealCurrentCD = cd
                         StartFrameCD(cd, data.ShieldHealCDFH)
-                        HealUnit(target,data.ShieldHealRate)
+                        HealUnit(target, data.ShieldHealRate)
                         TimerStart(CreateTimer(), cd, false, function()
                             data.ShieldHealCurrentCD = 0
                             DestroyTimer(GetExpiredTimer())
                         end)
                     end
                 end
+
+
             end
         end
 

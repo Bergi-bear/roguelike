@@ -22,6 +22,7 @@ end
 
 function AddMaxLife(hero, amount)
     local maxHP = BlzGetUnitMaxHP(hero)
+    amount=R2I(amount*GetUnitData(hero).MaxLifeBonus)
     BlzSetUnitMaxHP(hero, maxHP + amount)
     FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
     --HealUnit(hero, amount)
@@ -45,6 +46,11 @@ function UnitAddGold(hero, amount)
                     data.ShowGoldAmount = R2I(data.ShowGoldAmount * data.Investor)
                 end
                 DestroyTimer(GetExpiredTimer())
+
+                if data.GoldBlood and data.ShowGoldAmount>=10 then
+                    HealUnit(data.UnitHero,R2I(data.ShowGoldAmount*data.GoldBlood))
+                end
+
                 FlyTextTagGoldBounty(hero, "+" .. I2S(data.ShowGoldAmount), GetOwningPlayer(hero))
                 normal_sound("SystemGeneric\\ReceiveGold", GetUnitXY(hero))
                 if data.ShowGoldAmount>5 then

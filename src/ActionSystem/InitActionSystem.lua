@@ -54,6 +54,7 @@ function InitFinObjectInArea()
     CreateEnterPoint(7200, -7600, L("Отдохнуть", "Take a break"), "NoWorking", true) -- возле деревьев
     CreateEnterPoint(18329, -3724, L("Прочитать", "Reading"), "Read1", false) --первый обелиск
     CreateEnterPoint(13400, -9448, L("Открыть", "Open"), "Open1", false)
+    CreateEnterPoint(10680, -15902, L("Открыть", "Open"), "Open2", false)
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -214,7 +215,7 @@ end
 
 function AllActionsEnabled(enable)
     for i = 1, #ActionList do
-        if ActionList[i].actionFlag == "Goto" or ActionList[i].actionFlag == "Read1" or ActionList[i].actionFlag == "Open1" then
+        if ActionList[i].actionFlag == "Goto" or ActionList[i].actionFlag == "Read1" or ActionList[i].actionFlag == "Open1" or ActionList[i].actionFlag == "Open2" then
             local dataPoint = ActionList[i].self
             dataPoint.isActive = enable
             ActionList[i].isActive = enable
@@ -534,6 +535,15 @@ function CreateEActions()
                 data.DoAction = false
                 data.UseAction = ""
                 StartEnemyWave(44)-- волна с жуками
+                KillUnit(data.EPointUnit)
+            end
+            if data.UseAction == "Open2" then
+                local message = L("Победите всех врагов", "Defeat all enemies")
+                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                StartEnemyWave(45)-- волна с огоньками
                 KillUnit(data.EPointUnit)
             end
             if data.UseAction == "RotationFire" then

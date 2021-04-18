@@ -96,13 +96,13 @@ function InitHeroTable(hero)
         TalonWindowIsOpen = true,
         Summon = {}, -- таблица суммонов
         CurrentWeaponType = "", -- изначально герой без оружия
-        FrameToDestroy = {}
+        FrameToDestroy = {},
+        MaxLifeBonus=1, -- бонус максимального здоровья для бычих сердец
     }
 end
 
 function InitWASD(hero)
     --print("initwasdSTART")
-
     InitHeroTable(hero)
     CreateWASDActions()
     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
@@ -113,9 +113,7 @@ function InitWASD(hero)
     local angle = 0
     local speed = 5
     local animWalk = 0
-
-
-    --SwitchWeaponTo(data, "shield") --Первое назначение оружие
+  --SwitchWeaponTo(data, "shield") --Первое назначение оружие
     TimerStart(CreateTimer(), 2, false, function()
         --SwitchWeaponTo(data, "pickaxe") -- перенесено в прелоад
     end)
@@ -701,9 +699,9 @@ function CreateWASDActions()
                     delay = 0.3
                     data.GreatDamageDashQ = true
 
-                    SetUnitAnimationByIndex(data.UnitHero, 3) -- киркой в землю
+                    SetUnitAnimationByIndex(data.UnitHero, 3) -- киркой в землю в рывке
                     if data.CurrentWeaponType == "shield" then
-                        SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок
+                        SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю в рывке
                         if data.InvulInCrashQ then
                             SetUnitInvulnerable(data.UnitHero, true)
                             TimerStart(CreateTimer(), 1, false, function()
@@ -848,6 +846,13 @@ function CreateWASDActions()
                 SetUnitAnimationByIndex(data.UnitHero, 3) -- удар кирки в землю
                 if data.CurrentWeaponType == "shield" then
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
+                    TimerStart(CreateTimer(), 0.4, false, function()
+                        data.QHighJump=true
+                    end)
+                    TimerStart(CreateTimer(), 1, false, function()
+                        data.QHighJump=false
+                    end)
+                    UnitAddForceSimple(data.UnitHero,GetUnitFacing(data.UnitHero),4,200)
                     if data.InvulInCrashQ then
                         SetUnitInvulnerable(data.UnitHero, true)
                         TimerStart(CreateTimer(), 1, false, function()
@@ -1052,6 +1057,7 @@ function CreateWASDActions()
                 local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetPlayerMouseX[pid], GetPlayerMouseY[pid]) / bj_DEGTORAD
                 SetUnitFacing(data.UnitHero, angle)
                 SetUnitTimeScale(data.UnitHero, 1.8)
+                normal_sound("Abilities\\Weapons\\Axe\\AxeMissileLaunch1",GetUnitXY(data.UnitHero))
                 --print("бросок щита")
                 TimerStart(CreateTimer(), 0.15, false, function()
                     SetUnitTimeScale(data.UnitHero, 1)
@@ -1233,7 +1239,14 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             --print(currentdistance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
-            if flag == "ignore" and HERO[GetPlayerId(GetOwningPlayer(hero))].IframesOnDash then
+            local makeJump=false
+            if IsUnitType(hero,UNIT_TYPE_HERO) then
+                if GetUnitData(hero).QHighJump then
+                    makeJump=true
+                end
+            end
+
+            if (flag == "ignore" and GetUnitData(hero).IframesOnDash) or makeJump then
                 -- print("попытка")
                 local is, d = PointContentDestructable(newX, newY, 120, false)
                 if is then
@@ -1247,7 +1260,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     SetUnitPositionSmooth(hero, newX, newY)
                 end
             else
-                SetUnitPositionSmooth(hero, newX, newY)
+                SetUnitPositionSmooth(hero, newX, newY) -- момент толкания для любого персонажа
             end
 
             if GetUnitTypeId(hero) ~= HeroID and GetUnitTypeId(pushing) == HeroID then

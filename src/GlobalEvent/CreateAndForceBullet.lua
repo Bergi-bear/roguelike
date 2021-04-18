@@ -192,6 +192,9 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                 if GetUnitData(hero).ShieldThrow then
                     --print("щит возвращается обратно")
                     GetUnitData(hero).ReversShield = true
+                    if DamagingUnit then
+                        normal_sound("Abilities\\Weapons\\Axe\\AxeMissile"..GetRandomInt(1,2),GetUnitXY(GetUnitData(hero).UnitHero))
+                    end
                     angle = AngleBetweenXY(x, y, GetUnitX(hero), GetUnitY(hero)) / bj_DEGTORAD
                     local new = CreateAndForceBullet(hero, angle, 60, "stoneshild", x, y, 200, 1200, 1200)
                     BlzSetSpecialEffectRoll(new, math.rad(90))
