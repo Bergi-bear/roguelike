@@ -459,7 +459,9 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                             --DestroyEffect(eff)
                             --print("смерть балки от рук"..GetUnitName(hero))
                             if hero then
-                                UnitDamageArea(hero, 1000, dx, dy, 300)
+                                TimerStart(CreateTimer(), 0.6, false, function()
+                                    UnitDamageArea(hero, 1000, dx, dy, 300)
+                                end)
                             end
                         end
                     end

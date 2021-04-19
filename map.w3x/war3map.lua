@@ -73,6 +73,8 @@ gg_rct_E23A = nil
 gg_rct_S24A = nil
 gg_rct_B24A = nil
 gg_rct_E24A = nil
+gg_rct_B19B = nil
+gg_rct_PhantomBrige = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -88,6 +90,8 @@ gg_cam_Camera_012 = nil
 gg_cam_Camera_013 = nil
 gg_cam_Camera_014 = nil
 gg_cam_Camera_015 = nil
+gg_trg_FB = nil
+gg_trg_DeadB3 = nil
 gg_trg_EndLabirinth1 = nil
 gg_trg_DeadB2 = nil
 gg_trg_DeadB1 = nil
@@ -104,15 +108,14 @@ gg_dest_B009_5749 = nil
 gg_dest_B009_5750 = nil
 gg_dest_B009_5751 = nil
 gg_dest_B00B_5766 = nil
-gg_trg_DeadB3 = nil
 gg_dest_B00C_5135 = nil
-gg_dest_B00C_7432 = nil
 gg_dest_B00C_7431 = nil
-gg_dest_B00E_7438 = nil
+gg_dest_B00C_7432 = nil
 gg_dest_B002_4649 = nil
-gg_rct_B19B = nil
-gg_rct_PhantomBrige = nil
-gg_trg_Untitled_Trigger_001 = nil
+gg_dest_B00E_7438 = nil
+gg_rct_B11B = nil
+gg_rct_SecretBound1 = nil
+gg_trg_SercBalka = nil
 function InitGlobals()
     udg_QuestComplete1 = false
     udg_QuestComplete2 = false
@@ -133,32 +136,7 @@ function CreateAllDestructables()
     gg_dest_B00C_7432 = BlzCreateDestructableWithSkin(FourCC("B00C"), 11264.0, -19200.0, 136.000, 1.350, 0, FourCC("B00C"))
     gg_dest_B00C_5135 = BlzCreateDestructableWithSkin(FourCC("B00C"), 9920.0, -20288.0, 136.000, 1.350, 0, FourCC("B00C"))
     gg_dest_B00C_7431 = BlzCreateDestructableWithSkin(FourCC("B00C"), 11968.0, -19712.0, 136.000, 1.350, 0, FourCC("B00C"))
-    gg_dest_B00E_7438 = BlzCreateDestructableWithSkin(FourCC("B00E"), 11726.2, -18921.6, -68.663, 1.805, 0, FourCC("B00E"))
-end
-
-function CreateUnitsForPlayer0()
-    local p = Player(0)
-    local u
-    local unitID
-    local t
-    local life
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18210.2, -16644.2, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18317.1, -16642.3, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.2, -16641.2, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18431.8, -16516.0, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18433.4, -16380.8, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18433.1, -16254.6, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.5, -16126.3, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.4, -15999.2, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18430.8, -15874.4, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.9, -15750.8, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.9, -15622.7, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18307.3, -15485.5, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18308.2, -15359.3, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18433.7, -15486.4, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18437.5, -15361.8, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18556.4, -15362.6, 0.000, FourCC("h000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18560.1, -15485.8, 0.000, FourCC("h000"))
+    gg_dest_B00E_7438 = BlzCreateDestructableWithSkin(FourCC("B00E"), 11726.2, -18921.6, 291.337, 1.805, 0, FourCC("B00E"))
 end
 
 function CreateUnitsForPlayer10()
@@ -302,6 +280,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 15900.0, -20061.7, 180.391, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22584.7, -8619.0, 91.444, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 6370.1, -7966.6, 266.798, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 10208.0, -18346.9, 0.781, FourCC("hrif"))
 end
 
 function CreateNeutralHostile()
@@ -395,6 +374,9 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21042.3, -13339.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21421.6, -13502.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 10484.2, -18329.4, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18210.2, -16644.2, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18317.1, -16642.3, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.2, -16641.2, 0.000, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14494.4, -6985.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14634.1, -6694.5, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15122.0, -6671.5, 247.300, FourCC("e001"))
@@ -636,6 +618,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20867.7, -19324.0, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21134.2, -19734.7, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21066.3, -20177.5, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18431.8, -16516.0, 0.000, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23445.3, -16317.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22796.4, -16024.2, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18852.5, -22023.9, 247.300, FourCC("e001"))
@@ -750,13 +733,25 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19754.1, -23295.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19001.6, -23246.8, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21098.2, -23062.3, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18433.4, -16380.8, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18433.1, -16254.6, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.5, -16126.3, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.4, -15999.2, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18430.8, -15874.4, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.9, -15750.8, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18432.9, -15622.7, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18307.3, -15485.5, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18308.2, -15359.3, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18433.7, -15486.4, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18437.5, -15361.8, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18556.4, -15362.6, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18560.1, -15485.8, 0.000, FourCC("h000"))
 end
 
 function CreatePlayerBuildings()
 end
 
 function CreatePlayerUnits()
-    CreateUnitsForPlayer0()
     CreateUnitsForPlayer10()
     CreateUnitsForPlayer23()
 end
@@ -841,10 +836,12 @@ function CreateRegions()
     gg_rct_B23A = Rect(23488.0, -23264.0, 23936.0, -22880.0)
     gg_rct_E23A = Rect(22496.0, -23712.0, 22752.0, -23328.0)
     gg_rct_S24A = Rect(18656.0, -24864.0, 22400.0, -21856.0)
-    gg_rct_B24A = Rect(19808.0, -22912.0, 20416.0, -22496.0)
+    gg_rct_B24A = Rect(19776.0, -22912.0, 20416.0, -22432.0)
     gg_rct_E24A = Rect(18784.0, -22144.0, 19040.0, -21760.0)
-    gg_rct_B19B = Rect(10688.0, -20640.0, 11552.0, -18976.0)
-    gg_rct_PhantomBrige = Rect(18176.0, -16736.0, 18336.0, -16576.0)
+    gg_rct_B19B = Rect(10688.0, -20640.0, 11552.0, -18784.0)
+    gg_rct_PhantomBrige = Rect(18208.0, -16736.0, 18368.0, -16576.0)
+    gg_rct_B11B = Rect(21984.0, -10816.0, 23712.0, -10336.0)
+    gg_rct_SecretBound1 = Rect(23008.0, -10976.0, 23296.0, -10816.0)
 end
 
 function CreateCameras()
@@ -4020,15 +4017,25 @@ function MoveAllHeroAndBound(recEnter, rectBound)
             KillDestructable(GetEnumDestructable())
         end
     end)
+    BoundZoneForAllPlayers(rectBound)
+    --BoundZoneForAllPlayers(gg_rct_B19B)
+
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
             local data = HERO[i]
-            SetCameraBoundsToRectForPlayerBJ(Player(i), rectBound)
             SetUnitPosition(data.UnitHero, x, y)
         end
     end
     ReviveAllHero()
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
+end
+
+function BoundZoneForAllPlayers(rectBound)
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if PlayerIsPlaying[i] then
+            SetCameraBoundsToRectForPlayerBJ(Player(i), rectBound)
+        end
+    end
 end
 
 function StartEnemyWave(waveNumber)
@@ -7301,12 +7308,13 @@ function MiniFire(unit)
                     BlzSetSpecialEffectColor(mark, 255, 0, 0)
                     BlzSetSpecialEffectScale(mark, 1.2)
                     --print("время взрываться")
-                    local eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
+                    local eff=nil
                     TimerStart(CreateTimer(), 1.8, false, function()
-                        DestroyEffect(eff)
+                        eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
                     end)
                     TimerStart(CreateTimer(), 2, false, function()
                         --print("наносим урон миной")
+                        DestroyEffect(eff)
                         UnitDamageArea(hero, 150, x, y, 200, "all")
                         KillUnit(unit)
                         DestroyEffect(mark)
@@ -12753,25 +12761,45 @@ function GetUnitData(hero)
     return data
 end
 --CUSTOM_CODE
-function Trig_Untitled_Trigger_001_Conditions()
+function Trig_SercBalka_Conditions()
     if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
         return false
     end
     return true
 end
 
-function Trig_Untitled_Trigger_001_Actions()
+function Trig_SercBalka_Actions()
+    DisableTrigger(GetTriggeringTrigger())
+        BoundZoneForAllPlayers(gg_rct_B11B)
+end
+
+function InitTrig_SercBalka()
+    gg_trg_SercBalka = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_SercBalka, gg_rct_SecretBound1)
+    TriggerAddCondition(gg_trg_SercBalka, Condition(Trig_SercBalka_Conditions))
+    TriggerAddAction(gg_trg_SercBalka, Trig_SercBalka_Actions)
+end
+
+function Trig_FB_Conditions()
+    if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
+        return false
+    end
+    return true
+end
+
+function Trig_FB_Actions()
     DisplayTextToForce(GetPlayersAll(), "TRIGSTR_262")
+    DisableTrigger(GetTriggeringTrigger())
 end
 
-function InitTrig_Untitled_Trigger_001()
-    gg_trg_Untitled_Trigger_001 = CreateTrigger()
-    TriggerRegisterEnterRectSimple(gg_trg_Untitled_Trigger_001, gg_rct_PhantomBrige)
-    TriggerAddCondition(gg_trg_Untitled_Trigger_001, Condition(Trig_Untitled_Trigger_001_Conditions))
-    TriggerAddAction(gg_trg_Untitled_Trigger_001, Trig_Untitled_Trigger_001_Actions)
+function InitTrig_FB()
+    gg_trg_FB = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_FB, gg_rct_PhantomBrige)
+    TriggerAddCondition(gg_trg_FB, Condition(Trig_FB_Conditions))
+    TriggerAddAction(gg_trg_FB, Trig_FB_Actions)
 end
 
-function Trig_DeadB3_Func004C()
+function Trig_DeadB3_Func005C()
     if (not (IsDestructableDeadBJ(gg_dest_B00C_7431) == true)) then
         return false
     end
@@ -12785,7 +12813,7 @@ function Trig_DeadB3_Func004C()
 end
 
 function Trig_DeadB3_Conditions()
-    if (not Trig_DeadB3_Func004C()) then
+    if (not Trig_DeadB3_Func005C()) then
         return false
     end
     return true
@@ -12795,6 +12823,7 @@ function Trig_DeadB3_Actions()
     RemoveDestructable(gg_dest_B00E_7438)
     RemoveDestructable(gg_dest_B002_4649)
     DisplayTextToForce(GetPlayersAll(), "TRIGSTR_261")
+        BoundZoneForAllPlayers(gg_rct_B19B)
 end
 
 function InitTrig_DeadB3()
@@ -12973,7 +13002,8 @@ function InitTrig_Melee_Initialization()
 end
 
 function InitCustomTriggers()
-    InitTrig_Untitled_Trigger_001()
+    InitTrig_SercBalka()
+    InitTrig_FB()
     InitTrig_DeadB3()
     InitTrig_EndLabirinth1()
     InitTrig_DeadB2()

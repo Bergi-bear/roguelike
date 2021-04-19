@@ -213,15 +213,25 @@ function MoveAllHeroAndBound(recEnter, rectBound)
             KillDestructable(GetEnumDestructable())
         end
     end)
+    BoundZoneForAllPlayers(rectBound)
+    --BoundZoneForAllPlayers(gg_rct_B19B)
+
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
             local data = HERO[i]
-            SetCameraBoundsToRectForPlayerBJ(Player(i), rectBound)
             SetUnitPosition(data.UnitHero, x, y)
         end
     end
     ReviveAllHero()
     --CreateGodTalon(x2,y2,"Trall",80,80,255)
+end
+
+function BoundZoneForAllPlayers(rectBound)
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if PlayerIsPlaying[i] then
+            SetCameraBoundsToRectForPlayerBJ(Player(i), rectBound)
+        end
+    end
 end
 
 function StartEnemyWave(waveNumber)
