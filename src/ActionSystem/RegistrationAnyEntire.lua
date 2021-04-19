@@ -25,7 +25,6 @@ function RegistrationAnyEntire()
                 local entering = GetTriggerUnit()
                 if GetUnitTypeId(entering) == FourCC('hdhw') then
                     local dataPoint = EnterPointTable[GetHandleId(entering)]
-
                     if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering

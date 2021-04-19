@@ -75,6 +75,8 @@ gg_rct_B24A = nil
 gg_rct_E24A = nil
 gg_rct_B19B = nil
 gg_rct_PhantomBrige = nil
+gg_rct_B11B = nil
+gg_rct_SecretBound1 = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -90,6 +92,7 @@ gg_cam_Camera_012 = nil
 gg_cam_Camera_013 = nil
 gg_cam_Camera_014 = nil
 gg_cam_Camera_015 = nil
+gg_trg_SercBalka = nil
 gg_trg_FB = nil
 gg_trg_DeadB3 = nil
 gg_trg_EndLabirinth1 = nil
@@ -113,9 +116,6 @@ gg_dest_B00C_7431 = nil
 gg_dest_B00C_7432 = nil
 gg_dest_B002_4649 = nil
 gg_dest_B00E_7438 = nil
-gg_rct_B11B = nil
-gg_rct_SecretBound1 = nil
-gg_trg_SercBalka = nil
 function InitGlobals()
     udg_QuestComplete1 = false
     udg_QuestComplete2 = false
@@ -279,7 +279,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 15419.1, -18908.6, 270.721, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 15900.0, -20061.7, 180.391, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22584.7, -8619.0, 91.444, FourCC("hsor"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 6370.1, -7966.6, 266.798, FourCC("hsor"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 23037.9, -6408.4, 273.052, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 10208.0, -18346.9, 0.781, FourCC("hrif"))
 end
 
@@ -746,6 +746,21 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18437.5, -15361.8, 0.000, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18556.4, -15362.6, 0.000, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18560.1, -15485.8, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22724.8, -6406.6, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22843.6, -6402.1, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22723.8, -6531.1, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22720.9, -6652.8, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22598.2, -6655.4, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22466.7, -6655.7, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22337.1, -6653.5, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22336.4, -6525.1, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22332.0, -6404.5, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 21885.0, -6602.7, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22013.7, -6608.2, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 21887.2, -6721.9, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22012.2, -6726.4, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 21888.7, -6485.0, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22016.4, -6489.1, 0.000, FourCC("h000"))
 end
 
 function CreatePlayerBuildings()
@@ -793,8 +808,8 @@ function CreateRegions()
     gg_rct_S10A = Rect(21696.0, -9088.0, 24224.0, -6336.0)
     gg_rct_B10A = Rect(22528.0, -8128.0, 23008.0, -6752.0)
     gg_rct_S11A = Rect(21344.0, -11232.0, 22752.0, -9280.0)
-    gg_rct_B11A = Rect(21984.0, -10816.0, 22112.0, -10336.0)
-    gg_rct_E11A = Rect(21504.0, -11648.0, 21792.0, -11040.0)
+    gg_rct_B11A = Rect(21984.0, -10816.0, 22048.0, -10336.0)
+    gg_rct_E11A = Rect(21504.0, -11648.0, 21888.0, -11040.0)
     gg_rct_S12A = Rect(20288.0, -14112.0, 22176.0, -12416.0)
     gg_rct_B12A = Rect(21248.0, -13376.0, 21440.0, -12896.0)
     gg_rct_E12A = Rect(20832.0, -14240.0, 21120.0, -13696.0)
@@ -3681,7 +3696,6 @@ function RegistrationAnyEntire()
                 local entering = GetTriggerUnit()
                 if GetUnitTypeId(entering) == FourCC('hdhw') then
                     local dataPoint = EnterPointTable[GetHandleId(entering)]
-
                     if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering
@@ -8762,9 +8776,21 @@ do
         TimerStart(CreateTimer(), 3, false, function()
             ReplaceID2SawTrap(FourCC("hpea"))
             ReplaceID2SwordSpike(FourCC("hkni"))
+            ReplaceId2InvisiblePlatform(FourCC("h000")) --
             StartAllSaw()
             DestroyTimer(GetExpiredTimer())
         end)
+    end
+end
+
+function ReplaceId2InvisiblePlatform(id)
+    local tmp, k, all = FindUnitOfType(id)
+    --print("найденно "..k.." а в таблице "..#all)
+    for i = 1, #all do
+        -- print("заменён "..GetUnitName(all[i]))
+        ShowUnit(all[i], false)
+        SetUnitInvulnerable(all[i], true)
+        CreateInvPlatform(all[i])
     end
 end
 
@@ -8879,7 +8905,8 @@ function CreateImageForTrap(x, y)
     return img
 end
 
-function CreateSawTrap(hero) --унитазные ёршики
+function CreateSawTrap(hero)
+    --унитазные ёршики
     local x, y = GetUnitXY(hero)
     local eff = AddSpecialEffect("SystemGeneric\\TrapSaw", x, y)
     local showBlood = true
@@ -8892,7 +8919,7 @@ function CreateSawTrap(hero) --унитазные ёршики
         --print(GetUnitName(enemy).. "Вошел в зону ловушки")
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
             local is = UnitDamageArea(hero, 10, x, y, 90)
-            sec=sec-TIMER_PERIOD
+            sec = sec - TIMER_PERIOD
             if sec <= 0 then
                 showBlood = true
             end
@@ -8914,29 +8941,60 @@ function CreateSawTrap(hero) --унитазные ёршики
         end)
     end)
 end
---[[
-        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-            local is, unit = UnitDamageArea(hero, 10, x, y, 90, "blackHole")
-            sec = sec - TIMER_PERIOD
-            if sec <= 0 then
-                showBlood = true
-            end
-            if is and GetUnitTypeId(unit) == HeroID then
-                --and IsUnitType(unit)==UNIT_TYPE_HERO
-                --print("эффект крови")
-                if showBlood then
-                    local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(unit))
-                    BlzSetSpecialEffectScale(effb, 0.1)
-                    DestroyEffect(effb)
-                    showBlood = false
-                    sec = 1
+
+function CreateInvPlatform(hero)
+    local x, y = GetUnitXY(hero)
+    local enterTrig = CreateTrigger()
+    TriggerRegisterUnitInRange(enterTrig, hero, 100, nil)
+    local free=true
+    TriggerAddAction(enterTrig, function()
+        local enemy = GetTriggerUnit()
+        --print(GetUnitName(enemy).. "Вошел в зону ловушки")
+        free=false
+        if not free then
+            local eff = AddSpecialEffect("Doodads\\Cinematic\\FootSwitch\\FootSwitch.mdl", x, y)
+            CreateEffectDown2Up(eff, x, y)
+            TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+                if not IsUnitInRange(hero, enemy, 110) or not UnitAlive(enemy) then
+                    DestroyTimer(GetExpiredTimer())
+                    free=true
+                    CreateEffectUp2Down(eff, x, y)
+                    --print("вышел")
                 end
-            end
-            if not UnitAlive(hero) then
-                DestroyTimer(GetExpiredTimer())
-            end
-        end)
-]]
+            end)
+        end
+    end)
+end
+
+function CreateEffectDown2Up(eff, x, y)
+    BlzSetSpecialEffectColorByPlayer(eff, Player(1))
+    local z = GetTerrainZ(x, y) - 500
+    local zNormal = GetTerrainZ(x, y) - 50
+    BlzSetSpecialEffectZ(eff, z)
+    TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
+        z = z + 50
+        BlzSetSpecialEffectZ(eff, z)
+        if z >= zNormal then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+function CreateEffectUp2Down(eff, x, y)
+    BlzSetSpecialEffectColorByPlayer(eff, Player(1))
+    local zNormal = GetTerrainZ(x, y) - 500
+    local z = GetTerrainZ(x, y) - 50
+    BlzSetSpecialEffectZ(eff, z)
+    TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
+        z = z - 50
+        BlzSetSpecialEffectZ(eff, z)
+        if z <= zNormal then
+            BlzSetSpecialEffectPosition(eff, OutPoint, OutPoint, 0)
+            DestroyEffect(eff)
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -9832,7 +9890,9 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                             --DestroyEffect(eff)
                             --print("смерть балки от рук"..GetUnitName(hero))
                             if hero then
-                                UnitDamageArea(hero, 1000, dx, dy, 300)
+                                TimerStart(CreateTimer(), 0.6, false, function()
+                                    UnitDamageArea(hero, 1000, dx, dy, 300)
+                                end)
                             end
                         end
                     end
@@ -9921,37 +9981,49 @@ end
 --- DateTime: 27.05.2020 23:15
 ---
 ---
+---
+--[[
 do
-  local DestroyTimerOrigin = DestroyTimer -- записываем DestroyTimer в переменную
-  local PauseTimerCached = PauseTimer -- локальная переменная используется для более быстрого вызова функции в дальнейшем
-  function DestroyTimer(t)
-	PauseTimerCached(t)  -- вызываем PauseTimer из переменной
-	DestroyTimerOrigin(t) -- вызываем DestroyTimer из переменной
-  end
+    local DestroyTimerOrigin = DestroyTimer -- записываем DestroyTimer в переменную
+    local PauseTimerCached = PauseTimer -- локальная переменная используется для более быстрого вызова функции в дальнейшем
+    function DestroyTimer(t)
+        PauseTimerCached(t)  -- вызываем PauseTimer из переменной
+        DestroyTimerOrigin(t) -- вызываем DestroyTimer из переменной
+    end
+end]]
+local origDestroyTimer = DestroyTimer
+function DestroyTimer(t)
+    if t == nil then
+        t = GetExpiredTimer()
+        if t == nil then return end
+    end
+    PauseTimer(t)
+    origDestroyTimer(t)
 end
-
 
 local realTimerStart = TimerStart
 TimerStart = function(timer, duration, repeating, callback)
-	local pcallback = function()
-		if callback == nil then return end
-		local status, err = pcall(callback)
-		if not status then
-			print(err)
-		end
-	end
-	realTimerStart(timer, duration, repeating, pcallback)
+    local pcallback = function()
+        if callback == nil then
+            return
+        end
+        local status, err = pcall(callback)
+        if not status then
+            print(err)
+        end
+    end
+    realTimerStart(timer, duration, repeating, pcallback)
 end
 
 local realTriggerAddAction = TriggerAddAction
 TriggerAddAction = function(trig, callback)
-	local pcallback = function()
-		local status, err = pcall(callback)
-		if not status then
-			print(err)
-		end
-	end
-	realTriggerAddAction(trig, pcallback)
+    local pcallback = function()
+        local status, err = pcall(callback)
+        if not status then
+            print(err)
+        end
+    end
+    realTriggerAddAction(trig, pcallback)
 end
 
 ---

@@ -4,35 +4,47 @@
 --- DateTime: 27.05.2020 23:15
 ---
 ---
+---
+--[[
 do
-  local DestroyTimerOrigin = DestroyTimer -- записываем DestroyTimer в переменную
-  local PauseTimerCached = PauseTimer -- локальная переменная используется для более быстрого вызова функции в дальнейшем
-  function DestroyTimer(t)
-	PauseTimerCached(t)  -- вызываем PauseTimer из переменной
-	DestroyTimerOrigin(t) -- вызываем DestroyTimer из переменной
-  end
+    local DestroyTimerOrigin = DestroyTimer -- записываем DestroyTimer в переменную
+    local PauseTimerCached = PauseTimer -- локальная переменная используется для более быстрого вызова функции в дальнейшем
+    function DestroyTimer(t)
+        PauseTimerCached(t)  -- вызываем PauseTimer из переменной
+        DestroyTimerOrigin(t) -- вызываем DestroyTimer из переменной
+    end
+end]]
+local origDestroyTimer = DestroyTimer
+function DestroyTimer(t)
+    if t == nil then
+        t = GetExpiredTimer()
+        if t == nil then return end
+    end
+    PauseTimer(t)
+    origDestroyTimer(t)
 end
-
 
 local realTimerStart = TimerStart
 TimerStart = function(timer, duration, repeating, callback)
-	local pcallback = function()
-		if callback == nil then return end
-		local status, err = pcall(callback)
-		if not status then
-			print(err)
-		end
-	end
-	realTimerStart(timer, duration, repeating, pcallback)
+    local pcallback = function()
+        if callback == nil then
+            return
+        end
+        local status, err = pcall(callback)
+        if not status then
+            print(err)
+        end
+    end
+    realTimerStart(timer, duration, repeating, pcallback)
 end
 
 local realTriggerAddAction = TriggerAddAction
 TriggerAddAction = function(trig, callback)
-	local pcallback = function()
-		local status, err = pcall(callback)
-		if not status then
-			print(err)
-		end
-	end
-	realTriggerAddAction(trig, pcallback)
+    local pcallback = function()
+        local status, err = pcall(callback)
+        if not status then
+            print(err)
+        end
+    end
+    realTriggerAddAction(trig, pcallback)
 end

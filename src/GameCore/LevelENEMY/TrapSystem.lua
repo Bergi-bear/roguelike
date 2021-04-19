@@ -10,9 +10,21 @@ do
         TimerStart(CreateTimer(), 3, false, function()
             ReplaceID2SawTrap(FourCC("hpea"))
             ReplaceID2SwordSpike(FourCC("hkni"))
+            ReplaceId2InvisiblePlatform(FourCC("h000")) --
             StartAllSaw()
             DestroyTimer(GetExpiredTimer())
         end)
+    end
+end
+
+function ReplaceId2InvisiblePlatform(id)
+    local tmp, k, all = FindUnitOfType(id)
+    --print("найденно "..k.." а в таблице "..#all)
+    for i = 1, #all do
+        -- print("заменён "..GetUnitName(all[i]))
+        ShowUnit(all[i], false)
+        SetUnitInvulnerable(all[i], true)
+        CreateInvPlatform(all[i])
     end
 end
 
@@ -127,7 +139,8 @@ function CreateImageForTrap(x, y)
     return img
 end
 
-function CreateSawTrap(hero) --унитазные ёршики
+function CreateSawTrap(hero)
+    --унитазные ёршики
     local x, y = GetUnitXY(hero)
     local eff = AddSpecialEffect("SystemGeneric\\TrapSaw", x, y)
     local showBlood = true
@@ -140,7 +153,7 @@ function CreateSawTrap(hero) --унитазные ёршики
         --print(GetUnitName(enemy).. "Вошел в зону ловушки")
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
             local is = UnitDamageArea(hero, 10, x, y, 90)
-            sec=sec-TIMER_PERIOD
+            sec = sec - TIMER_PERIOD
             if sec <= 0 then
                 showBlood = true
             end
@@ -162,26 +175,57 @@ function CreateSawTrap(hero) --унитазные ёршики
         end)
     end)
 end
---[[
-        TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
-            local is, unit = UnitDamageArea(hero, 10, x, y, 90, "blackHole")
-            sec = sec - TIMER_PERIOD
-            if sec <= 0 then
-                showBlood = true
-            end
-            if is and GetUnitTypeId(unit) == HeroID then
-                --and IsUnitType(unit)==UNIT_TYPE_HERO
-                --print("эффект крови")
-                if showBlood then
-                    local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(unit))
-                    BlzSetSpecialEffectScale(effb, 0.1)
-                    DestroyEffect(effb)
-                    showBlood = false
-                    sec = 1
+
+function CreateInvPlatform(hero)
+    local x, y = GetUnitXY(hero)
+    local enterTrig = CreateTrigger()
+    TriggerRegisterUnitInRange(enterTrig, hero, 100, nil)
+    local free=true
+    TriggerAddAction(enterTrig, function()
+        local enemy = GetTriggerUnit()
+        --print(GetUnitName(enemy).. "Вошел в зону ловушки")
+        free=false
+        if not free then
+            local eff = AddSpecialEffect("Doodads\\Cinematic\\FootSwitch\\FootSwitch.mdl", x, y)
+            CreateEffectDown2Up(eff, x, y)
+            TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+                if not IsUnitInRange(hero, enemy, 110) or not UnitAlive(enemy) then
+                    DestroyTimer(GetExpiredTimer())
+                    free=true
+                    CreateEffectUp2Down(eff, x, y)
+                    --print("вышел")
                 end
-            end
-            if not UnitAlive(hero) then
-                DestroyTimer(GetExpiredTimer())
-            end
-        end)
-]]
+            end)
+        end
+    end)
+end
+
+function CreateEffectDown2Up(eff, x, y)
+    BlzSetSpecialEffectColorByPlayer(eff, Player(1))
+    local z = GetTerrainZ(x, y) - 500
+    local zNormal = GetTerrainZ(x, y) - 50
+    BlzSetSpecialEffectZ(eff, z)
+    TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
+        z = z + 50
+        BlzSetSpecialEffectZ(eff, z)
+        if z >= zNormal then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+function CreateEffectUp2Down(eff, x, y)
+    BlzSetSpecialEffectColorByPlayer(eff, Player(1))
+    local zNormal = GetTerrainZ(x, y) - 500
+    local z = GetTerrainZ(x, y) - 50
+    BlzSetSpecialEffectZ(eff, z)
+    TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
+        z = z - 50
+        BlzSetSpecialEffectZ(eff, z)
+        if z <= zNormal then
+            BlzSetSpecialEffectPosition(eff, OutPoint, OutPoint, 0)
+            DestroyEffect(eff)
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
