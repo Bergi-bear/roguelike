@@ -587,49 +587,72 @@ function CreateEActions()
             --------------------Буквы---------------------------/
             ----------------------------------------------------/
             if data.UseAction == "Writex" then
-                Type("X")
+                if Type("X") >= 6 then
+                    local x, y = GetUnitXY(data.UnitHero)
+                    CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
+                end
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "Writeg" then
-                Type("G")
+                if Type("G") >= 6 then
+
+                end
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "Writem" then
-                Type("M")
+                if Type("M") >= 6 then
+                    local x, y = GetUnitXY(data.UnitHero)
+                    CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
+                end
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "Writee" then
-                Type("E")
+                if Type("E") >= 6 then
+                    local x, y = GetUnitXY(data.UnitHero)
+                    CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
+                end
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "Writea" then
-                Type("A")
+                if Type("A") >= 6 then
+                    local x, y = GetUnitXY(data.UnitHero)
+                    CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
+                end
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "Writel" then
-                Type("L")
+                if Type("L") >= 6 then
+                    local x, y = GetUnitXY(data.UnitHero)
+                    CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
+                end
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "Writey" then
-                Type("Y")
+                if Type("Y") >= 6 then
+                    local x, y = GetUnitXY(data.UnitHero)
+                    CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
+                end
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
             end
             if data.UseAction == "Writeh" then
-                Type("H")
+                if Type("H") >= 6 then
+                    local x, y = GetUnitXY(data.UnitHero)
+                    CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
+                end
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
@@ -1087,7 +1110,6 @@ function CreateInfoBoxForAllPlayerTimed(data, message, timed)
     if not bj_isSinglePlayer then
         print(message)
     else
-
         local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
         local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
         local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
@@ -1103,7 +1125,7 @@ function CreateInfoBoxForAllPlayerTimed(data, message, timed)
         BlzFrameSetText(text, message)
         BlzFrameSetScale(text, 1.2)
         BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
-        BlzFrameSetVisible(tooltip,true)
+        BlzFrameSetVisible(tooltip, true)
         TimerStart(CreateTimer(), timed, false, function()
             --BlzFrameSetVisible(tooltip, true)
             BlzDestroyFrame(tooltip)

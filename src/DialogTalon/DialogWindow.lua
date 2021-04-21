@@ -163,10 +163,9 @@ function CreateBoxTalon(MainFrame, j, data)
         --BlzFrameSetAbsPoint(data.DialogTalon.MainFrame,FRAMEPOINT_CENTER,2,2)
         DisableTrigger(mouseCT)
         --print("Клик по фрейму" .. j)
-
+        data.TalonWindowIsOpen = true
+        ChkAllPlayerTalonClosedWindow()
         TimerStart(CreateTimer(), 1, false, function()
-            data.TalonWindowIsOpen = true -- не обязательная строка
-            ChkAllPlayerTalonClosedWindow() -- не обязательная строка
             LearnCurrentTalonForPlayer(data.pid, data.CurrentClickedGodName[j], data.CurrentClickedPos[j]) -- делал задержку в 2 секунды, десинхает в момент клика
         end)
         TimerStart(CreateTimer(), 1.5, false, function()
@@ -189,19 +188,22 @@ end
 
 AllPlayerTalonClosedWindow = true
 function ChkAllPlayerTalonClosedWindow()
-    local result = false
+    local result = true
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
             local data = HERO[i]
             if data.TalonWindowIsOpen then
-                result = true
+
                 --print("все выбрали свои таланты")
-            else
+            end
+            if not data.TalonWindowIsOpen then
                 --print("Ожидание игрока "..GetPlayerName(Player(i)))
                 result = false
             end
         end
     end
+
+
     AllPlayerTalonClosedWindow = result
     return AllPlayerTalonClosedWindow
 end

@@ -50,4 +50,8 @@ function Type(type)
         print("Время потренировать мышцы")
         TypeWord = ""
     end
+    if #TypeWord>=6 then
+        TypeWord = ""
+    end
+    return #TypeWord
 end
