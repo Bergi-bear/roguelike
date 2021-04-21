@@ -170,6 +170,7 @@ function CreateSawTrap(hero)
             end
             if not IsUnitInRange(hero, enemy, 110) or not UnitAlive(enemy) then
                 DestroyTimer(GetExpiredTimer())
+
                 --print("вышел")
             end
         end)

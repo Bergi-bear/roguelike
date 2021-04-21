@@ -25,12 +25,18 @@ function RegistrationAnyEntire()
                 local entering = GetTriggerUnit()
                 if GetUnitTypeId(entering) == FourCC('hdhw') then
                     local dataPoint = EnterPointTable[GetHandleId(entering)]
+
                     if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering
                         --BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
                         --print("подошел к "..dataPoint.UseAction)
-                        local eEff = AddSpecialEffect("SystemGeneric\\ActionsE", GetUnitXY(entering))
+                        local effModel="SystemGeneric\\ActionsE"
+                        if dataPoint.Model then
+                            effModel=dataPoint.Model
+                           -- print("нестандартная модель?")
+                        end
+                        local eEff = AddSpecialEffect(effModel, GetUnitXY(entering))
                         data.ShowActionWindows = true
                         TimerStart(CreateTimer(), 0.1, true, function()
                             if not IsUnitInRange(entering, hero, 210) or not UnitAlive(entering) or not dataPoint.isActive then

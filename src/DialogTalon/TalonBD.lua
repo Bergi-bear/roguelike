@@ -104,7 +104,8 @@ do
                                 L("Видеть невидимое и показывает скрытые проходы", "See the invisible and shows hidden passages"),
                                 L("Видеть невидимое, показывает скрытые проходы и решения головоломок", "See the invisible, shows hidden passages and puzzle solutions")
                             },
-                            pos = 9
+                            pos = 9,
+                            weaponType=""
                         }),
                         [10] = Talon:new {
                             icon = "ReplaceableTextures\\CommandButtons\\BTNLightningShield.blp",
@@ -160,7 +161,8 @@ do
                             rarity = "epic",
                             tooltip = L("Будьте внимательны, эта способность ломает привычные механики", " Be careful, this ability breaks the usual mechanics"),
                             DS = { 100, 150, 200 },
-                            pos = 4
+                            pos = 4,
+                            weaponType=""
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",

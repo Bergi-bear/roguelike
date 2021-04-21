@@ -77,6 +77,8 @@ gg_rct_B19B = nil
 gg_rct_PhantomBrige = nil
 gg_rct_B11B = nil
 gg_rct_SecretBound1 = nil
+gg_rct_B10B = nil
+gg_rct________________078 = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -92,6 +94,8 @@ gg_cam_Camera_012 = nil
 gg_cam_Camera_013 = nil
 gg_cam_Camera_014 = nil
 gg_cam_Camera_015 = nil
+gg_trg_DeadB4 = nil
+gg_trg_SercOffErsh = nil
 gg_trg_SercBalka = nil
 gg_trg_FB = nil
 gg_trg_DeadB3 = nil
@@ -104,9 +108,12 @@ gg_trg_TrapTest = nil
 gg_trg_DDDD = nil
 gg_trg_UPUP = nil
 gg_trg_Melee_Initialization = nil
+gg_unit_hpea_0563 = nil
 gg_dest_B009_5532 = nil
 gg_dest_B009_5531 = nil
 gg_dest_B009_5530 = nil
+gg_dest_B00B_7824 = nil
+gg_dest_B007_7825 = nil
 gg_dest_B009_5749 = nil
 gg_dest_B009_5750 = nil
 gg_dest_B009_5751 = nil
@@ -126,16 +133,18 @@ function CreateAllDestructables()
     local t
     local life
     gg_dest_B002_4649 = BlzCreateDestructableWithSkin(FourCC("B002"), 11712.0, -18944.0, 270.000, 1.000, 0, FourCC("B002"))
+    gg_dest_B007_7825 = BlzCreateDestructableZWithSkin(FourCC("B007"), 24913.0, -7697.3, 1298.8, 0.000, 5.000, 0, FourCC("B007"))
     gg_dest_B009_5530 = BlzCreateDestructableZWithSkin(FourCC("B009"), 18800.5, -6281.1, 1279.6, 359.441, 1.000, 0, FourCC("B009"))
+    gg_dest_B009_5531 = BlzCreateDestructableZWithSkin(FourCC("B009"), 17785.5, -6974.2, 1273.2, 88.867, 1.000, 0, FourCC("B009"))
+    gg_dest_B009_5532 = BlzCreateDestructableZWithSkin(FourCC("B009"), 20082.7, -7742.6, 1273.2, 270.462, 1.000, 0, FourCC("B009"))
     gg_dest_B009_5749 = BlzCreateDestructableZWithSkin(FourCC("B009"), 13734.7, -15228.8, 1279.6, 359.441, 1.000, 0, FourCC("B009"))
     gg_dest_B009_5750 = BlzCreateDestructableZWithSkin(FourCC("B009"), 15135.2, -15396.0, 1292.3, 270.000, 1.000, 0, FourCC("B009"))
     gg_dest_B009_5751 = BlzCreateDestructableZWithSkin(FourCC("B009"), 14404.6, -16971.8, 1273.2, 180.000, 1.000, 0, FourCC("B009"))
-    gg_dest_B009_5531 = BlzCreateDestructableZWithSkin(FourCC("B009"), 17785.5, -6974.2, 1273.2, 88.867, 1.000, 0, FourCC("B009"))
-    gg_dest_B009_5532 = BlzCreateDestructableZWithSkin(FourCC("B009"), 20082.7, -7742.6, 1273.2, 270.462, 1.000, 0, FourCC("B009"))
+    gg_dest_B00B_7824 = BlzCreateDestructableWithSkin(FourCC("B00B"), 24575.9, -8079.9, 0.000, 1.000, 0, FourCC("B00B"))
     gg_dest_B00B_5766 = BlzCreateDestructableZWithSkin(FourCC("B00B"), 14790.4, -16125.1, 1234.8, 0.000, 1.000, 0, FourCC("B00B"))
     gg_dest_B00C_7432 = BlzCreateDestructableWithSkin(FourCC("B00C"), 11264.0, -19200.0, 136.000, 1.350, 0, FourCC("B00C"))
-    gg_dest_B00C_5135 = BlzCreateDestructableWithSkin(FourCC("B00C"), 9920.0, -20288.0, 136.000, 1.350, 0, FourCC("B00C"))
     gg_dest_B00C_7431 = BlzCreateDestructableWithSkin(FourCC("B00C"), 11968.0, -19712.0, 136.000, 1.350, 0, FourCC("B00C"))
+    gg_dest_B00C_5135 = BlzCreateDestructableWithSkin(FourCC("B00C"), 9920.0, -20288.0, 136.000, 1.350, 0, FourCC("B00C"))
     gg_dest_B00E_7438 = BlzCreateDestructableWithSkin(FourCC("B00E"), 11726.2, -18921.6, 291.337, 1.805, 0, FourCC("B00E"))
 end
 
@@ -279,7 +288,7 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 15419.1, -18908.6, 270.721, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 15900.0, -20061.7, 180.391, FourCC("hsor"))
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22584.7, -8619.0, 91.444, FourCC("hsor"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 23037.9, -6408.4, 273.052, FourCC("hpea"))
+    gg_unit_hpea_0563 = BlzCreateUnitWithSkin(p, FourCC("hpea"), 23037.9, -6408.4, 273.052, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 10208.0, -18346.9, 0.781, FourCC("hrif"))
 end
 
@@ -327,7 +336,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13131.3, -8512.6, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 13959.3, -8504.1, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15444.4, -5707.6, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22838.9, -2647.5, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22831.3, -2633.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19460.5, -6346.2, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20093.5, -6644.0, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18059.0, -10068.1, 296.730, FourCC("hdhw"))
@@ -342,7 +351,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16229.5, -3827.2, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21344.1, -9882.2, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22537.0, -9883.1, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20762.6, -12449.6, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20907.8, -12460.8, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21627.4, -12448.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 14911.2, -6273.5, 350.440, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 18797.4, -13609.2, 104.630, FourCC("hfoo"))
@@ -761,6 +770,23 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22012.2, -6726.4, 0.000, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 21888.7, -6485.0, 0.000, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 22016.4, -6489.1, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 24085.9, -8448.3, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 24576.0, -8330.0, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 24453.0, -8450.7, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 24333.0, -8450.7, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 24213.2, -8450.0, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 23965.0, -8447.5, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 24574.7, -8449.0, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 24577.5, -8208.3, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h000"), 24576.2, -8082.4, 0.000, FourCC("h000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 21821.1, -4770.2, 212.438, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 21813.8, -4403.2, 212.438, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 21734.7, -3379.5, 212.438, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 22294.4, -2732.2, 212.438, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 23609.5, -2851.4, 212.438, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 23612.5, -3689.9, 212.438, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 22814.1, -3616.9, 212.438, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h001"), 23232.4, -4799.7, 212.438, FourCC("h001"))
 end
 
 function CreatePlayerBuildings()
@@ -811,8 +837,8 @@ function CreateRegions()
     gg_rct_B11A = Rect(21984.0, -10816.0, 22048.0, -10336.0)
     gg_rct_E11A = Rect(21504.0, -11648.0, 21888.0, -11040.0)
     gg_rct_S12A = Rect(20288.0, -14112.0, 22176.0, -12416.0)
-    gg_rct_B12A = Rect(21248.0, -13376.0, 21440.0, -12896.0)
-    gg_rct_E12A = Rect(20832.0, -14240.0, 21120.0, -13696.0)
+    gg_rct_B12A = Rect(21184.0, -13376.0, 21440.0, -12896.0)
+    gg_rct_E12A = Rect(20672.0, -14240.0, 21120.0, -13696.0)
     gg_rct_E10A = Rect(21504.0, -8352.0, 22048.0, -8064.0)
     gg_rct_E9A = Rect(21440.0, -4512.0, 21632.0, -4224.0)
     gg_rct_E8A = Rect(18688.0, -5056.0, 18976.0, -4640.0)
@@ -857,6 +883,8 @@ function CreateRegions()
     gg_rct_PhantomBrige = Rect(18208.0, -16736.0, 18368.0, -16576.0)
     gg_rct_B11B = Rect(21984.0, -10816.0, 23712.0, -10336.0)
     gg_rct_SecretBound1 = Rect(23008.0, -10976.0, 23296.0, -10816.0)
+    gg_rct_B10B = Rect(22528.0, -8128.0, 23488.0, -6752.0)
+    gg_rct________________078 = Rect(23936.0, -8576.0, 24096.0, -8352.0)
 end
 
 function CreateCameras()
@@ -2404,6 +2432,59 @@ end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
+--- DateTime: 20.04.2021 23:38
+---
+function CreateABSQuest()
+    local id = FourCC("h001")
+    local _, _, unitTable = FindUnitOfType(id)
+    local k = #unitTable
+    --print(k)
+    TypeWord = ""
+    local abs = {
+        "x",
+        "g",
+        "m",
+        "e",
+        "a",
+        "l",
+        "y",
+        "h",
+    }
+    local r = GetRandomIntTable(1, #abs, #abs)
+
+    for i = 1, k do
+        local u = unitTable[i]
+        SetUnitOwner(u, Player(PLAYER_NEUTRAL_PASSIVE), true)
+        local x, y = GetUnitXY(u)
+        SetUnitInvulnerable(u, true)
+        CreateEnterPoint(x, y, L("Писать", "Write"), 'Write' .. abs[r[i]], true)
+    end
+end
+
+function Type(type)
+    TypeWord = TypeWord .. type
+    print(TypeWord)
+    if TypeWord == "XGM" then
+        print("посхалка XGM")
+        TypeWord = ""
+    end
+    if TypeWord == "HELGA" then
+        print("Кто такая Хельга?")
+        TypeWord = ""
+    end
+    if TypeWord == "HELL" then
+        print("Ад?? я не хотел это писать, это ошибка")
+        TypeWord = ""
+        StartEnemyWave(45)
+    end
+    if TypeWord == "GYM" then
+        print("Время потренировать мышцы")
+        TypeWord = ""
+    end
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
 --- DateTime: 28.02.2021 2:41
 ---
 function GiveForAll(reward)
@@ -2613,6 +2694,7 @@ do
             InitFireBallPoint() --это не экшен поинт
             CreateEActions()
             InitFinObjectInArea()
+            CreateABSQuest()
             AllActionsEnabled(true)
             PauseTimer(GetExpiredTimer())
             DestroyTimer(GetExpiredTimer())
@@ -2731,14 +2813,18 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
         BlzSetSpecialEffectYaw(preView, math.rad(90))
         BlzSetSpecialEffectScale(preView, 2)
         BlzSetSpecialEffectColor(preView, 255, 255, 255)
-
-
-
         --print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
         --GLOBAL_REWARD=reward
-
-
     end
+    local effModel = nil
+    --print(SubString(actionFlag,0,5))
+    if SubString(actionFlag, 0, 5) == "Write" then
+        local s = SubString(actionFlag, 5, 6)
+        --print("читаемый символ",s)
+        effModel = "SystemGeneric\\ABS\\ABS_" .. s
+        --preView = AddSpecialEffect(effModel, x, y)
+    end
+
     ActionList[ActionListIndex] = {
         x = x,
         y = y,
@@ -2761,6 +2847,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
     dataPoint.preView = preView
     dataPoint.Unit = tempUnit
     dataPoint.OriginalModel = "SystemGeneric\\GodModels\\" .. reward
+    dataPoint.Model = effModel
 
     if actionFlag == "Goto" then
         local _, k, tempTable = FindUnitOfType(FourCC("hdhw"), 1500, x, y)
@@ -2842,8 +2929,12 @@ function AllActionsEnabled(enable)
     end
 end
 
-function CreateActionBox(message)
+function CreateActionBox(message, key)
     --функция отключена
+    if not key then
+        key = "SystemGeneric\\HadesE"
+    end
+
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
@@ -2861,7 +2952,7 @@ function CreateActionBox(message)
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
     BlzFrameSetVisible(tooltip, false)
     local hotkey = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', tooltip, '', 0)
-    BlzFrameSetTexture(hotkey, "SystemGeneric\\HadesE", 0, true)
+    BlzFrameSetTexture(hotkey, key, 0, true)
     BlzFrameSetSize(hotkey, NextPoint, NextPoint)
     BlzFrameSetPoint(hotkey, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, -NextPoint, 0.0)
     return tooltip, backdrop, text, hotkey
@@ -2911,8 +3002,23 @@ function CreateEActions()
 
             if data.UseAction == "Board" then
                 if dataPoint.RewardBordGold then
-                    local message = L("Здесь ничего нет", "There's nothing here")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    local rm = {
+                        L("Здесь ничего нет", "There's nothing here"),
+                        L("Тут пусто", ""),
+                        L("Пустышка", ""),
+                        L("Разграблено", ""),
+                        L("Всё уже украдено до нас", ""),
+                        L("Ничего", ""),
+                        L("Пусто", ""),
+                        L("Я уже здесь смотрел", ""),
+                        L("Тут кто-то побывал", ""),
+                        L("Если я поищу ещё раз, то тут ничего не появится", ""),
+                        L("Нельзя сотворить здесь", ""),
+                        L("И что я хотел тут найти?", ""),
+                        L("Мммм?", ""),
+                    }
+
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
                     data.Completed = true
                     data.DoAction = false
                     data.UseAction = ""
@@ -3156,6 +3262,58 @@ function CreateEActions()
                 FlyTextTagShieldXY(x, y, L("Поворачиваем", "Rotate"), GetOwningPlayer(data.UnitHero))
                 --print("Поворачиваем")
             end
+            ----------------------------------------------------/
+            --------------------Буквы---------------------------/
+            ----------------------------------------------------/
+            if data.UseAction == "Writex" then
+                Type("X")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writeg" then
+                Type("G")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writem" then
+                Type("M")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writee" then
+                Type("E")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writea" then
+                Type("A")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writel" then
+                Type("L")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writey" then
+                Type("Y")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writeh" then
+                Type("H")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+
             ----------------------------------------------------/
             ---------------ДАРЫ БОГОВ---------------------------/
             ----------------------------------------------------/
@@ -3605,31 +3763,33 @@ function CreateEActions()
 end
 
 function CreateInfoBoxForAllPlayerTimed(data, message, timed)
-    print(message)
-    --[[
-    local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
-    local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
-    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local size = #message * 0.007
-    if size <= 0.12 then
-        size = 0.12
+    if not bj_isSinglePlayer then
+        print(message)
+    else
+
+        local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
+        local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
+        local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+        local size = #message * 0.007
+        if size <= 0.12 then
+            size = 0.12
+        end
+        BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08 + 0.03 * InfoSlots)
+        BlzFrameSetSize(tooltip, 0.2, 0.04)
+        BlzFrameSetSize(backdrop, size, 0.03)
+        BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
+        BlzFrameSetAlpha(backdrop, 220)
+        BlzFrameSetText(text, message)
+        BlzFrameSetScale(text, 1.2)
+        BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
+        BlzFrameSetVisible(tooltip,true)
+        TimerStart(CreateTimer(), timed, false, function()
+            --BlzFrameSetVisible(tooltip, true)
+            BlzDestroyFrame(tooltip)
+            InfoSlots = InfoSlots - 1
+        end)
+        InfoSlots = InfoSlots + 1
     end
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.16 + 0.03 * InfoSlots)
-    BlzFrameSetSize(tooltip, 0.2, 0.04)
-    BlzFrameSetSize(backdrop, size, 0.03)
-    BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetAlpha(backdrop, 220)
-    BlzFrameSetText(text, message)
-    BlzFrameSetScale(text, 1.2)
-    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
-    --BlzFrameSetVisible(tooltip,true)
-    TimerStart(CreateTimer(), timed, false, function()
-        --BlzFrameSetVisible(tooltip, true)
-        BlzDestroyFrame(tooltip)
-        InfoSlots = InfoSlots - 1
-    end)
-    InfoSlots = InfoSlots + 1
-    ]]
 end
 
 function DestroyDecorInArea(data, range)
@@ -3696,12 +3856,18 @@ function RegistrationAnyEntire()
                 local entering = GetTriggerUnit()
                 if GetUnitTypeId(entering) == FourCC('hdhw') then
                     local dataPoint = EnterPointTable[GetHandleId(entering)]
+
                     if dataPoint.isActive and not data.ShowActionWindows then
                         data.UseAction = dataPoint.UseAction
                         data.EPointUnit = entering
                         --BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
                         --print("подошел к "..dataPoint.UseAction)
-                        local eEff = AddSpecialEffect("SystemGeneric\\ActionsE", GetUnitXY(entering))
+                        local effModel="SystemGeneric\\ActionsE"
+                        if dataPoint.Model then
+                            effModel=dataPoint.Model
+                           -- print("нестандартная модель?")
+                        end
+                        local eEff = AddSpecialEffect(effModel, GetUnitXY(entering))
                         data.ShowActionWindows = true
                         TimerStart(CreateTimer(), 0.1, true, function()
                             if not IsUnitInRange(entering, hero, 210) or not UnitAlive(entering) or not dataPoint.isActive then
@@ -3990,7 +4156,7 @@ function Enter2NewZone(flag)
     end)
 end
 
-function GetRandomIntTable(min, max, count, talon)
+function GetRandomIntTable(min, max, count)
     local keys = {}
     local out = {}
     if min == max then
@@ -5572,7 +5738,8 @@ do
                                 L("Видеть невидимое и показывает скрытые проходы", "See the invisible and shows hidden passages"),
                                 L("Видеть невидимое, показывает скрытые проходы и решения головоломок", "See the invisible, shows hidden passages and puzzle solutions")
                             },
-                            pos = 9
+                            pos = 9,
+                            weaponType=""
                         }),
                         [10] = Talon:new {
                             icon = "ReplaceableTextures\\CommandButtons\\BTNLightningShield.blp",
@@ -5628,7 +5795,8 @@ do
                             rarity = "epic",
                             tooltip = L("Будьте внимательны, эта способность ломает привычные механики", " Be careful, this ability breaks the usual mechanics"),
                             DS = { 100, 150, 200 },
-                            pos = 4
+                            pos = 4,
+                            weaponType=""
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
@@ -7313,7 +7481,7 @@ function MiniFire(unit)
                     --SetUnitTimeScale(unit,0.7)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
-                        CreateAndForceBullet(unit, angle, 10, "Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl", nil, nil, 100, 3000)
+                        CreateAndForceBullet(unit, angle, GetRandomInt(20,40), "Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl", nil, nil, 100, 3000)
                         BlzPauseUnitEx(unit, false)
                     end)
                 else
@@ -8936,6 +9104,7 @@ function CreateSawTrap(hero)
             end
             if not IsUnitInRange(hero, enemy, 110) or not UnitAlive(enemy) then
                 DestroyTimer(GetExpiredTimer())
+
                 --print("вышел")
             end
         end)
@@ -12833,6 +13002,36 @@ function GetUnitData(hero)
     return data
 end
 --CUSTOM_CODE
+function Trig_DeadB4_Actions()
+    KillUnit(gg_unit_hpea_0563)
+end
+
+function InitTrig_DeadB4()
+    gg_trg_DeadB4 = CreateTrigger()
+    TriggerRegisterDeathEvent(gg_trg_DeadB4, gg_dest_B00B_7824)
+    TriggerAddAction(gg_trg_DeadB4, Trig_DeadB4_Actions)
+end
+
+function Trig_SercOffErsh_Conditions()
+    if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
+        return false
+    end
+    return true
+end
+
+function Trig_SercOffErsh_Actions()
+    DisableTrigger(GetTriggeringTrigger())
+        BoundZoneForAllPlayers(gg_rct_B10B)
+    RemoveDestructable(gg_dest_B007_7825)
+end
+
+function InitTrig_SercOffErsh()
+    gg_trg_SercOffErsh = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_SercOffErsh, gg_rct________________078)
+    TriggerAddCondition(gg_trg_SercOffErsh, Condition(Trig_SercOffErsh_Conditions))
+    TriggerAddAction(gg_trg_SercOffErsh, Trig_SercOffErsh_Actions)
+end
+
 function Trig_SercBalka_Conditions()
     if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
         return false
@@ -12860,7 +13059,7 @@ function Trig_FB_Conditions()
 end
 
 function Trig_FB_Actions()
-    DisplayTextToForce(GetPlayersAll(), "TRIGSTR_262")
+        CreateGodTalon(18438,-15318,"Life")
     DisableTrigger(GetTriggeringTrigger())
 end
 
@@ -13074,6 +13273,8 @@ function InitTrig_Melee_Initialization()
 end
 
 function InitCustomTriggers()
+    InitTrig_DeadB4()
+    InitTrig_SercOffErsh()
     InitTrig_SercBalka()
     InitTrig_FB()
     InitTrig_DeadB3()

@@ -15,6 +15,7 @@ do
             InitFireBallPoint() --это не экшен поинт
             CreateEActions()
             InitFinObjectInArea()
+            CreateABSQuest()
             AllActionsEnabled(true)
             PauseTimer(GetExpiredTimer())
             DestroyTimer(GetExpiredTimer())
@@ -133,14 +134,18 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
         BlzSetSpecialEffectYaw(preView, math.rad(90))
         BlzSetSpecialEffectScale(preView, 2)
         BlzSetSpecialEffectColor(preView, 255, 255, 255)
-
-
-
         --print(" Лист действий"..ActionListIndex.." награда записана "..reward) -- эта строчка точно верная 100
         --GLOBAL_REWARD=reward
-
-
     end
+    local effModel = nil
+    --print(SubString(actionFlag,0,5))
+    if SubString(actionFlag, 0, 5) == "Write" then
+        local s = SubString(actionFlag, 5, 6)
+        --print("читаемый символ",s)
+        effModel = "SystemGeneric\\ABS\\ABS_" .. s
+        --preView = AddSpecialEffect(effModel, x, y)
+    end
+
     ActionList[ActionListIndex] = {
         x = x,
         y = y,
@@ -163,6 +168,7 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
     dataPoint.preView = preView
     dataPoint.Unit = tempUnit
     dataPoint.OriginalModel = "SystemGeneric\\GodModels\\" .. reward
+    dataPoint.Model = effModel
 
     if actionFlag == "Goto" then
         local _, k, tempTable = FindUnitOfType(FourCC("hdhw"), 1500, x, y)
@@ -244,8 +250,12 @@ function AllActionsEnabled(enable)
     end
 end
 
-function CreateActionBox(message)
+function CreateActionBox(message, key)
     --функция отключена
+    if not key then
+        key = "SystemGeneric\\HadesE"
+    end
+
     local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
     local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
@@ -263,7 +273,7 @@ function CreateActionBox(message)
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
     BlzFrameSetVisible(tooltip, false)
     local hotkey = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', tooltip, '', 0)
-    BlzFrameSetTexture(hotkey, "SystemGeneric\\HadesE", 0, true)
+    BlzFrameSetTexture(hotkey, key, 0, true)
     BlzFrameSetSize(hotkey, NextPoint, NextPoint)
     BlzFrameSetPoint(hotkey, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, -NextPoint, 0.0)
     return tooltip, backdrop, text, hotkey
@@ -313,8 +323,23 @@ function CreateEActions()
 
             if data.UseAction == "Board" then
                 if dataPoint.RewardBordGold then
-                    local message = L("Здесь ничего нет", "There's nothing here")
-                    CreateInfoBoxForAllPlayerTimed(data, message, 3)
+                    local rm = {
+                        L("Здесь ничего нет", "There's nothing here"),
+                        L("Тут пусто", ""),
+                        L("Пустышка", ""),
+                        L("Разграблено", ""),
+                        L("Всё уже украдено до нас", ""),
+                        L("Ничего", ""),
+                        L("Пусто", ""),
+                        L("Я уже здесь смотрел", ""),
+                        L("Тут кто-то побывал", ""),
+                        L("Если я поищу ещё раз, то тут ничего не появится", ""),
+                        L("Нельзя сотворить здесь", ""),
+                        L("И что я хотел тут найти?", ""),
+                        L("Мммм?", ""),
+                    }
+
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
                     data.Completed = true
                     data.DoAction = false
                     data.UseAction = ""
@@ -558,6 +583,58 @@ function CreateEActions()
                 FlyTextTagShieldXY(x, y, L("Поворачиваем", "Rotate"), GetOwningPlayer(data.UnitHero))
                 --print("Поворачиваем")
             end
+            ----------------------------------------------------/
+            --------------------Буквы---------------------------/
+            ----------------------------------------------------/
+            if data.UseAction == "Writex" then
+                Type("X")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writeg" then
+                Type("G")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writem" then
+                Type("M")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writee" then
+                Type("E")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writea" then
+                Type("A")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writel" then
+                Type("L")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writey" then
+                Type("Y")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+            if data.UseAction == "Writeh" then
+                Type("H")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+            end
+
             ----------------------------------------------------/
             ---------------ДАРЫ БОГОВ---------------------------/
             ----------------------------------------------------/
@@ -1007,31 +1084,33 @@ function CreateEActions()
 end
 
 function CreateInfoBoxForAllPlayerTimed(data, message, timed)
-    print(message)
-    --[[
-    local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
-    local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
-    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    local size = #message * 0.007
-    if size <= 0.12 then
-        size = 0.12
+    if not bj_isSinglePlayer then
+        print(message)
+    else
+
+        local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
+        local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
+        local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+        local size = #message * 0.007
+        if size <= 0.12 then
+            size = 0.12
+        end
+        BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08 + 0.03 * InfoSlots)
+        BlzFrameSetSize(tooltip, 0.2, 0.04)
+        BlzFrameSetSize(backdrop, size, 0.03)
+        BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
+        BlzFrameSetAlpha(backdrop, 220)
+        BlzFrameSetText(text, message)
+        BlzFrameSetScale(text, 1.2)
+        BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
+        BlzFrameSetVisible(tooltip,true)
+        TimerStart(CreateTimer(), timed, false, function()
+            --BlzFrameSetVisible(tooltip, true)
+            BlzDestroyFrame(tooltip)
+            InfoSlots = InfoSlots - 1
+        end)
+        InfoSlots = InfoSlots + 1
     end
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.16 + 0.03 * InfoSlots)
-    BlzFrameSetSize(tooltip, 0.2, 0.04)
-    BlzFrameSetSize(backdrop, size, 0.03)
-    BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetAlpha(backdrop, 220)
-    BlzFrameSetText(text, message)
-    BlzFrameSetScale(text, 1.2)
-    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
-    --BlzFrameSetVisible(tooltip,true)
-    TimerStart(CreateTimer(), timed, false, function()
-        --BlzFrameSetVisible(tooltip, true)
-        BlzDestroyFrame(tooltip)
-        InfoSlots = InfoSlots - 1
-    end)
-    InfoSlots = InfoSlots + 1
-    ]]
 end
 
 function DestroyDecorInArea(data, range)

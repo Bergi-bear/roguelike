@@ -172,7 +172,7 @@ function Enter2NewZone(flag)
     end)
 end
 
-function GetRandomIntTable(min, max, count, talon)
+function GetRandomIntTable(min, max, count)
     local keys = {}
     local out = {}
     if min == max then
