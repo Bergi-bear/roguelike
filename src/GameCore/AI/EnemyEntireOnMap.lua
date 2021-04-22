@@ -392,7 +392,9 @@ function PudgeSlash(unit)
                             BlzSetSpecialEffectPosition(eff2, OutPoint, OutPoint, 0)
                             BreakCast = true
                             DestroyTimer(GetExpiredTimer())
-                            ResetUnitAnimation(unit)
+                            if UnitAlive(unit) then
+                                ResetUnitAnimation(unit)
+                            end
                         end
                     end)
 

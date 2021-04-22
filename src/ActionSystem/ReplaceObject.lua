@@ -12,6 +12,7 @@ function InitHealPoint()
         local u=unitTable[i]
         SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
         local x,y=GetUnitXY(u)
+        CreateDestructable(FourCC("B00F"), x, y, 0, 1, 1)
         SetUnitInvulnerable(u,true)
         CreateEnterPoint(x,y,L("Выпить","Drink"), 'Heal', true)
     end
