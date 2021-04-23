@@ -3800,22 +3800,28 @@ function CreateInfoBoxForAllPlayerTimed(data, message, timed)
     if not bj_isSinglePlayer then
         print(message)
     else
-        local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
-        local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
+        --local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
+        --local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
+
+        local tooltip = BlzCreateFrameByType("BACKDROP", "TalonTooltip", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "EscMenuControlBackdropTemplate", 0)
+        --local backdrop = BlzCreateFrameByType("BACKDROP", "Backdrop", tooltip, "EscMenuControlBackdropTemplate", 0)
+
+
         local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
         local size = #message * 0.007
         if size <= 0.12 then
             size = 0.12
         end
         BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08 + 0.03 * InfoSlots)
-        BlzFrameSetSize(tooltip, 0.2, 0.04)
-        BlzFrameSetSize(backdrop, size, 0.03)
-        BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-        BlzFrameSetAlpha(backdrop, 220)
+        --BlzFrameSetSize(tooltip, 0.2, 0.04) --ложное
+        BlzFrameSetSize(tooltip, size, 0.03)
+        --BlzFrameSetSize(backdrop, size, 0.03)
+        --BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
+        --BlzFrameSetAlpha(backdrop, 0)
         BlzFrameSetText(text, message)
         BlzFrameSetScale(text, 1.2)
-        BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0, 0.0)
-        BlzFrameSetVisible(tooltip, true)
+        BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0, 0.0)
+        --BlzFrameSetVisible(tooltip, true)
         TimerStart(CreateTimer(), timed, false, function()
             --BlzFrameSetVisible(tooltip, true)
             BlzDestroyFrame(tooltip)
@@ -7821,7 +7827,9 @@ function PudgeSlash(unit)
                             BlzSetSpecialEffectPosition(eff2, OutPoint, OutPoint, 0)
                             BreakCast = true
                             DestroyTimer(GetExpiredTimer())
-                            ResetUnitAnimation(unit)
+                            if UnitAlive(unit) then
+                                ResetUnitAnimation(unit)
+                            end
                         end
                     end)
 

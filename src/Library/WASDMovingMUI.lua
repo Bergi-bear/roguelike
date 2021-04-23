@@ -98,6 +98,13 @@ function InitHeroTable(hero)
         CurrentWeaponType = "", -- изначально герой без оружия
         FrameToDestroy = {},
         MaxLifeBonus=1, -- бонус максимального здоровья для бычих сердец
+        --Статистика
+        StatHealGained=0, -- Получено лечения
+        StatDamageGained=0, -- Получено урона
+        StatBlockGained=0, -- Заблокировано урона
+        StatGoldGained=0, -- Получено золота за забег
+        StatDamageDealing=0, -- Урона нанесено
+        StatSummon=0, -- призвано существ
     }
 end
 
@@ -206,7 +213,7 @@ function InitWASD(hero)
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
             if data.CameraStabUnit and data.life < 0 then
-                SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
+                --SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
             end
             if GetLocalPlayer() == GetOwningPlayer(hero) then
                 -- SetCameraQuickPosition(x,y)
@@ -1182,9 +1189,8 @@ function BlockMouse(data)
             --Строковый список приказов, которые игрок не может выполнить
             if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" then
                 if not data.Desync and not FirstGoto then
-                    print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
-                    print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
-                    print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
+                    print(GetPlayerName(Player(data.pid)) .. L("Внимание! вы должны использовать классическую схему управления","Attention!! you must use the classic control scheme"))
+
                     data.Desync = true
                 end
             else
