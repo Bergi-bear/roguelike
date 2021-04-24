@@ -10,11 +10,15 @@ function InitHealPoint()
     --print(k)
     for i=1,k do
         local u=unitTable[i]
-        SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
-        local x,y=GetUnitXY(u)
-        CreateDestructable(FourCC("B00F"), x, y, 0, 1, 1)
-        SetUnitInvulnerable(u,true)
-        CreateEnterPoint(x,y,L("Выпить","Drink"), 'Heal', true)
+        if GetRandomInt(1,2)==1 then
+            SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
+            local x,y=GetUnitXY(u)
+            CreateDestructable(FourCC("B00F"), x, y, 0, .8, 1)
+            SetUnitInvulnerable(u,true)
+            CreateEnterPoint(x,y,L("Выпить","Drink"), 'Heal', true)
+        else
+            KillUnit(u)
+        end
     end
 end
 

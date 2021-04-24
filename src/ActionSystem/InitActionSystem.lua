@@ -56,6 +56,7 @@ function InitFinObjectInArea()
     CreateEnterPoint(18329, -3724, L("Прочитать", "Reading"), "Read1", false) --первый обелиск
     CreateEnterPoint(13400, -9448, L("Открыть", "Open"), "Open1", false)
     CreateEnterPoint(10680, -15902, L("Открыть", "Open"), "Open2", false)
+    CreateEnterPoint(19487, -4224, L("Прыгнуть вниз", "Jump into culvert"), "Culvert", false)
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -221,7 +222,7 @@ end
 
 function AllActionsEnabled(enable)
     for i = 1, #ActionList do
-        if ActionList[i].actionFlag == "Goto" or ActionList[i].actionFlag == "Read1" or ActionList[i].actionFlag == "Open1" or ActionList[i].actionFlag == "Open2" then
+        if ActionList[i].actionFlag == "Goto" or ActionList[i].actionFlag == "Read1" or ActionList[i].actionFlag == "Open1" or ActionList[i].actionFlag == "Open2" or ActionList[i].actionFlag == "Culvert" then
             local dataPoint = ActionList[i].self
             dataPoint.isActive = enable
             ActionList[i].isActive = enable
@@ -571,6 +572,19 @@ function CreateEActions()
                 StartEnemyWave(45)-- волна с огоньками
                 KillUnit(data.EPointUnit)
             end
+            if data.UseAction == "Culvert" then
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                --print("переход в канализацию")
+                CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+                TimerStart(CreateTimer(), 2, false, function()
+                    MoveAllHeroAndBound(gg_rct_InCulvert, gg_rct_BoundCulvert)
+                    CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+                end)
+                KillUnit(data.EPointUnit)
+            end
+
             if data.UseAction == "RotationFire" then
                 --local message = L("Я здесь не для отдыха","I'm not here to rest")
                 --CreateInfoBoxForAllPlayerTimed(data, message, 5)
@@ -587,7 +601,7 @@ function CreateEActions()
             --------------------Буквы---------------------------/
             ----------------------------------------------------/
             if data.UseAction == "Writex" then
-                if Type("X") >= 6 then
+                if Type("X") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -596,7 +610,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writeg" then
-                if Type("G") >= 6 then
+                if Type("G") >= 5 then
 
                 end
                 data.Completed = true
@@ -604,7 +618,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writem" then
-                if Type("M") >= 6 then
+                if Type("M") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -613,7 +627,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writee" then
-                if Type("E") >= 6 then
+                if Type("E") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -622,7 +636,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writea" then
-                if Type("A") >= 6 then
+                if Type("A") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -631,7 +645,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writel" then
-                if Type("L") >= 6 then
+                if Type("L") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -640,7 +654,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writey" then
-                if Type("Y") >= 6 then
+                if Type("Y") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -649,7 +663,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writeh" then
-                if Type("H") >= 6 then
+                if Type("H") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end

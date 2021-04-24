@@ -172,6 +172,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
                 StartFrameCD(cdSec, buttonIconFrame)
                 sec = cdSec
                 data.SpiritWolf = CreateUnit(Player(data.pid), FourCC("osw1"), GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetUnitFacing(data.UnitHero))
+                AddMaxLife(data.SpiritWolf,data.HPForSummon)
                 DestroyEffect(AddSpecialEffect(effmodel, GetUnitXY(data.SpiritWolf)))
                 BlzSetUnitMaxHP(data.SpiritWolf, 1000 * talon.level)
                 HealUnit(data.SpiritWolf, 3000)

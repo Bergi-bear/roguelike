@@ -117,7 +117,7 @@ function OnPostDamage()
     else
         --print("наш герой получил урон")
         local data = HERO[GetPlayerId(GetOwningPlayer(target))]
-
+        data.StatDamageGained = data.StatDamageGained + GetEventDamage()
         local x, y = GetUnitXY(caster)
         local xe, ye = GetUnitXY(target)
         -- функция принадлежности точки сектора
@@ -134,7 +134,7 @@ function OnPostDamage()
                 data.EvilSoulCurrentCD = cd
                 StartFrameCD(cd, data.EvilSoulCDFH)
                 SetUnitInvulnerable(data.UnitHero, true)
-                local effInv = AddSpecialEffectTarget( "Abilities\\Spells\\Orc\\Voodoo\\VoodooAura.mdl", data.UnitHero,"origin")
+                local effInv = AddSpecialEffectTarget("Abilities\\Spells\\Orc\\Voodoo\\VoodooAura.mdl", data.UnitHero, "origin")
                 TimerStart(CreateTimer(), 0.5, false, function()
                     SetUnitInvulnerable(data.UnitHero, false)
                     DestroyEffect(effInv)
@@ -152,6 +152,7 @@ function OnPostDamage()
                     data.ReturnShieldDamage = 0
                 end
                 UnitDamageTarget(target, caster, GetEventDamage() * data.ReturnShieldDamage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS) --torn, отраженный урон
+                data.StatBlockGained = data.StatBlockGained + GetEventDamage()
                 BlzSetEventDamage(0)
                 local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
                 local AngleSource = AngleBetweenUnits(caster, target)
@@ -159,6 +160,7 @@ function OnPostDamage()
                 DestroyEffect(eff)
                 UnitAddForceSimple(data.UnitHero, AngleSource, 10, 50)
                 FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+
                 if not IsUnitTrap(caster) and data.ShieldHealCDFH then
                     if data.ShieldHealCurrentCD <= 0 then
                         --AddGold(data, -10)
@@ -198,6 +200,7 @@ function OnPostDamage()
                 StartFrameCD(cd, data.FlipTheCoinCDFH)
 
                 if GetRandomInt(1, 2) == 1 then
+                    data.StatBlockGained = data.StatBlockGained + GetEventDamage()
                     BlzSetEventDamage(0)
                     FlyTextTagGoldBounty(target, "Удача", GetOwningPlayer(target))
                 else
@@ -218,6 +221,7 @@ function OnPostDamage()
                 --print("получен смертельный урон")
                 FlyTextTagHealXY(GetUnitX(target), GetUnitY(target), L("Предвидение смерти", "Foresight of Death"), GetOwningPlayer(target))
                 CreateInfoBoxForAllPlayerTimed(data, L("Я не дам тебе умереть", "I won't let you die"), 3)
+                data.StatBlockGained = data.StatBlockGained + GetEventDamage()
                 BlzSetEventDamage(0)
                 SetUnitInvulnerable(target, true)
                 TimerStart(CreateTimer(), 2, false, function()
@@ -262,6 +266,7 @@ function OnPostDamage()
             local AngleSource = AngleBetweenUnits(caster, target)
             BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
             DestroyEffect(eff)
+            data.StatBlockGained = data.StatBlockGained + GetEventDamage()
             BlzSetEventDamage(0)
         end
         if GetEventDamage() > 5 and data.RevengeLightingDamage and not IsUnitTrap(caster) then
@@ -278,6 +283,8 @@ function OnPostDamage()
     if GetUnitTypeId(target) ~= HeroID and GetUnitTypeId(caster) == HeroID then
         --Функция должна быть в самом низу
         AddDamage2Show(target, GetEventDamage())
+        local data=GetUnitData(caster)
+        data.StatDamageDealing = data.StatDamageDealing + GetEventDamage()
         local showData = ShowDamageTable[GetHandleId(target)]
         local matchShow = showData.damage
         if matchShow >= 1 then
@@ -288,7 +295,6 @@ function OnPostDamage()
                 SetTextTagText(showData.tag, R2I(matchShow), 0.024 + (showData.k))
                 SetTextTagVelocity(showData.tag, 0, 0.01)
                 SetTextTagLifespan(showData.tag, 99)
-
 
             end
         end

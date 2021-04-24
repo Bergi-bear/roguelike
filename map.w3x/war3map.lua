@@ -79,6 +79,9 @@ gg_rct_B11B = nil
 gg_rct_SecretBound1 = nil
 gg_rct_B10B = nil
 gg_rct________________078 = nil
+gg_rct_InCulvert = nil
+gg_rct_BridgeCulvert = nil
+gg_rct_BoundCulvert = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -94,6 +97,7 @@ gg_cam_Camera_012 = nil
 gg_cam_Camera_013 = nil
 gg_cam_Camera_014 = nil
 gg_cam_Camera_015 = nil
+gg_trg_StepOneCulvr = nil
 gg_trg_DeadB4 = nil
 gg_trg_SercOffErsh = nil
 gg_trg_SercBalka = nil
@@ -123,6 +127,7 @@ gg_dest_B00C_7431 = nil
 gg_dest_B00C_7432 = nil
 gg_dest_B002_4649 = nil
 gg_dest_B00E_7438 = nil
+gg_dest_DTlv_8053 = nil
 function InitGlobals()
     udg_QuestComplete1 = false
     udg_QuestComplete2 = false
@@ -146,6 +151,7 @@ function CreateAllDestructables()
     gg_dest_B00C_7431 = BlzCreateDestructableWithSkin(FourCC("B00C"), 11968.0, -19712.0, 136.000, 1.350, 0, FourCC("B00C"))
     gg_dest_B00C_5135 = BlzCreateDestructableWithSkin(FourCC("B00C"), 9920.0, -20288.0, 136.000, 1.350, 0, FourCC("B00C"))
     gg_dest_B00E_7438 = BlzCreateDestructableWithSkin(FourCC("B00E"), 11726.2, -18921.6, 291.337, 1.805, 0, FourCC("B00E"))
+    gg_dest_DTlv_8053 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 2656.0, -16800.0, 143.000, 1.033, 0, FourCC("DTlv"))
 end
 
 function CreateUnitsForPlayer10()
@@ -290,13 +296,22 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hsor"), 22584.7, -8619.0, 91.444, FourCC("hsor"))
     gg_unit_hpea_0563 = BlzCreateUnitWithSkin(p, FourCC("hpea"), 23037.9, -6408.4, 273.052, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 10208.0, -18346.9, 0.781, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 23394.2, -11038.2, -0.650, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 23394.2, -11038.2, 359.350, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 24379.0, -10848.0, 178.730, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 23548.8, -10170.1, -89.956, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 23397.3, -11422.9, -0.443, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 23548.8, -10170.1, 270.044, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 23397.3, -11422.9, 359.557, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 24798.1, -10826.0, 139.662, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 24330.0, -9780.4, 270.044, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 23908.7, -10082.3, 270.044, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2576.2, -16812.0, 268.030, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2587.1, -17388.4, 178.003, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2575.9, -17514.3, 178.003, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2579.7, -17642.4, 178.003, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2576.4, -17753.5, 178.003, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 1772.5, -16708.6, 273.052, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 1873.7, -16622.3, 273.052, FourCC("hpea"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1356.2, -17799.0, 269.179, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2495.4, -17759.4, 90.809, FourCC("hrif"))
 end
 
 function CreateNeutralHostile()
@@ -794,6 +809,8 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("h001"), 23664.4, -3703.4, 212.438, FourCC("h001"))
     u = BlzCreateUnitWithSkin(p, FourCC("h001"), 22924.4, -3640.6, 212.438, FourCC("h001"))
     u = BlzCreateUnitWithSkin(p, FourCC("h001"), 23230.7, -4850.9, 212.438, FourCC("h001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23110.9, -7359.6, 106.150, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 1219.2, -18536.6, 296.730, FourCC("hdhw"))
 end
 
 function CreatePlayerBuildings()
@@ -838,7 +855,7 @@ function CreateRegions()
     gg_rct_B8A = Rect(18880.0, -4352.0, 18944.0, -3936.0)
     gg_rct_S9A = Rect(21376.0, -4736.0, 23584.0, -2688.0)
     gg_rct_B9A = Rect(22144.0, -4448.0, 22624.0, -3072.0)
-    gg_rct_S10A = Rect(21696.0, -9088.0, 24224.0, -6336.0)
+    gg_rct_S10A = Rect(21696.0, -9472.0, 23936.0, -6336.0)
     gg_rct_B10A = Rect(22528.0, -8128.0, 23008.0, -6752.0)
     gg_rct_S11A = Rect(21344.0, -11232.0, 22752.0, -9280.0)
     gg_rct_B11A = Rect(21984.0, -10816.0, 22048.0, -10336.0)
@@ -892,6 +909,9 @@ function CreateRegions()
     gg_rct_SecretBound1 = Rect(23008.0, -10976.0, 23296.0, -10816.0)
     gg_rct_B10B = Rect(22528.0, -8128.0, 23488.0, -6752.0)
     gg_rct________________078 = Rect(23936.0, -8576.0, 24096.0, -8352.0)
+    gg_rct_InCulvert = Rect(800.0, -16288.0, 1152.0, -16032.0)
+    gg_rct_BridgeCulvert = Rect(1248.0, -18528.0, 1440.0, -17824.0)
+    gg_rct_BoundCulvert = Rect(1376.0, -21280.0, 1888.0, -16544.0)
 end
 
 function CreateCameras()
@@ -1938,6 +1958,7 @@ function SummonBoar(data)
             StartFrameCD(cd, data.SummonBoarCDFH)
             --print("призываем кабана")
             local boar = CreateUnit(Player(data.pid), FourCC("nqb3"), GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetUnitFacing(data.UnitHero))
+            AddMaxLife(boar,data.HPForSummon)
             local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boar))
             BlzSetSpecialEffectScale(eff, 2)
             DestroyEffect(eff)
@@ -2032,6 +2053,7 @@ function CreateWinter(data)
     local eff = AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(wolf))
     BlzSetSpecialEffectScale(eff, 2)
     DestroyEffect(eff)
+    AddMaxLife(wolf,data.HPForSummon)
     BlzSetUnitBaseDamage(wolf, 50 + GetHeroLevel(data.UnitHero) * 10, 0)
     UnitApplyTimedLife(wolf, FourCC('BTLF'), 20)
     eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
@@ -2050,6 +2072,7 @@ end
 function FallBear2Point(data)
     local x, y = data.fakeX, data.fakeY
     local bear = CreateUnit(Player(data.pid), FourCC("nmsh"), x, y, GetUnitFacing(data.UnitHero))
+    AddMaxLife(bear,data.HPForSummon)
     BlzSetUnitBaseDamage(bear, 100 + GetHeroLevel(data.UnitHero) * 10, 0)
     UnitApplyTimedLife(bear, FourCC('BTLF'), 30)
     local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", x, y)
@@ -2488,7 +2511,7 @@ function Type(type)
         print("Время потренировать мышцы")
         TypeWord = ""
     end
-    if #TypeWord>=6 then
+    if #TypeWord>=5 then
         TypeWord = ""
     end
     return #TypeWord
@@ -2517,9 +2540,16 @@ end
 
 function AddMaxLife(hero, amount)
     local maxHP = BlzGetUnitMaxHP(hero)
-    amount=R2I(amount*GetUnitData(hero).MaxLifeBonus)
+    if IsUnitType(hero,UNIT_TYPE_HERO) then
+        amount=R2I(amount*GetUnitData(hero).MaxLifeBonus)
+    end
+
     BlzSetUnitMaxHP(hero, maxHP + amount)
-    FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
+    if IsUnitType(hero,UNIT_TYPE_HERO) then
+        FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
+    else
+        HealUnit(hero)
+    end
     --HealUnit(hero, amount)
 end
 
@@ -2547,6 +2577,7 @@ function UnitAddGold(hero, amount)
                 end
 
                 FlyTextTagGoldBounty(hero, "+" .. I2S(data.ShowGoldAmount), GetOwningPlayer(hero))
+                data.StatGoldGained=data.StatGoldGained+data.ShowGoldAmount
                 normal_sound("SystemGeneric\\ReceiveGold", GetUnitXY(hero))
                 if data.ShowGoldAmount>5 then
                     --
@@ -2746,6 +2777,7 @@ function InitFinObjectInArea()
     CreateEnterPoint(18329, -3724, L("Прочитать", "Reading"), "Read1", false) --первый обелиск
     CreateEnterPoint(13400, -9448, L("Открыть", "Open"), "Open1", false)
     CreateEnterPoint(10680, -15902, L("Открыть", "Open"), "Open2", false)
+    CreateEnterPoint(19487, -4224, L("Прыгнуть вниз", "Jump into culvert"), "Culvert", false)
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -2911,7 +2943,7 @@ end
 
 function AllActionsEnabled(enable)
     for i = 1, #ActionList do
-        if ActionList[i].actionFlag == "Goto" or ActionList[i].actionFlag == "Read1" or ActionList[i].actionFlag == "Open1" or ActionList[i].actionFlag == "Open2" then
+        if ActionList[i].actionFlag == "Goto" or ActionList[i].actionFlag == "Read1" or ActionList[i].actionFlag == "Open1" or ActionList[i].actionFlag == "Open2" or ActionList[i].actionFlag == "Culvert" then
             local dataPoint = ActionList[i].self
             dataPoint.isActive = enable
             ActionList[i].isActive = enable
@@ -3261,6 +3293,19 @@ function CreateEActions()
                 StartEnemyWave(45)-- волна с огоньками
                 KillUnit(data.EPointUnit)
             end
+            if data.UseAction == "Culvert" then
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                print("переход в канализацию")
+                CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+                TimerStart(CreateTimer(), 2, false, function()
+                    MoveAllHeroAndBound(gg_rct_InCulvert, gg_rct_BoundCulvert)
+                    CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
+                end)
+                KillUnit(data.EPointUnit)
+            end
+
             if data.UseAction == "RotationFire" then
                 --local message = L("Я здесь не для отдыха","I'm not here to rest")
                 --CreateInfoBoxForAllPlayerTimed(data, message, 5)
@@ -3277,7 +3322,7 @@ function CreateEActions()
             --------------------Буквы---------------------------/
             ----------------------------------------------------/
             if data.UseAction == "Writex" then
-                if Type("X") >= 6 then
+                if Type("X") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -3286,7 +3331,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writeg" then
-                if Type("G") >= 6 then
+                if Type("G") >= 5 then
 
                 end
                 data.Completed = true
@@ -3294,7 +3339,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writem" then
-                if Type("M") >= 6 then
+                if Type("M") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -3303,7 +3348,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writee" then
-                if Type("E") >= 6 then
+                if Type("E") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -3312,7 +3357,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writea" then
-                if Type("A") >= 6 then
+                if Type("A") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -3321,7 +3366,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writel" then
-                if Type("L") >= 6 then
+                if Type("L") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -3330,7 +3375,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writey" then
-                if Type("Y") >= 6 then
+                if Type("Y") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -3339,7 +3384,7 @@ function CreateEActions()
                 data.UseAction = ""
             end
             if data.UseAction == "Writeh" then
-                if Type("H") >= 6 then
+                if Type("H") >= 5 then
                     local x, y = GetUnitXY(data.UnitHero)
                     CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
                 end
@@ -3804,26 +3849,17 @@ function CreateInfoBoxForAllPlayerTimed(data, message, timed)
         --local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
 
         local tooltip = BlzCreateFrameByType("BACKDROP", "TalonTooltip", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "EscMenuControlBackdropTemplate", 0)
-        --local backdrop = BlzCreateFrameByType("BACKDROP", "Backdrop", tooltip, "EscMenuControlBackdropTemplate", 0)
-
-
         local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
         local size = #message * 0.007
         if size <= 0.12 then
             size = 0.12
         end
         BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08 + 0.03 * InfoSlots)
-        --BlzFrameSetSize(tooltip, 0.2, 0.04) --ложное
         BlzFrameSetSize(tooltip, size, 0.03)
-        --BlzFrameSetSize(backdrop, size, 0.03)
-        --BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-        --BlzFrameSetAlpha(backdrop, 0)
         BlzFrameSetText(text, message)
         BlzFrameSetScale(text, 1.2)
         BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0, 0.0)
-        --BlzFrameSetVisible(tooltip, true)
         TimerStart(CreateTimer(), timed, false, function()
-            --BlzFrameSetVisible(tooltip, true)
             BlzDestroyFrame(tooltip)
             InfoSlots = InfoSlots - 1
         end)
@@ -3968,11 +4004,15 @@ function InitHealPoint()
     --print(k)
     for i=1,k do
         local u=unitTable[i]
-        SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
-        local x,y=GetUnitXY(u)
-        CreateDestructable(FourCC("B00F"), x, y, 0, 1, 1)
-        SetUnitInvulnerable(u,true)
-        CreateEnterPoint(x,y,L("Выпить","Drink"), 'Heal', true)
+        if GetRandomInt(1,2)==1 then
+            SetUnitOwner(u,Player(PLAYER_NEUTRAL_PASSIVE),true)
+            local x,y=GetUnitXY(u)
+            CreateDestructable(FourCC("B00F"), x, y, 0, .8, 1)
+            SetUnitInvulnerable(u,true)
+            CreateEnterPoint(x,y,L("Выпить","Drink"), 'Heal', true)
+        else
+            KillUnit(u)
+        end
     end
 end
 
@@ -4035,9 +4075,9 @@ do
             EnemyList = {
                 FourCC("nsko"), -- скелет
                 FourCC("ucs1"), -- мелкий жук
+                FourCC("u000"), -- большой жук
                 FourCC("uabo"), -- пудж
                 FourCC("unec"), -- некромант
-                FourCC("u000"), -- большой жук
                 FourCC("n000"), -- мимик
                 FourCC("ugar"), -- гаргулья
             }
@@ -4485,7 +4525,7 @@ function StartEnemyWave(waveNumber)
     if waveNumber == 14 then
         local r = GetRandomInt(1, 2)
         if r == 1 then
-            listID = {
+            listID = { --баньши и некры
                 FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
                 FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
                 FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
@@ -4501,7 +4541,35 @@ function StartEnemyWave(waveNumber)
                 FourCC("uban"), FourCC("uban"), FourCC("uban"), FourCC("uban"), FourCC("uban"),
             }
             maxOnWave = 6
+        end
+    end
 
+    if waveNumber == 15 then
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
+            listID = {
+                FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"),
+                FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"),
+                FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"),
+            }
+            maxOnWave = 7
+        elseif r == 2 then
+            listID = {
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+            }
+            maxOnWave = 6
+        elseif r == 3 then
+            listID = {
+                FourCC("uzig"), FourCC("uzig"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+            }
+            maxOnWave = 6
         end
     end
 
@@ -5303,7 +5371,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.EvilSoulCD = talon.DS[talon.level]
 
             ActLvl23Action(talon, function()
-                     data.EvilSoulCD = talon.DS[talon.level]
+                data.EvilSoulCD = talon.DS[talon.level]
             end)
         end
     end
@@ -5428,6 +5496,25 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.SummonLizardCDFH = CdFH
             data.SummonLizardCurrentCD = 0
             data.SummonLizardCD = 20
+        end
+        if pos == 5 then --хп суммонов
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+            data.HPForSummon = talon.DS[talon.level] * 100
+            AddMaxLife(data.UnitHero, talon.DS[talon.level])
+            ActLvl23Action(talon, function()
+                AddMaxLife(data.UnitHero, talon.DS[talon.level])
+                data.HPForSummon = talon.DS[talon.level] * 100
+            end)
+        end
+        if pos == 6 then -- лапка урсы
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+            data.UrsaBonus=talon.DS[talon.level]
+            data.UrsaStack=0
+            ActLvl23Action(talon, function()
+                data.UrsaBonus=talon.DS[talon.level]
+            end)
         end
     end
     if godName == "PeonDidal" and talon.level == 1 then
@@ -5781,7 +5868,7 @@ do
                                 L("Видеть невидимое, показывает скрытые проходы и решения головоломок", "See the invisible, shows hidden passages and puzzle solutions")
                             },
                             pos = 9,
-                            weaponType=""
+                            weaponType = ""
                         }),
                         [10] = Talon:new {
                             icon = "ReplaceableTextures\\CommandButtons\\BTNLightningShield.blp",
@@ -5838,7 +5925,7 @@ do
                             tooltip = L("Будьте внимательны, эта способность ломает привычные механики", " Be careful, this ability breaks the usual mechanics"),
                             DS = { 100, 150, 200 },
                             pos = 4,
-                            weaponType=""
+                            weaponType = ""
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
@@ -6046,7 +6133,7 @@ do
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
                             name = L("Кодойская ловушка", "Codo trap"),
-                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%", "The trap deals X DS damage to enemies, and reduces the damage from traps on the hero at times YOU"),
+                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою DS раз ", "The trap deals X DS damage to enemies, and reduces the damage from traps on the hero at times YOU"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
@@ -6137,6 +6224,26 @@ do
                             tooltip = L("Призванное существо полностью автономно", "The summoned creature is completely autonomous"),
                             DS = { "wolf" },
                             pos = 4
+                        }),
+                        Talon:new({ --TODO перевод
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
+                            name = L("Здоровье зверя", ""),
+                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 100 X DS", ""),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Призванные существа получают здоровье в момент призыва. Действует на существ, призванных не только от Рексара", "The summoned creature is completely autonomous"),
+                            DS = { 10, 15, 20 },
+                            pos = 5
+                        }),
+                        Talon:new({ --TODO перевод
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
+                            name = L("Метка медведя", ""),
+                            description = L("Увеличивает урон на DS, с каждой последующей атакой", ""),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Метка исчезает, если враг не получал урона более 5 секунд", "The summoned creature is completely autonomous"),
+                            DS = { 5,10,20 },
+                            pos = 6
                         }),
                     },
                     PeonDidal = {
@@ -6333,7 +6440,7 @@ do
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
                             DS = { 1, 2, 3 },
                             pos = 3,
-                            weaponType="pickaxe",
+                            weaponType = "pickaxe",
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
@@ -6790,6 +6897,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
                 StartFrameCD(cdSec, buttonIconFrame)
                 sec = cdSec
                 data.SpiritWolf = CreateUnit(Player(data.pid), FourCC("osw1"), GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetUnitFacing(data.UnitHero))
+                AddMaxLife(data.SpiritWolf,data.HPForSummon)
                 DestroyEffect(AddSpecialEffect(effmodel, GetUnitXY(data.SpiritWolf)))
                 BlzSetUnitMaxHP(data.SpiritWolf, 1000 * talon.level)
                 HealUnit(data.SpiritWolf, 3000)
@@ -9761,7 +9869,7 @@ function OnPostDamage()
     else
         --print("наш герой получил урон")
         local data = HERO[GetPlayerId(GetOwningPlayer(target))]
-
+        data.StatDamageGained = data.StatDamageGained + GetEventDamage()
         local x, y = GetUnitXY(caster)
         local xe, ye = GetUnitXY(target)
         -- функция принадлежности точки сектора
@@ -9778,7 +9886,7 @@ function OnPostDamage()
                 data.EvilSoulCurrentCD = cd
                 StartFrameCD(cd, data.EvilSoulCDFH)
                 SetUnitInvulnerable(data.UnitHero, true)
-                local effInv = AddSpecialEffectTarget( "Abilities\\Spells\\Orc\\Voodoo\\VoodooAura.mdl", data.UnitHero,"origin")
+                local effInv = AddSpecialEffectTarget("Abilities\\Spells\\Orc\\Voodoo\\VoodooAura.mdl", data.UnitHero, "origin")
                 TimerStart(CreateTimer(), 0.5, false, function()
                     SetUnitInvulnerable(data.UnitHero, false)
                     DestroyEffect(effInv)
@@ -9796,6 +9904,7 @@ function OnPostDamage()
                     data.ReturnShieldDamage = 0
                 end
                 UnitDamageTarget(target, caster, GetEventDamage() * data.ReturnShieldDamage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS) --torn, отраженный урон
+                data.StatBlockGained = data.StatBlockGained + GetEventDamage()
                 BlzSetEventDamage(0)
                 local eff = AddSpecialEffect("SystemGeneric\\DefendCaster", GetUnitXY(target))
                 local AngleSource = AngleBetweenUnits(caster, target)
@@ -9803,6 +9912,7 @@ function OnPostDamage()
                 DestroyEffect(eff)
                 UnitAddForceSimple(data.UnitHero, AngleSource, 10, 50)
                 FlyTextTagShieldXY(xe, ye, L("Удар в щит", "In shield"), GetOwningPlayer(target))
+
                 if not IsUnitTrap(caster) and data.ShieldHealCDFH then
                     if data.ShieldHealCurrentCD <= 0 then
                         --AddGold(data, -10)
@@ -9842,6 +9952,7 @@ function OnPostDamage()
                 StartFrameCD(cd, data.FlipTheCoinCDFH)
 
                 if GetRandomInt(1, 2) == 1 then
+                    data.StatBlockGained = data.StatBlockGained + GetEventDamage()
                     BlzSetEventDamage(0)
                     FlyTextTagGoldBounty(target, "Удача", GetOwningPlayer(target))
                 else
@@ -9862,6 +9973,7 @@ function OnPostDamage()
                 --print("получен смертельный урон")
                 FlyTextTagHealXY(GetUnitX(target), GetUnitY(target), L("Предвидение смерти", "Foresight of Death"), GetOwningPlayer(target))
                 CreateInfoBoxForAllPlayerTimed(data, L("Я не дам тебе умереть", "I won't let you die"), 3)
+                data.StatBlockGained = data.StatBlockGained + GetEventDamage()
                 BlzSetEventDamage(0)
                 SetUnitInvulnerable(target, true)
                 TimerStart(CreateTimer(), 2, false, function()
@@ -9906,6 +10018,7 @@ function OnPostDamage()
             local AngleSource = AngleBetweenUnits(caster, target)
             BlzSetSpecialEffectYaw(eff, math.rad(AngleSource - 180))
             DestroyEffect(eff)
+            data.StatBlockGained = data.StatBlockGained + GetEventDamage()
             BlzSetEventDamage(0)
         end
         if GetEventDamage() > 5 and data.RevengeLightingDamage and not IsUnitTrap(caster) then
@@ -9922,6 +10035,8 @@ function OnPostDamage()
     if GetUnitTypeId(target) ~= HeroID and GetUnitTypeId(caster) == HeroID then
         --Функция должна быть в самом низу
         AddDamage2Show(target, GetEventDamage())
+        local data=GetUnitData(caster)
+        data.StatDamageDealing = data.StatDamageDealing + GetEventDamage()
         local showData = ShowDamageTable[GetHandleId(target)]
         local matchShow = showData.damage
         if matchShow >= 1 then
@@ -9932,7 +10047,6 @@ function OnPostDamage()
                 SetTextTagText(showData.tag, R2I(matchShow), 0.024 + (showData.k))
                 SetTextTagVelocity(showData.tag, 0, 0.01)
                 SetTextTagLifespan(showData.tag, 99)
-
 
             end
         end
@@ -10454,6 +10568,7 @@ function HealUnit(hero, amount, flag, eff)
                         DestroyTimer(GetExpiredTimer())
                         if TotalHeal > 1 then
                             FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(data.ShowHealAmount), p)
+                            data.StatHealGained=data.StatHealGained+data.ShowHealAmount
                         end
                         data.ShowHealAmount = 0
                     end
@@ -11506,6 +11621,13 @@ function InitHeroTable(hero)
         CurrentWeaponType = "", -- изначально герой без оружия
         FrameToDestroy = {},
         MaxLifeBonus=1, -- бонус максимального здоровья для бычих сердец
+        --Статистика
+        StatHealGained=0, -- Получено лечения +
+        StatDamageGained=0, -- Получено урона +
+        StatBlockGained=0, -- Заблокировано урона +
+        StatGoldGained=0, -- Получено золота за забег +
+        StatDamageDealing=0, -- Урона нанесено +
+        StatSummon=0, -- призвано существ
     }
 end
 
@@ -11614,7 +11736,7 @@ function InitWASD(hero)
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
             if data.CameraStabUnit and data.life < 0 then
-                SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
+                --SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
             end
             if GetLocalPlayer() == GetOwningPlayer(hero) then
                 -- SetCameraQuickPosition(x,y)
@@ -12590,9 +12712,8 @@ function BlockMouse(data)
             --Строковый список приказов, которые игрок не может выполнить
             if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" then
                 if not data.Desync and not FirstGoto then
-                    print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
-                    print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
-                    print(GetPlayerName(Player(data.pid)) .. " WARING DESYNC")
+                    print(GetPlayerName(Player(data.pid)) .. L("Внимание! вы должны использовать классическую схему управления","Attention!! you must use the classic control scheme"))
+
                     data.Desync = true
                 end
             else
@@ -13046,6 +13167,20 @@ function GetUnitData(hero)
     return data
 end
 --CUSTOM_CODE
+function Trig_StepOneCulvr_Func001A()
+    RemoveDestructable(GetEnumDestructable())
+end
+
+function Trig_StepOneCulvr_Actions()
+    EnumDestructablesInRectAll(gg_rct_BridgeCulvert, Trig_StepOneCulvr_Func001A)
+end
+
+function InitTrig_StepOneCulvr()
+    gg_trg_StepOneCulvr = CreateTrigger()
+    TriggerRegisterDeathEvent(gg_trg_StepOneCulvr, gg_dest_DTlv_8053)
+    TriggerAddAction(gg_trg_StepOneCulvr, Trig_StepOneCulvr_Actions)
+end
+
 function Trig_DeadB4_Actions()
     KillUnit(gg_unit_hpea_0563)
 end
@@ -13317,6 +13452,7 @@ function InitTrig_Melee_Initialization()
 end
 
 function InitCustomTriggers()
+    InitTrig_StepOneCulvr()
     InitTrig_DeadB4()
     InitTrig_SercOffErsh()
     InitTrig_SercBalka()
@@ -13338,31 +13474,37 @@ end
 
 function InitCustomPlayerSlots()
     SetPlayerStartLocation(Player(0), 0)
+    ForcePlayerStartLocation(Player(0), 0)
     SetPlayerColor(Player(0), ConvertPlayerColor(0))
     SetPlayerRacePreference(Player(0), RACE_PREF_ORC)
     SetPlayerRaceSelectable(Player(0), false)
     SetPlayerController(Player(0), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(1), 1)
+    ForcePlayerStartLocation(Player(1), 1)
     SetPlayerColor(Player(1), ConvertPlayerColor(1))
     SetPlayerRacePreference(Player(1), RACE_PREF_ORC)
     SetPlayerRaceSelectable(Player(1), false)
     SetPlayerController(Player(1), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(2), 2)
+    ForcePlayerStartLocation(Player(2), 2)
     SetPlayerColor(Player(2), ConvertPlayerColor(2))
     SetPlayerRacePreference(Player(2), RACE_PREF_ORC)
     SetPlayerRaceSelectable(Player(2), false)
     SetPlayerController(Player(2), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(3), 3)
+    ForcePlayerStartLocation(Player(3), 3)
     SetPlayerColor(Player(3), ConvertPlayerColor(3))
     SetPlayerRacePreference(Player(3), RACE_PREF_ORC)
     SetPlayerRaceSelectable(Player(3), false)
     SetPlayerController(Player(3), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(4), 4)
+    ForcePlayerStartLocation(Player(4), 4)
     SetPlayerColor(Player(4), ConvertPlayerColor(4))
     SetPlayerRacePreference(Player(4), RACE_PREF_ORC)
     SetPlayerRaceSelectable(Player(4), false)
     SetPlayerController(Player(4), MAP_CONTROL_USER)
     SetPlayerStartLocation(Player(5), 5)
+    ForcePlayerStartLocation(Player(5), 5)
     SetPlayerColor(Player(5), ConvertPlayerColor(5))
     SetPlayerRacePreference(Player(5), RACE_PREF_ORC)
     SetPlayerRaceSelectable(Player(5), false)

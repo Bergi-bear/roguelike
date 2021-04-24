@@ -99,11 +99,11 @@ function InitHeroTable(hero)
         FrameToDestroy = {},
         MaxLifeBonus=1, -- бонус максимального здоровья для бычих сердец
         --Статистика
-        StatHealGained=0, -- Получено лечения
-        StatDamageGained=0, -- Получено урона
-        StatBlockGained=0, -- Заблокировано урона
-        StatGoldGained=0, -- Получено золота за забег
-        StatDamageDealing=0, -- Урона нанесено
+        StatHealGained=0, -- Получено лечения +
+        StatDamageGained=0, -- Получено урона +
+        StatBlockGained=0, -- Заблокировано урона +
+        StatGoldGained=0, -- Получено золота за забег +
+        StatDamageDealing=0, -- Урона нанесено +
         StatSummon=0, -- призвано существ
     }
 end

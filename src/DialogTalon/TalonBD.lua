@@ -105,7 +105,7 @@ do
                                 L("Видеть невидимое, показывает скрытые проходы и решения головоломок", "See the invisible, shows hidden passages and puzzle solutions")
                             },
                             pos = 9,
-                            weaponType=""
+                            weaponType = ""
                         }),
                         [10] = Talon:new {
                             icon = "ReplaceableTextures\\CommandButtons\\BTNLightningShield.blp",
@@ -162,7 +162,7 @@ do
                             tooltip = L("Будьте внимательны, эта способность ломает привычные механики", " Be careful, this ability breaks the usual mechanics"),
                             DS = { 100, 150, 200 },
                             pos = 4,
-                            weaponType=""
+                            weaponType = ""
                         }),
                         Talon:new({ --5
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
@@ -370,7 +370,7 @@ do
                         Talon:new({--6
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
                             name = L("Кодойская ловушка", "Codo trap"),
-                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою на 50%%", "The trap deals X DS damage to enemies, and reduces the damage from traps on the hero at times YOU"),
+                            description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою DS раз ", "The trap deals X DS damage to enemies, and reduces the damage from traps on the hero at times YOU"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Работает только на огненные мины и кнопки с шипами", "Works only on fire mines and buttons with spikes"),
@@ -461,6 +461,26 @@ do
                             tooltip = L("Призванное существо полностью автономно", "The summoned creature is completely autonomous"),
                             DS = { "wolf" },
                             pos = 4
+                        }),
+                        Talon:new({ --TODO перевод
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
+                            name = L("Здоровье зверя", ""),
+                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 100 X DS", ""),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Призванные существа получают здоровье в момент призыва. Действует на существ, призванных не только от Рексара", "The summoned creature is completely autonomous"),
+                            DS = { 10, 15, 20 },
+                            pos = 5
+                        }),
+                        Talon:new({ --TODO перевод
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
+                            name = L("Метка медведя", ""),
+                            description = L("Увеличивает урон на DS, с каждой последующей атакой", ""),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Метка исчезает, если враг не получал урона более 5 секунд", "The summoned creature is completely autonomous"),
+                            DS = { 5,10,20 },
+                            pos = 6
                         }),
                     },
                     PeonDidal = {
@@ -657,7 +677,7 @@ do
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold the LMB to make a spinning attack"),
                             DS = { 1, 2, 3 },
                             pos = 3,
-                            weaponType="pickaxe",
+                            weaponType = "pickaxe",
                         }),
                         Talon:new({--4
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",

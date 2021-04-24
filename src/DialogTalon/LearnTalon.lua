@@ -285,7 +285,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.EvilSoulCD = talon.DS[talon.level]
 
             ActLvl23Action(talon, function()
-                     data.EvilSoulCD = talon.DS[talon.level]
+                data.EvilSoulCD = talon.DS[talon.level]
             end)
         end
     end
@@ -410,6 +410,25 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.SummonLizardCDFH = CdFH
             data.SummonLizardCurrentCD = 0
             data.SummonLizardCD = 20
+        end
+        if pos == 5 then --хп суммонов
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+            data.HPForSummon = talon.DS[talon.level] * 100
+            AddMaxLife(data.UnitHero, talon.DS[talon.level])
+            ActLvl23Action(talon, function()
+                AddMaxLife(data.UnitHero, talon.DS[talon.level])
+                data.HPForSummon = talon.DS[talon.level] * 100
+            end)
+        end
+        if pos == 6 then -- лапка урсы
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+            data.UrsaBonus=talon.DS[talon.level]
+            data.UrsaStack=0
+            ActLvl23Action(talon, function()
+                data.UrsaBonus=talon.DS[talon.level]
+            end)
         end
     end
     if godName == "PeonDidal" and talon.level == 1 then

@@ -49,6 +49,7 @@ function HealUnit(hero, amount, flag, eff)
                         DestroyTimer(GetExpiredTimer())
                         if TotalHeal > 1 then
                             FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(data.ShowHealAmount), p)
+                            data.StatHealGained=data.StatHealGained+data.ShowHealAmount
                         end
                         data.ShowHealAmount = 0
                     end

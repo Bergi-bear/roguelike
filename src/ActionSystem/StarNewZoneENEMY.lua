@@ -11,9 +11,9 @@ do
             EnemyList = {
                 FourCC("nsko"), -- скелет
                 FourCC("ucs1"), -- мелкий жук
+                FourCC("u000"), -- большой жук
                 FourCC("uabo"), -- пудж
                 FourCC("unec"), -- некромант
-                FourCC("u000"), -- большой жук
                 FourCC("n000"), -- мимик
                 FourCC("ugar"), -- гаргулья
             }
@@ -461,7 +461,7 @@ function StartEnemyWave(waveNumber)
     if waveNumber == 14 then
         local r = GetRandomInt(1, 2)
         if r == 1 then
-            listID = {
+            listID = { --баньши и некры
                 FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
                 FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
                 FourCC("uban"), FourCC("unec"), FourCC("uban"), FourCC("unec"),
@@ -477,7 +477,35 @@ function StartEnemyWave(waveNumber)
                 FourCC("uban"), FourCC("uban"), FourCC("uban"), FourCC("uban"), FourCC("uban"),
             }
             maxOnWave = 6
+        end
+    end
 
+    if waveNumber == 15 then
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
+            listID = {
+                FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"),
+                FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"),
+                FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"), FourCC("ucs1"), FourCC("u000"),
+            }
+            maxOnWave = 7
+        elseif r == 2 then
+            listID = {
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+            }
+            maxOnWave = 6
+        elseif r == 3 then
+            listID = {
+                FourCC("uzig"), FourCC("uzig"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+                FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"), FourCC("u000"),
+            }
+            maxOnWave = 6
         end
     end
 
