@@ -463,7 +463,7 @@ do
                             pos = 4
                         }),
                         Talon:new({ --TODO перевод
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
                             name = L("Здоровье зверя", ""),
                             description = L("Увеличивает здоровье героя на DS, а призванных существа на 100 X DS", ""),
                             level = 0,
@@ -473,7 +473,7 @@ do
                             pos = 5
                         }),
                         Talon:new({ --TODO перевод
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBattleRoar.blp",
                             name = L("Метка медведя", ""),
                             description = L("Увеличивает урон на DS, с каждой последующей атакой", ""),
                             level = 0,

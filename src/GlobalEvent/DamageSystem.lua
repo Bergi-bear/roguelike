@@ -36,22 +36,13 @@ function OnPostDamage()
             BlzSetEventDamage(damage * data.BackDamage)
             FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
         end
+        if data.UrsaStackFH then
+            UnitAddUrsaStack(target,1)
+            local stack=UnitGetUrsaStack(target)
+            BlzSetEventDamage(GetEventDamage()+(stack*data.UrsaBonus))
+        end
 
         if data.CriticalStrikeCDFH then
-            --[[
-                StartFrameCDWA(data.CriticalStrikeCurrentCD, data.CriticalStrikeCDFH, GlobalTalons[data.pid + 1]["HeroBlademaster"][2], function()
-                    local talonM = GlobalTalons[data.pid + 1]["HeroBlademaster"][3]
-                    local ks = 1.5
-                    if data.HasMultipleCritical then
-                        if talonM.level > 0 then
-                            ks = talonM.DS[talonM.level]
-                        end
-                    end
-                    BlzSetEventDamage(GetEventDamage() * ks)
-                end)
-    ]]
-
-
             if data.CriticalStrikeCurrentCD <= 0 then
                 local talon = GlobalTalons[data.pid]["HeroBlademaster"][2]
                 local cd = talon.DS[talon.level]
@@ -283,7 +274,7 @@ function OnPostDamage()
     if GetUnitTypeId(target) ~= HeroID and GetUnitTypeId(caster) == HeroID then
         --Функция должна быть в самом низу
         AddDamage2Show(target, GetEventDamage())
-        local data=GetUnitData(caster)
+        local data = GetUnitData(caster)
         data.StatDamageDealing = data.StatDamageDealing + GetEventDamage()
         local showData = ShowDamageTable[GetHandleId(target)]
         local matchShow = showData.damage
