@@ -26,7 +26,8 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
                             DS = { 2, 3, 4 },
-                            pos = 2
+                            pos = 2,
+                            weaponType="pickaxe"
 
                         }),
                         [3] = Talon:new({

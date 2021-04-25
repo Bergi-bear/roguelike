@@ -57,6 +57,8 @@ function InitFinObjectInArea()
     CreateEnterPoint(13400, -9448, L("Открыть", "Open"), "Open1", false)
     CreateEnterPoint(10680, -15902, L("Открыть", "Open"), "Open2", false)
     CreateEnterPoint(19487, -4224, L("Прыгнуть вниз", "Jump into culvert"), "Culvert", false)
+    CreateGodTalon(6100, -7547, "WeaponShield")
+    CreateGodTalon(6560,-7524, "WeaponPickAxe")
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -597,6 +599,27 @@ function CreateEActions()
                 FlyTextTagShieldXY(x, y, L("Поворачиваем", "Rotate"), GetOwningPlayer(data.UnitHero))
                 --print("Поворачиваем")
             end
+            if data.UseAction == "WeaponPickAxe" then
+                --local message = L("Я здесь не для отдыха","I'm not here to rest")
+                --CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                SwitchWeaponTo(data, "pickaxe")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                local x, y = GetUnitXY(data.UnitHero)
+                FlyTextTagShieldXY(x, y, L("Кирка", "pickaxe"), GetOwningPlayer(data.UnitHero))
+            end
+            if data.UseAction == "WeaponShield" then
+                --local message = L("Я здесь не для отдыха","I'm not here to rest")
+                --CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                SwitchWeaponTo(data, "shield")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                local x, y = GetUnitXY(data.UnitHero)
+                FlyTextTagShieldXY(x, y, L("Щит", "Shield"), GetOwningPlayer(data.UnitHero))
+            end
+
             ----------------------------------------------------/
             --------------------Буквы---------------------------/
             ----------------------------------------------------/

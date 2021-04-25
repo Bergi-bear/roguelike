@@ -82,6 +82,9 @@ gg_rct________________078 = nil
 gg_rct_InCulvert = nil
 gg_rct_BridgeCulvert = nil
 gg_rct_BoundCulvert = nil
+gg_rct_S23A_____________________u = nil
+gg_rct_B23A_____________________u = nil
+gg_rct_E23A_____________________u = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -303,7 +306,6 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 24798.1, -10826.0, 139.662, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 24330.0, -9780.4, 270.044, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 23908.7, -10082.3, 270.044, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2576.2, -16812.0, 268.030, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2587.1, -17388.4, 178.003, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2575.9, -17514.3, 178.003, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2579.7, -17642.4, 178.003, FourCC("hrif"))
@@ -312,6 +314,27 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 1873.7, -16622.3, 273.052, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1356.2, -17799.0, 269.179, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2495.4, -17759.4, 90.809, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 804.3, -17320.7, 357.592, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 814.3, -17421.4, 357.592, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 813.1, -17519.5, 357.592, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 805.5, -17624.8, 357.592, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 810.5, -17710.0, 357.592, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 815.0, -17793.2, 357.592, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2141.6, -16818.8, 177.810, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2141.7, -16930.9, 177.810, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2142.5, -17057.0, 177.810, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2133.6, -17176.2, 177.810, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2139.9, -17296.2, 177.810, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
 end
 
 function CreateNeutralHostile()
@@ -811,6 +834,9 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("h001"), 23230.7, -4850.9, 212.438, FourCC("h001"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 23110.9, -7359.6, 106.150, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 1219.2, -18536.6, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21828.1, -6460.5, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24210.7, -24462.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24613.2, -24932.9, 296.730, FourCC("hdhw"))
 end
 
 function CreatePlayerBuildings()
@@ -912,6 +938,9 @@ function CreateRegions()
     gg_rct_InCulvert = Rect(800.0, -16288.0, 1152.0, -16032.0)
     gg_rct_BridgeCulvert = Rect(1248.0, -18528.0, 1440.0, -17824.0)
     gg_rct_BoundCulvert = Rect(1376.0, -21280.0, 1888.0, -16544.0)
+    gg_rct_S23A_____________________u = Rect(21280.0, -26400.0, 24832.0, -24352.0)
+    gg_rct_B23A_____________________u = Rect(22624.0, -25536.0, 23296.0, -25248.0)
+    gg_rct_E23A_____________________u = Rect(21504.0, -26368.0, 21760.0, -25984.0)
 end
 
 function CreateCameras()
@@ -1244,11 +1273,11 @@ function attackPickAxe(data)
             data.AttackCount = data.AttackCount + 1
             --print(data.AttackCount)
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[pid], GetPlayerMouseY[pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-            local bonus=0
+            local bonus = 0
             if data.GoldKingCharges then
-                bonus=data.GoldKingCharges
+                bonus = data.GoldKingCharges
             end
-            local damage = data.DamageInSeries[data.AttackCount]+bonus
+            local damage = data.DamageInSeries[data.AttackCount] + bonus
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
             local maxAttack = data.MaxAttack
 
@@ -1520,7 +1549,11 @@ function ShieldHit(data, cdAttack)
         data.isAttacking = false
         local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
         if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
-            local is, enemy, k = UnitDamageArea(data.UnitHero, data.DamageInShieldPerAttack, nx, ny, 100)
+            local flag = nil
+            if data.DashPerAttack then
+                flag = "push"
+            end
+            local is, enemy, k = UnitDamageArea(data.UnitHero, data.DamageInShieldPerAttack, nx, ny, 100, flag)
 
             if is then
                 data.ParryPerAttack = true
@@ -2811,6 +2844,8 @@ function InitFinObjectInArea()
     CreateEnterPoint(13400, -9448, L("Открыть", "Open"), "Open1", false)
     CreateEnterPoint(10680, -15902, L("Открыть", "Open"), "Open2", false)
     CreateEnterPoint(19487, -4224, L("Прыгнуть вниз", "Jump into culvert"), "Culvert", false)
+    CreateGodTalon(6100, -7547, "WeaponShield")
+    CreateGodTalon(6560,-7524, "WeaponPickAxe")
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -3351,6 +3386,27 @@ function CreateEActions()
                 FlyTextTagShieldXY(x, y, L("Поворачиваем", "Rotate"), GetOwningPlayer(data.UnitHero))
                 --print("Поворачиваем")
             end
+            if data.UseAction == "WeaponPickAxe" then
+                --local message = L("Я здесь не для отдыха","I'm not here to rest")
+                --CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                SwitchWeaponTo(data, "pickaxe")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                local x, y = GetUnitXY(data.UnitHero)
+                FlyTextTagShieldXY(x, y, L("Кирка", "pickaxe"), GetOwningPlayer(data.UnitHero))
+            end
+            if data.UseAction == "WeaponShield" then
+                --local message = L("Я здесь не для отдыха","I'm not here to rest")
+                --CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                SwitchWeaponTo(data, "shield")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                local x, y = GetUnitXY(data.UnitHero)
+                FlyTextTagShieldXY(x, y, L("Щит", "Shield"), GetOwningPlayer(data.UnitHero))
+            end
+
             ----------------------------------------------------/
             --------------------Буквы---------------------------/
             ----------------------------------------------------/
@@ -4487,7 +4543,12 @@ function StartEnemyWave(waveNumber)
         }
         maxOnWave = 5
     end
-
+    if waveNumber == 46 then
+        listID = {  -- паучиха
+            FourCC("nsbm")
+        }
+        maxOnWave = 1
+    end
     if waveNumber == 5 then
         local r = GetRandomInt(1, 4)
         if r == 1 then
@@ -4769,15 +4830,16 @@ function CreateCreepDelay(id, x, y, delay, flag)
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
         local a = BlzGetUnitMaxHP(new)
+        local k = 1.5
         if G_CountPlayers >= 2 then
 
-            BlzSetUnitMaxHP(new, R2I(a * G_CountPlayers))
+            BlzSetUnitMaxHP(new, R2I(a * k * G_CountPlayers))
             HealUnit(new)
         end
         if CurrentGameZone >= 9 then
             local r = GetRandomInt(1, 22 - CurrentGameZone)--
             if r == 1 then
-                UnitAddShield(new, R2I(a * 2))
+                UnitAddShield(new, R2I(a * k * 2))
             end
         end
 
@@ -5826,7 +5888,8 @@ do
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
                             DS = { 2, 3, 4 },
-                            pos = 2
+                            pos = 2,
+                            weaponType="pickaxe"
 
                         }),
                         [3] = Talon:new({
@@ -7607,7 +7670,7 @@ function InitEnemyEntire()
             IssueTargetOrder(unit, "attack", GetRandomEnemyHero())
             JumpAI(unit)
         end
-        if GetUnitTypeId(unit) == FourCC("ucs1") then
+        if GetUnitTypeId(unit) == FourCC("ucs1") or GetUnitTypeId(unit) == FourCC("nspg") then
             -- маленький скоробей
             SinergyBug(unit)
         end
@@ -7641,13 +7704,37 @@ function InitEnemyEntire()
             StartBossSkeleton(unit)
         end
         if GetUnitTypeId(unit) == FourCC("uban") then
-            --скелетон
+            --Баньша
             BansheeAiBlinkAndArrow(unit)
         end
         if GetUnitTypeId(unit) == FourCC("n003") then
             --огонёк
             MiniFire(unit)--NecroAttackAndArrow
         end
+        if GetUnitTypeId(unit) == FourCC("nsbm") then
+            --print("Паучиха")
+            StartSpiderAI(unit)
+        end
+        if GetUnitTypeId(unit) == FourCC("n001") then
+            --print("мурлок")
+            MurlockEnsnare(unit)
+        end
+    end)
+end
+
+function MurlockEnsnare(unit)
+    UnitAddAbility(unit, FourCC("A007"))
+    TimerStart(CreateTimer(), GetRandomReal(3, 10), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero = GetRandomEnemyHero()
+            IssueTargetOrder(unit,"attack",hero)
+            if not IsUnitInRange(hero, unit, 500) then
+                IssueTargetOrder(unit,"ensnare",hero)
+            end
+        end
+
     end)
 end
 
@@ -7668,7 +7755,7 @@ function MiniFire(unit)
                     --SetUnitTimeScale(unit,0.7)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
-                        CreateAndForceBullet(unit, angle, GetRandomInt(20,40), "Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl", nil, nil, 100, 3000)
+                        CreateAndForceBullet(unit, angle, GetRandomInt(20, 40), "Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl", nil, nil, 100, 3000)
                         BlzPauseUnitEx(unit, false)
                     end)
                 else
@@ -7677,7 +7764,7 @@ function MiniFire(unit)
                     BlzSetSpecialEffectColor(mark, 255, 0, 0)
                     BlzSetSpecialEffectScale(mark, 1.2)
                     --print("время взрываться")
-                    local eff=nil
+                    local eff = nil
                     TimerStart(CreateTimer(), 1.8, false, function()
                         eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
                     end)
@@ -8721,6 +8808,164 @@ end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
+--- DateTime: 31.03.2021 1:09
+---
+
+function StartSpiderAI(boss)
+    SpiderBoss = boss
+    local bsx, bsy = GetUnitXY(boss) --стартовая позиция босса
+    BlzSetUnitBaseDamage(boss, 10 * CurrentGameZone, 0)
+    BOSS = boss
+    BossDamaged2(boss)
+    BlzSetUnitMaxHP(boss, 6000)
+    UnitAddShield(boss, 8000)
+    UnitAddAbility(boss, FourCC("Abun"))
+    HealUnit(boss)
+    local BossFight = true
+    --print("Запущен ИИ Босса")
+
+    local phase = 4 --стартовая фаза
+    local sec = 0
+    local PhaseOn = true
+    local OnAttack = true
+    TimerStart(CreateTimer(), 1, true, function()
+        --каждую секунду
+        local x, y = GetUnitXY(boss)
+        if IsUnitHasShield(boss) then
+            SetUnitState(boss, UNIT_STATE_MANA, GetUnitState(boss, UNIT_STATE_MANA) + 100) --Реген
+        end
+        if not UnitAlive(boss) then
+            -- Место где босс умер
+            StartSound(bj_questCompletedSound)
+            DestroyTimer(GetExpiredTimer())
+            phase = 0
+            CreateGodTalon(x, y, "CodoHeart")
+            --print("Даём нарграду? ,босс повержен")
+        else
+            --Проверяем есть ли живые герои,
+            if BossFight then
+                if not IsUnitInRangeXY(boss, bsx, bsy, 1500) then
+                    BossFight = false
+                    phase = 0
+                    IssuePointOrder(boss, "move", bsx, bsy)
+                    DestroyEffect(AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
+                    SetUnitPositionSmooth(boss, bsx, bsy)
+                    DestroyEffect(AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
+                    --print("Герой мерт или далеко ушёл, остановка фаз")
+                end
+            end
+        end
+        if BossFight then
+            -- если идёт бой и каждую фазу
+            sec = sec + 1
+            if GetUnitLifePercent(boss) <= 25 then
+                --UnitAddAbility(boss,FourCC("A00N"))
+                local enemy = GetRandomEnemyHero()
+                if IsUnitInRange(enemy, boss, 250) and GetRandomInt(1, 2) == 1 then
+                    CreateCocoon(x,y)
+                end
+            else
+                -- UnitRemoveAbility(boss,FourCC("A00N"))
+            end
+            if sec >= 10 then
+                sec = 0
+                phase = phase + 1
+                PhaseOn = true
+                --print("phase " .. phase)
+                if phase >= 5 then
+                    phase = 0
+                end
+            end
+            --фазы
+            if phase == 1 and PhaseOn then
+                PhaseOn = false
+                --призыв паучат
+                IssuePointOrder(boss, "move", GetUnitXY(GetRandomEnemyHero()))
+                for i = 1, 8 do
+                    CreateCreepDelay(FourCC("nspg"), x, y, 1, "summon")
+                end
+            end
+            if phase == 2 and PhaseOn then
+                PhaseOn = false
+                --print("Плевки кислотой")
+                TimerStart(CreateTimer(), 0.6, true, function()
+                    local enemy = GetRandomEnemyHero()
+                    if not IsUnitStunned(boss) and enemy and not IsUnitType(boss, UNIT_TYPE_POLYMORPHED) then
+                        local angle = AngleBetweenUnits(boss, enemy)
+                        BlzPauseUnitEx(boss, true)
+                        SetUnitAnimation(boss, "attack")
+                        --SetUnitTimeScale(unit,0.7)
+                        SetUnitFacing(boss, angle)
+                        TimerStart(CreateTimer(), 0.3, false, function()
+                            CreateAndForceBullet(boss, angle, 30, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
+                            if GetUnitManaPercent(boss) < 30 then
+                                CreateAndForceBullet(boss, angle + 10, 20, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
+                                CreateAndForceBullet(boss, angle - 10, 20, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
+                            end
+                            BlzPauseUnitEx(boss, false)
+                        end)
+                    end
+                    if phase ~= 2 then
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end)
+            end
+            if phase == 3 and PhaseOn then
+                PhaseOn = false
+                --print("Создание паутины")
+                IssuePointOrder(boss, "move", GetUnitXY(GetRandomEnemyHero()))
+                TimerStart(CreateTimer(), 3, true, function()
+                    --тут нужно какое-то действие
+                    local angle = GetRandomInt(0, 360)
+                    local xn, yn = MoveXY(x, y, angle + 200, angle)
+                    CreateWeb(boss, x, y)
+                    IssuePointOrder(boss, "move", xn, yn)
+
+                    if phase ~= 3 then
+                        -- print("фаза "..phase.." завершена")
+                        DestroyTimer(GetExpiredTimer())
+                        --BlzPauseUnitEx(boss,false)
+                    end
+                end)
+            end
+
+            if phase == 4 and PhaseOn then
+                --print("Создание коконов")
+                PhaseOn = false
+                IssuePointOrder(boss, "move", GetUnitXY(GetRandomEnemyHero()))
+                TimerStart(CreateTimer(), 1, true, function()
+                    --тут нужно какое-то действие
+                    local angle = GetRandomInt(0, 360)
+                    local xn, yn = MoveXY(x, y, 300, angle)
+                    CreateCocoon(x, y)
+                    IssuePointOrder(boss, "move", xn, yn)
+
+                    if phase ~= 4 then
+                        -- print("фаза "..phase.." завершена")
+                        DestroyTimer(GetExpiredTimer())
+                        --BlzPauseUnitEx(boss,false)
+                    end
+                end)
+            end
+        else
+            -- перезапуск боссфайта
+
+        end--конец
+    end)
+end
+
+function CreateCocoon(x, y)
+    CreateDestructable(FourCC("DTes"), x, y, GetRandomInt(0, 360), GetRandomReal(0.5, 1.5), 1)
+end
+function CreateWeb(boss, x, y)
+    CreateUnit(GetOwningPlayer(boss), FourCC("h002"), x, y, GetRandomInt(0, 360))
+    local eff = AddSpecialEffect("SystemGeneric\\web2", x, y)
+    BlzSetSpecialEffectYaw(eff, math.rad(GetRandomInt(0, 360)))
+    BlzSetSpecialEffectScale(eff, GetRandomReal(2, 3))
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
 --- DateTime: 07.03.2021 0:39
 ---
 do
@@ -8739,7 +8984,7 @@ function InitEvenDestructable()
     EnumDestructablesInRect(bj_mapInitialPlayableArea, nil, function()
         local d = GetEnumDestructable()
 
-        if GetDestructableTypeId(d) == FourCC("B004") or GetDestructableTypeId(d) == FourCC("B008") then
+        if GetDestructableTypeId(d) == FourCC("B004") or GetDestructableTypeId(d) == FourCC("B008")  then
             k = k + 1
         end
         TriggerRegisterDeathEvent(thisTrigger, d)
@@ -8754,15 +8999,7 @@ function InitEvenDestructable()
             end
         end
 
-        if GetDestructableTypeId(d) == FourCC("B008") then
-            --print("умерла ваза")
-            local x, y = GetDestructableX(d), GetDestructableY(d)
-            DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", x, y))
-            TimerStart(CreateTimer(), 0.6, false, function()
-                RemoveDestructable(d)
-                DestroyTimer(GetExpiredTimer())
-            end)
-        end
+
 
     end)
     --print("Всего мимиков будет:"..k)
@@ -9087,7 +9324,7 @@ function CreateGroundSaw(hero, angle, z)
             end
         end
 
-        if i == 100 then
+        if i == R2I(GetUnitLifePercent(hero)) then
             turn = true
         end
         if i == 0 then
@@ -9826,9 +10063,9 @@ function OnPostDamage()
             FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
         end
         if data.UrsaStackFH then
-            UnitAddUrsaStack(target,1)
-            local stack=UnitGetUrsaStack(target)
-            BlzSetEventDamage(GetEventDamage()+(stack*data.UrsaBonus))
+            UnitAddUrsaStack(target, 1)
+            local stack = UnitGetUrsaStack(target)
+            BlzSetEventDamage(GetEventDamage() + (stack * data.UrsaBonus))
         end
 
         if data.CriticalStrikeCDFH then
@@ -9909,7 +10146,6 @@ function OnPostDamage()
 
         if data.EvilSoulCDFH then
             if data.EvilSoulCurrentCD <= 0 then
-
                 local cd = data.EvilSoulCD
                 data.EvilSoulCurrentCD = cd
                 StartFrameCD(cd, data.EvilSoulCDFH)
@@ -10250,6 +10486,16 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                 end)
                             end
                         end
+
+                        if GetDestructableTypeId(d) == FourCC("DTes") then
+                            --print("умер кокон")
+                            TimerStart(CreateTimer(), 0.4, false, function()
+                                UnitDamageArea(SpiderBoss, 90, dx, dy, 120)
+                                CreateUnit(GetOwningPlayer(SpiderBoss), FourCC("nspg"), dx, dy, GetRandomInt(0, 360))
+                                DestroyTimer(GetExpiredTimer())
+                            end)
+                        end
+
                     end
                 end
                 if GetDestructableLife(d) >= 1 then
@@ -11648,14 +11894,15 @@ function InitHeroTable(hero)
         Summon = {}, -- таблица суммонов
         CurrentWeaponType = "", -- изначально герой без оружия
         FrameToDestroy = {},
-        MaxLifeBonus=1, -- бонус максимального здоровья для бычих сердец
+        MaxLifeBonus = 1, -- бонус максимального здоровья для бычих сердец
         --Статистика
-        StatHealGained=0, -- Получено лечения +
-        StatDamageGained=0, -- Получено урона +
-        StatBlockGained=0, -- Заблокировано урона +
-        StatGoldGained=0, -- Получено золота за забег +
-        StatDamageDealing=0, -- Урона нанесено +
-        StatSummon=0, -- призвано существ
+        StatHealGained = 0, -- Получено лечения +
+        StatDamageGained = 0, -- Получено урона +
+        StatBlockGained = 0, -- Заблокировано урона +
+        StatGoldGained = 0, -- Получено золота за забег +
+        StatDamageDealing = 0, -- Урона нанесено +
+        StatSummon = 0, -- призвано существ
+        HPForSummon = 0, -- бонус хп для суммонов
     }
 end
 
@@ -11671,7 +11918,7 @@ function InitWASD(hero)
     local angle = 0
     local speed = 5
     local animWalk = 0
-  --SwitchWeaponTo(data, "shield") --Первое назначение оружие
+    --SwitchWeaponTo(data, "shield") --Первое назначение оружие
     TimerStart(CreateTimer(), 2, false, function()
         --SwitchWeaponTo(data, "pickaxe") -- перенесено в прелоад
     end)
@@ -12405,12 +12652,12 @@ function CreateWASDActions()
                 if data.CurrentWeaponType == "shield" then
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     TimerStart(CreateTimer(), 0.4, false, function()
-                        data.QHighJump=true
+                        data.QHighJump = true
                     end)
                     TimerStart(CreateTimer(), 1, false, function()
-                        data.QHighJump=false
+                        data.QHighJump = false
                     end)
-                    UnitAddForceSimple(data.UnitHero,GetUnitFacing(data.UnitHero),4,200)
+                    UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 4, 200)
                     if data.InvulInCrashQ then
                         SetUnitInvulnerable(data.UnitHero, true)
                         TimerStart(CreateTimer(), 1, false, function()
@@ -12615,7 +12862,7 @@ function CreateWASDActions()
                 local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetPlayerMouseX[pid], GetPlayerMouseY[pid]) / bj_DEGTORAD
                 SetUnitFacing(data.UnitHero, angle)
                 SetUnitTimeScale(data.UnitHero, 1.8)
-                normal_sound("Abilities\\Weapons\\Axe\\AxeMissileLaunch1",GetUnitXY(data.UnitHero))
+                normal_sound("Abilities\\Weapons\\Axe\\AxeMissileLaunch1", GetUnitXY(data.UnitHero))
                 --print("бросок щита")
                 TimerStart(CreateTimer(), 0.15, false, function()
                     SetUnitTimeScale(data.UnitHero, 1)
@@ -12740,7 +12987,7 @@ function BlockMouse(data)
             --Строковый список приказов, которые игрок не может выполнить
             if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" then
                 if not data.Desync and not FirstGoto then
-                    print(GetPlayerName(Player(data.pid)) .. L("Внимание! вы должны использовать классическую схему управления","Attention!! you must use the classic control scheme"))
+                    print(GetPlayerName(Player(data.pid)) .. L("Внимание! вы должны использовать классическую схему управления", "Attention!! you must use the classic control scheme"))
 
                     data.Desync = true
                 end
@@ -12796,10 +13043,10 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             --print(currentdistance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
-            local makeJump=false
-            if IsUnitType(hero,UNIT_TYPE_HERO) then
+            local makeJump = false
+            if IsUnitType(hero, UNIT_TYPE_HERO) then
                 if GetUnitData(hero).QHighJump then
-                    makeJump=true
+                    makeJump = true
                 end
             end
 
@@ -12824,9 +13071,24 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 local PerepadZ = GetTerrainZ(MoveXY(x, y, 120, angle)) - GetTerrainZ(x, y)
                 --print(PerepadZ)
                 if (PointContentDestructable(newX, newY, 120, false) or PerepadZ > 20) and not damageOnWall then
-                    FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
                     local data = HERO[GetPlayerId(GetOwningPlayer(pushing))]
-                    local damage = 100
+                    local bonus = 0
+                    if not data.WallHitCount then
+                        data.WallHitCount = 0
+                    end
+                    if data.WallHitCount <= 2 then
+                        FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
+                    else
+                        FlyTextTagShieldXY(x, y, L("Зажат в угол", "Trapped in corner"), GetOwningPlayer(pushing))
+                        bonus = 100
+                    end
+                    data.WallHitCount = data.WallHitCount + 1
+                    print(data.WallHitCount)
+                    TimerStart(CreateTimer(), 2, false, function()
+                        data.WallHitCount = data.WallHitCount -1
+                    end)
+
+                    local damage = 100 + bonus
                     if not data.WallDamage then
                         data.WallDamage = 0
                     end
@@ -13392,7 +13654,7 @@ function Trig_DeadB1_Conditions()
     return true
 end
 
-function Trig_DeadB1_Func002Func009C()
+function Trig_DeadB1_Func002Func010C()
     if (not (IsDestructableDeadBJ(gg_dest_B009_5531) == true)) then
         return false
     end
@@ -13406,7 +13668,7 @@ function Trig_DeadB1_Func002Func009C()
 end
 
 function Trig_DeadB1_Func002C()
-    if (not Trig_DeadB1_Func002Func009C()) then
+    if (not Trig_DeadB1_Func002Func010C()) then
         return false
     end
     return true
@@ -13415,6 +13677,7 @@ end
 function Trig_DeadB1_Actions()
     if (Trig_DeadB1_Func002C()) then
                 CreateGodTalon(18366,-6850,"CodoHeart")
+        CreateNUnitsAtLoc(1, FourCC("nsbm"), Player(10), GetRectCenter(gg_rct_S5A), bj_UNIT_FACING)
         udg_QuestComplete1 = true
         KillDestructable(gg_dest_B009_5530)
         KillDestructable(gg_dest_B009_5531)

@@ -17,11 +17,11 @@ function attackPickAxe(data)
             data.AttackCount = data.AttackCount + 1
             --print(data.AttackCount)
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[pid], GetPlayerMouseY[pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-            local bonus=0
+            local bonus = 0
             if data.GoldKingCharges then
-                bonus=data.GoldKingCharges
+                bonus = data.GoldKingCharges
             end
-            local damage = data.DamageInSeries[data.AttackCount]+bonus
+            local damage = data.DamageInSeries[data.AttackCount] + bonus
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
             local maxAttack = data.MaxAttack
 
@@ -293,7 +293,11 @@ function ShieldHit(data, cdAttack)
         data.isAttacking = false
         local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
         if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
-            local is, enemy, k = UnitDamageArea(data.UnitHero, data.DamageInShieldPerAttack, nx, ny, 100)
+            local flag = nil
+            if data.DashPerAttack then
+                flag = "push"
+            end
+            local is, enemy, k = UnitDamageArea(data.UnitHero, data.DamageInShieldPerAttack, nx, ny, 100, flag)
 
             if is then
                 data.ParryPerAttack = true

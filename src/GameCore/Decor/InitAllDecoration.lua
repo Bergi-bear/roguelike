@@ -19,7 +19,7 @@ function InitEvenDestructable()
     EnumDestructablesInRect(bj_mapInitialPlayableArea, nil, function()
         local d = GetEnumDestructable()
 
-        if GetDestructableTypeId(d) == FourCC("B004") or GetDestructableTypeId(d) == FourCC("B008") then
+        if GetDestructableTypeId(d) == FourCC("B004") or GetDestructableTypeId(d) == FourCC("B008")  then
             k = k + 1
         end
         TriggerRegisterDeathEvent(thisTrigger, d)
@@ -34,15 +34,7 @@ function InitEvenDestructable()
             end
         end
 
-        if GetDestructableTypeId(d) == FourCC("B008") then
-            --print("умерла ваза")
-            local x, y = GetDestructableX(d), GetDestructableY(d)
-            DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", x, y))
-            TimerStart(CreateTimer(), 0.6, false, function()
-                RemoveDestructable(d)
-                DestroyTimer(GetExpiredTimer())
-            end)
-        end
+
 
     end)
     --print("Всего мимиков будет:"..k)

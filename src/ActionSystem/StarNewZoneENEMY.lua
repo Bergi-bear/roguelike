@@ -390,7 +390,12 @@ function StartEnemyWave(waveNumber)
         }
         maxOnWave = 5
     end
-
+    if waveNumber == 46 then
+        listID = {  -- паучиха
+            FourCC("nsbm")
+        }
+        maxOnWave = 1
+    end
     if waveNumber == 5 then
         local r = GetRandomInt(1, 4)
         if r == 1 then
@@ -672,16 +677,16 @@ function CreateCreepDelay(id, x, y, delay, flag)
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
         local a = BlzGetUnitMaxHP(new)
-        local k=1.5
+        local k = 1.5
         if G_CountPlayers >= 2 then
 
-            BlzSetUnitMaxHP(new, R2I(a *k* G_CountPlayers))
+            BlzSetUnitMaxHP(new, R2I(a * k * G_CountPlayers))
             HealUnit(new)
         end
         if CurrentGameZone >= 9 then
             local r = GetRandomInt(1, 22 - CurrentGameZone)--
             if r == 1 then
-                UnitAddShield(new, R2I(a *k* 2))
+                UnitAddShield(new, R2I(a * k * 2))
             end
         end
 

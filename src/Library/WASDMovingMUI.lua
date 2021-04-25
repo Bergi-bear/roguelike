@@ -97,14 +97,15 @@ function InitHeroTable(hero)
         Summon = {}, -- таблица суммонов
         CurrentWeaponType = "", -- изначально герой без оружия
         FrameToDestroy = {},
-        MaxLifeBonus=1, -- бонус максимального здоровья для бычих сердец
+        MaxLifeBonus = 1, -- бонус максимального здоровья для бычих сердец
         --Статистика
-        StatHealGained=0, -- Получено лечения +
-        StatDamageGained=0, -- Получено урона +
-        StatBlockGained=0, -- Заблокировано урона +
-        StatGoldGained=0, -- Получено золота за забег +
-        StatDamageDealing=0, -- Урона нанесено +
-        StatSummon=0, -- призвано существ
+        StatHealGained = 0, -- Получено лечения +
+        StatDamageGained = 0, -- Получено урона +
+        StatBlockGained = 0, -- Заблокировано урона +
+        StatGoldGained = 0, -- Получено золота за забег +
+        StatDamageDealing = 0, -- Урона нанесено +
+        StatSummon = 0, -- призвано существ
+        HPForSummon = 0, -- бонус хп для суммонов
     }
 end
 
@@ -120,7 +121,7 @@ function InitWASD(hero)
     local angle = 0
     local speed = 5
     local animWalk = 0
-  --SwitchWeaponTo(data, "shield") --Первое назначение оружие
+    --SwitchWeaponTo(data, "shield") --Первое назначение оружие
     TimerStart(CreateTimer(), 2, false, function()
         --SwitchWeaponTo(data, "pickaxe") -- перенесено в прелоад
     end)
@@ -854,12 +855,12 @@ function CreateWASDActions()
                 if data.CurrentWeaponType == "shield" then
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     TimerStart(CreateTimer(), 0.4, false, function()
-                        data.QHighJump=true
+                        data.QHighJump = true
                     end)
                     TimerStart(CreateTimer(), 1, false, function()
-                        data.QHighJump=false
+                        data.QHighJump = false
                     end)
-                    UnitAddForceSimple(data.UnitHero,GetUnitFacing(data.UnitHero),4,200)
+                    UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 4, 200)
                     if data.InvulInCrashQ then
                         SetUnitInvulnerable(data.UnitHero, true)
                         TimerStart(CreateTimer(), 1, false, function()
@@ -1064,7 +1065,7 @@ function CreateWASDActions()
                 local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetPlayerMouseX[pid], GetPlayerMouseY[pid]) / bj_DEGTORAD
                 SetUnitFacing(data.UnitHero, angle)
                 SetUnitTimeScale(data.UnitHero, 1.8)
-                normal_sound("Abilities\\Weapons\\Axe\\AxeMissileLaunch1",GetUnitXY(data.UnitHero))
+                normal_sound("Abilities\\Weapons\\Axe\\AxeMissileLaunch1", GetUnitXY(data.UnitHero))
                 --print("бросок щита")
                 TimerStart(CreateTimer(), 0.15, false, function()
                     SetUnitTimeScale(data.UnitHero, 1)
@@ -1189,7 +1190,7 @@ function BlockMouse(data)
             --Строковый список приказов, которые игрок не может выполнить
             if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" then
                 if not data.Desync and not FirstGoto then
-                    print(GetPlayerName(Player(data.pid)) .. L("Внимание! вы должны использовать классическую схему управления","Attention!! you must use the classic control scheme"))
+                    print(GetPlayerName(Player(data.pid)) .. L("Внимание! вы должны использовать классическую схему управления", "Attention!! you must use the classic control scheme"))
 
                     data.Desync = true
                 end
@@ -1245,10 +1246,10 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             --print(currentdistance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
-            local makeJump=false
-            if IsUnitType(hero,UNIT_TYPE_HERO) then
+            local makeJump = false
+            if IsUnitType(hero, UNIT_TYPE_HERO) then
                 if GetUnitData(hero).QHighJump then
-                    makeJump=true
+                    makeJump = true
                 end
             end
 
@@ -1273,9 +1274,24 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                 local PerepadZ = GetTerrainZ(MoveXY(x, y, 120, angle)) - GetTerrainZ(x, y)
                 --print(PerepadZ)
                 if (PointContentDestructable(newX, newY, 120, false) or PerepadZ > 20) and not damageOnWall then
-                    FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
                     local data = HERO[GetPlayerId(GetOwningPlayer(pushing))]
-                    local damage = 100
+                    local bonus = 0
+                    if not data.WallHitCount then
+                        data.WallHitCount = 0
+                    end
+                    if data.WallHitCount <= 2 then
+                        FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
+                    else
+                        FlyTextTagShieldXY(x, y, L("Зажат в угол", "Trapped in corner"), GetOwningPlayer(pushing))
+                        bonus = 1000
+                    end
+                    data.WallHitCount = data.WallHitCount + 1
+                    print(data.WallHitCount)
+                    TimerStart(CreateTimer(), 2, false, function()
+                        data.WallHitCount = data.WallHitCount -1
+                    end)
+
+                    local damage = 100 + bonus
                     if not data.WallDamage then
                         data.WallDamage = 0
                     end

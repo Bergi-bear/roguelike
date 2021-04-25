@@ -93,10 +93,10 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
 
 
 
-            data.GoldKingCharges = data.gold // (100/data.GoldKingBonus)
+            data.GoldKingCharges = data.gold // (100 / data.GoldKingBonus)
             --print(data.GoldKingBonus*100)
-            if data.GoldKingCharges> data.GoldKingBonus*100 then
-                data.GoldKingCharges=data.GoldKingBonus*100
+            if data.GoldKingCharges > data.GoldKingBonus * 100 then
+                data.GoldKingCharges = data.GoldKingBonus * 100
             end
             BlzFrameSetText(data.GoldKingFH, R2I(data.GoldKingCharges))
         end)
@@ -172,7 +172,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
                 StartFrameCD(cdSec, buttonIconFrame)
                 sec = cdSec
                 data.SpiritWolf = CreateUnit(Player(data.pid), FourCC("osw1"), GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetUnitFacing(data.UnitHero))
-                AddMaxLife(data.SpiritWolf,data.HPForSummon)
+                AddMaxLife(data.SpiritWolf, data.HPForSummon)
                 DestroyEffect(AddSpecialEffect(effmodel, GetUnitXY(data.SpiritWolf)))
                 BlzSetUnitMaxHP(data.SpiritWolf, 1000 * talon.level)
                 HealUnit(data.SpiritWolf, 3000)
@@ -324,8 +324,10 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
 
     ---Глобализация
     data.countFrame = k + 1 -- Увеличение числа талантов
-    if data.countFrame >= 25 then
-        print("Достигнул лимит способностей, обратитесь к автору карты")
+    if data.countFrame >= 26 then
+        print("Достигнул лимит способностей")
+    else
+        data.countFrame = k - 1
     end
     return text, buttonIconFrame
 end

@@ -37,9 +37,9 @@ function OnPostDamage()
             FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
         end
         if data.UrsaStackFH then
-            UnitAddUrsaStack(target,1)
-            local stack=UnitGetUrsaStack(target)
-            BlzSetEventDamage(GetEventDamage()+(stack*data.UrsaBonus))
+            UnitAddUrsaStack(target, 1)
+            local stack = UnitGetUrsaStack(target)
+            BlzSetEventDamage(GetEventDamage() + (stack * data.UrsaBonus))
         end
 
         if data.CriticalStrikeCDFH then
@@ -120,7 +120,6 @@ function OnPostDamage()
 
         if data.EvilSoulCDFH then
             if data.EvilSoulCurrentCD <= 0 then
-
                 local cd = data.EvilSoulCD
                 data.EvilSoulCurrentCD = cd
                 StartFrameCD(cd, data.EvilSoulCDFH)
@@ -461,6 +460,16 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                 end)
                             end
                         end
+
+                        if GetDestructableTypeId(d) == FourCC("DTes") then
+                            --print("умер кокон")
+                            TimerStart(CreateTimer(), 0.4, false, function()
+                                UnitDamageArea(SpiderBoss, 90, dx, dy, 120)
+                                CreateUnit(GetOwningPlayer(SpiderBoss), FourCC("nspg"), dx, dy, GetRandomInt(0, 360))
+                                DestroyTimer(GetExpiredTimer())
+                            end)
+                        end
+
                     end
                 end
                 if GetDestructableLife(d) >= 1 then

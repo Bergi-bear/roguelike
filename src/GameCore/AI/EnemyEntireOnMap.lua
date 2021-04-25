@@ -27,7 +27,7 @@ function InitEnemyEntire()
             IssueTargetOrder(unit, "attack", GetRandomEnemyHero())
             JumpAI(unit)
         end
-        if GetUnitTypeId(unit) == FourCC("ucs1") then
+        if GetUnitTypeId(unit) == FourCC("ucs1") or GetUnitTypeId(unit) == FourCC("nspg") then
             -- маленький скоробей
             SinergyBug(unit)
         end
@@ -61,13 +61,37 @@ function InitEnemyEntire()
             StartBossSkeleton(unit)
         end
         if GetUnitTypeId(unit) == FourCC("uban") then
-            --скелетон
+            --Баньша
             BansheeAiBlinkAndArrow(unit)
         end
         if GetUnitTypeId(unit) == FourCC("n003") then
             --огонёк
             MiniFire(unit)--NecroAttackAndArrow
         end
+        if GetUnitTypeId(unit) == FourCC("nsbm") then
+            --print("Паучиха")
+            StartSpiderAI(unit)
+        end
+        if GetUnitTypeId(unit) == FourCC("n001") then
+            --print("мурлок")
+            MurlockEnsnare(unit)
+        end
+    end)
+end
+
+function MurlockEnsnare(unit)
+    UnitAddAbility(unit, FourCC("A007"))
+    TimerStart(CreateTimer(), GetRandomReal(3, 10), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero = GetRandomEnemyHero()
+            IssueTargetOrder(unit,"attack",hero)
+            if not IsUnitInRange(hero, unit, 500) then
+                IssueTargetOrder(unit,"ensnare",hero)
+            end
+        end
+
     end)
 end
 
@@ -88,7 +112,7 @@ function MiniFire(unit)
                     --SetUnitTimeScale(unit,0.7)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
-                        CreateAndForceBullet(unit, angle, GetRandomInt(20,40), "Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl", nil, nil, 100, 3000)
+                        CreateAndForceBullet(unit, angle, GetRandomInt(20, 40), "Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl", nil, nil, 100, 3000)
                         BlzPauseUnitEx(unit, false)
                     end)
                 else
@@ -97,7 +121,7 @@ function MiniFire(unit)
                     BlzSetSpecialEffectColor(mark, 255, 0, 0)
                     BlzSetSpecialEffectScale(mark, 1.2)
                     --print("время взрываться")
-                    local eff=nil
+                    local eff = nil
                     TimerStart(CreateTimer(), 1.8, false, function()
                         eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
                     end)

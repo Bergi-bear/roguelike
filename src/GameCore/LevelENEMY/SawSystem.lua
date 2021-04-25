@@ -196,7 +196,7 @@ function CreateGroundSaw(hero, angle, z)
             end
         end
 
-        if i == 100 then
+        if i == R2I(GetUnitLifePercent(hero)) then
             turn = true
         end
         if i == 0 then
