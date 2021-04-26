@@ -326,8 +326,9 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     data.countFrame = k + 1 -- Увеличение числа талантов
     if data.countFrame >= 26 then
         print("Достигнул лимит способностей")
-    else
         data.countFrame = k - 1
+    else
+
     end
     return text, buttonIconFrame
 end

@@ -8,6 +8,7 @@ function StartAndReleaseSpin(data, duration)
     local a = 0
     local sec = 0
     local freeSpin=false
+    UnitRemoveAbility(hero,FourCC("Beng"))
     if not duration then
         duration = 0
     else

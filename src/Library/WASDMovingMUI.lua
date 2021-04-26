@@ -853,6 +853,7 @@ function CreateWASDActions()
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero, 3) -- удар кирки в землю
                 if data.CurrentWeaponType == "shield" then
+                    UnitRemoveAbility(data.UnitHero,FourCC("Beng"))
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     TimerStart(CreateTimer(), 0.4, false, function()
                         data.QHighJump = true
@@ -1217,7 +1218,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         onForces[GetHandleId(hero)] = true
         --print("первый раз")
     end
-    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero) ~= FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") then
+    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero) ~= FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") and GetUnitAbilityLevel(hero,FourCC("Beng"))==0 then
         onForces[GetHandleId(hero)] = false
         local m = 0
         --print("1")
@@ -1286,7 +1287,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         bonus = 1000
                     end
                     data.WallHitCount = data.WallHitCount + 1
-                    print(data.WallHitCount)
+                    --print(data.WallHitCount)
                     TimerStart(CreateTimer(), 2, false, function()
                         data.WallHitCount = data.WallHitCount -1
                     end)

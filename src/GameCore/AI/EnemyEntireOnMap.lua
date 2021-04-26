@@ -76,6 +76,37 @@ function InitEnemyEntire()
             --print("мурлок")
             MurlockEnsnare(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("n002") then
+            --print("нага сирена")
+            CastTorrent(unit)
+        end
+
+    end)
+end
+
+function CastTorrent(unit)
+    local eff = AddSpecialEffect("SystemGeneric\\Torrent", GetUnitXY(unit))
+    UnitDamageArea(unit, 50, GetUnitX(unit), GetUnitY(unit), 150)
+    DestroyEffect(eff)
+    TimerStart(CreateTimer(), GetRandomReal(1, 5), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero = GetRandomEnemyHero()
+            IssueTargetOrder(unit, "attack", hero)
+            if IsUnitInRange(hero, unit, 1000) then
+                TorrentWisMark(unit, GetUnitXY(hero))
+            end
+        end
+    end)
+end
+
+function TorrentWisMark(unit, x, y)
+    CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, x, y)
+    TimerStart(CreateTimer(), 1.2, false, function()
+        local eff = AddSpecialEffect("SystemGeneric\\Torrent", x, y)
+        UnitDamageArea(unit, 200, x, y, 150)
+        DestroyEffect(eff)
     end)
 end
 
@@ -86,9 +117,9 @@ function MurlockEnsnare(unit)
             DestroyTimer(GetTriggerUnit())
         else
             local hero = GetRandomEnemyHero()
-            IssueTargetOrder(unit,"attack",hero)
-            if not IsUnitInRange(hero, unit, 500) then
-                IssueTargetOrder(unit,"ensnare",hero)
+            IssueTargetOrder(unit, "attack", hero)
+            if IsUnitInRange(hero, unit, 500) then
+                IssueTargetOrder(unit, "ensnare", hero)
             end
         end
 

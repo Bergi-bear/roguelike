@@ -59,6 +59,9 @@ function InitAllZones()
     SetZone(22, gg_rct_E22A, gg_rct_B22A, gg_rct_S22A)
     SetZone(23, gg_rct_E23A, gg_rct_B23A, gg_rct_S23A)
     SetZone(24, gg_rct_E24A, gg_rct_B24A, gg_rct_S24A)
+    -- 2 зоны в которых выпрыгивают из воды юниты
+    SetZone(25, gg_rct_E25A, gg_rct_B25A, gg_rct_S25A)
+    SetZone(26, gg_rct_E26A, gg_rct_B26A, gg_rct_S26A)
 
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
@@ -92,6 +95,7 @@ function AddSpawnPoint2TableXY(data)
     local id = FourCC("e001")
     data.x = {}
     data.y = {}
+    data.angle = {}
     GroupEnumUnitsInRect(perebor, data.rectSpawn, nil)
     while true do
         e = FirstOfGroup(perebor)
@@ -101,6 +105,10 @@ function AddSpawnPoint2TableXY(data)
         if UnitAlive(e) and GetUnitTypeId(e) == id then
             data.x[k] = GetUnitX(e)
             data.y[k] = GetUnitY(e)
+            if GetUnitLifePercent(e) <= 99 then
+                --print("есть потерянное хп",GetUnitFacing(e))
+                data.angle[k] = GetUnitFacing(e)
+            end
             RemoveUnit(e)
             k = k + 1
             --print("наполнение k"..k-1)
@@ -108,7 +116,7 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 0 -- Стартовая зона -1
+CurrentGameZone = 19 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
     if CurrentGameZone == 1 then
@@ -533,8 +541,80 @@ function StartEnemyWave(waveNumber)
             maxOnWave = 6
         end
         --print("если вывидите это сообщение, то вы в принципе уже победили")
-
     end
+
+    if waveNumber == 22 then
+        -- Новый биом
+        local r = GetRandomInt(1, 2)
+        if r == 1 then
+            listID = { --мурлок
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            }
+            maxOnWave = 6
+        elseif r == 2 then
+            listID = { -- нага
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            }
+            maxOnWave = 6
+        end
+        --print("если вывидите это сообщение, то вы в принципе уже победили")
+    end
+    if waveNumber == 23 then
+        listID = { -- нага
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+        }
+        maxOnWave = 6
+    end
+
+    if waveNumber == 24 then
+        listID = { -- нага
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+        }
+        maxOnWave = 6
+    end
+
+    if waveNumber == 25 then
+        listID = { -- нага
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+        }
+        maxOnWave = 6
+    end
+
+    if waveNumber == 26 then
+        listID = { -- нага
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+        }
+        maxOnWave = 6
+    end
+
     if waveNumber == 401 then
         listID = {
             FourCC("uobs"), FourCC("uobs")
@@ -571,6 +651,7 @@ function GetActiveCountPlayer()
 end
 
 function StartWave(dataGZ, listID, max)
+    local angle = nil
     InFight = true
     -- print("start wave "..max)
     local rect = dataGZ.rectSpawn
@@ -598,11 +679,17 @@ function StartWave(dataGZ, listID, max)
             local m = GetRandomInt(1, #(dataGZ.x))
             if dataGZ.x[m] then
                 x, y = dataGZ.x[m], dataGZ.y[m]
+                if dataGZ.angle[m] then
+                    angle = dataGZ.angle[m]
+                    --print("назначение угла", angle)
+                else
+                    --print("не могу получить угол для выпрыгивания из воды", m)
+                end
             else
                 print("Ошибка, не могу получить координаты " .. m)
             end
         end
-        CreateCreepDelay(listID[k], x, y, 0.9, k)
+        CreateCreepDelay(listID[k], x, y, 0.9, k,angle)
         --MaxOnWave=MaxOnWave-1
         k = k + 1
     end
@@ -623,8 +710,16 @@ function StartWave(dataGZ, listID, max)
                     --существует хотя бы первый элемент
                     local m = GetRandomInt(1, #(dataGZ.x))
                     x, y = dataGZ.x[m], dataGZ.y[m]
+                    if dataGZ.angle[m] then
+                        angle = dataGZ.angle[m]
+                        --print("назначение угла 2", angle)
+
+                    else
+                        angle=nil
+                        --print("не могу получить угол для выпрыгивания из воды", m)
+                    end
                 end
-                CreateCreepDelay(listID[k], x, y, 0.9, k)
+                CreateCreepDelay(listID[k], x, y, 0.9, k, angle)
                 --MaxOnWave=MaxOnWave-1
                 k = k + 1
             end
@@ -645,6 +740,8 @@ function StartWave(dataGZ, listID, max)
                 Destiny[22] = 22
                 Destiny[23] = 23
                 Destiny[24] = 24
+                Destiny[25] = 25
+                Destiny[26] = 26
                 for i = 1, #Destiny do
                     -- print(Destiny[i])
                 end
@@ -654,30 +751,42 @@ function StartWave(dataGZ, listID, max)
 end
 InFight = false
 
-function CreateCreepDelay(id, x, y, delay, flag)
+function CreateCreepDelay(id, x, y, delay, flag, angle)
     local eff = AddSpecialEffect("Hive\\Magic CirclePentagram\\Magic CirclePentagram Fire\\MagicCircle_Fire.mdl", x, y)
+
+    local dataGZ = GameZone[Destiny[CurrentGameZone]]
     if flag ~= "summon" then
         LiveOnWave = LiveOnWave + 1
     else
-        local dataGZ = GameZone[Destiny[CurrentGameZone]]
+        -- этот блок только для суммона
+
         if dataGZ then
             if dataGZ.x[1] then
                 --существует хотя бы первый элемент
-                --print("есть ручные точки спавна "..#(dataGZ.x))
+                -- print("есть ручные точки спавна " .. #(dataGZ.x))
                 local m = GetRandomInt(1, #(dataGZ.x))
                 if dataGZ.x[m] then
                     x, y = dataGZ.x[m], dataGZ.y[m]
+                    --print("Проверка перед назначением угла", dataGZ.angle[m])
+
                 else
                     print("Ошибка, не могу получить координаты " .. m)
                 end
             end
+        else
+            print(" данные для зоны не существуют", Destiny[CurrentGameZone])
         end
     end
+
     TimerStart(CreateTimer(), delay, false, function()
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
         local a = BlzGetUnitMaxHP(new)
         local k = 1.5
+        if angle then
+            --print("Прыжок из воды", angle)
+            JumpOutWater(new, angle)
+        end
         if G_CountPlayers >= 2 then
 
             BlzSetUnitMaxHP(new, R2I(a * k * G_CountPlayers))
@@ -703,3 +812,39 @@ function CreateCreepDelay(id, x, y, delay, flag)
     end)
 end
 
+function JumpOutWater(unit, angle)
+    local eff = AddSpecialEffect("SystemGeneric\\Torrent", GetUnitXY(unit))
+    UnitDamageArea(unit, 50, GetUnitX(unit), GetUnitY(unit), 150)
+    DestroyEffect(eff)
+    BlzPauseUnitEx(unit, true)
+    UnitAddForce(unit, angle, 10, 500, 500)
+end
+
+function UnitAddForce(hero, angle, speed, distance, MaxHeight)
+    local currentdistance = 0
+    local i = 0
+    local ZStart = GetUnitZ(hero)
+    if not MaxHeight then
+        MaxHeight = 0
+    end
+    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+        currentdistance = currentdistance + speed
+        local x, y = GetUnitXY(hero)
+        local f = ParabolaZ(MaxHeight / 2, distance, i * speed) + ZStart
+        SetUnitZ(hero, f)
+        i = i + 1
+        local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
+        --local perepad = GetUnitZ(hero) - GetTerrainZ(MoveXY(x, y, speed * 3, angle))
+        SetUnitX(hero, newX)
+        SetUnitY(hero, newY)
+
+        if i > 3 and f <= GetTerrainZ(GetUnitXY(hero)) then
+            -- прыжок орка
+            DestroyTimer(GetExpiredTimer())
+            BlzPauseUnitEx(hero, false)
+            SetUnitZ(hero, 0)
+            --print("приземлился")
+            ResetUnitAnimation(hero)
+        end
+    end)
+end
