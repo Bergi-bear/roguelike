@@ -317,27 +317,51 @@ function CreateUnitsForPlayer23()
     u = BlzCreateUnitWithSkin(p, FourCC("hpea"), 1873.7, -16622.3, 273.052, FourCC("hpea"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1356.2, -17799.0, 269.179, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2495.4, -17759.4, 90.809, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 804.3, -17320.7, 357.592, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 814.3, -17421.4, 357.592, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 801.5, -17323.8, 357.592, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 803.4, -17091.9, 270.000, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 813.1, -17519.5, 357.592, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 805.5, -17624.8, 357.592, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 810.5, -17710.0, 357.592, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 815.0, -17793.2, 357.592, FourCC("hrif"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2141.6, -16818.8, 177.810, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2141.6, -16818.8, 180.000, FourCC("hrif"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2141.7, -16930.9, 177.810, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2141.7, -16930.9, 180.000, FourCC("hrif"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2142.5, -17057.0, 177.810, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2142.5, -17057.0, 180.000, FourCC("hrif"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2133.6, -17176.2, 177.810, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2133.6, -17176.2, 180.000, FourCC("hrif"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2139.9, -17296.2, 177.810, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 2139.9, -17296.2, 180.000, FourCC("hrif"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.30 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 879.7, -17095.1, 270.000, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 963.1, -17095.0, 270.000, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1048.0, -17094.8, 270.000, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1788.8, -17294.8, 0.000, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.20 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1790.5, -16817.3, 0.000, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.20 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1790.6, -16929.5, 0.000, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.20 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1791.4, -17055.5, 0.000, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.20 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1782.5, -17174.8, 0.000, FourCC("hrif"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.20 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 803.4, -17014.7, 90.000, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 879.7, -17017.9, 90.000, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 963.2, -17017.7, 90.000, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1048.1, -17017.6, 90.000, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 1197.7, -16670.2, 90.000, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 795.9, -16318.5, 359.478, FourCC("hrif"))
 end
 
 function CreateNeutralHostile()
@@ -801,7 +825,7 @@ function CreateNeutralPassive()
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23311.7, -18594.4, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23553.3, -18206.9, -33.059, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23553.3, -18206.9, 326.941, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24551.1, -18201.9, 212.792, FourCC("e001"))
@@ -957,10 +981,10 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21355.8, -26546.8, 68.141, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21139.2, -26134.5, -3.188, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21139.2, -26134.5, 356.812, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21130.7, -25581.6, -3.084, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21130.7, -25581.6, 356.916, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19835.5, -25833.2, 91.392, FourCC("e001"))
@@ -969,10 +993,10 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20460.9, -22847.2, 322.729, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17740.4, -25173.3, -72.678, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17740.4, -25173.3, 287.322, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18248.5, -25158.1, -89.183, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18248.5, -25158.1, 270.817, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18361.2, -25143.9, 1.342, FourCC("e001"))
@@ -981,7 +1005,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18364.5, -24732.4, 0.577, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18366.1, -24309.8, -23.766, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18366.1, -24309.8, 336.234, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
 end
@@ -1067,7 +1091,7 @@ function CreateRegions()
     gg_rct_B21A = Rect(20480.0, -20000.0, 20544.0, -19072.0)
     gg_rct_E21A = Rect(21248.0, -20288.0, 21504.0, -19904.0)
     gg_rct_OpenDarkness1 = Rect(14880.0, -19296.0, 15072.0, -19008.0)
-    gg_rct_S22A = Rect(22848.0, -20832.0, 24992.0, -17728.0)
+    gg_rct_S22A = Rect(22720.0, -20832.0, 24992.0, -17568.0)
     gg_rct_B22A = Rect(24000.0, -20320.0, 24064.0, -18464.0)
     gg_rct_E22A = Rect(23168.0, -20352.0, 23424.0, -19968.0)
     gg_rct_S23A = Rect(22560.0, -24000.0, 25056.0, -22240.0)
@@ -4420,7 +4444,7 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 19 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома
+CurrentGameZone = 0 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
     if CurrentGameZone == 1 then
@@ -4985,7 +5009,7 @@ function StartWave(dataGZ, listID, max)
                 x, y = dataGZ.x[m], dataGZ.y[m]
                 if dataGZ.angle[m] then
                     angle = dataGZ.angle[m]
-                    print("назначение угла", angle)
+                    --print("назначение угла", angle)
                 else
                     --print("не могу получить угол для выпрыгивания из воды", m)
                 end
@@ -5016,7 +5040,7 @@ function StartWave(dataGZ, listID, max)
                     x, y = dataGZ.x[m], dataGZ.y[m]
                     if dataGZ.angle[m] then
                         angle = dataGZ.angle[m]
-                        print("назначение угла 2", angle)
+                        --print("назначение угла 2", angle)
 
                     else
                         angle=nil
@@ -12140,6 +12164,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
+            PlayMusic("war3mapImported\\lobby.mp3")
             InitMouseMoveTrigger()
             PlayUnitAnimationFromChat()
             PauseTimer(GetExpiredTimer())
@@ -12933,9 +12958,17 @@ function CreateWASDActions()
                     data.AttackInForce = false
                     SetUnitTimeScale(data.UnitHero, 1)
                 end)
-                if not data.ReleaseQ then
-                    SetUnitTimeScale(data.UnitHero, 4)
-                    SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                if not data.ReleaseQ then -- анимация в обычном рывке
+                    if not data.isSpined then -- нельзя сделать во вращении
+                        if data.IsMoving then
+                            --print("в движении")
+                            SetUnitTimeScale(data.UnitHero, 4)
+                        else
+                            --print("стоя на месте")
+                            SetUnitTimeScale(data.UnitHero, 4)
+                        end
+                        SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk) -- 27 для кувырка
+                    end
                 end
             end
         end
@@ -13525,6 +13558,11 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     --print("перезарядка атаки в рывке")
                     --HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --
                     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+
+                    if data.IsMoving then
+                        --print("закончил рывок")
+                        --SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                    end
                     data.ResetSeriesTime = 0
                     if data.IllusionDashCDFH then
                         if not data.IllusionDashCurrentCD then
@@ -13820,7 +13858,7 @@ end
 
 function Trig_SercOffErsh_Actions()
     DisableTrigger(GetTriggeringTrigger())
-        BoundZoneForAllPlayers(gg_rct_B10B)
+    BoundZoneForAllPlayers(gg_rct_B10B)
     RemoveDestructable(gg_dest_B007_7825)
 end
 
@@ -13840,7 +13878,7 @@ end
 
 function Trig_SercBalka_Actions()
     DisableTrigger(GetTriggeringTrigger())
-        BoundZoneForAllPlayers(gg_rct_B11B)
+    BoundZoneForAllPlayers(gg_rct_B11B)
 end
 
 function InitTrig_SercBalka()
@@ -13858,7 +13896,7 @@ function Trig_FB_Conditions()
 end
 
 function Trig_FB_Actions()
-        CreateGodTalon(18438,-15318,"Life")
+    CreateGodTalon(18438, -15318, "Life")
     DisableTrigger(GetTriggeringTrigger())
 end
 
@@ -13893,7 +13931,7 @@ function Trig_DeadB3_Actions()
     RemoveDestructable(gg_dest_B00E_7438)
     RemoveDestructable(gg_dest_B002_4649)
     DisplayTextToForce(GetPlayersAll(), "TRIGSTR_261")
-        BoundZoneForAllPlayers(gg_rct_B19B)
+    BoundZoneForAllPlayers(gg_rct_B19B)
 end
 
 function InitTrig_DeadB3()
@@ -13955,7 +13993,7 @@ end
 
 function Trig_DeadB2_Actions()
     if (Trig_DeadB2_Func002C()) then
-                CreateGodTalon(14000,-16000,"GoldReward")
+        CreateGodTalon(14000, -16000, "GoldReward")
         udg_QuestComplete2 = true
         KillDestructable(gg_dest_B009_5749)
         KillDestructable(gg_dest_B009_5750)
@@ -14006,7 +14044,7 @@ end
 
 function Trig_DeadB1_Actions()
     if (Trig_DeadB1_Func002C()) then
-                CreateGodTalon(18366,-6850,"CodoHeart")
+        CreateGodTalon(18366, -6850, "CodoHeart")
         CreateNUnitsAtLoc(1, FourCC("nsbm"), Player(10), GetRectCenter(gg_rct_S5A), bj_UNIT_FACING)
         udg_QuestComplete1 = true
         KillDestructable(gg_dest_B009_5530)
@@ -14130,6 +14168,7 @@ function InitCustomPlayerSlots()
     SetPlayerRacePreference(Player(5), RACE_PREF_ORC)
     SetPlayerRaceSelectable(Player(5), false)
     SetPlayerController(Player(5), MAP_CONTROL_USER)
+
 end
 
 function InitCustomTeams()
@@ -14225,6 +14264,7 @@ function InitAllyPriorities()
     SetStartLocPrio(4, 2, 5, MAP_LOC_PRIO_LOW)
     SetStartLocPrioCount(5, 1)
     SetStartLocPrio(5, 0, 1, MAP_LOC_PRIO_HIGH)
+
 end
 
 function main()
@@ -14245,8 +14285,9 @@ function main()
 end
 
 function config()
-    SetMapName("TRIGSTR_229")
-    SetMapDescription("TRIGSTR_231")
+    --PlayMusic ("Sound\\PeonSound\\lobby.mp3")
+    --SetMapName("11111")
+    --SetMapDescription("222222")
     SetPlayers(6)
     SetTeams(6)
     SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)
@@ -14259,5 +14300,12 @@ function config()
     InitCustomPlayerSlots()
     InitCustomTeams()
     InitAllyPriorities()
+    --MusicLobby()
 end
 
+function MusicLobby()
+    TimerStart(CreateTimer(), 2, true, function()
+        PlayMusic("war3mapImported\\lobby.mp3")
+        print("123")
+    end)
+end

@@ -14,6 +14,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
+            PlayMusic("war3mapImported\\lobby.mp3")
             InitMouseMoveTrigger()
             PlayUnitAnimationFromChat()
             PauseTimer(GetExpiredTimer())
@@ -807,9 +808,17 @@ function CreateWASDActions()
                     data.AttackInForce = false
                     SetUnitTimeScale(data.UnitHero, 1)
                 end)
-                if not data.ReleaseQ then
-                    SetUnitTimeScale(data.UnitHero, 4)
-                    SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                if not data.ReleaseQ then -- анимация в обычном рывке
+                    if not data.isSpined then -- нельзя сделать во вращении
+                        if data.IsMoving then
+                            --print("в движении")
+                            SetUnitTimeScale(data.UnitHero, 4)
+                        else
+                            --print("стоя на месте")
+                            SetUnitTimeScale(data.UnitHero, 4)
+                        end
+                        SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk) -- 27 для кувырка
+                    end
                 end
             end
         end
@@ -1399,6 +1408,11 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     --print("перезарядка атаки в рывке")
                     --HERO[GetPlayerId(GetOwningPlayer(hero))].AttackInForce=false --
                     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
+
+                    if data.IsMoving then
+                        --print("закончил рывок")
+                        --SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                    end
                     data.ResetSeriesTime = 0
                     if data.IllusionDashCDFH then
                         if not data.IllusionDashCurrentCD then

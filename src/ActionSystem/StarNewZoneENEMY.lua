@@ -116,7 +116,7 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 19 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома
+CurrentGameZone = 0 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
     if CurrentGameZone == 1 then

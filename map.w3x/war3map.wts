@@ -1230,7 +1230,7 @@ STRING 228
 
 STRING 229
 {
-Peon RPG 2
+Peons rogue
 }
 
 STRING 230
@@ -1241,6 +1241,8 @@ STRING 230
 STRING 231
 {
 LMB+RMB+SPACE WASD Moving GamePlay
+Only HD, RU/ENG, 1920*1080, Classic Control Sheme
+https://discord.gg/DbYDMNFXK2
 }
 
 STRING 232
@@ -1477,5 +1479,12 @@ STRING 275
 // Декорации: D05H (Стена корабля), Name (Название)
 {
 Стена корабля
+}
+
+STRING 276
+{
+LMB+RMB+SPACE WASD Moving GamePlay
+Only HD, RU/ENG, 1920*1080, Classic Control Sheme
+https://discord.gg/DbYDMNFXK2
 }
 
