@@ -212,7 +212,7 @@ do
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBattleStations.blp",
                             name = L("Джагернаут", "Juggernaut"),
-                            description = L("Добавляет DS заряды для способности вращающийся удар", "Adds DS charges for the Spinning Kick ability"),
+                            description = L("Добавляет DS зарядов для способности вращающийся удар", "Adds DS charges for the Spinning Kick ability"),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),

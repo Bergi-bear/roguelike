@@ -137,6 +137,14 @@ function CreateBoxTalon(MainFrame, j, data)
         BlzFrameSetSize(data.DialogTalon.Container[j].Level,0.00001,0.00001)
         BlzFrameSetSize(data.DialogTalon.Container[j].Button,0.00001,0.00001)
         ]]
+        if data.IsMoving then
+            --print("закрыть в движении")
+            data.ReleaseW = false
+            data.ReleaseS = false
+            data.ReleaseA = false
+            data.ReleaseD = false
+            data.IsMoving = false
+        end
         for i = 1, 4 do
             BlzDestroyFrame(data.DialogTalon.Container[i].Tooltip) --ok
             BlzDestroyFrame(data.DialogTalon.Container[i].TooltipDescription) --ok
@@ -202,7 +210,6 @@ function ChkAllPlayerTalonClosedWindow()
             end
         end
     end
-
 
     AllPlayerTalonClosedWindow = result
     return AllPlayerTalonClosedWindow
