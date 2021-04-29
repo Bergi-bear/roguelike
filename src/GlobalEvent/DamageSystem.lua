@@ -102,6 +102,9 @@ function OnPostDamage()
                     local x, y = GetUnitXY(target)
                     FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster), "blue")
                     ShieldSystem[GetHandleId(target)].IsActive = false
+                else
+                    local x, y = GetUnitXY(target)
+                    FlyTextTagShieldXY(x, y, L("Блок: ", "Blocked: ")..R2I(damage), GetOwningPlayer(caster))
                 end
             end
         end

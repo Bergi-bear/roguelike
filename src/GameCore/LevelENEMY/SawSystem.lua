@@ -44,6 +44,9 @@ function CreateRoundSawZ(hero, ChainCount, angle, z)
             if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
                 if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
                     normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1", nx, ny)
+                    local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(enemy))
+                    BlzSetSpecialEffectScale(effb, 0.1)
+                    DestroyEffect(effb)
                 end
                 DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl", GetUnitXY(ReflectorUnit)))
                 if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
@@ -126,7 +129,7 @@ function CreateGroundSaw(hero, angle, z)
     TriggerRegisterUnitInRange(enterTrig, hero, 60, nil)
     TriggerAddAction(enterTrig, function()
         enemy = GetTriggerUnit()
-    --    print("касание")
+        --    print("касание")
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
             local x, y = GetUnitXY(hero)
             local OnDamage, ReflectorUnit = UnitDamageArea(hero, 20, x, y, 60, z - 90, CollisionEffect)
@@ -138,12 +141,15 @@ function CreateGroundSaw(hero, angle, z)
             if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
                 if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
                     normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1", nx, ny)
+                    local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(enemy))
+                    BlzSetSpecialEffectScale(effb, 0.1)
+                    DestroyEffect(effb)
                 end
                 DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl", GetUnitXY(ReflectorUnit)))
             end
             if not IsUnitInRange(hero, enemy, 120) then
                 DestroyTimer(GetExpiredTimer())
-            --    print("нет касания")
+                --    print("нет касания")
             end
         end)
     end)

@@ -6401,7 +6401,7 @@ do
                         Talon:new({--9
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBattleStations.blp",
                             name = L("Джагернаут", "Juggernaut"),
-                            description = L("Добавляет DS заряды для способности вращающийся удар", "Adds DS charges for the Spinning Kick ability"),
+                            description = L("Добавляет DS зарядов для способности вращающийся удар", "Adds DS charges for the Spinning Kick ability"),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Удерживайте LMB чтобы совершить вращающуюся атаку", "Hold LMB to make a spinning attack"),
@@ -6655,7 +6655,7 @@ do
                         Talon:new({ --TODO перевод
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
                             name = L("Здоровье зверя", ""),
-                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 100 X DS", ""),
+                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 1000 X DS", ""),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Призванные существа получают здоровье в момент призыва. Действует на существ, призванных не только от Рексара", "The summoned creature is completely autonomous"),
@@ -9345,7 +9345,7 @@ function InitEvenDestructable()
     EnumDestructablesInRect(bj_mapInitialPlayableArea, nil, function()
         local d = GetEnumDestructable()
 
-        if GetDestructableTypeId(d) == FourCC("B004") or GetDestructableTypeId(d) == FourCC("B008")  then
+        if GetDestructableTypeId(d) == FourCC("B004") or GetDestructableTypeId(d) == FourCC("B008") then
             k = k + 1
         end
         TriggerRegisterDeathEvent(thisTrigger, d)
@@ -9360,7 +9360,15 @@ function InitEvenDestructable()
             end
         end
 
-
+        if GetDestructableTypeId(d) == FourCC("B008") then
+            --print("умерла ваза горшок в событии смерти декора")
+            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetDestructableX(d), GetDestructableY(d), 60)
+            DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", GetDestructableX(d), GetDestructableY(d)))
+            TimerStart(CreateTimer(), 0.6, false, function()
+                RemoveDestructable(d)
+                DestroyTimer(GetExpiredTimer())
+            end)
+        end
 
     end)
     --print("Всего мимиков будет:"..k)
@@ -10489,6 +10497,9 @@ function OnPostDamage()
                     local x, y = GetUnitXY(target)
                     FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster), "blue")
                     ShieldSystem[GetHandleId(target)].IsActive = false
+                else
+                    local x, y = GetUnitXY(target)
+                    FlyTextTagShieldXY(x, y, L("Заблокировано: "..R2I(damage), "Blocked: ")..R2I(damage), GetOwningPlayer(caster))
                 end
             end
         end

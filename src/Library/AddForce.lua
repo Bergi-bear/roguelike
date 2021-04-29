@@ -77,7 +77,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     if data.WallHitCount <= 2 then
                         FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
                     else
-                        FlyTextTagShieldXY(x, y, L("Зажат в угол", "Trapped in corner"), GetOwningPlayer(pushing))
+                        FlyTextTagShieldXY(x, y, L("Зажат в угол", "Trapped in corner"), GetOwningPlayer(pushing),"red")
                         bonus = 1000
                     end
                     data.WallHitCount = data.WallHitCount + 1

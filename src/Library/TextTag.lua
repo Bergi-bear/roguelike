@@ -93,6 +93,10 @@ function FlyTextTagShieldXY(x, y, text, player, flag)
         r, g, b = 0, 128, 255
         see = true
     end
+    if flag == "red" then
+        r, g, b = 255, 128, 128
+        see = true
+    end
     if flag == "SeeAll" then
         see = true
     end

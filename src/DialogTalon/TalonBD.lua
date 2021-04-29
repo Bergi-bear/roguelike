@@ -466,7 +466,7 @@ do
                         Talon:new({ --TODO перевод
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
                             name = L("Здоровье зверя", ""),
-                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 100 X DS", ""),
+                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 1000 X DS", ""),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Призванные существа получают здоровье в момент призыва. Действует на существ, призванных не только от Рексара", "The summoned creature is completely autonomous"),
