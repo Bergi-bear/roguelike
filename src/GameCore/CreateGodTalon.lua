@@ -56,6 +56,7 @@ function CreateGodTalon(x, y, name, price)
     local dataPoint = EnterPointTable[GetHandleId(tempUnit)]
     dataPoint.TripleTalon=table
     dataPoint.TalonPrice=price
+    dataPoint.priceTag=priceTag-- сам текстаг, для его дальнейшей правки
 
     --[[
     local forceShow=false

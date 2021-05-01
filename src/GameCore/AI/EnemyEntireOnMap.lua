@@ -80,11 +80,72 @@ function InitEnemyEntire()
             --print("нага сирена")
             CastTorrent(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("n004") then
+            --print("морской дракон")
+            JumpDragonGround(unit)
+            NecroAttackAndArrow(unit)
+        end
+        if GetUnitTypeId(unit) == FourCC("n005") then
+            --print("Нага гвардеец")
+            GuardAISpeer(unit)
+        end
 
     end)
 end
 
+function GuardAISpeer(unit)
+    TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero = GetRandomEnemyHero()
+            if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                if not IsUnitInRange(unit, hero, 300) then
+                    local angle = AngleBetweenUnits(unit, hero)
+                    BlzPauseUnitEx(unit, true)
+                    SetUnitAnimation(unit, "attack")
+                    SetUnitTimeScale(unit, 0.5)
+                    SetUnitFacing(unit, angle)
+                    TimerStart(CreateTimer(), 0.7, false, function()
+                        CreateAndForceBullet(unit, angle, 30, "SystemGeneric\\Teath3", nil, nil, 300, 3000)
+                        BlzPauseUnitEx(unit, false)
+                    end)
+                else
+                    IssueTargetOrder(unit, "attack", hero)
+                    SetUnitTimeScale(unit, 0.5)
+                    SetUnitAnimation(unit, "Morph Swim")
+                    BlzPauseUnitEx(unit, true)
+                    local angle = AngleBetweenUnits(unit, hero)
+                    SetUnitFacing(unit,angle)
+                    local x,y=MoveXY(GetUnitX(unit),GetUnitY(unit),400,angle)
+                    CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, x, y)
+                    UnitAddJumpForce(unit, angle, 10, 400, 400)
+                end
+            end
+        end
+    end)
+end
+
+function JumpDragonGround(unit)
+    TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            SetUnitTimeScale(unit, 0.5)
+            SetUnitAnimation(unit, "Morph Swim")
+            local hero = GetRandomEnemyHero()
+            if not IsUnitInRange(unit, hero, 300) then
+                local angle = AngleBetweenUnits(unit, hero)
+                BlzPauseUnitEx(unit, true)
+                UnitAddJumpForce(unit, angle, 10, 250, 250)
+            end
+        end
+    end)
+
+end
+
 function CastTorrent(unit)
+    UnitAddAbility(unit, FourCC("Abun"))
     local eff = AddSpecialEffect("SystemGeneric\\Torrent", GetUnitXY(unit))
     UnitDamageArea(unit, 50, GetUnitX(unit), GetUnitY(unit), 150)
     DestroyEffect(eff)
@@ -93,7 +154,7 @@ function CastTorrent(unit)
             DestroyTimer(GetTriggerUnit())
         else
             local hero = GetRandomEnemyHero()
-            IssueTargetOrder(unit, "attack", hero)
+            IssueTargetOrder(unit, "move", hero)
             if IsUnitInRange(hero, unit, 1000) then
                 TorrentWisMark(unit, GetUnitXY(hero))
             end
@@ -499,7 +560,7 @@ function NecroAttackAndArrow(unit)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
                         CreateAndForceBullet(unit, angle, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
-                        if GetUnitManaPercent(unit) > 30 then
+                        if GetUnitManaPercent(unit) > 30 and GetUnitTypeId(unit) == FourCC("unec") then
                             CreateAndForceBullet(unit, angle + 10, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
                             CreateAndForceBullet(unit, angle - 10, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
                         end

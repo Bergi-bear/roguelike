@@ -33,25 +33,37 @@ end
 function Type(type)
     TypeWord = TypeWord .. type
     print(TypeWord)
-    if TypeWord == "XGM" then
-        print("посхалка XGM")
-        TypeWord = ""
+    local x, y = GetUnitXY(GetRandomEnemyHero())
+    if not WordReward then
+        if TypeWord == "XGM" then
+            print("посхалка XGM")
+            CreateGodTalon(x, y, "CodoHeart")
+            TypeWord = ""
+            WordReward = true
+        end
+        if TypeWord == "HELGA" then
+            print("Кто такая Хельга?")
+            CreateGodTalon(x, y, "Life")
+            TypeWord = ""
+            WordReward = true
+        end
+        if TypeWord == "HELL" then
+            print("Ад?? я не хотел это писать, это ошибка")
+            TypeWord = ""
+            StartEnemyWave(45)
+            WordReward = true
+        end
+        if TypeWord == "GYM" then
+            print("Время потренировать мышцы")
+            CreateGodTalon(x, y, "PeonDidal")
+            TypeWord = ""
+            WordReward = true
+        end
     end
-    if TypeWord == "HELGA" then
-        print("Кто такая Хельга?")
+    if #TypeWord >= 5 then
         TypeWord = ""
-    end
-    if TypeWord == "HELL" then
-        print("Ад?? я не хотел это писать, это ошибка")
-        TypeWord = ""
-        StartEnemyWave(45)
-    end
-    if TypeWord == "GYM" then
-        print("Время потренировать мышцы")
-        TypeWord = ""
-    end
-    if #TypeWord>=5 then
-        TypeWord = ""
+        --print("очистка")
+        CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
     end
     return #TypeWord
 end

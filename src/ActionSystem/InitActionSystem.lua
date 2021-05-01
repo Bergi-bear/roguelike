@@ -58,7 +58,9 @@ function InitFinObjectInArea()
     CreateEnterPoint(10680, -15902, L("Открыть", "Open"), "Open2", false)
     CreateEnterPoint(19487, -4224, L("Прыгнуть вниз", "Jump into culvert"), "Culvert", false)
     CreateGodTalon(6100, -7547, "WeaponShield")
-    CreateGodTalon(6560,-7524, "WeaponPickAxe")
+    CreateGodTalon(6560, -7524, "WeaponPickAxe")
+
+    CreateGodTalon(19762, -20198, "NagaBiom", 3000 * GetActiveCountPlayer())
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -97,7 +99,7 @@ function ReplaceALLUnitId2PointExit(id)
         SetUnitInvulnerable(u, true)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
-        if i == d or i==d2 then
+        if i == d or i == d2 then
             CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal", u)
             -- print("создана 1 награда с пеоном дидалом")
         elseif i == m then
@@ -922,6 +924,42 @@ function CreateEActions()
             ----------------------------------------------------/
             ---------------Прочие дары--------------------------/
             ----------------------------------------------------/
+            if data.UseAction == "NagaBiom" then
+                if data.gold >= dataPoint.TalonPrice then
+                    --print("полный выкуп уплочен")
+                    --data.Completed = true
+                    TimerStart(CreateTimer(), 1, false, function()
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        AllActionsEnabled(true)--активация всех переходов
+                        local x, y = GetUnitXY(dataPoint.Unit)
+                        CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal")
+                    end)
+                    data.DoAction = false
+                    data.UseAction = ""
+                    data.ShowActionWindows = false
+                    KillUnit(data.EPointUnit)
+                    if dataPoint.TalonPrice > 0 then
+                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                        AddGold(data, -dataPoint.TalonPrice)
+                    end
+                else
+                    data.DoAction = false
+                    data.UseAction = ""
+                    data.ShowActionWindows = false
+                    dataPoint.TalonPrice = dataPoint.TalonPrice - data.gold
+                    --print("отдано", "осталось", dataPoint.TalonPrice)
+                    if not infLimit then
+                        infLimit = 1
+                    end
+                    infLimit = infLimit + 1
+                    for i = 1, infLimit do
+                        CreateCreepDelay(FourCC("n005"), 0, 0, 1, "summon")
+                    end
+                    SetTextTagText(dataPoint.priceTag, R2I(dataPoint.TalonPrice), 0.03)
+                    normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                    AddGold(data, -data.gold)
+                end
+            end
             if data.UseAction == "CodoHeart" then
                 if data.gold >= dataPoint.TalonPrice then
                     local message = {
@@ -1146,27 +1184,29 @@ end
 
 function CreateInfoBoxForAllPlayerTimed(data, message, timed)
     if not bj_isSinglePlayer then
-        print(message)
+        --print(message)
+         FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), message, GetOwningPlayer(data.UnitHero))
     else
         --local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
         --local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
-
-        local tooltip = BlzCreateFrameByType("BACKDROP", "TalonTooltip", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "EscMenuControlBackdropTemplate", 0)
-        local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-        local size = #message * 0.007
-        if size <= 0.12 then
-            size = 0.12
+        if InfoSlots <= 3 then
+            local tooltip = BlzCreateFrameByType("BACKDROP", "TalonTooltip", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "EscMenuControlBackdropTemplate", 0)
+            local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            local size = #message * 0.007
+            if size <= 0.12 then
+                size = 0.12
+            end
+            BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08 + 0.03 * InfoSlots)
+            BlzFrameSetSize(tooltip, size, 0.03)
+            BlzFrameSetText(text, message)
+            BlzFrameSetScale(text, 1.2)
+            BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0, 0.0)
+            TimerStart(CreateTimer(), timed, false, function()
+                BlzDestroyFrame(tooltip)
+                InfoSlots = InfoSlots - 1
+            end)
+            InfoSlots = InfoSlots + 1
         end
-        BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08 + 0.03 * InfoSlots)
-        BlzFrameSetSize(tooltip, size, 0.03)
-        BlzFrameSetText(text, message)
-        BlzFrameSetScale(text, 1.2)
-        BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0, 0.0)
-        TimerStart(CreateTimer(), timed, false, function()
-            BlzDestroyFrame(tooltip)
-            InfoSlots = InfoSlots - 1
-        end)
-        InfoSlots = InfoSlots + 1
     end
 end
 

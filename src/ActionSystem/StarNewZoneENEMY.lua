@@ -118,7 +118,7 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 19 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy
+CurrentGameZone = 1 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy црщы
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
     if CurrentGameZone == 1 or CurrentGameZone == 20 then
@@ -526,7 +526,7 @@ function StartEnemyWave(waveNumber)
 
     if waveNumber == 21 then
         -- Новый биом
-        local r = GetRandomInt(1, 2)
+        local r = GetRandomInt(3, 3)
         if r == 1 then
             listID = { --мурлок
                 FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
@@ -541,12 +541,18 @@ function StartEnemyWave(waveNumber)
                 FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
             }
             maxOnWave = 6
+        elseif r == 3 then
+            listID = { -- нага гвардеец
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+            }
+            maxOnWave = 5
         end
         --print("если вывидите это сообщение, то вы в принципе уже победили")
     end
 
     if waveNumber == 22 then
-        -- Новый биом
         local r = GetRandomInt(1, 2)
         if r == 1 then
             listID = { --мурлок
@@ -570,25 +576,36 @@ function StartEnemyWave(waveNumber)
         --print("если вывидите это сообщение, то вы в принципе уже победили")
     end
     if waveNumber == 23 then
-        listID = { -- нага
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-        }
-        maxOnWave = 6
+        local r = GetRandomInt(1, 2)
+        if r == 1 then
+            listID = { -- нага
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            }
+            maxOnWave = 6
+        elseif r == 2 then
+            listID = {
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+            }
+            maxOnWave = 6
+
+        end
+
     end
 
     if waveNumber == 24 then
         listID = { -- нага
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
             FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
             FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
         }
         maxOnWave = 6
     end
@@ -596,11 +613,11 @@ function StartEnemyWave(waveNumber)
     if waveNumber == 25 then
         listID = { -- нага
             FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
             FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
             FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
         }
         maxOnWave = 6
     end
@@ -794,7 +811,9 @@ function CreateCreepDelay(id, x, y, delay, flag, angle)
                 if dataGZ.x[m] then
                     x, y = dataGZ.x[m], dataGZ.y[m]
                     --print("Проверка перед назначением угла", dataGZ.angle[m])
-
+                    if not angle then
+                        angle=dataGZ.angle[m]
+                    end
                 else
                     print("Ошибка, не могу получить координаты " .. m)
                 end
@@ -843,16 +862,18 @@ function JumpOutWater(unit, angle)
     UnitDamageArea(unit, 50, GetUnitX(unit), GetUnitY(unit), 150)
     DestroyEffect(eff)
     BlzPauseUnitEx(unit, true)
-    UnitAddForce(unit, angle, 10, 500, 500)
+    UnitAddJumpForce(unit, angle, 10, 500, 500)
 end
 
-function UnitAddForce(hero, angle, speed, distance, MaxHeight)
+function UnitAddJumpForce(hero, angle, speed, distance, MaxHeight)
     local currentdistance = 0
     local i = 0
     local ZStart = GetUnitZ(hero)
     if not MaxHeight then
         MaxHeight = 0
     end
+    --SetUnitPathing(hero,false)
+    UnitDisablePath(hero)
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         currentdistance = currentdistance + speed
         local x, y = GetUnitXY(hero)
@@ -865,14 +886,27 @@ function UnitAddForce(hero, angle, speed, distance, MaxHeight)
         SetUnitY(hero, newY)
 
         if i > 3 and f <= GetTerrainZ(GetUnitXY(hero)) then
-            -- прыжок орка
             DestroyTimer(GetExpiredTimer())
             BlzPauseUnitEx(hero, false)
+            SetUnitTimeScale(hero, 1)
+            --SetUnitPathing(hero,true)
             SetUnitZ(hero, 0)
             --print("приземлился")
             if UnitAlive(hero) then
                 ResetUnitAnimation(hero)
             end
+
+            if GetUnitTypeId(hero) == FourCC("n005") then
+                if UnitDamageArea(hero, 150, newX, newY, 150) then
+                   DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", newX, newY))
+                end
+            end
         end
     end)
+end
+
+
+function UnitDisablePath(unit)
+    UnitAddAbility(hero, FourCC("AInv"))
+    UnitAddItemById(unit, FourCC("I000")) -- предмет виндволк
 end

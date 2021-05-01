@@ -692,7 +692,6 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("ushd"), 11644.0, -20986.5, 240.828, FourCC("ushd"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14992.6, -19838.1, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 20080.6, -18475.8, 350.440, FourCC("hfoo"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19651.2, -20250.3, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19990.0, -20531.9, 91.868, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
@@ -1106,7 +1105,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14863.5, -22565.7, 213.743, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24503.8, -23081.9, -42.728, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24503.8, -23081.9, 317.272, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24475.4, -23169.3, 220.987, FourCC("e001"))
@@ -1118,7 +1117,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23006.2, -23012.0, 121.482, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23039.0, -23129.4, -35.283, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23039.0, -23129.4, 324.717, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
 end
@@ -1226,7 +1225,7 @@ function CreateRegions()
     gg_rct_B25A = Rect(22304.0, -25856.0, 23680.0, -24960.0)
     gg_rct_E25A = Rect(21504.0, -26368.0, 21760.0, -25984.0)
     gg_rct_S26A = Rect(17504.0, -26496.0, 20544.0, -24160.0)
-    gg_rct_B26A = Rect(18496.0, -25792.0, 19296.0, -24992.0)
+    gg_rct_B26A = Rect(18432.0, -25792.0, 19296.0, -24992.0)
     gg_rct_E26A = Rect(17440.0, -26496.0, 17888.0, -26272.0)
     gg_rct_S27A = Rect(14528.0, -26624.0, 16768.0, -24640.0)
     gg_rct_B27A = Rect(15392.0, -25504.0, 15648.0, -25376.0)
@@ -2866,12 +2865,15 @@ end
 function Type(type)
     TypeWord = TypeWord .. type
     print(TypeWord)
+    local x,y=GetUnitXY(GetRandomEnemyHero())
     if TypeWord == "XGM" then
         print("посхалка XGM")
+        CreateGodTalon(x, y, "CodoHeart")
         TypeWord = ""
     end
     if TypeWord == "HELGA" then
         print("Кто такая Хельга?")
+        CreateGodTalon(x, y, "Life")
         TypeWord = ""
     end
     if TypeWord == "HELL" then
@@ -2881,10 +2883,13 @@ function Type(type)
     end
     if TypeWord == "GYM" then
         print("Время потренировать мышцы")
+         CreateGodTalon(x, y, "PeonDidal")
         TypeWord = ""
     end
     if #TypeWord>=5 then
         TypeWord = ""
+        print("очистка")
+        CreateCreepDelay(FourCC("uban"), x, y, 2, "summon")
     end
     return #TypeWord
 end
@@ -3151,7 +3156,9 @@ function InitFinObjectInArea()
     CreateEnterPoint(10680, -15902, L("Открыть", "Open"), "Open2", false)
     CreateEnterPoint(19487, -4224, L("Прыгнуть вниз", "Jump into culvert"), "Culvert", false)
     CreateGodTalon(6100, -7547, "WeaponShield")
-    CreateGodTalon(6560,-7524, "WeaponPickAxe")
+    CreateGodTalon(6560, -7524, "WeaponPickAxe")
+
+    CreateGodTalon(19762, -20198, "NagaBiom", 3000 * GetActiveCountPlayer())
     --[[
     --Переходы между зонами
     FinObjectInArea(6600, -6300, "Войти через главный вход", "Goto", true, "Trall") --Начать приключение
@@ -3190,7 +3197,7 @@ function ReplaceALLUnitId2PointExit(id)
         SetUnitInvulnerable(u, true)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
-        if i == d or i==d2 then
+        if i == d or i == d2 then
             CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal", u)
             -- print("создана 1 награда с пеоном дидалом")
         elseif i == m then
@@ -4015,6 +4022,42 @@ function CreateEActions()
             ----------------------------------------------------/
             ---------------Прочие дары--------------------------/
             ----------------------------------------------------/
+            if data.UseAction == "NagaBiom" then
+                if data.gold >= dataPoint.TalonPrice then
+                    --print("полный выкуп уплочен")
+                    --data.Completed = true
+                    TimerStart(CreateTimer(), 1, false, function()
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        AllActionsEnabled(true)--активация всех переходов
+                        local x, y = GetUnitXY(dataPoint.Unit)
+                        CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal")
+                    end)
+                    data.DoAction = false
+                    data.UseAction = ""
+                    data.ShowActionWindows = false
+                    KillUnit(data.EPointUnit)
+                    if dataPoint.TalonPrice > 0 then
+                        normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                        AddGold(data, -dataPoint.TalonPrice)
+                    end
+                else
+                    data.DoAction = false
+                    data.UseAction = ""
+                    data.ShowActionWindows = false
+                    dataPoint.TalonPrice = dataPoint.TalonPrice - data.gold
+                    --print("отдано", "осталось", dataPoint.TalonPrice)
+                    if not infLimit then
+                        infLimit = 1
+                    end
+                    infLimit = infLimit + 1
+                    for i = 1, infLimit do
+                        CreateCreepDelay(FourCC("n005"), 0, 0, 1, "summon")
+                    end
+                    SetTextTagText(dataPoint.priceTag, R2I(dataPoint.TalonPrice), 0.03)
+                    normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                    AddGold(data, -data.gold)
+                end
+            end
             if data.UseAction == "CodoHeart" then
                 if data.gold >= dataPoint.TalonPrice then
                     local message = {
@@ -4239,27 +4282,29 @@ end
 
 function CreateInfoBoxForAllPlayerTimed(data, message, timed)
     if not bj_isSinglePlayer then
-        print(message)
+        --print(message)
+         FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), message, GetOwningPlayer(data.UnitHero))
     else
         --local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
         --local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
-
-        local tooltip = BlzCreateFrameByType("BACKDROP", "TalonTooltip", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "EscMenuControlBackdropTemplate", 0)
-        local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-        local size = #message * 0.007
-        if size <= 0.12 then
-            size = 0.12
+        if InfoSlots <= 3 then
+            local tooltip = BlzCreateFrameByType("BACKDROP", "TalonTooltip", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "EscMenuControlBackdropTemplate", 0)
+            local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            local size = #message * 0.007
+            if size <= 0.12 then
+                size = 0.12
+            end
+            BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08 + 0.03 * InfoSlots)
+            BlzFrameSetSize(tooltip, size, 0.03)
+            BlzFrameSetText(text, message)
+            BlzFrameSetScale(text, 1.2)
+            BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0, 0.0)
+            TimerStart(CreateTimer(), timed, false, function()
+                BlzDestroyFrame(tooltip)
+                InfoSlots = InfoSlots - 1
+            end)
+            InfoSlots = InfoSlots + 1
         end
-        BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.4, 0.08 + 0.03 * InfoSlots)
-        BlzFrameSetSize(tooltip, size, 0.03)
-        BlzFrameSetText(text, message)
-        BlzFrameSetScale(text, 1.2)
-        BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0, 0.0)
-        TimerStart(CreateTimer(), timed, false, function()
-            BlzDestroyFrame(tooltip)
-            InfoSlots = InfoSlots - 1
-        end)
-        InfoSlots = InfoSlots + 1
     end
 end
 
@@ -4578,7 +4623,7 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 19 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy
+CurrentGameZone = 1 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy црщы
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
     if CurrentGameZone == 1 or CurrentGameZone == 20 then
@@ -4986,7 +5031,7 @@ function StartEnemyWave(waveNumber)
 
     if waveNumber == 21 then
         -- Новый биом
-        local r = GetRandomInt(1, 2)
+        local r = GetRandomInt(3, 3)
         if r == 1 then
             listID = { --мурлок
                 FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
@@ -5001,12 +5046,18 @@ function StartEnemyWave(waveNumber)
                 FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
             }
             maxOnWave = 6
+        elseif r == 3 then
+            listID = { -- нага гвардеец
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+            }
+            maxOnWave = 5
         end
         --print("если вывидите это сообщение, то вы в принципе уже победили")
     end
 
     if waveNumber == 22 then
-        -- Новый биом
         local r = GetRandomInt(1, 2)
         if r == 1 then
             listID = { --мурлок
@@ -5030,25 +5081,36 @@ function StartEnemyWave(waveNumber)
         --print("если вывидите это сообщение, то вы в принципе уже победили")
     end
     if waveNumber == 23 then
-        listID = { -- нага
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-        }
-        maxOnWave = 6
+        local r = GetRandomInt(1, 2)
+        if r == 1 then
+            listID = { -- нага
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            }
+            maxOnWave = 6
+        elseif r == 2 then
+            listID = {
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+            }
+            maxOnWave = 6
+
+        end
+
     end
 
     if waveNumber == 24 then
         listID = { -- нага
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
             FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
             FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
         }
         maxOnWave = 6
     end
@@ -5056,11 +5118,11 @@ function StartEnemyWave(waveNumber)
     if waveNumber == 25 then
         listID = { -- нага
             FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
             FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
             FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
         }
         maxOnWave = 6
     end
@@ -5254,7 +5316,9 @@ function CreateCreepDelay(id, x, y, delay, flag, angle)
                 if dataGZ.x[m] then
                     x, y = dataGZ.x[m], dataGZ.y[m]
                     --print("Проверка перед назначением угла", dataGZ.angle[m])
-
+                    if not angle then
+                        angle=dataGZ.angle[m]
+                    end
                 else
                     print("Ошибка, не могу получить координаты " .. m)
                 end
@@ -5303,16 +5367,18 @@ function JumpOutWater(unit, angle)
     UnitDamageArea(unit, 50, GetUnitX(unit), GetUnitY(unit), 150)
     DestroyEffect(eff)
     BlzPauseUnitEx(unit, true)
-    UnitAddForce(unit, angle, 10, 500, 500)
+    UnitAddJumpForce(unit, angle, 10, 500, 500)
 end
 
-function UnitAddForce(hero, angle, speed, distance, MaxHeight)
+function UnitAddJumpForce(hero, angle, speed, distance, MaxHeight)
     local currentdistance = 0
     local i = 0
     local ZStart = GetUnitZ(hero)
     if not MaxHeight then
         MaxHeight = 0
     end
+    --SetUnitPathing(hero,false)
+    UnitDisablePath(hero)
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         currentdistance = currentdistance + speed
         local x, y = GetUnitXY(hero)
@@ -5325,17 +5391,31 @@ function UnitAddForce(hero, angle, speed, distance, MaxHeight)
         SetUnitY(hero, newY)
 
         if i > 3 and f <= GetTerrainZ(GetUnitXY(hero)) then
-            -- прыжок орка
             DestroyTimer(GetExpiredTimer())
             BlzPauseUnitEx(hero, false)
+            SetUnitTimeScale(hero, 1)
+            --SetUnitPathing(hero,true)
             SetUnitZ(hero, 0)
             --print("приземлился")
             if UnitAlive(hero) then
                 ResetUnitAnimation(hero)
             end
+
+            if GetUnitTypeId(hero) == FourCC("n005") then
+                if UnitDamageArea(hero, 150, newX, newY, 150) then
+                   DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", newX, newY))
+                end
+            end
         end
     end)
 end
+
+
+function UnitDisablePath(unit)
+    UnitAddAbility(hero, FourCC("AInv"))
+    UnitAddItemById(unit, FourCC("I000")) -- предмет виндволк
+end
+
 function CreateDialogTalon(godName)
     if not godName then
         print("При создании дара не передан параметр награды")
@@ -6639,7 +6719,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
-                            DS = { L("сквозь здания", ""), L("сквозь здания и делает героя неуязвимым", ""), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов", "") }, --TODO перевод
+                            DS = { L("сквозь здания", "through buildings"), L("сквозь здания и делает героя неуязвимым", "through buildings and makes the hero invulnerable"), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов", "through buildings and makes the hero invulnerable and destroys the enemies ' shield") },
                             pos = 7
                         }),
                         Talon:new({--8
@@ -6654,13 +6734,13 @@ do
                             weaponType = "shield"
                         }),
                         Talon:new({--9
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp", --TODO перевод
-                            name = L("Заговор неуязвимости", "Healer's Shield"),
-                            description = L("При получении урона делает героя неуязвимым на 0.5 сек. Перезарядка: DS", "Heals the hero on DS health when blocking damage from enemies. Cooldown 10"),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
+                            name = L("Заговор неуязвимости", "Invulnerability Spell"),
+                            description = L("При получении урона делает героя неуязвимым на 0.5 сек. Перезарядка: DS", "When taking damage, it makes the hero invulnerable for 0.5 seconds. Recharge: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Идеальное спасение от ловушек и пил", "Doesn't work for traps"),
-                            DS = { 15, 12, 9 },
+                            tooltip = L("Идеальное спасение от ловушек и пил", "The perfect escape from traps and saws"),
+                            DS = { 25, 20, 15 },
                             pos = 9,
                             --weaponType = "shield"
                         }),
@@ -6759,12 +6839,12 @@ do
                             pos = 9
                         }),
                         Talon:new({--10
-                            icon = "BTNCodoHeart", --TODO перевод
-                            name = L("Бычье сердце", "Hoof strike"),
-                            description = L("Сердца кодоя дают больше максимального здоровья на DS%", "Normal attacks push the enemy to a distance of DS"),
+                            icon = "BTNCodoHeart",
+                            name = L("Бычье сердце", "Bull Heart"),
+                            description = L("Сердца кодоя дают больше максимального здоровья на DS%", "Kodoi Hearts give more maximum health on DS%"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Изучите талант, чтобы получить сердце прямо сейчас", "The enemies you push hit the obstacles and take 100 damage"),
+                            tooltip = L("Изучите талант, чтобы получить сердце прямо сейчас", "Learn the talent to get the heart right now"),
                             DS = { 50, 75, 100 },
                             pos = 10
                         }),
@@ -6811,23 +6891,23 @@ do
                             DS = { "wolf" },
                             pos = 4
                         }),
-                        Talon:new({ --TODO перевод
+                        Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
-                            name = L("Здоровье зверя", ""),
-                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 1000 X DS", ""),
+                            name = L("Здоровье зверя", "Animal Health"),
+                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 1000 X DS", "Increases the hero's health by DS, and the summoned creatures by 1000 X DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Призванные существа получают здоровье в момент призыва. Действует на существ, призванных не только от Рексара", "The summoned creature is completely autonomous"),
+                            tooltip = L("Призванные существа получают здоровье в момент призыва. Действует на существ, призванных не только от Рексара", "Summoned creatures receive health at the moment of summoning. Acts on creatures summoned not only from Rexar"),
                             DS = { 10, 15, 20 },
                             pos = 5
                         }),
-                        Talon:new({ --TODO перевод
+                        Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBattleRoar.blp",
-                            name = L("Метка медведя", ""),
-                            description = L("Увеличивает урон на DS, с каждой последующей атакой", ""),
+                            name = L("Метка медведя", "Bear Mark"),
+                            description = L("Увеличивает урон на DS, с каждой последующей атакой", "Increases damage by DS, with each subsequent attack"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Метка исчезает, если враг не получал урона более 5 секунд", "The summoned creature is completely autonomous"),
+                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
                             DS = { 5,10,20 },
                             pos = 6
                         }),
@@ -7154,9 +7234,9 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--8
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNPeriapt.blp", --TODO перевод
-                            name = L("Золотая кровь", "Flip the Coin"),
-                            description = L("Получение более 10 золота, исцеляет героя на DS% от полученного количества", "Has a 50% chance of not taking damage, spends 10 gold. Recharge: DS"),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPeriapt.blp",
+                            name = L("Золотая кровь", "Golden Blood"),
+                            description = L("Получение более 10 золота, исцеляет героя на DS% от полученного количества", "Getting more than 10 gold, heals the hero by DS% of the amount received"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
@@ -8026,6 +8106,7 @@ function CreateGodTalon(x, y, name, price)
     local dataPoint = EnterPointTable[GetHandleId(tempUnit)]
     dataPoint.TripleTalon=table
     dataPoint.TalonPrice=price
+    dataPoint.priceTag=priceTag-- сам текстаг, для его дальнейшей правки
 
     --[[
     local forceShow=false
@@ -8212,11 +8293,72 @@ function InitEnemyEntire()
             --print("нага сирена")
             CastTorrent(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("n004") then
+            --print("морской дракон")
+            JumpDragonGround(unit)
+            NecroAttackAndArrow(unit)
+        end
+        if GetUnitTypeId(unit) == FourCC("n005") then
+            --print("Нага гвардеец")
+            GuardAISpeer(unit)
+        end
 
     end)
 end
 
+function GuardAISpeer(unit)
+    TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero = GetRandomEnemyHero()
+            if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                if not IsUnitInRange(unit, hero, 300) then
+                    local angle = AngleBetweenUnits(unit, hero)
+                    BlzPauseUnitEx(unit, true)
+                    SetUnitAnimation(unit, "attack")
+                    SetUnitTimeScale(unit, 0.5)
+                    SetUnitFacing(unit, angle)
+                    TimerStart(CreateTimer(), 0.7, false, function()
+                        CreateAndForceBullet(unit, angle, 30, "SystemGeneric\\Teath3", nil, nil, 300, 3000)
+                        BlzPauseUnitEx(unit, false)
+                    end)
+                else
+                    IssueTargetOrder(unit, "attack", hero)
+                    SetUnitTimeScale(unit, 0.5)
+                    SetUnitAnimation(unit, "Morph Swim")
+                    BlzPauseUnitEx(unit, true)
+                    local angle = AngleBetweenUnits(unit, hero)
+                    SetUnitFacing(unit,angle)
+                    local x,y=MoveXY(GetUnitX(unit),GetUnitY(unit),400,angle)
+                    CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, x, y)
+                    UnitAddJumpForce(unit, angle, 10, 400, 400)
+                end
+            end
+        end
+    end)
+end
+
+function JumpDragonGround(unit)
+    TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            SetUnitTimeScale(unit, 0.5)
+            SetUnitAnimation(unit, "Morph Swim")
+            local hero = GetRandomEnemyHero()
+            if not IsUnitInRange(unit, hero, 300) then
+                local angle = AngleBetweenUnits(unit, hero)
+                BlzPauseUnitEx(unit, true)
+                UnitAddJumpForce(unit, angle, 10, 250, 250)
+            end
+        end
+    end)
+
+end
+
 function CastTorrent(unit)
+    UnitAddAbility(unit, FourCC("Abun"))
     local eff = AddSpecialEffect("SystemGeneric\\Torrent", GetUnitXY(unit))
     UnitDamageArea(unit, 50, GetUnitX(unit), GetUnitY(unit), 150)
     DestroyEffect(eff)
@@ -8225,7 +8367,7 @@ function CastTorrent(unit)
             DestroyTimer(GetTriggerUnit())
         else
             local hero = GetRandomEnemyHero()
-            IssueTargetOrder(unit, "attack", hero)
+            IssueTargetOrder(unit, "move", hero)
             if IsUnitInRange(hero, unit, 1000) then
                 TorrentWisMark(unit, GetUnitXY(hero))
             end
@@ -8631,7 +8773,7 @@ function NecroAttackAndArrow(unit)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
                         CreateAndForceBullet(unit, angle, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
-                        if GetUnitManaPercent(unit) > 30 then
+                        if GetUnitManaPercent(unit) > 30 and GetUnitTypeId(unit) == FourCC("unec") then
                             CreateAndForceBullet(unit, angle + 10, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
                             CreateAndForceBullet(unit, angle - 10, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
                         end
@@ -9572,15 +9714,15 @@ function CreateTaskForPlayer(data)
     end
 
     if data.CurrentWeaponType == "shield" then
-        frames[1], _, text[1], _, chk[1] = CreateSimpleTask(L("Нажмите и отпустите LMB, чтобы совершить удар щитом", ""), Player(i))
-        frames[2], _, text[2], _, chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы блокировать урон щитом", ""), Player(i))
-        frames[3], _, text[3], _, chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы для прыжка, можно преодолеть преграду", ""), Player(i))
+        frames[1], _, text[1], _, chk[1] = CreateSimpleTask(L("Нажмите и отпустите LMB, чтобы совершить удар щитом", "Press and release the LMB to make a shield hit"), Player(i))
+        frames[2], _, text[2], _, chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы блокировать урон щитом", "Удерживайте LMB, чтобы блокировать урон щитом"), Player(i))
+        frames[3], _, text[3], _, chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы для прыжка, можно преодолеть преграду", "Press Q to jump, you can overcome the obstacle"), Player(i))
         frames[4], _, text[4], _, chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот", "Press RMB to throw a pick"), Player(i))
         frames[5], _, text[5], _, chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок", "Press SPACE to dash"), Player(i))
         frames[6], _, text[6], _, chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB", "Take a leap attack Space+LMB"), Player(i))
         frames[7], _, text[7], _, chk[7] = CreateSimpleTask(L("", ""), Player(i))
         frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
-        frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время удержания LMB", ""), Player(i))
+        frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте RMB, во время удержания LMB, для броска щита", "Use the RMB, while holding the LMB, to throw the shield"), Player(i))
         frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("", ""), Player(i))
         frames[11], _, text[11], _, chk[11] = CreateSimpleTask(L("Нажмите WASD, чтобы двигаться", "Press WASD to move"), Player(i))
     end
@@ -9654,7 +9796,7 @@ function CreateSimpleTask(message, player)
     else
         BlzFrameSetAlpha(tooltip, 0)
         BlzFrameSetAlpha(backdrop, 0)
-        print(SimpleTaskPos[pid])
+        --print(SimpleTaskPos[pid])
         HERO[GetPlayerId(player)].tasks[10] = true
         HERO[GetPlayerId(player)].tasks[7] = true
     end
@@ -11090,26 +11232,141 @@ do
     end
 end
 function InitDeathEvent()
-    local this=CreateTrigger()
+    local this = CreateTrigger()
     TriggerRegisterAnyUnitEventBJ(this, EVENT_PLAYER_UNIT_DEATH)
     TriggerAddAction(this, function()
-        local u=GetTriggerUnit()
-        local killer=GetKillingUnit()
+        local u = GetTriggerUnit()
+        local killer = GetKillingUnit()
 
-        if GetPlayerController(GetOwningPlayer(killer))==MAP_CONTROL_USER then
-            local data=HERO[GetPlayerId(GetOwningPlayer(killer))]
-            killer=data.UnitHero
+        if GetPlayerController(GetOwningPlayer(killer)) == MAP_CONTROL_USER then
+            local data = HERO[GetPlayerId(GetOwningPlayer(killer))]
+            killer = data.UnitHero
             RewardGoldForKill(data)
             if data.RechargeSpinOnKill then
                 data.SpinCharges = data.SpinCharges + data.RechargeSpinOnKill
                 BlzFrameSetText(data.SpinChargesFH, data.SpinCharges)
             end
             if data.MeleeLifeSteal then
-                if IsUnitInRange(u,killer,250) then
-                    HealUnit(killer,data.MeleeLifeSteal)
+                if IsUnitInRange(u, killer, 250) then
+                    HealUnit(killer, data.MeleeLifeSteal)
                 end
             end
+            if not data.KillStack then
+                data.KillStack = 0
+            end
+            data.KillStack = data.KillStack + 1
+            TimerStart(CreateTimer(), 0.5, false, function()
+                data.KillStack = data.KillStack - 1
+            end)
+            if data.KillStack == 2 then
+                local rm = {
+                    L("Одним махом двоих убивахом", ""),
+                    L("2х сразу", ""),
+                    L("Двоих сразу, на кофейном столике", ""),
+                    L("Получайте твиксанутые", ""),
+                }
+                CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+            end
+
+            if data.KillStack == 3 then
+                local rm = {
+                    L("Триплкилл", ""),
+                    L("Трипл стил", ""),
+                    L("Тройничек", ""),
+                    L("А где четвертый?", ""),
+                }
+                CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+            end
+            if data.KillStack == 4 then
+                local rm = {
+                    L("А вот и четвёртый", ""),
+                    L("Да я в ударе", ""),
+                    L(" 1 2 3 4", ""),
+                    L("Ха, ну и пятого давайте!", ""),
+                }
+                CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+            end
+            --[[
+                FourCC("nsko"), -- скелет
+                FourCC("ucs1"), -- мелкий жук
+                FourCC("u000"), -- большой жук
+                FourCC("uabo"), -- пудж
+                FourCC("unec"), -- некромант
+                FourCC("n000"), -- мимик
+                FourCC("ugar"), -- гаргулья
+            ]]
+            if GetRandomInt(1, 10) == 1 then
+                -- шанс на случайную фразу
+                if GetUnitTypeId(u) == FourCC("unec") then
+                    local rm = {
+                        L("Вот тебе дряхлый", ""),
+                        L("Рассыпался как пенёк", ""),
+                        L("Кости для моей собаки", ""),
+                        L("В труху", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("nsko") then
+                    local rm = {
+                        L("Получай костлявый", ""),
+                        L("Следующий", ""),
+                        L("Допрыгался, мешок с костями?", ""),
+                        L("Кости застряли в зубах", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("ucs1") then
+                    local rm = {
+                        L("Ах ты, мелкий", ""),
+                        L("Пшшш, (звук дихлофоса)", ""),
+                        L("Тараканище!", ""),
+                        L("Прихлопнул как таракана", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("u000") then
+                    local rm = {
+                        L("Крупный попался", ""),
+                        L("Такого и яд не берёт", ""),
+                        L("Я эти твои пики точеные засуну, знаешь куда?", ""),
+                        L("Большим тапком, большого таракана", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("uabo") then
+                    local rm = {
+                        L("Мерзкое отродье", ""),
+                        L("Какой же жирный", ""),
+                        L("Фу, аж противно", ""),
+                        L("Оно живое (нет)", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("n000") then
+                    local rm = {
+                        L("Выбил зубы", ""),
+                        L("Сделаю табуретку", ""),
+                        L("Сходи к стоматологу табуретка", ""),
+                        L("Внутри ящика сидел ящик, хммм...", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("ugar") then
+                    local rm = {
+                        L("Твердая как мой... по утрам", ""),
+                        L("Скарлупа", ""),
+                        L("И кто будет кбирать этот мусор", ""),
+                        L("Внутри ящика сидел ящик, хммм...", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+
+            end
+
+
         end
+
+
     end)
 end
 ---

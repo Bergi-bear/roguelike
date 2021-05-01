@@ -14,25 +14,157 @@ do
     end
 end
 function InitDeathEvent()
-    local this=CreateTrigger()
+    local this = CreateTrigger()
     TriggerRegisterAnyUnitEventBJ(this, EVENT_PLAYER_UNIT_DEATH)
     TriggerAddAction(this, function()
-        local u=GetTriggerUnit()
-        local killer=GetKillingUnit()
+        local u = GetTriggerUnit()
+        local killer = GetKillingUnit()
 
-        if GetPlayerController(GetOwningPlayer(killer))==MAP_CONTROL_USER then
-            local data=HERO[GetPlayerId(GetOwningPlayer(killer))]
-            killer=data.UnitHero
+        if GetPlayerController(GetOwningPlayer(killer)) == MAP_CONTROL_USER then
+            local data = HERO[GetPlayerId(GetOwningPlayer(killer))]
+            killer = data.UnitHero
             RewardGoldForKill(data)
             if data.RechargeSpinOnKill then
                 data.SpinCharges = data.SpinCharges + data.RechargeSpinOnKill
                 BlzFrameSetText(data.SpinChargesFH, data.SpinCharges)
             end
             if data.MeleeLifeSteal then
-                if IsUnitInRange(u,killer,250) then
-                    HealUnit(killer,data.MeleeLifeSteal)
+                if IsUnitInRange(u, killer, 250) then
+                    HealUnit(killer, data.MeleeLifeSteal)
                 end
             end
+            if not data.KillStack then
+                data.KillStack = 0
+            end
+            data.KillStack = data.KillStack + 1
+            TimerStart(CreateTimer(), 0.5, false, function()
+                data.KillStack = data.KillStack - 1
+            end)
+            if data.KillStack == 2 then
+                if GetRandomInt(1,3)==1 then
+                    local rm = {
+                        L("Одним махом двоих убивахом", ""),
+                        L("2х сразу", ""),
+                        L("Двоих сразу, на кофейном столике", ""),
+                        L("Получайте твиксанутые", ""),
+                        L("Сладкая парочка", ""),
+                        L("Подавайте третьего", ""),
+                        L("Бойня", ""),
+                        L("Двойня", ""),
+                        L("Сделал амлет", ""),
+                        L("Замечательный дуэт", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+            end
+
+            if data.KillStack == 3 then
+                local rm = {
+                    L("Триплкилл", ""),
+                    L("Трипл стил", ""),
+                    L("Тройничек", ""),
+                    L("А где четвертый?", ""),
+                }
+                CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+            end
+            if data.KillStack == 4 then
+                local rm = {
+                    L("А вот и четвёртый", ""),
+                    L("Да я в ударе", ""),
+                    L(" 1 2 3 4", ""),
+                    L("Ха, ну и пятого давайте!", ""),
+                }
+                CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+            end
+            if data.KillStack == 5 then
+                local rm = {
+                    L("Пятерых", ""),
+                    L("Пятый", ""),
+                    L(" 1 2 3 4 5, вышел Берги погулять", ""),
+                    L("Геноцид", ""),
+                }
+                CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+            end
+            --[[
+                FourCC("nsko"), -- скелет
+                FourCC("ucs1"), -- мелкий жук
+                FourCC("u000"), -- большой жук
+                FourCC("uabo"), -- пудж
+                FourCC("unec"), -- некромант
+                FourCC("n000"), -- мимик
+                FourCC("ugar"), -- гаргулья
+            ]]
+            if GetRandomInt(1, 10) == 1 then
+                -- шанс на случайную фразу
+                if GetUnitTypeId(u) == FourCC("unec") then
+                    local rm = {
+                        L("Вот тебе дряхлый", ""),
+                        L("Рассыпался как пенёк", ""),
+                        L("Кости для моей собаки", ""),
+                        L("В труху", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("nsko") then
+                    local rm = {
+                        L("Получай костлявый", ""),
+                        L("Следующий", ""),
+                        L("Допрыгался, мешок с костями?", ""),
+                        L("Кости застряли в зубах", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("ucs1") then
+                    local rm = {
+                        L("Ах ты, мелкий", ""),
+                        L("Пшшш, (звук дихлофоса)", ""),
+                        L("Тараканище!", ""),
+                        L("Прихлопнул как таракана", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("u000") then
+                    local rm = {
+                        L("Крупный попался", ""),
+                        L("Такого и яд не берёт", ""),
+                        L("Я эти твои пики точеные засуну, знаешь куда?", ""),
+                        L("Большим тапком, большого таракана", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("uabo") then
+                    local rm = {
+                        L("Мерзкое отродье", ""),
+                        L("Какой же жирный", ""),
+                        L("Фу, аж противно", ""),
+                        L("Оно живое (нет)", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("n000") then
+                    local rm = {
+                        L("Выбил зубы", ""),
+                        L("Сделаю табуретку", ""),
+                        L("Сходи к стоматологу табуретка", ""),
+                        L("Внутри ящика сидел ящик, хммм...", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+                if GetUnitTypeId(u) == FourCC("ugar") then
+                    local rm = {
+                        L("Твердая как мой... по утрам", ""),
+                        L("Скарлупа", ""),
+                        L("И кто будет кбирать этот мусор", ""),
+                        L("Внутри ящика сидел ящик, хммм...", ""),
+                    }
+                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                end
+
+            end
+
+
         end
+
+
     end)
 end
