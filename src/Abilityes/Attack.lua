@@ -244,7 +244,10 @@ function attackShield(data)
             data.isAttacking = true
             data.AttackShieldCD = cdAttack
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-
+            if not data.tasks[1] then
+                data.tasks[1] = true
+                --print("Первый раз сделал удар щитом")
+            end
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
             SetUnitTimeScale(data.UnitHero, 1.5)
 

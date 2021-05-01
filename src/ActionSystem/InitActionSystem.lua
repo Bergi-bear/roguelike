@@ -83,6 +83,7 @@ function ReplaceALLUnitId2PointExit(id)
     local k = #unitTable
     --print(k)
     local d = GetRandomInt(1, k)-- рандомизатор молота дидала
+    local d2 = GetRandomInt(1, k)-- рандомизатор молота дидала
     local m = GetRandomInt(1, k)-- рандомизатор магазина
     local r = GetRandomInt(1, k)-- рандомизатор  рексара1
     local r2 = GetRandomInt(1, k)-- рандомизатор  рексара1
@@ -96,7 +97,7 @@ function ReplaceALLUnitId2PointExit(id)
         SetUnitInvulnerable(u, true)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
-        if i == d then
+        if i == d or i==d2 then
             CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal", u)
             -- print("создана 1 награда с пеоном дидалом")
         elseif i == m then

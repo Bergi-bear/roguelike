@@ -14,7 +14,6 @@ function SwitchWeaponTo(data, newWeapon)
             CreateUniversalFrame(x, y, size, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
             CreateUniversalFrame(x, y, size, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
             data.EffInLeftHand = AddSpecialEffectTarget("Axes", data.UnitHero, "hand, left")
-
         end
         if newWeapon == "shield" then
             --data.StarTime2Spin=0.02
@@ -22,6 +21,16 @@ function SwitchWeaponTo(data, newWeapon)
             CreateUniversalFrame(x, y, size, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
             data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
         end
+
+        --AllCompletedForPlayer(data.pid)
+
+        if not data.FirstShowLearn then
+            CreateTaskForPlayer(data)
+            data.FirstShowLearn=true
+        else
+            AllCompletedForPlayer(data.pid)
+        end
+
     else
         print("переключение оружия следует делать без изученных талантов, начните игру заново")
     end

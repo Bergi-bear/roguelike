@@ -88,6 +88,12 @@ gg_rct_E25A = nil
 gg_rct_S26A = nil
 gg_rct_B26A = nil
 gg_rct_E26A = nil
+gg_rct_S27A = nil
+gg_rct_B27A = nil
+gg_rct_E27A = nil
+gg_rct_S28A = nil
+gg_rct_B28A = nil
+gg_rct_E28A = nil
 gg_cam_Camera_001 = nil
 gg_cam_Camera_002 = nil
 gg_cam_Camera_003 = nil
@@ -685,7 +691,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15018.7, -19335.3, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("ushd"), 11644.0, -20986.5, 240.828, FourCC("ushd"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14992.6, -19838.1, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 20359.5, -18625.8, 350.440, FourCC("hfoo"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 20080.6, -18475.8, 350.440, FourCC("hfoo"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 19651.2, -20250.3, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19990.0, -20531.9, 91.868, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
@@ -696,8 +702,12 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20753.6, -19836.1, 1.811, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19910.3, -19078.9, 1.140, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21010.6, -18610.6, 264.930, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19462.6, -19949.4, 356.060, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24400.9, -23050.0, 138.460, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20369.0, -19685.2, 182.710, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
@@ -716,16 +726,16 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19700.7, -19500.5, 311.893, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24014.3, -20479.0, 181.223, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24055.1, -20477.9, 178.114, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23983.4, -19910.4, 180.201, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24079.8, -19900.3, 177.969, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18431.8, -16516.0, 0.000, FourCC("h000"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23445.3, -16317.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22796.4, -16024.2, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19766.0, -22952.2, 228.377, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19785.2, -22751.0, 228.377, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22775.0, -15665.8, 247.300, FourCC("e001"))
@@ -796,10 +806,10 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17989.6, -6694.2, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18521.9, -6683.9, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19080.9, -6776.9, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20118.6, -22934.1, 334.811, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20053.3, -22684.9, 334.811, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20601.6, -22440.8, 56.516, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20408.4, -22526.1, 56.516, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19846.0, -7118.9, 247.300, FourCC("e001"))
@@ -809,10 +819,18 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19053.0, -8411.4, 247.300, FourCC("e001"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 23553.8, -18115.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24732.3, -23712.2, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24630.1, -18159.9, 296.730, FourCC("hdhw"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24639.9, -18173.0, 296.730, FourCC("hdhw"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 22620.6, -22653.9, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23313.1, -20587.7, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23949.9, -19503.6, 180.320, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22953.8, -20920.6, 55.304, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24036.9, -19504.3, 177.674, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24161.3, -19450.8, 87.583, FourCC("e001"))
@@ -821,52 +839,74 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24759.2, -18997.0, 181.232, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23313.7, -19354.9, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23999.8, -19655.1, 166.853, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24810.9, -18815.4, 88.693, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23311.7, -18594.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24370.9, -23921.4, 96.819, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23553.3, -18206.9, 326.941, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24551.1, -18201.9, 212.792, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24158.6, -17980.9, 265.684, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21107.0, -19491.8, 1.140, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23718.2, -23948.7, 84.663, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23247.2, -23932.1, 73.104, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19100.3, -26173.3, 180.360, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23027.2, -23196.8, 23.859, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23449.2, -22923.6, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23862.6, -22916.2, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23466.8, -23180.0, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23837.8, -23202.2, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22958.6, -23565.3, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23592.5, -23540.6, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22987.6, -22589.2, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23846.1, -22494.8, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24506.0, -22508.0, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24358.9, -23557.4, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24857.8, -23376.0, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24860.7, -22661.3, 247.300, FourCC("e001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21438.3, -22302.9, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21386.4, -23205.1, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20332.2, -22226.6, 2.868, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23745.9, -23888.0, 89.938, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19957.5, -22178.2, 6.786, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20641.5, -24953.6, 159.362, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19491.1, -22291.4, 146.543, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22646.0, -23933.7, 53.679, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19464.3, -22659.6, 237.873, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22447.1, -23219.3, 56.277, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19117.0, -25827.1, 172.541, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23916.3, -20895.4, 134.977, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22855.1, -22047.7, 266.006, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23697.6, -22050.7, 266.006, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24564.9, -22037.9, 266.006, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21352.8, -22359.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 18885.6, -24469.6, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 20175.4, -24545.8, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21367.6, -23218.0, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 16278.7, -22489.0, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 14197.5, -22504.5, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 15543.4, -25129.9, 296.730, FourCC("hdhw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15002.7, -25624.6, 350.284, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20186.5, -22403.5, 2.868, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19896.4, -22328.8, 6.786, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19570.1, -22382.8, 146.543, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19560.6, -22583.2, 237.873, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20628.0, -25264.8, 174.728, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("h000"), 18433.4, -16380.8, 0.000, FourCC("h000"))
@@ -919,10 +959,10 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 21828.1, -6460.5, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24210.7, -24462.9, 296.730, FourCC("hdhw"))
     u = BlzCreateUnitWithSkin(p, FourCC("hdhw"), 24613.2, -24932.9, 296.730, FourCC("hdhw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22995.5, -23096.4, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22995.5, -23096.4, 1.571, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24386.4, -23128.2, 247.300, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24386.4, -23128.2, 178.261, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23283.4, -24474.1, 2.224, FourCC("e001"))
@@ -955,7 +995,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22366.7, -26070.6, 3.104, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23277.6, -26289.2, 20.821, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14965.0, -25643.2, 88.194, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23294.1, -25979.9, 138.110, FourCC("e001"))
@@ -973,7 +1013,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23841.1, -26539.1, 95.383, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 22860.7, -26561.4, 92.067, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14948.1, -25612.4, 18.674, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21945.6, -26570.1, 98.001, FourCC("e001"))
@@ -988,10 +1028,10 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 21130.7, -25581.6, 356.916, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 19835.5, -25833.2, 91.392, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20581.2, -25731.9, 146.681, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
-    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20460.9, -22847.2, 322.729, FourCC("e001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 20310.4, -22743.7, 322.729, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17740.4, -25173.3, 287.322, FourCC("e001"))
@@ -1007,6 +1047,78 @@ function CreateNeutralPassive()
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
     u = BlzCreateUnitWithSkin(p, FourCC("e001"), 18366.1, -24309.8, 336.234, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15456.0, -25111.7, 174.728, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15441.8, -25062.8, 316.875, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15952.3, -25728.6, 47.333, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16012.1, -25741.6, 174.728, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15985.6, -25764.0, 142.023, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15543.7, -26284.4, 161.411, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15845.8, -26274.0, 119.525, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16126.2, -26255.2, 76.607, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 16743.0, -23795.1, 162.006, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17073.5, -23746.7, 133.909, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17133.9, -23395.5, 172.530, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17137.0, -23031.1, 180.161, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17154.0, -22774.5, 180.658, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 17162.0, -22528.6, 204.150, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15418.0, -22565.5, 348.882, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15298.9, -22557.0, 259.619, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15126.9, -22566.4, 268.987, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 15011.2, -22547.4, 253.290, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 14863.5, -22565.7, 213.743, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24503.8, -23081.9, -42.728, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 24475.4, -23169.3, 220.987, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23050.2, -23041.0, 25.746, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23006.2, -23012.0, 121.482, FourCC("e001"))
+    life = GetUnitState(u, UNIT_STATE_LIFE)
+    SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
+    u = BlzCreateUnitWithSkin(p, FourCC("e001"), 23039.0, -23129.4, -35.283, FourCC("e001"))
     life = GetUnitState(u, UNIT_STATE_LIFE)
     SetUnitState(u, UNIT_STATE_LIFE, 0.90 * life)
 end
@@ -1092,13 +1204,13 @@ function CreateRegions()
     gg_rct_B21A = Rect(20480.0, -20000.0, 20544.0, -19072.0)
     gg_rct_E21A = Rect(21248.0, -20288.0, 21504.0, -19904.0)
     gg_rct_OpenDarkness1 = Rect(14880.0, -19296.0, 15072.0, -19008.0)
-    gg_rct_S22A = Rect(22720.0, -20832.0, 24992.0, -17568.0)
+    gg_rct_S22A = Rect(22720.0, -21056.0, 24992.0, -17088.0)
     gg_rct_B22A = Rect(24000.0, -20320.0, 24064.0, -18464.0)
     gg_rct_E22A = Rect(23168.0, -20352.0, 23424.0, -19968.0)
-    gg_rct_S23A = Rect(22560.0, -24000.0, 25056.0, -22240.0)
+    gg_rct_S23A = Rect(22400.0, -24000.0, 25056.0, -21984.0)
     gg_rct_B23A = Rect(23488.0, -23264.0, 23936.0, -22912.0)
     gg_rct_E23A = Rect(22496.0, -23712.0, 22752.0, -23328.0)
-    gg_rct_S24A = Rect(18656.0, -24864.0, 22400.0, -21856.0)
+    gg_rct_S24A = Rect(18656.0, -24864.0, 22176.0, -21856.0)
     gg_rct_B24A = Rect(19776.0, -22912.0, 20416.0, -22368.0)
     gg_rct_E24A = Rect(18784.0, -22144.0, 19040.0, -21760.0)
     gg_rct_B19B = Rect(10688.0, -20640.0, 11552.0, -18784.0)
@@ -1111,11 +1223,17 @@ function CreateRegions()
     gg_rct_BridgeCulvert = Rect(1248.0, -18528.0, 1440.0, -17824.0)
     gg_rct_BoundCulvert = Rect(1376.0, -21280.0, 1888.0, -16544.0)
     gg_rct_S25A = Rect(21056.0, -26624.0, 24832.0, -24352.0)
-    gg_rct_B25A = Rect(22304.0, -25856.0, 23584.0, -25120.0)
+    gg_rct_B25A = Rect(22304.0, -25856.0, 23680.0, -24960.0)
     gg_rct_E25A = Rect(21504.0, -26368.0, 21760.0, -25984.0)
     gg_rct_S26A = Rect(17504.0, -26496.0, 20544.0, -24160.0)
-    gg_rct_B26A = Rect(18560.0, -25696.0, 19232.0, -25088.0)
-    gg_rct_E26A = Rect(17792.0, -26336.0, 18048.0, -25952.0)
+    gg_rct_B26A = Rect(18496.0, -25792.0, 19296.0, -24992.0)
+    gg_rct_E26A = Rect(17440.0, -26496.0, 17888.0, -26272.0)
+    gg_rct_S27A = Rect(14528.0, -26624.0, 16768.0, -24640.0)
+    gg_rct_B27A = Rect(15392.0, -25504.0, 15648.0, -25376.0)
+    gg_rct_E27A = Rect(15008.0, -26272.0, 15232.0, -26048.0)
+    gg_rct_S28A = Rect(13280.0, -24064.0, 17312.0, -22208.0)
+    gg_rct_B28A = Rect(14592.0, -23456.0, 15712.0, -23040.0)
+    gg_rct_E28A = Rect(16288.0, -24032.0, 16512.0, -23808.0)
 end
 
 function CreateCameras()
@@ -1675,7 +1793,10 @@ function attackShield(data)
             data.isAttacking = true
             data.AttackShieldCD = cdAttack
             local angle = -180 + AngleBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-
+            if not data.tasks[1] then
+                data.tasks[1] = true
+                --print("Первый раз сделал удар щитом")
+            end
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
             SetUnitTimeScale(data.UnitHero, 1.5)
 
@@ -2313,7 +2434,6 @@ function SwitchWeaponTo(data, newWeapon)
             CreateUniversalFrame(x, y, size, AbilityDescriptionRus[1], L("Обычный удар", "Normal strike"), data, AbilityIconPath[1], nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormal")
             CreateUniversalFrame(x, y, size, AbilityDescriptionRus[5], L("Вращение", "Spin"), data, AbilityIconPath[5], nil, "SystemGeneric\\DDSSymbols\\lmb", "spin")
             data.EffInLeftHand = AddSpecialEffectTarget("Axes", data.UnitHero, "hand, left")
-
         end
         if newWeapon == "shield" then
             --data.StarTime2Spin=0.02
@@ -2321,6 +2441,16 @@ function SwitchWeaponTo(data, newWeapon)
             CreateUniversalFrame(x, y, size, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
             data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
         end
+
+        --AllCompletedForPlayer(data.pid)
+
+        if not data.FirstShowLearn then
+            CreateTaskForPlayer(data)
+            data.FirstShowLearn=true
+        else
+            AllCompletedForPlayer(data.pid)
+        end
+
     else
         print("переключение оружия следует делать без изученных талантов, начните игру заново")
     end
@@ -3046,6 +3176,7 @@ function ReplaceALLUnitId2PointExit(id)
     local k = #unitTable
     --print(k)
     local d = GetRandomInt(1, k)-- рандомизатор молота дидала
+    local d2 = GetRandomInt(1, k)-- рандомизатор молота дидала
     local m = GetRandomInt(1, k)-- рандомизатор магазина
     local r = GetRandomInt(1, k)-- рандомизатор  рексара1
     local r2 = GetRandomInt(1, k)-- рандомизатор  рексара1
@@ -3059,7 +3190,7 @@ function ReplaceALLUnitId2PointExit(id)
         SetUnitInvulnerable(u, true)
         --UnitAddAbility(u,FourCC("Aloc"))
         --ShowUnit(u,false)
-        if i == d then
+        if i == d or i==d2 then
             CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal", u)
             -- print("создана 1 награда с пеоном дидалом")
         elseif i == m then
@@ -4391,6 +4522,8 @@ function InitAllZones()
     -- 2 зоны в которых выпрыгивают из воды юниты
     SetZone(25, gg_rct_E25A, gg_rct_B25A, gg_rct_S25A)
     SetZone(26, gg_rct_E26A, gg_rct_B26A, gg_rct_S26A)
+    SetZone(27, gg_rct_E27A, gg_rct_B27A, gg_rct_S27A)
+    SetZone(28, gg_rct_E28A, gg_rct_B28A, gg_rct_S28A)
 
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
@@ -4445,10 +4578,10 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 0 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома
+CurrentGameZone = 19 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
-    if CurrentGameZone == 1 then
+    if CurrentGameZone == 1 or CurrentGameZone == 20 then
         --print("убираем обучение")
         DestroyAllLearHelpers()
     end
@@ -4943,6 +5076,28 @@ function StartEnemyWave(waveNumber)
         }
         maxOnWave = 6
     end
+    if waveNumber == 27 then
+        listID = { -- нага
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+        }
+        maxOnWave = 6
+    end
+    if waveNumber == 28 then
+        listID = { -- нага
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+        }
+        maxOnWave = 6
+    end
 
     if waveNumber == 401 then
         listID = {
@@ -5018,7 +5173,7 @@ function StartWave(dataGZ, listID, max)
                 print("Ошибка, не могу получить координаты " .. m)
             end
         end
-        CreateCreepDelay(listID[k], x, y, 0.9, k,angle)
+        CreateCreepDelay(listID[k], x, y, 0.9, k, angle)
         --MaxOnWave=MaxOnWave-1
         k = k + 1
     end
@@ -5044,7 +5199,7 @@ function StartWave(dataGZ, listID, max)
                         --print("назначение угла 2", angle)
 
                     else
-                        angle=nil
+                        angle = nil
                         --print("не могу получить угол для выпрыгивания из воды", m)
                     end
                 end
@@ -5071,6 +5226,8 @@ function StartWave(dataGZ, listID, max)
                 Destiny[24] = 24
                 Destiny[25] = 25
                 Destiny[26] = 26
+                Destiny[27] = 27
+                Destiny[28] = 28
                 for i = 1, #Destiny do
                     -- print(Destiny[i])
                 end
@@ -5173,7 +5330,9 @@ function UnitAddForce(hero, angle, speed, distance, MaxHeight)
             BlzPauseUnitEx(hero, false)
             SetUnitZ(hero, 0)
             --print("приземлился")
-            ResetUnitAnimation(hero)
+            if UnitAlive(hero) then
+                ResetUnitAnimation(hero)
+            end
         end
     end)
 end
@@ -9383,63 +9542,82 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 1, false, function()
-            CreateTaskForAllPlayer()
+            --CreateTaskForAllPlayer()
             DestroyTimer(GetExpiredTimer())
         end)
     end
 end
 SimpleTaskPos = {}
-function CreateTaskForAllPlayer()
-    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if PlayerIsPlaying[i] then
-            SimpleTaskPos[i] = 0
-            local data = HERO[i]
-            local frames = {}
-            local chk = {}
-            local text = {}
-            frames[1], _, text[1], _, chk[1] = CreateSimpleTask(L("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов", "Quickly press LMB to make a series of 5 hits"), Player(i))
-            frames[2], _, text[2], _, chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы выполнить вращающуюся атаку", "Hold LMB to perform a rotating attack"), Player(i))
-            frames[3], _, text[3], _, chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы совершить мощный удар", "Press Q to make a powerful kick"), Player(i))
-            frames[4], _, text[4], _, chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот", "Press RMB to throw a pick"), Player(i))
-            frames[5], _, text[5], _, chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок", "Press SPACE to dash"), Player(i))
-            frames[6], _, text[6], _, chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB", "Take a leap attack Space+LMB"), Player(i))
-            frames[7], _, text[7], _, chk[7] = CreateSimpleTask(L("Когда удерживаете LMB нажмите SPACE, для рывка ветра", "When holding LMB press SPACE to leap wind"), Player(i))
-            frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
-            frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB", "Use throw picks RMB, during rotation LMB"), Player(i))
-            frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("Во время вращения LMB нажмите Q", "While the LMB is rotating, press Q"), Player(i))
-            frames[11], _, text[11], _, chk[11] = CreateSimpleTask(L("Нажмите WASD, чтобы двигаться", "Press WASD to move"), Player(i))
-            data.chk = chk
-            local completed = false
+function CreateTaskForPlayer(data)
+    --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+    -- if PlayerIsPlaying[i] then
+    local i = data.pid
+    SimpleTaskPos[i] = 0
+    --local data = HERO[i]
+    local frames = {}
+    local chk = {}
+    local text = {}
+    if data.CurrentWeaponType == "pickaxe" then
+        frames[1], _, text[1], _, chk[1] = CreateSimpleTask(L("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов", "Quickly press LMB to make a series of 5 hits"), Player(i))
+        frames[2], _, text[2], _, chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы выполнить вращающуюся атаку", "Hold LMB to perform a rotating attack"), Player(i))
+        frames[3], _, text[3], _, chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы совершить мощный удар", "Press Q to make a powerful kick"), Player(i))
+        frames[4], _, text[4], _, chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот", "Press RMB to throw a pick"), Player(i))
+        frames[5], _, text[5], _, chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок", "Press SPACE to dash"), Player(i))
+        frames[6], _, text[6], _, chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB", "Take a leap attack Space+LMB"), Player(i))
+        frames[7], _, text[7], _, chk[7] = CreateSimpleTask(L("Когда удерживаете LMB нажмите SPACE, для рывка ветра", "When holding LMB press SPACE to leap wind"), Player(i))
+        frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
+        frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB", "Use throw picks RMB, during rotation LMB"), Player(i))
+        frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("Во время вращения LMB нажмите Q", "While the LMB is rotating, press Q"), Player(i))
+        frames[11], _, text[11], _, chk[11] = CreateSimpleTask(L("Нажмите WASD, чтобы двигаться", "Press WASD to move"), Player(i))
+    end
 
-            TimerStart(CreateTimer(), 1, true, function()
-                for k = 1, #frames do
-                    if data.tasks[k] then
-                        completed = true
-                        BlzFrameSetVisible(chk[k], GetLocalPlayer() == Player(i))
-                        BlzFrameSetTextColor(text[k], BlzConvertColor(255, 120, 120, 120))
-                    end
-                end
+    if data.CurrentWeaponType == "shield" then
+        frames[1], _, text[1], _, chk[1] = CreateSimpleTask(L("Нажмите и отпустите LMB, чтобы совершить удар щитом", ""), Player(i))
+        frames[2], _, text[2], _, chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы блокировать урон щитом", ""), Player(i))
+        frames[3], _, text[3], _, chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы для прыжка, можно преодолеть преграду", ""), Player(i))
+        frames[4], _, text[4], _, chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот", "Press RMB to throw a pick"), Player(i))
+        frames[5], _, text[5], _, chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок", "Press SPACE to dash"), Player(i))
+        frames[6], _, text[6], _, chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB", "Take a leap attack Space+LMB"), Player(i))
+        frames[7], _, text[7], _, chk[7] = CreateSimpleTask(L("", ""), Player(i))
+        frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
+        frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время удержания LMB", ""), Player(i))
+        frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("", ""), Player(i))
+        frames[11], _, text[11], _, chk[11] = CreateSimpleTask(L("Нажмите WASD, чтобы двигаться", "Press WASD to move"), Player(i))
+    end
 
-                for k = 1, #frames do
-                    if not data.tasks[k] then
-                        completed = false
-                    end
-                end
+    data.chk = chk
+    local completed = false
 
-                if completed then
-                    --print("Все условия выполнены")
-                    DestroyTimer(GetExpiredTimer())
-                    for k = 1, #frames do
-                        BlzFrameSetVisible(frames[k], false)
-                        --BlzDestroyFrame(frames[k])
-                    end
-                else
-                    -- print("ждём выполнения условий")
-                end
-            end)
+    TimerStart(CreateTimer(), 1, true, function()
+        for k = 1, #frames do
+            if data.tasks[k] then
+                --print("выполнен",k)
+                completed = true
+                BlzFrameSetVisible(chk[k], GetLocalPlayer() == Player(i))
+                BlzFrameSetTextColor(text[k], BlzConvertColor(255, 120, 120, 120))
+            end
         end
 
-    end
+        for k = 1, #frames do
+            if not data.tasks[k] then
+                completed = false
+            end
+        end
+
+        if completed then
+            --print("Все условия выполнены")
+            DestroyTimer(GetExpiredTimer())
+            for k = 1, #frames do
+                BlzFrameSetVisible(frames[k], false)
+                --BlzDestroyFrame(frames[k])
+            end
+        else
+            -- print("ждём выполнения условий")
+        end
+    end)
+    -- end
+
+    -- end
 end
 
 function CreateSimpleTask(message, player)
@@ -9471,7 +9649,15 @@ function CreateSimpleTask(message, player)
     BlzFrameSetText(text, message)
     BlzFrameSetScale(text, 1.2)
     BlzFrameSetPoint(text, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.02, 0.0)
-    SimpleTaskPos[pid] = SimpleTaskPos[pid] + 1
+    if message ~= "" then
+        SimpleTaskPos[pid] = SimpleTaskPos[pid] + 1
+    else
+        BlzFrameSetAlpha(tooltip, 0)
+        BlzFrameSetAlpha(backdrop, 0)
+        print(SimpleTaskPos[pid])
+        HERO[GetPlayerId(player)].tasks[10] = true
+        HERO[GetPlayerId(player)].tasks[7] = true
+    end
 
     BlzFrameSetVisible(tooltip, false)
     BlzFrameSetVisible(chk, false)
@@ -9488,11 +9674,12 @@ function DestroyAllLearHelpers()
     end
 end
 
-function AllCompletedForPlayer(i)
+function AllCompletedForPlayer(i, cleared)
     local data = HERO[i]
+    --print("сомплит")
     SimpleTaskPos[i] = 0
     for j = 1, 11 do
-        data.tasks[j] = true
+        data.tasks[j] = not cleared
     end
 end
 ---
@@ -9541,6 +9728,9 @@ function CreateRoundSawZ(hero, ChainCount, angle, z)
             if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
                 if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
                     normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1", nx, ny)
+                    local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(enemy))
+                    BlzSetSpecialEffectScale(effb, 0.1)
+                    DestroyEffect(effb)
                 end
                 DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl", GetUnitXY(ReflectorUnit)))
                 if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
@@ -9623,7 +9813,7 @@ function CreateGroundSaw(hero, angle, z)
     TriggerRegisterUnitInRange(enterTrig, hero, 60, nil)
     TriggerAddAction(enterTrig, function()
         enemy = GetTriggerUnit()
-    --    print("касание")
+        --    print("касание")
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
             local x, y = GetUnitXY(hero)
             local OnDamage, ReflectorUnit = UnitDamageArea(hero, 20, x, y, 60, z - 90, CollisionEffect)
@@ -9635,12 +9825,15 @@ function CreateGroundSaw(hero, angle, z)
             if OnDamage and ReflectorUnit and not BlzIsUnitInvulnerable(ReflectorUnit) then
                 if IsUnitType(ReflectorUnit, UNIT_TYPE_HERO) then
                     normal_sound("Buildings\\Human\\HumanLumberMill\\HumanLumberMillWhat1", nx, ny)
+                    local effb = AddSpecialEffect("SystemGeneric\\D9_blood_effect1", GetUnitXY(enemy))
+                    BlzSetSpecialEffectScale(effb, 0.1)
+                    DestroyEffect(effb)
                 end
                 DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\SerpentWardMissile\\SerpentWardMissile.mdl", GetUnitXY(ReflectorUnit)))
             end
             if not IsUnitInRange(hero, enemy, 120) then
                 DestroyTimer(GetExpiredTimer())
-            --    print("нет касания")
+                --    print("нет касания")
             end
         end)
     end)
@@ -10499,7 +10692,7 @@ function OnPostDamage()
                     ShieldSystem[GetHandleId(target)].IsActive = false
                 else
                     local x, y = GetUnitXY(target)
-                    FlyTextTagShieldXY(x, y, L("Заблокировано: "..R2I(damage), "Blocked: ")..R2I(damage), GetOwningPlayer(caster))
+                    FlyTextTagShieldXY(x, y, L("Блок: ", "Blocked: ")..R2I(damage), GetOwningPlayer(caster))
                 end
             end
         end
@@ -11242,7 +11435,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     if data.WallHitCount <= 2 then
                         FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
                     else
-                        FlyTextTagShieldXY(x, y, L("Зажат в угол", "Trapped in corner"), GetOwningPlayer(pushing))
+                        FlyTextTagShieldXY(x, y, L("Зажат в угол", "Trapped in corner"), GetOwningPlayer(pushing),"red")
                         bonus = 1000
                     end
                     data.WallHitCount = data.WallHitCount + 1
@@ -12373,6 +12566,10 @@ function FlyTextTagShieldXY(x, y, text, player, flag)
         r, g, b = 0, 128, 255
         see = true
     end
+    if flag == "red" then
+        r, g, b = 255, 128, 128
+        see = true
+    end
     if flag == "SeeAll" then
         see = true
     end
@@ -13437,8 +13634,10 @@ function CreateWASDActions()
                     data.AttackInForce = false
                     SetUnitTimeScale(data.UnitHero, 1)
                 end)
-                if not data.ReleaseQ then -- анимация в обычном рывке
-                    if not data.isSpined then -- нельзя сделать во вращении
+                if not data.ReleaseQ then
+                    -- анимация в обычном рывке
+                    if not data.isSpined then
+                        -- нельзя сделать во вращении
                         if data.IsMoving then
                             --print("в движении")
                             SetUnitTimeScale(data.UnitHero, 4)
@@ -13491,7 +13690,7 @@ function CreateWASDActions()
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero, 3) -- удар кирки в землю
                 if data.CurrentWeaponType == "shield" then
-                    UnitRemoveAbility(data.UnitHero,FourCC("Beng"))
+                    UnitRemoveAbility(data.UnitHero, FourCC("Beng"))
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     TimerStart(CreateTimer(), 0.4, false, function()
                         data.QHighJump = true
@@ -13597,6 +13796,10 @@ function CreateWASDActions()
                         end
                         if data.CurrentWeaponType == "shield" then
                             UnitAddAbility(data.UnitHero, FourCC("A004")) -- замедление, к сожалению ломает скорость атаки
+                            if not data.tasks[2] then
+                                data.tasks[2] = true
+                                --print("Первый раз сделал блокировку щитом")
+                            end
                             --attackShield(data)
                         end
                     else
@@ -13706,6 +13909,11 @@ function CreateWASDActions()
                 SetUnitTimeScale(data.UnitHero, 1.8)
                 normal_sound("Abilities\\Weapons\\Axe\\AxeMissileLaunch1", GetUnitXY(data.UnitHero))
                 --print("бросок щита")
+                if not data.tasks[9] then
+                    data.tasks[9] = true
+                    --print("Первый раз сделал бросок щита")
+                end
+
                 TimerStart(CreateTimer(), 0.15, false, function()
                     SetUnitTimeScale(data.UnitHero, 1)
                     local bullet = CreateAndForceBullet(data.UnitHero, angle, 40, "stoneshild", GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 200, 600)
@@ -13829,7 +14037,7 @@ function BlockMouse(data)
             --Строковый список приказов, которые игрок не может выполнить
             if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" then
                 if not data.Desync and not FirstGoto then
-                    print(GetPlayerName(Player(data.pid)) .. L("Внимание! вы должны использовать классическую схему управления", "Attention!! you must use the classic control scheme"))
+                    print(GetPlayerName(Player(data.pid)) .. L(" Внимание! вы должны использовать классическую схему управления", "Attention!! you must use the classic control scheme"))
 
                     data.Desync = true
                 end

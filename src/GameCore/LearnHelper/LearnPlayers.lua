@@ -8,63 +8,82 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 1, false, function()
-            CreateTaskForAllPlayer()
+            --CreateTaskForAllPlayer()
             DestroyTimer(GetExpiredTimer())
         end)
     end
 end
 SimpleTaskPos = {}
-function CreateTaskForAllPlayer()
-    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-        if PlayerIsPlaying[i] then
-            SimpleTaskPos[i] = 0
-            local data = HERO[i]
-            local frames = {}
-            local chk = {}
-            local text = {}
-            frames[1], _, text[1], _, chk[1] = CreateSimpleTask(L("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов", "Quickly press LMB to make a series of 5 hits"), Player(i))
-            frames[2], _, text[2], _, chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы выполнить вращающуюся атаку", "Hold LMB to perform a rotating attack"), Player(i))
-            frames[3], _, text[3], _, chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы совершить мощный удар", "Press Q to make a powerful kick"), Player(i))
-            frames[4], _, text[4], _, chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот", "Press RMB to throw a pick"), Player(i))
-            frames[5], _, text[5], _, chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок", "Press SPACE to dash"), Player(i))
-            frames[6], _, text[6], _, chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB", "Take a leap attack Space+LMB"), Player(i))
-            frames[7], _, text[7], _, chk[7] = CreateSimpleTask(L("Когда удерживаете LMB нажмите SPACE, для рывка ветра", "When holding LMB press SPACE to leap wind"), Player(i))
-            frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
-            frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB", "Use throw picks RMB, during rotation LMB"), Player(i))
-            frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("Во время вращения LMB нажмите Q", "While the LMB is rotating, press Q"), Player(i))
-            frames[11], _, text[11], _, chk[11] = CreateSimpleTask(L("Нажмите WASD, чтобы двигаться", "Press WASD to move"), Player(i))
-            data.chk = chk
-            local completed = false
+function CreateTaskForPlayer(data)
+    --for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+    -- if PlayerIsPlaying[i] then
+    local i = data.pid
+    SimpleTaskPos[i] = 0
+    --local data = HERO[i]
+    local frames = {}
+    local chk = {}
+    local text = {}
+    if data.CurrentWeaponType == "pickaxe" then
+        frames[1], _, text[1], _, chk[1] = CreateSimpleTask(L("Быстро нажимайте LMB, чтобы совершить серию из 5 ударов", "Quickly press LMB to make a series of 5 hits"), Player(i))
+        frames[2], _, text[2], _, chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы выполнить вращающуюся атаку", "Hold LMB to perform a rotating attack"), Player(i))
+        frames[3], _, text[3], _, chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы совершить мощный удар", "Press Q to make a powerful kick"), Player(i))
+        frames[4], _, text[4], _, chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот", "Press RMB to throw a pick"), Player(i))
+        frames[5], _, text[5], _, chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок", "Press SPACE to dash"), Player(i))
+        frames[6], _, text[6], _, chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB", "Take a leap attack Space+LMB"), Player(i))
+        frames[7], _, text[7], _, chk[7] = CreateSimpleTask(L("Когда удерживаете LMB нажмите SPACE, для рывка ветра", "When holding LMB press SPACE to leap wind"), Player(i))
+        frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
+        frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте бросок кирки RMB, во время вращения LMB", "Use throw picks RMB, during rotation LMB"), Player(i))
+        frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("Во время вращения LMB нажмите Q", "While the LMB is rotating, press Q"), Player(i))
+        frames[11], _, text[11], _, chk[11] = CreateSimpleTask(L("Нажмите WASD, чтобы двигаться", "Press WASD to move"), Player(i))
+    end
 
-            TimerStart(CreateTimer(), 1, true, function()
-                for k = 1, #frames do
-                    if data.tasks[k] then
-                        completed = true
-                        BlzFrameSetVisible(chk[k], GetLocalPlayer() == Player(i))
-                        BlzFrameSetTextColor(text[k], BlzConvertColor(255, 120, 120, 120))
-                    end
-                end
+    if data.CurrentWeaponType == "shield" then
+        frames[1], _, text[1], _, chk[1] = CreateSimpleTask(L("Нажмите и отпустите LMB, чтобы совершить удар щитом", "Press and release the LMB to make a shield hit"), Player(i))
+        frames[2], _, text[2], _, chk[2] = CreateSimpleTask(L("Удерживайте LMB, чтобы блокировать урон щитом", "Удерживайте LMB, чтобы блокировать урон щитом"), Player(i))
+        frames[3], _, text[3], _, chk[3] = CreateSimpleTask(L("Нажмите Q, чтобы для прыжка, можно преодолеть преграду", "Press Q to jump, you can overcome the obstacle"), Player(i))
+        frames[4], _, text[4], _, chk[4] = CreateSimpleTask(L("Нажмите RMB, чтобы метнуть молот", "Press RMB to throw a pick"), Player(i))
+        frames[5], _, text[5], _, chk[5] = CreateSimpleTask(L("Нажмите SPACE, чтобы совершить рывок", "Press SPACE to dash"), Player(i))
+        frames[6], _, text[6], _, chk[6] = CreateSimpleTask(L("Совершите атаку в рывке Space+LMB", "Take a leap attack Space+LMB"), Player(i))
+        frames[7], _, text[7], _, chk[7] = CreateSimpleTask(L("", ""), Player(i))
+        frames[8], _, text[8], _, chk[8] = CreateSimpleTask(L("Нажмите Q+SPACE, чтобы сделать мощный выпад", "Press Q+SPACE to unleash a powerful attack"), Player(i))
+        frames[9], _, text[9], _, chk[9] = CreateSimpleTask(L("Используйте RMB, во время удержания LMB, для броска щита", "Use the RMB, while holding the LMB, to throw the shield"), Player(i))
+        frames[10], _, text[10], _, chk[10] = CreateSimpleTask(L("", ""), Player(i))
+        frames[11], _, text[11], _, chk[11] = CreateSimpleTask(L("Нажмите WASD, чтобы двигаться", "Press WASD to move"), Player(i))
+    end
 
-                for k = 1, #frames do
-                    if not data.tasks[k] then
-                        completed = false
-                    end
-                end
+    data.chk = chk
+    local completed = false
 
-                if completed then
-                    --print("Все условия выполнены")
-                    DestroyTimer(GetExpiredTimer())
-                    for k = 1, #frames do
-                        BlzFrameSetVisible(frames[k], false)
-                        --BlzDestroyFrame(frames[k])
-                    end
-                else
-                    -- print("ждём выполнения условий")
-                end
-            end)
+    TimerStart(CreateTimer(), 1, true, function()
+        for k = 1, #frames do
+            if data.tasks[k] then
+                --print("выполнен",k)
+                completed = true
+                BlzFrameSetVisible(chk[k], GetLocalPlayer() == Player(i))
+                BlzFrameSetTextColor(text[k], BlzConvertColor(255, 120, 120, 120))
+            end
         end
 
-    end
+        for k = 1, #frames do
+            if not data.tasks[k] then
+                completed = false
+            end
+        end
+
+        if completed then
+            --print("Все условия выполнены")
+            DestroyTimer(GetExpiredTimer())
+            for k = 1, #frames do
+                BlzFrameSetVisible(frames[k], false)
+                --BlzDestroyFrame(frames[k])
+            end
+        else
+            -- print("ждём выполнения условий")
+        end
+    end)
+    -- end
+
+    -- end
 end
 
 function CreateSimpleTask(message, player)
@@ -96,7 +115,15 @@ function CreateSimpleTask(message, player)
     BlzFrameSetText(text, message)
     BlzFrameSetScale(text, 1.2)
     BlzFrameSetPoint(text, FRAMEPOINT_LEFT, backdrop, FRAMEPOINT_LEFT, 0.02, 0.0)
-    SimpleTaskPos[pid] = SimpleTaskPos[pid] + 1
+    if message ~= "" then
+        SimpleTaskPos[pid] = SimpleTaskPos[pid] + 1
+    else
+        BlzFrameSetAlpha(tooltip, 0)
+        BlzFrameSetAlpha(backdrop, 0)
+        --print(SimpleTaskPos[pid])
+        HERO[GetPlayerId(player)].tasks[10] = true
+        HERO[GetPlayerId(player)].tasks[7] = true
+    end
 
     BlzFrameSetVisible(tooltip, false)
     BlzFrameSetVisible(chk, false)
@@ -113,10 +140,11 @@ function DestroyAllLearHelpers()
     end
 end
 
-function AllCompletedForPlayer(i)
+function AllCompletedForPlayer(i, cleared)
     local data = HERO[i]
+    --print("сомплит")
     SimpleTaskPos[i] = 0
     for j = 1, 11 do
-        data.tasks[j] = true
+        data.tasks[j] = not cleared
     end
 end

@@ -62,6 +62,8 @@ function InitAllZones()
     -- 2 зоны в которых выпрыгивают из воды юниты
     SetZone(25, gg_rct_E25A, gg_rct_B25A, gg_rct_S25A)
     SetZone(26, gg_rct_E26A, gg_rct_B26A, gg_rct_S26A)
+    SetZone(27, gg_rct_E27A, gg_rct_B27A, gg_rct_S27A)
+    SetZone(28, gg_rct_E28A, gg_rct_B28A, gg_rct_S28A)
 
 
     --SetZone(4,gg_rct_E4A,gg_rct_B4A,gg_rct_S4A)
@@ -116,10 +118,10 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 0 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома
+CurrentGameZone = 19 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
-    if CurrentGameZone == 1 then
+    if CurrentGameZone == 1 or CurrentGameZone == 20 then
         --print("убираем обучение")
         DestroyAllLearHelpers()
     end
@@ -614,6 +616,28 @@ function StartEnemyWave(waveNumber)
         }
         maxOnWave = 6
     end
+    if waveNumber == 27 then
+        listID = { -- нага
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+        }
+        maxOnWave = 6
+    end
+    if waveNumber == 28 then
+        listID = { -- нага
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+        }
+        maxOnWave = 6
+    end
 
     if waveNumber == 401 then
         listID = {
@@ -689,7 +713,7 @@ function StartWave(dataGZ, listID, max)
                 print("Ошибка, не могу получить координаты " .. m)
             end
         end
-        CreateCreepDelay(listID[k], x, y, 0.9, k,angle)
+        CreateCreepDelay(listID[k], x, y, 0.9, k, angle)
         --MaxOnWave=MaxOnWave-1
         k = k + 1
     end
@@ -715,7 +739,7 @@ function StartWave(dataGZ, listID, max)
                         --print("назначение угла 2", angle)
 
                     else
-                        angle=nil
+                        angle = nil
                         --print("не могу получить угол для выпрыгивания из воды", m)
                     end
                 end
@@ -742,6 +766,8 @@ function StartWave(dataGZ, listID, max)
                 Destiny[24] = 24
                 Destiny[25] = 25
                 Destiny[26] = 26
+                Destiny[27] = 27
+                Destiny[28] = 28
                 for i = 1, #Destiny do
                     -- print(Destiny[i])
                 end
@@ -844,7 +870,9 @@ function UnitAddForce(hero, angle, speed, distance, MaxHeight)
             BlzPauseUnitEx(hero, false)
             SetUnitZ(hero, 0)
             --print("приземлился")
-            ResetUnitAnimation(hero)
+            if UnitAlive(hero) then
+                ResetUnitAnimation(hero)
+            end
         end
     end)
 end

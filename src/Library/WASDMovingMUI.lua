@@ -808,8 +808,10 @@ function CreateWASDActions()
                     data.AttackInForce = false
                     SetUnitTimeScale(data.UnitHero, 1)
                 end)
-                if not data.ReleaseQ then -- анимация в обычном рывке
-                    if not data.isSpined then -- нельзя сделать во вращении
+                if not data.ReleaseQ then
+                    -- анимация в обычном рывке
+                    if not data.isSpined then
+                        -- нельзя сделать во вращении
                         if data.IsMoving then
                             --print("в движении")
                             SetUnitTimeScale(data.UnitHero, 4)
@@ -862,7 +864,7 @@ function CreateWASDActions()
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero, 3) -- удар кирки в землю
                 if data.CurrentWeaponType == "shield" then
-                    UnitRemoveAbility(data.UnitHero,FourCC("Beng"))
+                    UnitRemoveAbility(data.UnitHero, FourCC("Beng"))
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     TimerStart(CreateTimer(), 0.4, false, function()
                         data.QHighJump = true
@@ -968,6 +970,10 @@ function CreateWASDActions()
                         end
                         if data.CurrentWeaponType == "shield" then
                             UnitAddAbility(data.UnitHero, FourCC("A004")) -- замедление, к сожалению ломает скорость атаки
+                            if not data.tasks[2] then
+                                data.tasks[2] = true
+                                --print("Первый раз сделал блокировку щитом")
+                            end
                             --attackShield(data)
                         end
                     else
@@ -1077,6 +1083,11 @@ function CreateWASDActions()
                 SetUnitTimeScale(data.UnitHero, 1.8)
                 normal_sound("Abilities\\Weapons\\Axe\\AxeMissileLaunch1", GetUnitXY(data.UnitHero))
                 --print("бросок щита")
+                if not data.tasks[9] then
+                    data.tasks[9] = true
+                    --print("Первый раз сделал бросок щита")
+                end
+
                 TimerStart(CreateTimer(), 0.15, false, function()
                     SetUnitTimeScale(data.UnitHero, 1)
                     local bullet = CreateAndForceBullet(data.UnitHero, angle, 40, "stoneshild", GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 200, 600)
@@ -1200,7 +1211,7 @@ function BlockMouse(data)
             --Строковый список приказов, которые игрок не может выполнить
             if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "smart" then
                 if not data.Desync and not FirstGoto then
-                    print(GetPlayerName(Player(data.pid)) .. L("Внимание! вы должны использовать классическую схему управления", "Attention!! you must use the classic control scheme"))
+                    print(GetPlayerName(Player(data.pid)) .. L(" Внимание! вы должны использовать классическую схему управления", "Attention!! you must use the classic control scheme"))
 
                     data.Desync = true
                 end

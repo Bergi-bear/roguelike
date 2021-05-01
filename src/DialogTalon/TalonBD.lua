@@ -291,7 +291,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Всегда есть более короткий путь", "You will die as soon as you lose all health"),
-                            DS = { L("сквозь здания", ""), L("сквозь здания и делает героя неуязвимым", ""), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов", "") }, --TODO перевод
+                            DS = { L("сквозь здания", "through buildings"), L("сквозь здания и делает героя неуязвимым", "through buildings and makes the hero invulnerable"), L("сквозь здания и делает героя неуязвимым и разрушает щит врагов", "through buildings and makes the hero invulnerable and destroys the enemies ' shield") },
                             pos = 7
                         }),
                         Talon:new({--8
@@ -306,13 +306,13 @@ do
                             weaponType = "shield"
                         }),
                         Talon:new({--9
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp", --TODO перевод
-                            name = L("Заговор неуязвимости", "Healer's Shield"),
-                            description = L("При получении урона делает героя неуязвимым на 0.5 сек. Перезарядка: DS", "Heals the hero on DS health when blocking damage from enemies. Cooldown 10"),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
+                            name = L("Заговор неуязвимости", "Invulnerability Spell"),
+                            description = L("При получении урона делает героя неуязвимым на 0.5 сек. Перезарядка: DS", "When taking damage, it makes the hero invulnerable for 0.5 seconds. Recharge: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Идеальное спасение от ловушек и пил", "Doesn't work for traps"),
-                            DS = { 15, 12, 9 },
+                            tooltip = L("Идеальное спасение от ловушек и пил", "The perfect escape from traps and saws"),
+                            DS = { 25, 20, 15 },
                             pos = 9,
                             --weaponType = "shield"
                         }),
@@ -411,12 +411,12 @@ do
                             pos = 9
                         }),
                         Talon:new({--10
-                            icon = "BTNCodoHeart", --TODO перевод
-                            name = L("Бычье сердце", "Hoof strike"),
-                            description = L("Сердца кодоя дают больше максимального здоровья на DS%%", "Normal attacks push the enemy to a distance of DS"),
+                            icon = "BTNCodoHeart",
+                            name = L("Бычье сердце", "Bull Heart"),
+                            description = L("Сердца кодоя дают больше максимального здоровья на DS%%", "Kodoi Hearts give more maximum health on DS%%"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Изучите талант, чтобы получить сердце прямо сейчас", "The enemies you push hit the obstacles and take 100 damage"),
+                            tooltip = L("Изучите талант, чтобы получить сердце прямо сейчас", "Learn the talent to get the heart right now"),
                             DS = { 50, 75, 100 },
                             pos = 10
                         }),
@@ -463,23 +463,23 @@ do
                             DS = { "wolf" },
                             pos = 4
                         }),
-                        Talon:new({ --TODO перевод
+                        Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
-                            name = L("Здоровье зверя", ""),
-                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 1000 X DS", ""),
+                            name = L("Здоровье зверя", "Animal Health"),
+                            description = L("Увеличивает здоровье героя на DS, а призванных существа на 1000 X DS", "Increases the hero's health by DS, and the summoned creatures by 1000 X DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Призванные существа получают здоровье в момент призыва. Действует на существ, призванных не только от Рексара", "The summoned creature is completely autonomous"),
+                            tooltip = L("Призванные существа получают здоровье в момент призыва. Действует на существ, призванных не только от Рексара", "Summoned creatures receive health at the moment of summoning. Acts on creatures summoned not only from Rexar"),
                             DS = { 10, 15, 20 },
                             pos = 5
                         }),
-                        Talon:new({ --TODO перевод
+                        Talon:new({
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBattleRoar.blp",
-                            name = L("Метка медведя", ""),
-                            description = L("Увеличивает урон на DS, с каждой последующей атакой", ""),
+                            name = L("Метка медведя", "Bear Mark"),
+                            description = L("Увеличивает урон на DS, с каждой последующей атакой", "Increases damage by DS, with each subsequent attack"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Метка исчезает, если враг не получал урона более 5 секунд", "The summoned creature is completely autonomous"),
+                            tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
                             DS = { 5,10,20 },
                             pos = 6
                         }),
@@ -806,9 +806,9 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--8
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNPeriapt.blp", --TODO перевод
-                            name = L("Золотая кровь", "Flip the Coin"),
-                            description = L("Получение более 10 золота, исцеляет героя на DS%% от полученного количества", "Has a 50%% chance of not taking damage, spends 10 gold. Recharge: DS"),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPeriapt.blp",
+                            name = L("Золотая кровь", "Golden Blood"),
+                            description = L("Получение более 10 золота, исцеляет героя на DS%% от полученного количества", "Getting more than 10 gold, heals the hero by DS%% of the amount received"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
