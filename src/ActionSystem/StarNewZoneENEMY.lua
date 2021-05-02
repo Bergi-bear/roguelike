@@ -325,7 +325,7 @@ function StartEnemyWave(waveNumber)
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
             }
-            maxOnWave = 2
+            maxOnWave = 4
         elseif r == 3 then
             listID = {
                 FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
@@ -526,7 +526,7 @@ function StartEnemyWave(waveNumber)
 
     if waveNumber == 21 then
         -- Новый биом
-        local r = GetRandomInt(3, 3)
+        local r = GetRandomInt(1, 4)
         if r == 1 then
             listID = { --мурлок
                 FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
@@ -548,6 +548,13 @@ function StartEnemyWave(waveNumber)
                 FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
             }
             maxOnWave = 5
+        elseif r == 4 then
+            listID = { -- черепаха
+                FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),
+                FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),
+                FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),
+            }
+            maxOnWave = 4
         end
         --print("если вывидите это сообщение, то вы в принципе уже победили")
     end
@@ -812,7 +819,7 @@ function CreateCreepDelay(id, x, y, delay, flag, angle)
                     x, y = dataGZ.x[m], dataGZ.y[m]
                     --print("Проверка перед назначением угла", dataGZ.angle[m])
                     if not angle then
-                        angle=dataGZ.angle[m]
+                        angle = dataGZ.angle[m]
                     end
                 else
                     print("Ошибка, не могу получить координаты " .. m)
@@ -898,13 +905,12 @@ function UnitAddJumpForce(hero, angle, speed, distance, MaxHeight)
 
             if GetUnitTypeId(hero) == FourCC("n005") then
                 if UnitDamageArea(hero, 150, newX, newY, 150) then
-                   DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", newX, newY))
+                    DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", newX, newY))
                 end
             end
         end
     end)
 end
-
 
 function UnitDisablePath(unit)
     UnitAddAbility(hero, FourCC("AInv"))

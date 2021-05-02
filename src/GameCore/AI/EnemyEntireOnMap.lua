@@ -89,7 +89,39 @@ function InitEnemyEntire()
             --print("Нага гвардеец")
             GuardAISpeer(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("n006") then
+            --print("Черепаха")
+            TurtleAttack(unit)
+        end
 
+    end)
+end
+
+function TurtleAttack(unit)
+    UnitAddAbility(unit, FourCC("Abun"))
+    TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetTriggerUnit())
+        else
+            local hero = GetRandomEnemyHero()
+            if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                if IsUnitInRange(unit, hero, 600) then
+                    local angle = AngleBetweenUnits(unit, hero)
+                    BlzPauseUnitEx(unit, true)
+                    SetUnitAnimation(unit, "attack")
+                    SetUnitTimeScale(unit, 0.8)
+                    SetUnitFacing(unit, angle)
+                    TimerStart(CreateTimer(), 0.3, false, function()
+                        CreateAndForceBullet(unit, angle, 20, "Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl", nil, nil, 150, 1200)
+                    end)
+                    TimerStart(CreateTimer(), 0.5, false, function()
+                        BlzPauseUnitEx(unit, false)
+                    end)
+                else
+                    IssueTargetOrder(unit, "move", hero)
+                end
+            end
+        end
     end)
 end
 
@@ -116,8 +148,8 @@ function GuardAISpeer(unit)
                     SetUnitAnimation(unit, "Morph Swim")
                     BlzPauseUnitEx(unit, true)
                     local angle = AngleBetweenUnits(unit, hero)
-                    SetUnitFacing(unit,angle)
-                    local x,y=MoveXY(GetUnitX(unit),GetUnitY(unit),400,angle)
+                    SetUnitFacing(unit, angle)
+                    local x, y = MoveXY(GetUnitX(unit), GetUnitY(unit), 400, angle)
                     CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, x, y)
                     UnitAddJumpForce(unit, angle, 10, 400, 400)
                 end
@@ -275,7 +307,7 @@ function GetRandomEnemyHero()
     local r = GetRandomInt(1, #table)
     find = table[r]
     table = {}
-    return find
+    return find, table
 end
 
 function StoneUnStone(unit)

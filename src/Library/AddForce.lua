@@ -12,7 +12,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         onForces[GetHandleId(hero)] = true
         --print("первый раз")
     end
-    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero) ~= FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") and GetUnitAbilityLevel(hero,FourCC("Beng"))==0 then
+    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero) ~= FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") and GetUnitAbilityLevel(hero, FourCC("Beng")) == 0 then
         onForces[GetHandleId(hero)] = false
         local m = 0
         --print("1")
@@ -76,15 +76,17 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     end
                     if data.WallHitCount <= 2 then
                         FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
+
                     else
-                        FlyTextTagShieldXY(x, y, L("Зажат в угол", "Trapped in corner"), GetOwningPlayer(pushing),"red")
+                        FlyTextTagShieldXY(x, y, L("Зажат в угол", "Trapped in corner"), GetOwningPlayer(pushing), "red")
                         bonus = 1000
                     end
                     data.WallHitCount = data.WallHitCount + 1
-                    --print(data.WallHitCount)
-                    TimerStart(CreateTimer(), 2, false, function()
-                        data.WallHitCount = data.WallHitCount -1
+                    TimerStart(CreateTimer(), 3, false, function()
+                        data.WallHitCount = data.WallHitCount - 1
                     end)
+                    --print(data.WallHitCount)
+
 
                     local damage = 100 + bonus
                     if not data.WallDamage then
@@ -196,7 +198,9 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
 
                     if data.IsMoving then
                         --print("закончил рывок")
-                        SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                        if UnitAlive(data.UnitHero) then
+                            SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                        end
                     end
                     data.ResetSeriesTime = 0
                     if data.IllusionDashCDFH then

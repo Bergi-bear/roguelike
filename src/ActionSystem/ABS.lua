@@ -36,25 +36,25 @@ function Type(type)
     local x, y = GetUnitXY(GetRandomEnemyHero())
     if not WordReward then
         if TypeWord == "XGM" then
-            print("посхалка XGM")
+            print(L("Пасхалка XGM","Easter Egg XGM"))
             CreateGodTalon(x, y, "CodoHeart")
             TypeWord = ""
             WordReward = true
         end
         if TypeWord == "HELGA" then
-            print("Кто такая Хельга?")
+            print(L("Кто такая Хельга?","Who is Helga?"))
             CreateGodTalon(x, y, "Life")
             TypeWord = ""
             WordReward = true
         end
         if TypeWord == "HELL" then
-            print("Ад?? я не хотел это писать, это ошибка")
+            print(L("Ад?? я не хотел это писать, это ошибка","Hell?? I didn't want to write this, it's a mistake"))
             TypeWord = ""
             StartEnemyWave(45)
             WordReward = true
         end
         if TypeWord == "GYM" then
-            print("Время потренировать мышцы")
+            print(L("Время потренировать мышцы","Time to train your muscles"))
             CreateGodTalon(x, y, "PeonDidal")
             TypeWord = ""
             WordReward = true

@@ -20,17 +20,17 @@ function UnitDamageArea(u, damage, x, y, range, flag)
 
         if UnitAlive(e) and not UnitAlive(u) and (IsUnitEnemy(e, GetOwningPlayer(u)) or GetOwningPlayer(e) == Player(PLAYER_NEUTRAL_PASSIVE)) and IsUnitType(u, UNIT_TYPE_HERO) then
             --print("Герой нанёс урон будучи мертвым "..GetUnitName(u))
-
-            local talon = GlobalTalons[GetPlayerId(GetOwningPlayer(u)) + 1]["HeroBlademaster"][8]
-            if talon.level > 0 then
-                local m = talon.DS[talon.level]
-                local data = HERO[GetPlayerId(GetOwningPlayer(u))]
-
+            local data=GetUnitData(u)
+            --local talon = GlobalTalons[GetPlayerId(GetOwningPlayer(u)) + 1]["HeroBlademaster"][8]
+            if data.KamikazeCDGH then
+                local m = data.KamikazeMDamage
+                --local data = HERO[GetPlayerId(GetOwningPlayer(u))]
+                --print(m)
                 if data.KamikazeCurrentCD <= 0 then
                     local cd = 7
                     data.KamikazeCurrentCD = cd
                     StartFrameCD(cd, data.KamikazeCDGH)
-                    ---постоянные блок
+                    ---постоянный блок
                     deadDamage = true
                     FlyTextTagCriticalStrike(u, L("Камикадзе", "Kamikaze"), GetOwningPlayer(u))
                     AddLife(data)
@@ -122,9 +122,31 @@ function UnitDamageArea(u, damage, x, y, range, flag)
             hero = e
             k = k + 1
             all[k] = e
-            if flag == "all" and not UnitAlive(e) then
+            if (flag == "all" or IsUnitTrap(u)) and not UnitAlive(e) then
                 local ex, ey = GetUnitXY(e)
                 FlyTextTagShieldXY(ex, ey, L("Смерть от ловушки", "Death by trap"), GetOwningPlayer(e), "SeeAll")
+                for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+                    if PlayerIsPlaying[i] then
+                        local data = HERO[i]
+                        if UnitAlive(data.UnitHero) then
+                            if IsUnitInRange(data.UnitHero, e, 1000) then
+                                if data.EvilMaskHeal then
+                                    HealUnit(data.UnitHero, data.EvilMaskHeal)
+                                    local rm = {
+                                        L("Хех", "Heh"),
+                                        L("хах", "Hah"),
+                                        L("хахаха", "Yhha"),
+                                        L("Хихиг", "Hihig"),
+                                    }
+                                    CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 1)
+                                end
+                            else
+
+                            end
+                        end
+                    end
+
+                end
             end
         end
         GroupRemoveUnit(perebor, e)

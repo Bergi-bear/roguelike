@@ -27,7 +27,7 @@ do
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
                             DS = { 2, 3, 4 },
                             pos = 2,
-                            weaponType="pickaxe"
+                            weaponType = "pickaxe"
 
                         }),
                         [3] = Talon:new({
@@ -316,6 +316,16 @@ do
                             pos = 9,
                             --weaponType = "shield"
                         }),
+                        Talon:new({--10
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSobiMask.blp", --TODO Перевод
+                            name = L("Маска злорадства", ""),
+                            description = L("Всякий раз, когда кто-то в радиусе 1000 умирает от ловушки, вы получаете DS здоровья ", ""),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Работает при смерти союзников, врагов и суммонов", ""),
+                            DS = { 100, 200, 300 },
+                            pos = 10,
+                        }),
                     },
                     HeroTaurenChieftain = {
                         Talon:new({--1
@@ -335,7 +345,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников", "Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
-                            DS = { 0.1, 0.15, 0.2 },
+                            DS = { 0.5, 1, 1.5 },
                             pos = 2
                         }),
                         Talon:new({--3
@@ -420,6 +430,16 @@ do
                             DS = { 50, 75, 100 },
                             pos = 10
                         }),
+                        Talon:new({--11
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNReincarnation.blp",
+                            name = L("Реинкарнация", ""),
+                            description = L("Даёт DS дополнительную жизнь при изучении", ""),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Дополнительная жизнь, действует так же как и обычная и вы её получите прямо сейчас", ""),
+                            DS = { 1, 1, 1 },
+                            pos = 11
+                        }),
 
                     },
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
@@ -480,7 +500,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Чем больше урона вы наносите, тем быстрее умирают противники", " The more damage you deal, the faster your opponents die"),
-                            DS = { 5,10,20 },
+                            DS = { 5, 10, 20 },
                             pos = 6
                         }),
                     },
@@ -514,7 +534,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", " Quickly press LMB to make a series of hits"),
-                            DS = { 50 },
+                            DS = { 100 },
                             pos = 3,
                         }),
                         Talon:new({--4
@@ -643,9 +663,19 @@ do
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Нажмите и удерживайте LMB, чтобы активировать щит", "Press Q to strike a powerful blow over a large area"),
-                            DS = { 200 },
+                            DS = { 500 },
                             pos = 15,
                             weaponType = "shield"
+                        }),
+                        Talon:new({--16
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNCloudOfFog.blp", --TODO перевод
+                            name = L("Цепная коррозия", ""),
+                            description = L("Разрушение щита, так же ломает щит у ближайших врагов в радиусе DS", ""),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников", "Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
+                            DS = { 450 },
+                            pos = 16,
                         }),
                     },
                     ChaosGrom = {

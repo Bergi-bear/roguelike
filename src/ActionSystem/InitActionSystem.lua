@@ -184,7 +184,9 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                 if dataPoint2 then
                     if dataPoint2.CurrentReward == reward and tempTable[i] ~= tempUnit then
                         local temTableReward = PreViewIcon
-                        table.remove(temTableReward, FinPosInTable(temTableReward, reward)) --FIXME иногда бывает ощибка на эту строку 2630
+                        if temTableReward then
+                            table.remove(temTableReward, FinPosInTable(temTableReward, reward)) --FIXME иногда бывает ощибка на эту строку 2630
+                        end
                         local newReward = temTableReward[GetRandomInt(1, #temTableReward)]
                         DestroyEffect(dataPoint.preView)
                         dataPoint.CurrentReward = newReward
@@ -405,7 +407,9 @@ function CreateEActions()
                         L("Что там за дверью, сладости?", "What's behind the door, sweets?"),
                         L("Идём дальше", "Moving on"),
                         L("Уходим", "We're leaving"),
-                        L("Надо сюда", "")
+                        L("Надо сюда", "We need to get here"),
+                        L("Скольких я унесу на тот свет, прежде чем я туда пойду", "")
+
                         --L("","")
 
                     }
@@ -425,47 +429,47 @@ function CreateEActions()
                     if GetRandomInt(1, 2) == 1 then
                         if dataPoint.CurrentReward == "CodoHeart" then
                             rm = {
-                                L("И чьё это сердце?", ""),
-                                L("О дополнительное здоровье!", ""),
-                                L("Это придаст мне сил", ""),
-                                L("Сердце кодоя", ""),
-                                L("Моя любовь?", ""),
+                                L("И чьё это сердце?", "And whose heart is it?"),
+                                L("О дополнительное здоровье!", "Oh, extra health!"),
+                                L("Это придаст мне сил", "It will give me strength"),
+                                L("Сердце кодоя", "The heart of Kodoi"),
+                                L("Моя любовь? Хельга?", "My love? Helga? "),
                             }
                         end
                         if dataPoint.CurrentReward == "Life" then
                             rm = {
-                                L("Крест возрождения", ""),
-                                L("Это позволит мне возродиться", ""),
-                                L("Всегда полезно", ""),
-                                L("Да я и так бессмертный", ""),
-                                L("Лишний раз можно будет умереть", ""),
+                                L("Крест возрождения", "The Cross of Rebirth"),
+                                L("Это позволит мне возродиться", "This will allow me to be reborn"),
+                                L("Всегда полезно", "Always helpful"),
+                                L("Да я и так бессмертный", "I'm already immortal"),
+                                L("Лишний раз можно будет умереть", "Once again, you can die"),
                             }
                         end
                         if dataPoint.CurrentReward == "HeroBlademaster" then
                             rm = {
-                                L("Мастер клинка", ""),
-                                L("Самуро?", ""),
-                                L("Самурай-мечник", ""),
-                                L("Да я и так бессмертный", ""),
-                                L("Джаггернаут", ""),
+                                L("Мастер клинка", "Master of Blade"),
+                                L("Самуро?", "Samuro?"),
+                                L("Самурай-мечник", "Samurai Swordsman"),
+                                L("Да я и так бессмертный", "I'm already immortal"),
+                                L("Джаггернаут", "Juggernaut"),
                             }
                         end
                         if dataPoint.CurrentReward == "HeroTaurenChieftain" then
                             rm = {
-                                L("Бык?", ""),
-                                L("Пойду к быку", ""),
-                                L("Могучий бык", ""),
-                                L("Корова в поле", ""),
-                                L("Бык тупогуб", ""),
+                                L("Бык?", "A bull?"),
+                                L("Пойду к быку", "I'll go to the bull"),
+                                L("Могучий бык", "Mighty Bull"),
+                                L("Корова в поле", "Cow in the field"),
+                                L("Бык тупогуб", "Bull blunt-mouthed"),
                             }
                         end
                         if dataPoint.CurrentReward == "ShadowHunter" then
                             rm = {
-                                L("Теневой шаман", ""),
-                                L("Говорящий с духами", ""),
-                                L("Хиллер", ""),
-                                L("Иду мстить", ""),
-                                L("Моё уважение за этот путь", ""),
+                                L("Теневой шаман", "Shadow Shaman"),
+                                L("Говорящий с духами", "The Spirit Speaker"),
+                                L("Хиллер", "Hiller"),
+                                L("Иду мстить", "I'm going for revenge"),
+                                L("Моё уважение за этот путь", "My respect for this path"),
                             }
                         end
 
@@ -514,10 +518,10 @@ function CreateEActions()
             end
 
             if data.UseAction == "StartBonus" then
-                local message1 = L("Я в своём познании настолько преисполнился, что как будто бы уже 100", "I'm so full of my knowledge that it's like I'm already 100")
-                local message2 = L("триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет", "I've lived on trillions and trillions of similar planets for trillions and trillions of years")
-                CreateInfoBoxForAllPlayerTimed(data, message2, 5)
-                CreateInfoBoxForAllPlayerTimed(data, message1, 7)
+                --local message1 = L("Я в своём познании настолько преисполнился, что как будто бы уже 100", "I'm so full of my knowledge that it's like I'm already 100")
+                --local message2 = L("триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет", "I've lived on trillions and trillions of similar planets for trillions and trillions of years")
+                CreateInfoBoxForAllPlayerTimed(data, L("Преисполняюсь", "Full of my knowledge"), 3)
+                --CreateInfoBoxForAllPlayerTimed(data, message1, 7)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
@@ -1185,7 +1189,13 @@ end
 function CreateInfoBoxForAllPlayerTimed(data, message, timed)
     if not bj_isSinglePlayer then
         --print(message)
-         FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), message, GetOwningPlayer(data.UnitHero))
+        if not data.TagDelay then
+            FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), message, GetOwningPlayer(data.UnitHero))
+            data.TagDelay=true
+            TimerStart(CreateTimer(), 1, false, function()
+                data.TagDelay=false
+            end)
+        end
     else
         --local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
         --local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)

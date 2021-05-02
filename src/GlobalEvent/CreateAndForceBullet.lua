@@ -209,12 +209,13 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
             if HERO[GetPlayerId(GetOwningPlayer(hero))] then
                 local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
-
-                if data.Rebound and not effectmodel=="stoneshild" then
+                --print("0")
+                if data.Rebound and effectmodel~="stoneshild" then
+                    --print("1")
                     local find = FindAnotherUnit(DamagingUnit, data)
                     if find then
                         if data.ReboundCount <= data.ReboundCountMAX then
-                            ---print("отскок в"..GetUnitName(find))
+                            --print("отскок в"..GetUnitName(find))
                             local af = AngleBetweenUnits(DamagingUnit, find)
                             CreateAndForceBullet(hero, af, 40, effectmodel, GetUnitX(DamagingUnit), GetUnitY(DamagingUnit), data.DamageThrow, 1000, 150)
                             data.ReboundCount = data.ReboundCount + 1

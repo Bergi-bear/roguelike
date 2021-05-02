@@ -28,7 +28,9 @@ function AddMaxLife(hero, amount)
 
     BlzSetUnitMaxHP(hero, maxHP + amount)
     if IsUnitType(hero,UNIT_TYPE_HERO) then
-        FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
+        TimerStart(CreateTimer(), 1, false, function()
+            FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
+        end)
     else
         HealUnit(hero)
     end

@@ -88,13 +88,14 @@ function CreateGoldInterFace(data)
     data.GoldTextFH = text
 end
 
-function AddLife(data)
+function AddLife(data,lifeIco)
     if not data.life then
         data.life = 0
     end
     data.life = data.life + 1
-
-    local lifeIco = "ReplaceableTextures\\CommandButtons\\BTNAnkh.blp"--"SystemGeneric\\peonlife"
+    if not lifeIco then
+        lifeIco = "ReplaceableTextures\\CommandButtons\\BTNAnkh.blp"--"SystemGeneric\\peonlife"
+    end
     local lifeFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetParent(lifeFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetTexture(lifeFrame, lifeIco, 0, true)

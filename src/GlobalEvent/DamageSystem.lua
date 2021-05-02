@@ -102,9 +102,13 @@ function OnPostDamage()
                     local x, y = GetUnitXY(target)
                     FlyTextTagShieldXY(x, y, L("Броня сломана", "Armor is broken"), GetOwningPlayer(caster), "blue")
                     ShieldSystem[GetHandleId(target)].IsActive = false
+                    if data.ChainDestroyShield then
+                        DestroyEffect(AddSpecialEffect("SystemGeneric\\Lightning Shock", x, y))
+                        DestroyShieldArea(data, 450, x, y)
+                    end
                 else
                     local x, y = GetUnitXY(target)
-                    FlyTextTagShieldXY(x, y, L("Блок: ", "Blocked: ")..R2I(damage), GetOwningPlayer(caster))
+                    FlyTextTagShieldXY(x, y, L("Блок: ", "Blocked: ") .. R2I(damage), GetOwningPlayer(caster))
                 end
             end
         end
@@ -457,7 +461,26 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                             local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", dx, dy)
                             --DestroyEffect(eff)
                             --print("смерть балки от рук"..GetUnitName(hero))
+
                             if hero then
+                                if IsUnitType(hero, UNIT_TYPE_HERO) then
+                                    local data = GetUnitData(hero)
+                                    if GetRandomInt(1, 6) == 1 then
+                                        local rm = {
+                                            L("Упс", "Oops"),
+                                            L("Ой", "Oh"),
+                                            L("Оно само", "It is itself"),
+                                            L("Я не хотел", "I didn't want"),
+                                            L("Цепная реакция", "Chain reaction"),
+                                            L("Я не думал что так получится", "I didn't think that would happen"),
+                                            L("Никого не придавило?", "No one got pinned down?"),
+                                            L("Все живы?", "Is everyone alive?"),
+                                            L("Я случайно", ""),
+                                            L("Ай, мизинцем ударился", ""),
+                                        }
+                                        CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
+                                    end
+                                end
                                 TimerStart(CreateTimer(), 0.6, false, function()
                                     UnitDamageArea(hero, 1000, dx, dy, 300)
                                 end)

@@ -218,6 +218,10 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             UpdateTalonDescriptionForFrame(talon, tt)
             data.KamikazeCurrentCD = 0
             data.KamikazeCDGH = CdFH
+            data.KamikazeMDamage=talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.KamikazeMDamage=talon.DS[talon.level]
+            end)
 
         end
         if pos == 9 then
@@ -288,6 +292,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 data.EvilSoulCD = talon.DS[talon.level]
             end)
         end
+        if pos == 10 then
+            data.EvilMaskHeal = talon.DS[talon.level]
+
+            ActLvl23Action(talon, function()
+                data.EvilMaskHeal = talon.DS[talon.level]
+            end)
+        end
+
     end
     if godName == "HeroTaurenChieftain" and talon.level == 1 then
         local tt, CdFH = nil, nil
@@ -368,13 +380,19 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 AddMaxLife(data.UnitHero, 25)
             end)
         end
+        if pos == 11 then
+            AddLife(data, talon.icon)
+            ActLvl23Action(talon, function()
+                AddLife(data, talon.icon)
+            end)
+        end
     end
     if godName == "HeroBeastMaster" and talon.level == 1 then
         if not data.BeastCountTalon then
             data.BeastCountTalon = 0
         end
         local tt, CdFH = nil, nil
-        if pos==1 or pos==2 or pos==3 or pos==4 then
+        if pos == 1 or pos == 2 or pos == 3 or pos == 4 then
             data.BeastCountTalon = data.BeastCountTalon + 1
         end
         if pos == 1 then
@@ -393,7 +411,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), "SystemGeneric\\DDSSymbols\\" .. data.BeastCountTalon, "SummonIceWolf")
             data.Summon[data.BeastCountTalon] = talon.DS[talon.level]
         end
-        if pos==1 or pos==2 or pos==3 or pos==4 then
+        if pos == 1 or pos == 2 or pos == 3 or pos == 4 then
             if talon.DS[talon.level] == "bear" then
                 data.SummonBearCDFH = CdFH
                 data.SummonBearCurrentCD = 0
@@ -415,7 +433,8 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 data.SummonLizardCD = 20
             end
         end
-        if pos == 5 then --хп суммонов
+        if pos == 5 then
+            --хп суммонов
             tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
             UpdateTalonDescriptionForFrame(talon, tt)
             data.HPForSummon = talon.DS[talon.level] * 100
@@ -425,13 +444,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 data.HPForSummon = talon.DS[talon.level] * 100
             end)
         end
-        if pos == 6 then -- лапка урсы
+        if pos == 6 then
+            -- лапка урсы
             tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
             UpdateTalonDescriptionForFrame(talon, tt)
-            data.UrsaStackFH=CdFH
-            data.UrsaBonus=talon.DS[talon.level]
+            data.UrsaStackFH = CdFH
+            data.UrsaBonus = talon.DS[talon.level]
             ActLvl23Action(talon, function()
-                data.UrsaBonus=talon.DS[talon.level]
+                data.UrsaBonus = talon.DS[talon.level]
             end)
         end
     end
@@ -489,6 +509,9 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         end
         if pos == 15 then
             data.ReturnShieldDamage = talon.DS[talon.level] / 100
+        end
+        if pos == 16 then
+            data.ChainDestroyShield = true
         end
     end
     if godName == "ChaosGrom" and talon.level == 1 then

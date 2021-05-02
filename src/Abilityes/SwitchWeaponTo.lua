@@ -32,7 +32,10 @@ function SwitchWeaponTo(data, newWeapon)
         end
 
     else
-        print("переключение оружия следует делать без изученных талантов, начните игру заново")
+        if not data.OnceTips then
+            print(L("Переключение оружия следует делать без изученных талантов, начните игру заново","Switching weapons should be done without the learned talents, start the game again"))
+            data.OnceTips=true
+        end
     end
 end
 
