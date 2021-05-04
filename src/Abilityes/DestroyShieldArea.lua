@@ -12,6 +12,7 @@ function DestroyShieldArea(data,area,x,y)
 				if e == nil then break end
 				if UnitAlive(e) and IsUnitHasShield(e) and IsUnitEnemy(e,GetOwningPlayer(data.UnitHero)) then
                     ShieldSystem[GetHandleId(e)].IsActive = false
+					DestroyEffect(AddSpecialEffect("SystemGeneric\\Lightning Shock", GetUnitXY(e)))
                     SetUnitState(e,UNIT_STATE_MANA,0)
 				end
 				GroupRemoveUnit(perebor,e)

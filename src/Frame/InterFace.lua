@@ -88,7 +88,7 @@ function CreateGoldInterFace(data)
     data.GoldTextFH = text
 end
 
-function AddLife(data,lifeIco)
+function AddLife(data, lifeIco)
     if not data.life then
         data.life = 0
     end
@@ -136,20 +136,22 @@ function RemoveLife(data)
             TimerStart(CreateTimer(), 3, false, function()
                 local SaveCode = "error"
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
-                    if PlayerIsPlaying[i] and data.life < 0 then
-                        local gdata = HERO[i]
-                        if GetLocalPlayer() == Player(i) then
-                            --- в конце всегда запятая
-                            SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. "," .. R2I(GetDataWeaponID(gdata)) .. ","
+                    if data.life < 0 then
+                        if PlayerIsPlaying[i] then
+                            local gdata = HERO[i]
+                            if GetLocalPlayer() == Player(i) then
+                                --- в конце всегда запятая
+                                SaveCode = GetSaveCode(gdata)
+                            end
+
+                            print(GetPlayerName(Player(i)) .. L(" унёс с собой " .. R2I(gdata.gold) .. " золота ", "took with me " .. R2I(gdata.gold) .. " gold "))
+
+                            TimerStart(CreateTimer(), 2, false, function()
+                                CustomDefeatBJ(Player(i), L("Поражение", "Defeat"))
+                                DisableTrigger(GetTriggeringTrigger())
+                                DestroyTimer(GetExpiredTimer())
+                            end)
                         end
-
-                        print(GetPlayerName(Player(i)) .. L(" унёс с собой " .. R2I(gdata.gold) .. " золота ", "took with me " .. R2I(gdata.gold) .. " gold "))
-
-                        TimerStart(CreateTimer(), 2, false, function()
-                            CustomDefeatBJ(Player(i), L("Поражение", "Defeat"))
-                            DisableTrigger(GetTriggeringTrigger())
-                            DestroyTimer(GetExpiredTimer())
-                        end)
                     end
                 end
                 SaveResult(SaveCode)
@@ -170,6 +172,13 @@ function ReviveAllHero()
             end
         end
     end
+end
+
+
+
+
+function GetSaveCode(data)
+    return R2I(data.gold) .. "," .. R2I(LoadedGameCount[data.pid]) .. "," .. R2I(data.chaosPoint) .. "," .. R2I(GetDataWeaponID(data)) .. ","
 end
 
 function CreateHPBar(hero)

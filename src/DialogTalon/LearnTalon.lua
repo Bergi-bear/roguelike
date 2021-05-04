@@ -7,6 +7,12 @@
 function LearnCurrentTalonForPlayer(pid, godName, pos)
     local data = HERO[pid]
     local talon = GlobalTalons[pid][godName][pos]
+
+    if not godName then
+        print("талант не пригоден для улучшения, не определено имя бога",pid,pos)
+        return
+    end
+
     talon.level = talon.level + 1
     if talon.ultF then
         data.HasUltF = true

@@ -61,19 +61,19 @@ function InitPreloadStart()
                 end
                 UnitAddGold(data.UnitHero, LoadedGold[i])
                 AddChaos(data, LoadedChaos[i])
-               -- print("назначение оружия "..LoadedWeapon[i]) -- назначение оружия 2
+                -- print("назначение оружия "..LoadedWeapon[i]) -- назначение оружия 2
                 if not LoadedWeapon[i] then
-                    LoadedWeapon[i]=1
+                    LoadedWeapon[i] = 1
                 end
-                local TW=R2I(LoadedWeapon[i])
-                if TW==2 then
+                local TW = R2I(LoadedWeapon[i])
+                if TW == 2 then
                     SwitchWeaponTo(data, "shield")
                     --print("shield")
-                elseif TW==1 then
+                elseif TW == 1 then
                     SwitchWeaponTo(data, "pickaxe")
                     --print("pickaxe") -- принт назначается вот это оружие для типа 1
                 else
-                    print("ошибка назначения оружия "..TW)
+                    print("ошибка назначения оружия " .. TW)
                     SwitchWeaponTo(data, "pickaxe")
                 end
             else
@@ -119,7 +119,7 @@ function InitTrig_SyncLoadDone ()
                 LoadedGold[i] = 0
                 LoadedGameCount[i] = 0
                 LoadedChaos[i] = 0
-                LoadedWeapon[i] =1
+                LoadedWeapon[i] = 1
             end
             if not LoadedGameCount[i] then
                 LoadedGameCount[i] = 0
@@ -128,7 +128,7 @@ function InitTrig_SyncLoadDone ()
                 LoadedChaos[i] = 0
             end
             if not LoadedWeapon[i] then
-                LoadedWeapon[i] =1
+                LoadedWeapon[i] = 1
             end
             --print("udg_LoadCode"..i.."="..udg_LoadCode[i])
         end
@@ -144,6 +144,19 @@ function split(str, sep)
         return words
     end
     return { str:match((str:gsub("[^" .. sep .. "]*" .. sep, "([^" .. sep .. "]*)" .. sep))) } -- BUG!! doesnt return last value
+end
+
+function SaveCodeForAllPLayers()
+    local SaveCode="error"
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if PlayerIsPlaying[i] then
+            local gdata = HERO[i]
+            if GetLocalPlayer() == Player(i) then
+                SaveCode = GetSaveCode(gdata)
+            end
+        end
+    end
+    SaveResult(SaveCode)
 end
 
 function SaveResult(SaveCode)

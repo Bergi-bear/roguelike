@@ -118,7 +118,7 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 1 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy црщы
+CurrentGameZone = 19 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy црщы
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
     if CurrentGameZone == 1 or CurrentGameZone == 20 then
@@ -126,7 +126,7 @@ function Enter2NewZone(flag)
         DestroyAllLearHelpers()
     end
     --print(" вошел в зону .. "..CurrentGameZone.. " для судьбы это зона "..Destiny[CurrentGameZone].. " а награда то какая? наверное ")
-
+    SaveCodeForAllPLayers()
     CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     TimerStart(CreateTimer(), 2, false, function()
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
@@ -149,6 +149,7 @@ function Enter2NewZone(flag)
                 end
                 --StartEnemyWave(5)
             else
+                -- следующей зоны не существует
                 TimerStart(CreateTimer(), 3, false, function()
                     TimerStart(CreateTimer(), 3, false, function()
                         local SaveCode = 0
@@ -156,7 +157,7 @@ function Enter2NewZone(flag)
                             if PlayerIsPlaying[i] then
                                 local gdata = HERO[i]
                                 if GetLocalPlayer() == Player(i) then
-                                    SaveCode = R2I(gdata.gold) .. "," .. R2I(LoadedGameCount[i]) .. "," .. R2I(gdata.chaosPoint) .. "," .. R2I(GetDataWeaponID(gdata)) .. ","
+                                    SaveCode = GetSaveCode(gdata)
                                 end
                                 print(GetPlayerName(Player(i)) .. " унёс с собой " .. R2I(gdata.gold) .. " золота ")
 
@@ -524,6 +525,13 @@ function StartEnemyWave(waveNumber)
         end
     end
 
+    --[[
+    n001 мурлок
+    n002 сирена
+    n005 гвардеец
+    n004 черепаха
+    ]]
+
     if waveNumber == 21 then
         -- Новый биом
         local r = GetRandomInt(1, 4)
@@ -550,9 +558,9 @@ function StartEnemyWave(waveNumber)
             maxOnWave = 5
         elseif r == 4 then
             listID = { -- черепаха
-                FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),
-                FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),
-                FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),FourCC("n006"),
+                FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"),
+                FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"),
+                FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"),
             }
             maxOnWave = 4
         end
@@ -562,7 +570,8 @@ function StartEnemyWave(waveNumber)
     if waveNumber == 22 then
         local r = GetRandomInt(1, 2)
         if r == 1 then
-            listID = { --мурлок
+            listID = {
+                FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"),
                 FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
                 FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
                 FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
@@ -570,7 +579,7 @@ function StartEnemyWave(waveNumber)
             }
             maxOnWave = 6
         elseif r == 2 then
-            listID = { -- нага
+            listID = {
                 FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
                 FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
                 FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
@@ -599,6 +608,8 @@ function StartEnemyWave(waveNumber)
                 FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
                 FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
                 FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"), FourCC("n006"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
             }
             maxOnWave = 6
 
@@ -607,14 +618,37 @@ function StartEnemyWave(waveNumber)
     end
 
     if waveNumber == 24 then
-        listID = { -- нага
-            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
-        }
-        maxOnWave = 6
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
+            listID = {
+                FourCC("n006"),
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+            }
+            maxOnWave = 6
+        elseif r == 2 then
+            listID = {
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
+                FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"), FourCC("n004"),
+                FourCC("n006"),
+            }
+            maxOnWave = 6
+        elseif r == 3 then
+            listID = {
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+                FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+                FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"), FourCC("n005"),
+            }
+            maxOnWave = 6
+        end
     end
 
     if waveNumber == 25 then
@@ -652,15 +686,77 @@ function StartEnemyWave(waveNumber)
         maxOnWave = 6
     end
     if waveNumber == 28 then
-        listID = { -- нага
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-            FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"), FourCC("n001"),
-            FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"), FourCC("n002"),
-        }
-        maxOnWave = 6
+
+        local r = GetRandomInt(1, 3)
+        if r == 1 then
+            listID = {
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n006"), FourCC("n006"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n006"), FourCC("n006"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n006"), FourCC("n006"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n006"), FourCC("n006"),
+                FourCC("n006"), FourCC("n006"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n006"), FourCC("n006"),
+                FourCC("n006"), FourCC("n006"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n005"), FourCC("n005"),
+
+            }
+            maxOnWave = 7
+        elseif r == 2 then
+            listID = {
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n004"), FourCC("n004"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n004"), FourCC("n004"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n004"), FourCC("n004"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n004"), FourCC("n004"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n004"), FourCC("n004"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n004"), FourCC("n004"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n004"), FourCC("n004"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n004"), FourCC("n004"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n004"), FourCC("n004"),
+            }
+            maxOnWave = 7
+        elseif r == 3 then
+            listID = {
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n005"), FourCC("n005"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n002"), FourCC("n002"),
+                FourCC("n002"), FourCC("n002"),
+            }
+            maxOnWave = 7
+        end
     end
 
     if waveNumber == 401 then

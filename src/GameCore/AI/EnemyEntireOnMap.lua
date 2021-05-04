@@ -163,13 +163,17 @@ function JumpDragonGround(unit)
         if not UnitAlive(unit) then
             DestroyTimer(GetTriggerUnit())
         else
-            SetUnitTimeScale(unit, 0.5)
-            SetUnitAnimation(unit, "Morph Swim")
             local hero = GetRandomEnemyHero()
-            if not IsUnitInRange(unit, hero, 300) then
-                local angle = AngleBetweenUnits(unit, hero)
+            if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                SetUnitTimeScale(unit, 0.5)
+                SetUnitAnimation(unit, "Morph Swim")
                 BlzPauseUnitEx(unit, true)
-                UnitAddJumpForce(unit, angle, 10, 250, 250)
+                if not IsUnitInRange(unit, hero, 300) then
+                    local angle = AngleBetweenUnits(unit, hero)
+
+                    UnitAddJumpForce(unit, angle, 10, 250, 250)
+                end
+
             end
         end
     end)

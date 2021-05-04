@@ -39,7 +39,8 @@ PreViewIcon = { -- Таблица случайных иконок которые
     "GoldReward",
     "ChaosGrom",
     "Life",
-    "Alchemist"
+    "Alchemist",
+    "Cheese",
 }
 
 function InitFinObjectInArea()
@@ -185,7 +186,13 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                     if dataPoint2.CurrentReward == reward and tempTable[i] ~= tempUnit then
                         local temTableReward = PreViewIcon
                         if temTableReward then
-                            table.remove(temTableReward, FinPosInTable(temTableReward, reward)) --FIXME иногда бывает ощибка на эту строку 2630
+                            local pos2remove=FinPosInTable(temTableReward, reward)
+                            if pos2remove>#temTableReward then
+                                print("Error",#temTableReward,pos2remove)
+                            else
+                                table.remove(temTableReward, pos2remove) --FIXME иногда бывает ощибка на эту строку
+                            end
+
                         end
                         local newReward = temTableReward[GetRandomInt(1, #temTableReward)]
                         DestroyEffect(dataPoint.preView)
@@ -924,6 +931,39 @@ function CreateEActions()
                     --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
                 end
 
+                if data.UseAction == "Cheese" then
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = {
+                            L("Я вижу ты тут главное", ""),
+                            L("Изучаю алхимию", ""),
+                            L("Готов превращать всё в золото", ""),
+                            L("Как бы самом не превратится в золото", ""),
+                            L("И ещё больше золота", ""),
+                            L("Теперь точно разбогатею", ""),
+                        }
+                        --CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
+                        data.Completed = true
+                        AllActionsEnabled(true)
+                        TimerStart(CreateTimer(), 1, false, function()
+                            DestroyGodTalon(dataPoint.TripleTalon)
+                            --print("Активация сыра")
+                            CreateDialogTalon("Cheese")
+                            --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
+                            --активация всех переходов
+                        end)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        data.ShowActionWindows = false
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
+                    end
+                end
+
             end
             ----------------------------------------------------/
             ---------------Прочие дары--------------------------/
@@ -1191,9 +1231,9 @@ function CreateInfoBoxForAllPlayerTimed(data, message, timed)
         --print(message)
         if not data.TagDelay then
             FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), message, GetOwningPlayer(data.UnitHero))
-            data.TagDelay=true
+            data.TagDelay = true
             TimerStart(CreateTimer(), 1, false, function()
-                data.TagDelay=false
+                data.TagDelay = false
             end)
         end
     else

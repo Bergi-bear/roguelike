@@ -8,6 +8,7 @@ do
                 GlobalTalons[i] = {
                     Trall = {--Тралл Провидец
                         [1] = Talon:new({
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChainLightning.blp",
                             name = L("Удар молнией", "Lightning strike"),
                             description = L("Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500", "Every 4 normal strikes release a bolt of lightning that deals 50 DS damage to random enemies within a radius of 500"),
@@ -19,6 +20,7 @@ do
 
                         }),
                         [2] = Talon:new({
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
                             name = L("Громовая кирка", "Thunder Pickaxe"),
                             description = L("Кирка отскакивает на DS случайных врагов", "Pickaxe bounces on DS random enemies"),
@@ -31,6 +33,7 @@ do
 
                         }),
                         [3] = Talon:new({
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWolf.blp",
                             name = L("Волк компаньон", "The Wolf Companion"),
                             description = L("Призывает автономного волка, сражающегося на вашей стороне. Перезарядка возрождения DS сек.", "Summons an autonomous wolf fighting on your side. Respawn cooldown DS sec."),
@@ -41,6 +44,7 @@ do
                             pos = 3
                         }),
                         [4] = Talon:new({
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFarSight.blp",
                             name = L("Воронка прозрения", "The Funnel of Insight"),
                             description = L("Вращающаяся атака втягивает врагов в центр воронки, область захвата +DS", "Rotating attack draws enemies into the center of the funnel, capture area +DS"),
@@ -52,6 +56,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         [5] = Talon:new({
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEarthquake.blp",
                             name = L("Зов Провидца", "Call Far Seer"),
                             description = L("Вызывает землетрясение вокруг героя и наносит 100 урона врагам вокруг. Максимальное число зарядов: DS", "Causes an earthquake around the hero and deals 100 damage to enemies around him. Maximum number of charges: DS"),
@@ -63,6 +68,7 @@ do
                             ultF = true
                         }),
                         [6] = Talon:new({
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTrollBurrow.blp",
                             name = L("Запасы складов пеонов", "Warehouse inventory"),
                             description = L("Добавляет заряды к броску кирки +DS", "Adds charges to the pickaxe roll +DS"),
@@ -73,6 +79,7 @@ do
                             pos = 6
                         }),
                         [7] = Talon:new({
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMagicalSentry.blp",
                             name = L("Предвидение боли", "Anticipating Pain"),
                             description = L("Совершите рывок сразу после получения урона, чтобы моментально восстановить потерянное здоровье. Перезарядка DS сек", "Make a dash immediately after taking damage to instantly restore your lost health. Cooldown DS sec"),
@@ -84,6 +91,7 @@ do
 
                         }),
                         [8] = Talon:new({
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCorpseExplode.blp",
                             name = L("Предвидение смерти", "Foreseeing death"),
                             description = L("Делает героя неуязвимым при получении смертельного урона на 2 сек. Перезарядка DS сек", "Makes the hero invulnerable when taking fatal damage for 2 seconds. Cooldown DS sec"),
@@ -94,6 +102,7 @@ do
                             pos = 8
                         }),
                         [9] = Talon:new({
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSentryWard.blp",
                             name = L("Ясновидение", "Foresight"),
                             description = L("Позволяет DS", "Allows DS"),
@@ -109,6 +118,7 @@ do
                             weaponType = ""
                         }),
                         [10] = Talon:new {
+                            godName="Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNLightningShield.blp",
                             name = L("Молния возмездия", "Lightning of Retribution"),
                             description = L("При получении урона поражает врага молнией на DS урона", "When taking damage, it hits the enemy with lightning for DS damage"),
@@ -123,6 +133,7 @@ do
                     },
                     HeroBlademaster = {
                         Talon:new({--1
+                            godName="HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWindWalkOn.blp",
                             name = L("Ветряной шаг смерти", "Wind Death Step"),
                             description = L("Падение здоровья меньше 30%% вызывает невидимость. Перезарядка DS сек", " Health drop less than 30%% causes invisibility. Cooldown DS sec"),
@@ -133,6 +144,7 @@ do
                             pos = 1
                         }),
                         Talon:new({--2
+                            godName="HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBerserk.blp",
                             name = L("Боевая ярость", "Battle Rage"),
                             description = L("Любой исходящий урон может быть критическим X 1.5 Перезарядка: DS сек", "Any outgoing damage can be critical X 1.5 Cooldown: DS sec"),
@@ -144,6 +156,7 @@ do
 
                         }),
                         Talon:new({--3
+                            godName="HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCriticalStrike.blp",
                             name = L("Уязвимые места", "Vulnerabilities"),
                             description = L("Увеличивает силу критического удара на DS", "Increases critical strike strength by DS"),
@@ -155,6 +168,7 @@ do
                             pos = 3
                         }),
                         Talon:new({--4
+                            godName="HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMirrorImage.blp",
                             name = L("Иллюзорный рывок", "Illusionary dash"),
                             description = L("Возвращается назад сразу после рывка, наносит урон=DS в точке реверса, перезарядка 10 сек", "Returns immediately after the dash, deals damage=DS at the reverse point, reload 10 seconds"),
@@ -166,6 +180,7 @@ do
                             weaponType = ""
                         }),
                         Talon:new({ --5
+                            godName="HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWhirlwind.blp",
                             name = L("Большой размах", "Large Swing"),
                             description = L("Увеличивает урон на DS раза от вращающийся атаки ", "Increases damage by DS times from rotating attack"),
@@ -177,6 +192,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--6
+                            godName="HeroBlademaster",
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNEvasion.blp",
                             name = L("Дополнительный рывок", "Extra Dash"),
                             description = L("Добавляет заряды к способности рывок + DS", "Adds charges to the Dash + DS ability"),
@@ -187,6 +203,7 @@ do
                             pos = 6
                         }),
                         Talon:new({--7
+                            godName="HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp",
                             name = L("Мастер меча но не магии", "Master of the sword but not magic"),
                             description = L("Уменьшает скорость старта раскрутки на DS сек.", " Reduces the start speed of promotion by DS sec."),
@@ -199,6 +216,7 @@ do
                             --ultR = true
                         }),
                         Talon:new({--8
+                            godName="HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSelfDestruct.blp",
                             name = L("Камикадзе", "Kamikaze"),
                             description = L("Любой урон, который герой наносит будучи мёртвым увеличивается в DS раз, герой не умрёт и останется с 1 пунктом здоровья", "Any damage that the hero deals while dead increases by DS times, the hero will not die and will remain with 1 health point"),
@@ -210,6 +228,7 @@ do
                             --ultR = true
                         }),
                         Talon:new({--9
+                            godName="HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBattleStations.blp",
                             name = L("Джагернаут", "Juggernaut"),
                             description = L("Добавляет DS зарядов для способности вращающийся удар", "Adds DS charges for the Spinning Kick ability"),
@@ -224,6 +243,7 @@ do
                     },
                     ShadowHunter = {
                         Talon:new({ --1
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHealingWave.blp",
                             name = L("Я помогу тебе", "I'll help you"),
                             description = L("Прохождение рывком сквозь союзника исцеляет его на 100 ед. Перезарядка DS сек", "Jumping through an ally heals it by 100 points. Cooldown DS sec"),
@@ -234,6 +254,7 @@ do
                             pos = 1
                         }),
                         Talon:new({ --2
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSerpentWard.blp",
                             name = L("Ты в ловушке", "You're trapped"),
                             description = L("Создаёт кольцо змей, в точке начала рывка. Перезарядка DS", "Creates a ring of snakes, at the start point of the snatch. Cooldown DS"),
@@ -244,6 +265,7 @@ do
                             pos = 2
                         }),
                         Talon:new({ --3
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHex.blp",
                             name = L("Метательный лягушонок", "Throwing Frog"),
                             description = L("Заменяет бросок кирки на бросок лягушки, превращает врага в лягушку на 3 секунды. Перезарядка: DS", "Replaces the pickaxe throw with the frog throw, turns the enemy into a frog for 3 seconds. Cooldown: DS"),
@@ -255,6 +277,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--4
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\PassiveButtons\\PASBTNUpgradeMoonGlaive.blp",
                             name = L("Спираль смерти", "Death Spiral"),
                             description = L("Выпускает в направлении рывка смертельное лезвие", "Releases a deadly blade in the direction of the dash"),
@@ -265,6 +288,7 @@ do
                             pos = 4
                         }),
                         Talon:new({--5
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRegenerate.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
                             name = L("Регенерация тролля", "Troll Regeneration"),
                             description = L("Исцеляет героя каждые 5 секунду во время боя на DS%%", "Heals hero every 5 seconds during DS%% combat"),
@@ -275,6 +299,7 @@ do
                             pos = 5
                         }),
                         Talon:new({--6
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHeal.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
                             name = L("Великий лекарь", "Great Healer"),
                             description = L("Повышает эффективность получения лечения X DS", "Increases the performance of receiving healing X DS"),
@@ -285,6 +310,7 @@ do
                             pos = 6
                         }),
                         Talon:new({--7
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNLocustSwarm.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
                             name = L("Теневой рывок", "Great Healer"),
                             description = L("Позволяет проходить DS", "Increases the performance of receiving healing X DS"),
@@ -295,6 +321,7 @@ do
                             pos = 7
                         }),
                         Talon:new({--8
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNPotionGreen.blp", --ReplaceableTextures\\PassiveButtons\\PASBTNRegenerate.blp
                             name = L("Щит знахаря", "Healer's Shield"),
                             description = L("Исцеляет героя на DS здоровья при блокировки урона от врагов. Перезарядка 10", "Heals the hero on DS health when blocking damage from enemies. Cooldown 10"),
@@ -306,6 +333,7 @@ do
                             weaponType = "shield"
                         }),
                         Talon:new({--9
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBigBadVoodooSpell.blp",
                             name = L("Заговор неуязвимости", "Invulnerability Spell"),
                             description = L("При получении урона делает героя неуязвимым на 0.5 сек. Перезарядка: DS", "When taking damage, it makes the hero invulnerable for 0.5 seconds. Recharge: DS"),
@@ -317,6 +345,7 @@ do
                             --weaponType = "shield"
                         }),
                         Talon:new({--10
+                            godName="ShadowHunter",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSobiMask.blp", --TODO Перевод
                             name = L("Маска злорадства", ""),
                             description = L("Всякий раз, когда кто-то в радиусе 1000 умирает от ловушки, вы получаете DS здоровья ", ""),
@@ -329,6 +358,7 @@ do
                     },
                     HeroTaurenChieftain = {
                         Talon:new({--1
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAncestralSpirit.blp",
                             name = L("Новая жизнь", "New Life"),
                             description = L("Исцеляет героя на DS%% от максимального здоровья при получении уровня", "Heals hero at DS%% when gaining level"),
@@ -339,6 +369,7 @@ do
                             pos = 1
                         }),
                         Talon:new({--2
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSpiritWalkerAdeptTraining.blp",
                             name = L("Мощь быка", "Bull Power"),
                             description = L("Увеличивает длительность стазиса врагов на DS от любых источников урона", "Increases enemy stasis duration by DS from any damage sources"),
@@ -349,6 +380,7 @@ do
                             pos = 2
                         }),
                         Talon:new({--3
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNShockWave.blp",
                             name = L("Волна силы", "Force Wave"),
                             description = L("Наносит урон рывком. Урон: DS", "Deals damage with a dash. Damage: DS"),
@@ -359,6 +391,7 @@ do
                             pos = 3
                         }),
                         Talon:new({--4
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCommand.blp",
                             name = L("Выносливость", "Endurance"),
                             description = L("Увеличивает скорость движения на DS %%", "Increases movement speed by DS %%"),
@@ -369,6 +402,7 @@ do
                             pos = 4
                         }),
                         Talon:new({--5
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWarStomp.blp",
                             name = L("Могучий удар", "Mighty Blow"),
                             description = L("Увеличивает длительность стазиса от способности Мощный удар на DS и радиус поражения на 100", "Increases the stasis duration from the Powerful Strike ability by DS and the damage radius by 100"),
@@ -379,6 +413,7 @@ do
                             pos = 5
                         }),
                         Talon:new({--6
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNEnsnare.blp",
                             name = L("Кодойская ловушка", "Codo trap"),
                             description = L("Ловушка наносят Х DS урона по врагам, и уменьшает урон от ловушек по герою DS раз ", "The trap deals X DS damage to enemies, and reduces the damage from traps on the hero at times YOU"),
@@ -389,6 +424,7 @@ do
                             pos = 6
                         }),
                         Talon:new({--7
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\commandbuttons\\BTNSmash.blp",
                             name = L("Тотем кодоев", "Codo totem"),
                             description = L("Создаёт непроходимый тотем и наносит 100 урона всем врагам на пути от героя и до курсора. Минимально 2 заряда, максимум 10", "Creates an impassable totem and deals 100 damage to all enemies on the way from the hero to the cursor. Minimum 2 charges, maximum 10"),
@@ -400,6 +436,7 @@ do
                             pos = 7
                         }),
                         Talon:new({--8
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAnimalWarTraining.blp",
                             name = L("Топот копыт", "Hoofbeats"),
                             description = L("Увеличивает урон от удара о стену на DS", "Increases the damage from hitting the wall by DS"),
@@ -410,6 +447,7 @@ do
                             pos = 8
                         }),
                         Talon:new({--9
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNWirtsLeg.blp",
                             name = L("Удар копытом", "Hoof strike"),
                             description = L("Обычная атаки отталкивают врага на дистанцию DS", "Normal attacks push the enemy to a distance of DS"),
@@ -421,6 +459,7 @@ do
                             pos = 9
                         }),
                         Talon:new({--10
+                            godName="HeroTaurenChieftain",
                             icon = "BTNCodoHeart",
                             name = L("Бычье сердце", "Bull Heart"),
                             description = L("Сердца кодоя дают больше максимального здоровья на DS%%", "Kodoi Hearts give more maximum health on DS%%"),
@@ -431,6 +470,7 @@ do
                             pos = 10
                         }),
                         Talon:new({--11
+                            godName="HeroTaurenChieftain",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNReincarnation.blp",
                             name = L("Реинкарнация", ""),
                             description = L("Даёт DS дополнительную жизнь при изучении", ""),
@@ -444,6 +484,7 @@ do
                     },
                     HeroBeastMaster = { -- ПОВЕЛИТЕЛЬ ЗВЕРЕЙ
                         Talon:new({
+                            godName="HeroBeastMaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNStampede.blp",
                             name = L("Ящер-таран", "Lizard Ram"),
                             description = L("Огромный ящер сносит врагов на своём пути, направление выбирается от героя, до точки курсора. Перезарядка: 20. Урон: 100", "A huge lizard demolishes enemies in its path, the direction is chosen from the hero, to the cursor point. Cooldown: 20. Damage: 100"),
@@ -454,6 +495,7 @@ do
                             pos = 1
                         }),
                         Talon:new({
+                            godName="HeroBeastMaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMisha.blp",
                             name = L("Медведь-бомба", "Bear-bomb"),
                             description = L("Сокрушает медведя в положение кусора, медведь наносит 1000 урона при призыве. Перезарядка: 60. Длительность: 30", "Crushes the bear to the cursor position, the bear deals 1000 damage when summoned. Cooldown: 60. Duration: 30"),
@@ -464,6 +506,7 @@ do
                             pos = 2
                         }),
                         Talon:new({
+                            godName="HeroBeastMaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNQuillBeast.blp",
                             name = L("Кабан", "Wild boar"),
                             description = L("Призывает мелкого кабана, кабан наносит 30 ед урона. Перезарядка: 20. Длительность: 50", "Summons a small boar, the boar deals 30 damage. Cooldown: 20. Duration: 50"),
@@ -474,6 +517,7 @@ do
                             pos = 3
                         }),
                         Talon:new({
+                            godName="HeroBeastMaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
                             name = L("Полярный волк", "Polar Wolf"),
                             description = L("Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк наносит двойной урон замороженным существам", "Summons a polar wolf and an ice storm that freezes everything within a radius of 1000. The wolf deals double damage to the frozen creature"),
@@ -484,6 +528,7 @@ do
                             pos = 4
                         }),
                         Talon:new({
+                            godName="HeroBeastMaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
                             name = L("Здоровье зверя", "Animal Health"),
                             description = L("Увеличивает здоровье героя на DS, а призванных существа на 1000 X DS", "Increases the hero's health by DS, and the summoned creatures by 1000 X DS"),
@@ -494,6 +539,7 @@ do
                             pos = 5
                         }),
                         Talon:new({
+                            godName="HeroBeastMaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBattleRoar.blp",
                             name = L("Метка медведя", "Bear Mark"),
                             description = L("Увеличивает урон на DS, с каждой последующей атакой", "Increases damage by DS, with each subsequent attack"),
@@ -506,6 +552,7 @@ do
                     },
                     PeonDidal = {
                         Talon:new({--1
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNBash.blp",
                             name = L("Короткое комбо", "Short combo"),
                             description = L("Сокращает комбо до DS ударов, и задержку финального удара на 0.3", "Reduces the combo to DS hits, and the delay of the final hit by 0.3"),
@@ -517,6 +564,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--2
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
                             name = L("Кирка героя", "Hero Pickaxe"),
                             description = L("Увеличивает урон обычных атак на DS%%", " Increases normal attack damage by DS%%"),
@@ -528,6 +576,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--3
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrbOfCorruption.blp",
                             name = L("Бронелом", "Shield breaker"),
                             description = L("Все ваши атаки наносят дополнительно DS урона по щиту", "All your attacks deal an additional DS damage to the shield"),
@@ -538,6 +587,7 @@ do
                             pos = 3,
                         }),
                         Talon:new({--4
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTauren.blp",
                             name = L("Разбег минотавра", " Minotaur run-up"),
                             description = L("Атака в рывке, наносит на DS%% урона больше, увеличивает область поражения и отталкивает в 3 раза дальше", "Attack in a dash, deal DS%% more damage, increases the hit area and pushes 3 times further away"),
@@ -548,6 +598,7 @@ do
                             pos = 4
                         }),
                         Talon:new({--5
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChaosGrunt.blp",
                             name = L("Удар проклятой души", "Cursed soul strike"),
                             description = L("Попадания обычной атакой восстанавливают DS%% от макс здоровья ед. здоровья, в случае промаха, вы потеряете DS%% от макс здоровья (не может быть смертельным)", " Hits with a normal attack restore DS%% of max health health units, in case of a miss, you will lose DS%% of max health (cannot be fatal)"),
@@ -559,6 +610,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--6
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
                             name = L("Двойной Клеп", " Double Clip"),
                             description = L("Мощный удар бьёт DS", "Powerful punch beats DS"),
@@ -570,6 +622,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--7
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSteelRanged.blp",
                             name = L("Пронзающий пространство удар", "A space-piercing blow"),
                             description = L("Обычный удар наносит дополнительно DS урона на линии перед собой. Дистанция: 500", " A normal hit deals additional DS damage on the line in front of it. Distance: 500"),
@@ -581,6 +634,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--8
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
                             name = L("Удар сатира", " Punch satyr"),
                             description = L("Увеличивает любой урон в спину в DS раза", "Increases any back damage by DS times"),
@@ -591,6 +645,7 @@ do
                             pos = 8
                         }),
                         Talon:new({--9
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
                             name = L("Пространственный клеп", " Spatial Clip"),
                             description = L("Мощный удар делает рывок в область курсора ", " A powerful kick makes the cursor area dash "),
@@ -601,6 +656,7 @@ do
                             pos = 9
                         }),
                         Talon:new({--10
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDefend.blp",
                             name = L("Мертвый бассейн", " Dead pool"),
                             description = L("Вращение и атака могут отражать снаряды, обратно во врагов", "Spin and attack can deflect projectiles back at enemies"),
@@ -612,6 +668,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--11
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNPillage.blp",
                             name = L("Измельчитель", " Dead pool"),
                             description = L("Щит наносит урон дважды", "The shield deals damage twice"),
@@ -623,6 +680,7 @@ do
                             weaponType = "shield"
                         }),
                         Talon:new({--12
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDivineIntervention.blp",
                             name = L("Зеркальный щит", "Mirror Shield"),
                             description = L("Позволяет отражать снаряды", "Allows you to reflect projectiles"),
@@ -634,6 +692,7 @@ do
                             weaponType = "shield"
                         }),
                         Talon:new({--13
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDivineIntervention.blp",
                             name = L("Отражатель", "Reflector"),
                             description = L("Увеличивает скорость в 2, а урон в DS раза, для отраженных снарядов", "Increases speed by 2, and damage by DS times, for reflected projectiles"),
@@ -646,6 +705,7 @@ do
                             weaponType = "shield"
                         }),
                         Talon:new({--14
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDispelMagic.blp",
                             name = L("Прыжок в небо", "Jump into the sky"),
                             description = L("Делает героя неуязвимым в момент прыжка (DS сек.)", "Makes the hero invulnerable at the time of the jump (DS sec.)"),
@@ -657,6 +717,7 @@ do
                             weaponType = "shield"
                         }),
                         Talon:new({--15
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSpikedBarricades.blp",
                             name = L("Шип", "Jump into the sky"),
                             description = L("Возвращает DS%% прямого урона врагу при поглощении урона в щит", "Makes the hero invulnerable at the time of the jump (DS sec.)"),
@@ -668,6 +729,7 @@ do
                             weaponType = "shield"
                         }),
                         Talon:new({--16
+                            godName="PeonDidal",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNCloudOfFog.blp", --TODO перевод
                             name = L("Цепная коррозия", ""),
                             description = L("Разрушение щита, так же ломает щит у ближайших врагов в радиусе DS", ""),
@@ -680,6 +742,7 @@ do
                     },
                     ChaosGrom = {
                         Talon:new({--1
+                            godName="ChaosGrom",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGhoulFrenzy.blp",
                             name = L("Яростный удар", "Furious strike"),
                             description = L("Нанесение урона обычной атакой активирует вращение на 1 секунду. Перезарядка: DS сек", "Dealing damage with a normal attack activates the spin for 1 second. Cooldown: DS sec"),
@@ -690,6 +753,7 @@ do
                             pos = 1
                         }),
                         Talon:new({--2
+                            godName="ChaosGrom",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFountainOfLifeBlood.blp",
                             name = L("Заражение", "Infection"),
                             description = L("Делает фонтан непригодным для питья, но фонтан наносит DS урона в секунду врагам в радиусе 500, а вы получаете эффект сердца кодоя +25", "Makes the fountain undrinkable, but the fountain deals DS damage per second to enemies within a radius of 500, add 25 max hp"),
@@ -700,6 +764,7 @@ do
                             pos = 2
                         }),
                         Talon:new({--3
+                            godName="ChaosGrom",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNIncinerate.blp",
                             name = L("Буйная кровь", "Violent blood"),
                             description = L("Восстанавливает заряды вращения при убийстве врагов +DS. Игнорирует лимит", "Restores spin charges when killing enemies +DS. Ignores the limit"),
@@ -711,6 +776,7 @@ do
                             weaponType = "pickaxe",
                         }),
                         Talon:new({--4
+                            godName="ChaosGrom",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNOrcMeleeUpThree.blp",
                             name = L("Топор лесоруба", "Woodcutter's Axe"),
                             description = L("Летает вокруг героя и наносит DS урона касанием", "Flies around the hero and deals DS damage with a touch"),
@@ -721,6 +787,7 @@ do
                             pos = 4
                         }),
                         Talon:new({--5
+                            godName="ChaosGrom",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNImpale.blp",
                             name = L("Сквозь землю", "Through ground"),
                             description = L("Способность Q отбрасывает врагов в стороны и наносит дополнительный урон DS", "The Q ability knocks enemies aside and deals additional DS damage."),
@@ -731,6 +798,7 @@ do
                             pos = 5
                         }),
                         Talon:new({--6
+                            godName="ChaosGrom",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNRedDragonDevour.blp",
                             name = L("Кровожадность", "Bloodthirstiness"),
                             description = L("Убийство врагов в ближнем бою восстанавливает здоровье +DS", "Killing enemies in melee restores health +DS"),
@@ -741,6 +809,7 @@ do
                             pos = 6
                         }),
                         Talon:new({--7
+                            godName="ChaosGrom",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHeartOfAszune.blp",
                             name = L("Искатель крови", "Blood Seeker"),
                             description = L("Вазы могу содержать некоторое количество крови, восстанавливающей DS здоровья", "Vases can contain a certain amount of blood that restores DS health"),
@@ -764,6 +833,7 @@ do
                     },
                     Alchemist = {
                         Talon:new({--1
+                            godName="Alchemist",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNGlyph.blp",
                             name = L("Доход", "Income"),
                             description = L("Увеличивает добычу золота при убийстве врагов на DS", "Increases gold revenue when killing enemies on DS"),
@@ -774,6 +844,7 @@ do
                             pos = 1
                         }),
                         Talon:new({--2
+                            godName="Alchemist",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSunKey.blp",
                             name = L("Подработка в выходные", "Weekend part-time job"),
                             description = L("После завершения уровня вы получаете DS золота", "After completing a level you get DS of gold"),
@@ -784,6 +855,7 @@ do
                             pos = 2
                         }),
                         Talon:new({--3
+                            godName="Alchemist",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTransmute.blp",
                             name = L("Золотое касание", "Golden Touch"),
                             description = L("Следующая обычная атака моментально убьёт врага не босса и превратит его в DS золота. Перезарядка: 30", "The next normal attack will instantly kill the non-boss enemy and turn it into DS Gold. Cooldown: 30"),
@@ -794,6 +866,7 @@ do
                             pos = 3
                         }),
                         Talon:new({--4
+                            godName="Alchemist",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNDustOfAppearance.blp",
                             name = L("Дырявый мешок", "Leaky bag"),
                             description = L("При получении урона вы потеряете столько же золота, но этот урон будет уменьшен на DS%%", "When taking damage, you will lose the same amount of gold, but this damage will be reduced by DS%%"),
@@ -804,6 +877,7 @@ do
                             pos = 4
                         }),
                         Talon:new({--5
+                            godName="Alchemist",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfRestoration.blp",
                             name = L("Инвестор", "Investor"),
                             description = L("Увеличивает любой получаемый доход на DS%%", "Increases any earned income by DS%%"),
@@ -814,6 +888,7 @@ do
                             pos = 5
                         }),
                         Talon:new({--6
+                            godName="Alchemist",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNMedalionOfCourage.blp",
                             name = L("Орёл или решка", "Flip the Coin"),
                             description = L("Имеет шанс 50%% не получить урона, тратит 10 золота. Перезарядка: DS", "Has a 50%% chance of not taking damage, spends 10 gold. Recharge: DS"),
@@ -824,7 +899,8 @@ do
                             pos = 6
                         }),
 
-                        Talon:new({--7 --ReplaceableTextures\CommandButtons\BTNPillage.blp
+                        Talon:new({--7
+                            godName="Alchemist",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNChestOfGold.blp",
                             name = L("Золотой царь", "Gold King"),
                             description = L("Увеличивает ваш исходящий урон от обычных атак на DS ед. за каждые 100 золота в кармане", "Increases your outgoing damage from normal attacks by DS for every 100 gold in your pocket"),
@@ -836,6 +912,7 @@ do
                             weaponType = "pickaxe"
                         }),
                         Talon:new({--8
+                            godName="Alchemist",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNPeriapt.blp",
                             name = L("Золотая кровь", "Golden Blood"),
                             description = L("Получение более 10 золота, исцеляет героя на DS%% от полученного количества", "Getting more than 10 gold, heals the hero by DS%% of the amount received"),
