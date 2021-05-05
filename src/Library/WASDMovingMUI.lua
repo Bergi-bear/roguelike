@@ -211,6 +211,9 @@ function InitWASD(hero)
                 RemoveLife(data)
                 --print("death")
                 SetUnitAnimation(data.UnitHero, "death")
+                if data.BloodFountainPreDeath then
+                    CreateBloodFountain(data,GetUnitXY(data.UnitHero))
+                end
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
@@ -1070,6 +1073,9 @@ function CreateWASDActions()
             GetPlayerMouseY[pid] = BlzGetTriggerPlayerMouseY()
 
             local data = HERO[pid]
+
+
+            --CreateLaser(nil,GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),BlzGetTriggerPlayerMouseX(),BlzGetTriggerPlayerMouseY(),2)
             if BlzGetTriggerPlayerMouseX() >= 511 and BlzGetTriggerPlayerMouseX() <= 513 then
                 GetPlayerMouseX[pid], GetPlayerMouseY[pid] = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 500, GetUnitFacing(data.UnitHero))
             end
@@ -1155,6 +1161,11 @@ function CreateWASDActions()
                         end
 
                         CreateAndForceBullet(data.UnitHero, angle, speed, effModel, xs, ys, data.DamageThrow, maxDist, delay)
+                        if data.isSpined and data.CrestFire then
+                            for i=1,data.CrestFire do
+                                CreateAndForceBullet(data.UnitHero, GetRandomInt(0,360), speed/2, effModel, xs, ys, data.DamageThrow, maxDist/4, delay)
+                            end
+                        end
                     end)
                 end
 

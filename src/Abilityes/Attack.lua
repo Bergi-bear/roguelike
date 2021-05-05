@@ -171,6 +171,18 @@ function attackPickAxe(data)
                             end
                         end
                         ------------------------------------
+                        if data.AutoQCDFH then
+                            if data.AutoQCurrentCD <= 0 then
+                                local cd = data.AutoQCD
+                                data.AutoQCurrentCD = cd
+                                StartFrameCD(cd, data.AutoQCDFH)
+                                SpellSlashQ(data)
+                                TimerStart(CreateTimer(), cd, false, function()
+                                    data.AutoQCurrentCD = 0
+                                    DestroyTimer(GetExpiredTimer())
+                                end)
+                            end
+                        end
 
                         ConditionCastLight(data)
                         if data.CursedStrike then

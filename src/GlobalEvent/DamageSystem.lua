@@ -124,7 +124,12 @@ function OnPostDamage()
         -- orientation - ориентация сектора в мировых координатах
         -- width - угловой размер сектора в градусах
         -- radius - окружности которой принадлежит сектор
-
+        if data.BloodSlow then
+            local _,_,_,all=UnitDamageArea(target,50,xe,ye,250)
+            for i=1,#all do
+                SlowUnit(all[i],data.BloodSlow)
+            end
+        end
         if data.EvilSoulCDFH then
             if data.EvilSoulCurrentCD <= 0 then
                 local cd = data.EvilSoulCD

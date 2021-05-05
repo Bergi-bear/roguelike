@@ -9,7 +9,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
     local talon = GlobalTalons[pid][godName][pos]
 
     if not godName then
-        print("талант не пригоден для улучшения, не определено имя бога",pid,pos)
+        print("талант не пригоден для улучшения, не определено имя бога", pid, pos)
         return
     end
 
@@ -224,9 +224,9 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             UpdateTalonDescriptionForFrame(talon, tt)
             data.KamikazeCurrentCD = 0
             data.KamikazeCDGH = CdFH
-            data.KamikazeMDamage=talon.DS[talon.level]
+            data.KamikazeMDamage = talon.DS[talon.level]
             ActLvl23Action(talon, function()
-                data.KamikazeMDamage=talon.DS[talon.level]
+                data.KamikazeMDamage = talon.DS[talon.level]
             end)
 
         end
@@ -519,6 +519,25 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 16 then
             data.ChainDestroyShield = true
         end
+        if pos == 17 then
+            data.OrbitalShield = true
+            local effmodel = "stoneshild"
+            local angle = 0
+            local eff = AddSpecialEffect(effmodel, 0, 0)
+            -- BlzSetSpecialEffectRoll(eff, math.rad(-90))
+
+            TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+                local xh, yh = GetUnitXY(data.UnitHero)
+                angle = angle + 9
+                data.OrbitalShieldAngle = angle
+                local nx, ny = MoveXY(xh, yh, 80, angle)
+                BlzSetSpecialEffectYaw(eff, math.rad(angle + 90))
+                BlzSetSpecialEffectPosition(eff, nx, ny, GetUnitZ(data.UnitHero) + 60)
+                if angle == 360 then
+                    angle = 0
+                end
+            end)
+        end
     end
     if godName == "ChaosGrom" and talon.level == 1 then
         local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
@@ -569,6 +588,15 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.VaseGainGold = talon.DS[talon.level]
             ActLvl23Action(talon, function()
                 data.VaseGainGold = talon.DS[talon.level]
+            end)
+        end
+        if pos == 8 then
+            data.BloodFountainPreDeath = true
+        end
+        if pos == 9 then
+            data.BloodSlow = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.BloodSlow = talon.DS[talon.level]
             end)
         end
     end
@@ -646,6 +674,58 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             ActLvl23Action(talon, function()
                 data.GoldBlood = talon.DS[talon.level] / 100
             end)
+        end
+        if pos == 9 then
+            data.PigIncomingGold = talon.DS[talon.level]
+            data.PigIncomingCDFH = CdFH
+            data.PigIncomingCurrentCD = 0
+            data.PigIncomingCD = 3
+
+            TimerStart(CreateTimer(), data.PigIncomingCD, true, function()
+                if data.PigIncomingCurrentCD <= 0 then
+                    local cd = data.PigIncomingCD
+                    data.PigIncomingCurrentCD = cd
+                    StartFrameCD(cd, data.PigIncomingCDFH)
+                    ---постоянный блок
+                    UnitAddGold(data.UnitHero, data.PigIncomingGold)
+                    ---
+                    data.PigIncomingCurrentCD = 0
+                end
+            end)
+
+            ActLvl23Action(talon, function()
+                data.PigIncomingGold = talon.DS[talon.level]
+            end)
+        end
+
+    end
+    if godName == "HeroMountainKing" and talon.level == 1 then
+        local tt, CdFH = nil, nil
+        tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+        UpdateTalonDescriptionForFrame(talon, tt)
+
+        if pos == 1 then
+            data.AutoQCDFH = CdFH
+            data.AutoQCurrentCD = 0
+            data.AutoQCD = talon.DS[talon.level] --10
+            ActLvl23Action(talon, function()
+                data.Investor = talon.DS[talon.level]
+            end)
+        end
+        if pos == 2 then
+            data.CrestFire = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.CrestFire = talon.DS[talon.level]
+            end)
+        end
+        if pos == 3 then
+            data.BlastDamage = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.BlastDamage = talon.DS[talon.level]
+            end)
+        end
+        if pos == 4 then
+            data.KnockRMB = true
         end
 
     end

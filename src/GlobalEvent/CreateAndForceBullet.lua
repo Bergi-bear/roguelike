@@ -111,7 +111,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             local data = HERO[GetPlayerId(GetOwningPlayer(DamagingUnit))]
             if data.UnitHero and GetUnitTypeId(DamagingUnit) == HeroID then
                 --print("атакован наш герой")
-                if data.PressSpin and data.CurrentWeaponType == "shield" and data.PressSpin or data.ShieldDashReflect then
+                if data.PressSpin and data.CurrentWeaponType == "shield" and data.PressSpin or data.ShieldDashReflect or data.OrbitalShield then
                     --print("Попадание в активированный щит")
                     if effectmodel == "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl" then
                         AddChaos(data, 1)
@@ -124,7 +124,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                     -- width - угловой размер сектора в градусах
                     -- radius - окружности которой принадлежит сектор
 
-                    if IsPointInSector(x, y, xe, ye, GetUnitFacing(DamagingUnit), 90, 200) then
+                    if IsPointInSector(x, y, xe, ye, GetUnitFacing(DamagingUnit), 90, 200) or IsPointInSector(x, y, xe, ye,data.OrbitalShieldAngle, 90, 200)  then
 
                         if not data.DestroyMissile then
                             FlyTextTagShieldXY(xe, ye, L("Отбит", "Parry"), GetOwningPlayer(data.UnitHero))
@@ -177,6 +177,25 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
         CollisisonDestr = PointContentDestructable(x, y, CollisionRange, false, 0, hero)
         local PerepadZ = zGround - z
         if not reverse and delay <= 0 and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
+            if CollisisonDestr then
+                --print("попал в стену")
+                if effectmodel=="Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl" then
+                   -- print("в стену молот")
+                    if IsUnitType(hero,UNIT_TYPE_HERO) then
+                        local data=GetUnitData(hero)
+                        if data.BlastDamage then
+                            local eff=AddSpecialEffect("Abilities\\Weapons\\GyroCopter\\GyroCopterMissile.mdl",nx, ny)
+                            BlzSetSpecialEffectScale(eff,0.1)
+                            TimerStart(CreateTimer(), 1/32, false, function()
+                                BlzSetSpecialEffectScale(eff,3)
+                                DestroyEffect(eff)
+                            end)
+                            UnitDamageArea(hero,data.BlastDamage,nx,ny,300)
+                            --print("взрыв")
+                        end
+                    end
+                end
+            end
             PointContentDestructable(x, y, CollisionRange, true, 0, heroCurrent)
             local flag = nil
             if GetUnitTypeId(heroCurrent) == FourCC("hsor") then
@@ -184,7 +203,11 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
             UnitDamageArea(heroCurrent, damage, x, y, CollisionRange, flag) -- УРОН ПРИ ПОПАДАНИИ
             if DamagingUnit and IsUnitType(heroCurrent, UNIT_TYPE_HERO) then
-                -- тут был показ урона
+                local data=GetUnitData(heroCurrent)
+                if data.KnockRMB then
+                    UnitAddForceSimple(DamagingUnit,angleCurrent,speed,300,nil,heroCurrent)
+                end
+
             end
             DestroyEffect(bullet)
             DestroyTimer(GetExpiredTimer())

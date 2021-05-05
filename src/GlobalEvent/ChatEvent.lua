@@ -146,6 +146,11 @@ function PlayUnitAnimationFromChat()
             CreateGodTalon(x, y, "Cheese")
             return
         end
+        if GetEventPlayerChatString() == "k" or GetEventPlayerChatString() == "Л" then
+            local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
+            CreateGodTalon(x, y, "HeroMountainKing")
+            return
+        end
 
         SetUnitAnimationByIndex(data.UnitHero, s)
         --print(GetUnitName(mainHero).." "..s)

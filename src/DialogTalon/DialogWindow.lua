@@ -6,9 +6,7 @@ do
             if not BlzLoadTOCFile("SystemGeneric\\Main.toc") then
                 print("ошибка загрузки " .. "SystemGeneric\\Main.toc")
             end
-
-            --CreateEmptyBoxForTalon()
-            GOD_NAME_ARRAY = {
+            GOD_NAME_ARRAY = { -- таланты доступные для изучения
                 "Trall",
                 "HeroBlademaster",
                 "HeroTaurenChieftain",
@@ -17,6 +15,7 @@ do
                 "HeroBeastMaster",
                 "ChaosGrom",
                 "Alchemist",
+                "HeroMountainKing",
             }
         end)
     end

@@ -52,7 +52,7 @@ function GetLearnedTalonList(data)
     -- проверяем есть ли изученные талоны траллы
 
     local CheeseTable = {}
-    local nameOfTalons = { "Trall", "HeroBlademaster", "HeroTaurenChieftain", "ShadowHunter", "HeroBeastMaster", "ChaosGrom", "Alchemist" }
+    local nameOfTalons = { "Trall", "HeroBlademaster", "HeroTaurenChieftain", "ShadowHunter", "HeroBeastMaster", "ChaosGrom", "Alchemist","HeroMountainKing" }
     for k = 1, #nameOfTalons do
         local TableTalon = GlobalTalons[data.pid][nameOfTalons[k]]
         for i = 1, #TableTalon do

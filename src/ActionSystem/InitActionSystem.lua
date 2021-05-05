@@ -186,9 +186,9 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                     if dataPoint2.CurrentReward == reward and tempTable[i] ~= tempUnit then
                         local temTableReward = PreViewIcon
                         if temTableReward then
-                            local pos2remove=FinPosInTable(temTableReward, reward)
-                            if pos2remove>#temTableReward then
-                                print("Error",#temTableReward,pos2remove)
+                            local pos2remove = FinPosInTable(temTableReward, reward)
+                            if pos2remove > #temTableReward then
+                                print("Error", #temTableReward, pos2remove)
                             else
                                 table.remove(temTableReward, pos2remove) --FIXME иногда бывает ощибка на эту строку
                             end
@@ -557,8 +557,19 @@ function CreateEActions()
 
             end
             if data.UseAction == "NoWorking" then
-                local message = L("Я здесь не для отдыха", "I'm not here to rest")
-                CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                local rm = {
+                    L("Я здесь не для отдыха", "I'm not here to rest"),
+                    L("Кусты - не мой фетиш", "Bushes are not my fetish"),
+                    L("А колу там не прячут?", "And they don't hide the coke there?"),
+                    L("Куст каждому пеону зелёный", "The bush is green for every Peon"),
+                    L("Это не дерево!", "It's not a tree!"),
+                    L("Я ещё не устал для такого отдыха", "I'm not tired yet for this vacation"),
+                    L("Золота там не замечу", "I won't see any gold there"),
+                    L("Он пустой!", "It's empty!"),
+                    L("Выглядит как неплохая маскировка", "It looks like a good disguise"),
+                    L("Колется!", "Ouch, it really stings"),
+                }
+                CreateInfoBoxForAllPlayerTimed(data, rm[GetRandomInt(1, #rm)], 3)
                 data.Completed = true
                 data.DoAction = false
                 data.UseAction = ""
@@ -856,10 +867,10 @@ function CreateEActions()
                     end
                 end
 
-                if data.UseAction == "Alchemist" then
+                if data.UseAction == "Alchemist" then --TODO перевод
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
-                            L("Я вижу ты тут главное", ""),
+                            L("Я вижу ты тут главный", ""),
                             L("Изучаю алхимию", ""),
                             L("Готов превращать всё в золото", ""),
                             L("Как бы самом не превратится в золото", ""),
@@ -934,7 +945,7 @@ function CreateEActions()
                 if data.UseAction == "Cheese" then
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
-                            L("Я вижу ты тут главное", ""),
+                            L("Я вижу ты тут главный", ""),
                             L("Изучаю алхимию", ""),
                             L("Готов превращать всё в золото", ""),
                             L("Как бы самом не превратится в золото", ""),
@@ -950,6 +961,33 @@ function CreateEActions()
                             CreateDialogTalon("Cheese")
                             --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
                             --активация всех переходов
+                        end)
+                        data.DoAction = false
+                        data.UseAction = ""
+                        data.ShowActionWindows = false
+                        KillUnit(data.EPointUnit)
+                        if dataPoint.TalonPrice > 0 then
+                            normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", GetUnitXY(data.UnitHero))
+                            AddGold(data, -dataPoint.TalonPrice)
+                        end
+                    else
+                        normal_sound("Sound\\Interface\\Error", GetUnitXY(data.UnitHero))
+                    end
+                end
+
+                if data.UseAction == "HeroMountainKing" then
+                    if data.gold >= dataPoint.TalonPrice then
+                        local message = {
+                            L("Сила молотов", ""),
+                            L("Изучаю кузнечное дело", ""),
+
+                        }
+                        CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
+                        data.Completed = true
+                        AllActionsEnabled(true)
+                        TimerStart(CreateTimer(), 1, false, function()
+                            DestroyGodTalon(dataPoint.TripleTalon)
+                            CreateDialogTalon("HeroMountainKing")
                         end)
                         data.DoAction = false
                         data.UseAction = ""
@@ -1161,17 +1199,8 @@ function CreateEActions()
                     if data.DeathFountain then
                         --print("заражаем фонтан")
                         local x, y = GetUnitXY(data.EPointUnit)
-                        for i = 1, 12 do
-                            local eff = AddSpecialEffect("Doodads\\Terrain\\CliffDoodad\\Waterfall\\Waterfall", x, y)
-                            BlzSetSpecialEffectYaw(eff, math.rad(-180 + 30 * i))
-                            BlzSetSpecialEffectColor(eff, 255, 0, 0)
-                            BlzSetSpecialEffectScale(eff, 0.5)
-                        end
                         KillUnit(data.EPointUnit)
-                        AddMaxLife(data.UnitHero, 25)
-                        TimerStart(CreateTimer(), 2, true, function()
-                            UnitDamageArea(data.UnitHero, data.DamageOfFountain, x, y, 500, "Blood")
-                        end)
+                        CreateBloodFountain(data, x, y)
                     end
                 else
                     -- print("Фонтан ещё не готов")
