@@ -212,7 +212,7 @@ function InitWASD(hero)
                 --print("death")
                 SetUnitAnimation(data.UnitHero, "death")
                 if data.BloodFountainPreDeath then
-                    CreateBloodFountain(data,GetUnitXY(data.UnitHero))
+                    CreateBloodFountain(data, GetUnitXY(data.UnitHero))
                 end
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
@@ -428,7 +428,7 @@ function InitWASD(hero)
                     end
                 end
 
-                if data.IsMoving then
+                if data.IsMoving and not UnitHasBow(hero) then
                     -- двигается
                     data.DirectionMove = angle
 
@@ -473,7 +473,7 @@ function InitWASD(hero)
                             if data.CurrentWeaponType == "pickaxe" then
                                 ResetUnitAnimation(hero) -- сборс в положении стоя
                             end
-                            if data.CurrentWeaponType == "shield" then
+                            if data.CurrentWeaponType == "shield" or data.CurrentWeaponType == "bow" then
                                 if data.PressSpin then
                                     SetUnitAnimationByIndex(hero, 23)
                                 else
@@ -510,11 +510,13 @@ function InitWASD(hero)
                         --длительность анимации WALK
                         --print(animWalk)
                         if data.CurrentWeaponType == "pickaxe" then
-                            ResetUnitAnimation(hero) -- сборс в положении стоя
+                            ResetUnitAnimation(hero) -- сброс в положении стоя
                         end
-                        if data.CurrentWeaponType == "shield" then
+                        if data.CurrentWeaponType == "shield" or data.CurrentWeaponType == "bow" then
                             if data.PressSpin then
-                                SetUnitAnimationByIndex(hero, 23)
+                                if data.CurrentWeaponType == "shield" then
+                                    SetUnitAnimationByIndex(hero, 23)
+                                end
                             else
                                 ResetUnitAnimation(hero)
                             end
@@ -567,7 +569,10 @@ function CreateWASDActions()
                 end
 
                 data.animStand = 1.8 --до полной анимации 2 секунды
-                SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                if not LockAnimAnimation(data) then
+                    SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+
+                end
             end
 
         end
@@ -605,8 +610,9 @@ function CreateWASDActions()
                 if data.ReleaseS and data.ReleaseA then
                     data.DirectionMove = 270 - 45
                 end
-
-                SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                if not LockAnimAnimation(data) then
+                    SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                end
 
             end
         end
@@ -670,7 +676,10 @@ function CreateWASDActions()
                 data.animStand = 1.8 --до полной анимации 2 секунды
                 data.DirectionMove = 180
                 UnitAddForceSimple(data.UnitHero, 180, 5, 15)
-                SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                if not LockAnimAnimation(data) then
+                    SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+
+                end
             end
         end
     end)
@@ -966,18 +975,49 @@ function CreateWASDActions()
                     --Charge(data)
                 end
 
-                if not data.SpaceForce then
+                if not data.SpaceForce or data.CurrentWeaponType == "bow" then
                     if not data.ReleaseCTRL then
                         if data.CurrentWeaponType == "pickaxe" then
                             attackPickAxe(data)
                         end
                         if data.CurrentWeaponType == "shield" then
-                            UnitAddAbility(data.UnitHero, FourCC("A004")) -- замедление, к сожалению ломает скорость атаки
+                            UnitAddAbility(data.UnitHero, FourCC("A004")) -- замедление, к сожалению ломает скорость атаки (??? нет)
                             if not data.tasks[2] then
                                 data.tasks[2] = true
                                 --print("Первый раз сделал блокировку щитом")
                             end
-                            --attackShield(data)
+                        end
+                        if data.CurrentWeaponType == "bow" and not data.BowError then
+                            --print("активация стойки атаки с луком")
+                            data.BowReady = true
+
+                            --CreateArrowImages(data, 90)
+                            CreateArrowImages(data, -90)
+                            CreateArrowImages(data, 90)
+
+                            local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                            SetUnitFacing(data.UnitHero, angle)
+                            SetUnitAnimationByIndex(data.UnitHero, 29)
+                            local sec = 0
+                            data.BowError=true
+                            TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
+                                sec = sec + TIMER_PERIOD64
+
+                                if data.PressSpin then
+                                    if sec > 0.4 then
+                                        SetUnitTimeScale(data.UnitHero, 0)
+                                        data.ReadyToShot = true
+                                       -- print("полностью готов для стрельбы")
+                                        data.BowError=false
+                                        DestroyTimer(GetExpiredTimer())
+                                    end
+                                else
+                                    data.BowError=false
+                                   -- print("отпущено раньше времени")
+                                    DestroyTimer(GetExpiredTimer())
+                                end
+
+                            end)
                         end
                     else
                         CreateForUnitWayToPoint(data.UnitHero, BlzGetTriggerPlayerMouseX(), BlzGetTriggerPlayerMouseY())
@@ -985,10 +1025,18 @@ function CreateWASDActions()
                 else
                     --if data.DashCharges>0
                     if not data.AttackInForce then
-                        SetUnitAnimationByIndex(data.UnitHero, 9) --стойка вытянут топор
+                        if data.CurrentWeaponType == "pickaxe" then
+                            SetUnitAnimationByIndex(data.UnitHero, 9) --стойка вытянут топор
+
+                        end
                         if data.CurrentWeaponType == "shield" then
                             SetUnitAnimationByIndex(data.UnitHero, 24) --идти с щитом во время удара в рывке
                         end
+
+                        if data.CurrentWeaponType == "bow" then
+                           -- print("начинаем заряжать стрельбу в рывке")
+                        end
+
                         data.AttackInForce = true
                         if not data.tasks[6] then
                             data.tasks[6] = true
@@ -1057,6 +1105,20 @@ function CreateWASDActions()
                 end
                 data.PressShieldSec = 0
             end
+            if data.CurrentWeaponType == "bow" then
+                if data.BowReady then
+                    --print("старт выстрела")
+                    if data.ReadyToShot then
+                        attackBow(data) -- выстрел из лука
+                    else
+                        data.BowReady = false
+                        --data.ReadyToShot = false
+                        ResetUnitAnimation(data.UnitHero) --FIXME событие движения и проверка смерти
+                        SetUnitTimeScale(data.UnitHero, 1)
+                        --print("обрыв, тетива не натянута")
+                    end
+                end
+            end
         end
     end)
     -----------------------------------------------------------------RMB
@@ -1107,7 +1169,7 @@ function CreateWASDActions()
                 end)
             end
 
-            if UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and data.ThrowCharges > 0 and not (data.CurrentWeaponType == "shield" and data.PressSpin) then
+            if UnitAlive(data.UnitHero) and not data.ReleaseRMB and not data.ReleaseQ and (data.ThrowCharges > 0 or data.OverChargeThrow) and not (data.CurrentWeaponType == "shield" and data.PressSpin) then
                 --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
                 if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
                     -- not data.isAttacking  and -- убрал атаку у щита
@@ -1115,58 +1177,73 @@ function CreateWASDActions()
                     --print("попытка выстрела")
                     data.ReleaseRMB = true
                     data.animStand = 1.8
-                    SetUnitAnimationByIndex(data.UnitHero, 2)-- анимация броска из левой руки
+
+                    local effModel = "Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl"
+                    local speed = 50
+                    local maxDist = 1000
+                    local delay = 0
                     local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), GetPlayerMouseX[pid], GetPlayerMouseY[pid]) / bj_DEGTORAD
+                    local xs, ys = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 40, angle)
+
+                    SetUnitAnimationByIndex(data.UnitHero, 2)-- анимация броска из левой руки
+
                     SetUnitFacing(data.UnitHero, angle)
                     TimerStart(CreateTimer(), 0.38, false, function()
-
                         data.ReleaseRMB = false
-
                     end)
 
-                    TimerStart(CreateTimer(), 0.3, false, function()
-                        --print("выстрел")
-                        if not data.tasks[4] then
-                            data.tasks[4] = true
-                            --print("Первый раз бросил молот")
-                        end
+                    if data.OverChargeThrow and data.ThrowCharges == 0 then
+                        --print("бросок в игнор кд")
+                        if data.OverChargeThrow > 0 then
+                            data.OverChargeThrow = data.OverChargeThrow - 1
+                            BlzFrameSetText(data.OverChargeThrowFH, R2I(data.OverChargeThrow))
+                            TimerStart(CreateTimer(), 0.3, false, function()
+                                CreateAndForceBullet(data.UnitHero, angle, 50, effModel, xs, ys, data.DamageThrow, maxDist, delay)
+                            end)
 
-                        data.ThrowCharges = data.ThrowCharges - 1
-                        if data.ThrowCharges == 0 then
-                            StartFrameCD(data.ThrowChargesReloadSec, data.ThrowChargesCDFH)
                         end
-                        BlzFrameSetText(data.ThrowChargesFH, data.ThrowCharges)
+                    end
+                    if data.ThrowCharges > 0 then
+                        TimerStart(CreateTimer(), 0.3, false, function()
+                            -- настоящий выстрел
+                            --print("выстрел")
+                            if not data.tasks[4] then
+                                data.tasks[4] = true
+                                --print("Первый раз бросил молот")
+                            end
 
-                        TimerStart(CreateTimer(), data.ThrowChargesReloadSec, false, function()
-                            data.ThrowCharges = data.ThrowCharges + 1
+                            data.ThrowCharges = data.ThrowCharges - 1
+                            if data.ThrowCharges == 0 then
+                                StartFrameCD(data.ThrowChargesReloadSec, data.ThrowChargesCDFH)
+                            end
                             BlzFrameSetText(data.ThrowChargesFH, data.ThrowCharges)
+
+                            TimerStart(CreateTimer(), data.ThrowChargesReloadSec, false, function()
+                                data.ThrowCharges = data.ThrowCharges + 1
+                                BlzFrameSetText(data.ThrowChargesFH, data.ThrowCharges)
+                            end)
+
+                            if data.isSpined then
+                                --  print("Бросок молота ветра")
+
+                                if not data.tasks[9] then
+                                    data.tasks[9] = true
+                                    --print("Первый раз бросил молот ветра")
+                                end
+                                effModel = "Hive\\Culling Slash\\Culling Slash\\Culling Slash"
+                                speed = 70
+                                maxDist = 2000
+                                delay = maxDist / 2
+                            end
+
+                            CreateAndForceBullet(data.UnitHero, angle, speed, effModel, xs, ys, data.DamageThrow, maxDist, delay)
+                            if data.isSpined and data.CrestFire then
+                                for i = 1, data.CrestFire do
+                                    CreateAndForceBullet(data.UnitHero, GetRandomInt(0, 360), speed / 2, effModel, xs, ys, data.DamageThrow, maxDist / 4, delay)
+                                end
+                            end
                         end)
-
-                        local xs, ys = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 40, angle)
-                        local effModel = "Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl"
-                        local speed = 50
-                        local maxDist = 1000
-                        local delay = 0
-                        if data.isSpined then
-                            --  print("Бросок молота ветра")
-
-                            if not data.tasks[9] then
-                                data.tasks[9] = true
-                                --print("Первый раз бросил молот ветра")
-                            end
-                            effModel = "Hive\\Culling Slash\\Culling Slash\\Culling Slash"
-                            speed = 70
-                            maxDist = 2000
-                            delay = maxDist / 2
-                        end
-
-                        CreateAndForceBullet(data.UnitHero, angle, speed, effModel, xs, ys, data.DamageThrow, maxDist, delay)
-                        if data.isSpined and data.CrestFire then
-                            for i=1,data.CrestFire do
-                                CreateAndForceBullet(data.UnitHero, GetRandomInt(0,360), speed/2, effModel, xs, ys, data.DamageThrow, maxDist/4, delay)
-                            end
-                        end
-                    end)
+                    end
                 end
 
                 if data.ReleaseLMB then
@@ -1238,12 +1315,6 @@ function BlockMouse(data)
         end
     end)
 end
---gkm=0
-
-
-
-
-
 
 function GetUnitData(hero)
     local data = nil
@@ -1253,4 +1324,8 @@ function GetUnitData(hero)
         print("Ошибка при использовании таблицы HERO")
     end
     return data
+end
+
+function LockAnimAnimation(data)
+    return data.BowReady
 end

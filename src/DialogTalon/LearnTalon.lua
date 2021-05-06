@@ -392,6 +392,9 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 AddLife(data, talon.icon)
             end)
         end
+        if pos == 12 then
+            data.HealForHeart = true
+        end
     end
     if godName == "HeroBeastMaster" and talon.level == 1 then
         if not data.BeastCountTalon then
@@ -701,8 +704,10 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
     end
     if godName == "HeroMountainKing" and talon.level == 1 then
         local tt, CdFH = nil, nil
-        tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
-        UpdateTalonDescriptionForFrame(talon, tt)
+        if pos ~= 5 then
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+        end
 
         if pos == 1 then
             data.AutoQCDFH = CdFH
@@ -726,6 +731,23 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         end
         if pos == 4 then
             data.KnockRMB = true
+        end
+
+        if pos == 5 then
+            data.OverChargeThrow = talon.DS[talon.level] --100
+            tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil, "OverChargeThrow")
+            UpdateTalonDescriptionForFrame(talon, tt)
+
+            ActLvl23Action(talon, function()
+                data.OverChargeThrow = data.OverChargeThrow + 100
+                BlzFrameSetText(data.OverChargeThrowFH, R2I(data.OverChargeThrow))
+            end)
+        end
+        if pos == 6 then
+            data.AvatarSkin = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.AvatarSkin = talon.DS[talon.level]
+            end)
         end
 
     end

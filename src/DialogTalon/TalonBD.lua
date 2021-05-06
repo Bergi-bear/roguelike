@@ -897,7 +897,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
-                            DS = { 15, 30, 50 },
+                            DS = { 30, 50, 70 },
                             pos = 2
                         }),
                         Talon:new({--3

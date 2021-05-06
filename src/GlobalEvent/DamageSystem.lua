@@ -124,6 +124,15 @@ function OnPostDamage()
         -- orientation - ориентация сектора в мировых координатах
         -- width - угловой размер сектора в градусах
         -- radius - окружности которой принадлежит сектор
+        if data.AvatarSkin then
+            local maxHP=BlzGetUnitMaxHP(target)
+            local amount=(maxHP*data.AvatarSkin)/100
+            if GetEventDamage()>amount then
+                print("урон сокращен до",amount)
+                BlzSetEventDamage(amount)
+            end
+        end
+
         if data.BloodSlow then
             local _,_,_,all=UnitDamageArea(target,50,xe,ye,250)
             for i=1,#all do

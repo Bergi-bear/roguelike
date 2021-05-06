@@ -23,7 +23,11 @@ end
 function AddMaxLife(hero, amount)
     local maxHP = BlzGetUnitMaxHP(hero)
     if IsUnitType(hero,UNIT_TYPE_HERO) then
-        amount=R2I(amount*GetUnitData(hero).MaxLifeBonus)
+        local data=GetUnitData(hero)
+        amount=R2I(amount*data.MaxLifeBonus)
+        if data.HealForHeart then
+            HealUnit(hero,maxHP)
+        end
     end
 
     BlzSetUnitMaxHP(hero, maxHP + amount)

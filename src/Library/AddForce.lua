@@ -12,7 +12,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         onForces[GetHandleId(hero)] = true
         --print("первый раз")
     end
-    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero) ~= FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") and GetUnitAbilityLevel(hero, FourCC("Beng")) == 0 then
+    if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and GetUnitTypeId(hero) ~= FourCC("nglm") and not IsUnitType(hero, UNIT_TYPE_FLYING) and (onForces[GetHandleId(hero)] or flag == "ignore") and GetUnitAbilityLevel(hero, FourCC("Beng")) == 0 and not UnitHasBow(hero) then
         onForces[GetHandleId(hero)] = false
         local m = 0
         --print("1")
@@ -198,8 +198,13 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
 
                     if data.IsMoving then
                         --print("закончил рывок")
+
                         if UnitAlive(data.UnitHero) then
-                            SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                            if data.BowReady then-- data.CurrentWeaponType ~= "bow" then
+                                --SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                            else
+                                SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+                            end
                         end
                     end
                     data.ResetSeriesTime = 0
@@ -250,4 +255,17 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             end
         end)
     end
+end
+
+function UnitHasBow(hero)
+    local has = false
+    if IsUnitType(hero, UNIT_TYPE_HERO) then
+        if HERO[GetPlayerId(GetOwningPlayer(hero))] then
+            has = GetUnitData(hero).BowReady
+            if has then
+                --print("лучник не может начать идти")
+            end
+        end
+    end
+    return has
 end

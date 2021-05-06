@@ -19,7 +19,7 @@ function InitEvenDestructable()
     EnumDestructablesInRect(bj_mapInitialPlayableArea, nil, function()
         local d = GetEnumDestructable()
 
-        if GetDestructableTypeId(d) == FourCC("B004") or GetDestructableTypeId(d) == FourCC("B008") then
+        if GetDestructableTypeId(d) == FourCC("B004") or GetDestructableTypeId(d) == FourCC("B008") or GetDestructableTypeId(d) == FourCC("B00C")  then
             k = k + 1
         end
         TriggerRegisterDeathEvent(thisTrigger, d)
@@ -43,6 +43,11 @@ function InitEvenDestructable()
                 DestroyTimer(GetExpiredTimer())
             end)
         end
+        if GetDestructableTypeId(d) == FourCC("B00C") then
+            local new = CreateUnit(Player(10), FourCC("n003"), GetDestructableX(d), GetDestructableY(d), 0)
+            FlyTextTagCriticalStrike(new, L("Потушено", "Fire is out"), GetOwningPlayer(new),true)
+        end
+
 
     end)
     --print("Всего мимиков будет:"..k)

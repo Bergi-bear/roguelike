@@ -124,7 +124,9 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                     -- width - угловой размер сектора в градусах
                     -- radius - окружности которой принадлежит сектор
 
-                    if IsPointInSector(x, y, xe, ye, GetUnitFacing(DamagingUnit), 90, 200) or IsPointInSector(x, y, xe, ye,data.OrbitalShieldAngle, 90, 200)  then
+                    if IsPointInSector(x, y, xe, ye, GetUnitFacing(DamagingUnit), 90, 200) or (data.OrbitalShieldAngle and function()
+                        return IsPointInSector(x, y, xe, ye, data.OrbitalShieldAngle, 90, 200)
+                    end) then
 
                         if not data.DestroyMissile then
                             FlyTextTagShieldXY(xe, ye, L("Отбит", "Parry"), GetOwningPlayer(data.UnitHero))
@@ -179,18 +181,18 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
         if not reverse and delay <= 0 and (dist > maxDistance or CollisionEnemy or CollisisonDestr or IsUnitType(DamagingUnit, UNIT_TYPE_STRUCTURE) or PerepadZ > 20) then
             if CollisisonDestr then
                 --print("попал в стену")
-                if effectmodel=="Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl" then
-                   -- print("в стену молот")
-                    if IsUnitType(hero,UNIT_TYPE_HERO) then
-                        local data=GetUnitData(hero)
+                if effectmodel == "Abilities\\Weapons\\GryphonRiderMissile\\GryphonRiderMissile.mdl" then
+                    -- print("в стену молот")
+                    if IsUnitType(hero, UNIT_TYPE_HERO) then
+                        local data = GetUnitData(hero)
                         if data.BlastDamage then
-                            local eff=AddSpecialEffect("Abilities\\Weapons\\GyroCopter\\GyroCopterMissile.mdl",nx, ny)
-                            BlzSetSpecialEffectScale(eff,0.1)
-                            TimerStart(CreateTimer(), 1/32, false, function()
-                                BlzSetSpecialEffectScale(eff,3)
+                            local eff = AddSpecialEffect("Abilities\\Weapons\\GyroCopter\\GyroCopterMissile.mdl", nx, ny)
+                            BlzSetSpecialEffectScale(eff, 0.1)
+                            TimerStart(CreateTimer(), 1 / 32, false, function()
+                                BlzSetSpecialEffectScale(eff, 3)
                                 DestroyEffect(eff)
                             end)
-                            UnitDamageArea(hero,data.BlastDamage,nx,ny,300)
+                            UnitDamageArea(hero, data.BlastDamage, nx, ny, 300)
                             --print("взрыв")
                         end
                     end
@@ -203,11 +205,10 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
             UnitDamageArea(heroCurrent, damage, x, y, CollisionRange, flag) -- УРОН ПРИ ПОПАДАНИИ
             if DamagingUnit and IsUnitType(heroCurrent, UNIT_TYPE_HERO) then
-                local data=GetUnitData(heroCurrent)
+                local data = GetUnitData(heroCurrent)
                 if data.KnockRMB then
-                    UnitAddForceSimple(DamagingUnit,angleCurrent,speed,300,nil,heroCurrent)
+                    UnitAddForceSimple(DamagingUnit, angleCurrent, speed / 4, 300, nil, heroCurrent)
                 end
-
             end
             DestroyEffect(bullet)
             DestroyTimer(GetExpiredTimer())
@@ -216,7 +217,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                     --print("щит возвращается обратно")
                     GetUnitData(hero).ReversShield = true
                     if DamagingUnit then
-                        normal_sound("Abilities\\Weapons\\Axe\\AxeMissile"..GetRandomInt(1,2),GetUnitXY(GetUnitData(hero).UnitHero))
+                        normal_sound("Abilities\\Weapons\\Axe\\AxeMissile" .. GetRandomInt(1, 2), GetUnitXY(GetUnitData(hero).UnitHero))
                     end
                     angle = AngleBetweenXY(x, y, GetUnitX(hero), GetUnitY(hero)) / bj_DEGTORAD
                     local new = CreateAndForceBullet(hero, angle, 60, "stoneshild", x, y, 200, 1200, 1200)
@@ -233,7 +234,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             if HERO[GetPlayerId(GetOwningPlayer(hero))] then
                 local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
                 --print("0")
-                if data.Rebound and effectmodel~="stoneshild" then
+                if data.Rebound and effectmodel ~= "stoneshild" then
                     --print("1")
                     local find = FindAnotherUnit(DamagingUnit, data)
                     if find then

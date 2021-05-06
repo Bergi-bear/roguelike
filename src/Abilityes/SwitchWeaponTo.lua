@@ -21,20 +21,26 @@ function SwitchWeaponTo(data, newWeapon)
             CreateUniversalFrame(x, y, size, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
             data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
         end
+        if newWeapon == "bow" then
+            --data.StarTime2Spin=0.02
+            --CreateUniversalFrame(x, y, size, AbilityDescriptionRus[7], L("Удар щитом", "Shield strike"), data, "ReplaceableTextures\\CommandButtons\\BTNThoriumArmor.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "attackNormalShield")
+            --CreateUniversalFrame(x, y, size, AbilityDescriptionRus[6], L("Разбег", "Scatter"), data, "ReplaceableTextures\\CommandButtons\\BTNFragmentationBombs.blp", nil, "SystemGeneric\\DDSSymbols\\lmb", "shieldDash")
+            data.EffInLeftHand = AddSpecialEffectTarget("SimpleBow", data.UnitHero, "hand, left")
+        end
 
         --AllCompletedForPlayer(data.pid)
 
         if not data.FirstShowLearn then
             CreateTaskForPlayer(data)
-            data.FirstShowLearn=true
+            data.FirstShowLearn = true
         else
             AllCompletedForPlayer(data.pid)
         end
 
     else
         if not data.OnceTips then
-            print(L("Переключение оружия следует делать без изученных талантов, начните игру заново","Switching weapons should be done without the learned talents, start the game again"))
-            data.OnceTips=true
+            print(L("Переключение оружия следует делать без изученных талантов, начните игру заново", "Switching weapons should be done without the learned talents, start the game again"))
+            data.OnceTips = true
         end
     end
 end

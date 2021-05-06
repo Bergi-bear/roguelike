@@ -350,9 +350,7 @@ function ShieldHit(data, cdAttack)
                     local amount = (BlzGetUnitMaxHP(data.UnitHero) / 100) * 2
                     HealUnit(data.UnitHero, amount)
                 end
-
                 if data.ChaosSpinOnAttackCDFH then
-
                     if data.ChaosSpinOnAttackCurrentCD <= 0 then
                         --print("условия выполнены")
                         --print("Вращение при ударе")
@@ -363,12 +361,30 @@ function ShieldHit(data, cdAttack)
                             data.ChaosSpinOnAttackCurrentCD = 0
                         end)
                     end
-
-
                 end
-
             end
-
         end
     end)
+end
+
+function attackBow(data)
+    local hero = data.UnitHero
+    local x, y = GetUnitXY(hero)
+    local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+    TimerStart(CreateTimer(), 0.2, false, function()
+        data.BowReady = false -- лук не готов для стрельбы
+        data.ReadyToShot=false
+        SetUnitTimeScale(data.UnitHero, 1) --возврат скорости
+        if UnitAlive(data.UnitHero) then
+            if data.IsMoving then
+                SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
+            else
+                ResetUnitAnimation(data.UnitHero)
+                --print("reset")
+            end
+        end
+    end)
+
+
+    CreateAndForceBullet(hero, angle, 40, "Abilities\\Weapons\\Arrow\\ArrowMissile.mdl", x-32, y-32, 100, 1000)
 end

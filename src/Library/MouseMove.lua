@@ -22,6 +22,13 @@ function InitMouseMoveTrigger()
             else
                 GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
                 GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
+                if HERO[id] then
+                    local data=HERO[id]
+                    if data.BowReady then
+                        local angle=AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero),BlzGetTriggerPlayerMouseX(),BlzGetTriggerPlayerMouseY()) / bj_DEGTORAD
+                        SetUnitFacing(data.UnitHero,angle)
+                    end
+                end
             end
 
         else

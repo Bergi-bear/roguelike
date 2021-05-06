@@ -141,12 +141,16 @@ function PlayUnitAnimationFromChat()
             SwitchWeaponTo(data, "pickaxe")
             return
         end
+        if GetEventPlayerChatString() == "ar" or GetEventPlayerChatString() == "фк" then
+            SwitchWeaponTo(data, "bow")
+            return
+        end
         if GetEventPlayerChatString() == "сыр" or GetEventPlayerChatString() == "Cheese" then
             local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateGodTalon(x, y, "Cheese")
             return
         end
-        if GetEventPlayerChatString() == "k" or GetEventPlayerChatString() == "Л" then
+        if GetEventPlayerChatString() == "k" or GetEventPlayerChatString() == "л" then
             local x, y = GetUnitXY(HERO[GetPlayerId(GetTriggerPlayer())].UnitHero)
             CreateGodTalon(x, y, "HeroMountainKing")
             return

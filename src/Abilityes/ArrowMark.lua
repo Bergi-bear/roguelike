@@ -4,12 +4,13 @@
 --- DateTime: 10.04.2021 22:06
 ---
 
-function CreateArrowToShieldDash(data, MA)
+function CreateArrowImages(data, MA)
+    --print("создаём", MA)
     local img = {}
     --local range = 150
     local xs, ys = data.fakeX, data.fakeY
     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-    local range = 400
+    local range = 1000
     local x, y = GetUnitXY(data.UnitHero)
     local size = 128
     local k = range / 4
@@ -23,49 +24,29 @@ function CreateArrowToShieldDash(data, MA)
 
     local curAngle = angle
     local d = 0
-
+    local sec=0
+    local m=0
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
         curAngle = lerpTheta(curAngle, angle, TIMER_PERIOD * 8)
 
-        if not data.ArrowToShieldDashVisible then
+        if not data.BowReady then
             --print("маркер уничтожен")
             DestroyTimer(GetExpiredTimer())
             DestroySplatTable(img)
         end
-
-        x, y = GetUnitXY(data.UnitHero) -- центр юнита
-        d = d + 0.8
-        if MA ~= 0 then
-            x, y = MoveXY(x, y, 40, curAngle + MA)
-            local V=-1
-            if MA<=0 then
-                V=1
-            end
-            --print(d)
-            for i = 1, k do
-                if i <= d then
-                    x, y = MoveXY(x, y, 4, curAngle+V*i/9)
-                    SetImagePosition(img[i], x, y, 0)
-                else
-                    SetImagePosition(img[i], OutPoint, OutPoint, 0)
-                end
-            end
-        else --временно убрал
-            x, y = MoveXY(x, y, 100, curAngle + 90)
-            --print(d)
-            for i = 1, k do
-                --x, y = MoveXY(x, y, 4, curAngle)
-                if i <= 40 then
-                    x, y = MoveXY(x, y, 4, curAngle-90)
-                    --local nx,ny=MoveXY(x,y,4,curAngle-90)
-                    SetImagePosition(img[i], x, y, 0)
-                else
-                    SetImagePosition(img[i], OutPoint, OutPoint, 0)
-                end
-            end
-
+        sec=sec+TIMER_PERIOD64
+        m=m+1
+        x, y = GetUnitX(data.UnitHero)-32,GetUnitY(data.UnitHero)-32-- центр юнита
+        if sec<1 then
+           -- print(m)
+            x,y=MoveXY(x, y, 64-m, curAngle+MA) -- смещение в бок
         end
+        for i = 1, k do
+            x, y = MoveXY(x, y, 4, curAngle)
+            SetImagePosition(img[i], x, y, 0)
+        end
+
     end)
 
     return img

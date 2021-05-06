@@ -89,10 +89,6 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
         data.GoldKingFH = MakeFrameCharged(face, 0)
         --print("запускаем обновление зарядов")
         TimerStart(CreateTimer(), 1, true, function()
-            -- РЕгенерация ульты
-
-
-
             data.GoldKingCharges = data.gold // (100 / data.GoldKingBonus)
             --print(data.GoldKingBonus*100)
             if data.GoldKingCharges > data.GoldKingBonus * 100 then
@@ -100,8 +96,13 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
             end
             BlzFrameSetText(data.GoldKingFH, R2I(data.GoldKingCharges))
         end)
-
     end
+    if flag == "OverChargeThrow" then
+        --data.OverChargeThrow=100
+        data.OverChargeThrowFH=MakeFrameCharged(face, data.OverChargeThrow)
+        BlzFrameSetText(data.OverChargeThrowFH, R2I(data.OverChargeThrow))
+    end
+
     if flag == "throw" then
         data.ThrowChargesFH = MakeFrameCharged(face, data.ThrowCharges)
         data.ThrowChargesCDFH = buttonIconFrame

@@ -29,7 +29,7 @@ ActionListIndex = 1
 PreViewIcon = { -- Таблица случайных иконок которые могу быть дарами, установлены у входа
     --"HeroArchMage",
     --"HeroBloodElfPrince",
-    --"HeroMountainKing",
+    "HeroMountainKing",
     --"HeroPaladin",
     "HeroBlademaster",
     "HeroTaurenChieftain",
