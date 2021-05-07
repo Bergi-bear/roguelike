@@ -186,11 +186,11 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                     if dataPoint2.CurrentReward == reward and tempTable[i] ~= tempUnit then
                         local temTableReward = PreViewIcon
                         if temTableReward then
-                            local pos2remove = FinPosInTable(temTableReward, reward)
+                            local pos2remove = FinPosInTable(temTableReward, reward)--FIXME иногда бывает ощибка на эту строку
                             if pos2remove > #temTableReward then
                                 print("Error", #temTableReward, pos2remove)
                             else
-                                table.remove(temTableReward, pos2remove) --FIXME иногда бывает ощибка на эту строку
+                                table.remove(temTableReward, pos2remove)
                             end
 
                         end
@@ -1012,9 +1012,10 @@ function CreateEActions()
                     --data.Completed = true
                     TimerStart(CreateTimer(), 1, false, function()
                         DestroyGodTalon(dataPoint.TripleTalon)
-                        AllActionsEnabled(true)--активация всех переходов
+
                         local x, y = GetUnitXY(dataPoint.Unit)
                         CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal")
+                        AllActionsEnabled(true)--активация всех переходов
                     end)
                     data.DoAction = false
                     data.UseAction = ""

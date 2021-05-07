@@ -26,6 +26,7 @@ function CreateArrowImages(data, MA)
     local d = 0
     local sec=0
     local m=0
+    data.ArrowStr=0
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
         curAngle = lerpTheta(curAngle, angle, TIMER_PERIOD * 8)
@@ -36,10 +37,12 @@ function CreateArrowImages(data, MA)
             DestroySplatTable(img)
         end
         sec=sec+TIMER_PERIOD64
-        m=m+1
+        m=m+2
         x, y = GetUnitX(data.UnitHero)-32,GetUnitY(data.UnitHero)-32-- центр юнита
-        if sec<1 then
+        if sec<0.5 then
            -- print(m)
+            data.ArrowStr=data.ArrowStr+0.5
+            --print(data.ArrowStr)
             x,y=MoveXY(x, y, 64-m, curAngle+MA) -- смещение в бок
         end
         for i = 1, k do

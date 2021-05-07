@@ -121,6 +121,7 @@ end
 CurrentGameZone = 1 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy црщы
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
+    GWinPercent=GWinPercent+3
     if CurrentGameZone == 1 or CurrentGameZone == 20 then
         --print("убираем обучение")
         DestroyAllLearHelpers()

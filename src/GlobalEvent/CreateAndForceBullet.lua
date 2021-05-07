@@ -93,11 +93,15 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
         end
 
-        if effectmodel == "Hive\\Culling Slash\\Culling Slash\\Culling Slash" then
+        if effectmodel == "Hive\\Culling Slash\\Culling Slash\\Culling Slash"  then
             BlzSetSpecialEffectScale(bullet, 0.001)
             local tempEff = AddSpecialEffect(effectmodel, nx, ny)
             BlzSetSpecialEffectScale(tempEff, 0.4)
             DestroyEffect(tempEff)
+            UnitDamageArea(hero, damage, x, y, 90)
+        end
+
+        if effectmodel=="Abilities\\Weapons\\ChimaeraAcidMissile\\ChimaeraAcidMissile.mdl" then
             UnitDamageArea(hero, damage, x, y, 90)
         end
 

@@ -893,48 +893,54 @@ function CreateWASDActions()
                     end
                     --print("анимация прыжка?")
                 end
-
-                if data.QJump2Pointer then
-                    --FIXED может ломать управление
-                    --if not data.ReleaseQ then
-                    --print("Q в курсор")
-
-                    StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
-                    --SpellSlashQ(data)
-                    local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-                    local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero))
-                    if dist >= 500 then
-                        dist = 500
-                    end
-                    BlzSetUnitFacingEx(data.UnitHero, angle)
-                    if data.CurrentWeaponType == "shield" then
-                        SetUnitTimeScale(data.UnitHero, 2)
-                    end
-                    UnitAddForceSimple(data.UnitHero, angle, 20, dist, "qjump")
-                    TimerStart(CreateTimer(), 5, false, function()
-                        if data.ReleaseQ then
-                            --print("выход из зависания")
-                            data.ReleaseQ = false
-                        end
-                    end)
-                    --end
-                else
-                    local castDelay = 0.35
-                    if data.CurrentWeaponType == "shield" then
-                        castDelay = 0.7
-                    end
-                    TimerStart(CreateTimer(), castDelay, false, function()
-                        --задержка перед ударом
+                if data.CurrentWeaponType == "bow" then
+                    --print("град стрел")
+                    data.ReleaseQ = false
+                    FallenArrow(data,data.fakeX, data.fakeY)
+                    StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
+                else -- другое оружие, не лук
+                    if data.QJump2Pointer  then
+                        --FIXED может ломать управление
+                        --if not data.ReleaseQ then
+                        --print("Q в курсор")
 
                         StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
-                        SpellSlashQ(data)
-                        if data.DoubleClap then
-                            TimerStart(CreateTimer(), 0.35, false, function()
-                                SpellSlashQ(data)
-                            end)
+                        --SpellSlashQ(data)
+                        local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                        local dist = DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], GetUnitX(data.UnitHero), GetUnitY(data.UnitHero))
+                        if dist >= 500 then
+                            dist = 500
                         end
-                        data.ReleaseQ = false
-                    end)
+                        BlzSetUnitFacingEx(data.UnitHero, angle)
+                        if data.CurrentWeaponType == "shield" then
+                            SetUnitTimeScale(data.UnitHero, 2)
+                        end
+                        UnitAddForceSimple(data.UnitHero, angle, 20, dist, "qjump")
+                        TimerStart(CreateTimer(), 5, false, function()
+                            if data.ReleaseQ then
+                                --print("выход из зависания")
+                                data.ReleaseQ = false
+                            end
+                        end)
+                        --end
+                    else
+                        local castDelay = 0.35
+                        if data.CurrentWeaponType == "shield" then
+                            castDelay = 0.7
+                        end
+                        TimerStart(CreateTimer(), castDelay, false, function()
+                            --задержка перед ударом
+
+                            StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
+                            SpellSlashQ(data)
+                            if data.DoubleClap then
+                                TimerStart(CreateTimer(), 0.35, false, function()
+                                    SpellSlashQ(data)
+                                end)
+                            end
+                            data.ReleaseQ = false
+                        end)
+                    end
                 end
 
 
@@ -999,7 +1005,7 @@ function CreateWASDActions()
                             SetUnitFacing(data.UnitHero, angle)
                             SetUnitAnimationByIndex(data.UnitHero, 29)
                             local sec = 0
-                            data.BowError=true
+                            data.BowError = true
                             TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
                                 sec = sec + TIMER_PERIOD64
 
@@ -1007,13 +1013,13 @@ function CreateWASDActions()
                                     if sec > 0.4 then
                                         SetUnitTimeScale(data.UnitHero, 0)
                                         data.ReadyToShot = true
-                                       -- print("полностью готов для стрельбы")
-                                        data.BowError=false
+                                        -- print("полностью готов для стрельбы")
+                                        data.BowError = false
                                         DestroyTimer(GetExpiredTimer())
                                     end
                                 else
-                                    data.BowError=false
-                                   -- print("отпущено раньше времени")
+                                    data.BowError = false
+                                    -- print("отпущено раньше времени")
                                     DestroyTimer(GetExpiredTimer())
                                 end
 
@@ -1034,7 +1040,7 @@ function CreateWASDActions()
                         end
 
                         if data.CurrentWeaponType == "bow" then
-                           -- print("начинаем заряжать стрельбу в рывке")
+                            -- print("начинаем заряжать стрельбу в рывке")
                         end
 
                         data.AttackInForce = true
@@ -1234,6 +1240,14 @@ function CreateWASDActions()
                                 speed = 70
                                 maxDist = 2000
                                 delay = maxDist / 2
+                            end
+
+                            if data.BowReady then
+                                --print("проникающий выстрел")
+                                speed = 70
+                                maxDist = 2000
+                                delay = maxDist / 2
+                                effModel = "Abilities\\Weapons\\ChimaeraAcidMissile\\ChimaeraAcidMissile.mdl"
                             end
 
                             CreateAndForceBullet(data.UnitHero, angle, speed, effModel, xs, ys, data.DamageThrow, maxDist, delay)

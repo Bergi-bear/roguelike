@@ -371,7 +371,7 @@ function attackBow(data)
     local hero = data.UnitHero
     local x, y = GetUnitXY(hero)
     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-    TimerStart(CreateTimer(), 0.2, false, function()
+    TimerStart(CreateTimer(), 0.1, false, function()
         data.BowReady = false -- лук не готов для стрельбы
         data.ReadyToShot=false
         SetUnitTimeScale(data.UnitHero, 1) --возврат скорости
@@ -384,7 +384,6 @@ function attackBow(data)
             end
         end
     end)
-
-
-    CreateAndForceBullet(hero, angle, 40, "Abilities\\Weapons\\Arrow\\ArrowMissile.mdl", x-32, y-32, 100, 1000)
+    local xs,ys=MoveXY(x,y,50,angle)
+    CreateAndForceBullet(hero, angle, data.ArrowStr*2, "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl", xs-32, ys-32, data.ArrowStr*20, data.ArrowStr*30)
 end

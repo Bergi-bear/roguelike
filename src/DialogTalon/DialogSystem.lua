@@ -74,6 +74,7 @@ function GetLearnedTalonList(data)
     --print("max=",max)
     if #ClearedTable == 0 then
         print("Нет талантов, доступных для улучшения")
+        UnitAddGold(data.UnitHero,200)
         BlzFrameSetVisible(data.DialogTalon.MainFrame, false)
         data.TalonWindowIsOpen = true
         return
@@ -179,6 +180,12 @@ function ClearDialogTalon(OriginalTable, data)
         else
             table.insert(clearedTable, talon)
         end
+        -------Если удалено слишком много, функции ниже восставливают стабильность
+        if talon.ultF and talon.level>0 and talon.level<#talon.DS  then
+            --print("восстанавливает ультмейт")
+            table.insert(clearedTable, talon)
+        end
+
     end
     return clearedTable
 end

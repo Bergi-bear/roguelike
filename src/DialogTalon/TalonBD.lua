@@ -1003,7 +1003,7 @@ do
                             tooltip = L("Используйте бросок кирки, во время вращения", ""),
                             DS = { 4, 8, 12 },
                             pos = 2,
-                            --weaponType="pickaxe"
+                            weaponType="pickaxe"
                         }),
                         Talon:new({--3
                             godName = "HeroMountainKing",
