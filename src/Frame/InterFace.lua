@@ -25,6 +25,7 @@ end
 function DrawInterFace()
     DrawSelectionPortrait()
     CreateWinPercent()
+    CreateEnemyLost()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if HERO[i] then
             CreateHPBar(HERO[i].UnitHero)
@@ -238,5 +239,23 @@ function CreateWinPercent()
     BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, Frame, FRAMEPOINT_RIGHT, 0.02, 0.0)
     TimerStart(CreateTimer(), 1, true, function()
         BlzFrameSetText(text,GWinPercent.."%%")
+    end)
+end
+GMaxOnWave=0
+GLostOnWave=0
+function CreateEnemyLost()
+    local ico = "SystemGeneric\\PentaEnemy"
+    local Frame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(Frame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(Frame, ico, 0, true)
+    BlzFrameSetSize(Frame, NextPoint / 2, NextPoint / 2)
+    BlzFrameSetAbsPoint(Frame, FRAMEPOINT_CENTER, 0.85, 0.58-(NextPoint / 2))
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", Frame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "")
+    BlzFrameSetScale(text, 2)
+    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, Frame, FRAMEPOINT_RIGHT, 0.02, 0.0)
+    TimerStart(CreateTimer(), 1, true, function()
+        BlzFrameSetText(text,GLostOnWave.."/"..GMaxOnWave)
     end)
 end

@@ -424,7 +424,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             if talon.DS[talon.level] == "bear" then
                 data.SummonBearCDFH = CdFH
                 data.SummonBearCurrentCD = 0
-                data.SummonBearCD = 60
+                data.SummonBearCD = 300
             end
             if talon.DS[talon.level] == "boar" then
                 data.SummonBoarCDFH = CdFH
@@ -434,12 +434,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             if talon.DS[talon.level] == "wolf" then
                 data.SummonWinterWolfCDFH = CdFH
                 data.SummonWinterWolfCurrentCD = 0
-                data.SummonWinterWolfCD = 60
+                data.SummonWinterWolfCD = 40
             end
             if talon.DS[talon.level] == "lizard" then
                 data.SummonLizardCDFH = CdFH
                 data.SummonLizardCurrentCD = 0
-                data.SummonLizardCD = 20
+                data.SummonLizardCD = 10
             end
         end
         if pos == 5 then
@@ -714,7 +714,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             data.AutoQCurrentCD = 0
             data.AutoQCD = talon.DS[talon.level] --10
             ActLvl23Action(talon, function()
-                data.Investor = talon.DS[talon.level]
+                data.AutoQCD = talon.DS[talon.level]
             end)
         end
         if pos == 2 then

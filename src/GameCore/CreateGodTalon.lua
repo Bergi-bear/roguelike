@@ -4,6 +4,7 @@
 --- DateTime: 19.02.2021 11:12
 ---
 LastGodTalon = {}
+AllRewardUnits = {} --юниты болванчики для предметов которые можно купить
 function CreateGodTalon(x, y, name, price)
     x = x - 16
     local r,g,b=0,0,0
@@ -20,7 +21,7 @@ function CreateGodTalon(x, y, name, price)
     local collision = CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
     local priceTag=CreateStaticGoldTag(price,x,y)
 
-    local table = {eff,pillar,collision,priceTag}
+    local tableT = {eff,pillar,collision,priceTag}
     normal_sound("Sound\\Interface\\ItemReceived",x,y)
     --if not r or not g or not b then
         r = 255
@@ -53,8 +54,9 @@ function CreateGodTalon(x, y, name, price)
     if not EnterPointTable[GetHandleId(tempUnit)] then
         EnterPointTable[GetHandleId(tempUnit)] = {}
     end
+    table.insert(AllRewardUnits,tempUnit)
     local dataPoint = EnterPointTable[GetHandleId(tempUnit)]
-    dataPoint.TripleTalon=table
+    dataPoint.TripleTalon=tableT
     dataPoint.TalonPrice=price
     dataPoint.priceTag=priceTag-- сам текстаг, для его дальнейшей правки
 
@@ -77,16 +79,33 @@ function CreateGodTalon(x, y, name, price)
     end
     ]]
 
-    LastGodTalon = table
-    return table
+    LastGodTalon = tableT
+    return tableT
 end
 
 function DestroyGodTalon(table)
+    --print("уничтожение талона")
     DestroyEffect(table[1])
     DestroyEffect(table[2])
     KillDestructable(table[3])
     DestroyTextTag(table[4])
     RemoveDestructable(table[3])
+end
+
+function DestroyGotoPoint(dataPoint)
+    DestroyEffect(dataPoint.preView)
+    dataPoint.OriginalModel = ""
+end
+
+function ClearGoodsViaExit()
+    for i=1,#AllRewardUnits do
+        local u=AllRewardUnits[i]
+        local dataPoint=EnterPointTable[GetHandleId(u)]
+        DestroyGodTalon(dataPoint.TripleTalon)
+        KillUnit(dataPoint.Unit)
+        --table.remove(AllRewardUnits,AllRewardUnits[i]) --- что то делаю не так, нельзя удалять
+       -- print("уничтожен",dataPoint.CurrentReward)
+    end
 end
 
 

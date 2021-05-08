@@ -164,6 +164,10 @@ function BossDamaged2(boss)
                 bossTakenDamage = bossTakenDamage + damage
                 if bossTakenDamage >= 100 then
                     bossTakenDamage = 0
+                    SetUnitInvulnerable(boss,true)
+                    TimerStart(CreateTimer(), 0.1, false, function()
+                        SetUnitInvulnerable(boss,false)
+                    end)
                     AreaSplashMark(boss)
                     --local angle=AngleBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero))/bj_DEGTORAD
                     --SpireCast(boss,GetUnitXY(mainHero))

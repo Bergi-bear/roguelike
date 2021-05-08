@@ -76,10 +76,12 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     end
                     if data.WallHitCount <= 2 then
                         FlyTextTagShieldXY(x, y, L("Удар о стену", "Wall hit"), GetOwningPlayer(pushing))
+                        PlayerSeeNoiseInRangeTimed(0.2,x,y)
 
                     else
                         FlyTextTagShieldXY(x, y, L("Зажат в угол", "Trapped in corner"), GetOwningPlayer(pushing), "red")
                         bonus = 1000
+                        PlayerSeeNoiseInRangeTimed(0.5,x,y)
                     end
                     data.WallHitCount = data.WallHitCount + 1
                     TimerStart(CreateTimer(), 3, false, function()
@@ -200,7 +202,8 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         --print("закончил рывок")
 
                         if UnitAlive(data.UnitHero) then
-                            if data.BowReady then-- data.CurrentWeaponType ~= "bow" then
+                            if data.BowReady then
+                                -- data.CurrentWeaponType ~= "bow" then
                                 --SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
                             else
                                 SetUnitAnimationByIndex(data.UnitHero, IndexAnimationWalk)
@@ -268,4 +271,22 @@ function UnitHasBow(hero)
         end
     end
     return has
+end
+
+function PlayerSeeNoiseInRangeTimed(duration, x,y)
+    DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", x,y))
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if PlayerIsPlaying[i] then
+            local data = HERO[i]
+            local hero = data.UnitHero
+
+            if IsUnitInRangeXY(hero,x,y,500) then
+                CameraSetEQNoiseForPlayer(GetOwningPlayer(hero), 3)
+                TimerStart(CreateTimer(), duration, false, function()
+                    CameraClearNoiseForPlayer(GetOwningPlayer(hero))
+                end)
+            end
+        end
+    end
+
 end

@@ -133,20 +133,28 @@ function Enter2NewZone(flag)
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
         if CurrentGameZone ~= 20 then
             if Destiny[CurrentGameZone] then
-                MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter, GameZone[Destiny[CurrentGameZone]].rectBound)
+
                 --StartEnemyWave(Destiny[CurrentGameZone])
                 --print("запускаем волну № ", Destiny[CurrentGameZone])
                 if not flag then
+                    MoveAllHeroAndBound(GameZone[Destiny[CurrentGameZone]].recEnter, GameZone[Destiny[CurrentGameZone]].rectBound)
                     --StartEnemyWave(DestinyEnemies[CurrentGameZone]) --случайные волны
                     StartEnemyWave(CurrentGameZone) --волны по порядку CurrentGameZone
+                    ClearGoodsViaExit()
                     --StartEnemyWave(401) -- Босс обсидиановых статуй
                 end
                 if flag == "Merchant" then
                     --print("Создаём торговца и предметы для торговли") --TODO
-                    AllActionsEnabled(true)
-                    local x = GetRectCenterX(GameZone[Destiny[CurrentGameZone]].rectSpawn)
-                    local y = GetRectCenterY(GameZone[Destiny[CurrentGameZone]].rectSpawn)
+                    CurrentGameZone = CurrentGameZone-1 --с этим надо очень акуратно
+                    MoveAllHeroAndBound(gg_rct_MerchantE1, gg_rct_MerchantB1)
+                    local x = 12981
+                    local y = -6569 --GetRectCenterY(GameZone[Destiny[CurrentGameZone]].rectSpawn)
                     CreateMerchantAndGoods(x, y)
+                    --print("Переход в зону с магазином")
+                    AllActionsEnabled(true)
+                    TimerStart(CreateTimer(), 3, false, function()
+                        AllActionsEnabled(true)
+                    end)
                 end
                 --StartEnemyWave(5)
             else
@@ -811,6 +819,8 @@ function StartWave(dataGZ, listID, max)
     end
 
     local MaxOnWave = #listID
+    GMaxOnWave=MaxOnWave
+    GLostOnWave=MaxOnWave
     LiveOnWave = 0
     --CurrentOnWave=max
     local k = 1
@@ -954,6 +964,7 @@ function CreateCreepDelay(id, x, y, delay, flag, angle)
                 if not UnitAlive(new) then
                     DestroyTimer(GetExpiredTimer())
                     LiveOnWave = LiveOnWave - 1
+                    GLostOnWave=GLostOnWave-1
                 end
                 --print(LiveOnWave[k])
             end)

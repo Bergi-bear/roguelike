@@ -551,7 +551,22 @@ function CreateWASDActions()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
         --print("W "..GetUnitName(data.UnitHero))
+
+
+
         if not data.ReleaseW and UnitAlive(data.UnitHero) then
+
+
+            if data.wFast then
+                UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
+            end
+            data.wFast = true
+            TimerStart(CreateTimer(), 0.1, true, function()
+                data.wFast = false
+            end)
+
+
+
             --and not data.isAttacking
             data.ReleaseW = true
             --print("W2")
@@ -597,6 +612,14 @@ function CreateWASDActions()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
         if not data.ReleaseS and UnitAlive(data.UnitHero) then
+            if data.sFast then
+                UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
+            end
+            data.sFast = true
+            TimerStart(CreateTimer(), 0.1, true, function()
+                data.sFast = false
+            end)
+            -----
             data.ReleaseS = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.isAttacking and StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
@@ -637,6 +660,14 @@ function CreateWASDActions()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
         if not data.ReleaseD and UnitAlive(data.UnitHero) then
+            if data.dFast then
+                UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
+            end
+            data.dFast = true
+            TimerStart(CreateTimer(), 0.1, true, function()
+                data.dFast = false
+            end)
+
             data.ReleaseD = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.isAttacking and StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
@@ -669,6 +700,14 @@ function CreateWASDActions()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
         if not data.ReleaseA and UnitAlive(data.UnitHero) and StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
+            if data.aFast then
+                UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
+            end
+            data.aFast = true
+            TimerStart(CreateTimer(), 0.1, true, function()
+                data.aFast = false
+            end)
+            ---
             data.ReleaseA = true
             --SelectUnitForPlayerSingle(data.UnitHero,Player(0))
             if not data.isAttacking then
@@ -896,10 +935,11 @@ function CreateWASDActions()
                 if data.CurrentWeaponType == "bow" then
                     --print("град стрел")
                     data.ReleaseQ = false
-                    FallenArrow(data,data.fakeX, data.fakeY)
+                    FallenArrow(data, data.fakeX, data.fakeY)
                     StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
-                else -- другое оружие, не лук
-                    if data.QJump2Pointer  then
+                else
+                    -- другое оружие, не лук
+                    if data.QJump2Pointer then
                         --FIXED может ломать управление
                         --if not data.ReleaseQ then
                         --print("Q в курсор")
@@ -1342,4 +1382,14 @@ end
 
 function LockAnimAnimation(data)
     return data.BowReady
+end
+
+function WalkFast(data)
+    if data.wFast then
+        UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
+    end
+    data.wFast = true
+    TimerStart(CreateTimer(), 0.1, true, function()
+        data.wFast = false
+    end)
 end

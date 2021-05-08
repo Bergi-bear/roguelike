@@ -35,6 +35,10 @@ function OnPostDamage()
         if IsPointInSector(x, y, xe, ye, GetUnitFacing(target) - 180, 90, 200) then
             BlzSetEventDamage(damage * data.BackDamage)
             FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
+
+            local eff = AddSpecialEffect("Hive\\Coup de Grace\\noSlash\\Coup de Grace", xe, ye)
+            BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(target) ))
+            --BlzSetSpecialEffectPitch(eff, math.rad(-90))
         end
         if data.UrsaStackFH then
             UnitAddUrsaStack(target, 1)
@@ -125,18 +129,18 @@ function OnPostDamage()
         -- width - угловой размер сектора в градусах
         -- radius - окружности которой принадлежит сектор
         if data.AvatarSkin then
-            local maxHP=BlzGetUnitMaxHP(target)
-            local amount=(maxHP*data.AvatarSkin)/100
-            if GetEventDamage()>amount then
-                print("урон сокращен до",amount)
+            local maxHP = BlzGetUnitMaxHP(target)
+            local amount = (maxHP * data.AvatarSkin) / 100
+            if GetEventDamage() > amount then
+                --print("урон сокращен до",amount)
                 BlzSetEventDamage(amount)
             end
         end
 
         if data.BloodSlow then
-            local _,_,_,all=UnitDamageArea(target,50,xe,ye,250)
-            for i=1,#all do
-                SlowUnit(all[i],data.BloodSlow)
+            local _, _, _, all = UnitDamageArea(target, 50, xe, ye, 250)
+            for i = 1, #all do
+                SlowUnit(all[i], data.BloodSlow)
             end
         end
         if data.EvilSoulCDFH then
@@ -345,7 +349,7 @@ function AddDamage2Show(hero, damage)
                 end)
             end
 
-            --SetTextTagPos(data.tag,GetUnitX(hero),GetUnitY(hero),BlzGetLocalUnitZ(hero)+100)
+            SetTextTagPos(data.tag, GetUnitX(hero), GetUnitY(hero), 0)
             data.sec = data.sec + period
             if data.sec > sec2Reset then
                 data.sec = 0
@@ -377,40 +381,6 @@ function InitDamage()
         TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGED) -- После вычета брони
     end
     TriggerAddAction(DamageTrigger, OnPostDamage)
-end
-
-function UnitDamageAreaOld(u, damage, x, y, range, ZDamageSource, EffectModel)
-    local isdamage = false
-    local e = nil
-    local hero = nil
-    GroupEnumUnitsInRange(perebor, x, y, range, nil)
-    while true do
-        e = FirstOfGroup(perebor)
-        if e == nil then
-            break
-        end
-        if UnitAlive(e) and UnitAlive(u) and IsUnitEnemy(e, GetOwningPlayer(u)) and true then
-            --and IsUnitZCollision(e,ZDamageSource)  -- момент урона
-            --print("вызов проблемной функции "..GetPlayerName(GetOwningPlayer(u)).." "..GetUnitName(u).." "..damage)
-            if EffectModel ~= nil then
-                --print("эффект"..EffectModel)
-                local DE = AddSpecialEffect(EffectModel, GetUnitX(e), GetUnitY(e))
-                BlzSetSpecialEffectZ(DE, ZDamageSource)
-                DestroyEffect(DE)
-            end
-            UnitDamageTarget(u, e, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
-            --print("урон прошёл для "..GetUnitName(e))
-            isdamage = true
-            hero = e
-        end
-        GroupRemoveUnit(perebor, e)
-    end
-    --DestroyGroup(mperebor)
-    --mperebor=nil
-    if PointContentDestructable(x, y, range, true, 1 + damage / 4, u) then
-        isdamage = true
-    end
-    return isdamage, hero
 end
 
 GlobalRect = Rect(0, 0, 0, 0)
@@ -473,7 +443,9 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                         end
                         if GetDestructableTypeId(d) == FourCC("BTsc") then
                             local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", dx, dy)
-                            --DestroyEffect(eff)
+                            DestroyEffect(eff)
+
+                            PlayerSeeNoiseInRangeTimed(0.8,dx,dy)
                             --print("смерть балки от рук"..GetUnitName(hero))
 
                             if hero then

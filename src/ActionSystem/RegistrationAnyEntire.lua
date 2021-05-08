@@ -31,14 +31,30 @@ function RegistrationAnyEntire()
                         data.EPointUnit = entering
                         --BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
                         --print("подошел к "..dataPoint.UseAction)
-                        local effModel="SystemGeneric\\ActionsE"
+                        ---БЛОК G
+                        local effG = nil
+                        if dataPoint.UseAction == "Goto" and data.chaosPoint >= ChaosRollCost then
+                            effG = AddSpecialEffect("SystemGeneric\\ActionsG", GetUnitX(entering) + 50, GetUnitY(entering))
+                            data.CanPressG=true
+                        end
+                        ---Конец блока G
+
+                        local effModel = "SystemGeneric\\ActionsE"
                         if dataPoint.Model then
-                            effModel=dataPoint.Model
-                           -- print("нестандартная модель?")
+                            effModel = dataPoint.Model
+                            -- print("нестандартная модель?")
                         end
                         local eEff = AddSpecialEffect(effModel, GetUnitXY(entering))
                         data.ShowActionWindows = true
                         TimerStart(CreateTimer(), 0.1, true, function()
+                            if data.chaosPoint < ChaosRollCost then
+                                if effG then
+                                    data.CanPressG=false
+                                    BlzSetSpecialEffectPosition(effG, OutPoint, OutPoint, 0)
+                                    DestroyEffect(effG)
+                                end
+                            end
+
                             if not IsUnitInRange(entering, hero, 210) or not UnitAlive(entering) or not dataPoint.isActive then
                                 --BlzFrameSetVisible(dataPoint.tooltip,false)
                                 DestroyTimer(GetExpiredTimer())
@@ -47,6 +63,13 @@ function RegistrationAnyEntire()
                                 --print("ломаем эффект")
                                 data.UseAction = ""
                                 data.ShowActionWindows = false
+
+                                if effG then
+                                    data.CanPressG=false
+                                    BlzSetSpecialEffectPosition(effG, OutPoint, OutPoint, 0)
+                                    DestroyEffect(effG)
+                                end
+
                             end
                         end)
                     end

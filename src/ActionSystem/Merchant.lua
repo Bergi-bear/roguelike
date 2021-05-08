@@ -10,10 +10,15 @@ function CreateMerchantAndGoods(x,y)
         "ShadowHunter",
         "Trall",
         "ChaosGrom",
-        "Alchemist"
+        "Alchemist",
+        "Cheese",
+        "Cheese",
+        "HeroMountainKing",
+        "PeonDidal"
 
     }
     local step=250
+
     if GetRandomInt(1,2)==1 then
         CreateGodTalon(x,y+(step),"CodoHeart",GetRandomInt(75,100))
     else

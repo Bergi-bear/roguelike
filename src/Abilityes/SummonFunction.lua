@@ -124,6 +124,7 @@ function CreateWinter(data)
             if IsUnitEnemy(e, GetOwningPlayer(data.UnitHero))  then
                 StunUnit(e,10,"frise")
                 local iceLock=AddSpecialEffectTarget("Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl",e,"origin")
+                BlzSetSpecialEffectTimeScale(iceLock,0)
                 TimerStart(CreateTimer(), 10, false, function()
                     DestroyEffect(iceLock)
                 end)

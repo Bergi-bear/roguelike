@@ -14,6 +14,7 @@ do
             InitMagazine()
             InitFireBallPoint() --это не экшен поинт
             CreateEActions()
+            CreateActionsG()
             InitFinObjectInArea()
             CreateABSQuest()
             AllActionsEnabled(true)
@@ -185,8 +186,12 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                 if dataPoint2 then
                     if dataPoint2.CurrentReward == reward and tempTable[i] ~= tempUnit then
                         local temTableReward = PreViewIcon
-                        if temTableReward then
-                            local pos2remove = FinPosInTable(temTableReward, reward)--FIXME иногда бывает ощибка на эту строку
+                        if temTableReward and reward~="Merchant" then
+                            --table.insert(temTableReward,"Merchant")
+                            if GetLocalPlayer()==Player(0) then
+                                --print("есть дубликат у",reward,#temTableReward)
+                            end
+                            local pos2remove = FinPosInTable(temTableReward, reward)--FIXME иногда бывает ошибка на эту строку
                             if pos2remove > #temTableReward then
                                 print("Error", #temTableReward, pos2remove)
                             else
@@ -514,6 +519,7 @@ function CreateEActions()
                     data.DoAction = false
                     data.UseAction = ""
                     KillUnit(data.EPointUnit)
+                    DestroyGotoPoint(dataPoint)
                     --local dataPoint=EnterPointTable[GetHandleId(data.EPointUnit)]
                     --print("переходим в зону с этой наградой "..dataPoint.CurrentReward)
                     GLOBAL_REWARD = dataPoint.CurrentReward
@@ -1227,7 +1233,7 @@ function CreateEActions()
                 local message = L("Не спеши, выбирай с умом", "Take your time, choose wisely")
                 CreateInfoBoxForAllPlayerTimed(data, message, 3)
                 data.Completed = true
-                --DestroyGodTalon(dataPoint.TripleTalon)
+                DestroyGodTalon(dataPoint.TripleTalon)
                 --CreateDialogTalon("Merchant")
                 --AllActionsEnabled(true)
                 data.DoAction = false
