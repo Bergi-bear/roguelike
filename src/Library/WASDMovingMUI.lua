@@ -437,11 +437,11 @@ function InitWASD(hero)
                     if data.isAttacking or (data.ReleaseQ and data.CDSpellQ > 0) or data.ReleaseRMB then
                         speed = 0.5
                     end
-                    if data.WEAPON_TYPE_WHOKNOWS == "pickaxe" then
+                    if data.CurrentWeaponType == "pickaxe" and false then
                         SetUnitTimeScale(hero, (speed * 20) / 100) --СКОРОСТЬ ПЕРЕБИРАНИЯ НОГАМИ
                     end
 
-                    if data.ReleaseQ then
+                    if data.ReleaseQ and data.CurrentWeaponType ~= "bow" then
                         --нормализация скорости
                         SetUnitTimeScale(hero, 1)
                     end
@@ -934,9 +934,18 @@ function CreateWASDActions()
                 end
                 if data.CurrentWeaponType == "bow" then
                     --print("град стрел")
-                    data.ReleaseQ = false
+
                     FallenArrow(data, data.fakeX, data.fakeY)
+                    CreateCircleSplatTimed(data, data.fakeX, data.fakeY, 200, 2)
+                    local angle=-180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    BlzSetUnitFacingEx(data.UnitHero,angle)
                     StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
+                    SetUnitAnimationByIndex(data.UnitHero, 30)
+                    SetUnitTimeScale(data.UnitHero,4)
+                    TimerStart(CreateTimer(), 0.4, false, function()
+                        data.ReleaseQ = false
+                        SetUnitTimeScale(data.UnitHero,1)
+                    end)
                 else
                     -- другое оружие, не лук
                     if data.QJump2Pointer then

@@ -3,7 +3,7 @@
 --- Created by Bergi.
 --- DateTime: 09.03.2021 2:43
 ---
-function CreateMerchantAndGoods(x,y)
+function CreateMerchantAndGoods(x,y,max)
     local table={
         "HeroBlademaster",
         "HeroTaurenChieftain",
@@ -15,8 +15,8 @@ function CreateMerchantAndGoods(x,y)
         "Cheese",
         "HeroMountainKing",
         "PeonDidal"
-
     }
+    --[[
     local step=250
 
     if GetRandomInt(1,2)==1 then
@@ -28,4 +28,16 @@ function CreateMerchantAndGoods(x,y)
     CreateGodTalon(x,y-(step),table[GetRandomInt(1,#table)],GetRandomInt(125,150))
     CreateGodTalon(x+step,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
     CreateGodTalon(x-step,y,table[GetRandomInt(1,#table)],GetRandomInt(125,150))
+    ]]
+    if not max then
+        max=6
+    end
+    local angle=0
+    local stepAngle=360/max
+    local step=60*max
+    for i=1,max do
+        angle=stepAngle*(i-1)
+        local nx,ny=MoveXY(x,y,step,angle)
+        CreateGodTalon(nx,ny,table[GetRandomInt(1,#table)],GetRandomInt(75,600))
+    end
 end

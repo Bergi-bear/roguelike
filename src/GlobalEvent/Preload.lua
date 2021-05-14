@@ -52,7 +52,8 @@ function InitPreloadStart()
                     LoadedGold[i] = 50
                     LoadedGameCount[i] = 0
                     LoadedChaos[i] = 0
-                    --print("FirstGame")
+                    print("FirstGame",GetPlayerName(Player(i)))
+                    ChkLoadCode(Player(i))
                 end
                 print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", " Number of completed games ") .. LoadedGameCount[i])
                 LoadedGameCount[i] = LoadedGameCount[i] + 1

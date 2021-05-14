@@ -18,12 +18,12 @@ function CreateAndMoveCircleSplat(data, range, exitCond)
         ShowImage(img[i], true)
     end
 
-    local coef=0.2
-    local objx,objy=data.fakeX, data.fakeY
+    local coef = 0.2
+    local objx, objy = data.fakeX, data.fakeY
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         objx = objx + ((GetPlayerMouseX[data.pid] - objx) * coef)
         objy = objy + ((GetPlayerMouseY[data.pid] - objy) * coef)
-        data.fakeX, data.fakeY=objx,objy
+        data.fakeX, data.fakeY = objx, objy
         if not data.CircleSplat then
             --print("маркер уничтожен")
             DestroyTimer(GetExpiredTimer())
@@ -43,4 +43,20 @@ function DestroySplatTable(table)
         SetImagePosition(table[1], OutPoint, OutPoint, 0)
         DestroyImage(table[i])
     end
+end
+
+function CreateCircleSplatTimed(data, xs, ys, range, timed)
+    local img = {}
+    local angle = 2
+    local size = 128
+    local k = 360//angle
+    for i = 1, k do
+        local x, y = MoveXY(xs, ys, range, angle * i)
+        img[i] = CreateImage("SystemGeneric\\point.blp", size, size, 0, x, y, 0, size / 2, size / 2, 0, 4)
+        SetImageRenderAlways(img[i], true)
+        ShowImage(img[i], true)
+    end
+    TimerStart(CreateTimer(), timed, false, function()
+        DestroySplatTable(img)
+    end)
 end

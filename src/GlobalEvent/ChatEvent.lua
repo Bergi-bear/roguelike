@@ -84,7 +84,8 @@ function PlayUnitAnimationFromChat()
         end
         -----------Игры со светом
         if GetEventPlayerChatString() == "chk" or GetEventPlayerChatString() == "срл" then
-            print("Проверка данных " .. udg_LoadCode[GetPlayerId(GetTriggerPlayer())])
+            --print("Проверка данных " .. udg_LoadCode[GetPlayerId(GetTriggerPlayer())])
+            ChkLoadCode(GetTriggerPlayer())
             return
         end
         if GetEventPlayerChatString() == "dnc0" then
@@ -159,4 +160,8 @@ function PlayUnitAnimationFromChat()
         SetUnitAnimationByIndex(data.UnitHero, s)
         --print(GetUnitName(mainHero).." "..s)
     end)
+end
+
+function ChkLoadCode(player)
+    print("Проверка данных " .. udg_LoadCode[GetPlayerId(player)])
 end

@@ -1224,8 +1224,9 @@ function CreateEActions()
                 data.UseAction = ""
                 dataPoint.isActive = false
                 TimerStart(CreateTimer(), 1.6, false, function()
-                    CreateMerchantAndGoods(GetUnitXY(dataPoint.Unit))
+                    CreateMerchantAndGoods(GetUnitX(dataPoint.Unit),GetUnitY(dataPoint.Unit),3)
                 end)
+                --Торговец не умирает
                 --KillUnit(data.EPointUnit)
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
             end

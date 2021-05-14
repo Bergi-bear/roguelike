@@ -10,6 +10,7 @@ function FallenArrow(data, x, y)
         local nx, ny = MoveXY(x, y, GetRandomInt(0, 200), GetRandomInt(0, 360))
         CreateFallArrow(effModel, data, nx, ny, GetTerrainZ(nx, ny) + GetRandomInt(900, 1000))
     end
+
 end
 
 function CreateFallArrow(effModel, data, x, y, zs)

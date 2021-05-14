@@ -424,7 +424,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             if talon.DS[talon.level] == "bear" then
                 data.SummonBearCDFH = CdFH
                 data.SummonBearCurrentCD = 0
-                data.SummonBearCD = 300
+                data.SummonBearCD = 30
             end
             if talon.DS[talon.level] == "boar" then
                 data.SummonBoarCDFH = CdFH

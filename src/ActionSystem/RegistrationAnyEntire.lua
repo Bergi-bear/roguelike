@@ -25,54 +25,77 @@ function RegistrationAnyEntire()
                 local entering = GetTriggerUnit()
                 if GetUnitTypeId(entering) == FourCC('hdhw') then
                     local dataPoint = EnterPointTable[GetHandleId(entering)]
-
-                    if dataPoint.isActive and not data.ShowActionWindows then
-                        data.UseAction = dataPoint.UseAction
-                        data.EPointUnit = entering
-                        --BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
-                        --print("подошел к "..dataPoint.UseAction)
-                        ---БЛОК G
-                        local effG = nil
-                        if dataPoint.UseAction == "Goto" and data.chaosPoint >= ChaosRollCost then
-                            effG = AddSpecialEffect("SystemGeneric\\ActionsG", GetUnitX(entering) + 50, GetUnitY(entering))
-                            data.CanPressG=true
+                    local range = 200
+                    if dataPoint.TalonPrice then
+                        if dataPoint.TalonPrice > 0 then
+                            range = 120
                         end
-                        ---Конец блока G
-
-                        local effModel = "SystemGeneric\\ActionsE"
-                        if dataPoint.Model then
-                            effModel = dataPoint.Model
-                            -- print("нестандартная модель?")
-                        end
-                        local eEff = AddSpecialEffect(effModel, GetUnitXY(entering))
-                        data.ShowActionWindows = true
-                        TimerStart(CreateTimer(), 0.1, true, function()
-                            if data.chaosPoint < ChaosRollCost then
-                                if effG then
-                                    data.CanPressG=false
-                                    BlzSetSpecialEffectPosition(effG, OutPoint, OutPoint, 0)
-                                    DestroyEffect(effG)
-                                end
-                            end
-
-                            if not IsUnitInRange(entering, hero, 210) or not UnitAlive(entering) or not dataPoint.isActive then
-                                --BlzFrameSetVisible(dataPoint.tooltip,false)
-                                DestroyTimer(GetExpiredTimer())
-                                BlzSetSpecialEffectPosition(eEff, OutPoint, OutPoint, 0)
-                                DestroyEffect(eEff)
-                                --print("ломаем эффект")
-                                data.UseAction = ""
-                                data.ShowActionWindows = false
-
-                                if effG then
-                                    data.CanPressG=false
-                                    BlzSetSpecialEffectPosition(effG, OutPoint, OutPoint, 0)
-                                    DestroyEffect(effG)
-                                end
-
-                            end
-                        end)
                     end
+                    local bad=0
+                    TimerStart(CreateTimer(), 0.1, true, function()
+                        -- ищем цель
+                        if not IsUnitInRange(hero, entering, range) then
+                            bad=bad+1
+                            --print("подойдите ближе к источнику покупки")
+                            if bad>2000 then
+                                DestroyTimer()
+                               -- print("ошибка исправлена")
+                            end
+                        else
+                            --print("спасибо, достаточно")
+                            DestroyTimer()
+                            if dataPoint.isActive and not data.ShowActionWindows and IsUnitInRange(hero, entering, range + 10) then
+                                data.UseAction = dataPoint.UseAction
+                                data.EPointUnit = entering
+                                --BlzFrameSetVisible(dataPoint.tooltip,GetLocalPlayer()==GetOwningPlayer(hero))
+                                --print("подошел к "..dataPoint.UseAction)
+                                ---БЛОК G
+                                local effG = nil
+                                if dataPoint.UseAction == "Goto" and data.chaosPoint >= ChaosRollCost then
+                                    effG = AddSpecialEffect("SystemGeneric\\ActionsG", GetUnitX(entering) + 50, GetUnitY(entering))
+                                    data.CanPressG = true
+                                end
+                                ---Конец блока G
+
+                                local effModel = "SystemGeneric\\ActionsE"
+                                if dataPoint.Model then
+                                    effModel = dataPoint.Model
+                                    -- print("нестандартная модель?")
+                                end
+                                local eEff = AddSpecialEffect(effModel, GetUnitXY(entering))
+                                data.ShowActionWindows = true
+                                TimerStart(CreateTimer(), 0.1, true, function()
+                                    if data.chaosPoint < ChaosRollCost then
+                                        if effG then
+                                            data.CanPressG = false
+                                            BlzSetSpecialEffectPosition(effG, OutPoint, OutPoint, 0)
+                                            DestroyEffect(effG)
+                                        end
+                                    end
+
+                                    if not IsUnitInRange(entering, hero, range + 20) or not UnitAlive(entering) or not dataPoint.isActive then
+                                        --BlzFrameSetVisible(dataPoint.tooltip,false)
+                                        DestroyTimer(GetExpiredTimer())
+                                        BlzSetSpecialEffectPosition(eEff, OutPoint, OutPoint, 0)
+                                        DestroyEffect(eEff)
+                                        --print("ломаем эффект")
+                                        data.UseAction = ""
+                                        data.ShowActionWindows = false
+
+                                        if effG then
+                                            data.CanPressG = false
+                                            BlzSetSpecialEffectPosition(effG, OutPoint, OutPoint, 0)
+                                            DestroyEffect(effG)
+                                        end
+
+                                    end
+                                end)
+                            end
+
+                        end
+                    end)
+
+
                 end
                 if GetUnitTypeId(entering) == FourCC('nglm') and UnitAlive(hero) then
                     --МИНА mine mina vbyf
