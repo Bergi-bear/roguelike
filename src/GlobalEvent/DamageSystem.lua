@@ -235,7 +235,7 @@ function OnPostDamage()
             if data.InvulPreDeathCurrentCD <= 0 and data.InvulPreDeathCDFH then
                 --print("получен смертельный урон")
                 FlyTextTagHealXY(GetUnitX(target), GetUnitY(target), L("Предвидение смерти", "Foresight of Death"), GetOwningPlayer(target))
-                CreateInfoBoxForAllPlayerTimed(data, L("Я не дам тебе умереть", "I won't let you die"), 3)
+                --CreateInfoBoxForAllPlayerTimed(data, L("Я не дам тебе умереть", "I won't let you die"), 3)
                 data.StatBlockGained = data.StatBlockGained + GetEventDamage()
                 BlzSetEventDamage(0)
                 SetUnitInvulnerable(target, true)

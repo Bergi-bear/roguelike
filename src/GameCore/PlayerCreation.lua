@@ -22,6 +22,7 @@ do
             perebor = CreateGroup()
             PlayerIsPlaying = {}
             CreationPeonsForAllPlayer()
+            CreateWASDActions()
             DestroyTimer(GetExpiredTimer())
         end)
     end

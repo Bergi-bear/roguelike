@@ -92,7 +92,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                 end
             end
         end
-
+        ---------проникающий урон
         if effectmodel == "Hive\\Culling Slash\\Culling Slash\\Culling Slash"  then
             BlzSetSpecialEffectScale(bullet, 0.001)
             local tempEff = AddSpecialEffect(effectmodel, nx, ny)
@@ -104,6 +104,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
         if effectmodel=="Abilities\\Weapons\\ChimaeraAcidMissile\\ChimaeraAcidMissile.mdl" then
             UnitDamageArea(hero, damage, x, y, 90)
         end
+        -----Конец проникающего урона
 
         local ZBullet = BlzGetLocalSpecialEffectZ(bullet)
 
@@ -208,6 +209,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                 flag = "all"
             end
             UnitDamageArea(heroCurrent, damage, x, y, CollisionRange, flag) -- УРОН ПРИ ПОПАДАНИИ
+           -- print("попал")
             if DamagingUnit and IsUnitType(heroCurrent, UNIT_TYPE_HERO) then
                 local data = GetUnitData(heroCurrent)
                 if data.KnockRMB then

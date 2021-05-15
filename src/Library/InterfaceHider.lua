@@ -116,14 +116,14 @@ end
 function CreateUI()
     ui = {}
     tt = {}
-    ui[1] = CreateSimpleFrameGlue(0.02, 0.56, "ReplaceableTextures\\CommandButtons\\BTNPurge", 1)
-    ui[2] = CreateSimpleFrameGlue(0.02 + 0.039, 0.56, "ReplaceableTextures\\CommandButtons\\BTNSpy", 2)
-    ui[3] = CreateSimpleFrameGlue(0.02 + 0.039 * 2, 0.56, "ReplaceableTextures\\CommandButtons\\BTNCryptFiendUnBurrow", 3)
+    --ui[1] = CreateSimpleFrameGlue(0.02, 0.56, "ReplaceableTextures\\CommandButtons\\BTNPurge", 1)
+    --ui[2] = CreateSimpleFrameGlue(0.02 + 0.039, 0.56, "ReplaceableTextures\\CommandButtons\\BTNSpy", 2)
+    --ui[3] = CreateSimpleFrameGlue(0.02 + 0.039 * 2, 0.56, "ReplaceableTextures\\CommandButtons\\BTNCryptFiendUnBurrow", 3)
     tt[1], tt[2], tt[3] = CreateToolTipBox()
 
 end
 
-function CreateSimpleFrameGlue(posX, PosY, texture, flag)
+function CreateSimpleFrameGlueOld(posX, PosY, texture, flag)
     local NextPoint = 0.039
     if not texture then
         texture = "ReplaceableTextures\\CommandButtons\\BTNSelectHeroOn"

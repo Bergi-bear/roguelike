@@ -113,7 +113,7 @@ end
 function InitWASD(hero)
     --print("initwasdSTART")
     InitHeroTable(hero)
-    CreateWASDActions()
+
     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
     BlockMouse(data)
     EnableDragSelect(false, false)
@@ -1126,14 +1126,16 @@ function CreateWASDActions()
     local TrigDePressLMB = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         TriggerRegisterPlayerEvent(TrigDePressLMB, Player(i), EVENT_PLAYER_MOUSE_UP)
+        --print("событие отпускания для", i)
     end
 
     TriggerAddAction(TrigDePressLMB, function()
-        --print("any")
+        --print("любая кнопка мыши отпущена, нужа фильтрация ниже")
         if BlzGetTriggerPlayerMouseButton() == MOUSE_BUTTON_TYPE_LEFT then
             local pid = GetPlayerId(GetTriggerPlayer())
             local data = HERO[pid]
             --data.ReleaseLMB = false
+            --print("отпущено",pid)
             data.PressSpin = false
             if data.CurrentWeaponType == "shield" then
                 --print("момент отпускания щита")
@@ -1302,7 +1304,7 @@ function CreateWASDActions()
                             CreateAndForceBullet(data.UnitHero, angle, speed, effModel, xs, ys, data.DamageThrow, maxDist, delay)
                             if data.isSpined and data.CrestFire then
                                 for i = 1, data.CrestFire do
-                                    CreateAndForceBullet(data.UnitHero, GetRandomInt(0, 360), speed / 2, effModel, xs, ys, data.DamageThrow, maxDist / 4, delay)
+                                    CreateAndForceBullet(data.UnitHero, GetRandomInt(0, 360), speed / 2, effModel, xs, ys, data.DamageThrow, maxDist / 8, delay)
                                 end
                             end
                         end)

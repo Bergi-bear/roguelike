@@ -1002,7 +1002,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Используйте бросок кирки, во время вращения", ""),
-                            DS = { 4, 8, 12 },
+                            DS = { 2, 3, 7 },
                             pos = 2,
                             weaponType="pickaxe"
                         }),
