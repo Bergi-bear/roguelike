@@ -3,6 +3,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 3, false, function()
+            DestroyTimer(GetExpiredTimer())
             GlobalTalons = {}
             for i = 0, bj_MAX_PLAYERS do
                 GlobalTalons[i] = {

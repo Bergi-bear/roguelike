@@ -196,6 +196,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                             TimerStart(CreateTimer(), 1 / 32, false, function()
                                 BlzSetSpecialEffectScale(eff, 3)
                                 DestroyEffect(eff)
+                                DestroyTimer(GetExpiredTimer())
                             end)
                             UnitDamageArea(hero, data.BlastDamage, nx, ny, 300)
                             --print("взрыв")

@@ -93,7 +93,68 @@ function InitEnemyEntire()
             --print("Черепаха")
             TurtleAttack(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("u002") then
+            GulRageAI(unit)
+        end
+    end)
+end
 
+function GulRageAI(unit)
+    local target = nil
+    local sec = 0
+    local study = 5
+    AddMaxLife(unit, 2000 * GetActiveCountPlayer())
+
+    local DamageTrigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGED) -- После вычета брони
+    end
+    TriggerAddAction(DamageTrigger, function()
+        local damage = GetEventDamage() -- число урона
+        if damage < 1 then
+            return
+        end
+        local eventId = GetHandleId(GetTriggerEventId())
+        local isEventDamaged = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGED)
+        local caster = GetEventDamageSource() -- тот кто нанёс урон
+
+
+        if isEventDamaged then
+            if caster == unit then
+                HealUnit(unit,damage*5)
+            end
+        end
+
+    end)
+
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            target = GetRandomEnemyHero()
+            if not UnitAlive(target) then
+                target = GetRandomEnemyHero()
+            end
+            --if not IsUnitStunned(unit) and target and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                sec = sec + 1
+                IssuePointOrder(unit, "attack", GetUnitXY(target))
+                if sec == study then
+                    --print("rage")
+                    SetUnitInvulnerable(unit, true)
+                    SetUnitVertexColor(unit, 50, 50, 50, 255)
+                    BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 0.3)
+                    SetUnitMoveSpeed(unit, 500)
+                end
+                if sec == study * 2 then
+                    --print("нормал moving")
+                    SetUnitInvulnerable(unit, false)
+                    SetUnitVertexColor(unit, 255, 255, 255, 255)
+                    BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 2)
+                    SetUnitMoveSpeed(unit, 200)
+                    sec = 0
+                end
+           -- end
+        end
     end)
 end
 
@@ -101,7 +162,7 @@ function TurtleAttack(unit)
     UnitAddAbility(unit, FourCC("Abun"))
     TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
@@ -113,8 +174,10 @@ function TurtleAttack(unit)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
                         CreateAndForceBullet(unit, angle, 20, "Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl", nil, nil, 150, 1200)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     TimerStart(CreateTimer(), 0.5, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         BlzPauseUnitEx(unit, false)
                     end)
                 else
@@ -128,7 +191,7 @@ end
 function GuardAISpeer(unit)
     TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
@@ -139,6 +202,7 @@ function GuardAISpeer(unit)
                     SetUnitTimeScale(unit, 0.5)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.7, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         CreateAndForceBullet(unit, angle, 30, "SystemGeneric\\Teath3", nil, nil, 300, 3000)
                         BlzPauseUnitEx(unit, false)
                     end)
@@ -161,7 +225,7 @@ end
 function JumpDragonGround(unit)
     TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
@@ -187,7 +251,7 @@ function CastTorrent(unit)
     DestroyEffect(eff)
     TimerStart(CreateTimer(), GetRandomReal(1, 5), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             IssueTargetOrder(unit, "move", hero)
@@ -204,6 +268,7 @@ function TorrentWisMark(unit, x, y)
         local eff = AddSpecialEffect("SystemGeneric\\Torrent", x, y)
         UnitDamageArea(unit, 200, x, y, 150)
         DestroyEffect(eff)
+        DestroyTimer(GetExpiredTimer())
     end)
 end
 
@@ -211,7 +276,7 @@ function MurlockEnsnare(unit)
     UnitAddAbility(unit, FourCC("A007"))
     TimerStart(CreateTimer(), GetRandomReal(3, 10), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             IssueTargetOrder(unit, "attack", hero)
@@ -228,7 +293,7 @@ function MiniFire(unit)
     UnitAddAbility(unit, FourCC("Abun"))
     TimerStart(CreateTimer(), GetRandomReal(0.5, 1.5), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
@@ -242,6 +307,7 @@ function MiniFire(unit)
                     TimerStart(CreateTimer(), 0.3, false, function()
                         CreateAndForceBullet(unit, angle, GetRandomInt(20, 40), "Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl", nil, nil, 100, 3000)
                         BlzPauseUnitEx(unit, false)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 else
                     local x, y = GetUnitXY(unit)
@@ -252,8 +318,10 @@ function MiniFire(unit)
                     local eff = nil
                     TimerStart(CreateTimer(), 1.8, false, function()
                         eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     TimerStart(CreateTimer(), 2, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         --print("наносим урон миной")
                         DestroyEffect(eff)
                         UnitDamageArea(hero, 150, x, y, 200, "all")
@@ -331,6 +399,7 @@ function StoneUnStone(unit)
                         -- print("приземление")
                         CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, GetUnitXY(unit))
                         TimerStart(CreateTimer(), 1, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             if UnitAlive(unit) then
                                 local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", GetUnitXY(unit))
                                 DestroyEffect(eff)
@@ -345,6 +414,7 @@ function StoneUnStone(unit)
                     -- print("приземление")
                     CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, GetUnitXY(unit))
                     TimerStart(CreateTimer(), 1, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         if UnitAlive(unit) then
                             local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", GetUnitXY(unit))
                             DestroyEffect(eff)
@@ -420,6 +490,7 @@ function ImpaleBug(unit)
 
                     TimerStart(CreateTimer(), 1.5, false, function()
                         DestroyTimer(t)
+                        DestroyTimer(GetExpiredTimer())
                         -- DestroyEffect(eff)
                         --BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
                         if not IsUnitStunned(unit) and not havAStun then
@@ -532,6 +603,7 @@ function PudgeSlash(unit)
                         BlzSetSpecialEffectPosition(eff1, OutPoint, OutPoint, 0)
                         BlzSetSpecialEffectPosition(eff2, OutPoint, OutPoint, 0)
                         DestroyTimer(t)
+                        DestroyTimer(GetExpiredTimer())
                     end)
 
                     TimerStart(t, 0.1, true, function()
@@ -551,6 +623,7 @@ function PudgeSlash(unit)
                     end)
 
                     TimerStart(CreateTimer(), 1, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         BlzPauseUnitEx(unit, false)
                         SetUnitTimeScale(unit, 1)
                         if not IsUnitStunned(unit) and not BreakCast then
@@ -583,7 +656,7 @@ function NecroAttackAndArrow(unit)
     IssueImmediateOrder(unit, "raisedeadon")
     TimerStart(CreateTimer(), GetRandomReal(1.5, 2.5), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
@@ -595,6 +668,7 @@ function NecroAttackAndArrow(unit)
                     --SetUnitTimeScale(unit,0.7)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         CreateAndForceBullet(unit, angle, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
                         if GetUnitManaPercent(unit) > 30 and GetUnitTypeId(unit) == FourCC("unec") then
                             CreateAndForceBullet(unit, angle + 10, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
@@ -617,7 +691,7 @@ function BansheeAiBlinkAndArrow(unit)
     UnitAddAbility(unit, FourCC("Abun"))
     TimerStart(CreateTimer(), GetRandomReal(0.5, 1), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
@@ -634,6 +708,7 @@ function BansheeAiBlinkAndArrow(unit)
                     --SetUnitTimeScale(unit,0.7)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         CreateAndForceBullet(unit, angle, 15, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
                         BlzPauseUnitEx(unit, false)
                     end)
@@ -661,7 +736,7 @@ function SinergyBug(unit)
     local hero = GetRandomEnemyHero()
     TimerStart(CreateTimer(), 1, true, function()
         if not UnitAlive(unit) or not hero then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             hero = GetRandomEnemyHero()
             if hero then
@@ -677,7 +752,7 @@ function SpawnZombie(unit)
     HealUnit(unit, 5000)
     TimerStart(CreateTimer(), 3, true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             if not IsUnitStunned(unit) then
                 local new = CreateUnit(GetOwningPlayer(unit), FourCC("nzom"), GetUnitX(unit), GetUnitY(unit), 0)
@@ -695,7 +770,7 @@ function JumpAI(unit)
     local p = GetRandomReal(4, 8)
     TimerStart(CreateTimer(), p, true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             local dist = DistanceBetweenXY(GetUnitX(unit), GetUnitY(unit), GetUnitXY(hero))
@@ -710,6 +785,7 @@ function JumpAI(unit)
                     CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, GetUnitXY(hero))
                     TimerStart(CreateTimer(), 1, false, function()
                         UnitAddForceSimple(unit, angle, 20, dist, "forceAttack")
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 end
             end
@@ -722,6 +798,7 @@ function CreateVisualMarkTimedXY(effModel, timed, x, y)
     BlzSetSpecialEffectColor(eff, 255, 0, 0)
     BlzSetSpecialEffectZ(eff, GetTerrainZ(x, y) + 50)
     TimerStart(CreateTimer(), timed, false, function()
+        DestroyTimer(GetExpiredTimer())
         DestroyEffect(eff)
         BlzSetSpecialEffectPosition(eff, OutPoint, OutPoint, 0)
     end)

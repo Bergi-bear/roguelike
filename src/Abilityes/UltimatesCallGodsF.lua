@@ -10,6 +10,7 @@ do
         TimerStart(CreateTimer(), 2, false, function()
             CreateActionsF()
             CreateActions1234()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end

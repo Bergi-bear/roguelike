@@ -1570,6 +1570,7 @@ function attackPickAxe(data)
                 --data.LineCleaveAttack
                 TimerStart(CreateTimer(), 0.2, false, function()
                     CreateAndForceBullet(data.UnitHero, angle, 20, "Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl", GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 50, 700)
+                    DestroyTimer(GetExpiredTimer())
                 end)
             end
 
@@ -1578,6 +1579,7 @@ function attackPickAxe(data)
                 data.Reflected = true
                 TimerStart(CreateTimer(), 0.35, false, function()
                     data.Reflected = false
+                    DestroyTimer(GetExpiredTimer())
                 end)
             end
 
@@ -1586,6 +1588,7 @@ function attackPickAxe(data)
                 indexAnim = 3
                 normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
                 TimerStart(CreateTimer(), 0.2, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
                     BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
                     BlzSetSpecialEffectScale(eff, 0.5)
@@ -1604,6 +1607,7 @@ function attackPickAxe(data)
                     UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 10, 60)
                     normal_sound("Sound\\PeonSound\\cut\\Bey", GetUnitXY(data.UnitHero))
                     TimerStart(CreateTimer(), 0.3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
                         BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
                         BlzSetSpecialEffectScale(eff, 0.7)
@@ -1616,6 +1620,7 @@ function attackPickAxe(data)
                     cdAttack = 0.3
                     normal_sound("Sound\\PeonSound\\cut\\SaysNo", GetUnitXY(data.UnitHero))
                     TimerStart(CreateTimer(), 0.2, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
                         BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
                         BlzSetSpecialEffectScale(eff, 0.5)
@@ -1640,6 +1645,7 @@ function attackPickAxe(data)
                 end
                 normal_sound("Sound\\PeonSound\\cut\\BloodlustTarget", GetUnitXY(data.UnitHero))
                 TimerStart(CreateTimer(), 0.2, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     normal_sound("abilities\\weapons\\bristlebackmissile\\bristlebackmissilelaunch3", GetUnitXY(data.UnitHero))
                     UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 20, 120)
 
@@ -1677,6 +1683,7 @@ function attackPickAxe(data)
             end
 
             TimerStart(CreateTimer(), cdAttack, false, function()
+                DestroyTimer(GetExpiredTimer())
                 -- кд атаки тут для всех ударов
                 local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
                 --print(data.AttackCount)
@@ -1738,6 +1745,7 @@ function attackPickAxe(data)
                                 StartAndReleaseSpin(data, 1)
                                 StartFrameCD(data.ChaosSpinOnAttackCD, data.ChaosSpinOnAttackCDFH)
                                 TimerStart(CreateTimer(), data.ChaosSpinOnAttackCD, false, function()
+                                    DestroyTimer(GetExpiredTimer())
                                     data.ChaosSpinOnAttackCurrentCD = 0
                                 end)
                             end
@@ -1757,6 +1765,7 @@ function attackPickAxe(data)
                     if is then
                         data.ParryPerAttack = true
                         TimerStart(CreateTimer(), 0.2, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             data.ParryPerAttack = false
                         end)
                         --print("Звук попадания обычной атакой"..data.AttackCount)
@@ -1767,6 +1776,7 @@ function attackPickAxe(data)
             end)
 
             TimerStart(CreateTimer(), cdAttack + 0.05, false, function()
+                DestroyTimer(GetExpiredTimer())
                 data.isAttacking = false
                 if UnitAlive(data.UnitHero) then
                     if data.IsMoving then
@@ -1820,11 +1830,13 @@ function attackShield(data)
             ShieldHit(data, cdAttack)
             if data.TwiceAttackPerShield then
                 TimerStart(CreateTimer(), 0.15, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     ShieldHit(data, cdAttack)
                 end)
             end
 
             TimerStart(CreateTimer(), cdAttack * 2, false, function()
+                DestroyTimer(GetExpiredTimer())
                 data.isAttacking = false
                 SetUnitTimeScale(data.UnitHero, 1)
                 if UnitAlive(data.UnitHero) then
@@ -1844,6 +1856,7 @@ end
 
 function ShieldHit(data, cdAttack)
     TimerStart(CreateTimer(), cdAttack, false, function()
+        DestroyTimer(GetExpiredTimer())
         data.isAttacking = false
         local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
         if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
@@ -1856,6 +1869,7 @@ function ShieldHit(data, cdAttack)
             if is then
                 data.ParryPerAttack = true
                 TimerStart(CreateTimer(), 0.2, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     data.ParryPerAttack = false
                 end)
                 --print("Звук попадания обычной атакой"..data.AttackCount)
@@ -1877,6 +1891,7 @@ function ShieldHit(data, cdAttack)
                             DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
                         end
                         TimerStart(CreateTimer(), cd, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             data.HandOfMidasCurrentCD = 0
                             DestroyTimer(GetExpiredTimer())
                         end)
@@ -1897,6 +1912,7 @@ function ShieldHit(data, cdAttack)
                         StartAndReleaseSpin(data, 1)
                         StartFrameCD(data.ChaosSpinOnAttackCD, data.ChaosSpinOnAttackCDFH)
                         TimerStart(CreateTimer(), data.ChaosSpinOnAttackCD, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             data.ChaosSpinOnAttackCurrentCD = 0
                         end)
                     end
@@ -1911,6 +1927,7 @@ function attackBow(data)
     local x, y = GetUnitXY(hero)
     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
     TimerStart(CreateTimer(), 0.1, false, function()
+        DestroyTimer(GetExpiredTimer())
         data.BowReady = false -- лук не готов для стрельбы
         data.ReadyToShot=false
         SetUnitTimeScale(data.UnitHero, 1) --возврат скорости
@@ -2097,6 +2114,7 @@ function CreateLaser(effModel, x, y, xEnd, yEnd, duration)
     BlzSetSpecialEffectScale(eff, 3)
     --
     TimerStart(CreateTimer(), duration, false, function()
+        DestroyTimer(GetExpiredTimer())
         DestroyEffect(eff)
     end)
 end
@@ -2146,7 +2164,6 @@ function CreateTotemElement(x, y, angle)
         KillDestructable(collision)
         RemoveDestructable(collision)
         DestroyEffect(eff)
-        PauseTimer(GetExpiredTimer())
         DestroyTimer(GetExpiredTimer())
     end)
 end
@@ -2207,7 +2224,7 @@ function CreateFallArrow(effModel, data, x, y, zs)
                     BlzSetSpecialEffectPosition(eff, OutPoint, OutPoint, 0)
                 end)
             end
-            DestroyTimer()
+            DestroyTimer(GetExpiredTimer())
 
         end
     end)
@@ -2702,6 +2719,7 @@ do
         TimerStart(CreateTimer(), 2, false, function()
             CreateActionsF()
             CreateActions1234()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -2955,7 +2973,7 @@ function UnitAddUrsaStack(unit, amount)
         local eff=AddSpecialEffectTarget("FurySwipes",unit,"overhead")
         TimerStart(CreateTimer(), 3, true, function()
             if not UnitAlive(unit) then
-                DestroyTimer()
+                DestroyTimer(GetExpiredTimer())
                 DestroyEffect(eff)
             end
         end)
@@ -2997,6 +3015,7 @@ function SlowUnit(unit,duration)
     end
     TimerStart(CreateTimer(), duration, false, function()
         UnitRemoveAbility(unit,FourCC("Bslo"))
+        DestroyTimer(GetExpiredTimer())
     end)
 end
 ---
@@ -3104,6 +3123,7 @@ function AddMaxLife(hero, amount)
     if IsUnitType(hero,UNIT_TYPE_HERO) then
         TimerStart(CreateTimer(), 1, false, function()
             FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
+            DestroyTimer(GetExpiredTimer())
         end)
     else
         HealUnit(hero)
@@ -3622,6 +3642,7 @@ function AllActionsEnabled(enable)
                     BlzSetSpecialEffectYaw(dataPoint.preView, math.rad(90))
                     BlzSetSpecialEffectScale(dataPoint.preView, 2)
                     BlzSetSpecialEffectColor(dataPoint.preView, 255, 255, 255)
+                    DestroyTimer(GetExpiredTimer())
                 end)
                 -- print("выходы заблокированы "..i)
             else
@@ -3979,6 +4000,7 @@ function CreateEActions()
                 --print("переход в канализацию")
                 CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
                 TimerStart(CreateTimer(), 2, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     MoveAllHeroAndBound(gg_rct_InCulvert, gg_rct_BoundCulvert)
                     CinematicFadeBJ(bj_CINEFADETYPE_FADEIN, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
                 end)
@@ -4222,6 +4244,7 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
                         TimerStart(CreateTimer(), 1, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("ChaosGrom")
                             --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
@@ -4254,6 +4277,7 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
                         TimerStart(CreateTimer(), 1, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("Alchemist")
                             --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
@@ -4329,6 +4353,7 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
                         TimerStart(CreateTimer(), 1, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             DestroyGodTalon(dataPoint.TripleTalon)
                             --print("Активация сыра")
                             CreateDialogTalon("Cheese")
@@ -4359,6 +4384,7 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
                         TimerStart(CreateTimer(), 1, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("HeroMountainKing")
                         end)
@@ -4385,7 +4411,7 @@ function CreateEActions()
                     --data.Completed = true
                     TimerStart(CreateTimer(), 1, false, function()
                         DestroyGodTalon(dataPoint.TripleTalon)
-
+                        DestroyTimer(GetExpiredTimer())
                         local x, y = GetUnitXY(dataPoint.Unit)
                         CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal")
                         AllActionsEnabled(true)--активация всех переходов
@@ -4429,6 +4455,7 @@ function CreateEActions()
                     CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                     data.Completed = true
                     TimerStart(CreateTimer(), 1, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         DestroyGodTalon(dataPoint.TripleTalon)
                         AllActionsEnabled(true)--активация всех переходов
                     end)
@@ -4470,6 +4497,7 @@ function CreateEActions()
                 DestroyGodTalon(dataPoint.TripleTalon)
                 AllActionsEnabled(true)
                 TimerStart(CreateTimer(), 1.6, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     --активация всех переходов
                     GiveForAll("GoldReward")
                 end)
@@ -4592,6 +4620,7 @@ function CreateEActions()
                 dataPoint.isActive = false
                 TimerStart(CreateTimer(), 1.6, false, function()
                     CreateMerchantAndGoods(GetUnitX(dataPoint.Unit),GetUnitY(dataPoint.Unit),3)
+                    DestroyTimer(GetExpiredTimer())
                 end)
                 --Торговец не умирает
                 --KillUnit(data.EPointUnit)
@@ -4609,6 +4638,7 @@ function CreateEActions()
                 dataPoint.isActive = false
                 TimerStart(CreateTimer(), 1.6, false, function()
                     CreateMerchantAndGoods(GetUnitXY(dataPoint.Unit))
+                    DestroyTimer(GetExpiredTimer())
                 end)
                 KillUnit(data.EPointUnit)
                 --normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1",GetUnitXY(data.UnitHero))
@@ -4637,6 +4667,7 @@ function CreateInfoBoxForAllPlayerTimed(data, message, timed)
             FlyTextTagHealXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), message, GetOwningPlayer(data.UnitHero))
             data.TagDelay = true
             TimerStart(CreateTimer(), 1, false, function()
+                DestroyTimer(GetExpiredTimer())
                 data.TagDelay = false
             end)
         end
@@ -4656,6 +4687,7 @@ function CreateInfoBoxForAllPlayerTimed(data, message, timed)
             BlzFrameSetScale(text, 1.2)
             BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0, 0.0)
             TimerStart(CreateTimer(), timed, false, function()
+                DestroyTimer(GetExpiredTimer())
                 BlzDestroyFrame(tooltip)
                 InfoSlots = InfoSlots - 1
             end)
@@ -4731,6 +4763,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
             RegistrationAnyEntire()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -4759,12 +4792,12 @@ function RegistrationAnyEntire()
                             bad=bad+1
                             --print("подойдите ближе к источнику покупки")
                             if bad>2000 then
-                                DestroyTimer()
+                                DestroyTimer(GetExpiredTimer())
                                -- print("ошибка исправлена")
                             end
                         else
                             --print("спасибо, достаточно")
-                            DestroyTimer()
+                            DestroyTimer(GetExpiredTimer())
                             if dataPoint.isActive and not data.ShowActionWindows and IsUnitInRange(hero, entering, range + 10) then
                                 data.UseAction = dataPoint.UseAction
                                 data.EPointUnit = entering
@@ -4833,9 +4866,10 @@ function RegistrationAnyEntire()
                                 local eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
                                 TimerStart(CreateTimer(), 1.8, false, function()
                                     DestroyEffect(eff)
-
+                                    DestroyTimer(GetExpiredTimer())
                                 end)
                             end
+                            DestroyTimer(GetExpiredTimer())
                         end)
 
                         TimerStart(CreateTimer(), 2, false, function()
@@ -4845,6 +4879,7 @@ function RegistrationAnyEntire()
                             DestroyEffect(mark)
                             BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
                             CreateUnit(GetOwningPlayer(entering), FourCC('nglm'), x, y, 0)
+                            DestroyTimer(GetExpiredTimer())
                         end)
 
                     end
@@ -4933,6 +4968,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
+            DestroyTimer(GetExpiredTimer())
             EnemyList = {
                 FourCC("nsko"), -- скелет
                 FourCC("ucs1"), -- мелкий жук
@@ -5043,10 +5079,10 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 1 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy црщы
+CurrentGameZone = 0 -- Стартовая зона, 0 для первого биома, 19 для второго биома WhosYourDaddy црщы
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
-    GWinPercent=GWinPercent+3
+    GWinPercent = GWinPercent + 3
     if CurrentGameZone == 1 or CurrentGameZone == 20 then
         --print("убираем обучение")
         DestroyAllLearHelpers()
@@ -5055,6 +5091,7 @@ function Enter2NewZone(flag)
     SaveCodeForAllPLayers()
     CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     TimerStart(CreateTimer(), 2, false, function()
+        DestroyTimer(GetExpiredTimer())
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
         if CurrentGameZone ~= 20 then
             if Destiny[CurrentGameZone] then
@@ -5070,7 +5107,7 @@ function Enter2NewZone(flag)
                 end
                 if flag == "Merchant" then
                     --print("Создаём торговца и предметы для торговли") --TODO
-                    CurrentGameZone = CurrentGameZone-1 --с этим надо очень акуратно
+                    CurrentGameZone = CurrentGameZone - 1 --с этим надо очень акуратно
                     MoveAllHeroAndBound(gg_rct_MerchantE1, gg_rct_MerchantB1)
                     local x = 12981
                     local y = -6569 --GetRectCenterY(GameZone[Destiny[CurrentGameZone]].rectSpawn)
@@ -5078,6 +5115,7 @@ function Enter2NewZone(flag)
                     --print("Переход в зону с магазином")
                     AllActionsEnabled(true)
                     TimerStart(CreateTimer(), 3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         AllActionsEnabled(true)
                     end)
                 end
@@ -5085,7 +5123,9 @@ function Enter2NewZone(flag)
             else
                 -- следующей зоны не существует
                 TimerStart(CreateTimer(), 3, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     TimerStart(CreateTimer(), 3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         local SaveCode = 0
                         for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
                             if PlayerIsPlaying[i] then
@@ -5097,6 +5137,7 @@ function Enter2NewZone(flag)
 
                                 TimerStart(CreateTimer(), 2, false, function()
                                     CustomVictoryBJ(Player(i), true, true)
+                                    DestroyTimer(GetExpiredTimer())
                                 end)
                             end
                         end
@@ -5228,7 +5269,7 @@ function StartEnemyWave(waveNumber)
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
             }
-            maxOnWave = 1
+            maxOnWave = 2
         elseif r == 2 then
             listID = {
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
@@ -5245,7 +5286,7 @@ function StartEnemyWave(waveNumber)
         end
     end
     if waveNumber == 3 then
-        local r = GetRandomInt(1, 3)
+        local r = GetRandomInt(1, 4)
         if r == 1 then
             listID = {
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
@@ -5269,6 +5310,11 @@ function StartEnemyWave(waveNumber)
                 FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
             }
             maxOnWave = 4
+        elseif r == 4 then -- мегагугль
+            listID = {
+                FourCC("u002"),
+            }
+            maxOnWave = 1
         end
     end
 
@@ -5744,8 +5790,8 @@ function StartWave(dataGZ, listID, max)
     end
 
     local MaxOnWave = #listID
-    GMaxOnWave=MaxOnWave
-    GLostOnWave=MaxOnWave
+    GMaxOnWave = MaxOnWave
+    GLostOnWave = MaxOnWave
     LiveOnWave = 0
     --CurrentOnWave=max
     local k = 1
@@ -5858,15 +5904,16 @@ function CreateCreepDelay(id, x, y, delay, flag, angle)
                 end
             end
         else
-            print(" данные для зоны не существуют", Destiny[CurrentGameZone])
+            print("данные для зоны не существуют", Destiny[CurrentGameZone])
         end
     end
 
     TimerStart(CreateTimer(), delay, false, function()
+        DestroyTimer(GetExpiredTimer())
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
         local a = BlzGetUnitMaxHP(new)
-        local k = 1.5
+        local k = 1 -- было 1.5
         if angle then
             --print("Прыжок из воды", angle)
             JumpOutWater(new, angle)
@@ -5889,7 +5936,7 @@ function CreateCreepDelay(id, x, y, delay, flag, angle)
                 if not UnitAlive(new) then
                     DestroyTimer(GetExpiredTimer())
                     LiveOnWave = LiveOnWave - 1
-                    GLostOnWave=GLostOnWave-1
+                    GLostOnWave = GLostOnWave - 1
                 end
                 --print(LiveOnWave[k])
             end)
@@ -5915,6 +5962,7 @@ function UnitAddJumpForce(hero, angle, speed, distance, MaxHeight)
     --SetUnitPathing(hero,false)
     UnitDisablePath(hero)
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+
         currentdistance = currentdistance + speed
         local x, y = GetUnitXY(hero)
         local f = ParabolaZ(MaxHeight / 2, distance, i * speed) + ZStart
@@ -7173,6 +7221,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 3, false, function()
+            DestroyTimer(GetExpiredTimer())
             GlobalTalons = {}
             for i = 0, bj_MAX_PLAYERS do
                 GlobalTalons[i] = {
@@ -8172,7 +8221,7 @@ do
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Используйте бросок кирки, во время вращения", ""),
-                            DS = { 4, 8, 12 },
+                            DS = { 2, 3, 7 },
                             pos = 2,
                             weaponType="pickaxe"
                         }),
@@ -8754,6 +8803,7 @@ function StartAllFrameCD(player)
         DisableTrigger(data.ClickTrig[i])
         TimerStart(CreateTimer(), TotalReload, false, function()
             EnableTrigger(data.ClickTrig[i])
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -8828,6 +8878,11 @@ function DrawInterFace()
     CreateInterfaceForAlly()
     CreateWinPercent()
     CreateEnemyLost()
+    CreateFireTimer()
+    TimerStart(CreateTimer(), 3.1, false, function()
+        CreateStatsTable()
+        DestroyTimer(GetExpiredTimer())
+    end)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if HERO[i] then
             --CreateHPBar(HERO[i].UnitHero)
@@ -8939,6 +8994,7 @@ function RemoveLife(data)
             end
         else
             TimerStart(CreateTimer(), 3, false, function()
+                DestroyTimer(GetExpiredTimer())
                 local SaveCode = "error"
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
                     if data.life < 0 then
@@ -8983,7 +9039,7 @@ function GetSaveCode(data)
     return R2I(data.gold) .. "," .. R2I(LoadedGameCount[data.pid]) .. "," .. R2I(data.chaosPoint) .. "," .. R2I(GetDataWeaponID(data)) .. ","
 end
 
-function CreateHPBar(hero,parent,visionData)
+function CreateHPBar(hero, parent, visionData)
     local intoBar = "Replaceabletextures\\Teamcolor\\Teamcolor00.blp"
 
     if GetLocalPlayer() ~= Player(visionData.pid) then
@@ -9017,7 +9073,7 @@ function CreateHPBar(hero,parent,visionData)
             --BlzFrameSetVisible(into, GetLocalPlayer() == GetOwningPlayer(hero))
             BlzFrameSetText(textCurrent, R2I(GetUnitState(hero, UNIT_STATE_LIFE)))
             BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
-            BlzFrameSetSize(into, hp * 0.1 / 100,0.02 * 0.95/2 )
+            BlzFrameSetSize(into, hp * 0.1 / 100, 0.02 * 0.95 / 2)
         end
     end)
 end
@@ -9034,7 +9090,7 @@ function CreateWinPercent()
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetText(text, "")
     BlzFrameSetScale(text, 2)
-    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, Frame, FRAMEPOINT_RIGHT, 0.02, 0.0)
+    BlzFrameSetPoint(text, FRAMEPOINT_LEFT, Frame, FRAMEPOINT_LEFT, 0.015, 0.0)
     TimerStart(CreateTimer(), 1, true, function()
         BlzFrameSetText(text, GWinPercent .. "%")
     end)
@@ -9052,9 +9108,26 @@ function CreateEnemyLost()
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetText(text, "")
     BlzFrameSetScale(text, 2)
-    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, Frame, FRAMEPOINT_RIGHT, 0.02, 0.0)
+    BlzFrameSetPoint(text, FRAMEPOINT_LEFT, Frame, FRAMEPOINT_LEFT, 0.015, 0.0)
     TimerStart(CreateTimer(), 1, true, function()
         BlzFrameSetText(text, GLostOnWave .. "/" .. GMaxOnWave)
+    end)
+end
+
+function CreateFireTimer()
+    local ico = "ReplaceableTextures\\CommandButtons\\BTNWallOfFire.blp"
+    local Frame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(Frame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(Frame, ico, 0, true)
+    BlzFrameSetSize(Frame, NextPoint / 2, NextPoint / 2)
+    BlzFrameSetAbsPoint(Frame, FRAMEPOINT_CENTER, 0.85, 0.58 - 2 * (NextPoint / 2))
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", Frame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "")
+    BlzFrameSetScale(text, 2)
+    BlzFrameSetPoint(text, FRAMEPOINT_LEFT, Frame, FRAMEPOINT_LEFT, 0.015, 0.0)
+    TimerStart(CreateTimer(), 1, true, function()
+        BlzFrameSetText(text, GCountTimers)
     end)
 end
 
@@ -9063,24 +9136,22 @@ function DrawCustomPortraitForPlayer(data)
     CreateInterfaceForAlly(data)
 end
 
-
 function CreateInterfaceForAlly()
-    local k=0
+    local k = 0
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
             local data = HERO[i]
             --if mainData~=data then
-                CreateSimpleFrameGlue(0.02, 0.59-(k*0.02), "ReplaceableTextures\\CommandButtons\\BTNPeon.blp",data,data)
-                k=k+1
-               -- print("создан союзный интерфейс для",GetPlayerName(Player(i)),"который видит",GetPlayerName(Player(mainData.pid)))
+            CreateSimpleFrameGlue(0.02, 0.59 - 0.02 - (k * 0.02), "ReplaceableTextures\\CommandButtons\\BTNPeon.blp", data, data)
+            k = k + 1
+            -- print("создан союзный интерфейс для",GetPlayerName(Player(i)),"который видит",GetPlayerName(Player(mainData.pid)))
             --end
         end
     end
 end
 
-
-function CreateSimpleFrameGlue(posX, PosY, texture, data,visionData)
-    local NextPoint = 0.039/2
+function CreateSimpleFrameGlue(posX, PosY, texture, data, visionData)
+    local NextPoint = 0.039 / 2
     if not texture then
         texture = "ReplaceableTextures\\CommandButtons\\BTNSelectHeroOn"
     end
@@ -9096,7 +9167,7 @@ function CreateSimpleFrameGlue(posX, PosY, texture, data,visionData)
     BlzFrameSetSize(SelfFrame, NextPoint, NextPoint)
     BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, posX, PosY)
 
-    CreateHPBar(data.UnitHero,SelfFrame,visionData)
+    CreateHPBar(data.UnitHero, SelfFrame, visionData)
 
     local ClickTrig = CreateTrigger()
     BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
@@ -9118,15 +9189,90 @@ function CreateSimpleFrameGlue(posX, PosY, texture, data,visionData)
     local TrigMOUSE_ENTER = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
     TriggerAddAction(TrigMOUSE_ENTER, function()
-       -- print("показать подсказку ", flag)
+         --print("показать подсказку ")
+        if GetLocalPlayer()==GetTriggerPlayer() then
+            BlzFrameSetVisible(GStatTable,true)
+        end
 
     end)
     local TrigMOUSE_LEAVE = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, SelfFrame, FRAMEEVENT_MOUSE_LEAVE)
     TriggerAddAction(TrigMOUSE_LEAVE, function()
-       -- print("убрать подсказку")
+         --print("убрать подсказку")
+        if GetLocalPlayer()==GetTriggerPlayer() then
+            BlzFrameSetVisible(GStatTable,false)
+        end
     end)
     return SelfFrame
+end
+
+function CreateStatsTable()
+    local ySize = GetActiveCountPlayer()
+    --print("создаём таблицу статистики")
+    local tooltip = BlzCreateFrameByType("BACKDROP", "TalonTooltip", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "EscMenuControlBackdropTemplate", 0)
+    GStatTable=tooltip
+    BlzFrameSetVisible(GStatTable,false)
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.24, 0.58)
+    BlzFrameSetSize(tooltip, 0.2, 0.04 * ySize)
+
+    -- заголовки
+
+    local textName = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    BlzFrameSetText(textName, "Name")
+    BlzFrameSetScale(textName, 1)
+    BlzFrameSetPoint(textName, FRAMEPOINT_LEFT, tooltip, FRAMEPOINT_LEFT, 0.01, 0.01*ySize)
+
+    local textDamage = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    BlzFrameSetText(textDamage, "Damage")
+    BlzFrameSetScale(textDamage, 1)
+    BlzFrameSetPoint(textDamage, FRAMEPOINT_LEFT, tooltip, FRAMEPOINT_LEFT, 0.06, 0.01*ySize)
+
+    local textHeal = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    BlzFrameSetText(textHeal, "Heal")
+    BlzFrameSetScale(textHeal, 1)
+    BlzFrameSetPoint(textHeal, FRAMEPOINT_LEFT, tooltip, FRAMEPOINT_LEFT, 0.11, 0.01*ySize)
+
+    local textGained = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    BlzFrameSetText(textGained, "Gained")
+    BlzFrameSetScale(textGained, 1)
+    BlzFrameSetPoint(textGained, FRAMEPOINT_LEFT, tooltip, FRAMEPOINT_LEFT, 0.16, 0.01*ySize)
+
+    local k = 1
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if PlayerIsPlaying[i] then
+            local data = HERO[i]
+            -- установка имени
+            local Name = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            BlzFrameSetText(Name, SplitStringTo(GetPlayerName(Player(i)),7))
+            BlzFrameSetScale(Name, 1)
+            BlzFrameSetPoint(Name, FRAMEPOINT_LEFT, textName, FRAMEPOINT_LEFT, 0, -0.02 * k)
+            -- установка нанесения урона
+            local Damage = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            BlzFrameSetScale(Damage, 1)
+            BlzFrameSetPoint(Damage, FRAMEPOINT_LEFT, textDamage, FRAMEPOINT_LEFT, 0, -0.02 * k)
+
+            -- установка лечения
+            local Heal = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            BlzFrameSetScale(Heal, 1)
+            BlzFrameSetPoint(Heal, FRAMEPOINT_LEFT, textHeal, FRAMEPOINT_LEFT, 0, -0.02 * k)
+
+            -- установка получения урона
+            local Gained = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            BlzFrameSetScale(Gained, 1)
+            BlzFrameSetPoint(Gained, FRAMEPOINT_LEFT, textGained, FRAMEPOINT_LEFT, 0, -0.02 * k)
+
+            TimerStart(CreateTimer(), 1, true, function()
+                BlzFrameSetText(Heal, R2I(data.StatHealGained))
+                BlzFrameSetText(Damage, R2I(data.StatDamageDealing))
+                BlzFrameSetText(Gained, R2I(data.StatDamageGained))
+            end)
+            k = k + 1
+        end
+    end
+end
+
+function SplitStringTo(string,k)
+    return SubString(string,0,k)
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -9156,26 +9302,28 @@ LastGodTalon = {}
 AllRewardUnits = {} --юниты болванчики для предметов которые можно купить
 function CreateGodTalon(x, y, name, price)
     x = x - 16
-    local r,g,b=0,0,0
-    if not name or name=="" then
+    local r, g, b = 0, 0, 0
+    if not name or name == "" then
         --print("ошибка, при создании дара, не определена награда комнаты")
-        CreateMerchantAndGoods(x,y)
+        CreateMerchantAndGoods(x, y)
         AllActionsEnabled(true)
         return
         --name="CodoHeart"
     end
-    if not price then price=0 end
+    if not price then
+        price = 0
+    end
     local eff = AddSpecialEffect("SystemGeneric\\GodModels\\" .. name, x, y)
     local pillar = AddSpecialEffect("SystemGeneric\\LightPillar", x, y)
     local collision = CreateDestructable(FourCC("B003"), x, y, 0, 1, 1)
-    local priceTag=CreateStaticGoldTag(price,x,y)
+    local priceTag = CreateStaticGoldTag(price, x, y)
 
-    local tableT = {eff,pillar,collision,priceTag}
-    normal_sound("Sound\\Interface\\ItemReceived",x,y)
+    local tableT = { eff, pillar, collision, priceTag }
+    normal_sound("Sound\\Interface\\ItemReceived", x, y)
     --if not r or not g or not b then
-        r = 255
-        g = 255
-        b = 255
+    r = 255
+    g = 255
+    b = 255
     --end
     BlzSetSpecialEffectColor(pillar, r, g, b)
     BlzSetSpecialEffectScale(eff, 2)
@@ -9183,32 +9331,37 @@ function CreateGodTalon(x, y, name, price)
 
     BlzSetSpecialEffectScale(pillar, 2)
     BlzSetSpecialEffectPosition(pillar, x, y, GetTerrainZ(x, y) + 150)
-    BlzSetSpecialEffectAlpha(pillar,120)
+    BlzSetSpecialEffectAlpha(pillar, 120)
 
-    BlzSetSpecialEffectAlpha(eff,250)
+    BlzSetSpecialEffectAlpha(eff, 250)
+
+    --local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
+    --print("Создали дар")
+    local textE = L("Принять дар", "Get a gift")
+
+    if price > 0 then
+        textE = L("Купить за ", "Buy for ") .. price
+    end
+
+    local tempUnit = CreateEnterPoint(x, y, textE, name, true)
+
+    if not EnterPointTable[GetHandleId(tempUnit)] then
+        EnterPointTable[GetHandleId(tempUnit)] = {}
+    end
+    table.insert(AllRewardUnits, tempUnit)
+    local dataPoint = EnterPointTable[GetHandleId(tempUnit)]
+    dataPoint.TripleTalon = tableT
+    dataPoint.TalonPrice = price
+    dataPoint.priceTag = priceTag-- сам текстаг, для его дальнейшей правки
+
     local angle = 0
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         angle = angle + 1
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
+        if not UnitAlive(tempUnit) then
+            DestroyTimer(GetExpiredTimer())
+        end
     end)
-    --local tooltip=FinObjectInArea(x, y, "       Принять дар", name,true)
-    --print("Создали дар")
-    local textE=L("Принять дар","Get a gift")
-
-    if price>0 then
-        textE=L("Купить за ","Buy for ")..price
-    end
-
-    local tempUnit=CreateEnterPoint(x,y,textE, name, true)
-    if not EnterPointTable[GetHandleId(tempUnit)] then
-        EnterPointTable[GetHandleId(tempUnit)] = {}
-    end
-    table.insert(AllRewardUnits,tempUnit)
-    local dataPoint = EnterPointTable[GetHandleId(tempUnit)]
-    dataPoint.TripleTalon=tableT
-    dataPoint.TalonPrice=price
-    dataPoint.priceTag=priceTag-- сам текстаг, для его дальнейшей правки
-
     --[[
     local forceShow=false
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
@@ -9247,13 +9400,13 @@ function DestroyGotoPoint(dataPoint)
 end
 
 function ClearGoodsViaExit()
-    for i=1,#AllRewardUnits do
-        local u=AllRewardUnits[i]
-        local dataPoint=EnterPointTable[GetHandleId(u)]
+    for i = 1, #AllRewardUnits do
+        local u = AllRewardUnits[i]
+        local dataPoint = EnterPointTable[GetHandleId(u)]
         DestroyGodTalon(dataPoint.TripleTalon)
         KillUnit(dataPoint.Unit)
         --table.remove(AllRewardUnits,AllRewardUnits[i]) --- что то делаю не так, нельзя удалять
-       -- print("уничтожен",dataPoint.CurrentReward)
+        -- print("уничтожен",dataPoint.CurrentReward)
     end
 end
 
@@ -9274,6 +9427,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
+            DestroyTimer(GetExpiredTimer())
             HERO = {}
             AbilityDescriptionRus = {
                 L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади", "Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),
@@ -9425,7 +9579,68 @@ function InitEnemyEntire()
             --print("Черепаха")
             TurtleAttack(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("u002") then
+            GulRageAI(unit)
+        end
+    end)
+end
 
+function GulRageAI(unit)
+    local target = nil
+    local sec = 0
+    local study = 5
+    AddMaxLife(unit, 2000 * GetActiveCountPlayer())
+
+    local DamageTrigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGED) -- После вычета брони
+    end
+    TriggerAddAction(DamageTrigger, function()
+        local damage = GetEventDamage() -- число урона
+        if damage < 1 then
+            return
+        end
+        local eventId = GetHandleId(GetTriggerEventId())
+        local isEventDamaged = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGED)
+        local caster = GetEventDamageSource() -- тот кто нанёс урон
+
+
+        if isEventDamaged then
+            if caster == unit then
+                HealUnit(unit,damage*5)
+            end
+        end
+
+    end)
+
+    TimerStart(CreateTimer(), 1, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            target = GetRandomEnemyHero()
+            if not UnitAlive(target) then
+                target = GetRandomEnemyHero()
+            end
+            --if not IsUnitStunned(unit) and target and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                sec = sec + 1
+                IssuePointOrder(unit, "attack", GetUnitXY(target))
+                if sec == study then
+                    --print("rage")
+                    SetUnitInvulnerable(unit, true)
+                    SetUnitVertexColor(unit, 50, 50, 50, 255)
+                    BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 0.3)
+                    SetUnitMoveSpeed(unit, 500)
+                end
+                if sec == study * 2 then
+                    --print("нормал moving")
+                    SetUnitInvulnerable(unit, false)
+                    SetUnitVertexColor(unit, 255, 255, 255, 255)
+                    BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 2)
+                    SetUnitMoveSpeed(unit, 200)
+                    sec = 0
+                end
+           -- end
+        end
     end)
 end
 
@@ -9433,7 +9648,7 @@ function TurtleAttack(unit)
     UnitAddAbility(unit, FourCC("Abun"))
     TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
@@ -9445,8 +9660,10 @@ function TurtleAttack(unit)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
                         CreateAndForceBullet(unit, angle, 20, "Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl", nil, nil, 150, 1200)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     TimerStart(CreateTimer(), 0.5, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         BlzPauseUnitEx(unit, false)
                     end)
                 else
@@ -9460,7 +9677,7 @@ end
 function GuardAISpeer(unit)
     TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
@@ -9471,6 +9688,7 @@ function GuardAISpeer(unit)
                     SetUnitTimeScale(unit, 0.5)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.7, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         CreateAndForceBullet(unit, angle, 30, "SystemGeneric\\Teath3", nil, nil, 300, 3000)
                         BlzPauseUnitEx(unit, false)
                     end)
@@ -9493,7 +9711,7 @@ end
 function JumpDragonGround(unit)
     TimerStart(CreateTimer(), GetRandomReal(2, 3), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
@@ -9519,7 +9737,7 @@ function CastTorrent(unit)
     DestroyEffect(eff)
     TimerStart(CreateTimer(), GetRandomReal(1, 5), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             IssueTargetOrder(unit, "move", hero)
@@ -9536,6 +9754,7 @@ function TorrentWisMark(unit, x, y)
         local eff = AddSpecialEffect("SystemGeneric\\Torrent", x, y)
         UnitDamageArea(unit, 200, x, y, 150)
         DestroyEffect(eff)
+        DestroyTimer(GetExpiredTimer())
     end)
 end
 
@@ -9543,7 +9762,7 @@ function MurlockEnsnare(unit)
     UnitAddAbility(unit, FourCC("A007"))
     TimerStart(CreateTimer(), GetRandomReal(3, 10), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             IssueTargetOrder(unit, "attack", hero)
@@ -9560,7 +9779,7 @@ function MiniFire(unit)
     UnitAddAbility(unit, FourCC("Abun"))
     TimerStart(CreateTimer(), GetRandomReal(0.5, 1.5), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
@@ -9574,6 +9793,7 @@ function MiniFire(unit)
                     TimerStart(CreateTimer(), 0.3, false, function()
                         CreateAndForceBullet(unit, angle, GetRandomInt(20, 40), "Abilities\\Weapons\\SearingArrow\\SearingArrowMissile.mdl", nil, nil, 100, 3000)
                         BlzPauseUnitEx(unit, false)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 else
                     local x, y = GetUnitXY(unit)
@@ -9584,8 +9804,10 @@ function MiniFire(unit)
                     local eff = nil
                     TimerStart(CreateTimer(), 1.8, false, function()
                         eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     TimerStart(CreateTimer(), 2, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         --print("наносим урон миной")
                         DestroyEffect(eff)
                         UnitDamageArea(hero, 150, x, y, 200, "all")
@@ -9663,6 +9885,7 @@ function StoneUnStone(unit)
                         -- print("приземление")
                         CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, GetUnitXY(unit))
                         TimerStart(CreateTimer(), 1, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             if UnitAlive(unit) then
                                 local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", GetUnitXY(unit))
                                 DestroyEffect(eff)
@@ -9677,6 +9900,7 @@ function StoneUnStone(unit)
                     -- print("приземление")
                     CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, GetUnitXY(unit))
                     TimerStart(CreateTimer(), 1, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         if UnitAlive(unit) then
                             local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", GetUnitXY(unit))
                             DestroyEffect(eff)
@@ -9752,6 +9976,7 @@ function ImpaleBug(unit)
 
                     TimerStart(CreateTimer(), 1.5, false, function()
                         DestroyTimer(t)
+                        DestroyTimer(GetExpiredTimer())
                         -- DestroyEffect(eff)
                         --BlzSetSpecialEffectPosition(eff,OutPoint,OutPoint,0)
                         if not IsUnitStunned(unit) and not havAStun then
@@ -9864,6 +10089,7 @@ function PudgeSlash(unit)
                         BlzSetSpecialEffectPosition(eff1, OutPoint, OutPoint, 0)
                         BlzSetSpecialEffectPosition(eff2, OutPoint, OutPoint, 0)
                         DestroyTimer(t)
+                        DestroyTimer(GetExpiredTimer())
                     end)
 
                     TimerStart(t, 0.1, true, function()
@@ -9883,6 +10109,7 @@ function PudgeSlash(unit)
                     end)
 
                     TimerStart(CreateTimer(), 1, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         BlzPauseUnitEx(unit, false)
                         SetUnitTimeScale(unit, 1)
                         if not IsUnitStunned(unit) and not BreakCast then
@@ -9915,7 +10142,7 @@ function NecroAttackAndArrow(unit)
     IssueImmediateOrder(unit, "raisedeadon")
     TimerStart(CreateTimer(), GetRandomReal(1.5, 2.5), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
@@ -9927,6 +10154,7 @@ function NecroAttackAndArrow(unit)
                     --SetUnitTimeScale(unit,0.7)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         CreateAndForceBullet(unit, angle, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
                         if GetUnitManaPercent(unit) > 30 and GetUnitTypeId(unit) == FourCC("unec") then
                             CreateAndForceBullet(unit, angle + 10, 10, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
@@ -9949,7 +10177,7 @@ function BansheeAiBlinkAndArrow(unit)
     UnitAddAbility(unit, FourCC("Abun"))
     TimerStart(CreateTimer(), GetRandomReal(0.5, 1), true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             --local dist=DistanceBetweenXY(GetUnitX(unit),GetUnitY(unit),GetUnitXY(hero))
@@ -9966,6 +10194,7 @@ function BansheeAiBlinkAndArrow(unit)
                     --SetUnitTimeScale(unit,0.7)
                     SetUnitFacing(unit, angle)
                     TimerStart(CreateTimer(), 0.3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         CreateAndForceBullet(unit, angle, 15, "Abilities\\Weapons\\DemonHunterMissile\\DemonHunterMissile.mdl", nil, nil, 50, 3000)
                         BlzPauseUnitEx(unit, false)
                     end)
@@ -9993,7 +10222,7 @@ function SinergyBug(unit)
     local hero = GetRandomEnemyHero()
     TimerStart(CreateTimer(), 1, true, function()
         if not UnitAlive(unit) or not hero then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             hero = GetRandomEnemyHero()
             if hero then
@@ -10009,7 +10238,7 @@ function SpawnZombie(unit)
     HealUnit(unit, 5000)
     TimerStart(CreateTimer(), 3, true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             if not IsUnitStunned(unit) then
                 local new = CreateUnit(GetOwningPlayer(unit), FourCC("nzom"), GetUnitX(unit), GetUnitY(unit), 0)
@@ -10027,7 +10256,7 @@ function JumpAI(unit)
     local p = GetRandomReal(4, 8)
     TimerStart(CreateTimer(), p, true, function()
         if not UnitAlive(unit) then
-            DestroyTimer(GetTriggerUnit())
+            DestroyTimer(GetExpiredTimer())
         else
             local hero = GetRandomEnemyHero()
             local dist = DistanceBetweenXY(GetUnitX(unit), GetUnitY(unit), GetUnitXY(hero))
@@ -10042,6 +10271,7 @@ function JumpAI(unit)
                     CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, GetUnitXY(hero))
                     TimerStart(CreateTimer(), 1, false, function()
                         UnitAddForceSimple(unit, angle, 20, dist, "forceAttack")
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 end
             end
@@ -10054,6 +10284,7 @@ function CreateVisualMarkTimedXY(effModel, timed, x, y)
     BlzSetSpecialEffectColor(eff, 255, 0, 0)
     BlzSetSpecialEffectZ(eff, GetTerrainZ(x, y) + 50)
     TimerStart(CreateTimer(), timed, false, function()
+        DestroyTimer(GetExpiredTimer())
         DestroyEffect(eff)
         BlzSetSpecialEffectPosition(eff, OutPoint, OutPoint, 0)
     end)
@@ -10129,6 +10360,7 @@ function StartObsidianBoss(boss)
 
                 local r=1
                 TimerStart(CreateTimer(), 2, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     TimerStart(CreateTimer(), 0.1, true, function()
                         local hero=GetRandomEnemyHero()
                         if hero then
@@ -10163,6 +10395,7 @@ function StartObsidianBoss(boss)
                 local r=GetRandomInt(1,2)
                 TimerStart(CreateTimer(), 2, false, function()
                     DestroyEffect(mark)
+                    DestroyTimer(GetExpiredTimer())
                     BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
                     TimerStart(CreateTimer(), 0.1, true, function()
                         hero=GetRandomEnemyHero()
@@ -10612,7 +10845,7 @@ function AreaSplashMark(boss)
         CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, nx, ny)
         TimerStart(CreateTimer(), 1.2, false, function()
             BlzPauseUnitEx(boss, false)
-
+            DestroyTimer(GetExpiredTimer())
             --nx,ny=MoveXY(GetUnitX(boss),GetUnitY(boss),200,GetUnitFacing(boss))
             if not IsUnitStunned(boss) then
                 DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", nx, ny))
@@ -11823,6 +12056,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                             TimerStart(CreateTimer(), 1 / 32, false, function()
                                 BlzSetSpecialEffectScale(eff, 3)
                                 DestroyEffect(eff)
+                                DestroyTimer(GetExpiredTimer())
                             end)
                             UnitDamageArea(hero, data.BlastDamage, nx, ny, 300)
                             --print("взрыв")
@@ -12098,9 +12332,11 @@ function OnPostDamage()
                 TimerStart(CreateTimer(), 0.5, false, function()
                     SetUnitInvulnerable(data.UnitHero, false)
                     DestroyEffect(effInv)
+                    DestroyTimer(GetExpiredTimer())
                 end)
                 TimerStart(CreateTimer(), cd, false, function()
                     data.EvilSoulCurrentCD = 0
+                    DestroyTimer(GetExpiredTimer())
                     DestroyTimer(GetExpiredTimer())
                 end)
             end
@@ -12234,6 +12470,7 @@ function OnPostDamage()
             -- print("где эффект")
             TimerStart(CreateTimer(), 0.5, false, function()
                 DestroyEffect(eff)
+                DestroyTimer(GetExpiredTimer())
             end)
             UnitDamageTarget(target, caster, data.RevengeLightingDamage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
         end
@@ -12414,6 +12651,7 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                 end
                                 TimerStart(CreateTimer(), 0.6, false, function()
                                     UnitDamageArea(hero, 1000, dx, dy, 300)
+                                    DestroyTimer(GetExpiredTimer())
                                 end)
                             end
                         end
@@ -12481,6 +12719,7 @@ function InitDeathEvent()
             data.KillStack = data.KillStack + 1
             TimerStart(CreateTimer(), 0.5, false, function()
                 data.KillStack = data.KillStack - 1
+                DestroyTimer(GetExpiredTimer())
             end)
             if data.KillStack == 2 then
                 if GetRandomInt(1,3)==1 then
@@ -12657,15 +12896,22 @@ do
 end]]
 local origDestroyTimer = DestroyTimer
 function DestroyTimer(t)
+
     if t == nil then
         t = GetExpiredTimer()
-        if t == nil then return end
+        if t == nil then
+            --print("в функцию разрушения таймера передано что-то нето")
+            return
+        end
+
     end
     PauseTimer(t)
+    GCountTimers = GCountTimers - 1
     origDestroyTimer(t)
 end
 
 local realTimerStart = TimerStart
+GCountTimers = 0
 TimerStart = function(timer, duration, repeating, callback)
     local pcallback = function()
         if callback == nil then
@@ -12676,6 +12922,8 @@ TimerStart = function(timer, duration, repeating, callback)
             print(err)
         end
     end
+    GCountTimers = GCountTimers + 1
+    --print("Запущено таймеров", GCountTimers)
     realTimerStart(timer, duration, repeating, pcallback)
 end
 
@@ -12956,6 +13204,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     data.WallHitCount = data.WallHitCount + 1
                     TimerStart(CreateTimer(), 3, false, function()
                         data.WallHitCount = data.WallHitCount - 1
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     --print(data.WallHitCount)
 
@@ -13012,6 +13261,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                             HealUnit(ally, 100)
                             TimerStart(CreateTimer(), cd, false, function()
                                 data.HealDashAllyCurrentCD = 0
+                                DestroyTimer(GetExpiredTimer())
                             end)
                         end
                     end
@@ -13095,6 +13345,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                             UnitAddForceSimple(hero, angle - 180, 25, 200, "ignore")
                             TimerStart(CreateTimer(), cd, false, function()
                                 data.IllusionDashCurrentCD = 0
+                                DestroyTimer(GetExpiredTimer())
                             end)
                         end
                     end
@@ -13154,6 +13405,7 @@ function PlayerSeeNoiseInRangeTimed(duration, x,y)
                 CameraSetEQNoiseForPlayer(GetOwningPlayer(hero), 3)
                 TimerStart(CreateTimer(), duration, false, function()
                     CameraClearNoiseForPlayer(GetOwningPlayer(hero))
+                    DestroyTimer(GetExpiredTimer())
                 end)
             end
         end
@@ -14249,6 +14501,7 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                     SetUnitState(u, UNIT_STATE_LIFE, 1)
                     ------
                     TimerStart(CreateTimer(), cd, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         data.KamikazeCurrentCD = 0
                     end)
                 end
@@ -14424,6 +14677,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
+            PlayMusic("war3mapImported\\lobby2.mp3")
             PlayMusic("war3mapImported\\lobby.mp3")
             InitMouseMoveTrigger()
             PlayUnitAnimationFromChat()
@@ -14535,6 +14789,7 @@ function InitWASD(hero)
     --SwitchWeaponTo(data, "shield") --Первое назначение оружие
     TimerStart(CreateTimer(), 2, false, function()
         --SwitchWeaponTo(data, "pickaxe") -- перенесено в прелоад
+        DestroyTimer(GetExpiredTimer())
     end)
 
     TimerStart(CreateTimer(), 0.005, true, function()
@@ -14624,27 +14879,27 @@ function InitWASD(hero)
                 if data.BloodFountainPreDeath then
                     CreateBloodFountain(data, GetUnitXY(data.UnitHero))
                 end
+                TimerStart(CreateTimer(), 3, false, function()
+                    DestroyTimer(GetExpiredTimer())
+                    if data.life >= 0 then
+                        data.CameraOnSaw = false
+                        x, y = GetUnitXY(hero)
+                        ReviveHero(hero, x, y, true)
+                        SetUnitInvulnerable(hero, true)
+                        TimerStart(CreateTimer(), 2, false, function()
+                            SetUnitInvulnerable(hero, false)
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                    end
+                end)
+
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
             if data.CameraStabUnit and data.life < 0 then
                 --SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
             end
-            if GetLocalPlayer() == GetOwningPlayer(hero) then
-                -- SetCameraQuickPosition(x,y)
-            end
-            TimerStart(CreateTimer(), 3, false, function()
-                --3
-                if data.life >= 0 then
-                    data.CameraOnSaw = false
-                    x, y = GetUnitXY(hero)
-                    ReviveHero(hero, x, y, true)
-                    SetUnitInvulnerable(hero, true)
-                    TimerStart(CreateTimer(), 2, false, function()
-                        SetUnitInvulnerable(hero, false)
-                    end)
-                end
-            end)
+
         else
             KillUnit(data.CameraStabUnit)
             data.CameraStabUnit = nil
@@ -14971,8 +15226,9 @@ function CreateWASDActions()
                 UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
             end
             data.wFast = true
-            TimerStart(CreateTimer(), 0.1, true, function()
+            TimerStart(CreateTimer(), 0.1, false, function()
                 data.wFast = false
+                DestroyTimer(GetExpiredTimer())
             end)
 
 
@@ -15026,8 +15282,9 @@ function CreateWASDActions()
                 UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
             end
             data.sFast = true
-            TimerStart(CreateTimer(), 0.1, true, function()
+            TimerStart(CreateTimer(), 0.1, false, function()
                 data.sFast = false
+                DestroyTimer(GetExpiredTimer())
             end)
             -----
             data.ReleaseS = true
@@ -15074,8 +15331,9 @@ function CreateWASDActions()
                 UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
             end
             data.dFast = true
-            TimerStart(CreateTimer(), 0.1, true, function()
+            TimerStart(CreateTimer(), 0.1, false, function()
                 data.dFast = false
+                DestroyTimer(GetExpiredTimer())
             end)
 
             data.ReleaseD = true
@@ -15114,8 +15372,9 @@ function CreateWASDActions()
                 UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
             end
             data.aFast = true
-            TimerStart(CreateTimer(), 0.1, true, function()
+            TimerStart(CreateTimer(), 0.1, false, function()
                 data.aFast = false
+                DestroyTimer(GetExpiredTimer())
             end)
             ---
             data.ReleaseA = true
@@ -15176,6 +15435,7 @@ function CreateWASDActions()
                             SetUnitInvulnerable(data.UnitHero, true)
                             TimerStart(CreateTimer(), 1, false, function()
                                 SetUnitInvulnerable(data.UnitHero, false)
+                                DestroyTimer(GetExpiredTimer())
                             end)
                         end
                     end
@@ -15193,6 +15453,7 @@ function CreateWASDActions()
                 TimerStart(CreateTimer(), data.DashChargesReloadSec, false, function()
                     data.DashCharges = data.DashCharges + 1
                     BlzFrameSetText(data.DashChargesFH, data.DashCharges)
+                    DestroyTimer(GetExpiredTimer())
                 end)
 
                 UnitAddItemById(data.UnitHero, FourCC("I000")) -- предмет виндволк
@@ -15204,6 +15465,7 @@ function CreateWASDActions()
                     data.HealDashCurrentCD = talon.DS[talon.level]
                     TimerStart(CreateTimer(), data.HealDashCurrentCD, false, function()
                         data.HealDashCurrentCD = 0
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 end
                 --------------------------------Кольцо змей
@@ -15219,6 +15481,7 @@ function CreateWASDActions()
                         HealUnit(ally, 100)
                         TimerStart(CreateTimer(), cd, false, function()
                             data.CircleSnakeCurrentCD = 0
+                            DestroyTimer(GetExpiredTimer())
                         end)
                         -- print("кольцо змей")
                         local angle = 360 // 12
@@ -15259,6 +15522,7 @@ function CreateWASDActions()
                     SetUnitInvulnerable(data.UnitHero, true)
                     TimerStart(CreateTimer(), 0.2, false, function()
                         SetUnitInvulnerable(data.UnitHero, false)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 end
                 local eff = AddSpecialEffectTarget(effModel, data.UnitHero, "origin")
@@ -15268,6 +15532,7 @@ function CreateWASDActions()
                     data.SpaceForce = false
                     data.AttackInForce = false
                     SetUnitTimeScale(data.UnitHero, 1)
+                    DestroyTimer(GetExpiredTimer())
                 end)
                 if not data.ReleaseQ then
                     -- анимация в обычном рывке
@@ -15329,15 +15594,18 @@ function CreateWASDActions()
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     TimerStart(CreateTimer(), 0.4, false, function()
                         data.QHighJump = true
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     TimerStart(CreateTimer(), 1, false, function()
                         data.QHighJump = false
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 4, 200)
                     if data.InvulInCrashQ then
                         SetUnitInvulnerable(data.UnitHero, true)
                         TimerStart(CreateTimer(), 1, false, function()
                             SetUnitInvulnerable(data.UnitHero, false)
+                            DestroyTimer(GetExpiredTimer())
                         end)
                     end
                     --print("анимация прыжка?")
@@ -15347,14 +15615,15 @@ function CreateWASDActions()
 
                     FallenArrow(data, data.fakeX, data.fakeY)
                     CreateCircleSplatTimed(data, data.fakeX, data.fakeY, 200, 2)
-                    local angle=-180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-                    BlzSetUnitFacingEx(data.UnitHero,angle)
+                    local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    BlzSetUnitFacingEx(data.UnitHero, angle)
                     StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
                     SetUnitAnimationByIndex(data.UnitHero, 30)
-                    SetUnitTimeScale(data.UnitHero,4)
+                    SetUnitTimeScale(data.UnitHero, 4)
                     TimerStart(CreateTimer(), 0.4, false, function()
                         data.ReleaseQ = false
-                        SetUnitTimeScale(data.UnitHero,1)
+                        SetUnitTimeScale(data.UnitHero, 1)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 else
                     -- другое оружие, не лук
@@ -15376,6 +15645,7 @@ function CreateWASDActions()
                         end
                         UnitAddForceSimple(data.UnitHero, angle, 20, dist, "qjump")
                         TimerStart(CreateTimer(), 5, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             if data.ReleaseQ then
                                 --print("выход из зависания")
                                 data.ReleaseQ = false
@@ -15389,12 +15659,13 @@ function CreateWASDActions()
                         end
                         TimerStart(CreateTimer(), castDelay, false, function()
                             --задержка перед ударом
-
+                            DestroyTimer(GetExpiredTimer())
                             StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
                             SpellSlashQ(data)
                             if data.DoubleClap then
                                 TimerStart(CreateTimer(), 0.35, false, function()
                                     SpellSlashQ(data)
+                                    DestroyTimer(GetExpiredTimer())
                                 end)
                             end
                             data.ReleaseQ = false
@@ -15624,11 +15895,13 @@ function CreateWASDActions()
                 end
 
                 TimerStart(CreateTimer(), 0.15, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     SetUnitTimeScale(data.UnitHero, 1)
                     local bullet = CreateAndForceBullet(data.UnitHero, angle, 40, "stoneshild", GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 200, 600)
                     DestroyEffect(data.EffInRightHand)
                     --BlzSetSpecialEffectRoll(bullet, math.rad(90))
                     TimerStart(CreateTimer(), 0.4, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         -- перезарядка щита
                         --data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
                         --data.ShieldThrow = false
@@ -15657,6 +15930,7 @@ function CreateWASDActions()
                     SetUnitFacing(data.UnitHero, angle)
                     TimerStart(CreateTimer(), 0.38, false, function()
                         data.ReleaseRMB = false
+                        DestroyTimer(GetExpiredTimer())
                     end)
 
                     if data.OverChargeThrow and data.ThrowCharges == 0 then
@@ -15665,6 +15939,7 @@ function CreateWASDActions()
                             data.OverChargeThrow = data.OverChargeThrow - 1
                             BlzFrameSetText(data.OverChargeThrowFH, R2I(data.OverChargeThrow))
                             TimerStart(CreateTimer(), 0.3, false, function()
+                                DestroyTimer(GetExpiredTimer())
                                 CreateAndForceBullet(data.UnitHero, angle, 50, effModel, xs, ys, data.DamageThrow, maxDist, delay)
                             end)
 
@@ -15672,6 +15947,7 @@ function CreateWASDActions()
                     end
                     if data.ThrowCharges > 0 then
                         TimerStart(CreateTimer(), 0.3, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             -- настоящий выстрел
                             --print("выстрел")
                             if not data.tasks[4] then
@@ -15686,6 +15962,7 @@ function CreateWASDActions()
                             BlzFrameSetText(data.ThrowChargesFH, data.ThrowCharges)
 
                             TimerStart(CreateTimer(), data.ThrowChargesReloadSec, false, function()
+                                DestroyTimer(GetExpiredTimer())
                                 data.ThrowCharges = data.ThrowCharges + 1
                                 BlzFrameSetText(data.ThrowChargesFH, data.ThrowCharges)
                             end)
@@ -15714,7 +15991,7 @@ function CreateWASDActions()
                             CreateAndForceBullet(data.UnitHero, angle, speed, effModel, xs, ys, data.DamageThrow, maxDist, delay)
                             if data.isSpined and data.CrestFire then
                                 for i = 1, data.CrestFire do
-                                    CreateAndForceBullet(data.UnitHero, GetRandomInt(0, 360), speed / 2, effModel, xs, ys, data.DamageThrow, maxDist / 4, delay)
+                                    CreateAndForceBullet(data.UnitHero, GetRandomInt(0, 360), speed / 2, effModel, xs, ys, data.DamageThrow, maxDist / 8, delay)
                                 end
                             end
                         end)
@@ -15766,6 +16043,7 @@ function BlockMouse(data)
         if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "dropitem" then
             data.DropInventory = false
             TimerStart(CreateTimer(), 2, false, function()
+                DestroyTimer(GetExpiredTimer())
                 data.DropInventory = true
             end)
         end
@@ -15805,15 +16083,6 @@ function LockAnimAnimation(data)
     return data.BowReady
 end
 
-function WalkFast(data)
-    if data.wFast then
-        UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
-    end
-    data.wFast = true
-    TimerStart(CreateTimer(), 0.1, true, function()
-        data.wFast = false
-    end)
-end
 --CUSTOM_CODE
 function Trig_StepOneCulvr_Func001A()
     RemoveDestructable(GetEnumDestructable())

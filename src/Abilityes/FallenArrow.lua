@@ -33,7 +33,7 @@ function CreateFallArrow(effModel, data, x, y, zs)
                     BlzSetSpecialEffectPosition(eff, OutPoint, OutPoint, 0)
                 end)
             end
-            DestroyTimer()
+            DestroyTimer(GetExpiredTimer())
 
         end
     end)

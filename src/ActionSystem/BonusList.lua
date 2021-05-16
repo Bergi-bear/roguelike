@@ -34,6 +34,7 @@ function AddMaxLife(hero, amount)
     if IsUnitType(hero,UNIT_TYPE_HERO) then
         TimerStart(CreateTimer(), 1, false, function()
             FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
+            DestroyTimer(GetExpiredTimer())
         end)
     else
         HealUnit(hero)

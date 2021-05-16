@@ -31,6 +31,7 @@ function attackPickAxe(data)
                 --data.LineCleaveAttack
                 TimerStart(CreateTimer(), 0.2, false, function()
                     CreateAndForceBullet(data.UnitHero, angle, 20, "Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl", GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 50, 700)
+                    DestroyTimer(GetExpiredTimer())
                 end)
             end
 
@@ -39,6 +40,7 @@ function attackPickAxe(data)
                 data.Reflected = true
                 TimerStart(CreateTimer(), 0.35, false, function()
                     data.Reflected = false
+                    DestroyTimer(GetExpiredTimer())
                 end)
             end
 
@@ -47,6 +49,7 @@ function attackPickAxe(data)
                 indexAnim = 3
                 normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
                 TimerStart(CreateTimer(), 0.2, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
                     BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
                     BlzSetSpecialEffectScale(eff, 0.5)
@@ -65,6 +68,7 @@ function attackPickAxe(data)
                     UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 10, 60)
                     normal_sound("Sound\\PeonSound\\cut\\Bey", GetUnitXY(data.UnitHero))
                     TimerStart(CreateTimer(), 0.3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
                         BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
                         BlzSetSpecialEffectScale(eff, 0.7)
@@ -77,6 +81,7 @@ function attackPickAxe(data)
                     cdAttack = 0.3
                     normal_sound("Sound\\PeonSound\\cut\\SaysNo", GetUnitXY(data.UnitHero))
                     TimerStart(CreateTimer(), 0.2, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
                         BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(data.UnitHero)))
                         BlzSetSpecialEffectScale(eff, 0.5)
@@ -101,6 +106,7 @@ function attackPickAxe(data)
                 end
                 normal_sound("Sound\\PeonSound\\cut\\BloodlustTarget", GetUnitXY(data.UnitHero))
                 TimerStart(CreateTimer(), 0.2, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     normal_sound("abilities\\weapons\\bristlebackmissile\\bristlebackmissilelaunch3", GetUnitXY(data.UnitHero))
                     UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 20, 120)
 
@@ -138,6 +144,7 @@ function attackPickAxe(data)
             end
 
             TimerStart(CreateTimer(), cdAttack, false, function()
+                DestroyTimer(GetExpiredTimer())
                 -- кд атаки тут для всех ударов
                 local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
                 --print(data.AttackCount)
@@ -199,6 +206,7 @@ function attackPickAxe(data)
                                 StartAndReleaseSpin(data, 1)
                                 StartFrameCD(data.ChaosSpinOnAttackCD, data.ChaosSpinOnAttackCDFH)
                                 TimerStart(CreateTimer(), data.ChaosSpinOnAttackCD, false, function()
+                                    DestroyTimer(GetExpiredTimer())
                                     data.ChaosSpinOnAttackCurrentCD = 0
                                 end)
                             end
@@ -218,6 +226,7 @@ function attackPickAxe(data)
                     if is then
                         data.ParryPerAttack = true
                         TimerStart(CreateTimer(), 0.2, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             data.ParryPerAttack = false
                         end)
                         --print("Звук попадания обычной атакой"..data.AttackCount)
@@ -228,6 +237,7 @@ function attackPickAxe(data)
             end)
 
             TimerStart(CreateTimer(), cdAttack + 0.05, false, function()
+                DestroyTimer(GetExpiredTimer())
                 data.isAttacking = false
                 if UnitAlive(data.UnitHero) then
                     if data.IsMoving then
@@ -281,11 +291,13 @@ function attackShield(data)
             ShieldHit(data, cdAttack)
             if data.TwiceAttackPerShield then
                 TimerStart(CreateTimer(), 0.15, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     ShieldHit(data, cdAttack)
                 end)
             end
 
             TimerStart(CreateTimer(), cdAttack * 2, false, function()
+                DestroyTimer(GetExpiredTimer())
                 data.isAttacking = false
                 SetUnitTimeScale(data.UnitHero, 1)
                 if UnitAlive(data.UnitHero) then
@@ -305,6 +317,7 @@ end
 
 function ShieldHit(data, cdAttack)
     TimerStart(CreateTimer(), cdAttack, false, function()
+        DestroyTimer(GetExpiredTimer())
         data.isAttacking = false
         local nx, ny = MoveXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 100, GetUnitFacing(data.UnitHero))
         if StunSystem[GetHandleId(data.UnitHero)].Time == 0 then
@@ -317,6 +330,7 @@ function ShieldHit(data, cdAttack)
             if is then
                 data.ParryPerAttack = true
                 TimerStart(CreateTimer(), 0.2, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     data.ParryPerAttack = false
                 end)
                 --print("Звук попадания обычной атакой"..data.AttackCount)
@@ -338,6 +352,7 @@ function ShieldHit(data, cdAttack)
                             DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
                         end
                         TimerStart(CreateTimer(), cd, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             data.HandOfMidasCurrentCD = 0
                             DestroyTimer(GetExpiredTimer())
                         end)
@@ -358,6 +373,7 @@ function ShieldHit(data, cdAttack)
                         StartAndReleaseSpin(data, 1)
                         StartFrameCD(data.ChaosSpinOnAttackCD, data.ChaosSpinOnAttackCDFH)
                         TimerStart(CreateTimer(), data.ChaosSpinOnAttackCD, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             data.ChaosSpinOnAttackCurrentCD = 0
                         end)
                     end
@@ -372,6 +388,7 @@ function attackBow(data)
     local x, y = GetUnitXY(hero)
     local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
     TimerStart(CreateTimer(), 0.1, false, function()
+        DestroyTimer(GetExpiredTimer())
         data.BowReady = false -- лук не готов для стрельбы
         data.ReadyToShot=false
         SetUnitTimeScale(data.UnitHero, 1) --возврат скорости

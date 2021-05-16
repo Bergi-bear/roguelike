@@ -86,6 +86,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     data.WallHitCount = data.WallHitCount + 1
                     TimerStart(CreateTimer(), 3, false, function()
                         data.WallHitCount = data.WallHitCount - 1
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     --print(data.WallHitCount)
 
@@ -142,6 +143,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                             HealUnit(ally, 100)
                             TimerStart(CreateTimer(), cd, false, function()
                                 data.HealDashAllyCurrentCD = 0
+                                DestroyTimer(GetExpiredTimer())
                             end)
                         end
                     end
@@ -225,6 +227,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                             UnitAddForceSimple(hero, angle - 180, 25, 200, "ignore")
                             TimerStart(CreateTimer(), cd, false, function()
                                 data.IllusionDashCurrentCD = 0
+                                DestroyTimer(GetExpiredTimer())
                             end)
                         end
                     end
@@ -284,6 +287,7 @@ function PlayerSeeNoiseInRangeTimed(duration, x,y)
                 CameraSetEQNoiseForPlayer(GetOwningPlayer(hero), 3)
                 TimerStart(CreateTimer(), duration, false, function()
                     CameraClearNoiseForPlayer(GetOwningPlayer(hero))
+                    DestroyTimer(GetExpiredTimer())
                 end)
             end
         end

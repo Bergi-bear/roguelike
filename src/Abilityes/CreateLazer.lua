@@ -20,6 +20,7 @@ function CreateLaser(effModel, x, y, xEnd, yEnd, duration)
     BlzSetSpecialEffectScale(eff, 3)
     --
     TimerStart(CreateTimer(), duration, false, function()
+        DestroyTimer(GetExpiredTimer())
         DestroyEffect(eff)
     end)
 end

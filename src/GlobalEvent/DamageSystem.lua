@@ -153,9 +153,11 @@ function OnPostDamage()
                 TimerStart(CreateTimer(), 0.5, false, function()
                     SetUnitInvulnerable(data.UnitHero, false)
                     DestroyEffect(effInv)
+                    DestroyTimer(GetExpiredTimer())
                 end)
                 TimerStart(CreateTimer(), cd, false, function()
                     data.EvilSoulCurrentCD = 0
+                    DestroyTimer(GetExpiredTimer())
                     DestroyTimer(GetExpiredTimer())
                 end)
             end
@@ -289,6 +291,7 @@ function OnPostDamage()
             -- print("где эффект")
             TimerStart(CreateTimer(), 0.5, false, function()
                 DestroyEffect(eff)
+                DestroyTimer(GetExpiredTimer())
             end)
             UnitDamageTarget(target, caster, data.RevengeLightingDamage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
         end
@@ -469,6 +472,7 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                 end
                                 TimerStart(CreateTimer(), 0.6, false, function()
                                     UnitDamageArea(hero, 1000, dx, dy, 300)
+                                    DestroyTimer(GetExpiredTimer())
                                 end)
                             end
                         end

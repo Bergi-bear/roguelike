@@ -44,7 +44,6 @@ function CreateTotemElement(x, y, angle)
         KillDestructable(collision)
         RemoveDestructable(collision)
         DestroyEffect(eff)
-        PauseTimer(GetExpiredTimer())
         DestroyTimer(GetExpiredTimer())
     end)
 end

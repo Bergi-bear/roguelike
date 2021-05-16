@@ -27,6 +27,11 @@ function DrawInterFace()
     CreateInterfaceForAlly()
     CreateWinPercent()
     CreateEnemyLost()
+    CreateFireTimer()
+    TimerStart(CreateTimer(), 3.1, false, function()
+        CreateStatsTable()
+        DestroyTimer(GetExpiredTimer())
+    end)
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if HERO[i] then
             --CreateHPBar(HERO[i].UnitHero)
@@ -138,6 +143,7 @@ function RemoveLife(data)
             end
         else
             TimerStart(CreateTimer(), 3, false, function()
+                DestroyTimer(GetExpiredTimer())
                 local SaveCode = "error"
                 for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
                     if data.life < 0 then
@@ -182,7 +188,7 @@ function GetSaveCode(data)
     return R2I(data.gold) .. "," .. R2I(LoadedGameCount[data.pid]) .. "," .. R2I(data.chaosPoint) .. "," .. R2I(GetDataWeaponID(data)) .. ","
 end
 
-function CreateHPBar(hero,parent,visionData)
+function CreateHPBar(hero, parent, visionData)
     local intoBar = "Replaceabletextures\\Teamcolor\\Teamcolor00.blp"
 
     if GetLocalPlayer() ~= Player(visionData.pid) then
@@ -216,7 +222,7 @@ function CreateHPBar(hero,parent,visionData)
             --BlzFrameSetVisible(into, GetLocalPlayer() == GetOwningPlayer(hero))
             BlzFrameSetText(textCurrent, R2I(GetUnitState(hero, UNIT_STATE_LIFE)))
             BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
-            BlzFrameSetSize(into, hp * 0.1 / 100,0.02 * 0.95/2 )
+            BlzFrameSetSize(into, hp * 0.1 / 100, 0.02 * 0.95 / 2)
         end
     end)
 end
@@ -233,7 +239,7 @@ function CreateWinPercent()
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetText(text, "")
     BlzFrameSetScale(text, 2)
-    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, Frame, FRAMEPOINT_RIGHT, 0.02, 0.0)
+    BlzFrameSetPoint(text, FRAMEPOINT_LEFT, Frame, FRAMEPOINT_LEFT, 0.015, 0.0)
     TimerStart(CreateTimer(), 1, true, function()
         BlzFrameSetText(text, GWinPercent .. "%%")
     end)
@@ -251,9 +257,26 @@ function CreateEnemyLost()
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetText(text, "")
     BlzFrameSetScale(text, 2)
-    BlzFrameSetPoint(text, FRAMEPOINT_RIGHT, Frame, FRAMEPOINT_RIGHT, 0.02, 0.0)
+    BlzFrameSetPoint(text, FRAMEPOINT_LEFT, Frame, FRAMEPOINT_LEFT, 0.015, 0.0)
     TimerStart(CreateTimer(), 1, true, function()
         BlzFrameSetText(text, GLostOnWave .. "/" .. GMaxOnWave)
+    end)
+end
+
+function CreateFireTimer()
+    local ico = "ReplaceableTextures\\CommandButtons\\BTNWallOfFire.blp"
+    local Frame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(Frame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(Frame, ico, 0, true)
+    BlzFrameSetSize(Frame, NextPoint / 2, NextPoint / 2)
+    BlzFrameSetAbsPoint(Frame, FRAMEPOINT_CENTER, 0.85, 0.58 - 2 * (NextPoint / 2))
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", Frame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "")
+    BlzFrameSetScale(text, 2)
+    BlzFrameSetPoint(text, FRAMEPOINT_LEFT, Frame, FRAMEPOINT_LEFT, 0.015, 0.0)
+    TimerStart(CreateTimer(), 1, true, function()
+        BlzFrameSetText(text, GCountTimers)
     end)
 end
 
@@ -262,24 +285,22 @@ function DrawCustomPortraitForPlayer(data)
     CreateInterfaceForAlly(data)
 end
 
-
 function CreateInterfaceForAlly()
-    local k=0
+    local k = 0
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
             local data = HERO[i]
             --if mainData~=data then
-                CreateSimpleFrameGlue(0.02, 0.59-(k*0.02), "ReplaceableTextures\\CommandButtons\\BTNPeon.blp",data,data)
-                k=k+1
-               -- print("создан союзный интерфейс для",GetPlayerName(Player(i)),"который видит",GetPlayerName(Player(mainData.pid)))
+            CreateSimpleFrameGlue(0.02, 0.59 - 0.02 - (k * 0.02), "ReplaceableTextures\\CommandButtons\\BTNPeon.blp", data, data)
+            k = k + 1
+            -- print("создан союзный интерфейс для",GetPlayerName(Player(i)),"который видит",GetPlayerName(Player(mainData.pid)))
             --end
         end
     end
 end
 
-
-function CreateSimpleFrameGlue(posX, PosY, texture, data,visionData)
-    local NextPoint = 0.039/2
+function CreateSimpleFrameGlue(posX, PosY, texture, data, visionData)
+    local NextPoint = 0.039 / 2
     if not texture then
         texture = "ReplaceableTextures\\CommandButtons\\BTNSelectHeroOn"
     end
@@ -295,7 +316,7 @@ function CreateSimpleFrameGlue(posX, PosY, texture, data,visionData)
     BlzFrameSetSize(SelfFrame, NextPoint, NextPoint)
     BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, posX, PosY)
 
-    CreateHPBar(data.UnitHero,SelfFrame,visionData)
+    CreateHPBar(data.UnitHero, SelfFrame, visionData)
 
     local ClickTrig = CreateTrigger()
     BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
@@ -317,13 +338,88 @@ function CreateSimpleFrameGlue(posX, PosY, texture, data,visionData)
     local TrigMOUSE_ENTER = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
     TriggerAddAction(TrigMOUSE_ENTER, function()
-       -- print("показать подсказку ", flag)
+         --print("показать подсказку ")
+        if GetLocalPlayer()==GetTriggerPlayer() then
+            BlzFrameSetVisible(GStatTable,true)
+        end
 
     end)
     local TrigMOUSE_LEAVE = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, SelfFrame, FRAMEEVENT_MOUSE_LEAVE)
     TriggerAddAction(TrigMOUSE_LEAVE, function()
-       -- print("убрать подсказку")
+         --print("убрать подсказку")
+        if GetLocalPlayer()==GetTriggerPlayer() then
+            BlzFrameSetVisible(GStatTable,false)
+        end
     end)
     return SelfFrame
+end
+
+function CreateStatsTable()
+    local ySize = GetActiveCountPlayer()
+    --print("создаём таблицу статистики")
+    local tooltip = BlzCreateFrameByType("BACKDROP", "TalonTooltip", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "EscMenuControlBackdropTemplate", 0)
+    GStatTable=tooltip
+    BlzFrameSetVisible(GStatTable,false)
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0.24, 0.58)
+    BlzFrameSetSize(tooltip, 0.2, 0.04 * ySize)
+
+    -- заголовки
+
+    local textName = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    BlzFrameSetText(textName, "Name")
+    BlzFrameSetScale(textName, 1)
+    BlzFrameSetPoint(textName, FRAMEPOINT_LEFT, tooltip, FRAMEPOINT_LEFT, 0.01, 0.01*ySize)
+
+    local textDamage = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    BlzFrameSetText(textDamage, "Damage")
+    BlzFrameSetScale(textDamage, 1)
+    BlzFrameSetPoint(textDamage, FRAMEPOINT_LEFT, tooltip, FRAMEPOINT_LEFT, 0.06, 0.01*ySize)
+
+    local textHeal = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    BlzFrameSetText(textHeal, "Heal")
+    BlzFrameSetScale(textHeal, 1)
+    BlzFrameSetPoint(textHeal, FRAMEPOINT_LEFT, tooltip, FRAMEPOINT_LEFT, 0.11, 0.01*ySize)
+
+    local textGained = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    BlzFrameSetText(textGained, "Gained")
+    BlzFrameSetScale(textGained, 1)
+    BlzFrameSetPoint(textGained, FRAMEPOINT_LEFT, tooltip, FRAMEPOINT_LEFT, 0.16, 0.01*ySize)
+
+    local k = 1
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        if PlayerIsPlaying[i] then
+            local data = HERO[i]
+            -- установка имени
+            local Name = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            BlzFrameSetText(Name, SplitStringTo(GetPlayerName(Player(i)),7))
+            BlzFrameSetScale(Name, 1)
+            BlzFrameSetPoint(Name, FRAMEPOINT_LEFT, textName, FRAMEPOINT_LEFT, 0, -0.02 * k)
+            -- установка нанесения урона
+            local Damage = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            BlzFrameSetScale(Damage, 1)
+            BlzFrameSetPoint(Damage, FRAMEPOINT_LEFT, textDamage, FRAMEPOINT_LEFT, 0, -0.02 * k)
+
+            -- установка лечения
+            local Heal = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            BlzFrameSetScale(Heal, 1)
+            BlzFrameSetPoint(Heal, FRAMEPOINT_LEFT, textHeal, FRAMEPOINT_LEFT, 0, -0.02 * k)
+
+            -- установка получения урона
+            local Gained = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+            BlzFrameSetScale(Gained, 1)
+            BlzFrameSetPoint(Gained, FRAMEPOINT_LEFT, textGained, FRAMEPOINT_LEFT, 0, -0.02 * k)
+
+            TimerStart(CreateTimer(), 1, true, function()
+                BlzFrameSetText(Heal, R2I(data.StatHealGained))
+                BlzFrameSetText(Damage, R2I(data.StatDamageDealing))
+                BlzFrameSetText(Gained, R2I(data.StatDamageGained))
+            end)
+            k = k + 1
+        end
+    end
+end
+
+function SplitStringTo(string,k)
+    return SubString(string,0,k)
 end

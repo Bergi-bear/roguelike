@@ -8,6 +8,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
+            DestroyTimer(GetExpiredTimer())
             EnemyList = {
                 FourCC("nsko"), -- скелет
                 FourCC("ucs1"), -- мелкий жук
@@ -118,10 +119,10 @@ function AddSpawnPoint2TableXY(data)
         GroupRemoveUnit(perebor, e)
     end
 end
-CurrentGameZone = 1 -- Стартовая зона -1, 0 для первого биома, 19 для второго биома WhosYourDaddy црщы
+CurrentGameZone = 0 -- Стартовая зона, 0 для первого биома, 19 для второго биома WhosYourDaddy црщы
 function Enter2NewZone(flag)
     CurrentGameZone = CurrentGameZone + 1
-    GWinPercent=GWinPercent+3
+    GWinPercent = GWinPercent + 3
     if CurrentGameZone == 1 or CurrentGameZone == 20 then
         --print("убираем обучение")
         DestroyAllLearHelpers()
@@ -130,6 +131,7 @@ function Enter2NewZone(flag)
     SaveCodeForAllPLayers()
     CinematicFadeBJ(bj_CINEFADETYPE_FADEOUT, 1.5, "ReplaceableTextures\\CameraMasks\\Black_mask.blp", 0, 0, 0, 0.00)
     TimerStart(CreateTimer(), 2, false, function()
+        DestroyTimer(GetExpiredTimer())
         --print("Перемещаемся в игровую зону "..CurrentGameZone)
         if CurrentGameZone ~= 20 then
             if Destiny[CurrentGameZone] then
@@ -145,7 +147,7 @@ function Enter2NewZone(flag)
                 end
                 if flag == "Merchant" then
                     --print("Создаём торговца и предметы для торговли") --TODO
-                    CurrentGameZone = CurrentGameZone-1 --с этим надо очень акуратно
+                    CurrentGameZone = CurrentGameZone - 1 --с этим надо очень акуратно
                     MoveAllHeroAndBound(gg_rct_MerchantE1, gg_rct_MerchantB1)
                     local x = 12981
                     local y = -6569 --GetRectCenterY(GameZone[Destiny[CurrentGameZone]].rectSpawn)
@@ -153,6 +155,7 @@ function Enter2NewZone(flag)
                     --print("Переход в зону с магазином")
                     AllActionsEnabled(true)
                     TimerStart(CreateTimer(), 3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         AllActionsEnabled(true)
                     end)
                 end
@@ -160,7 +163,9 @@ function Enter2NewZone(flag)
             else
                 -- следующей зоны не существует
                 TimerStart(CreateTimer(), 3, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     TimerStart(CreateTimer(), 3, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         local SaveCode = 0
                         for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
                             if PlayerIsPlaying[i] then
@@ -172,6 +177,7 @@ function Enter2NewZone(flag)
 
                                 TimerStart(CreateTimer(), 2, false, function()
                                     CustomVictoryBJ(Player(i), true, true)
+                                    DestroyTimer(GetExpiredTimer())
                                 end)
                             end
                         end
@@ -303,7 +309,7 @@ function StartEnemyWave(waveNumber)
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
             }
-            maxOnWave = 1
+            maxOnWave = 2
         elseif r == 2 then
             listID = {
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
@@ -320,7 +326,7 @@ function StartEnemyWave(waveNumber)
         end
     end
     if waveNumber == 3 then
-        local r = GetRandomInt(1, 3)
+        local r = GetRandomInt(1, 4)
         if r == 1 then
             listID = {
                 FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"), FourCC("uabo"),
@@ -344,6 +350,11 @@ function StartEnemyWave(waveNumber)
                 FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
             }
             maxOnWave = 4
+        elseif r == 4 then -- мегагугль
+            listID = {
+                FourCC("u002"),
+            }
+            maxOnWave = 1
         end
     end
 
@@ -819,8 +830,8 @@ function StartWave(dataGZ, listID, max)
     end
 
     local MaxOnWave = #listID
-    GMaxOnWave=MaxOnWave
-    GLostOnWave=MaxOnWave
+    GMaxOnWave = MaxOnWave
+    GLostOnWave = MaxOnWave
     LiveOnWave = 0
     --CurrentOnWave=max
     local k = 1
@@ -933,15 +944,16 @@ function CreateCreepDelay(id, x, y, delay, flag, angle)
                 end
             end
         else
-            print(" данные для зоны не существуют", Destiny[CurrentGameZone])
+            print("данные для зоны не существуют", Destiny[CurrentGameZone])
         end
     end
 
     TimerStart(CreateTimer(), delay, false, function()
+        DestroyTimer(GetExpiredTimer())
         --print("create new")
         local new = CreateUnit(Player(10), id, x, y, GetRandomInt(0, 360))
         local a = BlzGetUnitMaxHP(new)
-        local k = 1.5
+        local k = 1 -- было 1.5
         if angle then
             --print("Прыжок из воды", angle)
             JumpOutWater(new, angle)
@@ -964,7 +976,7 @@ function CreateCreepDelay(id, x, y, delay, flag, angle)
                 if not UnitAlive(new) then
                     DestroyTimer(GetExpiredTimer())
                     LiveOnWave = LiveOnWave - 1
-                    GLostOnWave=GLostOnWave-1
+                    GLostOnWave = GLostOnWave - 1
                 end
                 --print(LiveOnWave[k])
             end)
@@ -990,6 +1002,7 @@ function UnitAddJumpForce(hero, angle, speed, distance, MaxHeight)
     --SetUnitPathing(hero,false)
     UnitDisablePath(hero)
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+
         currentdistance = currentdistance + speed
         local x, y = GetUnitXY(hero)
         local f = ParabolaZ(MaxHeight / 2, distance, i * speed) + ZStart

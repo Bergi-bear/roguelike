@@ -274,7 +274,7 @@ function AreaSplashMark(boss)
         CreateVisualMarkTimedXY("SystemGeneric\\Alarm", 1, nx, ny)
         TimerStart(CreateTimer(), 1.2, false, function()
             BlzPauseUnitEx(boss, false)
-
+            DestroyTimer(GetExpiredTimer())
             --nx,ny=MoveXY(GetUnitX(boss),GetUnitY(boss),200,GetUnitFacing(boss))
             if not IsUnitStunned(boss) then
                 DestroyEffect(AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", nx, ny))

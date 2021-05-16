@@ -9,6 +9,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
+            DestroyTimer(GetExpiredTimer())
             HERO = {}
             AbilityDescriptionRus = {
                 L("Делает серию ударов из 5 атак, атаки наносят урон по небольшой площади", "Makes a series of strikes of 5 attacks, the attacks deal damage over a small area"),

@@ -39,6 +39,7 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                     SetUnitState(u, UNIT_STATE_LIFE, 1)
                     ------
                     TimerStart(CreateTimer(), cd, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         data.KamikazeCurrentCD = 0
                     end)
                 end

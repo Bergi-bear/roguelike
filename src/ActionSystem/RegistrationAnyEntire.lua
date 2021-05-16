@@ -10,6 +10,7 @@ do
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), 2, false, function()
             RegistrationAnyEntire()
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end
@@ -38,12 +39,12 @@ function RegistrationAnyEntire()
                             bad=bad+1
                             --print("подойдите ближе к источнику покупки")
                             if bad>2000 then
-                                DestroyTimer()
+                                DestroyTimer(GetExpiredTimer())
                                -- print("ошибка исправлена")
                             end
                         else
                             --print("спасибо, достаточно")
-                            DestroyTimer()
+                            DestroyTimer(GetExpiredTimer())
                             if dataPoint.isActive and not data.ShowActionWindows and IsUnitInRange(hero, entering, range + 10) then
                                 data.UseAction = dataPoint.UseAction
                                 data.EPointUnit = entering
@@ -112,9 +113,10 @@ function RegistrationAnyEntire()
                                 local eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl", x, y)
                                 TimerStart(CreateTimer(), 1.8, false, function()
                                     DestroyEffect(eff)
-
+                                    DestroyTimer(GetExpiredTimer())
                                 end)
                             end
+                            DestroyTimer(GetExpiredTimer())
                         end)
 
                         TimerStart(CreateTimer(), 2, false, function()
@@ -124,6 +126,7 @@ function RegistrationAnyEntire()
                             DestroyEffect(mark)
                             BlzSetSpecialEffectPosition(mark, OutPoint, OutPoint, 0)
                             CreateUnit(GetOwningPlayer(entering), FourCC('nglm'), x, y, 0)
+                            DestroyTimer(GetExpiredTimer())
                         end)
 
                     end

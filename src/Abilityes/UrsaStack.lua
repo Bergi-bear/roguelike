@@ -9,7 +9,7 @@ function UnitAddUrsaStack(unit, amount)
         local eff=AddSpecialEffectTarget("FurySwipes",unit,"overhead")
         TimerStart(CreateTimer(), 3, true, function()
             if not UnitAlive(unit) then
-                DestroyTimer()
+                DestroyTimer(GetExpiredTimer())
                 DestroyEffect(eff)
             end
         end)

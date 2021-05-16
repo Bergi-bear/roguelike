@@ -66,6 +66,7 @@ function StartObsidianBoss(boss)
 
                 local r=1
                 TimerStart(CreateTimer(), 2, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     TimerStart(CreateTimer(), 0.1, true, function()
                         local hero=GetRandomEnemyHero()
                         if hero then
@@ -100,6 +101,7 @@ function StartObsidianBoss(boss)
                 local r=GetRandomInt(1,2)
                 TimerStart(CreateTimer(), 2, false, function()
                     DestroyEffect(mark)
+                    DestroyTimer(GetExpiredTimer())
                     BlzSetSpecialEffectPosition(mark,OutPoint,OutPoint,0)
                     TimerStart(CreateTimer(), 0.1, true, function()
                         hero=GetRandomEnemyHero()

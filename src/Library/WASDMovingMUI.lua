@@ -14,6 +14,7 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
+            PlayMusic("war3mapImported\\lobby2.mp3")
             PlayMusic("war3mapImported\\lobby.mp3")
             InitMouseMoveTrigger()
             PlayUnitAnimationFromChat()
@@ -125,6 +126,7 @@ function InitWASD(hero)
     --SwitchWeaponTo(data, "shield") --Первое назначение оружие
     TimerStart(CreateTimer(), 2, false, function()
         --SwitchWeaponTo(data, "pickaxe") -- перенесено в прелоад
+        DestroyTimer(GetExpiredTimer())
     end)
 
     TimerStart(CreateTimer(), 0.005, true, function()
@@ -214,27 +216,27 @@ function InitWASD(hero)
                 if data.BloodFountainPreDeath then
                     CreateBloodFountain(data, GetUnitXY(data.UnitHero))
                 end
+                TimerStart(CreateTimer(), 3, false, function()
+                    DestroyTimer(GetExpiredTimer())
+                    if data.life >= 0 then
+                        data.CameraOnSaw = false
+                        x, y = GetUnitXY(hero)
+                        ReviveHero(hero, x, y, true)
+                        SetUnitInvulnerable(hero, true)
+                        TimerStart(CreateTimer(), 2, false, function()
+                            SetUnitInvulnerable(hero, false)
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                    end
+                end)
+
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
             if data.CameraStabUnit and data.life < 0 then
                 --SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
             end
-            if GetLocalPlayer() == GetOwningPlayer(hero) then
-                -- SetCameraQuickPosition(x,y)
-            end
-            TimerStart(CreateTimer(), 3, false, function()
-                --3
-                if data.life >= 0 then
-                    data.CameraOnSaw = false
-                    x, y = GetUnitXY(hero)
-                    ReviveHero(hero, x, y, true)
-                    SetUnitInvulnerable(hero, true)
-                    TimerStart(CreateTimer(), 2, false, function()
-                        SetUnitInvulnerable(hero, false)
-                    end)
-                end
-            end)
+
         else
             KillUnit(data.CameraStabUnit)
             data.CameraStabUnit = nil
@@ -561,8 +563,9 @@ function CreateWASDActions()
                 UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
             end
             data.wFast = true
-            TimerStart(CreateTimer(), 0.1, true, function()
+            TimerStart(CreateTimer(), 0.1, false, function()
                 data.wFast = false
+                DestroyTimer(GetExpiredTimer())
             end)
 
 
@@ -616,8 +619,9 @@ function CreateWASDActions()
                 UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
             end
             data.sFast = true
-            TimerStart(CreateTimer(), 0.1, true, function()
+            TimerStart(CreateTimer(), 0.1, false, function()
                 data.sFast = false
+                DestroyTimer(GetExpiredTimer())
             end)
             -----
             data.ReleaseS = true
@@ -664,8 +668,9 @@ function CreateWASDActions()
                 UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
             end
             data.dFast = true
-            TimerStart(CreateTimer(), 0.1, true, function()
+            TimerStart(CreateTimer(), 0.1, false, function()
                 data.dFast = false
+                DestroyTimer(GetExpiredTimer())
             end)
 
             data.ReleaseD = true
@@ -704,8 +709,9 @@ function CreateWASDActions()
                 UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
             end
             data.aFast = true
-            TimerStart(CreateTimer(), 0.1, true, function()
+            TimerStart(CreateTimer(), 0.1, false, function()
                 data.aFast = false
+                DestroyTimer(GetExpiredTimer())
             end)
             ---
             data.ReleaseA = true
@@ -766,6 +772,7 @@ function CreateWASDActions()
                             SetUnitInvulnerable(data.UnitHero, true)
                             TimerStart(CreateTimer(), 1, false, function()
                                 SetUnitInvulnerable(data.UnitHero, false)
+                                DestroyTimer(GetExpiredTimer())
                             end)
                         end
                     end
@@ -783,6 +790,7 @@ function CreateWASDActions()
                 TimerStart(CreateTimer(), data.DashChargesReloadSec, false, function()
                     data.DashCharges = data.DashCharges + 1
                     BlzFrameSetText(data.DashChargesFH, data.DashCharges)
+                    DestroyTimer(GetExpiredTimer())
                 end)
 
                 UnitAddItemById(data.UnitHero, FourCC("I000")) -- предмет виндволк
@@ -794,6 +802,7 @@ function CreateWASDActions()
                     data.HealDashCurrentCD = talon.DS[talon.level]
                     TimerStart(CreateTimer(), data.HealDashCurrentCD, false, function()
                         data.HealDashCurrentCD = 0
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 end
                 --------------------------------Кольцо змей
@@ -809,6 +818,7 @@ function CreateWASDActions()
                         HealUnit(ally, 100)
                         TimerStart(CreateTimer(), cd, false, function()
                             data.CircleSnakeCurrentCD = 0
+                            DestroyTimer(GetExpiredTimer())
                         end)
                         -- print("кольцо змей")
                         local angle = 360 // 12
@@ -849,6 +859,7 @@ function CreateWASDActions()
                     SetUnitInvulnerable(data.UnitHero, true)
                     TimerStart(CreateTimer(), 0.2, false, function()
                         SetUnitInvulnerable(data.UnitHero, false)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 end
                 local eff = AddSpecialEffectTarget(effModel, data.UnitHero, "origin")
@@ -858,6 +869,7 @@ function CreateWASDActions()
                     data.SpaceForce = false
                     data.AttackInForce = false
                     SetUnitTimeScale(data.UnitHero, 1)
+                    DestroyTimer(GetExpiredTimer())
                 end)
                 if not data.ReleaseQ then
                     -- анимация в обычном рывке
@@ -919,15 +931,18 @@ function CreateWASDActions()
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     TimerStart(CreateTimer(), 0.4, false, function()
                         data.QHighJump = true
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     TimerStart(CreateTimer(), 1, false, function()
                         data.QHighJump = false
+                        DestroyTimer(GetExpiredTimer())
                     end)
                     UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 4, 200)
                     if data.InvulInCrashQ then
                         SetUnitInvulnerable(data.UnitHero, true)
                         TimerStart(CreateTimer(), 1, false, function()
                             SetUnitInvulnerable(data.UnitHero, false)
+                            DestroyTimer(GetExpiredTimer())
                         end)
                     end
                     --print("анимация прыжка?")
@@ -937,14 +952,15 @@ function CreateWASDActions()
 
                     FallenArrow(data, data.fakeX, data.fakeY)
                     CreateCircleSplatTimed(data, data.fakeX, data.fakeY, 200, 2)
-                    local angle=-180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
-                    BlzSetUnitFacingEx(data.UnitHero,angle)
+                    local angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
+                    BlzSetUnitFacingEx(data.UnitHero, angle)
                     StartFrameCD(data.SpellQCDTime, data.cdFrameHandleQ)
                     SetUnitAnimationByIndex(data.UnitHero, 30)
-                    SetUnitTimeScale(data.UnitHero,4)
+                    SetUnitTimeScale(data.UnitHero, 4)
                     TimerStart(CreateTimer(), 0.4, false, function()
                         data.ReleaseQ = false
-                        SetUnitTimeScale(data.UnitHero,1)
+                        SetUnitTimeScale(data.UnitHero, 1)
+                        DestroyTimer(GetExpiredTimer())
                     end)
                 else
                     -- другое оружие, не лук
@@ -966,6 +982,7 @@ function CreateWASDActions()
                         end
                         UnitAddForceSimple(data.UnitHero, angle, 20, dist, "qjump")
                         TimerStart(CreateTimer(), 5, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             if data.ReleaseQ then
                                 --print("выход из зависания")
                                 data.ReleaseQ = false
@@ -979,12 +996,13 @@ function CreateWASDActions()
                         end
                         TimerStart(CreateTimer(), castDelay, false, function()
                             --задержка перед ударом
-
+                            DestroyTimer(GetExpiredTimer())
                             StartFrameCD(data.SpellQCDTime * balance, data.cdFrameHandleQ)
                             SpellSlashQ(data)
                             if data.DoubleClap then
                                 TimerStart(CreateTimer(), 0.35, false, function()
                                     SpellSlashQ(data)
+                                    DestroyTimer(GetExpiredTimer())
                                 end)
                             end
                             data.ReleaseQ = false
@@ -1214,11 +1232,13 @@ function CreateWASDActions()
                 end
 
                 TimerStart(CreateTimer(), 0.15, false, function()
+                    DestroyTimer(GetExpiredTimer())
                     SetUnitTimeScale(data.UnitHero, 1)
                     local bullet = CreateAndForceBullet(data.UnitHero, angle, 40, "stoneshild", GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 200, 600)
                     DestroyEffect(data.EffInRightHand)
                     --BlzSetSpecialEffectRoll(bullet, math.rad(90))
                     TimerStart(CreateTimer(), 0.4, false, function()
+                        DestroyTimer(GetExpiredTimer())
                         -- перезарядка щита
                         --data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
                         --data.ShieldThrow = false
@@ -1247,6 +1267,7 @@ function CreateWASDActions()
                     SetUnitFacing(data.UnitHero, angle)
                     TimerStart(CreateTimer(), 0.38, false, function()
                         data.ReleaseRMB = false
+                        DestroyTimer(GetExpiredTimer())
                     end)
 
                     if data.OverChargeThrow and data.ThrowCharges == 0 then
@@ -1255,6 +1276,7 @@ function CreateWASDActions()
                             data.OverChargeThrow = data.OverChargeThrow - 1
                             BlzFrameSetText(data.OverChargeThrowFH, R2I(data.OverChargeThrow))
                             TimerStart(CreateTimer(), 0.3, false, function()
+                                DestroyTimer(GetExpiredTimer())
                                 CreateAndForceBullet(data.UnitHero, angle, 50, effModel, xs, ys, data.DamageThrow, maxDist, delay)
                             end)
 
@@ -1262,6 +1284,7 @@ function CreateWASDActions()
                     end
                     if data.ThrowCharges > 0 then
                         TimerStart(CreateTimer(), 0.3, false, function()
+                            DestroyTimer(GetExpiredTimer())
                             -- настоящий выстрел
                             --print("выстрел")
                             if not data.tasks[4] then
@@ -1276,6 +1299,7 @@ function CreateWASDActions()
                             BlzFrameSetText(data.ThrowChargesFH, data.ThrowCharges)
 
                             TimerStart(CreateTimer(), data.ThrowChargesReloadSec, false, function()
+                                DestroyTimer(GetExpiredTimer())
                                 data.ThrowCharges = data.ThrowCharges + 1
                                 BlzFrameSetText(data.ThrowChargesFH, data.ThrowCharges)
                             end)
@@ -1356,6 +1380,7 @@ function BlockMouse(data)
         if OrderId2String(GetUnitCurrentOrder(data.UnitHero)) == "dropitem" then
             data.DropInventory = false
             TimerStart(CreateTimer(), 2, false, function()
+                DestroyTimer(GetExpiredTimer())
                 data.DropInventory = true
             end)
         end
@@ -1393,14 +1418,4 @@ end
 
 function LockAnimAnimation(data)
     return data.BowReady
-end
-
-function WalkFast(data)
-    if data.wFast then
-        UnitAddItemById(data.UnitHero, FourCC("I003")) --Bspe бафф
-    end
-    data.wFast = true
-    TimerStart(CreateTimer(), 0.1, true, function()
-        data.wFast = false
-    end)
 end

@@ -381,6 +381,7 @@ function StartAllFrameCD(player)
         DisableTrigger(data.ClickTrig[i])
         TimerStart(CreateTimer(), TotalReload, false, function()
             EnableTrigger(data.ClickTrig[i])
+            DestroyTimer(GetExpiredTimer())
         end)
     end
 end

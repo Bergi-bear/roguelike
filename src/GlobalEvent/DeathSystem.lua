@@ -39,6 +39,7 @@ function InitDeathEvent()
             data.KillStack = data.KillStack + 1
             TimerStart(CreateTimer(), 0.5, false, function()
                 data.KillStack = data.KillStack - 1
+                DestroyTimer(GetExpiredTimer())
             end)
             if data.KillStack == 2 then
                 if GetRandomInt(1,3)==1 then

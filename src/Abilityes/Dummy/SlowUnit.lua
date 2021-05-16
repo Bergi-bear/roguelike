@@ -13,5 +13,6 @@ function SlowUnit(unit,duration)
     end
     TimerStart(CreateTimer(), duration, false, function()
         UnitRemoveAbility(unit,FourCC("Bslo"))
+        DestroyTimer(GetExpiredTimer())
     end)
 end
