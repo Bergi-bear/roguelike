@@ -3573,9 +3573,9 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                 if dataPoint2 then
                     if dataPoint2.CurrentReward == reward and tempTable[i] ~= tempUnit then
                         local temTableReward = PreViewIcon
-                        if temTableReward and reward~="Merchant" then
+                        if temTableReward and reward ~= "Merchant" then
                             --table.insert(temTableReward,"Merchant")
-                            if GetLocalPlayer()==Player(0) then
+                            if GetLocalPlayer() == Player(0) then
                                 --print("есть дубликат у",reward,#temTableReward)
                             end
                             local pos2remove = FinPosInTable(temTableReward, reward)--FIXME иногда бывает ошибка на эту строку
@@ -4125,14 +4125,9 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message, 3)
                         data.Completed = true
                         AllActionsEnabled(true)--активация всех переходов
-                        TimerStart(CreateTimer(), 1, false, function()
-                            --print("Создаём диалоговое окно для всех игроков Jsore")
-                            CreateDialogTalon("Trall") -- Сюда передаётся trall
-                            normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
-                            DestroyGodTalon(dataPoint.TripleTalon)
-                            PauseTimer(GetExpiredTimer())
-                            DestroyTimer(GetExpiredTimer())
-                        end)
+                         CreateDialogTalon("Trall") -- Сюда передаётся trall
+                        normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
+                        DestroyGodTalon(dataPoint.TripleTalon)
                         data.DoAction = false
                         data.UseAction = ""
                         KillUnit(data.EPointUnit)
@@ -4151,14 +4146,11 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message, 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("HeroBlademaster")
                             normal_sound("Units\\Orc\\HeroBladeMaster\\HeroBladeMasterPissed" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
-                            PauseTimer(GetExpiredTimer())
-                            DestroyTimer(GetExpiredTimer())
-                            --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -4177,14 +4169,11 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message, 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("HeroTaurenChieftain")
                             normal_sound("Units\\Orc\\HeroTaurenChieftain\\HeroTaurenChieftainPissed" .. GetRandomInt(1, 6), GetUnitXY(data.UnitHero))
-                            PauseTimer(GetExpiredTimer())
-                            DestroyTimer(GetExpiredTimer())
-                            --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -4210,14 +4199,11 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("ShadowHunter")
                             normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed" .. GetRandomInt(1, 9), GetUnitXY(data.UnitHero))
-                            PauseTimer(GetExpiredTimer())
-                            DestroyTimer(GetExpiredTimer())
-                            --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -4243,13 +4229,12 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
-                            DestroyTimer(GetExpiredTimer())
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("ChaosGrom")
                             --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
                             --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -4263,7 +4248,8 @@ function CreateEActions()
                     end
                 end
 
-                if data.UseAction == "Alchemist" then --TODO перевод
+                if data.UseAction == "Alchemist" then
+                    --TODO перевод
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
                             L("Я вижу ты тут главный", ""),
@@ -4276,13 +4262,12 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
-                            DestroyTimer(GetExpiredTimer())
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("Alchemist")
                             --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
                             --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -4352,14 +4337,11 @@ function CreateEActions()
                         --CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
-                            DestroyTimer(GetExpiredTimer())
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             --print("Активация сыра")
                             CreateDialogTalon("Cheese")
-                            --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
-                            --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -4383,11 +4365,10 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
-                            DestroyTimer(GetExpiredTimer())
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("HeroMountainKing")
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -4409,13 +4390,13 @@ function CreateEActions()
                 if data.gold >= dataPoint.TalonPrice then
                     --print("полный выкуп уплочен")
                     --data.Completed = true
-                    TimerStart(CreateTimer(), 1, false, function()
+
                         DestroyGodTalon(dataPoint.TripleTalon)
-                        DestroyTimer(GetExpiredTimer())
+
                         local x, y = GetUnitXY(dataPoint.Unit)
                         CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal")
                         AllActionsEnabled(true)--активация всех переходов
-                    end)
+
                     data.DoAction = false
                     data.UseAction = ""
                     data.ShowActionWindows = false
@@ -4454,11 +4435,10 @@ function CreateEActions()
                     }
                     CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                     data.Completed = true
-                    TimerStart(CreateTimer(), 1, false, function()
-                        DestroyTimer(GetExpiredTimer())
+
                         DestroyGodTalon(dataPoint.TripleTalon)
                         AllActionsEnabled(true)--активация всех переходов
-                    end)
+
                     data.DoAction = false
                     data.UseAction = ""
                     data.ShowActionWindows = false
@@ -4496,11 +4476,10 @@ function CreateEActions()
                 data.Completed = true
                 DestroyGodTalon(dataPoint.TripleTalon)
                 AllActionsEnabled(true)
-                TimerStart(CreateTimer(), 1.6, false, function()
-                    DestroyTimer(GetExpiredTimer())
+
                     --активация всех переходов
                     GiveForAll("GoldReward")
-                end)
+
                 data.DoAction = false
                 data.UseAction = ""
                 data.ShowActionWindows = false
@@ -4619,7 +4598,7 @@ function CreateEActions()
                 data.UseAction = ""
                 dataPoint.isActive = false
                 TimerStart(CreateTimer(), 1.6, false, function()
-                    CreateMerchantAndGoods(GetUnitX(dataPoint.Unit),GetUnitY(dataPoint.Unit),3)
+                    CreateMerchantAndGoods(GetUnitX(dataPoint.Unit), GetUnitY(dataPoint.Unit), 3)
                     DestroyTimer(GetExpiredTimer())
                 end)
                 --Торговец не умирает
@@ -4806,7 +4785,7 @@ function RegistrationAnyEntire()
                                 ---БЛОК G
                                 local effG = nil
                                 if dataPoint.UseAction == "Goto" and data.chaosPoint >= ChaosRollCost then
-                                    effG = AddSpecialEffect("SystemGeneric\\ActionsG", GetUnitX(entering) + 50, GetUnitY(entering))
+                                    effG = AddSpecialEffect("SystemGeneric\\ABS\\ABS_G", GetUnitX(entering) + 50, GetUnitY(entering))
                                     data.CanPressG = true
                                 end
                                 ---Конец блока G
@@ -5192,7 +5171,7 @@ end
 
 function MoveAllHeroAndBound(recEnter, rectBound)
     local x, y = GetRectCenterX(recEnter), GetRectCenterY(recEnter)
-    local x2, y2 = GetRectCenterX(rectBound), GetRectCenterY(rectBound)
+    --local x2, y2 = GetRectCenterX(rectBound), GetRectCenterY(rectBound)
     EnumDestructablesInRect(recEnter, nil, function()
         if GetDestructableTypeId(GetEnumDestructable()) == FourCC('B000') then
             --каменная дверь для точек выхода
@@ -5224,7 +5203,7 @@ function StartEnemyWave(waveNumber)
     local listID = {}
     local maxOnWave = 1
     if waveNumber == 1 then
-        local r = GetRandomInt(1, 6)
+        local r = GetRandomInt(1, 7)
         if r == 1 then
             listID = {--скелеты
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
@@ -5258,6 +5237,11 @@ function StartEnemyWave(waveNumber)
                 FourCC("ugar"), FourCC("ugar"), FourCC("ugar"), FourCC("ugar"),
             }
             maxOnWave = 2
+        elseif r == 7 then
+            listID = { --тест личи,
+                FourCC("u003")
+            }
+            maxOnWave = 1
         end
 
     end
@@ -5310,7 +5294,8 @@ function StartEnemyWave(waveNumber)
                 FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
             }
             maxOnWave = 4
-        elseif r == 4 then -- мегагугль
+        elseif r == 4 then
+            -- мегагугль
             listID = {
                 FourCC("u002"),
             }
@@ -5319,7 +5304,7 @@ function StartEnemyWave(waveNumber)
     end
 
     if waveNumber == 4 then
-        local r = GetRandomInt(1, 2)
+        local r = GetRandomInt(1, 3)
         if r == 1 then
             listID = {  -- Очень много жуков
                 FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
@@ -5336,6 +5321,11 @@ function StartEnemyWave(waveNumber)
                 FourCC("u001"),
             }
             maxOnWave = 1
+        elseif r == 2 then
+            listID = { -- 2 лича
+                FourCC("u003"),FourCC("u003"),
+            }
+            maxOnWave = 2
         end
     end
     if waveNumber == 44 then
@@ -9403,8 +9393,10 @@ function ClearGoodsViaExit()
     for i = 1, #AllRewardUnits do
         local u = AllRewardUnits[i]
         local dataPoint = EnterPointTable[GetHandleId(u)]
-        DestroyGodTalon(dataPoint.TripleTalon)
-        KillUnit(dataPoint.Unit)
+        if dataPoint.TalonPrice<1000 then
+            DestroyGodTalon(dataPoint.TripleTalon)
+            KillUnit(dataPoint.Unit)
+        end
         --table.remove(AllRewardUnits,AllRewardUnits[i]) --- что то делаю не так, нельзя удалять
         -- print("уничтожен",dataPoint.CurrentReward)
     end
@@ -9582,7 +9574,88 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit) == FourCC("u002") then
             GulRageAI(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("u003") then
+            IceLeach(unit)
+        end
     end)
+end
+
+function IceLeach(unit)
+    AddMaxLife(unit, 3000 * GetActiveCountPlayer())
+    UnitAddAbility(unit,FourCC("Abun"))
+    TimerStart(CreateTimer(), 5, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            local target, heroes = GetRandomEnemyHero()
+            local me=true
+            --print(GetUnitName(target),#heroes)
+            for i = 1, #heroes do
+                --print(i)
+                local hero = heroes[i]
+
+                --print(IsUnitStunned(unit),hero,IsUnitType(unit, UNIT_TYPE_POLYMORPHED) )
+
+                --if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                    if IsUnitInRange(unit, hero, 1000) then
+                        --local angle = AngleBetweenUnits(unit, hero)
+                        --print('обнаружен враг')
+                        --CreateIceWallLeach(angle, GetUnitXY(hero))
+                        CreateIceRingLeach(hero,unit)
+                        if me and IsUnitInRange(unit, hero, 400) then
+                            me=false
+                            CreateIceRingLeach(unit,unit)
+                        end
+                    else
+                        IssueTargetOrder(unit, "move", target)
+                    end
+                --end
+            end
+            -- end
+        end
+    end)
+end
+
+
+function CreateIceRingMark(sx,sy)
+    local max = 9
+    local angle = 360 / max
+    --for i = 1, max do
+    local i=1
+    TimerStart(CreateTimer(), 0.1, true, function()
+        local x, y = MoveXY(sx, sy, 160, angle * i)
+        local eff=AddSpecialEffect("Abilities\\Spells\\Undead\\FreezingBreath\\FreezingBreathMissile.mdl",x, y)
+        BlzSetSpecialEffectZ(eff,GetTerrainZ(x,y)+50)
+        TimerStart(CreateTimer(), 1, false, function()
+            DestroyEffect(eff)
+            DestroyTimer(GetExpiredTimer())
+        end)
+        i=i+1
+        if i>max then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+
+function CreateIceRingLeach(unit,damageUnit)
+    local max = 9
+    local angle = 360 / max
+    local sx, sy = GetUnitXY(unit)
+    CreateIceRingMark(sx,sy)
+    TimerStart(CreateTimer(), 1.1, false, function()
+        for i = 1, max do
+            local x, y = MoveXY(sx, sy, 160, angle * i)
+            local d = CreateDestructable(FourCC("B00G"), x, y, GetRandomInt(0, 360), 1, 1)
+            local iceLock=AddSpecialEffect("Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl",x, y)
+            DestroyEffect(iceLock)
+            SetDestructableAnimation(d,"birth")
+
+        end
+        DestroyTimer(GetExpiredTimer())
+        UnitDamageArea(damageUnit,300,sx,sy,100)
+    end)
+
 end
 
 function GulRageAI(unit)
@@ -9607,7 +9680,7 @@ function GulRageAI(unit)
 
         if isEventDamaged then
             if caster == unit then
-                HealUnit(unit,damage*5)
+                HealUnit(unit, damage * 5)
             end
         end
 
@@ -9622,24 +9695,24 @@ function GulRageAI(unit)
                 target = GetRandomEnemyHero()
             end
             --if not IsUnitStunned(unit) and target and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
-                sec = sec + 1
-                IssuePointOrder(unit, "attack", GetUnitXY(target))
-                if sec == study then
-                    --print("rage")
-                    SetUnitInvulnerable(unit, true)
-                    SetUnitVertexColor(unit, 50, 50, 50, 255)
-                    BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 0.3)
-                    SetUnitMoveSpeed(unit, 500)
-                end
-                if sec == study * 2 then
-                    --print("нормал moving")
-                    SetUnitInvulnerable(unit, false)
-                    SetUnitVertexColor(unit, 255, 255, 255, 255)
-                    BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 2)
-                    SetUnitMoveSpeed(unit, 200)
-                    sec = 0
-                end
-           -- end
+            sec = sec + 1
+            IssuePointOrder(unit, "attack", GetUnitXY(target))
+            if sec == study then
+                --print("rage")
+                SetUnitInvulnerable(unit, true)
+                SetUnitVertexColor(unit, 50, 50, 50, 255)
+                BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 0.3)
+                SetUnitMoveSpeed(unit, 500)
+            end
+            if sec == study * 2 then
+                --print("нормал moving")
+                SetUnitInvulnerable(unit, false)
+                SetUnitVertexColor(unit, 255, 255, 255, 255)
+                BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 2)
+                SetUnitMoveSpeed(unit, 200)
+                sec = 0
+            end
+            -- end
         end
     end)
 end
@@ -9864,7 +9937,6 @@ function GetRandomEnemyHero()
     end
     local r = GetRandomInt(1, #table)
     find = table[r]
-    table = {}
     return find, table
 end
 
@@ -13364,6 +13436,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         SetUnitTimeScale(data.UnitHero, 1)
                     end
                     SpellSlashQ(data)
+                    --print("преземление с щитом")
                     if data.DoubleClap then
                         TimerStart(CreateTimer(), 0.35, false, function()
                             SpellSlashQ(data)
@@ -15589,7 +15662,7 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero, 3) -- удар кирки в землю
-                if data.CurrentWeaponType == "shield" then
+                if data.CurrentWeaponType == "shield" and not data.QJump2Pointer then
                     UnitRemoveAbility(data.UnitHero, FourCC("Beng"))
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     TimerStart(CreateTimer(), 0.4, false, function()
@@ -15641,6 +15714,7 @@ function CreateWASDActions()
                         end
                         BlzSetUnitFacingEx(data.UnitHero, angle)
                         if data.CurrentWeaponType == "shield" then
+                            SetUnitAnimationByIndex(data.UnitHero, 26)
                             SetUnitTimeScale(data.UnitHero, 2)
                         end
                         UnitAddForceSimple(data.UnitHero, angle, 20, dist, "qjump")

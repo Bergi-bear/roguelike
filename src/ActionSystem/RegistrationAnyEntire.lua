@@ -53,7 +53,7 @@ function RegistrationAnyEntire()
                                 ---БЛОК G
                                 local effG = nil
                                 if dataPoint.UseAction == "Goto" and data.chaosPoint >= ChaosRollCost then
-                                    effG = AddSpecialEffect("SystemGeneric\\ActionsG", GetUnitX(entering) + 50, GetUnitY(entering))
+                                    effG = AddSpecialEffect("SystemGeneric\\ABS\\ABS_G", GetUnitX(entering) + 50, GetUnitY(entering))
                                     data.CanPressG = true
                                 end
                                 ---Конец блока G

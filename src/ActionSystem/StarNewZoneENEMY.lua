@@ -232,7 +232,7 @@ end
 
 function MoveAllHeroAndBound(recEnter, rectBound)
     local x, y = GetRectCenterX(recEnter), GetRectCenterY(recEnter)
-    local x2, y2 = GetRectCenterX(rectBound), GetRectCenterY(rectBound)
+    --local x2, y2 = GetRectCenterX(rectBound), GetRectCenterY(rectBound)
     EnumDestructablesInRect(recEnter, nil, function()
         if GetDestructableTypeId(GetEnumDestructable()) == FourCC('B000') then
             --каменная дверь для точек выхода
@@ -264,7 +264,7 @@ function StartEnemyWave(waveNumber)
     local listID = {}
     local maxOnWave = 1
     if waveNumber == 1 then
-        local r = GetRandomInt(1, 6)
+        local r = GetRandomInt(1, 7)
         if r == 1 then
             listID = {--скелеты
                 FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"), FourCC("nsko"),
@@ -298,6 +298,11 @@ function StartEnemyWave(waveNumber)
                 FourCC("ugar"), FourCC("ugar"), FourCC("ugar"), FourCC("ugar"),
             }
             maxOnWave = 2
+        elseif r == 7 then
+            listID = { --тест личи,
+                FourCC("u003")
+            }
+            maxOnWave = 1
         end
 
     end
@@ -350,7 +355,8 @@ function StartEnemyWave(waveNumber)
                 FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"), FourCC("n000"),
             }
             maxOnWave = 4
-        elseif r == 4 then -- мегагугль
+        elseif r == 4 then
+            -- мегагугль
             listID = {
                 FourCC("u002"),
             }
@@ -359,7 +365,7 @@ function StartEnemyWave(waveNumber)
     end
 
     if waveNumber == 4 then
-        local r = GetRandomInt(1, 2)
+        local r = GetRandomInt(1, 3)
         if r == 1 then
             listID = {  -- Очень много жуков
                 FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"), FourCC("ucs1"),
@@ -376,6 +382,11 @@ function StartEnemyWave(waveNumber)
                 FourCC("u001"),
             }
             maxOnWave = 1
+        elseif r == 2 then
+            listID = { -- 2 лича
+                FourCC("u003"),FourCC("u003"),
+            }
+            maxOnWave = 2
         end
     end
     if waveNumber == 44 then

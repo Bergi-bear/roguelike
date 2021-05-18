@@ -186,9 +186,9 @@ function CreateEnterPoint(x, y, message, actionFlag, isActive, reward, tempUnit)
                 if dataPoint2 then
                     if dataPoint2.CurrentReward == reward and tempTable[i] ~= tempUnit then
                         local temTableReward = PreViewIcon
-                        if temTableReward and reward~="Merchant" then
+                        if temTableReward and reward ~= "Merchant" then
                             --table.insert(temTableReward,"Merchant")
-                            if GetLocalPlayer()==Player(0) then
+                            if GetLocalPlayer() == Player(0) then
                                 --print("есть дубликат у",reward,#temTableReward)
                             end
                             local pos2remove = FinPosInTable(temTableReward, reward)--FIXME иногда бывает ошибка на эту строку
@@ -738,14 +738,9 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message, 3)
                         data.Completed = true
                         AllActionsEnabled(true)--активация всех переходов
-                        TimerStart(CreateTimer(), 1, false, function()
-                            --print("Создаём диалоговое окно для всех игроков Jsore")
-                            CreateDialogTalon("Trall") -- Сюда передаётся trall
-                            normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
-                            DestroyGodTalon(dataPoint.TripleTalon)
-                            PauseTimer(GetExpiredTimer())
-                            DestroyTimer(GetExpiredTimer())
-                        end)
+                         CreateDialogTalon("Trall") -- Сюда передаётся trall
+                        normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
+                        DestroyGodTalon(dataPoint.TripleTalon)
                         data.DoAction = false
                         data.UseAction = ""
                         KillUnit(data.EPointUnit)
@@ -764,14 +759,11 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message, 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("HeroBlademaster")
                             normal_sound("Units\\Orc\\HeroBladeMaster\\HeroBladeMasterPissed" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
-                            PauseTimer(GetExpiredTimer())
-                            DestroyTimer(GetExpiredTimer())
-                            --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -790,14 +782,11 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message, 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("HeroTaurenChieftain")
                             normal_sound("Units\\Orc\\HeroTaurenChieftain\\HeroTaurenChieftainPissed" .. GetRandomInt(1, 6), GetUnitXY(data.UnitHero))
-                            PauseTimer(GetExpiredTimer())
-                            DestroyTimer(GetExpiredTimer())
-                            --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -823,14 +812,11 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("ShadowHunter")
                             normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed" .. GetRandomInt(1, 9), GetUnitXY(data.UnitHero))
-                            PauseTimer(GetExpiredTimer())
-                            DestroyTimer(GetExpiredTimer())
-                            --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -856,13 +842,12 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
-                            DestroyTimer(GetExpiredTimer())
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("ChaosGrom")
                             --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
                             --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -876,7 +861,8 @@ function CreateEActions()
                     end
                 end
 
-                if data.UseAction == "Alchemist" then --TODO перевод
+                if data.UseAction == "Alchemist" then
+                    --TODO перевод
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
                             L("Я вижу ты тут главный", ""),
@@ -889,13 +875,12 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
-                            DestroyTimer(GetExpiredTimer())
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("Alchemist")
                             --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
                             --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -965,14 +950,11 @@ function CreateEActions()
                         --CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
-                            DestroyTimer(GetExpiredTimer())
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             --print("Активация сыра")
                             CreateDialogTalon("Cheese")
-                            --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
-                            --активация всех переходов
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -996,11 +978,10 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
                         AllActionsEnabled(true)
-                        TimerStart(CreateTimer(), 1, false, function()
-                            DestroyTimer(GetExpiredTimer())
+
                             DestroyGodTalon(dataPoint.TripleTalon)
                             CreateDialogTalon("HeroMountainKing")
-                        end)
+
                         data.DoAction = false
                         data.UseAction = ""
                         data.ShowActionWindows = false
@@ -1022,13 +1003,13 @@ function CreateEActions()
                 if data.gold >= dataPoint.TalonPrice then
                     --print("полный выкуп уплочен")
                     --data.Completed = true
-                    TimerStart(CreateTimer(), 1, false, function()
+
                         DestroyGodTalon(dataPoint.TripleTalon)
-                        DestroyTimer(GetExpiredTimer())
+
                         local x, y = GetUnitXY(dataPoint.Unit)
                         CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal")
                         AllActionsEnabled(true)--активация всех переходов
-                    end)
+
                     data.DoAction = false
                     data.UseAction = ""
                     data.ShowActionWindows = false
@@ -1067,11 +1048,10 @@ function CreateEActions()
                     }
                     CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                     data.Completed = true
-                    TimerStart(CreateTimer(), 1, false, function()
-                        DestroyTimer(GetExpiredTimer())
+
                         DestroyGodTalon(dataPoint.TripleTalon)
                         AllActionsEnabled(true)--активация всех переходов
-                    end)
+
                     data.DoAction = false
                     data.UseAction = ""
                     data.ShowActionWindows = false
@@ -1109,11 +1089,10 @@ function CreateEActions()
                 data.Completed = true
                 DestroyGodTalon(dataPoint.TripleTalon)
                 AllActionsEnabled(true)
-                TimerStart(CreateTimer(), 1.6, false, function()
-                    DestroyTimer(GetExpiredTimer())
+
                     --активация всех переходов
                     GiveForAll("GoldReward")
-                end)
+
                 data.DoAction = false
                 data.UseAction = ""
                 data.ShowActionWindows = false
@@ -1232,7 +1211,7 @@ function CreateEActions()
                 data.UseAction = ""
                 dataPoint.isActive = false
                 TimerStart(CreateTimer(), 1.6, false, function()
-                    CreateMerchantAndGoods(GetUnitX(dataPoint.Unit),GetUnitY(dataPoint.Unit),3)
+                    CreateMerchantAndGoods(GetUnitX(dataPoint.Unit), GetUnitY(dataPoint.Unit), 3)
                     DestroyTimer(GetExpiredTimer())
                 end)
                 --Торговец не умирает

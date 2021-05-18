@@ -108,8 +108,10 @@ function ClearGoodsViaExit()
     for i = 1, #AllRewardUnits do
         local u = AllRewardUnits[i]
         local dataPoint = EnterPointTable[GetHandleId(u)]
-        DestroyGodTalon(dataPoint.TripleTalon)
-        KillUnit(dataPoint.Unit)
+        if dataPoint.TalonPrice<1000 then
+            DestroyGodTalon(dataPoint.TripleTalon)
+            KillUnit(dataPoint.Unit)
+        end
         --table.remove(AllRewardUnits,AllRewardUnits[i]) --- что то делаю не так, нельзя удалять
         -- print("уничтожен",dataPoint.CurrentReward)
     end

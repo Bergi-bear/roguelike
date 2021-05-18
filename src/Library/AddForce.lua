@@ -246,6 +246,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         SetUnitTimeScale(data.UnitHero, 1)
                     end
                     SpellSlashQ(data)
+                    --print("преземление с щитом")
                     if data.DoubleClap then
                         TimerStart(CreateTimer(), 0.35, false, function()
                             SpellSlashQ(data)

@@ -96,7 +96,88 @@ function InitEnemyEntire()
         if GetUnitTypeId(unit) == FourCC("u002") then
             GulRageAI(unit)
         end
+        if GetUnitTypeId(unit) == FourCC("u003") then
+            IceLeach(unit)
+        end
     end)
+end
+
+function IceLeach(unit)
+    AddMaxLife(unit, 3000 * GetActiveCountPlayer())
+    UnitAddAbility(unit,FourCC("Abun"))
+    TimerStart(CreateTimer(), 5, true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            local target, heroes = GetRandomEnemyHero()
+            local me=true
+            --print(GetUnitName(target),#heroes)
+            for i = 1, #heroes do
+                --print(i)
+                local hero = heroes[i]
+
+                --print(IsUnitStunned(unit),hero,IsUnitType(unit, UNIT_TYPE_POLYMORPHED) )
+
+                --if not IsUnitStunned(unit) and hero and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
+                    if IsUnitInRange(unit, hero, 1000) then
+                        --local angle = AngleBetweenUnits(unit, hero)
+                        --print('обнаружен враг')
+                        --CreateIceWallLeach(angle, GetUnitXY(hero))
+                        CreateIceRingLeach(hero,unit)
+                        if me and IsUnitInRange(unit, hero, 400) then
+                            me=false
+                            CreateIceRingLeach(unit,unit)
+                        end
+                    else
+                        IssueTargetOrder(unit, "move", target)
+                    end
+                --end
+            end
+            -- end
+        end
+    end)
+end
+
+
+function CreateIceRingMark(sx,sy)
+    local max = 9
+    local angle = 360 / max
+    --for i = 1, max do
+    local i=1
+    TimerStart(CreateTimer(), 0.1, true, function()
+        local x, y = MoveXY(sx, sy, 160, angle * i)
+        local eff=AddSpecialEffect("Abilities\\Spells\\Undead\\FreezingBreath\\FreezingBreathMissile.mdl",x, y)
+        BlzSetSpecialEffectZ(eff,GetTerrainZ(x,y)+50)
+        TimerStart(CreateTimer(), 1, false, function()
+            DestroyEffect(eff)
+            DestroyTimer(GetExpiredTimer())
+        end)
+        i=i+1
+        if i>max then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+
+function CreateIceRingLeach(unit,damageUnit)
+    local max = 9
+    local angle = 360 / max
+    local sx, sy = GetUnitXY(unit)
+    CreateIceRingMark(sx,sy)
+    TimerStart(CreateTimer(), 1.1, false, function()
+        for i = 1, max do
+            local x, y = MoveXY(sx, sy, 160, angle * i)
+            local d = CreateDestructable(FourCC("B00G"), x, y, GetRandomInt(0, 360), 1, 1)
+            local iceLock=AddSpecialEffect("Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl",x, y)
+            DestroyEffect(iceLock)
+            SetDestructableAnimation(d,"birth")
+
+        end
+        DestroyTimer(GetExpiredTimer())
+        UnitDamageArea(damageUnit,300,sx,sy,100)
+    end)
+
 end
 
 function GulRageAI(unit)
@@ -121,7 +202,7 @@ function GulRageAI(unit)
 
         if isEventDamaged then
             if caster == unit then
-                HealUnit(unit,damage*5)
+                HealUnit(unit, damage * 5)
             end
         end
 
@@ -136,24 +217,24 @@ function GulRageAI(unit)
                 target = GetRandomEnemyHero()
             end
             --if not IsUnitStunned(unit) and target and not IsUnitType(unit, UNIT_TYPE_POLYMORPHED) then
-                sec = sec + 1
-                IssuePointOrder(unit, "attack", GetUnitXY(target))
-                if sec == study then
-                    --print("rage")
-                    SetUnitInvulnerable(unit, true)
-                    SetUnitVertexColor(unit, 50, 50, 50, 255)
-                    BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 0.3)
-                    SetUnitMoveSpeed(unit, 500)
-                end
-                if sec == study * 2 then
-                    --print("нормал moving")
-                    SetUnitInvulnerable(unit, false)
-                    SetUnitVertexColor(unit, 255, 255, 255, 255)
-                    BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 2)
-                    SetUnitMoveSpeed(unit, 200)
-                    sec = 0
-                end
-           -- end
+            sec = sec + 1
+            IssuePointOrder(unit, "attack", GetUnitXY(target))
+            if sec == study then
+                --print("rage")
+                SetUnitInvulnerable(unit, true)
+                SetUnitVertexColor(unit, 50, 50, 50, 255)
+                BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 0.3)
+                SetUnitMoveSpeed(unit, 500)
+            end
+            if sec == study * 2 then
+                --print("нормал moving")
+                SetUnitInvulnerable(unit, false)
+                SetUnitVertexColor(unit, 255, 255, 255, 255)
+                BlzSetUnitWeaponRealField(unit, UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN, 0, 2)
+                SetUnitMoveSpeed(unit, 200)
+                sec = 0
+            end
+            -- end
         end
     end)
 end
@@ -378,7 +459,6 @@ function GetRandomEnemyHero()
     end
     local r = GetRandomInt(1, #table)
     find = table[r]
-    table = {}
     return find, table
 end
 

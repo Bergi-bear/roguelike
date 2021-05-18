@@ -926,7 +926,7 @@ function CreateWASDActions()
                 --print("Q spell")
                 data.ReleaseQ = true
                 SetUnitAnimationByIndex(data.UnitHero, 3) -- удар кирки в землю
-                if data.CurrentWeaponType == "shield" then
+                if data.CurrentWeaponType == "shield" and not data.QJump2Pointer then
                     UnitRemoveAbility(data.UnitHero, FourCC("Beng"))
                     SetUnitAnimationByIndex(data.UnitHero, 26) -- прыжок в землю
                     TimerStart(CreateTimer(), 0.4, false, function()
@@ -978,6 +978,7 @@ function CreateWASDActions()
                         end
                         BlzSetUnitFacingEx(data.UnitHero, angle)
                         if data.CurrentWeaponType == "shield" then
+                            SetUnitAnimationByIndex(data.UnitHero, 26)
                             SetUnitTimeScale(data.UnitHero, 2)
                         end
                         UnitAddForceSimple(data.UnitHero, angle, 20, dist, "qjump")
