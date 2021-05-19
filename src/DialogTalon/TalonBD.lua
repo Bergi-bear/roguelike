@@ -15,7 +15,7 @@ do
                             description = L("Каждый 4 обычный удар выпускает разряд молний, наносящую 50 урона DS случайным врагам в радиусе 500", "Every 4 normal strikes release a bolt of lightning that deals 50 DS damage to random enemies within a radius of 500"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Быстро нажимайте LMB чтобы совершить серию ударов", "Быстро нажимайте LMB чтобы совершить серию ударов"),
+                            tooltip = L("Нажимайте LMB чтобы совершить серию ударов", "Press LMB to make a series of hits"),
                             DS = { 3, 4, 5 },
                             pos = 1
 
@@ -131,6 +131,19 @@ do
                             dependence = 1,
                             weaponType = "shield"
                         },
+                        [11] = Talon:new { --TODO перевод
+                            godName = "Trall",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNTimberWolf.blp",
+                            name = L("Позорный волк", ""),
+                            description = L("Призывает волка всякий раз, когда попадание стрелой не убивает врага. Сила атаки волка: DS", ""),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("Волк живёт 5 секунд и является духом", ""),
+                            DS = { 50, 100, 150 },
+                            pos = 11,
+                            --dependence = 3,
+                            weaponType = "bow"
+                        },
                     },
                     HeroBlademaster = {
                         Talon:new({--1
@@ -226,7 +239,6 @@ do
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
                             DS = { 10, 20, 35 },
                             pos = 8
-                            --ultR = true
                         }),
                         Talon:new({--9
                             godName = "HeroBlademaster",
@@ -239,7 +251,18 @@ do
                             DS = { 20, 40, 60 },
                             dependence = 5,
                             pos = 9
-                            --ultF = true
+                        }),
+                        Talon:new({--10 --TODO перевод
+                            godName = "HeroBlademaster",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNFireBolt.blp",
+                            name = L("Заряженный перекат", ""),
+                            description = L("Атака после рывка увеличивает урон выстрела в DS раза", ""),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
+                            DS = { 2, 3, 4 },
+                            pos = 10,
+                            weaponType = "bow"
                         }),
                     },
                     ShadowHunter = {
@@ -608,7 +631,8 @@ do
                             rarity = "normal",
                             tooltip = L("Быстро нажмите LMB после SPACE, чтобы совершить атаку в рывке", " Quickly press LMB after SPACE to make a snatch attack"),
                             DS = { 100 },
-                            pos = 4
+                            pos = 4,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--5
                             godName = "PeonDidal",
@@ -666,7 +690,8 @@ do
                             rarity = "epic",
                             tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
                             DS = { 3 },
-                            pos = 9
+                            pos = 9,
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--10
                             godName = "PeonDidal",
@@ -762,7 +787,91 @@ do
                             tooltip = L("Получает эффекты зеркального щита или отражателя, если они изучены", ""),
                             DS = { 450 },
                             pos = 17,
-                            weaponType="shield"
+                            weaponType = "shield"
+                        }),
+                        Talon:new({--18 повтор девятого --
+                            godName = "PeonDidal",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = L("Пространственный клеп", " Spatial Clip"),
+                            description = L("Мощный удар делает рывок в область курсора ", " A powerful kick makes the cursor area dash "),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", " Press Q to deliver a powerful strike over a large area"),
+                            DS = { 3 },
+                            pos = 18,
+                            weaponType = "shield"
+                        }),
+                        Talon:new({--19  --TODO перевод
+                            godName = "PeonDidal",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = L("Яблочко", ""),
+                            description = L("Третья стрела разрывает цель нанося DS урона по области 500", ""),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Удерживайте LMB, чтобы зарядить выстрел", ""),
+                            DS = { 1500 },
+                            pos = 19,
+                            weaponType = "bow"
+                        }),
+                        Talon:new({--20 --TODO перевод
+                            godName = "PeonDidal",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = L("Метка смерти", ""),
+                            description = L("Обычная атака вешает на противника метку, все стрелы выпущенные из способности Q летят в эту цель", ""),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Нажмите Q, чтобы выпустить град стрел в область курсора", ""),
+                            DS = { 1 },
+                            pos = 20,
+                            weaponType = "bow"
+                        }),
+                        Talon:new({--21 --TODO перевод
+                            godName = "PeonDidal",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = L("Артиллерист", ""),
+                            description = L("Увеличивает урон способности град стрел Q и все стрелы попадают симметрично в центр", ""),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Нажмите Q, чтобы выпустить град стрел в область курсора", ""),
+                            DS = { 1500 },
+                            pos = 21,
+                            weaponType = "bow"
+                        }),
+                        Talon:new({--21 --TODO перевод
+                            godName = "PeonDidal",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = L("Двойной выстрел", ""),
+                            description = L("Выстреливает 2 стрелы сразу, но каждая стрела наносит лишь DS%% урона", ""),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Удерживайте LMB, чтобы зарядить выстрел", ""),
+                            DS = { 75 },
+                            pos = 21,
+                            weaponType = "bow"
+                        }),
+                        Talon:new({--22 --TODO перевод
+                            godName = "PeonDidal",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = L("Мягкая тетива", ""),
+                            description = L("Увеличивает скорость подготовки выстрела в DS раза", ""),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Удерживайте LMB, чтобы зарядить выстрел", ""),
+                            DS = { 2 },
+                            pos = 22,
+                            weaponType = "bow"
+                        }),
+                        Talon:new({--23 --TODO перевод
+                            godName = "PeonDidal",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            name = L("Бесконечный заряд", ""),
+                            description = L("Каждая секунда удержания выстрела сверхнормы увеличивает урон в 2 раза, максимум DS секунд ", ""),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Удерживайте LMB, чтобы зарядить выстрел, максимально возможный урон будет умножен на 20", ""),
+                            DS = { 10 },
+                            pos = 23,
+                            weaponType = "bow"
                         }),
                     },
                     ChaosGrom = {
@@ -993,7 +1102,7 @@ do
                             tooltip = L("", ""),
                             DS = { 10, 6, 3 },
                             pos = 1,
-                            weaponType="pickaxe"
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--2
                             godName = "HeroMountainKing",
@@ -1005,7 +1114,7 @@ do
                             tooltip = L("Используйте бросок кирки, во время вращения", ""),
                             DS = { 2, 3, 7 },
                             pos = 2,
-                            weaponType="pickaxe"
+                            weaponType = "pickaxe"
                         }),
                         Talon:new({--3
                             godName = "HeroMountainKing",

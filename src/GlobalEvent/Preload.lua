@@ -52,7 +52,7 @@ function InitPreloadStart()
                     LoadedGold[i] = 50
                     LoadedGameCount[i] = 0
                     LoadedChaos[i] = 0
-                    print("FirstGame",GetPlayerName(Player(i)))
+                    print("FirstGame", GetPlayerName(Player(i)))
                     ChkLoadCode(Player(i))
                 end
                 print(GetPlayerName(Player(i)) .. L(" Число завершенных игр ", " Number of completed games ") .. LoadedGameCount[i])
@@ -73,6 +73,8 @@ function InitPreloadStart()
                 elseif TW == 1 then
                     SwitchWeaponTo(data, "pickaxe")
                     --print("pickaxe") -- принт назначается вот это оружие для типа 1
+                elseif TW == 3 then
+                    SwitchWeaponTo(data, "bow")
                 else
                     print("ошибка назначения оружия " .. TW)
                     SwitchWeaponTo(data, "pickaxe")
@@ -148,7 +150,7 @@ function split(str, sep)
 end
 
 function SaveCodeForAllPLayers()
-    local SaveCode="error"
+    local SaveCode = "error"
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         if PlayerIsPlaying[i] then
             local gdata = HERO[i]
@@ -173,6 +175,9 @@ function GetDataWeaponID(data)
     end
     if data.CurrentWeaponType == "shield" then
         k = 2
+    end
+    if data.CurrentWeaponType == "bow" then
+        k = 3
     end
     return k
 end

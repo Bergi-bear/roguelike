@@ -159,24 +159,7 @@ function attackPickAxe(data)
                     --print("урон есть?")
                     if enemy then
                         ------------УдарМидаса--------------
-                        if data.HandOfMidasCDFH then
-                            if data.HandOfMidasCurrentCD <= 0 then
-                                local cd = data.HandOfMidasCD
-                                data.HandOfMidasCurrentCD = cd
-                                StartFrameCD(cd, data.HandOfMidasCDFH)
-                                if BlzGetUnitMaxHP(enemy) <= 5000 and IsUnitEnemy(enemy, GetOwningPlayer(data.UnitHero)) then
-                                    --TODO сделать другое условие не убийства
-                                    DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\GoldBottleMissile.mdl", GetUnitXY(enemy)))
-                                    KillUnit(enemy)
-                                    UnitAddGold(data.UnitHero, data.HandOfMidasReward)
-                                    DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
-                                end
-                                TimerStart(CreateTimer(), cd, false, function()
-                                    data.HandOfMidasCurrentCD = 0
-                                    DestroyTimer(GetExpiredTimer())
-                                end)
-                            end
-                        end
+                        GoldenTouch(data, enemy)
                         ------------------------------------
                         if data.AutoQCDFH then
                             if data.AutoQCurrentCD <= 0 then
@@ -339,25 +322,7 @@ function ShieldHit(data, cdAttack)
 
             if enemy then
                 ------------УдарМидаса--------------
-                if data.HandOfMidasCDFH then
-                    if data.HandOfMidasCurrentCD <= 0 then
-                        local cd = data.HandOfMidasCD
-                        data.HandOfMidasCurrentCD = cd
-                        StartFrameCD(cd, data.HandOfMidasCDFH)
-                        if BlzGetUnitMaxHP(enemy) <= 5000 and IsUnitEnemy(enemy, GetOwningPlayer(data.UnitHero)) then
-                            --TODO сделать другое условие не убийства
-                            DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\GoldBottleMissile.mdl", GetUnitXY(enemy)))
-                            KillUnit(enemy)
-                            UnitAddGold(data.UnitHero, data.HandOfMidasReward)
-                            DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
-                        end
-                        TimerStart(CreateTimer(), cd, false, function()
-                            DestroyTimer(GetExpiredTimer())
-                            data.HandOfMidasCurrentCD = 0
-                            DestroyTimer(GetExpiredTimer())
-                        end)
-                    end
-                end
+                GoldenTouch(data, enemy)
                 ------------------------------------
 
                 ConditionCastLight(data)
@@ -390,7 +355,7 @@ function attackBow(data)
     TimerStart(CreateTimer(), 0.1, false, function()
         DestroyTimer(GetExpiredTimer())
         data.BowReady = false -- лук не готов для стрельбы
-        data.ReadyToShot=false
+        data.ReadyToShot = false
         SetUnitTimeScale(data.UnitHero, 1) --возврат скорости
         if UnitAlive(data.UnitHero) then
             if data.IsMoving then
@@ -401,6 +366,50 @@ function attackBow(data)
             end
         end
     end)
-    local xs,ys=MoveXY(x,y,50,angle)
-    CreateAndForceBullet(hero, angle, data.ArrowStr*2, "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl", xs-32, ys-32, data.ArrowStr*20, data.ArrowStr*30)
+    local xs, ys = MoveXY(x, y, 50, angle)
+
+    ConditionCastLight(data)
+
+    if data.ChaosSpinOnAttackCDFH then
+        if data.ChaosSpinOnAttackCurrentCD <= 0 then
+            --print("условия выполнены")
+            --print("Вращение при ударе")
+            data.ChaosSpinOnAttackCurrentCD = data.ChaosSpinOnAttackCD
+            StartAndReleaseSpin(data, 1)
+            StartFrameCD(data.ChaosSpinOnAttackCD, data.ChaosSpinOnAttackCDFH)
+            TimerStart(CreateTimer(), data.ChaosSpinOnAttackCD, false, function()
+                DestroyTimer(GetExpiredTimer())
+                data.ChaosSpinOnAttackCurrentCD = 0
+            end)
+        end
+    end
+
+    local bonus = 1
+    if data.ArrowDamageAfterChargeReady then
+        bonus = data.ArrowDamageAfterCharge
+        data.ArrowDamageAfterChargeReady = false
+        BlzFrameSetVisible(data.ArrowDamageAfterChargePointer, false)
+    end
+    CreateAndForceBullet(hero, angle, data.ArrowStr * 2, "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl", xs - 32, ys - 32, (data.ArrowStr * 10) * bonus, data.ArrowStr * 30)
+end
+
+function GoldenTouch(data, enemy)
+    if data.HandOfMidasCDFH then
+        if data.HandOfMidasCurrentCD <= 0 then
+            local cd = data.HandOfMidasCD
+            data.HandOfMidasCurrentCD = cd
+            StartFrameCD(cd, data.HandOfMidasCDFH)
+            if BlzGetUnitMaxHP(enemy) <= 5000 and IsUnitEnemy(enemy, GetOwningPlayer(data.UnitHero)) then
+                --TODO сделать другое условие не убийства
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\GoldBottleMissile.mdl", GetUnitXY(enemy)))
+                KillUnit(enemy)
+                UnitAddGold(data.UnitHero, data.HandOfMidasReward)
+                DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
+            end
+            TimerStart(CreateTimer(), cd, false, function()
+                data.HandOfMidasCurrentCD = 0
+                DestroyTimer(GetExpiredTimer())
+            end)
+        end
+    end
 end

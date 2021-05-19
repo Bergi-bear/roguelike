@@ -15,15 +15,23 @@ end
 
 function CreateFallArrow(effModel, data, x, y, zs)
     local eff = AddSpecialEffect(effModel, x, y)
+    local damage=100 -- урон с навесной стрелы
+    local bonus=0
     BlzSetSpecialEffectZ(eff, zs)
     BlzSetSpecialEffectPitch(eff, math.rad(90))
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         local z = BlzGetLocalSpecialEffectZ(eff) - 20
         BlzSetSpecialEffectZ(eff, z)
         if z <= GetTerrainZ(x, y) then
-            if UnitDamageArea(data.UnitHero, 100, x, y, 120) then
+            local flag = nil
+            if data.DashAndDamageQ then
+                flag = "ForceTotem"
+                bonus=data.DamageSplash
+            end
+            if UnitDamageArea(data.UnitHero, damage+bonus, x, y, 120,flag) then
                 DestroyEffect(eff)
-
+                -- попадание навесной стрелой
+                ConditionCastLight(data)
                 BlzSetSpecialEffectPosition(eff, OutPoint, OutPoint, 0)
             else
                 BlzSetSpecialEffectTimeScale(eff, 0)

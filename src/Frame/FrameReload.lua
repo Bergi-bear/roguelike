@@ -331,7 +331,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     else
 
     end
-    return text, buttonIconFrame
+    return text, buttonIconFrame,face
 end
 
 function CreateToolTipBoxSize(x, y, sizeX, sizeY, toolTipTex, toolTipHeader)

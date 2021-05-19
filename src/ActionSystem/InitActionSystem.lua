@@ -61,6 +61,7 @@ function InitFinObjectInArea()
     CreateEnterPoint(19487, -4224, L("Прыгнуть вниз", "Jump into culvert"), "Culvert", false)
     CreateGodTalon(6100, -7547, "WeaponShield")
     CreateGodTalon(6560, -7524, "WeaponPickAxe")
+    CreateGodTalon(6560 + 450, -7524, "WeaponBow")
 
     CreateGodTalon(19762, -20198, "NagaBiom", 3000 * GetActiveCountPlayer())
     --[[
@@ -652,6 +653,16 @@ function CreateEActions()
                 local x, y = GetUnitXY(data.UnitHero)
                 FlyTextTagShieldXY(x, y, L("Щит", "Shield"), GetOwningPlayer(data.UnitHero))
             end
+            if data.UseAction == "WeaponBow" then
+                --local message = L("Я здесь не для отдыха","I'm not here to rest")
+                --CreateInfoBoxForAllPlayerTimed(data, message, 5)
+                SwitchWeaponTo(data, "bow")
+                data.Completed = true
+                data.DoAction = false
+                data.UseAction = ""
+                local x, y = GetUnitXY(data.UnitHero)
+                FlyTextTagShieldXY(x, y, L("Лук", "Bow"), GetOwningPlayer(data.UnitHero))
+            end
 
             ----------------------------------------------------/
             --------------------Буквы---------------------------/
@@ -738,7 +749,7 @@ function CreateEActions()
                         CreateInfoBoxForAllPlayerTimed(data, message, 3)
                         data.Completed = true
                         AllActionsEnabled(true)--активация всех переходов
-                         CreateDialogTalon("Trall") -- Сюда передаётся trall
+                        CreateDialogTalon("Trall") -- Сюда передаётся trall
                         normal_sound("Units\\Orc\\HeroFarseer\\HeroFarseerWhat" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
                         DestroyGodTalon(dataPoint.TripleTalon)
                         data.DoAction = false
@@ -760,9 +771,9 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
 
-                            DestroyGodTalon(dataPoint.TripleTalon)
-                            CreateDialogTalon("HeroBlademaster")
-                            normal_sound("Units\\Orc\\HeroBladeMaster\\HeroBladeMasterPissed" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("HeroBlademaster")
+                        normal_sound("Units\\Orc\\HeroBladeMaster\\HeroBladeMasterPissed" .. GetRandomInt(1, 4), GetUnitXY(data.UnitHero))
 
                         data.DoAction = false
                         data.UseAction = ""
@@ -783,9 +794,9 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
 
-                            DestroyGodTalon(dataPoint.TripleTalon)
-                            CreateDialogTalon("HeroTaurenChieftain")
-                            normal_sound("Units\\Orc\\HeroTaurenChieftain\\HeroTaurenChieftainPissed" .. GetRandomInt(1, 6), GetUnitXY(data.UnitHero))
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("HeroTaurenChieftain")
+                        normal_sound("Units\\Orc\\HeroTaurenChieftain\\HeroTaurenChieftainPissed" .. GetRandomInt(1, 6), GetUnitXY(data.UnitHero))
 
                         data.DoAction = false
                         data.UseAction = ""
@@ -813,9 +824,9 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
 
-                            DestroyGodTalon(dataPoint.TripleTalon)
-                            CreateDialogTalon("ShadowHunter")
-                            normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed" .. GetRandomInt(1, 9), GetUnitXY(data.UnitHero))
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("ShadowHunter")
+                        normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed" .. GetRandomInt(1, 9), GetUnitXY(data.UnitHero))
 
                         data.DoAction = false
                         data.UseAction = ""
@@ -843,10 +854,10 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
 
-                            DestroyGodTalon(dataPoint.TripleTalon)
-                            CreateDialogTalon("ChaosGrom")
-                            --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
-                            --активация всех переходов
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("ChaosGrom")
+                        --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
+                        --активация всех переходов
 
                         data.DoAction = false
                         data.UseAction = ""
@@ -876,10 +887,10 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
 
-                            DestroyGodTalon(dataPoint.TripleTalon)
-                            CreateDialogTalon("Alchemist")
-                            --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
-                            --активация всех переходов
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("Alchemist")
+                        --normal_sound("Units\\Orc\\HeroShadowHunter\\ShadowHunterPissed"..GetRandomInt(1,9),GetUnitXY(data.UnitHero))
+                        --активация всех переходов
 
                         data.DoAction = false
                         data.UseAction = ""
@@ -951,9 +962,9 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
 
-                            DestroyGodTalon(dataPoint.TripleTalon)
-                            --print("Активация сыра")
-                            CreateDialogTalon("Cheese")
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        --print("Активация сыра")
+                        CreateDialogTalon("Cheese")
 
                         data.DoAction = false
                         data.UseAction = ""
@@ -979,8 +990,8 @@ function CreateEActions()
                         data.Completed = true
                         AllActionsEnabled(true)
 
-                            DestroyGodTalon(dataPoint.TripleTalon)
-                            CreateDialogTalon("HeroMountainKing")
+                        DestroyGodTalon(dataPoint.TripleTalon)
+                        CreateDialogTalon("HeroMountainKing")
 
                         data.DoAction = false
                         data.UseAction = ""
@@ -1004,11 +1015,11 @@ function CreateEActions()
                     --print("полный выкуп уплочен")
                     --data.Completed = true
 
-                        DestroyGodTalon(dataPoint.TripleTalon)
+                    DestroyGodTalon(dataPoint.TripleTalon)
 
-                        local x, y = GetUnitXY(dataPoint.Unit)
-                        CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal")
-                        AllActionsEnabled(true)--активация всех переходов
+                    local x, y = GetUnitXY(dataPoint.Unit)
+                    CreateEnterPoint(x, y, L("Продолжить", "Continue"), 'Goto', false, "PeonDidal")
+                    AllActionsEnabled(true)--активация всех переходов
 
                     data.DoAction = false
                     data.UseAction = ""
@@ -1049,8 +1060,8 @@ function CreateEActions()
                     CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                     data.Completed = true
 
-                        DestroyGodTalon(dataPoint.TripleTalon)
-                        AllActionsEnabled(true)--активация всех переходов
+                    DestroyGodTalon(dataPoint.TripleTalon)
+                    AllActionsEnabled(true)--активация всех переходов
 
                     data.DoAction = false
                     data.UseAction = ""
@@ -1090,8 +1101,8 @@ function CreateEActions()
                 DestroyGodTalon(dataPoint.TripleTalon)
                 AllActionsEnabled(true)
 
-                    --активация всех переходов
-                    GiveForAll("GoldReward")
+                --активация всех переходов
+                GiveForAll("GoldReward")
 
                 data.DoAction = false
                 data.UseAction = ""

@@ -151,6 +151,14 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                 data.RevengeLightingDamage = talon.DS[talon.level]
             end)
         end
+        if pos == 11 then
+            local tt, CdFH = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+            data.WolfPerAttack = talon.DS[talon.level]
+            ActLvl23Action(talon, function()
+                data.WolfPerAttack = talon.DS[talon.level]
+            end)
+        end
     end
     if godName == "HeroBlademaster" and talon.level == 1 then
         if pos == 1 then
@@ -238,6 +246,25 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             ActLvl23Action(talon, function()
                 --data.StarTime2Spin = data.StarTime2Spin + talon.DS[talon.level]
                 data.SpinChargesMAX = data.SpinChargesMAX + talon.DS[talon.level]
+            end)
+        end
+        if pos == 10 then
+            -- атака после рывка
+            local tt,CdFH,face = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            UpdateTalonDescriptionForFrame(talon, tt)
+            data.ArrowDamageAfterCharge = talon.DS[talon.level]
+            data.ArrowDamageAfterChargeReady = false -- поле выставлется после рывка
+
+            --data.ArrowDamageAfterChargePointer = BlzFrameGetChild(BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0)
+            data.ArrowDamageAfterChargePointer = BlzCreateFrameByType("SPRITE", "justAName", face, "WarCraftIIILogo", 0)
+            BlzFrameSetPoint(data.ArrowDamageAfterChargePointer, FRAMEPOINT_BOTTOMLEFT, face, FRAMEPOINT_BOTTOMLEFT, 0.02, 0.02)
+            BlzFrameSetSize(data.ArrowDamageAfterChargePointer, 1., 1.)
+            BlzFrameSetScale(data.ArrowDamageAfterChargePointer, 0.75)
+            BlzFrameSetModel(data.ArrowDamageAfterChargePointer, "SystemGeneric\\selecter4", 0)
+            BlzFrameSetVisible(data.ArrowDamageAfterChargePointer, false)
+
+            ActLvl23Action(talon, function()
+                data.ArrowDamageAfterCharge = talon.DS[talon.level]
             end)
         end
 
@@ -497,7 +524,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 8 then
             data.BackDamage = data.BackDamage + talon.DS[1]
         end
-        if pos == 9 then
+        if pos == 9 or pos == 18 then -- прыжок для щита и кирки
             data.QJump2Pointer = true
         end
         if pos == 10 then

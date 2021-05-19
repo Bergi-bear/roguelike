@@ -80,7 +80,6 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                 angleCurrent = AngleBetweenXY(x, y, GetUnitX(hero), GetUnitY(hero)) / bj_DEGTORAD
             end
             if data.ShieldThrow then
-
                 if IsUnitInRangeXY(hero, x, y, 80) and data.ReversShield then
                     data.EffInRightHand = AddSpecialEffectTarget("stoneshild", data.UnitHero, "hand, right")
                     -- data.ShieldThrow = false
@@ -93,7 +92,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
         end
         ---------проникающий урон
-        if effectmodel == "Hive\\Culling Slash\\Culling Slash\\Culling Slash"  then
+        if effectmodel == "Hive\\Culling Slash\\Culling Slash\\Culling Slash" then
             BlzSetSpecialEffectScale(bullet, 0.001)
             local tempEff = AddSpecialEffect(effectmodel, nx, ny)
             BlzSetSpecialEffectScale(tempEff, 0.4)
@@ -101,7 +100,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             UnitDamageArea(hero, damage, x, y, 90)
         end
 
-        if effectmodel=="Abilities\\Weapons\\ChimaeraAcidMissile\\ChimaeraAcidMissile.mdl" then
+        if effectmodel == "Abilities\\Weapons\\ChimaeraAcidMissile\\ChimaeraAcidMissile.mdl" then
             UnitDamageArea(hero, damage, x, y, 90)
         end
         -----Конец проникающего урона
@@ -210,7 +209,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                 flag = "all"
             end
             UnitDamageArea(heroCurrent, damage, x, y, CollisionRange, flag) -- УРОН ПРИ ПОПАДАНИИ
-           -- print("попал")
+            -- print("попал")
             if DamagingUnit and IsUnitType(heroCurrent, UNIT_TYPE_HERO) then
                 local data = GetUnitData(heroCurrent)
                 if data.KnockRMB then
@@ -222,8 +221,10 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             if effectmodel == "stoneshild" then
                 if GetUnitData(hero).ShieldThrow then
                     --print("щит возвращается обратно")
-                    GetUnitData(hero).ReversShield = true
+                    local data = GetUnitData(hero)
+                    data.ReversShield = true
                     if DamagingUnit then
+                        ConditionCastLight(data)
                         normal_sound("Abilities\\Weapons\\Axe\\AxeMissile" .. GetRandomInt(1, 2), GetUnitXY(GetUnitData(hero).UnitHero))
                     end
                     angle = AngleBetweenXY(x, y, GetUnitX(hero), GetUnitY(hero)) / bj_DEGTORAD
@@ -238,6 +239,21 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
                 HexUnit(DamagingUnit)
                 --print("хексуем")
             end
+
+            if effectmodel == "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl" then
+                if GetUnitData(heroCurrent).WolfPerAttack then --проверка на наличие талант
+                    if IsUnitEnemy(DamagingUnit,GetOwningPlayer(heroCurrent)) then
+                        GoldenTouch(GetUnitData(heroCurrent), DamagingUnit)
+                        if UnitAlive(DamagingUnit)  then
+                           -- print(GetUnitName(DamagingUnit),"выжил, волк, добей его")
+                            WolfFas(heroCurrent,DamagingUnit)
+                        else
+                            --print("урон фатален")
+                        end
+                    end
+                end
+            end
+
             if HERO[GetPlayerId(GetOwningPlayer(hero))] then
                 local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
                 --print("0")

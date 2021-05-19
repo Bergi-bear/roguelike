@@ -849,6 +849,13 @@ function CreateWASDActions()
                 end
 
                 UnitAddForceSimple(data.UnitHero, data.DirectionMove, 25, dist, "ignore") --САМ рывок при нажатии пробела
+
+                if data.ArrowDamageAfterCharge then
+                    data.ArrowDamageAfterChargeReady=true
+                    BlzFrameSetVisible(data.ArrowDamageAfterChargePointer, GetLocalPlayer()==Player(data.pid))
+                    --print("выстрел заряжен")
+                end
+
                 data.SpaceForce = true
                 local effModel = "Hive\\Windwalk\\Windwalk Necro Soul\\Windwalk Necro Soul"
                 if data.IframesOnDash then
