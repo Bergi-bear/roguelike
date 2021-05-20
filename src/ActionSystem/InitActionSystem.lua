@@ -844,11 +844,11 @@ function CreateEActions()
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
                             L("Проклятый", "Cursed"),
-                            L("Рррааыа", ""),
-                            L("Главное не покраснеть", ""),
-                            L("У этого парня всё толковое", ""),
-                            L("Как гром среди ясного неба", ""),
-                            L("Сожру любого", ""),
+                            L("Рррааыа", "Rrraaaa"),
+                            L("Главное не покраснеть", "The main thing is not to blush"),
+                            L("У этого парня всё толковое", "This guy's got a lot of sense"),
+                            L("Как гром среди ясного неба", "Like a bolt from the blue"),
+                            L("Сожру любого", "I'll eat anyone"),
                         }
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
@@ -873,15 +873,15 @@ function CreateEActions()
                 end
 
                 if data.UseAction == "Alchemist" then
-                    --TODO перевод
+                    
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
-                            L("Я вижу ты тут главный", ""),
-                            L("Изучаю алхимию", ""),
-                            L("Готов превращать всё в золото", ""),
-                            L("Как бы самом не превратится в золото", ""),
-                            L("И ещё больше золота", ""),
-                            L("Теперь точно разбогатею", ""),
+                            L("Я вижу ты тут главный", "I see you're in charge here"),
+                            L("Изучаю алхимию", "Studying alchemy"),
+                            L("Готов превращать всё в золото", "Ready to turn everything into gold"),
+                            L("Как бы самом не превратится в золото", "As if he himself would not turn into gold"),
+                            L("И ещё больше золота", "And even more gold"),
+                            L("Теперь точно разбогатею", "I'll definitely get rich now"),
                         }
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
@@ -951,12 +951,8 @@ function CreateEActions()
                 if data.UseAction == "Cheese" then
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
-                            L("Я вижу ты тут главный", ""),
-                            L("Изучаю алхимию", ""),
-                            L("Готов превращать всё в золото", ""),
-                            L("Как бы самом не превратится в золото", ""),
-                            L("И ещё больше золота", ""),
-                            L("Теперь точно разбогатею", ""),
+                            L("Сыыыыр", ""),
+               
                         }
                         --CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
@@ -982,8 +978,8 @@ function CreateEActions()
                 if data.UseAction == "HeroMountainKing" then
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
-                            L("Сила молотов", ""),
-                            L("Изучаю кузнечное дело", ""),
+                            L("Сила молотов", "Power of Hammers"),
+                            L("Изучаю кузнечное дело", "I study blacksmithing"),
 
                         }
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
@@ -1050,12 +1046,12 @@ function CreateEActions()
             if data.UseAction == "CodoHeart" then
                 if data.gold >= dataPoint.TalonPrice then
                     local message = {
-                        L("Сила кодоя", "Cursed"),
-                        L("Я стал мощнее", ""),
-                        L("Я стал крепче", ""),
-                        L("Чувствую мощь", ""),
-                        L("Меня переполняет смысол", ""),
-                        L("Насыщаюсь здоровьем", ""),
+                        L("Сила кодоя", "Kodoi Power"),
+                        L("Я стал мощнее", "I've become more powerful"),
+                        L("Я стал крепче", "I got stronger"),
+                        L("Чувствую мощь", "I feel the power"),
+                        L("Меня переполняет смысол", "I'm overwhelmed with meaning"),
+                        L("Насыщаюсь здоровьем", "I'm sated with health"),
                     }
                     CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                     data.Completed = true
