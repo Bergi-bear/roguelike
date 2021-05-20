@@ -131,14 +131,14 @@ do
                             dependence = 1,
                             weaponType = "shield"
                         },
-                        [11] = Talon:new { --TODO перевод
+                        [11] = Talon:new { 
                             godName = "Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTimberWolf.blp",
-                            name = L("Позорный волк", ""),
-                            description = L("Призывает волка всякий раз, когда попадание стрелой не убивает врага. Сила атаки волка: DS", ""),
+                            name = L("Позорный волк", "Shameful Wolf"),
+                            description = L("Призывает волка всякий раз, когда попадание стрелой не убивает врага. Сила атаки волка: DS", "Summons the wolf whenever an arrow hit does not kill the enemy. Wolf Attack Power: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Волк живёт 5 секунд и является духом", ""),
+                            tooltip = L("Время жизни: 5 сек", "Lifetime: 5 sec"),
                             DS = { 50, 100, 150 },
                             pos = 11,
                             --dependence = 3,
@@ -252,11 +252,11 @@ do
                             dependence = 5,
                             pos = 9
                         }),
-                        Talon:new({--10 --TODO перевод
+                        Talon:new({--10 
                             godName = "HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFireBolt.blp",
-                            name = L("Заряженный перекат", ""),
-                            description = L("Атака после рывка увеличивает урон выстрела в DS раза", ""),
+                            name = L("Заряженный перекат", "Charged dash"),
+                            description = L("Атака после рывка увеличивает урон выстрела в DS раза", "The attack after the dash increases the damage of the shot by DS times"),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
@@ -370,12 +370,12 @@ do
                         }),
                         Talon:new({--10
                             godName = "ShadowHunter",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSobiMask.blp", --TODO Перевод
-                            name = L("Маска злорадства", ""),
-                            description = L("Всякий раз, когда кто-то в радиусе 1000 умирает от ловушки, вы получаете DS здоровья ", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSobiMask.blp", 
+                            name = L("Маска злорадства", "The mask of schadenfreude"),
+                            description = L("Всякий раз, когда кто-то в радиусе 1000 умирает от ловушки, вы получаете DS здоровья", "Whenever someone within a 1000 radius dies from a trap, you gain DS health"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Работает при смерти союзников, врагов и суммонов", ""),
+                            tooltip = L("Работает при смерти союзников, врагов и суммонов", "Works when allies, enemies, and summons die"),
                             DS = { 100, 200, 300 },
                             pos = 10,
                         }),
@@ -768,9 +768,9 @@ do
                         }),
                         Talon:new({--16
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNCloudOfFog.blp", --TODO перевод
-                            name = L("Цепная коррозия", ""),
-                            description = L("Разрушение щита, так же ломает щит у ближайших врагов в радиусе DS", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNCloudOfFog.blp",
+                            name = L("Цепная коррозия", "Chain corrosion"),
+                            description = L("Разрушение щита, так же ломает щит у ближайших врагов в радиусе DS", "Shield destruction, also breaks the shield of nearby enemies within a DS radius"),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников", "Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
@@ -779,12 +779,12 @@ do
                         }),
                         Talon:new({--17
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNUsedSoulGem.blp", --TODO перевод
-                            name = L("Орбитальный щит", ""),
-                            description = L("Призывает дополнительный щит, который летает вокруг героя и защищает от снарядов", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNUsedSoulGem.blp",
+                            name = L("Орбитальный щит", "Orbital Shield"),
+                            description = L("Призывает дополнительный щит, который летает вокруг героя и защищает от снарядов", "Summons an additional shield that flies around the hero and protects him from projectiles"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = L("Получает эффекты зеркального щита или отражателя, если они изучены", ""),
+                            tooltip = L("Получает эффекты зеркального щита или отражателя, если они изучены", "Gets mirror shield or reflector effects, if they are learned"),
                             DS = { 450 },
                             pos = 17,
                             weaponType = "shield"
@@ -955,9 +955,9 @@ do
                         }),
                         Talon:new({--8
                             godName = "ChaosGrom",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNPowerGenerator.blp", --TODO перевод
-                            name = L("Смертельный всплеск", ""),
-                            description = L("После смерти оставляет фонтан крови", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPowerGenerator.blp",
+                            name = L("Смертельный всплеск", "Deadly Surge"),
+                            description = L("После смерти оставляет фонтан крови", "After death leaves a fountain of blood"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
@@ -967,9 +967,9 @@ do
                         }),
                         Talon:new({--9
                             godName = "ChaosGrom",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfVampirism.blp", --TODO перевод
-                            name = L("Густая кровь", ""),
-                            description = L("При получении урона замедляет движение врагов на DS сек, в радиусе 200, нанося 5 урона", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfVampirism.blp",
+                            name = L("Густая кровь", "Thick blood"),
+                            description = L("При получении урона замедляет движение врагов на DS сек, в радиусе 200, нанося 50 урона", "When taking damage, slows the movement of enemies for DS sec, within a radius of 200, dealing 50 damage"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
@@ -1081,9 +1081,9 @@ do
                         }),
                         Talon:new({--9
                             godName = "Alchemist",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNPig.blp", --TODO перевод
-                            name = L("Свинка копилка", ""),
-                            description = L("Добавляет DS золота каждые 3 секунды", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPig.blp",
+                            name = L("Свинка копилка", "Piggy bank"),
+                            description = L("Добавляет DS золота каждые 3 секунды", "Adds DS of gold every 3 seconds"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
@@ -1091,15 +1091,15 @@ do
                             pos = 9
                         }),
                     },
-                    HeroMountainKing = { --TODO перевод всего горного короля
+                    HeroMountainKing = { 
                         Talon:new({--1
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSunderingBlades.blp",
-                            name = L("Изо всех сил", ""),
-                            description = L("Автоматически использует мощный удар [Q] при атаке игнорируя основную перезарядку. Перезарядка: DS ", ""),
+                            name = L("Изо всех сил", "With all my might"),
+                            description = L("Автоматически использует мощный удар Q при атаке игнорируя основную перезарядку. Перезарядка: DS", "Automatically uses a powerful Q strike when attacking, ignoring the main cooldown. Recharge: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("", ""),
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", "Press Q to strike a powerful blow over a large area"),
                             DS = { 10, 6, 3 },
                             pos = 1,
                             weaponType = "pickaxe"
@@ -1107,11 +1107,11 @@ do
                         Talon:new({--2
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNScatterRockets.blp",
-                            name = L("Перекрестный огонь", ""),
-                            description = L("Кирка вихря летит в стороны, число сторон: DS", ""),
+                            name = L("Перекрестный огонь", "Crossfire"),
+                            description = L("Кирка вихря летит в стороны, число сторон: DS", "The pickaxe of the vortex flies to the sides, the number of sides: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Используйте бросок кирки, во время вращения", ""),
+                            tooltip = L("Используйте бросок кирки, во время вращения", "Use the pickaxe roll, while spinning"),
                             DS = { 2, 3, 7 },
                             pos = 2,
                             weaponType = "pickaxe"
@@ -1119,8 +1119,8 @@ do
                         Talon:new({--3
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHumanMissileUpOne.blp",
-                            name = L("Взрывной молот", ""),
-                            description = L("При попадании в стену молот взрывается и наносит DS урона в большой области", ""),
+                            name = L("Взрывной молот", "Explosive Hammer"),
+                            description = L("При попадании в стену молот взрывается и наносит DS урона в большой области", "When hit by a wall, the hammer explodes and deals DS damage in a large area"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
@@ -1131,8 +1131,8 @@ do
                         Talon:new({--4
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAlleriaFlute.blp",
-                            name = L("Пустая труба", ""),
-                            description = L("Молот отталкивает юнита на большое расстояние", ""),
+                            name = L("Пустая труба", "Empty pipe"),
+                            description = L("Молот отталкивает юнита на большое расстояние", "The hammer pushes the unit away for a long distance"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
@@ -1143,8 +1143,8 @@ do
                         Talon:new({--5
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFlakCannons.blp",
-                            name = L("Пулеметная очередь", ""),
-                            description = L("Добавляет DS зарядов к способности бросок молота, эти заряды не восстанавливаются", ""),
+                            name = L("Пулеметная очередь", "Machine gun fire"),
+                            description = L("Добавляет DS зарядов к способности бросок молота, эти заряды не восстанавливаются", "Adds DS charges to the Hammer Throw ability, these charges are not restored"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
@@ -1156,8 +1156,8 @@ do
                         Talon:new({--6
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAvatar.blp",
-                            name = L("Камененная кожа", ""),
-                            description = L("Любой урон не может быть выше DS%% от максимального хп героя", ""),
+                            name = L("Каменная кожа", "Stone skin"),
+                            description = L("Любой урон не может быть выше DS%% от максимального хп героя", "Any damage cannot be higher than DS%% of the hero's maximum HP."),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
