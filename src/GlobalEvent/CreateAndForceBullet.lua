@@ -241,12 +241,51 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
 
             if effectmodel == "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl" then
-                if GetUnitData(heroCurrent).WolfPerAttack then --проверка на наличие талант
-                    if IsUnitEnemy(DamagingUnit,GetOwningPlayer(heroCurrent)) then
-                        GoldenTouch(GetUnitData(heroCurrent), DamagingUnit)
-                        if UnitAlive(DamagingUnit)  then
-                           -- print(GetUnitName(DamagingUnit),"выжил, волк, добей его")
-                            WolfFas(heroCurrent,DamagingUnit)
+                -- Момент где стрела попадает во врага
+                local data = GetUnitData(heroCurrent)
+                local xd, yd = GetUnitXY(DamagingUnit)
+                GoldenTouch(data, DamagingUnit)
+
+
+                if data.DashPerAttack then
+                    UnitDamageArea(heroCurrent, 0, xd, yd, 100, "push")
+                end
+
+                if data.MarkOfDeath then
+                    if UnitAlive(DamagingUnit) then
+                        if data.MarkOfDeathEffect then
+                            DestroyEffect(data.MarkOfDeathEffect)
+                        end
+                        data.MarkOfDeathUnit = DamagingUnit
+                        data.MarkOfDeathEffect = AddSpecialEffectTarget("SystemGeneric\\AlarmSmall", data.MarkOfDeathUnit, "overhead")
+                    end
+                end
+
+                if data.ThirdArrow then
+                    --третья стрела разпывает врага
+                    SetUnitUserData(DamagingUnit, GetUnitUserData(DamagingUnit) + 1)
+                    if GetUnitUserData(DamagingUnit) >= 3 then
+                        SetUnitUserData(DamagingUnit, 0)
+                        --print("Третья стрела внутри")
+
+                        --DestroyEffect(AddSpecialEffect("Warlock_Projectile",xd,yd))
+                        local eff = AddSpecialEffect("Abilities\\Weapons\\MeatwagonMissile\\MeatwagonMissile.mdl", xd, yd)
+                        TimerStart(CreateTimer(), 0.01, false, function()
+                            DestroyTimer(GetExpiredTimer())
+                            DestroyEffect(eff)
+                        end)
+                        UnitDamageArea(heroCurrent, 1500, xd, yd, 500)
+                        SetUnitExploded(DamagingUnit, true)
+                        AddSpecialEffect("", xd, yd)
+                    end
+                end -- волк делает фас и кусь по недобитым
+                if data.WolfPerAttack then
+                    --проверка на наличие талант
+                    if IsUnitEnemy(DamagingUnit, GetOwningPlayer(heroCurrent)) then
+
+                        if UnitAlive(DamagingUnit) then
+                            -- print(GetUnitName(DamagingUnit),"выжил, волк, добей его")
+                            WolfFas(heroCurrent, DamagingUnit)
                         else
                             --print("урон фатален")
                         end

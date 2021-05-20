@@ -365,7 +365,6 @@ function MurlockEnsnare(unit)
                 IssueTargetOrder(unit, "ensnare", hero)
             end
         end
-
     end)
 end
 

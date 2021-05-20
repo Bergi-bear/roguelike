@@ -1510,11 +1510,21 @@ function CreateArrowImages(data, MA)
     local sec=0
     local m=0
     data.ArrowStr=0
+
+    local str=0.5
+    local sec2ready=0.5
+    if data.FastArrow then
+        str=1
+        --sec2ready=0.25
+    end
+
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         angle = -180 + AngleBetweenXY(data.fakeX, data.fakeY, GetUnitX(data.UnitHero), GetUnitY(data.UnitHero)) / bj_DEGTORAD
         curAngle = lerpTheta(curAngle, angle, TIMER_PERIOD * 8)
 
         if not data.BowReady then
+            data.InfArrowCharges=0
+            data.InfArrowSec=0
             --print("маркер уничтожен")
             DestroyTimer(GetExpiredTimer())
             DestroySplatTable(img)
@@ -1522,11 +1532,24 @@ function CreateArrowImages(data, MA)
         sec=sec+TIMER_PERIOD64
         m=m+2
         x, y = GetUnitX(data.UnitHero)-32,GetUnitY(data.UnitHero)-32-- центр юнита
-        if sec<0.5 then
-           -- print(m)
-            data.ArrowStr=data.ArrowStr+0.5
+        if sec<sec2ready then
+            -- print(m)
+            data.ArrowStr=data.ArrowStr+str
             --print(data.ArrowStr)
             x,y=MoveXY(x, y, 64-m, curAngle+MA) -- смещение в бок
+        else
+            if data.InfArrow and data.InfArrowCharges<10 then
+                data.ArrowStr=data.ArrowStr+str
+                data.InfArrowSec=data.InfArrowSec+(TIMER_PERIOD64/2)
+                if data.InfArrowSec>=1 then
+                    data.InfArrowSec=0
+                    data.InfArrowCharges=data.InfArrowCharges+1
+                    FlyTextTagCriticalStrike(data.UnitHero,R2I(data.InfArrowCharges),Player(data.pid))
+                end
+
+                --if
+                --print("пошло сверх заполнение")
+            end
         end
         for i = 1, k do
             x, y = MoveXY(x, y, 4, curAngle)
@@ -1698,24 +1721,7 @@ function attackPickAxe(data)
                     --print("урон есть?")
                     if enemy then
                         ------------УдарМидаса--------------
-                        if data.HandOfMidasCDFH then
-                            if data.HandOfMidasCurrentCD <= 0 then
-                                local cd = data.HandOfMidasCD
-                                data.HandOfMidasCurrentCD = cd
-                                StartFrameCD(cd, data.HandOfMidasCDFH)
-                                if BlzGetUnitMaxHP(enemy) <= 5000 and IsUnitEnemy(enemy, GetOwningPlayer(data.UnitHero)) then
-                                    --TODO сделать другое условие не убийства
-                                    DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\GoldBottleMissile.mdl", GetUnitXY(enemy)))
-                                    KillUnit(enemy)
-                                    UnitAddGold(data.UnitHero, data.HandOfMidasReward)
-                                    DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
-                                end
-                                TimerStart(CreateTimer(), cd, false, function()
-                                    data.HandOfMidasCurrentCD = 0
-                                    DestroyTimer(GetExpiredTimer())
-                                end)
-                            end
-                        end
+                        GoldenTouch(data, enemy)
                         ------------------------------------
                         if data.AutoQCDFH then
                             if data.AutoQCurrentCD <= 0 then
@@ -1878,25 +1884,7 @@ function ShieldHit(data, cdAttack)
 
             if enemy then
                 ------------УдарМидаса--------------
-                if data.HandOfMidasCDFH then
-                    if data.HandOfMidasCurrentCD <= 0 then
-                        local cd = data.HandOfMidasCD
-                        data.HandOfMidasCurrentCD = cd
-                        StartFrameCD(cd, data.HandOfMidasCDFH)
-                        if BlzGetUnitMaxHP(enemy) <= 5000 and IsUnitEnemy(enemy, GetOwningPlayer(data.UnitHero)) then
-                            --TODO сделать другое условие не убийства
-                            DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\GoldBottleMissile.mdl", GetUnitXY(enemy)))
-                            KillUnit(enemy)
-                            UnitAddGold(data.UnitHero, data.HandOfMidasReward)
-                            DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
-                        end
-                        TimerStart(CreateTimer(), cd, false, function()
-                            DestroyTimer(GetExpiredTimer())
-                            data.HandOfMidasCurrentCD = 0
-                            DestroyTimer(GetExpiredTimer())
-                        end)
-                    end
-                end
+                GoldenTouch(data, enemy)
                 ------------------------------------
 
                 ConditionCastLight(data)
@@ -1964,7 +1952,33 @@ function attackBow(data)
         data.ArrowDamageAfterChargeReady = false
         BlzFrameSetVisible(data.ArrowDamageAfterChargePointer, false)
     end
-    CreateAndForceBullet(hero, angle, data.ArrowStr * 2, "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl", xs - 32, ys - 32, (data.ArrowStr * 10) * bonus, data.ArrowStr * 30)
+    if data.DoubleArrow then
+        data.ArrowStr=data.ArrowStr*0.75
+        CreateAndForceBullet(hero, angle, 120, "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl", xs - 32, ys - 32, (data.ArrowStr * 10) * bonus, data.ArrowStr * 30)
+    end
+    CreateAndForceBullet(hero, angle, 120, "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl", xs - 32, ys - 32, (data.ArrowStr * 10) * bonus, data.ArrowStr * 30)
+end
+
+
+function GoldenTouch(data, enemy)
+    if data.HandOfMidasCDFH then
+        if data.HandOfMidasCurrentCD <= 0 then
+            local cd = data.HandOfMidasCD
+            data.HandOfMidasCurrentCD = cd
+            StartFrameCD(cd, data.HandOfMidasCDFH)
+            if BlzGetUnitMaxHP(enemy) <= 5000 and IsUnitEnemy(enemy, GetOwningPlayer(data.UnitHero)) then
+                --TODO сделать другое условие не убийства
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\Transmute\\GoldBottleMissile.mdl", GetUnitXY(enemy)))
+                KillUnit(enemy)
+                UnitAddGold(data.UnitHero, data.HandOfMidasReward)
+                DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", GetUnitXY(enemy)))
+            end
+            TimerStart(CreateTimer(), cd, false, function()
+                data.HandOfMidasCurrentCD = 0
+                DestroyTimer(GetExpiredTimer())
+            end)
+        end
+    end
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2220,8 +2234,18 @@ end
 function FallenArrow(data, x, y)
     --local hero=data.UnitHero
     local effModel = "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl"
-    for i = 1, 10 do
+    for _ = 1, 10 do
         local nx, ny = MoveXY(x, y, GetRandomInt(0, 200), GetRandomInt(0, 360))
+
+        if data.MarkOfDeath then
+            if data.MarkOfDeathUnit then
+                local xm, ym = GetUnitXY(data.MarkOfDeathUnit)
+                if DistanceBetweenXY(xm, ym, nx, ny) <= 300 then
+                    nx, ny = xm, ym
+                end
+            end
+        end
+
         CreateFallArrow(effModel, data, nx, ny, GetTerrainZ(nx, ny) + GetRandomInt(900, 1000))
     end
 
@@ -2229,14 +2253,22 @@ end
 
 function CreateFallArrow(effModel, data, x, y, zs)
     local eff = AddSpecialEffect(effModel, x, y)
+    local damage = 100 -- урон с навесной стрелы
+    local bonus = 0
     BlzSetSpecialEffectZ(eff, zs)
     BlzSetSpecialEffectPitch(eff, math.rad(90))
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         local z = BlzGetLocalSpecialEffectZ(eff) - 20
         BlzSetSpecialEffectZ(eff, z)
         if z <= GetTerrainZ(x, y) then
-            if UnitDamageArea(data.UnitHero, 100, x, y, 120) then
+            local flag = nil
+            if data.DashAndDamageQ then
+                flag = "ForceTotem"
+                bonus = data.DamageSplash
+            end
+            if UnitDamageArea(data.UnitHero, damage + bonus, x, y, 120, flag) then
                 DestroyEffect(eff)
+                -- попадание навесной стрелой
                 ConditionCastLight(data)
                 BlzSetSpecialEffectPosition(eff, OutPoint, OutPoint, 0)
             else
@@ -3060,6 +3092,39 @@ function SlowUnit(unit,duration)
         UnitRemoveAbility(unit,FourCC("Bslo"))
         DestroyTimer(GetExpiredTimer())
     end)
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 20.05.2021 16:43
+---
+
+function FindEnemyForEnsnare(data, xs, ys)
+    local e = nil
+    local result=false
+   -- DestroyEffect(AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", xs, ys))
+    GroupEnumUnitsInRange(perebor, xs, ys, 250, nil)
+    while true do
+        e = FirstOfGroup(perebor)
+        if e == nil then
+            break
+        end
+
+        if UnitAlive(e) and IsUnitEnemy(e, GetOwningPlayer(data.UnitHero)) then
+            --print("найден для сетки",GetUnitName(e))
+            result=UnitRootAnother(data.UnitHero, e)
+        end
+        GroupRemoveUnit(perebor, e)
+    end
+    return result
+end
+
+function UnitRootAnother(unit, enemy)
+    local x, y = GetUnitXY(unit)
+    local dummy = CreateUnit(GetOwningPlayer(unit), DummyID, x, y, 0)
+    UnitAddAbility(dummy, FourCC("A007"))
+    UnitApplyTimedLife(dummy, FourCC('BTLF'), 2)
+    return IssueTargetOrder(dummy, "ensnare", enemy)
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -4274,11 +4339,11 @@ function CreateEActions()
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
                             L("Проклятый", "Cursed"),
-                            L("Рррааыа", ""),
-                            L("Главное не покраснеть", ""),
-                            L("У этого парня всё толковое", ""),
-                            L("Как гром среди ясного неба", ""),
-                            L("Сожру любого", ""),
+                            L("Рррааыа", "Rrraaaa"),
+                            L("Главное не покраснеть", "The main thing is not to blush"),
+                            L("У этого парня всё толковое", "This guy's got a lot of sense"),
+                            L("Как гром среди ясного неба", "Like a bolt from the blue"),
+                            L("Сожру любого", "I'll eat anyone"),
                         }
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
@@ -4303,15 +4368,15 @@ function CreateEActions()
                 end
 
                 if data.UseAction == "Alchemist" then
-                    --TODO перевод
+                    
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
-                            L("Я вижу ты тут главный", ""),
-                            L("Изучаю алхимию", ""),
-                            L("Готов превращать всё в золото", ""),
-                            L("Как бы самом не превратится в золото", ""),
-                            L("И ещё больше золота", ""),
-                            L("Теперь точно разбогатею", ""),
+                            L("Я вижу ты тут главный", "I see you're in charge here"),
+                            L("Изучаю алхимию", "Studying alchemy"),
+                            L("Готов превращать всё в золото", "Ready to turn everything into gold"),
+                            L("Как бы самом не превратится в золото", "As if he himself would not turn into gold"),
+                            L("И ещё больше золота", "And even more gold"),
+                            L("Теперь точно разбогатею", "I'll definitely get rich now"),
                         }
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
@@ -4381,12 +4446,8 @@ function CreateEActions()
                 if data.UseAction == "Cheese" then
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
-                            L("Я вижу ты тут главный", ""),
-                            L("Изучаю алхимию", ""),
-                            L("Готов превращать всё в золото", ""),
-                            L("Как бы самом не превратится в золото", ""),
-                            L("И ещё больше золота", ""),
-                            L("Теперь точно разбогатею", ""),
+                            L("Сыыыыр", ""),
+               
                         }
                         --CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                         data.Completed = true
@@ -4412,8 +4473,8 @@ function CreateEActions()
                 if data.UseAction == "HeroMountainKing" then
                     if data.gold >= dataPoint.TalonPrice then
                         local message = {
-                            L("Сила молотов", ""),
-                            L("Изучаю кузнечное дело", ""),
+                            L("Сила молотов", "Power of Hammers"),
+                            L("Изучаю кузнечное дело", "I study blacksmithing"),
 
                         }
                         CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
@@ -4480,12 +4541,12 @@ function CreateEActions()
             if data.UseAction == "CodoHeart" then
                 if data.gold >= dataPoint.TalonPrice then
                     local message = {
-                        L("Сила кодоя", "Cursed"),
-                        L("Я стал мощнее", ""),
-                        L("Я стал крепче", ""),
-                        L("Чувствую мощь", ""),
-                        L("Меня переполняет смысол", ""),
-                        L("Насыщаюсь здоровьем", ""),
+                        L("Сила кодоя", "Kodoi Power"),
+                        L("Я стал мощнее", "I've become more powerful"),
+                        L("Я стал крепче", "I got stronger"),
+                        L("Чувствую мощь", "I feel the power"),
+                        L("Меня переполняет смысол", "I'm overwhelmed with meaning"),
+                        L("Насыщаюсь здоровьем", "I'm sated with health"),
                     }
                     CreateInfoBoxForAllPlayerTimed(data, message[GetRandomInt(1, #message)], 3)
                     data.Completed = true
@@ -6208,7 +6269,7 @@ function ClearDialogTalon(OriginalTable, data)
         if talon.dependence then
             --print("есть талант зависимый от "..OriginalTable[talon.dependence].name)
             unlock = false
-            if OriginalTable[talon.dependence].level > 0 then
+            if OriginalTable[talon.dependence].level > 0 then --FIXME
                 --print("условие разлоблокировки выполнены")
                 unlock = true
             end
@@ -6700,7 +6761,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         end
         if pos == 10 then
             -- атака после рывка
-            local tt,CdFH,face = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            local tt, CdFH, face = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
             UpdateTalonDescriptionForFrame(talon, tt)
             data.ArrowDamageAfterCharge = talon.DS[talon.level]
             data.ArrowDamageAfterChargeReady = false -- поле выставлется после рывка
@@ -6872,6 +6933,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 12 then
             data.HealForHeart = true
         end
+        if pos == 13 then
+            data.AutoEnsnare = true
+            data.AutoEnsnareCDFH=CdFH
+            data.AutoEnsnareCurrentCD=0
+            data.AutoEnsnareCD=talon.DS[talon.level]
+        end
     end
     if godName == "HeroBeastMaster" and talon.level == 1 then
         if not data.BeastCountTalon then
@@ -6974,7 +7041,8 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 8 then
             data.BackDamage = data.BackDamage + talon.DS[1]
         end
-        if pos == 9 or pos == 18 then -- прыжок для щита и кирки
+        if pos == 9 or pos == 18 then
+            -- прыжок для щита и кирки
             data.QJump2Pointer = true
         end
         if pos == 10 then
@@ -7005,7 +7073,6 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             local angle = 0
             local eff = AddSpecialEffect(effmodel, 0, 0)
             -- BlzSetSpecialEffectRoll(eff, math.rad(-90))
-
             TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
                 local xh, yh = GetUnitXY(data.UnitHero)
                 angle = angle + 9
@@ -7017,6 +7084,23 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                     angle = 0
                 end
             end)
+        end
+        if pos == 19 then
+            data.ThirdArrow = true
+            --data.ThirdArrowUnits={}
+        end
+        if pos == 20 then
+            data.MarkOfDeath = true
+        end
+        if pos == 22 then
+            data.DoubleArrow = true
+        end
+        if pos == 23 then
+            data.FastArrow = true
+        end
+        if pos == 24 then
+            data.InfArrow = true
+            data.InfArrowCharge = 0
         end
     end
     if godName == "ChaosGrom" and talon.level == 1 then
@@ -7420,14 +7504,14 @@ do
                             dependence = 1,
                             weaponType = "shield"
                         },
-                        [11] = Talon:new { --TODO перевод
+                        [11] = Talon:new {
                             godName = "Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTimberWolf.blp",
-                            name = L("Позорный волк", ""),
-                            description = L("Призывает волка всякий раз, когда попадание стрелой не убивает врага. Сила атаки волка: DS", ""),
+                            name = L("Позорный волк", "Shameful Wolf"),
+                            description = L("Призывает волка всякий раз, когда попадание стрелой не убивает врага. Сила атаки волка: DS", "Summons the wolf whenever an arrow hit does not kill the enemy. Wolf Attack Power: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Волк живёт 5 секунд и является духом", ""),
+                            tooltip = L("Время жизни: 5 сек", "Lifetime: 5 sec"),
                             DS = { 50, 100, 150 },
                             pos = 11,
                             --dependence = 3,
@@ -7541,11 +7625,11 @@ do
                             dependence = 5,
                             pos = 9
                         }),
-                        Talon:new({--10 --TODO перевод
+                        Talon:new({--10 
                             godName = "HeroBlademaster",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFireBolt.blp",
-                            name = L("Заряженный перекат", ""),
-                            description = L("Атака после рывка увеличивает урон выстрела в DS раза", ""),
+                            name = L("Заряженный перекат", "Charged dash"),
+                            description = L("Атака после рывка увеличивает урон выстрела в DS раза", "The attack after the dash increases the damage of the shot by DS times"),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Нажмите SPACE, чтобы совершить рывок в направлении движения", "Press SPACE to make a dash in the direction of movement"),
@@ -7659,12 +7743,12 @@ do
                         }),
                         Talon:new({--10
                             godName = "ShadowHunter",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSobiMask.blp", --TODO Перевод
-                            name = L("Маска злорадства", ""),
-                            description = L("Всякий раз, когда кто-то в радиусе 1000 умирает от ловушки, вы получаете DS здоровья ", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSobiMask.blp",
+                            name = L("Маска злорадства", "The mask of schadenfreude"),
+                            description = L("Всякий раз, когда кто-то в радиусе 1000 умирает от ловушки, вы получаете DS здоровья", "Whenever someone within a 1000 radius dies from a trap, you gain DS health"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Работает при смерти союзников, врагов и суммонов", ""),
+                            tooltip = L("Работает при смерти союзников, врагов и суммонов", "Works when allies, enemies, and summons die"),
                             DS = { 100, 200, 300 },
                             pos = 10,
                         }),
@@ -7768,7 +7852,7 @@ do
                             rarity = "normal",
                             tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
                             DS = { 50, 150, 250 },
-                            dependence = 8,
+                            --dependence = 8,
                             pos = 9
                         }),
                         Talon:new({--10
@@ -7804,6 +7888,17 @@ do
                             DS = { 100 },
                             dependence = 10,
                             pos = 12
+                        }),
+                        Talon:new({--13 --TODO перевод
+                            godName = "HeroTaurenChieftain",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWeb.blp",
+                            name = L("Ловчий", ""),
+                            description = L("Набрасывает сетку на юнита под курсором в радиусе 150. Перезарядка DS, длительность 5 секунд", ""),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("", ""),
+                            DS = { 10 },
+                            pos = 13
                         }),
 
                     },
@@ -8057,9 +8152,9 @@ do
                         }),
                         Talon:new({--16
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNCloudOfFog.blp", --TODO перевод
-                            name = L("Цепная коррозия", ""),
-                            description = L("Разрушение щита, так же ломает щит у ближайших врагов в радиусе DS", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNCloudOfFog.blp",
+                            name = L("Цепная коррозия", "Chain corrosion"),
+                            description = L("Разрушение щита, так же ломает щит у ближайших врагов в радиусе DS", "Shield destruction, also breaks the shield of nearby enemies within a DS radius"),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Враги без щита при получении урона получают эффект стазиса. Стазис ненадолго останавливает противников", "Enemies without a shield get a stasis effect when taking damage. Stasis briefly stops opponents"),
@@ -8068,12 +8163,12 @@ do
                         }),
                         Talon:new({--17
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNUsedSoulGem.blp", --TODO перевод
-                            name = L("Орбитальный щит", ""),
-                            description = L("Призывает дополнительный щит, который летает вокруг героя и защищает от снарядов", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNUsedSoulGem.blp",
+                            name = L("Орбитальный щит", "Orbital Shield"),
+                            description = L("Призывает дополнительный щит, который летает вокруг героя и защищает от снарядов", "Summons an additional shield that flies around the hero and protects him from projectiles"),
                             level = 0,
                             rarity = "epic",
-                            tooltip = L("Получает эффекты зеркального щита или отражателя, если они изучены", ""),
+                            tooltip = L("Получает эффекты зеркального щита или отражателя, если они изучены", "Gets mirror shield or reflector effects, if they are learned"),
                             DS = { 450 },
                             pos = 17,
                             weaponType = "shield"
@@ -8090,9 +8185,9 @@ do
                             pos = 18,
                             weaponType = "shield"
                         }),
-                        Talon:new({--19  --TODO перевод
+                        Talon:new({--19  --TODO перевод +
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMarksmanship.blp",
                             name = L("Яблочко", ""),
                             description = L("Третья стрела разрывает цель нанося DS урона по области 500", ""),
                             level = 0,
@@ -8102,9 +8197,9 @@ do
                             pos = 19,
                             weaponType = "bow"
                         }),
-                        Talon:new({--20 --TODO перевод
+                        Talon:new({--20 --TODO перевод +
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMagicLariet.blp",
                             name = L("Метка смерти", ""),
                             description = L("Обычная атака вешает на противника метку, все стрелы выпущенные из способности Q летят в эту цель", ""),
                             level = 0,
@@ -8114,40 +8209,52 @@ do
                             pos = 20,
                             weaponType = "bow"
                         }),
-                        Talon:new({--21 --TODO перевод
+                        Talon:new({--21 --TODO перевод -
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSentinel.blp",
                             name = L("Артиллерист", ""),
                             description = L("Увеличивает урон способности град стрел Q и все стрелы попадают симметрично в центр", ""),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Нажмите Q, чтобы выпустить град стрел в область курсора", ""),
-                            DS = { 1500 },
+                            DS = { 1 },
                             pos = 21,
                             weaponType = "bow"
                         }),
-                        Talon:new({--21 --TODO перевод
+                        Talon:new({--22 --TODO перевод
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNAdvancedStrengthOfTheMoon.blp",
                             name = L("Двойной выстрел", ""),
                             description = L("Выстреливает 2 стрелы сразу, но каждая стрела наносит лишь DS% урона", ""),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Удерживайте LMB, чтобы зарядить выстрел", ""),
                             DS = { 75 },
-                            pos = 21,
+                            pos = 22,
                             weaponType = "bow"
                         }),
-                        Talon:new({--22 --TODO перевод
+                        Talon:new({--23 --TODO перевод
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNImprovedBows.blp",
                             name = L("Мягкая тетива", ""),
                             description = L("Увеличивает скорость подготовки выстрела в DS раза", ""),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Удерживайте LMB, чтобы зарядить выстрел", ""),
                             DS = { 2 },
-                            pos = 22,
+                            pos = 23,
+                            weaponType = "bow"
+                        }),
+                        Talon:new({--24 --TODO перевод
+                            godName = "PeonDidal",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNNaturesBlessing.blp",
+                            name = L("Бесконечный заряд", ""),
+                            description = L("Каждая секунда удержания выстрела сверхнормы увеличивает урон в 2 раза, максимум DS секунд ", ""),
+                            level = 0,
+                            rarity = "epic",
+                            tooltip = L("Удерживайте LMB, чтобы зарядить выстрел, максимально возможный урон будет умножен на 20", ""),
+                            DS = { 10 },
+                            pos = 24,
                             weaponType = "bow"
                         }),
                     },
@@ -8232,9 +8339,9 @@ do
                         }),
                         Talon:new({--8
                             godName = "ChaosGrom",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNPowerGenerator.blp", --TODO перевод
-                            name = L("Смертельный всплеск", ""),
-                            description = L("После смерти оставляет фонтан крови", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPowerGenerator.blp",
+                            name = L("Смертельный всплеск", "Deadly Surge"),
+                            description = L("После смерти оставляет фонтан крови", "After death leaves a fountain of blood"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
@@ -8244,9 +8351,9 @@ do
                         }),
                         Talon:new({--9
                             godName = "ChaosGrom",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfVampirism.blp", --TODO перевод
-                            name = L("Густая кровь", ""),
-                            description = L("При получении урона замедляет движение врагов на DS сек, в радиусе 200, нанося 5 урона", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPotionOfVampirism.blp",
+                            name = L("Густая кровь", "Thick blood"),
+                            description = L("При получении урона замедляет движение врагов на DS сек, в радиусе 200, нанося 50 урона", "When taking damage, slows the movement of enemies for DS sec, within a radius of 200, dealing 50 damage"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
@@ -8358,9 +8465,9 @@ do
                         }),
                         Talon:new({--9
                             godName = "Alchemist",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNPig.blp", --TODO перевод
-                            name = L("Свинка копилка", ""),
-                            description = L("Добавляет DS золота каждые 3 секунды", ""),
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNPig.blp",
+                            name = L("Свинка копилка", "Piggy bank"),
+                            description = L("Добавляет DS золота каждые 3 секунды", "Adds DS of gold every 3 seconds"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("За золото можно купить различные товары у заводного гоблина или принести его в жертву богам", "For gold, you can buy various goods from a clockwork goblin or sacrifice it to the gods"),
@@ -8368,15 +8475,15 @@ do
                             pos = 9
                         }),
                     },
-                    HeroMountainKing = { --TODO перевод всего горного короля
+                    HeroMountainKing = {
                         Talon:new({--1
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSunderingBlades.blp",
-                            name = L("Изо всех сил", ""),
-                            description = L("Автоматически использует мощный удар [Q] при атаке игнорируя основную перезарядку. Перезарядка: DS ", ""),
+                            name = L("Изо всех сил", "With all my might"),
+                            description = L("Автоматически использует мощный удар Q при атаке игнорируя основную перезарядку. Перезарядка: DS", "Automatically uses a powerful Q strike when attacking, ignoring the main cooldown. Recharge: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("", ""),
+                            tooltip = L("Нажмите Q, чтобы нанести мощный удар по большой площади", "Press Q to strike a powerful blow over a large area"),
                             DS = { 10, 6, 3 },
                             pos = 1,
                             weaponType = "pickaxe"
@@ -8384,11 +8491,11 @@ do
                         Talon:new({--2
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNScatterRockets.blp",
-                            name = L("Перекрестный огонь", ""),
-                            description = L("Кирка вихря летит в стороны, число сторон: DS", ""),
+                            name = L("Перекрестный огонь", "Crossfire"),
+                            description = L("Кирка вихря летит в стороны, число сторон: DS", "The pickaxe of the vortex flies to the sides, the number of sides: DS"),
                             level = 0,
                             rarity = "normal",
-                            tooltip = L("Используйте бросок кирки, во время вращения", ""),
+                            tooltip = L("Используйте бросок кирки, во время вращения", "Use the pickaxe roll, while spinning"),
                             DS = { 2, 3, 7 },
                             pos = 2,
                             weaponType = "pickaxe"
@@ -8396,8 +8503,8 @@ do
                         Talon:new({--3
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNHumanMissileUpOne.blp",
-                            name = L("Взрывной молот", ""),
-                            description = L("При попадании в стену молот взрывается и наносит DS урона в большой области", ""),
+                            name = L("Взрывной молот", "Explosive Hammer"),
+                            description = L("При попадании в стену молот взрывается и наносит DS урона в большой области", "When hit by a wall, the hammer explodes and deals DS damage in a large area"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
@@ -8408,8 +8515,8 @@ do
                         Talon:new({--4
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAlleriaFlute.blp",
-                            name = L("Пустая труба", ""),
-                            description = L("Молот отталкивает юнита на большое расстояние", ""),
+                            name = L("Пустая труба", "Empty pipe"),
+                            description = L("Молот отталкивает юнита на большое расстояние", "The hammer pushes the unit away for a long distance"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
@@ -8420,8 +8527,8 @@ do
                         Talon:new({--5
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNFlakCannons.blp",
-                            name = L("Пулеметная очередь", ""),
-                            description = L("Добавляет DS зарядов к способности бросок молота, эти заряды не восстанавливаются", ""),
+                            name = L("Пулеметная очередь", "Machine gun fire"),
+                            description = L("Добавляет DS зарядов к способности бросок молота, эти заряды не восстанавливаются", "Adds DS charges to the Hammer Throw ability, these charges are not restored"),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Нажмите RMB в указанном направлении, чтобы метнуть туда кирку", "Press the RMB in the specified direction to throw the pickaxe there"),
@@ -8433,8 +8540,8 @@ do
                         Talon:new({--6
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNAvatar.blp",
-                            name = L("Камененная кожа", ""),
-                            description = L("Любой урон не может быть выше DS% от максимального хп героя", ""),
+                            name = L("Каменная кожа", "Stone skin"),
+                            description = L("Любой урон не может быть выше DS% от максимального хп героя", "Any damage cannot be higher than DS% of the hero's maximum HP."),
                             level = 0,
                             rarity = "normal",
                             tooltip = L("Вы умрёте, как только потеряете всё здоровье", "You will die as soon as you lose all health"),
@@ -8448,6 +8555,7 @@ do
         end)
     end
 end
+
 -- Для плавного появления окна
 function SmoothWindowAppearance(frame, index, state)
     local count
@@ -10021,7 +10129,6 @@ function MurlockEnsnare(unit)
                 IssueTargetOrder(unit, "ensnare", hero)
             end
         end
-
     end)
 end
 
@@ -12351,11 +12458,51 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
 
             if effectmodel == "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl" then
-                if GetUnitData(heroCurrent).WolfPerAttack then --проверка на наличие талант
-                    if IsUnitEnemy(DamagingUnit,GetOwningPlayer(heroCurrent)) then
-                        if UnitAlive(DamagingUnit)  then
-                           -- print(GetUnitName(DamagingUnit),"выжил, волк, добей его")
-                            WolfFas(heroCurrent,DamagingUnit)
+                -- Момент где стрела попадает во врага
+                local data = GetUnitData(heroCurrent)
+                local xd, yd = GetUnitXY(DamagingUnit)
+                GoldenTouch(data, DamagingUnit)
+
+
+                if data.DashPerAttack then
+                    UnitDamageArea(heroCurrent, 0, xd, yd, 100, "push")
+                end
+
+                if data.MarkOfDeath then
+                    if UnitAlive(DamagingUnit) then
+                        if data.MarkOfDeathEffect then
+                            DestroyEffect(data.MarkOfDeathEffect)
+                        end
+                        data.MarkOfDeathUnit = DamagingUnit
+                        data.MarkOfDeathEffect = AddSpecialEffectTarget("SystemGeneric\\AlarmSmall", data.MarkOfDeathUnit, "overhead")
+                    end
+                end
+
+                if data.ThirdArrow then
+                    --третья стрела разпывает врага
+                    SetUnitUserData(DamagingUnit, GetUnitUserData(DamagingUnit) + 1)
+                    if GetUnitUserData(DamagingUnit) >= 3 then
+                        SetUnitUserData(DamagingUnit, 0)
+                        --print("Третья стрела внутри")
+
+                        --DestroyEffect(AddSpecialEffect("Warlock_Projectile",xd,yd))
+                        local eff = AddSpecialEffect("Abilities\\Weapons\\MeatwagonMissile\\MeatwagonMissile.mdl", xd, yd)
+                        TimerStart(CreateTimer(), 0.01, false, function()
+                            DestroyTimer(GetExpiredTimer())
+                            DestroyEffect(eff)
+                        end)
+                        UnitDamageArea(heroCurrent, 1500, xd, yd, 500)
+                        SetUnitExploded(DamagingUnit, true)
+                        AddSpecialEffect("", xd, yd)
+                    end
+                end -- волк делает фас и кусь по недобитым
+                if data.WolfPerAttack then
+                    --проверка на наличие талант
+                    if IsUnitEnemy(DamagingUnit, GetOwningPlayer(heroCurrent)) then
+
+                        if UnitAlive(DamagingUnit) then
+                            -- print(GetUnitName(DamagingUnit),"выжил, волк, добей его")
+                            WolfFas(heroCurrent, DamagingUnit)
                         else
                             --print("урон фатален")
                         end
@@ -14851,11 +14998,15 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                     damage = 0
                 end
             end
-            UnitDamageTarget(u, e, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
-            isdamage = true
-            hero = e
-            k = k + 1
-            all[k] = e
+            if UnitDamageTarget(u, e, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS) then
+                if GetUnitTypeId(e)~=FourCC("nglm") and GetUnitTypeId(e)~=FourCC("hdhw") then --нет раекцтии на мину и точку входа
+                    isdamage = true
+                    hero = e
+                    k = k + 1
+                    all[k] = e
+                    --print(GetUnitName(e))
+                end
+            end
             if (flag == "all" or IsUnitTrap(u)) and not UnitAlive(e) then
                 local ex, ey = GetUnitXY(e)
                 FlyTextTagShieldXY(ex, ey, L("Смерть от ловушки", "Death by trap"), GetOwningPlayer(e), "SeeAll")
@@ -15134,6 +15285,28 @@ function InitWASD(hero)
         end
         --BlzSetSpecialEffectPosition(mouseEff, data.fakeX, data.fakeY, GetTerrainZ(data.fakeX, data.fakeY) + 50)
 
+        if data.AutoEnsnare then
+            --print("прокачал сетку")
+            if data.AutoEnsnareCDFH then
+
+                if data.AutoEnsnareCurrentCD <= 0 then
+                    if FindEnemyForEnsnare(data, data.fakeX, data.fakeY) then
+                        local cd = data.AutoEnsnareCD
+                        data.AutoEnsnareCurrentCD = cd
+                        StartFrameCD(cd, data.AutoEnsnareCDFH)
+                        TimerStart(CreateTimer(), cd, false, function()
+                            DestroyTimer(GetExpiredTimer())
+                            data.AutoEnsnareCurrentCD = 0
+                        end)
+                    end
+                end
+
+
+            end
+
+
+        end
+
         if not UnitAlive(hero) then
             --print("Эффект смерти")
 
@@ -15141,7 +15314,7 @@ function InitWASD(hero)
             if not data.CameraStabUnit then
 
             end
-            if not data.CameraStabUnit and not data.CameraOnSaw then
+            if not data.CameraStabUnit  then --and not data.CameraOnSaw
                 data.CameraStabUnit = CreateUnit(Player(data.pid), FourCC("hdhw"), x, y, 0)
                 ShowUnit(data.CameraStabUnit, false)
                 RemoveLife(data)
@@ -15153,7 +15326,7 @@ function InitWASD(hero)
                 TimerStart(CreateTimer(), 3, false, function()
                     DestroyTimer(GetExpiredTimer())
                     if data.life >= 0 then
-                        data.CameraOnSaw = false
+                        --data.CameraOnSaw = false
                         x, y = GetUnitXY(hero)
                         ReviveHero(hero, x, y, true)
                         SetUnitInvulnerable(hero, true)
@@ -15785,8 +15958,8 @@ function CreateWASDActions()
                 UnitAddForceSimple(data.UnitHero, data.DirectionMove, 25, dist, "ignore") --САМ рывок при нажатии пробела
 
                 if data.ArrowDamageAfterCharge then
-                    data.ArrowDamageAfterChargeReady=true
-                    BlzFrameSetVisible(data.ArrowDamageAfterChargePointer, GetLocalPlayer()==Player(data.pid))
+                    data.ArrowDamageAfterChargeReady = true
+                    BlzFrameSetVisible(data.ArrowDamageAfterChargePointer, GetLocalPlayer() == Player(data.pid))
                     --print("выстрел заряжен")
                 end
 
@@ -16017,12 +16190,15 @@ function CreateWASDActions()
                             data.BowError = true
                             TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
                                 sec = sec + TIMER_PERIOD64
-
+                                local sec2ready = 0.4
+                                if data.FastArrow then
+                                    sec2ready = sec2ready / 2
+                                end
                                 if data.PressSpin then
-                                    if sec > 0.4 then
+                                    if sec > sec2ready then
                                         SetUnitTimeScale(data.UnitHero, 0)
                                         data.ReadyToShot = true
-                                        -- print("полностью готов для стрельбы")
+                                        --print("полностью готов для стрельбы")
                                         data.BowError = false
                                         DestroyTimer(GetExpiredTimer())
                                     end

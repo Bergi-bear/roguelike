@@ -164,7 +164,7 @@ function ClearDialogTalon(OriginalTable, data)
         if talon.dependence then
             --print("есть талант зависимый от "..OriginalTable[talon.dependence].name)
             unlock = false
-            if OriginalTable[talon.dependence].level > 0 then
+            if OriginalTable[talon.dependence].level > 0 then --FIXME
                 --print("условие разлоблокировки выполнены")
                 unlock = true
             end

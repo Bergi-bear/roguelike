@@ -6,8 +6,18 @@
 function FallenArrow(data, x, y)
     --local hero=data.UnitHero
     local effModel = "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl"
-    for i = 1, 10 do
+    for _ = 1, 10 do
         local nx, ny = MoveXY(x, y, GetRandomInt(0, 200), GetRandomInt(0, 360))
+
+        if data.MarkOfDeath then
+            if data.MarkOfDeathUnit then
+                local xm, ym = GetUnitXY(data.MarkOfDeathUnit)
+                if DistanceBetweenXY(xm, ym, nx, ny) <= 300 then
+                    nx, ny = xm, ym
+                end
+            end
+        end
+
         CreateFallArrow(effModel, data, nx, ny, GetTerrainZ(nx, ny) + GetRandomInt(900, 1000))
     end
 
@@ -15,8 +25,8 @@ end
 
 function CreateFallArrow(effModel, data, x, y, zs)
     local eff = AddSpecialEffect(effModel, x, y)
-    local damage=100 -- урон с навесной стрелы
-    local bonus=0
+    local damage = 100 -- урон с навесной стрелы
+    local bonus = 0
     BlzSetSpecialEffectZ(eff, zs)
     BlzSetSpecialEffectPitch(eff, math.rad(90))
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
@@ -26,9 +36,9 @@ function CreateFallArrow(effModel, data, x, y, zs)
             local flag = nil
             if data.DashAndDamageQ then
                 flag = "ForceTotem"
-                bonus=data.DamageSplash
+                bonus = data.DamageSplash
             end
-            if UnitDamageArea(data.UnitHero, damage+bonus, x, y, 120,flag) then
+            if UnitDamageArea(data.UnitHero, damage + bonus, x, y, 120, flag) then
                 DestroyEffect(eff)
                 -- попадание навесной стрелой
                 ConditionCastLight(data)

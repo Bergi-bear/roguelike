@@ -390,8 +390,13 @@ function attackBow(data)
         data.ArrowDamageAfterChargeReady = false
         BlzFrameSetVisible(data.ArrowDamageAfterChargePointer, false)
     end
-    CreateAndForceBullet(hero, angle, data.ArrowStr * 2, "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl", xs - 32, ys - 32, (data.ArrowStr * 10) * bonus, data.ArrowStr * 30)
+    if data.DoubleArrow then
+        data.ArrowStr=data.ArrowStr*0.75
+        CreateAndForceBullet(hero, angle, 120, "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl", xs - 32, ys - 32, (data.ArrowStr * 10) * bonus, data.ArrowStr * 30)
+    end
+    CreateAndForceBullet(hero, angle, 120, "Abilities\\Weapons\\BallistaMissile\\BallistaMissile.mdl", xs - 32, ys - 32, (data.ArrowStr * 10) * bonus, data.ArrowStr * 30)
 end
+
 
 function GoldenTouch(data, enemy)
     if data.HandOfMidasCDFH then

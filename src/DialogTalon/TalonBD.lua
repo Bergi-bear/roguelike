@@ -131,7 +131,7 @@ do
                             dependence = 1,
                             weaponType = "shield"
                         },
-                        [11] = Talon:new { 
+                        [11] = Talon:new {
                             godName = "Trall",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNTimberWolf.blp",
                             name = L("Позорный волк", "Shameful Wolf"),
@@ -370,7 +370,7 @@ do
                         }),
                         Talon:new({--10
                             godName = "ShadowHunter",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSobiMask.blp", 
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSobiMask.blp",
                             name = L("Маска злорадства", "The mask of schadenfreude"),
                             description = L("Всякий раз, когда кто-то в радиусе 1000 умирает от ловушки, вы получаете DS здоровья", "Whenever someone within a 1000 radius dies from a trap, you gain DS health"),
                             level = 0,
@@ -479,7 +479,7 @@ do
                             rarity = "normal",
                             tooltip = L("Враги которых вы толкаете ударяются о препятствия и получают 100 урона", "The enemies you push hit the obstacles and take 100 damage"),
                             DS = { 50, 150, 250 },
-                            dependence = 8,
+                            --dependence = 8,
                             pos = 9
                         }),
                         Talon:new({--10
@@ -515,6 +515,17 @@ do
                             DS = { 100 },
                             dependence = 10,
                             pos = 12
+                        }),
+                        Talon:new({--13 --TODO перевод
+                            godName = "HeroTaurenChieftain",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNWeb.blp",
+                            name = L("Ловчий", ""),
+                            description = L("Набрасывает сетку на юнита под курсором в радиусе 150. Перезарядка DS, длительность 5 секунд", ""),
+                            level = 0,
+                            rarity = "normal",
+                            tooltip = L("", ""),
+                            DS = { 10 },
+                            pos = 13
                         }),
 
                     },
@@ -801,9 +812,9 @@ do
                             pos = 18,
                             weaponType = "shield"
                         }),
-                        Talon:new({--19  --TODO перевод
+                        Talon:new({--19  --TODO перевод +
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMarksmanship.blp",
                             name = L("Яблочко", ""),
                             description = L("Третья стрела разрывает цель нанося DS урона по области 500", ""),
                             level = 0,
@@ -813,9 +824,9 @@ do
                             pos = 19,
                             weaponType = "bow"
                         }),
-                        Talon:new({--20 --TODO перевод
+                        Talon:new({--20 --TODO перевод +
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNMagicLariet.blp",
                             name = L("Метка смерти", ""),
                             description = L("Обычная атака вешает на противника метку, все стрелы выпущенные из способности Q летят в эту цель", ""),
                             level = 0,
@@ -825,52 +836,52 @@ do
                             pos = 20,
                             weaponType = "bow"
                         }),
-                        Talon:new({--21 --TODO перевод
+                        Talon:new({--21 --TODO перевод -
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSentinel.blp",
                             name = L("Артиллерист", ""),
                             description = L("Увеличивает урон способности град стрел Q и все стрелы попадают симметрично в центр", ""),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Нажмите Q, чтобы выпустить град стрел в область курсора", ""),
-                            DS = { 1500 },
+                            DS = { 1 },
                             pos = 21,
                             weaponType = "bow"
                         }),
-                        Talon:new({--21 --TODO перевод
+                        Talon:new({--22 --TODO перевод
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNAdvancedStrengthOfTheMoon.blp",
                             name = L("Двойной выстрел", ""),
                             description = L("Выстреливает 2 стрелы сразу, но каждая стрела наносит лишь DS%% урона", ""),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Удерживайте LMB, чтобы зарядить выстрел", ""),
                             DS = { 75 },
-                            pos = 21,
+                            pos = 22,
                             weaponType = "bow"
                         }),
-                        Talon:new({--22 --TODO перевод
+                        Talon:new({--23 --TODO перевод
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNImprovedBows.blp",
                             name = L("Мягкая тетива", ""),
                             description = L("Увеличивает скорость подготовки выстрела в DS раза", ""),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Удерживайте LMB, чтобы зарядить выстрел", ""),
                             DS = { 2 },
-                            pos = 22,
+                            pos = 23,
                             weaponType = "bow"
                         }),
-                        Talon:new({--23 --TODO перевод
+                        Talon:new({--24 --TODO перевод
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNThunderclap.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNNaturesBlessing.blp",
                             name = L("Бесконечный заряд", ""),
                             description = L("Каждая секунда удержания выстрела сверхнормы увеличивает урон в 2 раза, максимум DS секунд ", ""),
                             level = 0,
                             rarity = "epic",
                             tooltip = L("Удерживайте LMB, чтобы зарядить выстрел, максимально возможный урон будет умножен на 20", ""),
                             DS = { 10 },
-                            pos = 23,
+                            pos = 24,
                             weaponType = "bow"
                         }),
                     },
@@ -1091,7 +1102,7 @@ do
                             pos = 9
                         }),
                     },
-                    HeroMountainKing = { 
+                    HeroMountainKing = {
                         Talon:new({--1
                             godName = "HeroMountainKing",
                             icon = "ReplaceableTextures\\CommandButtons\\BTNSunderingBlades.blp",

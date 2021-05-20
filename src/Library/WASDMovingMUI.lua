@@ -200,6 +200,28 @@ function InitWASD(hero)
         end
         --BlzSetSpecialEffectPosition(mouseEff, data.fakeX, data.fakeY, GetTerrainZ(data.fakeX, data.fakeY) + 50)
 
+        if data.AutoEnsnare then
+            --print("прокачал сетку")
+            if data.AutoEnsnareCDFH then
+
+                if data.AutoEnsnareCurrentCD <= 0 then
+                    if FindEnemyForEnsnare(data, data.fakeX, data.fakeY) then
+                        local cd = data.AutoEnsnareCD
+                        data.AutoEnsnareCurrentCD = cd
+                        StartFrameCD(cd, data.AutoEnsnareCDFH)
+                        TimerStart(CreateTimer(), cd, false, function()
+                            DestroyTimer(GetExpiredTimer())
+                            data.AutoEnsnareCurrentCD = 0
+                        end)
+                    end
+                end
+
+
+            end
+
+
+        end
+
         if not UnitAlive(hero) then
             --print("Эффект смерти")
 
@@ -207,7 +229,7 @@ function InitWASD(hero)
             if not data.CameraStabUnit then
 
             end
-            if not data.CameraStabUnit and not data.CameraOnSaw then
+            if not data.CameraStabUnit  then --and not data.CameraOnSaw
                 data.CameraStabUnit = CreateUnit(Player(data.pid), FourCC("hdhw"), x, y, 0)
                 ShowUnit(data.CameraStabUnit, false)
                 RemoveLife(data)
@@ -219,7 +241,7 @@ function InitWASD(hero)
                 TimerStart(CreateTimer(), 3, false, function()
                     DestroyTimer(GetExpiredTimer())
                     if data.life >= 0 then
-                        data.CameraOnSaw = false
+                        --data.CameraOnSaw = false
                         x, y = GetUnitXY(hero)
                         ReviveHero(hero, x, y, true)
                         SetUnitInvulnerable(hero, true)
@@ -851,8 +873,8 @@ function CreateWASDActions()
                 UnitAddForceSimple(data.UnitHero, data.DirectionMove, 25, dist, "ignore") --САМ рывок при нажатии пробела
 
                 if data.ArrowDamageAfterCharge then
-                    data.ArrowDamageAfterChargeReady=true
-                    BlzFrameSetVisible(data.ArrowDamageAfterChargePointer, GetLocalPlayer()==Player(data.pid))
+                    data.ArrowDamageAfterChargeReady = true
+                    BlzFrameSetVisible(data.ArrowDamageAfterChargePointer, GetLocalPlayer() == Player(data.pid))
                     --print("выстрел заряжен")
                 end
 
@@ -1083,12 +1105,15 @@ function CreateWASDActions()
                             data.BowError = true
                             TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
                                 sec = sec + TIMER_PERIOD64
-
+                                local sec2ready = 0.4
+                                if data.FastArrow then
+                                    sec2ready = sec2ready / 2
+                                end
                                 if data.PressSpin then
-                                    if sec > 0.4 then
+                                    if sec > sec2ready then
                                         SetUnitTimeScale(data.UnitHero, 0)
                                         data.ReadyToShot = true
-                                        -- print("полностью готов для стрельбы")
+                                        --print("полностью готов для стрельбы")
                                         data.BowError = false
                                         DestroyTimer(GetExpiredTimer())
                                     end

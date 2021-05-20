@@ -118,11 +118,15 @@ function UnitDamageArea(u, damage, x, y, range, flag)
                     damage = 0
                 end
             end
-            UnitDamageTarget(u, e, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
-            isdamage = true
-            hero = e
-            k = k + 1
-            all[k] = e
+            if UnitDamageTarget(u, e, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS) then
+                if GetUnitTypeId(e)~=FourCC("nglm") and GetUnitTypeId(e)~=FourCC("hdhw") then --нет раекцтии на мину и точку входа
+                    isdamage = true
+                    hero = e
+                    k = k + 1
+                    all[k] = e
+                    --print(GetUnitName(e))
+                end
+            end
             if (flag == "all" or IsUnitTrap(u)) and not UnitAlive(e) then
                 local ex, ey = GetUnitXY(e)
                 FlyTextTagShieldXY(ex, ey, L("Смерть от ловушки", "Death by trap"), GetOwningPlayer(e), "SeeAll")

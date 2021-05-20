@@ -250,7 +250,7 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         end
         if pos == 10 then
             -- атака после рывка
-            local tt,CdFH,face = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
+            local tt, CdFH, face = CreateUniversalFrame(x, y, size, talon:updateDescriptionCurrent(), talon.name, data, talon.icon, GetPassiveIco(talon.icon), nil)
             UpdateTalonDescriptionForFrame(talon, tt)
             data.ArrowDamageAfterCharge = talon.DS[talon.level]
             data.ArrowDamageAfterChargeReady = false -- поле выставлется после рывка
@@ -422,6 +422,12 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 12 then
             data.HealForHeart = true
         end
+        if pos == 13 then
+            data.AutoEnsnare = true
+            data.AutoEnsnareCDFH=CdFH
+            data.AutoEnsnareCurrentCD=0
+            data.AutoEnsnareCD=talon.DS[talon.level]
+        end
     end
     if godName == "HeroBeastMaster" and talon.level == 1 then
         if not data.BeastCountTalon then
@@ -524,7 +530,8 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
         if pos == 8 then
             data.BackDamage = data.BackDamage + talon.DS[1]
         end
-        if pos == 9 or pos == 18 then -- прыжок для щита и кирки
+        if pos == 9 or pos == 18 then
+            -- прыжок для щита и кирки
             data.QJump2Pointer = true
         end
         if pos == 10 then
@@ -555,7 +562,6 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
             local angle = 0
             local eff = AddSpecialEffect(effmodel, 0, 0)
             -- BlzSetSpecialEffectRoll(eff, math.rad(-90))
-
             TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
                 local xh, yh = GetUnitXY(data.UnitHero)
                 angle = angle + 9
@@ -567,6 +573,23 @@ function LearnCurrentTalonForPlayer(pid, godName, pos)
                     angle = 0
                 end
             end)
+        end
+        if pos == 19 then
+            data.ThirdArrow = true
+            --data.ThirdArrowUnits={}
+        end
+        if pos == 20 then
+            data.MarkOfDeath = true
+        end
+        if pos == 22 then
+            data.DoubleArrow = true
+        end
+        if pos == 23 then
+            data.FastArrow = true
+        end
+        if pos == 24 then
+            data.InfArrow = true
+            data.InfArrowCharge = 0
         end
     end
     if godName == "ChaosGrom" and talon.level == 1 then
