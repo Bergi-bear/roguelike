@@ -122,7 +122,7 @@ function CreateBoxTalon(MainFrame, j, data)
         BlzFrameSetVisible(Tooltip, false)
     end)
     local mouseCT = CreateTrigger()
-    BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_MOUSE_UP)
+    BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_CONTROL_CLICK)
     TriggerAddAction(mouseCT, function()
         --print("клик по фрему закрываем окно талантов")
         --BlzFrameSetVisible(data.DialogTalon.MainFrame, false) --Строка закрытия, единственная что тут происходит прям в момент клика
@@ -144,6 +144,7 @@ function CreateBoxTalon(MainFrame, j, data)
             data.ReleaseD = false
             data.IsMoving = false
         end
+        --[[
         for i = 1, 4 do
             BlzDestroyFrame(data.DialogTalon.Container[i].Tooltip) --ok
             BlzDestroyFrame(data.DialogTalon.Container[i].TooltipDescription) --ok
@@ -158,6 +159,8 @@ function CreateBoxTalon(MainFrame, j, data)
         BlzDestroyFrame(data.DialogTalon.Title)
         BlzDestroyFrame(data.DialogTalon.MainBackdrop)
         BlzDestroyFrame(data.DialogTalon.MainFrame)
+        ]]
+        BlzFrameSetVisible(MainFrame,false)
         DestroyTrigger(mouseCT)
         DestroyTrigger(mouseLT)
         DestroyTrigger(mouseET)

@@ -14,8 +14,8 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
-            PlayMusic("war3mapImported\\lobby2.mp3")
-            PlayMusic("war3mapImported\\lobby.mp3")
+            --PlayMusic("war3mapImported\\lobby2.mp3")
+            --PlayMusic("war3mapImported\\lobby.mp3")
             InitMouseMoveTrigger()
             PlayUnitAnimationFromChat()
             PauseTimer(GetExpiredTimer())
@@ -255,6 +255,9 @@ function InitWASD(hero)
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
+            SetCameraField(CAMERA_FIELD_TARGET_DISTANCE, 1000, 0.1)
+            SetCameraField(CAMERA_FIELD_ANGLE_OF_ATTACK, 304, 0.1)
+
             if data.CameraStabUnit and data.life < 0 then
                 --SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
             end
@@ -265,6 +268,11 @@ function InitWASD(hero)
             if not FREE_CAMERA then
                 SetCameraQuickPosition(GetUnitX(hero), GetUnitY(hero))
                 SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero), hero, 10, 10, true) -- не дергается
+                SetCameraField(CAMERA_FIELD_TARGET_DISTANCE, 1500, 0.1)
+                SetCameraField(CAMERA_FIELD_ANGLE_OF_ATTACK, 304, 0.1)
+                --SetCameraField(CAMERA_FIELD_ZOFFSET, 1000, 0.1)
+                --SetCameraField(CAMERA_FIELD_FARZ, 6000, 0.1)
+                --print("камера")
             else
                 --print("камера освобождена")
             end

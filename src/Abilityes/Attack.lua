@@ -47,7 +47,7 @@ function attackPickAxe(data)
             if data.AttackCount == 1 then
                 -- первый обычный удар
                 indexAnim = 3
-                normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
+                --normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
                 TimerStart(CreateTimer(), 0.2, false, function()
                     DestroyTimer(GetExpiredTimer())
                     local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
@@ -66,7 +66,7 @@ function attackPickAxe(data)
                     indexAnim = 2
                     cdAttack = 0.5
                     UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 10, 60)
-                    normal_sound("Sound\\PeonSound\\cut\\Bey", GetUnitXY(data.UnitHero))
+                    --normal_sound("Sound\\PeonSound\\cut\\Bey", GetUnitXY(data.UnitHero))
                     TimerStart(CreateTimer(), 0.3, false, function()
                         DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
@@ -79,7 +79,7 @@ function attackPickAxe(data)
                 else
                     indexAnim = 3
                     cdAttack = 0.3
-                    normal_sound("Sound\\PeonSound\\cut\\SaysNo", GetUnitXY(data.UnitHero))
+                    --normal_sound("Sound\\PeonSound\\cut\\SaysNo", GetUnitXY(data.UnitHero))
                     TimerStart(CreateTimer(), 0.2, false, function()
                         DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
@@ -256,7 +256,7 @@ function attackShield(data)
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
             SetUnitTimeScale(data.UnitHero, 1.5)
 
-            normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
+            --normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
             --[[
             TimerStart(CreateTimer(), 0.3, false, function() --задержка эффекта
                 local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))

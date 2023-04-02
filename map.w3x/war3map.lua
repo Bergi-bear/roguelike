@@ -1609,7 +1609,7 @@ function attackPickAxe(data)
             if data.AttackCount == 1 then
                 -- первый обычный удар
                 indexAnim = 3
-                normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
+                --normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
                 TimerStart(CreateTimer(), 0.2, false, function()
                     DestroyTimer(GetExpiredTimer())
                     local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
@@ -1628,7 +1628,7 @@ function attackPickAxe(data)
                     indexAnim = 2
                     cdAttack = 0.5
                     UnitAddForceSimple(data.UnitHero, GetUnitFacing(data.UnitHero), 10, 60)
-                    normal_sound("Sound\\PeonSound\\cut\\Bey", GetUnitXY(data.UnitHero))
+                    --normal_sound("Sound\\PeonSound\\cut\\Bey", GetUnitXY(data.UnitHero))
                     TimerStart(CreateTimer(), 0.3, false, function()
                         DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
@@ -1641,7 +1641,7 @@ function attackPickAxe(data)
                 else
                     indexAnim = 3
                     cdAttack = 0.3
-                    normal_sound("Sound\\PeonSound\\cut\\SaysNo", GetUnitXY(data.UnitHero))
+                    --normal_sound("Sound\\PeonSound\\cut\\SaysNo", GetUnitXY(data.UnitHero))
                     TimerStart(CreateTimer(), 0.2, false, function()
                         DestroyTimer(GetExpiredTimer())
                         local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
@@ -1818,7 +1818,7 @@ function attackShield(data)
             BlzSetUnitFacingEx(data.UnitHero, angle) --был обычный поворот
             SetUnitTimeScale(data.UnitHero, 1.5)
 
-            normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
+            --normal_sound("Sound\\PeonSound\\cut\\Abl", GetUnitXY(data.UnitHero))
             --[[
             TimerStart(CreateTimer(), 0.3, false, function() --задержка эффекта
                 local eff = AddSpecialEffect("Hive\\Culling Slash\\Culling Cleave\\Culling Cleave", GetUnitXY(data.UnitHero))
@@ -6418,7 +6418,7 @@ function CreateBoxTalon(MainFrame, j, data)
         BlzFrameSetVisible(Tooltip, false)
     end)
     local mouseCT = CreateTrigger()
-    BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_MOUSE_UP)
+    BlzTriggerRegisterFrameEvent(mouseCT, Button, FRAMEEVENT_CONTROL_CLICK)
     TriggerAddAction(mouseCT, function()
         --print("клик по фрему закрываем окно талантов")
         --BlzFrameSetVisible(data.DialogTalon.MainFrame, false) --Строка закрытия, единственная что тут происходит прям в момент клика
@@ -6440,6 +6440,7 @@ function CreateBoxTalon(MainFrame, j, data)
             data.ReleaseD = false
             data.IsMoving = false
         end
+        --[[
         for i = 1, 4 do
             BlzDestroyFrame(data.DialogTalon.Container[i].Tooltip) --ok
             BlzDestroyFrame(data.DialogTalon.Container[i].TooltipDescription) --ok
@@ -6454,6 +6455,8 @@ function CreateBoxTalon(MainFrame, j, data)
         BlzDestroyFrame(data.DialogTalon.Title)
         BlzDestroyFrame(data.DialogTalon.MainBackdrop)
         BlzDestroyFrame(data.DialogTalon.MainFrame)
+        ]]
+        BlzFrameSetVisible(MainFrame,false)
         DestroyTrigger(mouseCT)
         DestroyTrigger(mouseLT)
         DestroyTrigger(mouseET)
@@ -9011,7 +9014,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     local TrigMOUSE_ENTER = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, face, FRAMEEVENT_MOUSE_ENTER)
     TriggerAddAction(TrigMOUSE_ENTER, function()
-        -- print("показать подсказку ")
+       -- print("показать подсказку ")
         BlzFrameSetVisible(tooltip, GetLocalPlayer() == GetTriggerPlayer())
     end)
     local TrigMOUSE_LEAVE = CreateTrigger()
@@ -13915,15 +13918,13 @@ do
 end
 
 function HideEverything()
-    --BlzFrameSetVisible(BlzGetFrameByName("ConsoleUIBackdrop", 0), false)
-    BlzFrameSetAbsPoint(BlzGetFrameByName("ConsoleUIBackdrop", 0), FRAMEPOINT_TOPRIGHT, 0, -0, 8)
-    BlzFrameSetSize(BlzGetFrameByName("CommandButton_" .. 0, 0), 0, 0)-- M в позиции 0,0
-    for i = 1, 11 do
-        BlzFrameSetVisible(BlzGetFrameByName("CommandButton_"..i, 0), false) --отключить
-        --BlzFrameSetSize(BlzGetFrameByName("CommandButton_" .. i, 0), 0, 0)--скрыть, но работать будут по хоткеям
+    BlzFrameSetAbsPoint(BlzGetFrameByName("ConsoleUIBackdrop", 0), FRAMEPOINT_TOPRIGHT, 0, 0) --ЭТО ЧЕРНАЯ ПАНЕЛЬ!
+    for i = 0, 11 do
+        BlzFrameClearAllPoints(BlzGetFrameByName("CommandButton_" .. i, 0))
+        BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_" .. i, 0), FRAMEPOINT_CENTER, 0, -0.1)
     end
     BlzHideOriginFrames(true)--скрыть всё
-    BlzFrameSetScale(BlzFrameGetChild(BlzGetFrameByName("ConsoleUI",0),5), 0.001) --рамка мёртвой зоны отключение
+    BlzFrameSetScale(BlzFrameGetChild(BlzGetFrameByName("ConsoleUI", 0), 5), 0.001) --рамка мёртвой зоны отключение
 end
 
 function ShowEverything()
@@ -15099,8 +15100,8 @@ do
     function InitGlobals()
         InitGlobalsOrigin()
         TimerStart(CreateTimer(), .1, false, function()
-            PlayMusic("war3mapImported\\lobby2.mp3")
-            PlayMusic("war3mapImported\\lobby.mp3")
+            --PlayMusic("war3mapImported\\lobby2.mp3")
+            --PlayMusic("war3mapImported\\lobby.mp3")
             InitMouseMoveTrigger()
             PlayUnitAnimationFromChat()
             PauseTimer(GetExpiredTimer())
@@ -15340,6 +15341,9 @@ function InitWASD(hero)
             end
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
+            SetCameraField(CAMERA_FIELD_TARGET_DISTANCE, 1000, 0.1)
+            SetCameraField(CAMERA_FIELD_ANGLE_OF_ATTACK, 304, 0.1)
+
             if data.CameraStabUnit and data.life < 0 then
                 --SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
             end
@@ -15350,6 +15354,11 @@ function InitWASD(hero)
             if not FREE_CAMERA then
                 SetCameraQuickPosition(GetUnitX(hero), GetUnitY(hero))
                 SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero), hero, 10, 10, true) -- не дергается
+                SetCameraField(CAMERA_FIELD_TARGET_DISTANCE, 1500, 0.1)
+                SetCameraField(CAMERA_FIELD_ANGLE_OF_ATTACK, 304, 0.1)
+                --SetCameraField(CAMERA_FIELD_ZOFFSET, 1000, 0.1)
+                --SetCameraField(CAMERA_FIELD_FARZ, 6000, 0.1)
+                --print("камера")
             else
                 --print("камера освобождена")
             end

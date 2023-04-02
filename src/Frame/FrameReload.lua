@@ -313,7 +313,7 @@ function CreateUniversalFrame(x, y, size, toolTipTex, toolTipHeader, data, activ
     local TrigMOUSE_ENTER = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, face, FRAMEEVENT_MOUSE_ENTER)
     TriggerAddAction(TrigMOUSE_ENTER, function()
-        -- print("показать подсказку ")
+       -- print("показать подсказку ")
         BlzFrameSetVisible(tooltip, GetLocalPlayer() == GetTriggerPlayer())
     end)
     local TrigMOUSE_LEAVE = CreateTrigger()
