@@ -1468,3 +1468,23 @@ STRING 280
 Ледяной блок
 }
 
+STRING 281
+{
+PeonRogue
+}
+
+STRING 282
+{
+1-4
+}
+
+STRING 283
+{
+WASD classic control scheme
+}
+
+STRING 284
+{
+Bergi
+}
+
