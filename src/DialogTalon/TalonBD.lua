@@ -565,7 +565,7 @@ do
                         }),
                         Talon:new({
                             godName = "HeroBeastMaster",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNGiantFrostWolf.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNTimberWolf.blp",
                             name = L("Полярный волк", "Polar Wolf"),
                             description = L("Призывает полярного волка и ледяную бурю, замораживающую всё в радиусе 1000. Волк наносит двойной урон замороженным существам", "Summons a polar wolf and an ice storm that freezes everything within a radius of 1000. The wolf deals double damage to the frozen creature"),
                             level = 0,
@@ -683,7 +683,7 @@ do
                         }),
                         Talon:new({--8
                             godName = "PeonDidal",
-                            icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrHellcaller.blp",
+                            icon = "ReplaceableTextures\\CommandButtons\\BTNSatyrTrickster.blp",
                             name = L("Удар сатира", " Punch satyr"),
                             description = L("Увеличивает любой урон в спину в DS раза", "Increases any back damage by DS times"),
                             level = 0,
